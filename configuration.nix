@@ -12,7 +12,6 @@
     };
   };
 
-  nixpkgs = { config.allowUnfree = true; };
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -40,14 +39,11 @@
       allowReboot = false;
     };
   };
-
-  systemd = {
-    services = {
-      disable-nvme-d3cold = {
-        enable = false;
-        restartIfChanged = false;
-      };
-    };
+  
+  powerManagement = {
+    enable = true;
+    powertop.enable = true;
+    cpuFreqGovernor = "powersave";
   };
 
   networking = {
@@ -60,12 +56,14 @@
 
   hardware = { pulseaudio.enable = false; };
 
-  sound = { enable = true; };
+  # sound = { enable = true; };
 
   security = { rtkit.enable = true; };
 
   programs = { firefox.enable = false; };
 
+  nixpkgs = { config.allowUnfree = true; };
+  
   environment = {
     systemPackages = with pkgs; [
       curl
@@ -86,6 +84,7 @@
       moreutils
       fzf
       htop
+      powertop
     ];
   };
 
@@ -136,5 +135,31 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+    thermald.enable = true;
+    power-profiles-daemon.enable = false;
+    auto-cpufreq = {
+      enable = true;
+      settings = {
+        battery = {
+          governor = "powersave";
+          turbo = "never";
+        };
+        charger = {
+          governor = "powersave";
+          turbo = "auto";
+        };
+      };
+    };
   };
+
+# workaround for diskless mode (no internal nvme)
+  systemd = {
+    services = {
+      disable-nvme-d3cold = {
+        enable = false;
+        restartIfChanged = false;
+      };
+    };
+  };
+
 }
