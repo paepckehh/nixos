@@ -48,7 +48,7 @@
   };
 
   networking = {
-    # hostName = "nixos";
+    hostName = "nixos";
     firewall.enable = true;
     networkmanager.enable = true;
   };
