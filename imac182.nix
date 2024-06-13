@@ -6,7 +6,7 @@
   };
   outputs = { self, nixpkgs, nixos-hardware }: {
     nixosConfigurations = {
-      nixbook = nixpkgs.lib.nixosSystem {
+      nixmac182 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
