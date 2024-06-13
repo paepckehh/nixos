@@ -148,7 +148,7 @@
           AuthenticationMethods publickey '';
       };
     };
-    printing.enable = true;
+    printing.enable = false;
     fstrim.enable = true;
     pipewire = {
       enable = true;
@@ -183,10 +183,10 @@
         enable = false;
         restartIfChanged = false;
       };
-      # bluethooth = {
-      #  enable = false;
-      #  restartIfChanged = false;
-      # };
+      bluethooth = {
+        enable = false;
+        restartIfChanged = false;
+      };
     };
   };
 
