@@ -53,11 +53,18 @@
     networkmanager.enable = true;
   };
 
+  security = {
+    auditd.enable = true;
+    audit = {
+      enable = true;
+      rules = [ "-a exit,always -F arch=b64 -S execve" ];
+    };
+    rtkit.enable = true;
+  };
+
   time = { timeZone = "Europe/Berlin"; };
 
   hardware = { pulseaudio.enable = false; };
-
-  security = { rtkit.enable = true; };
 
   programs = { firefox.enable = false; };
 
@@ -91,7 +98,7 @@
     users.me = {
       # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAA..." ];
       # hashedPassword = "$6$UDriFNbpd7Hrg7wP$tSiNkJ....";
-      # inicialPassword = ""
+      # initialPassword = "...."
       isNormalUser = true;
       description = "me";
       createHome = true;
@@ -127,7 +134,20 @@
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
     };
-    openssh.enable = false;
+    openssh = {
+      enable = false;
+      settings = {
+        passwordAuthentication = false;
+        allowSFTP = false;
+        challengeResponseAuthentication = false;
+        extraConfig = ''
+          AllowTcpForwarding yes
+          X11Forwarding no
+          AllowAgentForwarding no
+          AllowStreamLocalForwarding no
+          AuthenticationMethods publickey '';
+      };
+    };
     printing.enable = true;
     fstrim.enable = true;
     pipewire = {
@@ -163,10 +183,10 @@
         enable = false;
         restartIfChanged = false;
       };
-      bluethooth = {
-        enable = false;
-        restartIfChanged = false;
-      };
+      # bluethooth = {
+      #  enable = false;
+      #  restartIfChanged = false;
+      # };
     };
   };
 
