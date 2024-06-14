@@ -1,5 +1,5 @@
 {
-  description = "flake for nixbook141 [ apple macbookpro14,1 ]";
+  description = "flake for nixmac182 [ apple imac18,2 ]";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";

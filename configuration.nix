@@ -4,6 +4,7 @@
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes ";
+    settings.auto-optimise-store = true;
     gc = {
       automatic = true;
       persistent = false;
@@ -49,7 +50,11 @@
 
   networking = {
     hostName = "nixos";
-    firewall.enable = true;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ ];
+      allowedUDPPorts = [ ];
+    };
     networkmanager.enable = true;
   };
 
@@ -75,6 +80,7 @@
       curl
       tmux
       zsh
+      nix-zsh-completions
       vim
       neovim
       git
@@ -91,7 +97,27 @@
       fzf
       htop
       powertop
+      opensnitch
+      cockpit
     ];
+  };
+
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = true;
+      swtpm.enable = true;
+      ovmf = {
+        enable = true;
+        packages = [
+          (pkgs.OVMF.override {
+            secureBoot = true;
+            tpmSupport = true;
+          }).fd
+        ];
+      };
+    };
   };
 
   users = {
@@ -128,7 +154,7 @@
     xserver = {
       enable = true;
       xkb = {
-        layout = "us";
+        layout = "gb";
         variant = "";
       };
       displayManager.gdm.enable = true;
@@ -136,20 +162,37 @@
     };
     openssh = {
       enable = false;
+      allowSFTP = false;
       settings = {
-        passwordAuthentication = false;
-        allowSFTP = false;
+        PasswordAuthentication = false;
+        StrictModes = true;
         challengeResponseAuthentication = false;
-        extraConfig = ''
-          AllowTcpForwarding yes
-          X11Forwarding no
-          AllowAgentForwarding no
-          AllowStreamLocalForwarding no
-          AuthenticationMethods publickey '';
       };
+      extraConfig = ''
+        AllowTcpForwarding yes
+        X11Forwarding no
+        AllowAgentForwarding no
+        AllowStreamLocalForwarding no
+        AuthenticationMethods publickey '';
+      hostKeys = [{
+        path = "/etc/ssh/ssh_host_ed25519_key";
+        type = "ed25519";
+      }];
+      listenAddresses = [{
+        addr = "0.0.0.0";
+        port = "8022";
+      }];
+    };
+    cockpit = {
+      enable = true;
+      port = 9090;
+      settings = { WebService = { AllowUnencrypted = false; }; };
     };
     printing.enable = false;
-    fstrim.enable = true;
+    fstrim = {
+      enable = true;
+      interval = "daily";
+    };
     pipewire = {
       enable = true;
       alsa.enable = false;
