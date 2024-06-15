@@ -155,6 +155,7 @@
       gh
       jq
       yq
+      alejandra
       nixfmt-classic
       shellcheck
       shfmt
