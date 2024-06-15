@@ -153,18 +153,14 @@
     systemPackages = with pkgs; [
       curl
       gh
-      jq
+      jqcockpit
       yq
       nixfmt-classic
       shellcheck
       shfmt
       tldr
       ripgrep
-      coreutils
       moreutils
-      cockpit
-      quickemu
-      quickgui
     ];
   };
 
