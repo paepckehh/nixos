@@ -218,7 +218,7 @@
 
   services = {
     avahi.enable = false;
-    gnome.evolution-data-server.enable = false;
+    # gnome.evolution-data-server.enable = false;
     xserver = {
       enable = true;
       xkb = {
