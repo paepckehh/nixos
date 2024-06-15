@@ -185,6 +185,7 @@
       };
     };
   };
+
   users = {
     users.me = {
       # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAA..." ];
@@ -266,22 +267,9 @@
       alsa.enable = false;
       pulse.enable = false;
     };
-    opensnitch = { enable = true; };
-    power-profiles-daemon.enable = false;
+    power-profiles-daemon.enable = true;
     thermald.enable = true;
-    auto-cpufreq = {
-      enable = true;
-      settings = {
-        battery = {
-          governor = "powersave";
-          turbo = "never";
-        };
-        charger = {
-          governor = "powersave";
-          turbo = "auto";
-        };
-      };
-    };
+    opensnitch = { enable = true; };
   };
 
   # disable internal nvme & bt support 
