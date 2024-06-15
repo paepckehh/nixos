@@ -141,9 +141,9 @@
       enable = true;
       autosuggestions.enable = true;
       ohMyZsh.enable = false;
+      syntaxHighlighting.enable = true;
       # shellAliases = [ ];
       # shellInit = [ ];
-      syntaxHighlighting.enable = true;
     };
   };
 
@@ -215,6 +215,7 @@
   sound = { enable = false; };
 
   services = {
+    avahi.enable = false;
     xserver = {
       enable = true;
       xkb = {
@@ -262,9 +263,9 @@
       alsa.enable = false;
       pulse.enable = false;
     };
-    opensnitch.enable = true;
-    thermald.enable = true;
+    opensnitch = { enable = true; };
     power-profiles-daemon.enable = false;
+    thermald.enable = true;
     auto-cpufreq = {
       enable = true;
       settings = {
