@@ -185,7 +185,6 @@
       };
     };
   };
-
   users = {
     users.me = {
       # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAA..." ];
@@ -194,6 +193,7 @@
       isNormalUser = true;
       description = "me";
       createHome = true;
+      shell = pkgs.zsh;
       extraGroups = [ "networkmanager" "wheel" ];
       packages = with pkgs; [ go hugo librewolf libreoffice ];
     };
