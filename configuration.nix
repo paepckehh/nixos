@@ -153,7 +153,7 @@
     systemPackages = with pkgs; [
       curl
       gh
-      jqcockpit
+      jq
       yq
       nixfmt-classic
       shellcheck
