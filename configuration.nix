@@ -80,6 +80,7 @@
     chromium.enable = false;
     ausweisapp.enable = false;
     evince.enable = false;
+    evolution.enable = false;
     mepo.enable = false;
     steam.enable = false;
     system-config-printer.enable = false;
