@@ -81,6 +81,7 @@
     ausweisapp.enable = false;
     evince.enable = false;
     evolution.enable = false;
+    geary.enable = false;
     mepo.enable = false;
     steam.enable = false;
     system-config-printer.enable = false;
@@ -217,6 +218,7 @@
 
   services = {
     avahi.enable = false;
+    gnome.evolution-data-server.enable = false;
     xserver = {
       enable = true;
       xkb = {
