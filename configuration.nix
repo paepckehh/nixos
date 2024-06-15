@@ -65,25 +65,91 @@
       rules = [ "-a exit,always -F arch=b64 -S execve" ];
     };
     rtkit.enable = true;
+    doas.enable = true;
   };
 
   time = { timeZone = "Europe/Berlin"; };
 
   hardware = { pulseaudio.enable = false; };
 
-  programs = { firefox.enable = false; };
-
   nixpkgs = { config.allowUnfree = true; };
+
+  programs = {
+    # GUI 
+    firefox.enable = false;
+    chromium.enable = false;
+    ausweisapp.enable = false;
+    evince.enable = false;
+    mepo.enable = false;
+    steam.enable = false;
+    system-config-printer.enable = false;
+    nm-applet.enable = true;
+    sniffnet.enable = true;
+    tuxclocker.enable = true;
+    virt-manager.enable = true;
+    # Commandline
+    cnping.enable = false;
+    coolercontrol.enable = true;
+    command-not-found.enable = true;
+    dconf.enable = true;
+    direnv.enable = true;
+    gnupg.agent.enable = false;
+    htop.enable = true;
+    iftop.enable = true;
+    iotop.enable = true;
+    mosh.enable = false;
+    mtr.enable = true;
+    nano.enable = false;
+    neovim.enable = false;
+    nh.enable = true;
+    nix-index.enable = false;
+    screen.enable = true;
+    starship.enable = false;
+    tmux.enable = true;
+    usbtop.enable = true;
+    wireshark.enable = true;
+    zmap.enable = true;
+    # ... with config options
+    ssh = {
+      ciphers = [ "chacha20-poly1305@openssh.com" "aes256-gcm@openssh.com" ];
+      hostKeyAlgorithms = [ "ssh-ed25519" "ssh-rsa" ];
+      kexAlgorithms = [
+        "curve25519-sha256@libssh.org"
+        "diffie-hellman-group-exchange-sha256"
+      ];
+      knownHosts.github = {
+        extraHostNames = [ "github.com" ];
+        publicKey =
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+      };
+      pubkeyAcceptedKeyTypes = [ "ssh-ed25519" "ssh-rsa" ];
+    };
+    fzf.fuzzyCompletion = true;
+    git = {
+      enable = true;
+      prompt.enable = true;
+      config = {
+        init.defaultBranch = "main";
+        url = { "https://github.com/" = { insteadOf = [ "gh:" "github:" ]; }; };
+      };
+    };
+    vim = {
+      package = pkgs.vim-full;
+      defaultEditor = true;
+    };
+    zsh = {
+      enable = true;
+      autosuggestions.enable = true;
+      ohMyZsh.enable = false;
+      # shellAliases = [ ];
+      # shellInit = [ ];
+      syntaxHighlighting.enable = true;
+    };
+  };
 
   environment = {
     systemPackages = with pkgs; [
       curl
-      tmux
-      zsh
-      nix-zsh-completions
-      vim
-      neovim
-      git
       gh
       jq
       yq
@@ -94,10 +160,6 @@
       ripgrep
       coreutils
       moreutils
-      fzf
-      htop
-      powertop
-      opensnitch
       cockpit
       quickemu
       quickgui
@@ -200,8 +262,9 @@
       alsa.enable = false;
       pulse.enable = false;
     };
+    opensnitch.enable = true;
     thermald.enable = true;
-    power-profiles-daemon.enable = true;
+    power-profiles-daemon.enable = false;
     auto-cpufreq = {
       enable = true;
       settings = {
