@@ -195,10 +195,7 @@
       "dotenv.push" =
         "cd && cd .dotenv && git reset && git add . && git commit -S -m update && git push --force";
     };
-    shellInit = ''
-      #eval $(ssh-agent)
-      ( cd && touch .zshrc .bashrc )
-    '';
+    shellInit = "#eval $(ssh-agent)\n( cd && touch .zshrc .bashrc )\n";
     variables = {
       EDITOR = "vim";
       VISUAL = "vim";
