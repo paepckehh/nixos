@@ -1,10 +1,13 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes ";
-    settings.auto-optimise-store = true;
+    settings = {
+      auto-optimise-store = true;
+      trusted-users = [ "root" "@wheel" ];
+    };
     gc = {
       automatic = true;
       persistent = false;
@@ -12,6 +15,8 @@
       options = "--delete-older-than 28d";
     };
   };
+
+  nixpkgs = { config.allowUnfree = true; };
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -25,6 +30,7 @@
 
   console = {
     earlySetup = true;
+    useXkbConfig = true;
     font = "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
   };
 
@@ -34,13 +40,26 @@
       enable = true;
       persistent = true;
       flags = [ "--update-input" "nixpkgs" "--no-write-lock-file" "-L" ];
-      dates = "daily";
-      randomizedDelaySec = "25min";
+      dates = "hourly";
+      randomizedDelaySec = "5min";
       allowReboot = false;
     };
   };
 
-  zramSwap = { enable = true; };
+  hardware = {
+    bluetooth.enable = lib.mkForce false;
+    pulseaudio.enable = lib.mkForce false;
+  };
+
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+  };
+
+  time = {
+    timeZone = "Europe/Berlin";
+    hardwareClockInLocalTime = false; # RTC -> UTC
+  };
 
   powerManagement = {
     enable = true;
@@ -60,19 +79,14 @@
 
   security = {
     auditd.enable = true;
+    rtkit.enable = true;
+    doas.enable = true;
+    sudo.wheelNeedsPassword = lib.mkForce true;
     audit = {
       enable = true;
       rules = [ "-a exit,always -F arch=b64 -S execve" ];
     };
-    rtkit.enable = true;
-    doas.enable = true;
   };
-
-  time = { timeZone = "Europe/Berlin"; };
-
-  hardware = { pulseaudio.enable = false; };
-
-  nixpkgs = { config.allowUnfree = true; };
 
   programs = {
     # GUI 
@@ -99,6 +113,7 @@
     htop.enable = true;
     iftop.enable = true;
     iotop.enable = true;
+    java.enable = false;
     mosh.enable = false;
     mtr.enable = true;
     nano.enable = false;
@@ -113,6 +128,7 @@
     zmap.enable = true;
     # ... with config options
     ssh = {
+      pubkeyAcceptedKeyTypes = [ "ssh-ed25519" "ssh-rsa" ];
       ciphers = [ "chacha20-poly1305@openssh.com" "aes256-gcm@openssh.com" ];
       hostKeyAlgorithms = [ "ssh-ed25519" "ssh-rsa" ];
       kexAlgorithms = [
@@ -124,7 +140,6 @@
         publicKey =
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
       };
-      pubkeyAcceptedKeyTypes = [ "ssh-ed25519" "ssh-rsa" ];
     };
     fzf.fuzzyCompletion = true;
     git = {
@@ -142,58 +157,115 @@
     zsh = {
       enable = true;
       autosuggestions.enable = true;
-      ohMyZsh.enable = false;
       syntaxHighlighting.enable = true;
-      # shellAliases = [ ];
-      # shellInit = [ ];
+      ohMyZsh.enable = false;
     };
   };
 
   environment = {
     systemPackages = with pkgs; [
+      alejandra
       curl
       gh
       jq
-      yq
-      alejandra
+      kitty
       nixfmt-classic
       shellcheck
       shfmt
       tldr
       ripgrep
       moreutils
+      yq
+      yubikey-personalization
+      vimPlugins.vim-nix
     ];
+    shells = [ pkgs.bashInteractive pkgs.zsh ];
+    shellAliases = {
+      l = "ls -la";
+      e = "vim";
+      h = "htop --tree --highlight-changes";
+      p = "sudo powertop";
+      j = "journalctl -f";
+      "nix.build" =
+        "cd /etc/nixos && sudo nixfmt .* && sudo nix --verbose flake update && sudo nixos-rebuild --flake .#nixos --verbose --upgrade switch";
+      "nix.push" =
+        "cd /etc/nixos && sudo nixfmt *.nix && git reset && git add . && git commit -S -m update && git push --force";
+      "dotenv.update" =
+        "cd && ln -fs .dotenv/zshrc .zshrc && ln -fs .dotenv/bashrc .bashrc && ln -fs .dotenv/gitconfig .gitconfig";
+      "dotenv.push" =
+        "cd && cd .dotenv && git reset && git add . && git commit -S -m update && git push --force";
+    };
+    shellInit = "\n      eval $(ssh-agent)\n      touch .zshrc .bashrc\n    ";
+    variables = {
+      EDITOR = "vim";
+      VISUAL = "vim";
+      SHELLCHECK_OPTS = "-e SC2086";
+    };
   };
 
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu = {
-      package = pkgs.qemu_kvm;
-      runAsRoot = true;
-      swtpm.enable = true;
-      ovmf = {
-        enable = true;
-        packages = [
-          (pkgs.OVMF.override {
-            secureBoot = true;
-            tpmSupport = true;
-          }).fd
-        ];
+  virtualisation = {
+    containers.enable = false;
+    containerd.enable = false;
+    lxc.enable = false;
+    xen.enable = false;
+    vmware.host.enable = false;
+    docker = {
+      enable = false;
+      enableOnBoot = false;
+    };
+    podman = {
+      enable = false;
+      dockerCompat = true;
+    };
+    lxd = {
+      enable = false;
+      ui.enable = true;
+    };
+    virtualbox.host = {
+      enable = true;
+      enableKvm = false;
+    };
+    libvirtd = {
+      enable = true;
+      onBoot = "start"; # ignore or start
+      qemu = {
+        package = pkgs.qemu_kvm;
+        runAsRoot = true;
+        swtpm.enable = true;
+        ovmf = {
+          enable = true;
+          packages = [
+            (pkgs.OVMF.override {
+              secureBoot = true;
+              tpmSupport = true;
+            }).fd
+          ];
+        };
       };
     };
   };
 
   users = {
-    users.me = {
-      # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAA..." ];
-      # hashedPassword = "$6$UDriFNbpd7Hrg7wP$tSiNkJ....";
-      # initialPassword = "...."
-      isNormalUser = true;
-      description = "me";
-      createHome = true;
-      shell = pkgs.zsh;
-      extraGroups = [ "networkmanager" "wheel" ];
-      packages = with pkgs; [ go hugo librewolf libreoffice ];
+    users = {
+      root = {
+        hashedPassword = "!"; # disable root
+      };
+      me = {
+        # initialPassword = "riot-bravo-charly-north"
+        # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAA..." ];
+        isNormalUser = true;
+        description = "me";
+        createHome = true;
+        shell = pkgs.zsh;
+        extraGroups = [ "wheel" "networkmanager" "video" "docker" "vboxusers" ];
+        packages = with pkgs; [
+          go
+          vimPlugins.vim-go
+          hugo
+          librewolf
+          libreoffice
+        ];
+      };
     };
   };
 
@@ -216,7 +288,10 @@
 
   services = {
     avahi.enable = false;
-    # gnome.evolution-data-server.enable = false;
+    gnome.evolution-data-server.enable = lib.mkForce false;
+    power-profiles-daemon.enable = true;
+    thermald.enable = true;
+    opensnitch.enable = true;
     xserver = {
       enable = true;
       xkb = {
@@ -252,7 +327,7 @@
     cockpit = {
       enable = true;
       port = 9090;
-      settings = { WebService = { AllowUnencrypted = false; }; };
+      settings.WebService.AllowUnencrypted = false;
     };
     printing.enable = false;
     fstrim = {
@@ -260,13 +335,10 @@
       interval = "daily";
     };
     pipewire = {
-      enable = true;
+      enable = lib.mkForce false;
       alsa.enable = false;
       pulse.enable = false;
     };
-    power-profiles-daemon.enable = true;
-    thermald.enable = true;
-    opensnitch = { enable = true; };
   };
 
   # disable internal nvme & bt support 
@@ -286,5 +358,4 @@
       };
     };
   };
-
 }
