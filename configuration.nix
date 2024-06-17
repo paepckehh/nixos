@@ -1,12 +1,15 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes ";
     settings = {
       auto-optimise-store = true;
-      trusted-users = [ "root" "@wheel" ];
+      trusted-users = ["root" "@wheel"];
     };
     gc = {
       automatic = true;
@@ -16,12 +19,13 @@
     };
   };
 
-  nixpkgs = { config.allowUnfree = true; };
-
   boot = {
+    blacklistedKernelModules = ["bluetooth" "facetimehd" "snd_hda_intel"];
     kernelPackages = pkgs.linuxPackages_latest;
-    initrd.luks.devices."luks-018686c6-606a-4350-a90b-a146597dd207".device =
-      "/dev/disk/by-uuid/018686c6-606a-4350-a90b-a146597dd207";
+    tmp = {
+      cleanOnBoot = true;
+      useTmpfs = true;
+    };
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
@@ -35,11 +39,11 @@
   };
 
   system = {
-    stateVersion = "24.05"; # do not touch
+    stateVersion = "24.05"; # do not modify
     autoUpgrade = {
       enable = true;
       persistent = true;
-      flags = [ "--update-input" "nixpkgs" "--no-write-lock-file" "-L" ];
+      flags = ["--update-input" "nixpkgs" "--no-write-lock-file" "-L"];
       dates = "hourly";
       randomizedDelaySec = "5min";
       allowReboot = false;
@@ -58,7 +62,7 @@
 
   time = {
     timeZone = "Europe/Berlin";
-    hardwareClockInLocalTime = false; # RTC -> UTC
+    hardwareClockInLocalTime = false;
   };
 
   powerManagement = {
@@ -71,8 +75,8 @@
     hostName = "nixos";
     firewall = {
       enable = true;
-      allowedTCPPorts = [ ];
-      allowedUDPPorts = [ ];
+      allowedTCPPorts = [];
+      allowedUDPPorts = [];
     };
     networkmanager.enable = true;
   };
@@ -84,7 +88,7 @@
     sudo.wheelNeedsPassword = lib.mkForce true;
     audit = {
       enable = true;
-      rules = [ "-a exit,always -F arch=b64 -S execve" ];
+      rules = ["-a exit,always -F arch=b64 -S execve"];
     };
   };
 
@@ -92,7 +96,7 @@
     defaultUserShell = pkgs.zsh;
     users = {
       root = {
-        hashedPassword = "!"; # disable root
+        hashedPassword = "!"; # disable root account
       };
       me = {
         # initialPassword = "riot-bravo-charly-north"
@@ -101,20 +105,12 @@
         createHome = true;
         useDefaultShell = true;
         description = "me";
-        extraGroups = [ "wheel" "networkmanager" "video" "docker" "vboxusers" ];
-        packages = with pkgs; [
-          go
-          vimPlugins.vim-go
-          hugo
-          librewolf
-          libreoffice
-        ];
+        extraGroups = ["wheel" "networkmanager" "video" "docker" "libvirt"];
       };
     };
   };
 
   programs = {
-    # GUI 
     firefox.enable = false;
     chromium.enable = false;
     ausweisapp.enable = false;
@@ -128,7 +124,6 @@
     sniffnet.enable = true;
     tuxclocker.enable = true;
     virt-manager.enable = true;
-    # Commandline
     cnping.enable = false;
     coolercontrol.enable = true;
     command-not-found.enable = true;
@@ -149,30 +144,29 @@
     starship.enable = false;
     tmux.enable = true;
     usbtop.enable = true;
-    wireshark.enable = true;
-    zmap.enable = true;
-    # ... with config options
+    wireshark.enable = false;
+    zmap.enable = false;
+    fzf.fuzzyCompletion = true;
     ssh = {
-      pubkeyAcceptedKeyTypes = [ "ssh-ed25519" "ssh-rsa" ];
-      ciphers = [ "chacha20-poly1305@openssh.com" "aes256-gcm@openssh.com" ];
-      hostKeyAlgorithms = [ "ssh-ed25519" "ssh-rsa" ];
+      pubkeyAcceptedKeyTypes = ["ssh-ed25519" "ssh-rsa"];
+      ciphers = ["chacha20-poly1305@openssh.com" "aes256-gcm@openssh.com"];
+      hostKeyAlgorithms = ["ssh-ed25519" "ssh-rsa"];
       kexAlgorithms = [
         "curve25519-sha256@libssh.org"
         "diffie-hellman-group-exchange-sha256"
       ];
       knownHosts.github = {
-        extraHostNames = [ "github.com" ];
-        publicKey =
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+        extraHostNames = ["github.com"];
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
       };
     };
-    fzf.fuzzyCompletion = true;
     git = {
       enable = true;
       prompt.enable = true;
       config = {
         init.defaultBranch = "main";
-        url = { "https://github.com/" = { insteadOf = [ "gh:" "github:" ]; }; };
+        safe.directory = "/etc/nixos";
+        url = {"https://github.com/" = {insteadOf = ["gh:" "github:"];};};
       };
     };
     vim = {
@@ -187,14 +181,18 @@
     };
   };
 
+  nixpkgs.config.allowUnfree = true;
+
   environment = {
     systemPackages = with pkgs; [
       alejandra
       curl
+      go
       gh
+      hugo
       jq
       kitty
-      nixfmt-classic
+      librewolf
       shellcheck
       shfmt
       tldr
@@ -202,26 +200,33 @@
       moreutils
       yq
       yubikey-personalization
+      vimPlugins.vim-go
       vimPlugins.vim-nix
     ];
-    shells = [ pkgs.bashInteractive pkgs.zsh ];
+    shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
       l = "ls -la";
       e = "vim";
       h = "htop --tree --highlight-changes";
       p = "sudo powertop";
       j = "journalctl -f";
-      "nix.build" =
-        "cd /etc/nixos && sudo nixfmt .* && sudo nix --verbose flake update && sudo nixos-rebuild --flake .#nixos --verbose --upgrade switch";
-      "nix.push" =
-        "cd /etc/nixos && sudo nixfmt *.nix && git reset && git add . && git commit -S -m update && git push --force";
-      "dotenv.update" =
-        "cd && ln -fs .dotenv/zshrc .zshrc && ln -fs .dotenv/bashrc .bashrc && ln -fs .dotenv/gitconfig .gitconfig";
-      "dotenv.push" =
-        "cd && cd .dotenv && git reset && git add . && git commit -S -m update && git push --force";
+      d = "dmesg -Hw";
+      "nix.build" = ''
+        cd /etc/nixos &&\
+        sudo alejandra . &&\
+        sudo nixos-generate-config &&\
+        sudo nix --verbose flake update &&\
+        sudo nixos-rebuild --flake .#nixos --verbose --upgrade switch '';
+      "nix.push" = ''
+        cd /etc/nixos &&\
+        sudo alejandra . &&\
+        git reset &&\
+        git add . &&\
+        git commit -S -m update &&\
+        git push --force '';
     };
     shellInit = ''
-      #eval $(ssh-agent)
+      # eval $(ssh-agent)
       ( cd && touch .zshrc .bashrc )
     '';
     variables = {
@@ -255,7 +260,7 @@
     };
     libvirtd = {
       enable = true;
-      onBoot = "start"; # ignore or start
+      onBoot = "start";
       qemu = {
         package = pkgs.qemu_kvm;
         runAsRoot = true;
@@ -266,7 +271,8 @@
             (pkgs.OVMF.override {
               secureBoot = true;
               tpmSupport = true;
-            }).fd
+            })
+            .fd
           ];
         };
       };
@@ -288,14 +294,13 @@
     };
   };
 
-  sound = { enable = false; };
-
   services = {
     avahi.enable = false;
     gnome.evolution-data-server.enable = lib.mkForce false;
     power-profiles-daemon.enable = true;
     thermald.enable = true;
     opensnitch.enable = true;
+    logind.hibernateKey = "ignore";
     xserver = {
       enable = true;
       xkb = {
@@ -319,17 +324,21 @@
         AllowAgentForwarding no
         AllowStreamLocalForwarding no
         AuthenticationMethods publickey '';
-      hostKeys = [{
-        path = "/etc/ssh/ssh_host_ed25519_key";
-        type = "ed25519";
-      }];
-      listenAddresses = [{
-        addr = "0.0.0.0";
-        port = "8022";
-      }];
+      hostKeys = [
+        {
+          path = "/etc/ssh/ssh_host_ed25519_key";
+          type = "ed25519";
+        }
+      ];
+      listenAddresses = [
+        {
+          addr = "0.0.0.0";
+          port = "8022";
+        }
+      ];
     };
     cockpit = {
-      enable = true;
+      enable = false;
       port = 9090;
       settings.WebService.AllowUnencrypted = false;
     };
@@ -345,7 +354,8 @@
     };
   };
 
-  # disable internal nvme & bt support 
+  sound.enable = false;
+
   systemd = {
     services = {
       disable-nvme-d3cold = {
