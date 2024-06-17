@@ -88,6 +88,31 @@
     };
   };
 
+  users = {
+    defaultUserShell = pkgs.zsh;
+    users = {
+      root = {
+        hashedPassword = "!"; # disable root
+      };
+      me = {
+        # initialPassword = "riot-bravo-charly-north"
+        # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAA..." ];
+        isNormalUser = true;
+        createHome = true;
+        useDefaultShell = true;
+        description = "me";
+        extraGroups = [ "wheel" "networkmanager" "video" "docker" "vboxusers" ];
+        packages = with pkgs; [
+          go
+          vimPlugins.vim-go
+          hugo
+          librewolf
+          libreoffice
+        ];
+      };
+    };
+  };
+
   programs = {
     # GUI 
     firefox.enable = false;
@@ -225,7 +250,7 @@
       ui.enable = true;
     };
     virtualbox.host = {
-      enable = true;
+      enable = false;
       enableKvm = false;
     };
     libvirtd = {
@@ -244,30 +269,6 @@
             }).fd
           ];
         };
-      };
-    };
-  };
-
-  users = {
-    users = {
-      root = {
-        hashedPassword = "!"; # disable root
-      };
-      me = {
-        # initialPassword = "riot-bravo-charly-north"
-        # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAA..." ];
-        isNormalUser = true;
-        description = "me";
-        createHome = true;
-        shell = pkgs.zsh;
-        extraGroups = [ "wheel" "networkmanager" "video" "docker" "vboxusers" ];
-        packages = with pkgs; [
-          go
-          vimPlugins.vim-go
-          hugo
-          librewolf
-          libreoffice
-        ];
       };
     };
   };
