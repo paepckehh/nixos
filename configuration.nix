@@ -251,6 +251,7 @@
       d = "dmesg -Hw";
       "nix.build" = ''
         cd /etc/nixos &&\
+        sudo -v &&\
         sudo alejandra --quiet . &&\
         sudo nixos-generate-config &&\
         sudo alejandra --quiet . &&\
@@ -262,15 +263,25 @@
         sudo nixos-rebuild --flake .#nixos --verbose --upgrade switch '';
       "nix.push" = ''
         cd /etc/nixos &&\
+        sudo -v &&\
         sudo alejandra --quiet . &&\
         git reset &&\
         git add . &&\
         git commit -S -m update &&\
         git push --force '';
       "nix.test" = ''
-        nixos-rebuild --flake .#nixos --verbose dry-activate '';
+        cd /etc/nixos &&\
+        sudo -v &&\
+        sudo nixos-rebuild --flake .#nixos --verbose dry-activate '';
+      "nix.edit" = ''
+        sudo -v &&\
+        cd /etc/nixos &&\
+        sudo vim configuration.nix '';
       "nix.update" = ''
-        nix.test && nix.build && nix.push && sudo reboot --no-wall --force '';
+        sudo -v &&\
+        nix.build &&\ 
+        nix.push &&\ 
+        sudo reboot --no-wall --force '';
     };
     shellInit = ''
       # eval $(ssh-agent)
