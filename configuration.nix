@@ -4,7 +4,9 @@
   lib,
   ...
 }: {
+  #############
   #-=# NIX #=-#
+  #############
 
   nix = {
     package = pkgs.nixFlakes;
@@ -21,7 +23,9 @@
     };
   };
 
-  #-=# BOOT, SYSTEM #=-#
+  ##############
+  #-=# BOOT #=-#
+  ##############
 
   boot = {
     blacklistedKernelModules = ["bluetooth" "facetimehd" "snd_hda_intel"];
@@ -35,6 +39,10 @@
       systemd-boot.enable = true;
     };
   };
+
+  ###############
+  #-= SYSTEM #=-#
+  ###############
 
   system = {
     stateVersion = "24.05"; # do not modify
@@ -60,6 +68,9 @@
   };
 
   hardware = {
+    opengl.enable = true;
+    enableAllFirmware = true;
+    facetimehd.enable = lib.mkForce false;
     bluetooth.enable = lib.mkForce false;
     pulseaudio.enable = lib.mkForce false;
   };
@@ -75,15 +86,28 @@
     cpuFreqGovernor = "powersave";
   };
 
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+
   networking = {
     hostName = "nixos";
+    enableIPv6 = false;
+    networkmanager.enable = true;
     firewall = {
       enable = true;
       allowedTCPPorts = [];
       allowedUDPPorts = [];
     };
-    networkmanager.enable = true;
+    proxy = {
+      noProxy = "1270.0.1,local,localhost,localdomain,nixos";
+      # proxyDefault = "http://proxy";
+    };
   };
+
+  ##################
+  #-=# SECURITY #=-#
+  ##################
 
   security = {
     auditd.enable = true;
@@ -95,6 +119,10 @@
       rules = ["-a exit,always -F arch=b64 -S execve"];
     };
   };
+
+  ###############
+  #-=# USERS #=-#
+  ###############
 
   users = {
     defaultUserShell = pkgs.zsh;
@@ -113,6 +141,10 @@
       };
     };
   };
+
+  ##################
+  #-=# PROGRAMS #=-#
+  ##################
 
   programs = {
     firefox.enable = false;
@@ -187,6 +219,10 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+
   environment = {
     systemPackages = with pkgs; [
       alejandra
@@ -217,13 +253,13 @@
       d = "dmesg -Hw";
       "nix.build" = ''
         cd /etc/nixos &&\
-        sudo alejandra . &&\
+        sudo alejandra --quiet . &&\
         sudo nixos-generate-config &&\
         sudo nix --verbose flake update &&\
         sudo nixos-rebuild --flake .#nixos --verbose --upgrade switch '';
       "nix.push" = ''
         cd /etc/nixos &&\
-        sudo alejandra . &&\
+        sudo alejandra --quiet . &&\
         git reset &&\
         git add . &&\
         git commit -S -m update &&\
@@ -239,6 +275,25 @@
       SHELLCHECK_OPTS = "-e SC2086";
     };
   };
+
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "de_DE.UTF-8";
+      LC_IDENTIFICATION = "de_DE.UTF-8";
+      LC_MEASUREMENT = "de_DE.UTF-8";
+      LC_MONETARY = "de_DE.UTF-8";
+      LC_NAME = "de_DE.UTF-8";
+      LC_NUMERIC = "de_DE.UTF-8";
+      LC_PAPER = "de_DE.UTF-8";
+      LC_TELEPHONE = "de_DE.UTF-8";
+      LC_TIME = "de_DE.UTF-8";
+    };
+  };
+
+  ########################
+  #-=# VIRTUALISATION #=-#
+  ########################
 
   virtualisation = {
     containers.enable = false;
@@ -283,20 +338,9 @@
     };
   };
 
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "de_DE.UTF-8";
-      LC_IDENTIFICATION = "de_DE.UTF-8";
-      LC_MEASUREMENT = "de_DE.UTF-8";
-      LC_MONETARY = "de_DE.UTF-8";
-      LC_NAME = "de_DE.UTF-8";
-      LC_NUMERIC = "de_DE.UTF-8";
-      LC_PAPER = "de_DE.UTF-8";
-      LC_TELEPHONE = "de_DE.UTF-8";
-      LC_TIME = "de_DE.UTF-8";
-    };
-  };
+  ##################
+  #-=# SERVICES #=-#
+  ##################
 
   services = {
     avahi.enable = false;
@@ -359,6 +403,10 @@
   };
 
   sound.enable = false;
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
 
   systemd = {
     services = {
