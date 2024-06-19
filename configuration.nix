@@ -254,6 +254,9 @@
         sudo alejandra --quiet . &&\
         sudo nixos-generate-config &&\
         sudo nix --verbose flake update &&\
+        git reset &&\
+        git add . &&\
+        git commit -S -m update &&\
         sudo nixos-rebuild --flake .#nixos --verbose --upgrade switch '';
       "nix.push" = ''
         cd /etc/nixos &&\
