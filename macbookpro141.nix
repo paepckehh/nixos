@@ -16,6 +16,8 @@
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           ./hardware-configuration.nix
           ./configuration.nix
+          ./virt.nix
+          ./macbook-hardening.nix
         ];
       };
     };

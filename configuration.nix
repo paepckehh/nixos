@@ -4,6 +4,7 @@
   lib,
   ...
 }: {
+
   #############
   #-=# NIX #=-#
   #############
@@ -28,7 +29,6 @@
   ##############
 
   boot = {
-    blacklistedKernelModules = ["bluetooth" "facetimehd" "snd_hda_intel"];
     kernelPackages = pkgs.linuxPackages_latest;
     tmp = {
       cleanOnBoot = true;
@@ -118,7 +118,7 @@
       enable = true;
       rules = ["-a exit,always -F arch=b64 -S execve"];
     };
-  };
+};
 
   ###############
   #-=# USERS #=-#
@@ -239,7 +239,6 @@
       ripgrep
       moreutils
       yq
-      yubikey-personalization
       vimPlugins.vim-go
       vimPlugins.vim-nix
     ];
@@ -264,6 +263,8 @@
         git add . &&\
         git commit -S -m update &&\
         git push --force '';
+      "nix.test" = ''
+        nixos-rebuild --flake .#nixos --verbose dry-activate '';
     };
     shellInit = ''
       # eval $(ssh-agent)
@@ -288,53 +289,6 @@
       LC_PAPER = "de_DE.UTF-8";
       LC_TELEPHONE = "de_DE.UTF-8";
       LC_TIME = "de_DE.UTF-8";
-    };
-  };
-
-  ########################
-  #-=# VIRTUALISATION #=-#
-  ########################
-
-  virtualisation = {
-    containers.enable = false;
-    containerd.enable = false;
-    lxc.enable = false;
-    xen.enable = false;
-    vmware.host.enable = false;
-    docker = {
-      enable = false;
-      enableOnBoot = false;
-    };
-    podman = {
-      enable = false;
-      dockerCompat = true;
-    };
-    lxd = {
-      enable = false;
-      ui.enable = true;
-    };
-    virtualbox.host = {
-      enable = false;
-      enableKvm = false;
-    };
-    libvirtd = {
-      enable = true;
-      onBoot = "start";
-      qemu = {
-        package = pkgs.qemu_kvm;
-        runAsRoot = true;
-        swtpm.enable = true;
-        ovmf = {
-          enable = true;
-          packages = [
-            (pkgs.OVMF.override {
-              secureBoot = true;
-              tpmSupport = true;
-            })
-            .fd
-          ];
-        };
-      };
     };
   };
 
@@ -385,43 +339,10 @@
         }
       ];
     };
-    cockpit = {
-      enable = false;
-      port = 9090;
-      settings.WebService.AllowUnencrypted = false;
-    };
     printing.enable = false;
     fstrim = {
       enable = true;
       interval = "daily";
-    };
-    pipewire = {
-      enable = lib.mkForce false;
-      alsa.enable = false;
-      pulse.enable = false;
-    };
-  };
-
-  sound.enable = false;
-
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-
-  systemd = {
-    services = {
-      disable-nvme-d3cold = {
-        enable = false;
-        restartIfChanged = false;
-      };
-      btattach-bcm2e7c = {
-        enable = false;
-        restartIfChanged = false;
-      };
-      bluethooth = {
-        enable = false;
-        restartIfChanged = false;
-      };
     };
   };
 }
