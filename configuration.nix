@@ -316,10 +316,15 @@
   services = {
     avahi.enable = false;
     gnome.evolution-data-server.enable = lib.mkForce false;
+    opensnitch.enable = true;
+    printing.enable = false;
     power-profiles-daemon.enable = true;
     thermald.enable = true;
-    opensnitch.enable = true;
     logind.hibernateKey = "ignore";
+    fstrim = {
+      enable = true;
+      interval = "daily";
+    };
     xserver = {
       enable = true;
       xkb = {
@@ -355,11 +360,6 @@
           port = "8022";
         }
       ];
-    };
-    printing.enable = false;
-    fstrim = {
-      enable = true;
-      interval = "daily";
     };
   };
 }
