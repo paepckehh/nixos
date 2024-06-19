@@ -277,7 +277,7 @@
     };
     shellInit = ''
       # eval $(ssh-agent)
-      ( cd && touch .zshrc .bashrc )
+      ( cd && touch .zshrc .bashrc && uname -a )
     '';
     variables = {
       EDITOR = "vim";
