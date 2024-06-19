@@ -4,6 +4,8 @@
   lib,
   ...
 }: {
+  #-=# NIX #=-#
+
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes ";
@@ -19,6 +21,8 @@
     };
   };
 
+  #-=# BOOT, SYSTEM #=-#
+
   boot = {
     blacklistedKernelModules = ["bluetooth" "facetimehd" "snd_hda_intel"];
     kernelPackages = pkgs.linuxPackages_latest;
@@ -30,12 +34,6 @@
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
     };
-  };
-
-  console = {
-    earlySetup = true;
-    useXkbConfig = true;
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
   };
 
   system = {
@@ -50,14 +48,20 @@
     };
   };
 
-  hardware = {
-    bluetooth.enable = lib.mkForce false;
-    pulseaudio.enable = lib.mkForce false;
-  };
-
   zramSwap = {
     enable = true;
     algorithm = "zstd";
+  };
+
+  console = {
+    earlySetup = true;
+    useXkbConfig = true;
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
+  };
+
+  hardware = {
+    bluetooth.enable = lib.mkForce false;
+    pulseaudio.enable = lib.mkForce false;
   };
 
   time = {
