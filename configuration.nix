@@ -253,6 +253,7 @@
         cd /etc/nixos &&\
         sudo alejandra --quiet . &&\
         sudo nixos-generate-config &&\
+        sudo alejandra --quiet . &&\
         sudo nix --verbose flake update &&\
         sudo alejandra --quiet . &&\
         git reset &&\
