@@ -254,6 +254,7 @@
         sudo alejandra --quiet . &&\
         sudo nixos-generate-config &&\
         sudo nix --verbose flake update &&\
+        sudo alejandra --quiet . &&\
         git reset &&\
         git add . &&\
         git commit -S -m update &&\
