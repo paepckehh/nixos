@@ -14,10 +14,10 @@
         system = "x86_64-linux";
         modules = [
           nixos-hardware.nixosModules.apple-imac-18-2
-          ./hardware-configuration.nix
-          ./configuration.nix
-          ./feature/virt.nix
-          ./hardware/macfix.nix
+          ../hardware-configuration.nix
+          ../configuration.nix
+          ../add/virt.nix
+          ../hardware/macfix.nix
         ];
       };
     };

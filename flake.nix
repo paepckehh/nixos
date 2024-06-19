@@ -1,1 +1,1 @@
-macbookpro141.nix
+hardware/macbookpro141.nix

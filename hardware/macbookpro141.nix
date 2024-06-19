@@ -14,10 +14,10 @@
         system = "x86_64-linux";
         modules = [
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
-          ./hardware-configuration.nix
-          ./configuration.nix
-          ./feature/virt.nix
-          ./hardware/macfix.nix
+          ../hardware-configuration.nix
+          ../configuration.nix
+          ../add/virt.nix
+          ../hardware/macfix.nix
         ];
       };
     };

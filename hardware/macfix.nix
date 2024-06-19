@@ -10,7 +10,7 @@
   boot = {
     blacklistedKernelModules = ["bluetooth" "facetimehd" "snd_hda_intel"];
   };
-  
+
   #################
   #-=# SYSTEMD #=-#
   #################
@@ -43,10 +43,10 @@
       pulse.enable = false;
     };
   };
-  
+
   ###############
   #-=# SOUND #=-#
   ###############
-  
+
   sound.enable = false;
 }
