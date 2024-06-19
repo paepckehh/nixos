@@ -33,6 +33,16 @@
   };
 
   ##################
+  #-=# HARDWARE #=-#
+  ##################
+
+  hardware = {
+    facetimehd.enable = lib.mkForce false;
+    bluetooth.enable = lib.mkForce false;
+    pulseaudio.enable = lib.mkForce false;
+  };
+
+  ##################
   #-=# SERVICES #=-#
   ##################
 

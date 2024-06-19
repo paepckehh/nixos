@@ -66,14 +66,6 @@
     font = "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
   };
 
-  hardware = {
-    opengl.enable = true;
-    enableAllFirmware = true;
-    facetimehd.enable = lib.mkForce false;
-    bluetooth.enable = lib.mkForce false;
-    pulseaudio.enable = lib.mkForce false;
-  };
-
   time = {
     timeZone = "Europe/Berlin";
     hardwareClockInLocalTime = false;
