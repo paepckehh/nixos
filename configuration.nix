@@ -268,6 +268,8 @@
         git push --force '';
       "nix.test" = ''
         nixos-rebuild --flake .#nixos --verbose dry-activate '';
+      "nix.update" = ''
+        nix.test && nix.build && nix.push && sudo reboot '';
     };
     shellInit = ''
       # eval $(ssh-agent)
