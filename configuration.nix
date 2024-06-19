@@ -271,7 +271,7 @@
         sudo vim configuration.nix '';
       "nix.update" = ''
         sudo -v &&\
-        nix.build &&\ 
+        nix.build ;\ 
         nix.push &&\ 
         sudo reboot --no-wall --force '';
     };
