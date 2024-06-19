@@ -270,7 +270,7 @@
       "nix.test" = ''
         nixos-rebuild --flake .#nixos --verbose dry-activate '';
       "nix.update" = ''
-        nix.test && nix.build && nix.push && sudo reboot '';
+        nix.test && nix.build && nix.push && sudo reboot --no-wall --force '';
     };
     shellInit = ''
       # eval $(ssh-agent)
