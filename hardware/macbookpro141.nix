@@ -16,12 +16,11 @@
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           nixos-hardware.nixosModules.common-pc-laptop-acpi_call
           nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
-          nixos-hardware.nixosModules.common-gpu-intel
           nixos-hardware.nixosModules.common-hidpi
           ../hardware-configuration.nix
           ../configuration.nix
           ../modules/virt.nix
-          ../modules/hw-hardeing.nix
+          ../modules/hw-hardening.nix
         ];
       };
     };
