@@ -16,8 +16,8 @@
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           ../hardware-configuration.nix
           ../configuration.nix
-          ../add/virt.nix
-          ../hardware/macfix.nix
+          ../module/virt.nix
+          ../module/hw-hardeing.nix
         ];
       };
     };

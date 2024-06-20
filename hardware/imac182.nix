@@ -16,8 +16,8 @@
           nixos-hardware.nixosModules.apple-imac-18-2
           ../hardware-configuration.nix
           ../configuration.nix
-          ../add/virt.nix
-          ../hardware/macfix.nix
+          ../module/virt.nix
+          ../module/hw-hardening.nix
         ];
       };
     };
