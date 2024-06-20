@@ -19,7 +19,7 @@
           nixos-hardware.nixosModules.common-hidpi
           ../hardware-configuration.nix
           ../configuration.nix
-          ../modules/virt.nix
+          # ../modules/virt.nix
           ../modules/hw-hardening.nix
         ];
       };
