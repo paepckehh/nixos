@@ -272,7 +272,7 @@
         sudo -v &&\
         nix.build ;\ 
         nix.push &&\ 
-        sudo reboot --no-wall --force '';
+        sudo reboot '';
     };
     shellInit = ''
       # eval $(ssh-agent)
