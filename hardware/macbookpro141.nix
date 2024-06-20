@@ -19,6 +19,7 @@
           nixos-hardware.nixosModules.common-hidpi
           ../hardware-configuration.nix
           ../configuration.nix
+          ../roles/desktop.nix
           ../modules/hw-hardening.nix
         ];
       };

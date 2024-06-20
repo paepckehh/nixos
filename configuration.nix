@@ -91,7 +91,7 @@
     };
     proxy = {
       noProxy = "1270.0.1,local,localhost,localdomain,nixos";
-      # proxyDefault = "http://proxy";
+      proxyDefault = "";
     };
   };
 
@@ -137,41 +137,15 @@
   ##################
 
   programs = {
-    firefox.enable = false;
-    chromium.enable = false;
-    ausweisapp.enable = false;
-    evince.enable = false;
-    evolution.enable = false;
-    geary.enable = false;
-    mepo.enable = false;
-    steam.enable = false;
-    system-config-printer.enable = false;
-    nm-applet.enable = true;
-    sniffnet.enable = true;
-    tuxclocker.enable = true;
-    virt-manager.enable = true;
-    cnping.enable = false;
-    coolercontrol.enable = true;
-    command-not-found.enable = true;
-    dconf.enable = true;
     direnv.enable = true;
-    gnupg.agent.enable = false;
+    gnupg.agent.enable = true;
     htop.enable = true;
     iftop.enable = true;
     iotop.enable = true;
-    java.enable = false;
-    mosh.enable = false;
-    mtr.enable = true;
     nano.enable = false;
-    neovim.enable = false;
-    nh.enable = true;
     nix-index.enable = false;
-    screen.enable = true;
-    starship.enable = false;
     tmux.enable = true;
     usbtop.enable = true;
-    wireshark.enable = false;
-    zmap.enable = false;
     fzf.fuzzyCompletion = true;
     ssh = {
       pubkeyAcceptedKeyTypes = ["ssh-ed25519" "ssh-rsa"];
@@ -219,10 +193,7 @@
       curl
       go
       gh
-      hugo
       jq
-      kitty
-      librewolf
       shellcheck
       shfmt
       tldr
@@ -305,9 +276,6 @@
   ##################
 
   services = {
-    avahi.enable = false;
-    gnome.evolution-data-server.enable = lib.mkForce false;
-    opensnitch.enable = true;
     printing.enable = false;
     power-profiles-daemon.enable = true;
     thermald.enable = true;
@@ -315,15 +283,6 @@
     fstrim = {
       enable = true;
       interval = "daily";
-    };
-    xserver = {
-      enable = true;
-      xkb = {
-        layout = "gb";
-        variant = "";
-      };
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
     };
     openssh = {
       enable = false;
