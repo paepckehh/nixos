@@ -1,5 +1,5 @@
 {
-  description = "flake for nixmac182 [ apple imac18,2 ]";
+  description = "flake for nixbookpro141 [ apple macbookpro14,1 ]";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -13,11 +13,10 @@
       nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          nixos-hardware.nixosModules.apple-imac-18-2
+          nixos-hardware.nixosModules.raspberry-pi-2
           ../hardware-configuration.nix
           ../configuration.nix
-          ../modules/virt.nix
-          ../modules/hw-hardening.nix
+          ../modules/hw-hardeing.nix
         ];
       };
     };
