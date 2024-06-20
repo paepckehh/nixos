@@ -1,9 +1,9 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
-
   ##################
   #-=# PROGRAMS #=-#
   ##################
@@ -28,7 +28,6 @@
     ];
   };
 
-
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -36,7 +35,7 @@
   services = {
     avahi.enable = false;
     gnome.evolution-data-server.enable = lib.mkForce false;
-    printing.enable = true;
+    printing.enable = lib.mkForce true;
     xserver = {
       enable = true;
       xkb = {

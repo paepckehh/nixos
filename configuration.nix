@@ -91,7 +91,7 @@
     };
     proxy = {
       noProxy = "1270.0.1,local,localhost,localdomain,nixos";
-      proxyDefault = "";
+      default = "";
     };
   };
 
