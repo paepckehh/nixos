@@ -11,11 +11,11 @@
   security = {
     pam = {
       services = {
-        login.u2fAuth = true;
+        login.u2fAuth = false;
         sudo.u2fAuth = true;
       };
       yubico = {
-        enable = true;
+        enable = false;
         debug = true;
         control = "required";
         mode = "challenge-response";
