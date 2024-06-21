@@ -229,16 +229,12 @@
         sudo alejandra --quiet . &&\
         git reset &&\
         git add . &&\
-        git commit -S -m update &&\
+        git commit -S -m update ;\
         git push --force '';
       "nix.test" = ''
         cd /etc/nixos &&\
         sudo -v &&\
         sudo nixos-rebuild --flake .#nixos --verbose dry-activate '';
-      "nix.edit" = ''
-        sudo -v &&\
-        cd /etc/nixos &&\
-        sudo vim configuration.nix '';
       "nix.update" = ''
         sudo -v &&\
         nix.build ;\ 
