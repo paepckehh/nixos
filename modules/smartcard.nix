@@ -28,10 +28,18 @@
   #-=# ENVIRONMENT #=-#
   #####################
 
+  # pam_u2f
+  # libu2f-host
+  # yubico-pam
+
   environment = {
     systemPackages = with pkgs; [
+      yubioath-flutter
+      yubikey-touch-detector
       yubikey-manager
+      yubikey-manager-qt
       yubikey-personalization
+      yubikey-personalization-gui
     ];
   };
 
@@ -48,5 +56,14 @@
       ENV{ID_VENDOR_ID}=="1050",\
       ENV{ID_VENDOR}=="Yubico",\
       RUN+="${pkgs.systemd}/bin/loginctl lock-sessions" '';
+  };
+
+  ##################
+  #-=# PROGRAMS #=-#
+  ##################
+
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
   };
 }
