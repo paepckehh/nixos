@@ -291,6 +291,7 @@
   services = {
     power-profiles-daemon.enable = true;
     thermald.enable = true;
+    opensnitch.enable = true;
     logind.hibernateKey = "ignore";
     fstrim = {
       enable = true;
