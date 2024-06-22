@@ -38,6 +38,16 @@
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
     };
+
+    boot.kernelPatches = [
+      {
+        name = "nix-config";
+        patch = null;
+        extraConfig = ''
+          BT_HCIUART_BCM y
+        '';
+      }
+    ];
   };
 
   ###############
@@ -300,6 +310,7 @@
       enable = true;
       settings = {
         firewall = "iptables"; # iptables or nftables
+        defaultAction = "allow"; # allow or deny
       };
     };
     fstrim = {
