@@ -231,10 +231,6 @@
         cd /etc/nixos &&\
         sudo -v &&\
         sudo alejandra --quiet . &&\
-        sudo nixos-generate-config &&\
-        sudo alejandra --quiet . &&\
-        sudo nix --verbose flake update &&\
-        sudo alejandra --quiet . &&\
         git reset &&\
         git add . &&\
         git commit -S -m update ;\
@@ -254,8 +250,15 @@
         sudo nixos-rebuild --flake .#nixos --verbose dry-activate '';
       "nix.update" = ''
         sudo -v &&\
-        nix.build ;\ 
-        nix.push ;\ 
+        sudo alejandra --quiet . &&\
+        sudo nix --verbose flake update &&\
+        sudo alejandra --quiet . &&\
+        sudo nixos-generate-config &&\
+        sudo alejandra --quiet . &&\
+        git reset &&\
+        git add . &&\
+        git commit -S -m update ;\
+        sudo nixos-rebuild --flake .#nixos --verbose switch ;\
         sudo reboot '';
     };
     shellInit = ''
