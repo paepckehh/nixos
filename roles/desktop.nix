@@ -77,9 +77,5 @@
     };
   };
 
-  ###############
-  #-=# SOUND #=-#
-  ###############
-
-  # sound.enable = false;
+  hardware.pulseaudio.enable = false;
 }
