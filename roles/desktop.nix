@@ -26,6 +26,7 @@
     systemPackages = with pkgs; [
       kitty
       librewolf
+      opensnitch-ui
     ];
   };
 
