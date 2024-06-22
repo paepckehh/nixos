@@ -81,5 +81,5 @@
   #-=# SOUND #=-#
   ###############
 
-  sound.enable = false;
+  # sound.enable = false;
 }
