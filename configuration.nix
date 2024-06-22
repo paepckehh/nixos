@@ -269,8 +269,7 @@
         git reset &&\
         git add . &&\
         git commit -S -m update ;\
-        sudo nixos-rebuild --flake .#nixos --verbose switch ;\
-        sudo reboot '';
+        sudo nixos-rebuild --flake .#nixos --verbose switch '';
     };
     shellInit = ''
       # eval $(ssh-agent)
