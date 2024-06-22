@@ -24,16 +24,12 @@
         system = "x86_64-linux";
         modules = [
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
-          # nixos-hardware.nixosModules.common-pc-laptop-acpi_call
-          # nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
-          # nixos-hardware.nixosModules.common-hidpi
           home-manager.nixosModules.home-manager
           ../hardware-configuration.nix
           ../configuration.nix
           ../roles/desktop.nix
           ../modules/virt.nix
           ../modules/smartcard.nix
-          # ../modules/hw-hardening.nix
         ];
       };
     };
