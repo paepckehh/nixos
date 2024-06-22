@@ -140,6 +140,7 @@
   home-manager = {
     useGlobalPkgs = true;
     users.me = {
+      programs.home-manager.enable = true;
       home = {
         stateVersion = "24.05";
         username = "me";
