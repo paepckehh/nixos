@@ -132,6 +132,8 @@
     };
   };
 
+  home-manager.users.me.services.opensnitch-ui.enable = true;
+
   ##################
   #-=# PROGRAMS #=-#
   ##################
