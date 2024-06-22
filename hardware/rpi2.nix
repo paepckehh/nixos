@@ -23,6 +23,7 @@
         system = "ARMv7-linux";
         modules = [
           nixos-hardware.nixosModules.raspberry-pi-2
+          home-manager.nixosModules.home-manager
           ../hardware-configuration.nix
           ../configuration.nix
           ../modules/hw-hardening.nix
