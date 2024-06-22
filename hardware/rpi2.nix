@@ -1,12 +1,21 @@
 {
-  description = "flake for nixbookpro141 [ apple macbookpro14,1 ]";
+  description = "flake for nixpi2 [ raspberry pi v1.1 32bit armv7 ]";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixpkgs = {
+      url = "github:NixOS/nixpkgs/nixos-unstable";
+    };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+    };
   };
   outputs = {
     self,
     nixpkgs,
+    home-manager,
     nixos-hardware,
   }: {
     nixosConfigurations = {
@@ -16,7 +25,7 @@
           nixos-hardware.nixosModules.raspberry-pi-2
           ../hardware-configuration.nix
           ../configuration.nix
-          ../modules/hw-hardeing.nix
+          ../modules/hw-hardening.nix
         ];
       };
     };
