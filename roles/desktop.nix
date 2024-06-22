@@ -9,6 +9,7 @@
   ##################
 
   programs = {
+    geary.enable = false;
     nm-applet.enable = true;
     sniffnet.enable = true;
     tuxclocker.enable = true;
@@ -26,6 +27,16 @@
       kitty
       librewolf
     ];
+  };
+
+  ###############
+  #-=# USERS #=-#
+  ###############
+
+  home-manager.users.me = {
+    services = {
+      opensnitch-ui.enable = true;
+    };
   };
 
   ##################

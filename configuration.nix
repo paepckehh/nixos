@@ -133,6 +133,10 @@
     };
   };
 
+  ######################
+  #-=# HOME-MANAGER #=-#
+  ######################
+
   home-manager = {
     useGlobalPkgs = true;
     users.me = {
@@ -140,9 +144,6 @@
         stateVersion = "24.05";
         username = "me";
         homeDirectory = "/home/me";
-      };
-      services = {
-        opensnitch-ui.enable = true;
       };
     };
   };
