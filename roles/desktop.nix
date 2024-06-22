@@ -38,7 +38,9 @@
     printing = {
       enable = true;
       stateless = true;
-      clientConf = ''ServerName cups.intra'';
+      clientConf = ''
+        # ServerName cups.intra
+      '';
       startWhenNeeded = true;
       cups-pdf = {
         enable = true;
