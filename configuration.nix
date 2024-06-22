@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  home-manager,
   ...
 }: {
   #############
@@ -132,7 +133,19 @@
     };
   };
 
-  home-manager.users.me.services.opensnitch-ui.enable = true;
+  home-manager = {
+    useGlobalPkgs = true;
+    users.me = {
+      home = {
+        stateVersion = "24.05";
+        username = "me";
+        homeDirectory = "/home/me";
+      };
+      services = {
+        opensnitch-ui.enable = true;
+      };
+    };
+  };
 
   ##################
   #-=# PROGRAMS #=-#

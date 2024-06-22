@@ -20,7 +20,7 @@
   }: {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        system = "ARMv7-linux";
         modules = [
           nixos-hardware.nixosModules.raspberry-pi-2
           ../hardware-configuration.nix

@@ -15,8 +15,8 @@
   outputs = {
     self,
     nixpkgs,
-    home-manager,
     nixos-hardware,
+    home-manager,
   }: {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
@@ -26,6 +26,7 @@
           nixos-hardware.nixosModules.common-pc-laptop-acpi_call
           nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
           nixos-hardware.nixosModules.common-hidpi
+          home-manager.nixosModules.home-manager
           ../hardware-configuration.nix
           ../configuration.nix
           ../roles/desktop.nix
