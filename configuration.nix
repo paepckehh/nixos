@@ -234,7 +234,7 @@
       "nix.test" = ''
         cd /etc/nixos &&\
         sudo -v &&\
-        sudo alejandra --quiet . ;
+        sudo alejandra --quiet . ;\
         sudo nixos-rebuild --flake .#nixos --verbose dry-activate '';
       "nix.update" = ''
         sudo -v &&\
