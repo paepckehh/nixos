@@ -9,12 +9,12 @@
   ##################
 
   programs = {
-    system-config-printer.enable = true;
     nm-applet.enable = true;
     sniffnet.enable = true;
     tuxclocker.enable = true;
     virt-manager.enable = true;
     coolercontrol.enable = true;
+    system-config-printer.enable = true;
   };
 
   #####################
@@ -33,9 +33,17 @@
   ##################
 
   services = {
-    avahi.enable = false;
+    avahi.enable = lib.mkForce false;
     gnome.evolution-data-server.enable = lib.mkForce false;
-    printing.enable = lib.mkForce true;
+    printing = {
+      enable = true;
+      stateless = true;
+      clientConf = ''ServerName cups.intra'';
+      startWhenNeeded = true;
+      cups-pdf = {
+        enable = true;
+      };
+    };
     xserver = {
       enable = true;
       xkb = {
@@ -43,7 +51,10 @@
         variant = "";
       };
       displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+      desktopManager = {
+        gnome.enable = true;
+        xterm.enable = false;
+      };
     };
   };
 }

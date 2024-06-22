@@ -20,6 +20,7 @@
           ../hardware-configuration.nix
           ../configuration.nix
           ../roles/desktop.nix
+          ../modules/virt.nix
           ../modules/smartcard.nix
           ../modules/hw-hardening.nix
         ];

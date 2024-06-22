@@ -234,6 +234,7 @@
       "nix.test" = ''
         cd /etc/nixos &&\
         sudo -v &&\
+        sudo alejandra --quiet . ;
         sudo nixos-rebuild --flake .#nixos --verbose dry-activate '';
       "nix.update" = ''
         sudo -v &&\
@@ -272,7 +273,6 @@
   ##################
 
   services = {
-    printing.enable = false;
     power-profiles-daemon.enable = true;
     thermald.enable = true;
     logind.hibernateKey = "ignore";
