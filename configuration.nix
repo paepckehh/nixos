@@ -295,8 +295,13 @@
   services = {
     power-profiles-daemon.enable = true;
     thermald.enable = true;
-    opensnitch.enable = true;
     logind.hibernateKey = "ignore";
+    opensnitch = {
+      enable = true;
+      settings = {
+        firewall = "iptables"; # iptables or nftables
+      };
+    };
     fstrim = {
       enable = true;
       interval = "daily";
