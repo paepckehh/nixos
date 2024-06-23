@@ -73,10 +73,8 @@
     pipewire = {
       enable = true;
       alsa.enable = false;
+      alsa.support32bit = true;
       pulse.enable = true;
-    };
-    libinput = {
-      enable = true;
     };
   };
 
