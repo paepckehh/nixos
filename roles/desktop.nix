@@ -24,9 +24,11 @@
 
   environment = {
     systemPackages = with pkgs; [
+      go
       kitty
       librewolf
       opensnitch-ui
+      vimPlugins.vim-go
     ];
   };
 
@@ -60,10 +62,6 @@
     };
     xserver = {
       enable = true;
-      xkb = {
-        layout = "gb";
-        variant = "";
-      };
       displayManager.gdm.enable = true;
       desktopManager = {
         gnome.enable = true;
@@ -77,6 +75,5 @@
       pulse.enable = true;
     };
   };
-
   hardware.pulseaudio.enable = false;
 }

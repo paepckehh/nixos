@@ -208,7 +208,6 @@
     systemPackages = with pkgs; [
       alejandra
       curl
-      go
       gh
       jq
       shellcheck
@@ -217,7 +216,6 @@
       ripgrep
       moreutils
       yq
-      vimPlugins.vim-go
       vimPlugins.vim-nix
     ];
     shells = [pkgs.bashInteractive pkgs.zsh];

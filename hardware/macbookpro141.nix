@@ -31,6 +31,9 @@
           ../modules/virt.nix
           ../modules/smartcard.nix
         ];
+        # adjust keyboard layout
+        console.keyMap = "gb";
+        services.xserver.xkb.layout = "gb,de";
       };
     };
   };
