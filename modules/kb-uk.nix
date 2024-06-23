@@ -7,5 +7,5 @@
   #-=# UK Keyboad Layout #=-#
   ###########################
   console.keyMap = "uk";
-  services.xserver.xkb.layout = "uk,de";
+  services.xserver.xkb.layout = "gb,de";
 }
