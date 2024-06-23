@@ -9,7 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware = {
-      # url = "github:NixOS/nixos-hardware/master";
+      # source url = "github:NixOS/nixos-hardware/master";
       url = "github:paepckehh/nixos-hardware/master";
     };
   };
