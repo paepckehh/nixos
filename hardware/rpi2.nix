@@ -9,14 +9,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware = {
-      url = "github:NixOS/nixos-hardware/master";
+      # url = "github:NixOS/nixos-hardware/master";
+      url = "github:paepckehh/nixos-hardware/master";
     };
   };
   outputs = {
     self,
     nixpkgs,
-    home-manager,
     nixos-hardware,
+    home-manager,
   }: {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
@@ -25,8 +26,8 @@
           nixos-hardware.nixosModules.raspberry-pi-2
           home-manager.nixosModules.home-manager
           ../hardware-configuration.nix
+          ../hardware/kb-uk.nix
           ../configuration.nix
-          ../modules/hw-hardening.nix
         ];
       };
     };

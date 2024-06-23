@@ -26,11 +26,11 @@
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           home-manager.nixosModules.home-manager
           ../hardware-configuration.nix
+          ../hardware/kb-uk.nix
           ../configuration.nix
           ../roles/desktop.nix
-          ../modules/smartcard.nix
           ../modules/virt.nix
-          ../modules/kb-uk.nix
+          ../modules/smartcard.nix
         ];
       };
     };
