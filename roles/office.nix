@@ -9,8 +9,8 @@
 
   environment = {
     systemPackages = with pkgs; [
-      libreoffice
-      thunderbird
+      betterbird
+      libreoffice-qt6-fresh
     ];
   };
 }
