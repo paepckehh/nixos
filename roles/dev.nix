@@ -20,8 +20,8 @@
       vimPlugins.vim-go
       vimPlugins.vim-git
     ];
-  };
-  variables = {
-    SHELLCHECK_OPTS = "-e SC2086";
+    variables = {
+      SHELLCHECK_OPTS = "-e SC2086";
+    };
   };
 }
