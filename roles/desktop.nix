@@ -69,9 +69,9 @@
       };
     };
     pipewire = {
-      enable = lib.mkEnforce false;
+      enable = lib.mkForce false;
       alsa.enable = false;
-      alsa.support32Bit = true;
+      alsa.support32Bit = false;
       pulse.enable = false;
     };
   };
