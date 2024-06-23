@@ -72,8 +72,8 @@
     };
     pipewire = {
       enable = true;
-      alsa.enable = false;
-      alsa.support32bit = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
       pulse.enable = true;
     };
   };
