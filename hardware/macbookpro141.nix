@@ -32,8 +32,8 @@
           ../modules/smartcard.nix
         ];
         # adjust keyboard layout
-        console.keyMap = "gb";
-        services.xserver.xkb.layout = "gb,de";
+        config.console.keyMap = "gb";
+        config.services.xserver.xkb.layout = "gb,de";
       };
     };
   };
