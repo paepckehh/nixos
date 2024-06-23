@@ -28,9 +28,9 @@
           ../hardware-configuration.nix
           ../configuration.nix
           ../roles/desktop.nix
-          ../modules/kb-gb.nix
-          ../modules/virt.nix
           ../modules/smartcard.nix
+          ../modules/virt.nix
+          ../modules/kb-uk.nix 
         ];
       };
     };
