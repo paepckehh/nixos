@@ -28,12 +28,10 @@
           ../hardware-configuration.nix
           ../configuration.nix
           ../roles/desktop.nix
+          ../modules/kb-gb.nix
           ../modules/virt.nix
           ../modules/smartcard.nix
         ];
-        # adjust keyboard layout
-        config.console.keyMap = "gb";
-        config.services.xserver.xkb.layout = "gb,de";
       };
     };
   };
