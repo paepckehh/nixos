@@ -30,7 +30,7 @@
           ../roles/desktop.nix
           ../modules/smartcard.nix
           ../modules/virt.nix
-          ../modules/kb-uk.nix 
+          ../modules/kb-uk.nix
         ];
       };
     };
