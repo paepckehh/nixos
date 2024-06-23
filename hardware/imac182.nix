@@ -28,6 +28,7 @@
           ../hardware-configuration.nix
           ../hardware/kb-de.nix
           ../configuration.nix
+          ../roles/dev.nix
           ../roles/desktop.nix
           ../modules/virt.nix
           ../modules/smartcard.nix

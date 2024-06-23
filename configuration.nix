@@ -207,10 +207,7 @@
     systemPackages = with pkgs; [
       alejandra
       curl
-      gh
       jq
-      shellcheck
-      shfmt
       tldr
       ripgrep
       moreutils
@@ -262,7 +259,6 @@
     variables = {
       EDITOR = "vim";
       VISUAL = "vim";
-      SHELLCHECK_OPTS = "-e SC2086";
     };
   };
 
