@@ -63,7 +63,6 @@
 
   console = {
     earlySetup = true;
-    useXkbConfig = true;
   };
 
   time = {
