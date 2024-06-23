@@ -69,12 +69,19 @@
       };
     };
     pipewire = {
-      enable = lib.mkForce false;
-      alsa.enable = false;
-      alsa.support32Bit = false;
-      pulse.enable = false;
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
     };
   };
-  hardware.bluetooth.enable = true;
-  hardware.pulseaudio.enable = true; # allow pipewire
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+
+  hardware = {
+    bluetooth.enable = true;
+    pulseaudio.enable = false; # disable to allow pipewire
+  };
 }
