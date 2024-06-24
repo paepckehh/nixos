@@ -173,6 +173,11 @@
       defaultEditor = true;
       vimAlias = true;
       viAlias = true;
+      configure = {
+        customRC = ''
+          :color vim
+        '';
+      };
     };
     vim = {
       package = pkgs.vim-full;
