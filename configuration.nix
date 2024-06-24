@@ -207,41 +207,41 @@
       j = "journalctl -f";
       d = "dmesg -Hw";
       "nix.build" = ''
-        cd /etc/nixos &&\
-        sudo -v &&\
-        sudo alejandra --quiet . &&\
-        git reset &&\
-        git add . &&\
-        git commit -S -m update ;\
+        cd /etc/nixos && \
+        sudo -v && \
+        sudo alejandra --quiet . && \
+        git reset && \
+        git add . && \
+        git commit -S -m update ; \
         sudo nixos-rebuild --flake .#nixos --verbose switch '';
       "nix.push" = ''
-        cd /etc/nixos &&\
-        sudo -v &&\
-        sudo alejandra --quiet . &&\
-        git reset &&\
-        git add . &&\
-        git commit -S -m update ;\
-        git gc --aggressive ;\ 
+        cd /etc/nixos && \
+        sudo -v && \
+        sudo alejandra --quiet . && \
+        git reset && \
+        git add . && \
+        git commit -S -m update ; \
+        git gc --aggressive ; \ 
         git push --force '';
       "nix.test" = ''
-        cd /etc/nixos &&\
-        sudo -v &&\
-        sudo alejandra --quiet . ;\
+        cd /etc/nixos && \
+        sudo -v && \
+        sudo alejandra --quiet . ; \
         sudo nixos-rebuild --flake .#nixos --verbose dry-activate '';
       "nix.update" = ''
-        cd /etc/nixos &&\
-        sudo -v &&\
-        sudo alejandra --quiet . &&\
-        git reset &&\
-        git add . &&\
-        git commit -S -m update ;\
-        sudo nix --verbose flake update &&\
-        sudo alejandra --quiet . &&\
-        sudo nixos-generate-config &&\
-        sudo alejandra --quiet . &&\
-        git reset &&\
-        git add . &&\
-        git commit -S -m update ;\
+        cd /etc/nixos && \
+        sudo -v && \
+        sudo alejandra --quiet . && \
+        git reset && \
+        git add . && \
+        git commit -S -m update ; \
+        sudo nix --verbose flake update && \
+        sudo alejandra --quiet . && \
+        sudo nixos-generate-config && \
+        sudo alejandra --quiet . && \
+        git reset && \
+        git add . && \
+        git commit -S -m update ; \
         sudo nixos-rebuild --flake .#nixos --verbose switch '';
     };
     interactiveShellInit = ''
