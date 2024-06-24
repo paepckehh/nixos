@@ -9,8 +9,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware = {
-      # url = "github:NixOS/nixos-hardware/master";
-      url = "github:paepckehh/nixos-hardware/master";
+      url = "github:NixOS/nixos-hardware/master";
+      # url = "github:paepckehh/nixos-hardware/master";
     };
   };
   outputs = {
@@ -28,6 +28,7 @@
           ../hardware-configuration.nix
           ../hardware/kb-uk.nix
           ../configuration.nix
+          ../users/me.nix
         ];
       };
     };
