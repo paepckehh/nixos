@@ -8,14 +8,16 @@
   ###############
 
   users = {
-    me = {
-      initialPassword = "start-riot-bravo-charly";
-      isNormalUser = true;
-      createHome = true;
-      useDefaultShell = true;
-      description = "me";
-      extraGroups = ["wheel" "networkmanager" "video" "docker" "libvirt"];
-      # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAA..." ];
+    users = {
+      me = {
+        initialPassword = "start-riot-bravo-charly";
+        isNormalUser = true;
+        createHome = true;
+        useDefaultShell = true;
+        description = "me";
+        extraGroups = ["wheel" "networkmanager" "video" "docker" "libvirt"];
+        # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAA..." ];
+      };
     };
   };
 
