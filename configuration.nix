@@ -207,26 +207,30 @@
       j = "journalctl -f";
       d = "dmesg -Hw";
       "nix.build" = ''
-        sudo -v && cd /etc/nixos &&\
+        cd /etc/nixos &&\
+        sudo -v &&\
         sudo alejandra --quiet . &&\
         git reset &&\
         git add . &&\
         git commit -S -m update ;\
         sudo nixos-rebuild --flake .#nixos --verbose switch '';
       "nix.push" = ''
-        sudo -v && cd /etc/nixos &&\
+        cd /etc/nixos &&\
+        sudo -v &&\
         sudo alejandra --quiet . &&\
         git reset &&\
         git add . &&\
         git commit -S -m update ;\
-        git gc --agressive ;\ 
+        git gc --aggressive ;\ 
         git push --force '';
       "nix.test" = ''
-        sudo -v && cd /etc/nixos &&\
+        cd /etc/nixos &&\
+        sudo -v &&\
         sudo alejandra --quiet . ;\
         sudo nixos-rebuild --flake .#nixos --verbose dry-activate '';
       "nix.update" = ''
-        sudo -v && cd /etc/nixos &&\
+        cd /etc/nixos &&\
+        sudo -v &&\
         sudo alejandra --quiet . &&\
         git reset &&\
         git add . &&\
