@@ -166,6 +166,8 @@
       config = {
         init.defaultBranch = "main";
         safe.directory = "/etc/nixos";
+        gpg.format = "ssh";
+        commit.gpgsign = "true";
         url = {"https://github.com/" = {insteadOf = ["gh:" "github:"];};};
       };
     };
