@@ -82,6 +82,6 @@
 
   hardware = {
     bluetooth.enable = true;
-    pulseaudio.enable = false; # disable to allow pipewire
+    pulseaudio.enable = false; # disable here & enable pipewire
   };
 }

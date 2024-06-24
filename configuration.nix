@@ -120,15 +120,6 @@
       root = {
         hashedPassword = "!"; # disable root account
       };
-      me = {
-        initialPassword = "start-riot-bravo-charly";
-        isNormalUser = true;
-        createHome = true;
-        useDefaultShell = true;
-        description = "me";
-        extraGroups = ["wheel" "networkmanager" "video" "docker" "libvirt"];
-        # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAA..." ];
-      };
     };
   };
 
@@ -138,14 +129,6 @@
 
   home-manager = {
     useGlobalPkgs = true;
-    users.me = {
-      programs.home-manager.enable = true;
-      home = {
-        stateVersion = "24.05";
-        username = "me";
-        homeDirectory = "/home/me";
-      };
-    };
   };
 
   ##################
@@ -185,15 +168,20 @@
         url = {"https://github.com/" = {insteadOf = ["gh:" "github:"];};};
       };
     };
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      vimAlias = true;
+      viAlias = true;
+    };
     vim = {
       package = pkgs.vim-full;
-      defaultEditor = true;
+      defaultEditor = false;
     };
     zsh = {
       enable = true;
       autosuggestions.enable = true;
       syntaxHighlighting.enable = true;
-      ohMyZsh.enable = false;
     };
   };
 
@@ -212,7 +200,6 @@
       ripgrep
       moreutils
       yq
-      vimPlugins.vim-nix
     ];
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
@@ -255,8 +242,7 @@
         git commit -S -m update ;\
         sudo nixos-rebuild --flake .#nixos --verbose switch '';
     };
-    shellInit = ''
-      # eval $(ssh-agent)
+    interactiveShellInit = ''
       ( cd && touch .zshrc .bashrc && uname -a )
     '';
     variables = {

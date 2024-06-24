@@ -32,6 +32,7 @@
           ../roles/dev.nix
           ../modules/virt.nix
           ../modules/smartcard.nix
+          ../users/me.nix
         ];
       };
     };
