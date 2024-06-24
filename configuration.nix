@@ -222,7 +222,7 @@
         git reset && \
         git add . && \
         git commit -S -m update ; \
-        git gc --aggressive ; \ 
+        git gc --aggressive ; \
         git push --force '';
       "nix.test" = ''
         cd /etc/nixos && \
