@@ -229,6 +229,11 @@
         sudo -v && \
         sudo alejandra --quiet . ; \
         sudo nixos-rebuild --flake .#nixos --verbose dry-activate '';
+      "nix.clean" = ''
+        cd /etc/nixos && \
+        sudo -v && \ 
+        nix-store --gc ;
+        nix-store --optimise '';
       "nix.update" = ''
         cd /etc/nixos && \
         sudo -v && \
