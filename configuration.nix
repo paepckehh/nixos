@@ -194,6 +194,7 @@
       curl
       jq
       tldr
+      tree
       ripgrep
       moreutils
       yq
