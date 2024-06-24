@@ -171,18 +171,18 @@
     };
     neovim = {
       enable = true;
-      defaultEditor = true;
-      vimAlias = true;
-      viAlias = true;
+      defaultEditor = false;
+      vimAlias = false;
+      viAlias = false;
       configure = {
         customRC = ''
-          :colorscheme vim
+          :colorscheme default
         '';
       };
     };
     vim = {
       package = pkgs.vim-full;
-      defaultEditor = false;
+      defaultEditor = true;
     };
     zsh = {
       enable = true;
