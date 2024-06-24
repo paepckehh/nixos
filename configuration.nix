@@ -18,9 +18,9 @@
     };
     gc = {
       automatic = true;
-      persistent = false;
+      persistent = true;
       dates = "daily";
-      options = "--delete-older-than 28d";
+      options = "--delete-older-than 12d";
     };
   };
 
