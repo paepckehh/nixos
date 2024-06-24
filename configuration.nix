@@ -219,6 +219,7 @@
         git reset &&\
         git add . &&\
         git commit -S -m update ;\
+        git gc --agressive ;\ 
         git push --force '';
       "nix.test" = ''
         sudo -v && cd /etc/nixos &&\
