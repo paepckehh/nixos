@@ -231,8 +231,8 @@
         sudo nixos-rebuild --flake .#nixos --verbose dry-activate '';
       "nix.clean" = ''
         cd /etc/nixos && \
-        sudo -v && \ 
-        nix-store --gc ;
+        sudo -v && \
+        nix-store --gc ; \
         nix-store --optimise '';
       "nix.update" = ''
         cd /etc/nixos && \
@@ -240,7 +240,7 @@
         sudo alejandra --quiet . && \
         git reset && \
         git add . && \
-        git commit -S -m update ; \
+        git commit -S -m update ; 
         sudo nix --verbose flake update && \
         sudo alejandra --quiet . && \
         sudo nixos-generate-config && \
