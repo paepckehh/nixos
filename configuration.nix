@@ -169,17 +169,6 @@
         url = {"https://github.com/" = {insteadOf = ["gh:" "github:"];};};
       };
     };
-    neovim = {
-      enable = true;
-      defaultEditor = false;
-      vimAlias = false;
-      viAlias = false;
-      configure = {
-        customRC = ''
-          :colorscheme default
-        '';
-      };
-    };
     vim = {
       package = pkgs.vim-full;
       defaultEditor = true;
