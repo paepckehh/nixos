@@ -121,13 +121,13 @@
         hashedPassword = "!"; # disable root account
       };
       me = {
-        # initialPassword = "riot-bravo-charly-north"
-        # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAA..." ];
+        initialPassword = "start-riot-bravo-charly";
         isNormalUser = true;
         createHome = true;
         useDefaultShell = true;
         description = "me";
         extraGroups = ["wheel" "networkmanager" "video" "docker" "libvirt"];
+        # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAA..." ];
       };
     };
   };
