@@ -118,6 +118,7 @@
     defaultUserShell = pkgs.zsh;
     users = {
       root = {
+        shell = pkgs.bashInteractive;
         hashedPassword = "!"; # disable root account
       };
     };
@@ -175,7 +176,7 @@
       viAlias = true;
       configure = {
         customRC = ''
-          :colorscheme shine
+          :colorscheme retrobox
         '';
       };
     };
