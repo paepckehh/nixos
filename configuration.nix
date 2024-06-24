@@ -175,7 +175,7 @@
       viAlias = true;
       configure = {
         customRC = ''
-          :color vim
+          :colorscheme shine
         '';
       };
     };
