@@ -24,7 +24,9 @@
 
   environment = {
     systemPackages = with pkgs; [
-      hugo
+      hugo # prep PR
+      kitty # keep for sudo / root
+      opensnitch-ui # bugreport
     ];
   };
 
@@ -34,9 +36,15 @@
 
   home-manager.users.me = {
     programs = {
-      go = {enable = true;};
-      kitty = {enable = true;};
-      librewolf = {enable = true;};
+      go = {
+        enable = true;
+      };
+      kitty = {
+        enable = true;
+      };
+      librewolf = {
+        enable = true;
+      };
     };
     services = {
       opensnitch-ui.enable = true;
