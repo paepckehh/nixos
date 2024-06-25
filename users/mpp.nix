@@ -9,12 +9,12 @@
 
   users = {
     users = {
-      me = {
+      mpp = {
         initialPassword = "start-riot-bravo-charly";
         isNormalUser = true;
         createHome = true;
         useDefaultShell = true;
-        description = "me";
+        description = "PAEPCKE, Michael";
         extraGroups = ["wheel" "networkmanager" "video" "docker" "libvirt"];
         # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAA..." ];
       };
@@ -30,8 +30,8 @@
       programs.home-manager.enable = true;
       home = {
         stateVersion = "24.05";
-        username = "me";
-        homeDirectory = "/home/me";
+        username = "mpp";
+        homeDirectory = "/home/mpp";
       };
     };
   };

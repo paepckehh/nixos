@@ -45,7 +45,7 @@
   ###############
 
   system = {
-    stateVersion = "24.05"; # do not modify
+    stateVersion = "24.05"; # dummy target, do not modify
     autoUpgrade = {
       enable = true;
       persistent = true;
@@ -102,8 +102,20 @@
   security = {
     auditd.enable = true;
     rtkit.enable = true;
-    doas.enable = true;
-    sudo.wheelNeedsPassword = lib.mkForce true;
+    doas = {
+      enable = true;
+      wheelNeedsPassword = lib.mkForce true;
+    };
+    sudo = {
+      enable = false;
+      execWheelOnly = lib.mkForce true;
+      wheelNeedsPassword = lib.mkForce true;
+    };
+    sudo-rs = {
+      enable = true;
+      execWheelOnly = lib.mkForce true;
+      wheelNeedsPassword = lib.mkForce true;
+    };
     audit = {
       enable = true;
       rules = ["-a exit,always -F arch=b64 -S execve"];
@@ -119,7 +131,16 @@
     users = {
       root = {
         shell = pkgs.bashInteractive;
-        hashedPassword = "!"; # disable root account
+        hashedPassword = "!"; # disable root account (!)
+      };
+      me = {
+        initialPassword = "start-riot-bravo-charly";
+        isNormalUser = true;
+        createHome = true;
+        useDefaultShell = true;
+        description = "me";
+        extraGroups = ["wheel" "networkmanager" "video" "docker" "libvirt"];
+        # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAA..." ];
       };
     };
   };
@@ -130,6 +151,14 @@
 
   home-manager = {
     useGlobalPkgs = true;
+    users.me = {
+      programs.home-manager.enable = true;
+      home = {
+        stateVersion = "24.05";
+        username = "me";
+        homeDirectory = "/home/me";
+      };
+    };
   };
 
   ##################
