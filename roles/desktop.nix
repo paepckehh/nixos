@@ -24,11 +24,7 @@
 
   environment = {
     systemPackages = with pkgs; [
-      go
-      kitty
-      librewolf
-      opensnitch-ui
-      vimPlugins.vim-go
+      hugo
     ];
   };
 
@@ -37,6 +33,11 @@
   ###############
 
   home-manager.users.me = {
+    programs = {
+      go = {enable = true;};
+      kitty = {enable = true;};
+      librewolf = {enable = true;};
+    };
     services = {
       opensnitch-ui.enable = true;
     };
@@ -82,7 +83,8 @@
 
   hardware = {
     bluetooth.enable = true;
-    pulseaudio.enable = false; # disable here & enable pipewire
+    pulseaudio.enable = false; # disable pulseaudio here (use pipewire)
   };
-  sound.enable = false; # disable here, enable pipewire
+  sound.enable = false; # disable alsa here (use pipewire)
+  security.rtkit.enable = true; # realtime, needed for audio
 }

@@ -101,7 +101,6 @@
 
   security = {
     auditd.enable = true;
-    rtkit.enable = true;
     dhparams = {
       enable = true;
       stateful = false;
