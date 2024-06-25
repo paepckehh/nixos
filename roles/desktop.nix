@@ -84,4 +84,5 @@
     bluetooth.enable = true;
     pulseaudio.enable = false; # disable here & enable pipewire
   };
+  sound.enable = false; # disable here, enable pipewire
 }
