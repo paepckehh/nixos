@@ -102,8 +102,13 @@
   security = {
     auditd.enable = true;
     rtkit.enable = true;
-    doas = {
+    dhparams = {
       enable = true;
+      stateful = false;
+      defaultBitSize = "3072";
+    };
+    doas = {
+      enable = false;
       wheelNeedsPassword = lib.mkForce true;
     };
     sudo = {
@@ -117,7 +122,8 @@
       wheelNeedsPassword = lib.mkForce true;
     };
     audit = {
-      enable = true;
+      enable = lib.mkForce true;
+      failureMode = "panic";
       rules = ["-a exit,always -F arch=b64 -S execve"];
     };
   };
@@ -193,6 +199,7 @@
       enable = true;
       prompt.enable = true;
       config = {
+        branch.sort = "-committerdate";
         init.defaultBranch = "main";
         safe.directory = "/etc/nixos";
         gpg.format = "ssh";
