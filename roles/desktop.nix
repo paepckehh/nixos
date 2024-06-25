@@ -47,7 +47,12 @@
       };
     };
     services = {
-      opensnitch-ui.enable = true;
+      blanket = {
+        enable = true;
+      };
+      opensnitch-ui = {
+        enable = true;
+      };
     };
   };
 
