@@ -20,7 +20,7 @@
       automatic = true;
       persistent = true;
       dates = "daily";
-      options = "--delete-older-than 12d";
+      options = "--delete-older-than 8d";
     };
   };
 
@@ -267,8 +267,9 @@
       "nix.clean" = ''
         cd /etc/nixos && \
         sudo -v && \
-        nix-store --gc ; \
-        nix-store --optimise '';
+        sudo nix-collect-garbage --delete-older-than 3d ;\
+        sudo nix-store --gc ; \
+        sudo nix-store --optimise '';
       "nix.update" = ''
         cd /etc/nixos && \
         sudo -v && \
