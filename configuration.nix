@@ -20,7 +20,7 @@
       automatic = true;
       persistent = true;
       dates = "daily";
-      options = "--delete-older-than 8d";
+      options = "--delete-older-than 14d";
     };
   };
 
@@ -51,7 +51,7 @@
       persistent = true;
       flags = ["--update-input" "nixpkgs" "--no-write-lock-file" "-L"];
       dates = "hourly";
-      randomizedDelaySec = "5min";
+      randomizedDelaySec = "8min";
       allowReboot = false;
     };
   };
