@@ -4,6 +4,14 @@
   lib,
   ...
 }: {
+  boot = {
+    initrd = {
+      luks = {
+        yubikeySupport = false;
+      };
+    };
+  };
+
   ##################
   #-=# SECURITY #=-#
   ##################
