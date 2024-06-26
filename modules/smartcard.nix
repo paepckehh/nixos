@@ -7,6 +7,9 @@
   boot = {
     initrd = {
       luks = {
+        fido2Support = false;
+        gpgSupport = false;
+        mitigateDMAAttacks = true;
         yubikeySupport = false;
       };
     };
