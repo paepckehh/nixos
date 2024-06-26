@@ -24,10 +24,14 @@
 
   environment = {
     systemPackages = with pkgs; [
-      hugo # prep PR
+      hugo
       kitty # keep for sudo / root
       opensnitch-ui # bugreport
     ];
+    variables = {
+      BROWSER = "librewolf";
+      TERMINAL = "kitty";
+    };
   };
 
   ###############

@@ -289,8 +289,8 @@
       ( cd && touch .zshrc .bashrc && uname -a )
     '';
     variables = {
-      EDITOR = "vim";
       VISUAL = "vim";
+      EDITOR = "vim";
     };
   };
 
