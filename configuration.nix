@@ -24,17 +24,6 @@
     };
   };
 
-  boot.kernelPatches = [
-    {
-      name = "bcrm-config";
-      patch = null;
-      extraConfig = ''
-        BT_HCIUART_BCM y
-        SND_HDA_CODEC_CS8409 m
-      '';
-    }
-  ];
-
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     tmp = {
@@ -152,7 +141,7 @@
         useDefaultShell = true;
         description = "me";
         extraGroups = ["wheel" "networkmanager" "video" "docker" "libvirt"];
-        # openssh.authorizedKeys.keys = [ "ssh-ed25519 AAA..." ];
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA..."];
       };
     };
   };
@@ -164,7 +153,13 @@
   home-manager = {
     useGlobalPkgs = true;
     users.me = {
-      programs.home-manager.enable = true;
+      programs = {
+        home-manager.enable = true;
+        bat = {
+          enable = true;
+          extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch prettybat];
+        };
+      };
       home = {
         stateVersion = "24.05";
         username = "me";
@@ -249,6 +244,7 @@
       p = "sudo powertop";
       j = "journalctl -f";
       d = "dmesg -Hw";
+      cat = "bat --paging=never";
       "nix.build" = ''
         cd /etc/nixos && \
         sudo -v && \
@@ -300,6 +296,9 @@
     variables = {
       VISUAL = "vim";
       EDITOR = "vim";
+      PAGER = "bat";
+      LESS = "bat";
+      MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     };
   };
 
