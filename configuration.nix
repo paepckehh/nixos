@@ -261,6 +261,7 @@
         cd /etc/nixos && \
         sudo -v && \
         sudo alejandra --quiet . && \
+        sudo chown -R me:users .git &&\
         git reset && \
         git add . && \
         git commit -S -m update ; \
