@@ -233,7 +233,6 @@
       alejandra
       bandwhich
       dust
-      exa
       hyperfine
       tldr
       tree
