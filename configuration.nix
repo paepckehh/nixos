@@ -24,9 +24,16 @@
     };
   };
 
-  ##############
-  #-=# BOOT #=-#
-  ##############
+  boot.kernelPatches = [
+    {
+      name = "bcrm-config";
+      patch = null;
+      extraConfig = ''
+        SND_HDA_CODEC_CS8409 y
+        BT_HCIUART_BCM y
+      '';
+    }
+  ];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
