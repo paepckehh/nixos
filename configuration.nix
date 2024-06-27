@@ -297,8 +297,6 @@
       VISUAL = "vim";
       EDITOR = "vim";
       PAGER = "bat";
-      LESS = "bat";
-      MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     };
   };
 
