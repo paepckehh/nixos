@@ -28,7 +28,7 @@
     kernelPackages = pkgs.linuxPackages_latest;
     tmp = {
       cleanOnBoot = true;
-      # useTmpfs = true;
+      useTmpfs = true;
     };
     loader = {
       efi.canTouchEfiVariables = true;
@@ -156,7 +156,6 @@
       programs = {
         home-manager.enable = true;
         htop.enable = true;
-        tmux.enable = true;
         fd.enable = true;
         jq.enable = true;
         ripgrep.enable = true;
