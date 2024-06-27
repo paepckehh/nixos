@@ -238,7 +238,6 @@
       tree
       procs
       moreutils
-      ytop
       yq
     ];
     shells = [pkgs.bashInteractive pkgs.zsh];
