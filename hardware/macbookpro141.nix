@@ -2,9 +2,13 @@
   description = "flake for nixbookpro141 [ apple macbookpro14,1 ]";
   inputs = {
     nixpkgs = {
+      # url = "github:NixOS/paepckehh/nixos-unstable";
+      # url = "github:NixOS/nixpkgs/nixos-24.05";
+      # url = "github:NixOS/nixpkgs/master";
       url = "github:NixOS/nixpkgs/nixos-unstable";
     };
     home-manager = {
+      # url = "github:paepckehh/home-manager";
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
