@@ -29,11 +29,12 @@
       name = "bcrm-config";
       patch = null;
       extraConfig = ''
-        SND_HDA_CODEC_CS8409 y
         BT_HCIUART_BCM y
       '';
     }
   ];
+
+  # SND_HDA_CODEC_CS8409 y
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
