@@ -27,7 +27,7 @@
           home-manager.nixosModules.home-manager
           ../hardware-configuration.nix
           ../hardware/kb-uk.nix
-          ../hardware/mac.nix
+          # ../hardware/mac.nix
           ../configuration.nix
           ../roles/desktop.nix
           ../roles/dev.nix

@@ -155,6 +155,11 @@
     users.me = {
       programs = {
         home-manager.enable = true;
+        htop.enable = true;
+        tmux.enable = true;
+        fd.enable = true;
+        jq.enable = true;
+        ripgrep.enable = true;
         bat = {
           enable = true;
           extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch prettybat];
@@ -175,12 +180,10 @@
   programs = {
     direnv.enable = true;
     gnupg.agent.enable = true;
-    htop.enable = true;
     iftop.enable = true;
     iotop.enable = true;
     nano.enable = false;
     nix-index.enable = false;
-    tmux.enable = true;
     usbtop.enable = true;
     fzf.fuzzyCompletion = true;
     ssh = {
@@ -228,12 +231,15 @@
   environment = {
     systemPackages = with pkgs; [
       alejandra
-      curl
-      jq
+      bandwhich
+      dust
+      exa
+      hyperfine
       tldr
       tree
-      ripgrep
+      procs
       moreutils
+      ytop
       yq
     ];
     shells = [pkgs.bashInteractive pkgs.zsh];
