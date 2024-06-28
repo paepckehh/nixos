@@ -8,7 +8,6 @@
   #############
   #-=# NIX #=-#
   #############
-
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes ";
@@ -24,6 +23,9 @@
     };
   };
 
+  ##############
+  #-=# BOOT #=-#
+  ##############
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     tmp = {
@@ -39,7 +41,6 @@
   ###############
   #-= SYSTEM #=-#
   ###############
-
   system = {
     stateVersion = "24.05"; # dummy target, do not modify
     autoUpgrade = {
@@ -51,21 +52,17 @@
       allowReboot = false;
     };
   };
-
   zramSwap = {
     enable = true;
     algorithm = "zstd";
   };
-
   console = {
     earlySetup = true;
   };
-
   time = {
     timeZone = "Europe/Berlin";
     hardwareClockInLocalTime = false;
   };
-
   powerManagement = {
     enable = true;
     powertop.enable = true;
@@ -75,7 +72,6 @@
   ####################
   #-=# NETWORKING #=-#
   ####################
-
   networking = {
     hostName = "nixos";
     enableIPv6 = false;
@@ -94,7 +90,6 @@
   ##################
   #-=# SECURITY #=-#
   ##################
-
   security = {
     auditd.enable = true;
     dhparams = {
@@ -126,7 +121,6 @@
   ###############
   #-=# USERS #=-#
   ###############
-
   users = {
     defaultUserShell = pkgs.zsh;
     users = {
@@ -149,7 +143,6 @@
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
-
   home-manager = {
     useGlobalPkgs = true;
     users.me = {
@@ -175,7 +168,6 @@
   ##################
   #-=# PROGRAMS #=-#
   ##################
-
   programs = {
     direnv.enable = true;
     gnupg.agent.enable = true;
@@ -227,7 +219,6 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-
   environment = {
     systemPackages = with pkgs; [
       alejandra
@@ -307,7 +298,6 @@
       PAGER = "bat";
     };
   };
-
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
@@ -326,7 +316,6 @@
   ##################
   #-=# SERVICES #=-#
   ##################
-
   services = {
     power-profiles-daemon.enable = true;
     thermald.enable = true;

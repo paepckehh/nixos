@@ -54,10 +54,9 @@
     };
   };
 
-  ###############
-  #-=# USERS #=-#
-  ###############
-
+  ######################
+  #-=# HOME-MANAGER #=-#
+  ######################
   home-manager.users.me = {
     programs = {
       go = {
@@ -98,7 +97,6 @@
   ##################
   #-=# SERVICES #=-#
   ##################
-
   services = {
     avahi.enable = lib.mkForce false;
     gnome.evolution-data-server.enable = lib.mkForce false;
@@ -120,9 +118,8 @@
   };
 
   ##################
-  #-=# SERVICES #=-#
+  #-=# HARDWARE #=-#
   ##################
-
   hardware = {
     bluetooth.enable = true;
     pulseaudio.enable = false; # disable pulseaudio here (use pipewire)
