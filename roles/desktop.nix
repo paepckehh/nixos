@@ -85,7 +85,7 @@
       settings."org/gnome/shell" = {
         disable-user-extensions = false;
         enabled-extensions = with pkgs.gnomeExtensions; [
-          maximize-to-workspace.extensionUuid
+          all-ip-addresses.extensionUuid
         ];
       };
     };
