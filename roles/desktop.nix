@@ -86,13 +86,12 @@
         disable-user-extensions = false;
         enabled-extensions = with pkgs.gnomeExtensions; [
           ip-finder.extensionUuid
-          maximize-to-workspace-with-history.extensionUuid
           media-controls.extensionUuid
           network-interfaces-info.extensionUuid
           network-stats.extensionUuid
           openweather.extensionUuid
           password-calculator.extensionUuid
-          # maximize-to-workspace-with-history.extensionUuid
+          maximize-to-workspace-with-history.extensionUuid
           runcat.extensionUuid
           todotxt.extensionUuid
         ];
