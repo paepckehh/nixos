@@ -45,11 +45,16 @@
     stateVersion = "24.05"; # dummy target, do not modify
     autoUpgrade = {
       enable = true;
-      persistent = true;
-      flags = ["--update-input" "nixpkgs" "--no-write-lock-file" "-L"];
+      allowReboot = true;
       dates = "hourly";
-      randomizedDelaySec = "8min";
-      allowReboot = false;
+      flake = "github.com/paepckehh/nixos";
+      operation = "switch"; # switch or boot
+      persistent = true;
+      randomizedDelaySec = "15min";
+      rebootWindow = {
+        lower = "02:00";
+        upper = "04:00";
+      };
     };
   };
   zramSwap = {
@@ -213,7 +218,6 @@
       syntaxHighlighting.enable = true;
     };
   };
-
   nixpkgs.config.allowUnfree = true;
 
   #####################
@@ -235,15 +239,17 @@
     shellAliases = {
       l = "ls -la";
       ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
+      la = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
       lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
       lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
       li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
       e = "vim";
       h = "htop --tree --highlight-changes";
       p = "sudo powertop";
-      j = "journalctl -f";
       d = "dmesg -Hw";
       cat = "bat --paging=never";
+      less = "bat";
+      slog = "journalctl --follow --priority=7 --lines=100";
       "nix.build" = ''
         cd /etc/nixos && \
         sudo -v && \
@@ -330,6 +336,15 @@
     fstrim = {
       enable = true;
       interval = "daily";
+    };
+    journald.upload = {
+      enable = false;
+      settings = {
+        Upload.URL = "https://192.168.0.250:19532";
+        ServerKeyFile = "/etc/ca/client.key";
+        ServerCertificateFile = "/etc/ca/client.pem";
+        TrustedCertificateFile = "/etc/ca/journal-server.pem";
+      };
     };
     openssh = {
       enable = false;
