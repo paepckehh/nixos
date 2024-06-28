@@ -34,7 +34,6 @@
         network-stats
         openweather
         password-calculator
-        runcat
         todotxt
       ]);
     gnome.excludePackages =
@@ -98,7 +97,6 @@
             network-stats.extensionUuid
             openweather.extensionUuid
             password-calculator.extensionUuid
-            runcat.extensionUuid
             todotxt.extensionUuid
           ];
         };
