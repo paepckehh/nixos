@@ -9,6 +9,7 @@
   ##################
 
   programs = {
+    dconf.enable = true;
     geary.enable = false;
     nm-applet.enable = true;
     sniffnet.enable = true;
