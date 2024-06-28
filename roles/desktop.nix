@@ -92,7 +92,7 @@
           network-stats.extensionUuid
           openweather.extensionUuid
           password-calculator.extensionUuid
-          maximize-to-workspace-with-history.extensionUuid
+          # maximize-to-workspace-with-history.extensionUuid
           runcat.extensionUuid
           todotxt.extensionUuid
         ];
