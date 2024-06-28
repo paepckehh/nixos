@@ -24,9 +24,9 @@
     home-manager,
   }: {
     nixosConfigurations = {
-      ###########################
-      # UNIVERSAL NIXOS DESKTOP #
-      ###########################
+      ##########
+      # LEGACY #
+      ##########
       nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
