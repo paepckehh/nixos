@@ -22,18 +22,22 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-
+  # maximize-to-workspace-with-history
   environment = {
-    systemPackages = with pkgs.gnomeExtensions; [
-      ip-finder
-      # maximize-to-workspace-with-history
-      network-interfaces-info
-      network-stats
-      openweather
-      password-calculator
-      runcat
-      todotxt
-    ];
+    systemPackages =
+      (with pkgs; [
+        kitty
+        opensnitch-ui
+      ])
+      ++ (with pkgs.gnomeExtensions; [
+        ip-finder
+        network-interfaces-info
+        network-stats
+        openweather
+        password-calculator
+        runcat
+        todotxt
+      ]);
     gnome.excludePackages =
       (with pkgs; [
         gnome-photos
@@ -86,54 +90,59 @@
     };
     dconf = {
       enable = true;
-      settings."org/gnome/shell" = {
-        disable-user-extensions = false;
-        enabled-extensions = with pkgs.gnomeExtensions; [
-          ip-finder.extensionUuid
-          media-controls.extensionUuid
-          network-interfaces-info.extensionUuid
-          network-stats.extensionUuid
-          openweather.extensionUuid
-          password-calculator.extensionUuid
-          runcat.extensionUuid
-          todotxt.extensionUuid
-        ];
+      settings = {
+        "org/gnome/shell" = {
+          disable-user-extensions = false;
+          enabled-extensions = with pkgs.gnomeExtensions; [
+            ip-finder.extensionUuid
+            media-controls.extensionUuid
+            network-interfaces-info.extensionUuid
+            network-stats.extensionUuid
+            openweather.extensionUuid
+            password-calculator.extensionUuid
+            runcat.extensionUuid
+            todotxt.extensionUuid
+          ];
+        };
+        "org/gnome/desktop/interface" = {
+          clock-show-weekday = true;
+        };
       };
     };
-  };
 
-  ##################
-  #-=# SERVICES #=-#
-  ##################
+    ##################
+    #-=# SERVICES #=-#
+    ##################
 
-  services = {
-    avahi.enable = lib.mkForce false;
-    gnome.evolution-data-server.enable = lib.mkForce false;
-    printing.enable = lib.mkForce false;
-    xserver = {
-      enable = true;
-      displayManager.gdm.enable = true;
-      desktopManager = {
-        gnome.enable = true;
-        xterm.enable = false;
+    services = {
+      avahi.enable = lib.mkForce false;
+      gnome.evolution-data-server.enable = lib.mkForce false;
+      printing.enable = lib.mkForce false;
+      xserver = {
+        enable = true;
+        displayManager.gdm.enable = true;
+        desktopManager = {
+          gnome.enable = true;
+          xterm.enable = false;
+        };
+      };
+      pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
       };
     };
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
+
+    ##################
+    #-=# SERVICES #=-#
+    ##################
+
+    hardware = {
+      bluetooth.enable = true;
+      pulseaudio.enable = false; # disable pulseaudio here (use pipewire)
     };
+    sound.enable = false; # disable alsa here (use pipewire)
+    security.rtkit.enable = true; # realtime, needed for audio
   };
-
-  ##################
-  #-=# SERVICES #=-#
-  ##################
-
-  hardware = {
-    bluetooth.enable = true;
-    pulseaudio.enable = false; # disable pulseaudio here (use pipewire)
-  };
-  sound.enable = false; # disable alsa here (use pipewire)
-  security.rtkit.enable = true; # realtime, needed for audio
 }
