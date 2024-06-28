@@ -24,14 +24,14 @@
       "locked": {
         "lastModified": 1719552654,
         "narHash": "sha256-PX3msbC5KdwCDnucGtir3qzlzv+1fuiU4tk17nljFIE=",
-        "owner": "NixOS",
+        "owner": "paepckehh",
         "repo": "nixos-hardware",
         "rev": "3980e7816c99d9e4da7a7b762e5b294055b73b2f",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "master",
+        "owner": "paepckehh",
+        "ref": "mbp141",
         "repo": "nixos-hardware",
         "type": "github"
       }
