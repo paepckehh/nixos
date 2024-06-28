@@ -243,9 +243,9 @@
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
       l = "ls -la";
-      ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
-      lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal";
-      li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
+      ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename"
+      lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal"
+      li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode"
       e = "vim";
       h = "htop --tree --highlight-changes";
       p = "sudo powertop";
