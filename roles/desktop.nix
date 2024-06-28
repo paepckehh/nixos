@@ -26,7 +26,7 @@
   environment = {
     systemPackages = with pkgs.gnomeExtensions; [
       ip-finder
-      maximize-to-workspace-with-history
+      # maximize-to-workspace-with-history
       network-interfaces-info
       network-stats
       openweather
