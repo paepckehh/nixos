@@ -67,17 +67,7 @@
   services = {
     avahi.enable = lib.mkForce false;
     gnome.evolution-data-server.enable = lib.mkForce false;
-    printing = {
-      enable = true;
-      stateless = true;
-      clientConf = ''
-        # ServerName cups.intra
-      '';
-      startWhenNeeded = true;
-      cups-pdf = {
-        enable = true;
-      };
-    };
+    printing.enable = lib.mkForce false;
     xserver = {
       enable = true;
       displayManager.gdm.enable = true;

@@ -13,4 +13,22 @@
       libreoffice-qt6-fresh
     ];
   };
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+
+  services = {
+    printing = {
+      enable = lib.mkForce true;
+      stateless = true;
+      clientConf = ''
+        # ServerName cups.intra
+      '';
+      startWhenNeeded = true;
+      cups-pdf = {
+        enable = true;
+      };
+    };
+  };
 }
