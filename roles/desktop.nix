@@ -109,40 +109,40 @@
         };
       };
     };
-
-    ##################
-    #-=# SERVICES #=-#
-    ##################
-
-    services = {
-      avahi.enable = lib.mkForce false;
-      gnome.evolution-data-server.enable = lib.mkForce false;
-      printing.enable = lib.mkForce false;
-      xserver = {
-        enable = true;
-        displayManager.gdm.enable = true;
-        desktopManager = {
-          gnome.enable = true;
-          xterm.enable = false;
-        };
-      };
-      pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        pulse.enable = true;
-      };
-    };
-
-    ##################
-    #-=# SERVICES #=-#
-    ##################
-
-    hardware = {
-      bluetooth.enable = true;
-      pulseaudio.enable = false; # disable pulseaudio here (use pipewire)
-    };
-    sound.enable = false; # disable alsa here (use pipewire)
-    security.rtkit.enable = true; # realtime, needed for audio
   };
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+
+  services = {
+    avahi.enable = lib.mkForce false;
+    gnome.evolution-data-server.enable = lib.mkForce false;
+    printing.enable = lib.mkForce false;
+    xserver = {
+      enable = true;
+      displayManager.gdm.enable = true;
+      desktopManager = {
+        gnome.enable = true;
+        xterm.enable = false;
+      };
+    };
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
+  };
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+
+  hardware = {
+    bluetooth.enable = true;
+    pulseaudio.enable = false; # disable pulseaudio here (use pipewire)
+  };
+  sound.enable = false; # disable alsa here (use pipewire)
+  security.rtkit.enable = true; # realtime, needed for audio
 }
