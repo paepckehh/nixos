@@ -245,7 +245,7 @@
       l = "ls -la";
       ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
       lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
-      lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal--permissions";
+      lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
       li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
       e = "vim";
       h = "htop --tree --highlight-changes";
