@@ -24,33 +24,36 @@
   #####################
 
   environment = {
-    systemPackages = with pkgs; [
-      hugo
-      kitty # keep for sudo / root
-      opensnitch-ui # bugreport
+    systemPackages = with pkgs.gnomeExtensions; [
+      ip-finder
+      maximize-to-workspace-with-history
+      network-interfaces-info
+      network-stats
+      openweather
+      password-calculator
+      runcat
+      todotxt
     ];
-    gnome = {
-      excludePackages =
-        (with pkgs; [
-          gnome-photos
-          gnome-tour
-          gedit
-        ])
-        ++ (with pkgs.gnome; [
-          cheese
-          gnome-music
-          gnome-terminal
-          epiphany
-          geary
-          evince
-          gnome-characters
-          totem
-          tali
-          iagno
-          hitori
-          atomix
-        ]);
-    };
+    gnome.excludePackages =
+      (with pkgs; [
+        gnome-photos
+        gnome-tour
+        gedit
+      ])
+      ++ (with pkgs.gnome; [
+        cheese
+        gnome-music
+        gnome-terminal
+        epiphany
+        geary
+        evince
+        gnome-characters
+        totem
+        tali
+        iagno
+        hitori
+        atomix
+      ]);
     variables = {
       BROWSER = "librewolf";
       TERMINAL = "kitty";
@@ -98,8 +101,6 @@
       };
     };
   };
-
-  # maximize-to-workspace-with-history.extensionUuid
 
   ##################
   #-=# SERVICES #=-#
