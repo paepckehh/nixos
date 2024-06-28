@@ -13,7 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware = {
-      url = "github:paepckehh/nixos-hardware/mbp141";
+      url = "github:paepckehh/nixos-hardware/master";
       # url = "github:NixOS/nixos-hardware/master";
     };
   };
