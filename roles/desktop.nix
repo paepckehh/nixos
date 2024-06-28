@@ -30,10 +30,6 @@
         opensnitch-ui
       ])
       ++ (with pkgs.gnomeExtensions; [
-        network-interfaces-info
-        network-stats
-        openweather
-        password-calculator
         todotxt
       ]);
     gnome.excludePackages =
@@ -92,11 +88,7 @@
         "org/gnome/shell" = {
           disable-user-extensions = false;
           enabled-extensions = with pkgs.gnomeExtensions; [
-            media-controls.extensionUuid
-            network-interfaces-info.extensionUuid
-            network-stats.extensionUuid
-            openweather.extensionUuid
-            password-calculator.extensionUuid
+            drive-menu.extensionUuid
             todotxt.extensionUuid
           ];
         };
