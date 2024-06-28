@@ -26,7 +26,6 @@
         opensnitch-ui
       ])
       ++ (with pkgs.gnomeExtensions; [
-        drive-menu
         todotxt
       ]);
     gnome.excludePackages =
@@ -84,7 +83,6 @@
         "org/gnome/shell" = {
           disable-user-extensions = false;
           enabled-extensions = with pkgs.gnomeExtensions; [
-            drive-menu.extensionUuid
             todotxt.extensionUuid
           ];
         };
