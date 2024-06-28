@@ -88,6 +88,21 @@
           ./roles/office.nix
         ];
       };
+      ##################
+      # Apple iMac18,2 #
+      ##################
+      nixmac182-desktop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          nixos-hardware.nixosModules.apple-imac-18-2
+          home-manager.nixosModules.home-manager
+          ./hardware-configuration.nix
+          ./hardware/kb-uk.nix
+          ./configuration.nix
+          ./roles/desktop.nix
+          ./modules/virtual.nix
+        ];
+      };
     };
   };
 }
