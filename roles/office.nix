@@ -3,10 +3,16 @@
   pkgs,
   ...
 }: {
+  ##################
+  #-=# PROGRAMS #=-#
+  ##################
+  programs = {
+    system-config-printer.enable = true;
+  };
+
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-
   environment = {
     systemPackages = with pkgs; [
       betterbird
@@ -17,7 +23,6 @@
   ##################
   #-=# SERVICES #=-#
   ##################
-
   services = {
     printing = {
       enable = lib.mkForce true;

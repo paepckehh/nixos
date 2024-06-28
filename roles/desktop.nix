@@ -7,16 +7,12 @@
   ##################
   #-=# PROGRAMS #=-#
   ##################
-
   programs = {
     dconf.enable = true;
     geary.enable = false;
     nm-applet.enable = true;
-    sniffnet.enable = true;
     tuxclocker.enable = true;
-    virt-manager.enable = true;
     coolercontrol.enable = true;
-    system-config-printer.enable = true;
   };
 
   #####################

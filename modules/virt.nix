@@ -4,9 +4,15 @@
   ...
 }: {
   ##################
+  #-=# PROGRAMS #=-#
+  ##################
+  programs = {
+    virt-manager.enable = true; # TODO cond. disable on headless
+  };
+
+  ##################
   #-=# SERVICES #=-#
   ##################
-
   services = {
     cockpit = {
       enable = false;
@@ -18,7 +24,6 @@
   ########################
   #-=# VIRTUALISATION #=-#
   ########################
-
   virtualisation = {
     containers.enable = false;
     containerd.enable = false;
