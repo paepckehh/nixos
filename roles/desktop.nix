@@ -30,7 +30,6 @@
         opensnitch-ui
       ])
       ++ (with pkgs.gnomeExtensions; [
-        ip-finder
         network-interfaces-info
         network-stats
         openweather
@@ -94,7 +93,6 @@
         "org/gnome/shell" = {
           disable-user-extensions = false;
           enabled-extensions = with pkgs.gnomeExtensions; [
-            ip-finder.extensionUuid
             media-controls.extensionUuid
             network-interfaces-info.extensionUuid
             network-stats.extensionUuid
