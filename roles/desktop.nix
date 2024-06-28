@@ -26,6 +26,7 @@
         opensnitch-ui
       ])
       ++ (with pkgs.gnomeExtensions; [
+        drive-menu
         todotxt
       ]);
     gnome.excludePackages =
