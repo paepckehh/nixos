@@ -1,5 +1,5 @@
 {
-  description = "flake for nixbookpro141 [ apple macbookpro14,1 ]";
+  description = "nixos flake";
   inputs = {
     nixpkgs = {
       # url = "github:NixOS/paepckehh/nixos-unstable";
@@ -24,9 +24,9 @@
     home-manager,
   }: {
     nixosConfigurations = {
-      ##########
-      # LEGACY #
-      ##########
+      ####################
+      # LEGACY / GENERIC #
+      ####################
       nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -91,6 +91,16 @@
       ##################
       # Apple iMac18,2 #
       ##################
+      nixmac182-console = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          nixos-hardware.nixosModules.apple-imac-18-2
+          home-manager.nixosModules.home-manager
+          ./hardware-configuration.nix
+          ./hardware/kb-uk.nix
+          ./configuration.nix
+        ];
+      };
       nixmac182-desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
