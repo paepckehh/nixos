@@ -251,7 +251,6 @@
       less = "bat";
       man = "batman";
       slog = "journalctl --follow --priority=7 --lines=100";
-      "nix.list" = "nixos-rebuild list-generations";
       "nix.push" = ''
         cd /etc/nixos && \
         sudo -v && \
@@ -266,7 +265,7 @@
         cd /etc/nixos && \
         sudo -v && \
         sudo alejandra --quiet . ; \
-        sudo nixos-rebuild dry-activate --flake /etc/nixos/#nixos '';
+        sudo nixos-rebuild dry-activate --flake /etc/nixos'';
       "nix.clean" = ''
         cd /etc/nixos && \
         sudo -v && \
@@ -280,23 +279,8 @@
         git reset && \
         git add . && \
         git commit -S -m update ; \
-        sudo nixos-rebuild switch --flake /etc/nixos/#nixos'';
+        sudo nixos-rebuild switch --flake /etc/nixos'';
       "nix.update" = ''
-        cd /etc/nixos && \
-        sudo -v && \
-        sudo alejandra --quiet . && \
-        git reset && \
-        git add . && \
-        git commit -S -m update ; 
-        sudo nix --verbose flake update && \
-        sudo alejandra --quiet . && \
-        sudo nixos-generate-config && \
-        sudo alejandra --quiet . && \
-        git reset && \
-        git add . && \
-        git commit -S -m update ; \
-        sudo nixos-rebuild switch --flake /etc/nixos/#nixos --verbose'';
-      "nix.all" = ''
         cd /etc/nixos && \
         sudo -v && \
         sudo alejandra --quiet . && \
