@@ -32,7 +32,7 @@
   ##################
   services = {
     printing = {
-      enable = lib.mkForce true;
+      enable = lib.mkDefault true;
       stateless = true;
       clientConf = ''
         # ServerName cups.intra
