@@ -43,17 +43,7 @@
       ######################################
       # Apple MacBookPro14,1 / UK Keyboard #
       ######################################
-      nixbook141-console = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          nixos-hardware.nixosModules.apple-macbook-pro-14-1
-          home-manager.nixosModules.home-manager
-          ./hardware-configuration.nix
-          ./hardware/kb-uk.nix
-          ./configuration.nix
-        ];
-      };
-      nixbook141-desktop = nixpkgs.lib.nixosSystem {
+      nixbook141 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
@@ -63,6 +53,16 @@
           ./configuration.nix
           ./roles/desktop.nix
           ./modules/virtual.nix
+        ];
+      };
+      nixbook141-console = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          nixos-hardware.nixosModules.apple-macbook-pro-14-1
+          home-manager.nixosModules.home-manager
+          ./hardware-configuration.nix
+          ./hardware/kb-uk.nix
+          ./configuration.nix
         ];
       };
       nixbook141-developer = nixpkgs.lib.nixosSystem {
