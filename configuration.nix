@@ -310,7 +310,7 @@
         git reset && \
         git add . && \
         git commit -S -m update ; \
-        sudo nixos-rebuild test --flake /etc/nixos/#nixbook141-console --specialisation nixbook141-console --verbose ; \
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-console --profile-name=nixbook141-console-$(date --iso8601=minutes) -v ; \
         sudo nixos-rebuild switch --flake /etc/nixos/#nixos --verbose switch '';
     };
     interactiveShellInit = ''
