@@ -78,7 +78,7 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    hostName = "nixos";
+    # hostName = "nixos";
     enableIPv6 = false;
     networkmanager.enable = true;
     firewall = {

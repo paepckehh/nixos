@@ -18,6 +18,7 @@
     };
   };
   outputs = {
+    config,
     self,
     nixpkgs,
     nixos-hardware,
@@ -39,6 +40,7 @@
           ./modules/virtual.nix
           ./modules/smartcard.nix
         ];
+        networking.hostName = "nixos";
       };
       ######################################
       # Apple MacBookPro14,1 / UK Keyboard #
@@ -54,6 +56,7 @@
           ./roles/desktop.nix
           ./modules/virtual.nix
         ];
+        networking.hostName = "nixbook141";
       };
       nixbook141-console = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -64,6 +67,7 @@
           ./hardware/kb-uk.nix
           ./configuration.nix
         ];
+        networking.hostName = "nixbook141-console";
       };
       nixbook141-developer = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -76,6 +80,20 @@
           ./roles/developer.nix
           ./modules/virtual.nix
         ];
+        networking.hostName = "nixbook141-developer";
+      };
+      nixbook141-pentest = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          nixos-hardware.nixosModules.apple-macbook-pro-14-1
+          home-manager.nixosModules.home-manager
+          ./hardware-configuration.nix
+          ./hardware/kb-uk.nix
+          ./configuration.nix
+          ./roles/developer.nix
+          ./modules/virtual.nix
+        ];
+        networking.hostName = "nixbook141-pentest";
       };
       nixbook141-office = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -87,21 +105,12 @@
           ./configuration.nix
           ./roles/office.nix
         ];
+        networking.hostName = "nixbook141-office";
       };
       ##################
       # Apple iMac18,2 #
       ##################
-      nixmac182-console = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          nixos-hardware.nixosModules.apple-imac-18-2
-          home-manager.nixosModules.home-manager
-          ./hardware-configuration.nix
-          ./hardware/kb-uk.nix
-          ./configuration.nix
-        ];
-      };
-      nixmac182-desktop = nixpkgs.lib.nixosSystem {
+      nixmac182 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           nixos-hardware.nixosModules.apple-imac-18-2
@@ -112,6 +121,18 @@
           ./roles/desktop.nix
           ./modules/virtual.nix
         ];
+        networking.hostName = "nixmac182";
+      };
+      nixmac182-console = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          nixos-hardware.nixosModules.apple-imac-18-2
+          home-manager.nixosModules.home-manager
+          ./hardware-configuration.nix
+          ./hardware/kb-uk.nix
+          ./configuration.nix
+        ];
+        networking.hostName = "nixmac182-console";
       };
     };
   };
