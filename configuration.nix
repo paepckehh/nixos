@@ -294,8 +294,12 @@
         git reset && \
         git add . && \
         git commit -S -m update ; \
+        sudo nixos-rebuild boot --flake /etc/nixos/#imac182-console      -p "imac182-console-$(date '+%Y-%m-%d-%H-%M')" -v ; \
+        sudo nixos-rebuild boot --flake /etc/nixos/#imac182-office       -p "imac182-office-$(date '+%Y-%m-%d-%H-%M')" -v ; \
+        sudo nixos-rebuild boot --flake /etc/nixos/#imac182              -p "imac182-$(date '+%Y-%m-%d-%H-%M')" -v ; \
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$(date '+%Y-%m-%d-%H-%M')" -v ; \
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-developer -p "nixbook141-developer-$(date '+%Y-%m-%d-%H-%M')" -v ; \
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-pentest   -p "nixbook141-pentest-$(date '+%Y-%m-%d-%H-%M')" -v ; \
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$(date '+%Y-%m-%d-%H-%M')" -v ; \
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141           -p "nixbook141-$(date '+%Y-%m-%d-%H-%M')" -v'';
     };

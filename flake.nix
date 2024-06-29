@@ -13,8 +13,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware = {
-      url = "github:paepckehh/nixos-hardware/master";
       # url = "github:NixOS/nixos-hardware/master";
+      url = "github:paepckehh/nixos-hardware/master";
     };
   };
   outputs = {
@@ -104,7 +104,19 @@
           ./modules/virtual.nix
           {networking.hostName = "nixmac182";}
         ];
-        networking.hostName = "nixmac182";
+      };
+      nixmac182-office = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          nixos-hardware.nixosModules.apple-imac-18-2
+          home-manager.nixosModules.home-manager
+          ./hardware-configuration.nix
+          ./hardware/kb-uk.nix
+          ./configuration.nix
+          ./roles/office.nix
+          ./modules/virtual.nix
+          {networking.hostName = "nixmac182-office";}
+        ];
       };
       nixmac182-console = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
