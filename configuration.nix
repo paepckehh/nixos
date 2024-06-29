@@ -310,8 +310,10 @@
         git reset && \
         git add . && \
         git commit -S -m update ; \
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-console --profile-name "nixbook141-console-$(date '+%Y-%m-%d-%H-%M')" -v ; \
-        sudo nixos-rebuild switch --flake /etc/nixos/#nixos --verbose switch '';
+        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$(date '+%Y-%m-%d-%H-%M')" -v ; \
+        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-developer -p "nixbook141-developer-$(date '+%Y-%m-%d-%H-%M')" -v ; \
+        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$(date '+%Y-%m-%d-%H-%M')" -v ; \
+        sudo nixos-rebuild switch --flake /etc/nixos/#nixbook141-desktop   -p "nixbook141-desktop-$(date '+%Y-%m-%d-%H-%M')" -v ; \'';
     };
     interactiveShellInit = ''
       ( cd && touch .zshrc .bashrc && uname -a )
