@@ -266,7 +266,7 @@
         cd /etc/nixos && \
         sudo -v && \
         sudo alejandra --quiet . ; \
-        sudo nixos-rebuild dry-activate --flake /etc/nixos/flake.nix#nixos '';
+        sudo nixos-rebuild dry-activate --flake /etc/nixos/#nixos '';
       "nix.clean" = ''
         cd /etc/nixos && \
         sudo -v && \
@@ -280,7 +280,7 @@
         git reset && \
         git add . && \
         git commit -S -m update ; \
-        sudo nixos-rebuild switch --flake /etc/nixos/flake.nix#nixos'';
+        sudo nixos-rebuild switch --flake /etc/nixos/#nixos'';
       "nix.update" = ''
         cd /etc/nixos && \
         sudo -v && \
@@ -295,7 +295,7 @@
         git reset && \
         git add . && \
         git commit -S -m update ; \
-        sudo nixos-rebuild switch --flake /etc/nixos/flake.nix#nixos --verbose'';
+        sudo nixos-rebuild switch --flake /etc/nixos/#nixos --verbose'';
       "nix.all" = ''
         cd /etc/nixos && \
         sudo -v && \
@@ -310,8 +310,8 @@
         git reset && \
         git add . && \
         git commit -S -m update ; \
-        sudo nixos-rebuild boot --flake /etc/nixos/flake.nix#nixbook141-console --specialisation nixbook141-console --verbose ; \
-        sudo nixos-rebuild switch --flake /etc/nixos/flake.nix#nixos --verbose switch '';
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-console --specialisation nixbook141-console --verbose ; \
+        sudo nixos-rebuild switch --flake /etc/nixos/#nixos --verbose switch '';
     };
     interactiveShellInit = ''
       ( cd && touch .zshrc .bashrc && uname -a )
