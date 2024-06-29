@@ -249,7 +249,9 @@
       d = "dmesg -Hw";
       cat = "bat --paging=never";
       less = "bat";
+      man = "batman";
       slog = "journalctl --follow --priority=7 --lines=100";
+      "nix.list" = "nixos-rebuild list-generations";
       "nix.build" = ''
         cd /etc/nixos && \
         sudo -v && \
