@@ -261,17 +261,17 @@
         git commit -S -m update ; \
         git gc --aggressive ; \
         git push --force '';
-      "nix.test" = ''
-        cd /etc/nixos && \
-        sudo -v && \
-        sudo alejandra --quiet . ; \
-        sudo nixos-rebuild dry-activate --flake /etc/nixos'';
       "nix.clean" = ''
         cd /etc/nixos && \
         sudo -v && \
         sudo nix-collect-garbage --delete-older-than 3d ;\
         sudo nix-store --gc ; \
         sudo nix-store --optimise '';
+      "nix.test" = ''
+        cd /etc/nixos && \
+        sudo -v && \
+        sudo alejandra --quiet . ; \
+        sudo nixos-rebuild dry-activate --flake /etc/nixos/.#'';
       "nix.build" = ''
         cd /etc/nixos && \
         sudo -v && \
@@ -279,7 +279,7 @@
         git reset && \
         git add . && \
         git commit -S -m update ; \
-        sudo nixos-rebuild switch --flake /etc/nixos'';
+        sudo nixos-rebuild switch --flake /etc/nixos/.#'';
       "nix.update" = ''
         cd /etc/nixos && \
         sudo -v && \
