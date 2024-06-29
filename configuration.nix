@@ -252,14 +252,6 @@
       man = "batman";
       slog = "journalctl --follow --priority=7 --lines=100";
       "nix.list" = "nixos-rebuild list-generations";
-      "nix.build" = ''
-        cd /etc/nixos && \
-        sudo -v && \
-        sudo alejandra --quiet . && \
-        git reset && \
-        git add . && \
-        git commit -S -m update ; \
-        sudo nixos-rebuild --flake .#nixos --verbose switch '';
       "nix.push" = ''
         cd /etc/nixos && \
         sudo -v && \
@@ -274,13 +266,21 @@
         cd /etc/nixos && \
         sudo -v && \
         sudo alejandra --quiet . ; \
-        sudo nixos-rebuild --flake .#nixos --verbose dry-activate '';
+        sudo nixos-rebuild dry-activate --flake /etc/nixos/flake.nix#nixos '';
       "nix.clean" = ''
         cd /etc/nixos && \
         sudo -v && \
         sudo nix-collect-garbage --delete-older-than 3d ;\
         sudo nix-store --gc ; \
         sudo nix-store --optimise '';
+      "nix.build" = ''
+        cd /etc/nixos && \
+        sudo -v && \
+        sudo alejandra --quiet . && \
+        git reset && \
+        git add . && \
+        git commit -S -m update ; \
+        sudo nixos-rebuild switch --flake /etc/nixos/flake.nix#nixos'';
       "nix.update" = ''
         cd /etc/nixos && \
         sudo -v && \
@@ -295,7 +295,23 @@
         git reset && \
         git add . && \
         git commit -S -m update ; \
-        sudo nixos-rebuild --flake .#nixos --verbose switch '';
+        sudo nixos-rebuild switch --flake /etc/nixos/flake.nix#nixos --verbose'';
+      "nix.all" = ''
+        cd /etc/nixos && \
+        sudo -v && \
+        sudo alejandra --quiet . && \
+        git reset && \
+        git add . && \
+        git commit -S -m update ; 
+        sudo nix --verbose flake update && \
+        sudo alejandra --quiet . && \
+        sudo nixos-generate-config && \
+        sudo alejandra --quiet . && \
+        git reset && \
+        git add . && \
+        git commit -S -m update ; \
+        sudo nixos-rebuild boot --flake /etc/nixos/flake.nix#nixbook141-console --specialisation nixbook141-console --verbose ; \
+        sudo nixos-rebuild switch --flake /etc/nixos/flake.nix#nixos --verbose switch '';
     };
     interactiveShellInit = ''
       ( cd && touch .zshrc .bashrc && uname -a )
