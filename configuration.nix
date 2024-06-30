@@ -19,7 +19,7 @@
       automatic = true;
       persistent = true;
       dates = "daily";
-      options = "--delete-older-than 14d";
+      options = "--delete-older-than 12d";
     };
   };
 
@@ -152,8 +152,6 @@
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager = {
-    # useGlobalPkgs = true;
-    # backupFileExtension = "rebuild";
     useUserPackages = true;
     users.me = {
       home = {
@@ -281,14 +279,22 @@
       "nix.clean" = ''
         cd /etc/nixos && \
         sudo -v && \
-        sudo nix-collect-garbage --delete-older-than 3d ;\
+        sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 12d ;\
+        sudo nix-collect-garbage --delete-older-than 12d ;\
+        sudo nix-store --gc ; \
+        sudo nix-store --optimise '';
+      "nix.hardclean" = ''
+        cd /etc/nixos && \
+        sudo -v && \
+        sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 1d ;\
+        sudo nix-collect-garbage --delete-older-than 1d ;\
         sudo nix-store --gc ; \
         sudo nix-store --optimise '';
       "nix.test" = ''
         cd /etc/nixos && \
         sudo -v && \
         sudo alejandra --quiet . ; \
-        sudo nixos-rebuild dry-activate --flake /etc/nixos/.#'';
+        sudo nixos-rebuild dry-activate --flake /etc/nixos/.#$(hostname)'';
       "nix.build" = ''
         cd /etc/nixos && \
         sudo -v && \
@@ -296,7 +302,7 @@
         git reset && \
         git add . && \
         git commit -S -m update ; \
-        sudo nixos-rebuild switch --flake /etc/nixos/.#'';
+        sudo nixos-rebuild switch --flake /etc/nixos/.#$(hostname)'';
       "nix.update" = ''
         cd /etc/nixos && \
         sudo -v && \
@@ -317,7 +323,7 @@
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$(date '+%Y-%m-%d-%H-%M')" -v ; \
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$(date '+%Y-%m-%d-%H-%M')" -v ; \
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141           -p "nixbook141-$(date '+%Y-%m-%d-%H-%M')" -v ;\
-        sudo nixos-rebuild switch --flake /etc/nixos/.#'';
+        sudo nixos-rebuild switch --flake /etc/nixos/.#$(hostname)'';
     };
     interactiveShellInit = ''
       ( cd && touch .zshrc .bashrc && uname -a )
