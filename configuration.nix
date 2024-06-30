@@ -149,9 +149,9 @@
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager = {
-    useGlobalPkgs = true;
-    backupFileExtension = "rebuild";
-    # useUserPackages = true;
+    # useGlobalPkgs = true;
+    # backupFileExtension = "rebuild";
+    useUserPackages = true;
     users.me = {
       home = {
         stateVersion = "24.05";
