@@ -137,13 +137,26 @@
         hashedPassword = "!"; # disable root account (!)
       };
       me = {
+        description = "[m]inimal [e]nvironment administrative account";
         initialPassword = "start-riot-bravo-charly";
-        isNormalUser = true;
+        uid = 1000;
+        group = "users";
         createHome = true;
+        isNormalUser = true;
         useDefaultShell = true;
-        description = "me";
         extraGroups = ["wheel" "networkmanager" "video" "docker" "libvirt"];
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA..."];
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-locked"];
+      };
+      user = {
+        description = "default user account";
+        initialPassword = "start-delta-echo-delta";
+        uid = 10000;
+        group = "users";
+        createHome = true;
+        isNormalUser = true;
+        useDefaultShell = true;
+        extraGroups = [];
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-locked"];
       };
     };
   };
