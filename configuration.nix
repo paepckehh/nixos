@@ -149,11 +149,16 @@
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager = {
-    useGlobalPkgs = true;
+    useUserPackages = true;
     users.me = {
+      home = {
+        stateVersion = "24.05";
+        username = "me";
+        homeDirectory = "/home/me";
+      };
       programs = {
-        eza.enable = true;
         home-manager.enable = true;
+        eza.enable = true;
         fd.enable = true;
         jq.enable = true;
         ripgrep.enable = true;
@@ -161,11 +166,13 @@
           enable = true;
           extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch prettybat];
         };
-      };
-      home = {
-        stateVersion = "24.05";
-        username = "me";
-        homeDirectory = "/home/me";
+        gh = {
+          enable = true;
+          settings.git_protocol = "ssh";
+        };
+        go = {
+          enable = true;
+        };
       };
     };
   };
@@ -232,7 +239,12 @@
       tldr
       tree
       procs
+      shfmt
+      shellcheck
       moreutils
+      vimPlugins.vim-shellcheck
+      vimPlugins.vim-go
+      vimPlugins.vim-git
       yq
     ];
     shells = [pkgs.bashInteractive pkgs.zsh];
@@ -298,8 +310,6 @@
         sudo nixos-rebuild boot --flake /etc/nixos/#nixmac182-office     -p "nixmac182-office-$(date '+%Y-%m-%d-%H-%M')" -v ; \
         sudo nixos-rebuild boot --flake /etc/nixos/#nixmac182            -p "nixmac182-$(date '+%Y-%m-%d-%H-%M')" -v ; \
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$(date '+%Y-%m-%d-%H-%M')" -v ; \
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-developer -p "nixbook141-developer-$(date '+%Y-%m-%d-%H-%M')" -v ; \
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-pentest   -p "nixbook141-pentest-$(date '+%Y-%m-%d-%H-%M')" -v ; \
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$(date '+%Y-%m-%d-%H-%M')" -v ; \
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141           -p "nixbook141-$(date '+%Y-%m-%d-%H-%M')" -v ;\
         sudo nixos-rebuild switch --flake /etc/nixos/.#'';
@@ -311,6 +321,7 @@
       VISUAL = "vim";
       EDITOR = "vim";
       PAGER = "bat";
+      SHELLCHECK_OPTS = "-e SC2086";
     };
   };
   i18n = {
