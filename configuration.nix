@@ -327,6 +327,25 @@
         git reset && \
         git add . && \
         git commit -S -m update ; \
+        export NIXOS_INSTALL_BOOTLOADER=1 ;\
+        export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
+        export HNAME="$(hostname)" ;\
+        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
+      "nix.all" = ''
+        cd /etc/nixos && \
+        sudo -v && \
+        sudo alejandra --quiet . && \
+        git reset && \
+        git add . && \
+        git commit -S -m update ; 
+        sudo nix --verbose flake update && \
+        sudo alejandra --quiet . && \
+        sudo nixos-generate-config && \
+        sudo alejandra --quiet . && \
+        git reset && \
+        git add . && \
+        git commit -S -m update ; \
+        export NIXOS_INSTALL_BOOTLOADER=1 ;\
         export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ; \
