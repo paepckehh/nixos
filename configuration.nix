@@ -134,11 +134,12 @@
     users = {
       root = {
         shell = pkgs.bashInteractive;
-        hashedPassword = "!"; # disable root account (!)
+        hashedPassword = "!"; # disable root account
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-locked"];
       };
       me = {
         description = "default minimal envadmin account";
-        initialPassword = "start-riot-bravo-charly";
+        initialPassword = "start-riot-bravo-charly-24";
         uid = 1000;
         group = "users";
         createHome = true;
@@ -149,7 +150,7 @@
       };
       user = {
         description = "default user account";
-        initialPassword = "start-delta-echo-delta";
+        initialPassword = "start-delta-echo-delta-24";
         uid = 10000;
         group = "users";
         createHome = true;
