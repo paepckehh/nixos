@@ -302,7 +302,9 @@
         git reset && \
         git add . && \
         git commit -S -m update ; \
-        sudo nixos-rebuild switch --flake /etc/nixos/.#$(hostname)'';
+        export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
+        export HNAME="$(hostname)" ;\
+        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
       "nix.update" = ''
         cd /etc/nixos && \
         sudo -v && \
