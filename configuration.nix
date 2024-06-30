@@ -33,10 +33,31 @@
       useTmpfs = true;
     };
     loader = {
-      efi.canTouchEfiVariables = true;
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/efi";
+      };
       systemd-boot = {
+        enable = false;
+        configurationLimit = 32;
+      };
+      grub = {
         enable = true;
-        configurationLimit = 42;
+        enableCryptodisk = true;
+        configurationLimit = 32;
+        efiSupport = true;
+        efiInstallAsRemovable = false;
+        forceinstall = false;
+        memtest86 = {
+          enable = true;
+          params = "";
+        };
+        splashImage = null;
+        splashMode = "normal";
+        theme = null;
+        useOSProber = true;
+        device = "";
+        zfsSupport = false;
       };
     };
   };
@@ -327,7 +348,6 @@
         git reset && \
         git add . && \
         git commit -S -m update ; \
-        export NIXOS_INSTALL_BOOTLOADER=1 ;\
         export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
@@ -345,16 +365,16 @@
         git reset && \
         git add . && \
         git commit -S -m update ; \
-        export NIXOS_INSTALL_BOOTLOADER=1 ;\
-        export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
-        export HNAME="$(hostname)" ;\
+        export DTS="$(date '+%Y-%m-%d-%H-%M')" ; \
+        export HNAME="$(hostname)" ; \
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ; \
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182-console    -p "nixmac182-console-$DTS" -v ; \
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182-office     -p "nixmac182-office-$DTS" -v ; \
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v ; \
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v ; \
-        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME"            -p "$HNAME-$DTS" '';
+        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME"            -p "$HNAME-$DTS -v ; \
+        sudo nixos-rebuild boot --install-bootloader '';
     };
     interactiveShellInit = ''
       ( cd && touch .zshrc .bashrc && uname -a )
