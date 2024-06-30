@@ -56,7 +56,7 @@
         splashMode = "normal";
         theme = null;
         useOSProber = true;
-        device = "";
+        devices = "/dev/sda";
         zfsSupport = false;
       };
     };
