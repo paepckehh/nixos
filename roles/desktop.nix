@@ -22,6 +22,7 @@
   environment = {
     systemPackages =
       (with pkgs; [
+        gparted
         kitty
         librewolf
         opensnitch-ui
