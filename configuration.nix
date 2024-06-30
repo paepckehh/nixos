@@ -168,13 +168,13 @@
           enable = true;
           extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch prettybat];
         };
-        gh = {
+        go = {
           enable = true;
-          settings.git_protocol = "ssh";
         };
-        # go = {
+        #gh = {
         #  enable = true;
-        # };
+        #  settings.git_protocol = "ssh";
+        #};
       };
     };
   };
