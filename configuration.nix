@@ -137,7 +137,7 @@
         hashedPassword = "!"; # disable root account (!)
       };
       me = {
-        description = "[m]inimal [e]nvironment administrative account";
+        description = "default minimal envadmin account";
         initialPassword = "start-riot-bravo-charly";
         uid = 1000;
         group = "users";
