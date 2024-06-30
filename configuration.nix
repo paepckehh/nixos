@@ -46,15 +46,15 @@
         enableCryptodisk = true;
         configurationLimit = 32;
         efiSupport = true;
-        efiInstallAsRemovable = false;
+        efiInstallAsRemovable = true;
         forceInstall = true;
-        memtest86 = {
-          enable = true;
-          params = [];
-        };
-        splashImage = null;
-        splashMode = "normal";
-        theme = null;
+        # memtest86 = {
+        #  enable = true;
+        #  params = [];
+        # };
+        # splashImage = null;
+        # splashMode = "normal";
+        # theme = null;
         useOSProber = true;
         device = "/dev/sda";
         zfsSupport = false;
