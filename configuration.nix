@@ -48,13 +48,13 @@
         efiSupport = true;
         efiInstallAsRemovable = false;
         forceInstall = true;
-        # memtest86 = {
-        #  enable = true;
-        #  params = [];
-        # };
-        # splashImage = null;
-        # splashMode = "normal";
-        # theme = null;
+        memtest86 = {
+          enable = true;
+          params = [];
+        };
+        splashImage = null;
+        splashMode = "normal";
+        theme = null;
         useOSProber = true;
         device = "/dev/sda";
         zfsSupport = false;
@@ -273,6 +273,8 @@
       ripgrep
       shfmt
       shellcheck
+      sleek-grub-theme
+      nixos-grub2-theme
       moreutils
       vimPlugins.vim-shellcheck
       vimPlugins.vim-go
