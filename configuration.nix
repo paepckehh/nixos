@@ -34,19 +34,19 @@
     };
     loader = {
       efi = {
-        canTouchEfiVariables = false;
+        canTouchEfiVariables = true;
         efiSysMountPoint = "/boot/efi";
       };
       systemd-boot = {
-        enable = false;
+        enable = true;
         configurationLimit = 32;
       };
       grub = {
-        enable = true;
+        enable = false;
         enableCryptodisk = true;
         configurationLimit = 32;
         efiSupport = true;
-        efiInstallAsRemovable = true;
+        efiInstallAsRemovable = false;
         forceInstall = true;
         # memtest86 = {
         #  enable = true;
