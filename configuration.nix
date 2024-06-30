@@ -47,7 +47,7 @@
         configurationLimit = 32;
         efiSupport = true;
         efiInstallAsRemovable = false;
-        forceinstall = false;
+        forceInstall = false;
         memtest86 = {
           enable = true;
           params = "";
