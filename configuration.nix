@@ -166,24 +166,6 @@
   ######################
   home-manager = {
     useUserPackages = true;
-    users.root = {
-      home = {
-        stateVersion = "24.05";
-        username = "root";
-        homeDirectory = "/root";
-      };
-      programs = {
-        home-manager.enable = true;
-        eza.enable = true;
-        fd.enable = true;
-        jq.enable = true;
-        ripgrep.enable = true;
-        bat = {
-          enable = true;
-          extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch prettybat];
-        };
-      };
-    };
     users.me = {
       home = {
         stateVersion = "24.05";
@@ -192,21 +174,6 @@
       };
       programs = {
         home-manager.enable = true;
-        eza.enable = true;
-        fd.enable = true;
-        jq.enable = true;
-        ripgrep.enable = true;
-        bat = {
-          enable = true;
-          extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch prettybat];
-        };
-        go = {
-          enable = true;
-        };
-        gh = {
-          enable = true;
-          # TODO settings.git_protocol = "ssh";
-        };
       };
     };
   };
@@ -268,11 +235,20 @@
     systemPackages = with pkgs; [
       alejandra
       bandwhich
+      bat
+      bat-extras.batman
+      bat-extras.prettybat
+      eza
+      fd
+      go
+      gh
       dust
       hyperfine
+      jq
       tldr
       tree
       procs
+      ripgrep
       shfmt
       shellcheck
       moreutils

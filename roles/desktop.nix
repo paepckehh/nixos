@@ -23,6 +23,7 @@
     systemPackages =
       (with pkgs; [
         kitty
+        librewolf
         opensnitch-ui
       ])
       ++ (with pkgs.gnomeExtensions; [
@@ -58,32 +59,13 @@
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager.users.me = {
-    programs = {
-      go = {
-        enable = true;
-      };
-      kitty = {
-        enable = true;
-      };
-      librewolf = {
-        enable = true;
-      };
-    };
-    services = {
-      blanket = {
-        enable = true;
-      };
-      opensnitch-ui = {
-        enable = true;
-      };
-    };
     dconf = {
       enable = true;
       settings = {
         "org/gnome/shell" = {
-          disable-user-extensions = false;
+          disable-user-extensions = true;
           enabled-extensions = with pkgs.gnomeExtensions; [
-            todotxt.extensionUuid
+            # todotxt.extensionUuid
           ];
         };
         "org/gnome/desktop/interface" = {
