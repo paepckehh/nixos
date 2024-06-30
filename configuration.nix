@@ -50,7 +50,7 @@
         forceInstall = false;
         memtest86 = {
           enable = true;
-          params = "";
+          params = [];
         };
         splashImage = null;
         splashMode = "normal";
