@@ -166,6 +166,24 @@
   ######################
   home-manager = {
     useUserPackages = true;
+    users.root = {
+      home = {
+        stateVersion = "24.05";
+        username = "root";
+        homeDirectory = "/root";
+      };
+      programs = {
+        home-manager.enable = true;
+        eza.enable = true;
+        fd.enable = true;
+        jq.enable = true;
+        ripgrep.enable = true;
+        bat = {
+          enable = true;
+          extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch prettybat];
+        };
+      };
+    };
     users.me = {
       home = {
         stateVersion = "24.05";
@@ -187,7 +205,7 @@
         };
         gh = {
           enable = true;
-          # settings.git_protocol = "ssh";
+          # TODO settings.git_protocol = "ssh";
         };
       };
     };
