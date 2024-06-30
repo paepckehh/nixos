@@ -286,8 +286,8 @@
       "nix.hardclean" = ''
         cd /etc/nixos && \
         sudo -v && \
-        sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 3h ;\
-        sudo nix-collect-garbage --delete-older-than 3h ;\
+        sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 1d ;\
+        sudo nix-collect-garbage --delete-older-than 1d ;\
         sudo nix-store --gc ; \
         sudo nix-store --optimise '';
       "nix.test" = ''
