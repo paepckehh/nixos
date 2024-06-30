@@ -149,7 +149,7 @@
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager = {
-    useUserPackages = true;
+    # useUserPackages = true;
     users.me = {
       home = {
         stateVersion = "24.05";
