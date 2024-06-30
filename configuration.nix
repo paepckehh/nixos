@@ -150,6 +150,7 @@
   ######################
   home-manager = {
     useGlobalPkgs = true;
+    backupFileExtension = "rebuild";
     # useUserPackages = true;
     users.me = {
       home = {
