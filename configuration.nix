@@ -149,7 +149,7 @@
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager = {
-    useGlobalPackage = true;
+    useGlobalPkgs = true;
     # useUserPackages = true;
     users.me = {
       home = {
