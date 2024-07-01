@@ -102,7 +102,6 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    # hostName = "nixos";
     enableIPv6 = false;
     networkmanager.enable = true;
     firewall = {
@@ -273,7 +272,6 @@
       ripgrep
       shfmt
       shellcheck
-      sleek-grub-theme
       nixos-grub2-theme
       moreutils
       vimPlugins.vim-shellcheck
