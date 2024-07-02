@@ -22,15 +22,15 @@
   security = {
     pam = {
       services = {
-        login.u2fAuth = false;
-        sudo.u2fAuth = true;
+        login.yubicoAuth = true;
+        sudo.yubicoAuth = true;
       };
       yubico = {
         enable = false;
+        challengeResponePath = "$HOME/.yubico/challenge";
+        control = "optional"; # required or optional
         debug = true;
-        control = "required";
         mode = "challenge-response";
-        id = "012345";
       };
     };
   };
