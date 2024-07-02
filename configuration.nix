@@ -389,7 +389,7 @@
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v ;\
-        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME"            -p "$HNAME-$DTS -v ;\
+        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME"            -p "$HNAME-$DTS" -v ;\
         sudo nixos-rebuild boot --install-bootloader '';
     };
     interactiveShellInit = ''
