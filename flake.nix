@@ -43,7 +43,7 @@
           #./configuration.nix
           ./roles/desktop.nix
           ./modules/virtual.nix
-          {networking.hostName = "nixbook141";}
+          #{networking.hostName = "nixbook141";}
         ];
       };
       nixbook141-console = nixpkgs.lib.nixosSystem {
