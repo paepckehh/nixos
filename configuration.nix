@@ -287,13 +287,21 @@
       eza
       fd
       go
+      gopass
       gh
+      git-crypt
+      git-agecrypt
       dust
+      homeage
       hyperfine
       jq
       tldr
       tree
+      paper-age
+      passage
       procs
+      rage
+      ragenix
       ripgrep
       shfmt
       shellcheck

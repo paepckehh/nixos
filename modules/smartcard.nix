@@ -45,6 +45,7 @@
 
   environment = {
     systemPackages = with pkgs; [
+      age-plugin-yubikey
       yubioath-flutter
       yubikey-touch-detector
       yubikey-manager
