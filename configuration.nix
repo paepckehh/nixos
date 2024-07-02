@@ -308,84 +308,88 @@
       man = "batman";
       slog = "journalctl --follow --priority=7 --lines=100";
       "nix.push" = ''
-        cd /etc/nixos && \
-        sudo -v && \
-        sudo alejandra --quiet . && \
+        cd /etc/nixos &&\
+        sudo -v &&\
+        sudo alejandra --quiet . &&\
         sudo chown -R me:users .git &&\
-        git reset && \
-        git add . && \
-        git commit -S -m update ; \
-        git gc --aggressive ; \
+        git reset &&\
+        git add . &&\
+        git commit -S -m update ;\
+        git gc --aggressive ;\
         git push --force '';
       "nix.clean" = ''
-        cd /etc/nixos && \
-        sudo -v && \
+        cd /etc/nixos &&\
+        sudo -v &&\
         sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 12d ;\
         sudo nix-collect-garbage --delete-older-than 12d ;\
-        sudo nix-store --gc ; \
+        sudo nix-store --gc ;\
         sudo nix-store --optimise '';
       "nix.hardclean" = ''
         cd /etc/nixos && \
         sudo -v && \
+        sudo rm /nix/var/nix/profiles/system-profiles/* ;\
+        export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
+        export HNAME="$(hostname)" ;\
+        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" ;\
         sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 1d ;\
         sudo nix-collect-garbage --delete-older-than 1d ;\
-        sudo nix-store --gc ; \
+        sudo nix-store --gc ;\
         sudo nix-store --optimise '';
       "nix.test" = ''
-        cd /etc/nixos && \
-        sudo -v && \
-        sudo alejandra --quiet . ; \
+        cd /etc/nixos &&\
+        sudo -v &&\
+        sudo alejandra --quiet . ;\
         sudo nixos-rebuild dry-activate --flake /etc/nixos/.#$(hostname)'';
       "nix.build" = ''
-        cd /etc/nixos && \
-        sudo -v && \
-        sudo alejandra --quiet . && \
-        git reset && \
-        git add . && \
-        git commit -S -m update ; \
+        cd /etc/nixos &&\
+        sudo -v &&\
+        sudo alejandra --quiet . &&\
+        git reset &&\
+        git add . &&\
+        git commit -S -m update ;\
         export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
       "nix.update" = ''
-        cd /etc/nixos && \
-        sudo -v && \
-        sudo alejandra --quiet . && \
-        git reset && \
-        git add . && \
-        git commit -S -m update ; 
-        sudo nix --verbose flake update && \
-        sudo alejandra --quiet . && \
-        sudo nixos-generate-config && \
-        sudo alejandra --quiet . && \
-        git reset && \
-        git add . && \
-        git commit -S -m update ; \
+        cd /etc/nixos &&\
+        sudo -v &&\
+        sudo alejandra --quiet . &&\
+        git reset &&\
+        git add . &&\
+        git commit -S -m update ;\ 
+        sudo nix --verbose flake update &&\
+        sudo alejandra --quiet . &&\
+        sudo nixos-generate-config &&\
+        sudo alejandra --quiet . &&\
+        git reset &&\
+        git add . &&\
+        git commit -S -m update ;\
         export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
       "nix.all" = ''
-        cd /etc/nixos && \
-        sudo -v && \
-        sudo alejandra --quiet . && \
-        git reset && \
-        git add . && \
-        git commit -S -m update ; \
-        sudo nix --verbose flake update && \
-        sudo alejandra --quiet . && \
-        sudo nixos-generate-config && \
-        sudo alejandra --quiet . && \
-        git reset && \
-        git add . && \
-        git commit -S -m update ; \
-        export DTS="$(date '+%Y-%m-%d-%H-%M')" ; \
-        export HNAME="$(hostname)" ; \
-        sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ; \
-        sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182-console    -p "nixmac182-console-$DTS" -v ; \
-        sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182-office     -p "nixmac182-office-$DTS" -v ; \
+        cd /etc/nixos &&\
+        sudo -v &&\
+        sudo alejandra --quiet . &&\
+        git reset &&\
+        git add . &&\
+        git commit -S -m update ;\
+        sudo nix --verbose flake update &&\
+        sudo alejandra --quiet . &&\
+        sudo nixos-generate-config &&\
+        sudo alejandra --quiet . &&\
+        git reset &&\
+        git add . &&\
+        git commit -S -m update ;\
+        export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
+        export HNAME="$(hostname)" ;\
+        sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ;\
+        sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182-console    -p "nixmac182-console-$DTS" -v ;\
+        sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182-office     -p "nixmac182-office-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
-        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v ; \
-        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v ; \
-        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME"            -p "$HNAME-$DTS -v ; \
+        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v ;\
+        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v ;\
+        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME"            -p "$HNAME-$DTS -v ;\
         sudo nixos-rebuild boot --install-bootloader '';
     };
     interactiveShellInit = ''
