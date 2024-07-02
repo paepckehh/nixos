@@ -51,7 +51,7 @@
           ./roles/desktop.nix
           ./modules/virtual.nix
           {networking.hostName = "nixbook141";}
-          "${nixos}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
         ];
       };
       nixbook141-console = nixpkgs.lib.nixosSystem {
