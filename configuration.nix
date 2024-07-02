@@ -292,7 +292,6 @@
       git-crypt
       git-agecrypt
       dust
-      homeage
       hyperfine
       jq
       tldr
@@ -310,6 +309,7 @@
       vimPlugins.vim-shellcheck
       vimPlugins.vim-go
       vimPlugins.vim-git
+      vulnix
       yq
     ];
     shells = [pkgs.bashInteractive pkgs.zsh];
