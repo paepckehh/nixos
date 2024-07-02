@@ -40,7 +40,7 @@
           # home-manager.nixosModules.home-manager
           #./hardware-configuration.nix
           #./hardware/kb-uk.nix
-          #./configuration.nix
+          ./configuration.nix
           #./roles/desktop.nix
           #./modules/virtual.nix
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
