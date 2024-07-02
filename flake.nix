@@ -40,7 +40,7 @@
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           home-manager.nixosModules.home-manager
           ./hardware/kb-uk.nix
-          ./configuration.nix
+          #./configuration.nix
           ./roles/desktop.nix
           ./modules/virtual.nix
           {networking.hostName = "nixbook141";}
