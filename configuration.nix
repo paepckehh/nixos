@@ -176,7 +176,7 @@
         createHome = true;
         isNormalUser = true;
         useDefaultShell = true;
-        extraGroups = [];
+        extraGroups = ["video"];
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-locked"];
       };
     };
