@@ -2,9 +2,18 @@
   config,
   pkgs,
   lib,
+  modulesPath,
   home-manager,
   ...
 }: {
+  #################
+  #-=# IMPORTS #=-#
+  #################
+  imports = [
+    ./hardware-configuration.nix
+    (modulesPath + "/profiles/hardened.nix")
+  ];
+
   #############
   #-=# NIX #=-#
   #############
@@ -27,6 +36,7 @@
   #-=# BOOT #=-#
   ##############
   boot = {
+    initrd.availableKernelModules = ["xhci_pci" "uas" "sd_mod" "nvme"];
     kernelPackages = pkgs.linuxPackages_latest;
     tmp = {
       cleanOnBoot = true;
@@ -80,6 +90,9 @@
         upper = "04:00";
       };
     };
+  };
+  hardware = {
+    enableRedistributableFirmware = true;
   };
   zramSwap = {
     enable = true;

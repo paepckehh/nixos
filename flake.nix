@@ -25,11 +25,10 @@
         modules = [
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           home-manager.nixosModules.home-manager
-          ./hardware-configuration.nix
-          ./hardware/kb-uk.nix
           ./configuration.nix
           ./roles/desktop.nix
           ./modules/virtual.nix
+          ./hardware/kb-uk.nix
           {networking.hostName = "nixbook141";}
         ];
       };
@@ -45,9 +44,8 @@
         modules = [
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           home-manager.nixosModules.home-manager
-          ./hardware-configuration.nix
-          ./hardware/kb-uk.nix
           ./configuration.nix
+          ./hardware/kb-uk.nix
           {networking.hostName = "nixbook141-console";}
         ];
       };
@@ -56,10 +54,9 @@
         modules = [
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           home-manager.nixosModules.home-manager
-          ./hardware-configuration.nix
-          ./hardware/kb-uk.nix
           ./configuration.nix
           ./roles/office.nix
+          ./hardware/kb-uk.nix
           {networking.hostName = "nixbook141-office";}
         ];
       };
@@ -71,11 +68,10 @@
         modules = [
           nixos-hardware.nixosModules.apple-imac-18-2
           home-manager.nixosModules.home-manager
-          ./hardware-configuration.nix
-          ./hardware/kb-uk.nix
           ./configuration.nix
           ./roles/office.nix
           ./modules/virtual.nix
+          ./hardware/kb-uk.nix
           {networking.hostName = "nixmac182";}
         ];
       };
@@ -84,9 +80,8 @@
         modules = [
           nixos-hardware.nixosModules.apple-imac-18-2
           home-manager.nixosModules.home-manager
-          ./hardware-configuration.nix
-          ./hardware/kb-uk.nix
           ./configuration.nix
+          ./hardware/kb-uk.nix
           {networking.hostName = "nixmac182-console";}
         ];
       };
