@@ -158,7 +158,7 @@
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-locked"];
       };
       me = {
-        description = "minimal env-admin";
+        description = "minimal-env-admin";
         initialPassword = "start-riot-bravo-charly-24";
         uid = 1000;
         group = "users";
@@ -169,7 +169,7 @@
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-locked"];
       };
       user = {
-        description = "normal user";
+        description = "normal-user";
         initialPassword = "start-delta-echo-delta-24";
         uid = 10000;
         group = "users";
