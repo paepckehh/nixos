@@ -356,7 +356,7 @@
         git add . &&\
         git commit -S -m update ;\
         export HNAME="$(hostname)" ;\
-        sudo nix build --flake ".#$HNAME-iso" ;\
+        sudo nix build ".#$HNAME-iso" ;\
         eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename /result/iso '';
       "nix.update" = ''
         cd /etc/nixos &&\
