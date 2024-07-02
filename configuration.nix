@@ -300,7 +300,7 @@
       passage
       procs
       rage
-      ragenix
+      # ragenix
       ripgrep
       shfmt
       shellcheck
