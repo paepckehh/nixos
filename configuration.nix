@@ -158,7 +158,7 @@
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-locked"];
       };
       me = {
-        description = "default minimal envadmin account";
+        description = "minimal env-admin";
         initialPassword = "start-riot-bravo-charly-24";
         uid = 1000;
         group = "users";
@@ -169,7 +169,7 @@
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-locked"];
       };
       user = {
-        description = "default user account";
+        description = "normal user";
         initialPassword = "start-delta-echo-delta-24";
         uid = 10000;
         group = "users";
@@ -187,14 +187,26 @@
   ######################
   home-manager = {
     useUserPackages = true;
-    users.me = {
-      home = {
-        stateVersion = "24.05";
-        username = "me";
-        homeDirectory = "/home/me";
+    users = {
+      me = {
+        home = {
+          stateVersion = "24.05";
+          username = "me";
+          homeDirectory = "/home/me";
+        };
+        programs = {
+          home-manager.enable = true;
+        };
       };
-      programs = {
-        home-manager.enable = true;
+      user = {
+        home = {
+          stateVersion = "24.05";
+          username = "user";
+          homeDirectory = "/home/user";
+        };
+        programs = {
+          home-manager.enable = true;
+        };
       };
     };
   };
@@ -357,7 +369,7 @@
         sudo alejandra --quiet . && \
         git reset && \
         git add . && \
-        git commit -S -m update ; 
+        git commit -S -m update ; \
         sudo nix --verbose flake update && \
         sudo alejandra --quiet . && \
         sudo nixos-generate-config && \
