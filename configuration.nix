@@ -328,9 +328,7 @@
         cd /etc/nixos &&\
         sudo -v &&\
         sudo rm /nix/var/nix/profiles/system-profiles/* ;\
-        export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
-        export HNAME="$(hostname)" ;\
-        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" ;\
+        nix.all ;\
         sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 1d ;\
         sudo nix-collect-garbage --delete-older-than 1d ;\
         sudo nix-store --gc ;\
@@ -385,7 +383,6 @@
         export HNAME="$(hostname)" ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182-console    -p "nixmac182-console-$DTS" -v ;\
-        sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182-office     -p "nixmac182-office-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v ;\
