@@ -37,12 +37,12 @@
         system = "x86_64-linux";
         modules = [
           # nixos-hardware.nixosModules.apple-macbook-pro-14-1
-          home-manager.nixosModules.home-manager
+          # home-manager.nixosModules.home-manager
           #./hardware-configuration.nix
-          ./hardware/kb-uk.nix
-          ./configuration.nix
-          ./roles/desktop.nix
-          ./modules/virtual.nix
+          #./hardware/kb-uk.nix
+          #./configuration.nix
+          #./roles/desktop.nix
+          #./modules/virtual.nix
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
           {networking.hostName = "nixbook141";}
         ];
