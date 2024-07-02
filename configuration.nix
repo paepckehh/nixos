@@ -325,8 +325,8 @@
         sudo nix-store --gc ;\
         sudo nix-store --optimise '';
       "nix.hardclean" = ''
-        cd /etc/nixos && \
-        sudo -v && \
+        cd /etc/nixos &&\
+        sudo -v &&\
         sudo rm /nix/var/nix/profiles/system-profiles/* ;\
         export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
         export HNAME="$(hostname)" ;\
@@ -356,7 +356,7 @@
         sudo alejandra --quiet . &&\
         git reset &&\
         git add . &&\
-        git commit -S -m update ;\ 
+        git commit -S -m update ;\
         sudo nix --verbose flake update &&\
         sudo alejandra --quiet . &&\
         sudo nixos-generate-config &&\
