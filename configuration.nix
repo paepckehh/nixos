@@ -39,12 +39,12 @@
       };
       systemd-boot = {
         enable = true;
-        configurationLimit = 32;
+        configurationLimit = 4;
       };
       grub = {
         enable = false;
         enableCryptodisk = true;
-        configurationLimit = 32;
+        configurationLimit = 4;
         efiSupport = true;
         efiInstallAsRemovable = false;
         forceInstall = true;
