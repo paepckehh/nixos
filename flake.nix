@@ -19,6 +19,7 @@
   };
   outputs = {
     self,
+    lib,
     nixpkgs,
     nixos-hardware,
     home-manager,
