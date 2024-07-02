@@ -19,7 +19,6 @@
   };
   outputs = {
     self,
-    lib,
     nixpkgs,
     nixos-hardware,
     home-manager,
@@ -53,7 +52,7 @@
           ./modules/virtual.nix
           {networking.hostName = "nixbook141";}
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-          {boot.zfs.enable = lib.mkDefault false;}
+          {boot.zfs.enable = false;}
         ];
       };
       nixbook141-console = nixpkgs.lib.nixosSystem {
