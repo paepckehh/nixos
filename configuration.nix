@@ -355,8 +355,9 @@
         git reset &&\
         git add . &&\
         git commit -S -m update ;\
+        export NIXPKGS_ALLOW_BROKEN=1 ;\
         export HNAME="$(hostname)" ;\
-        sudo nix build ".#nixosConfigurations.$HNAME-iso.config.system.build.isoImage" ;\
+        sudo nix build --impure ".#nixosConfigurations.$HNAME-iso.config.system.build.isoImage" ;\
         eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename /result/iso '';
       "nix.update" = ''
         cd /etc/nixos &&\
