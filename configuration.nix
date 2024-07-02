@@ -327,6 +327,7 @@
       "nix.hardclean" = ''
         cd /etc/nixos &&\
         sudo -v &&\
+        sudo rm /boot/loader/entries/* ;\
         sudo rm /nix/var/nix/profiles/system-profiles/* ;\
         nix.all ;\
         sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 1d ;\
