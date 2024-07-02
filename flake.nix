@@ -39,10 +39,10 @@
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           home-manager.nixosModules.home-manager
-          ./hardware/kb-uk.nix
+          #./hardware/kb-uk.nix
           #./configuration.nix
-          ./roles/desktop.nix
-          ./modules/virtual.nix
+          #./roles/desktop.nix
+          #./modules/virtual.nix
           #{networking.hostName = "nixbook141";}
         ];
       };
