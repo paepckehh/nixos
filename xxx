@@ -51,7 +51,7 @@
           ./roles/desktop.nix
           ./modules/virtual.nix
           ./img/mkiso.nix
-          {networking.hostName = "nixbook141";}
+          {networking.hostName = "nixbook141-iso";}
         ];
       };
       nixbook141-console = nixpkgs.lib.nixosSystem {
