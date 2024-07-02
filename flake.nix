@@ -37,7 +37,7 @@
         system = "x86_64-linux";
         modules = [
           # nixos-hardware.nixosModules.apple-macbook-pro-14-1
-          # home-manager.nixosModules.home-manager
+          home-manager.nixosModules.home-manager
           #./hardware-configuration.nix
           #./hardware/kb-uk.nix
           ./configuration.nix
