@@ -52,7 +52,7 @@
           ./modules/virtual.nix
           {networking.hostName = "nixbook141";}
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-          {boot.zfs.enable = false;}
+          {boot.zfs.enabled = false;}
         ];
       };
       nixbook141-console = nixpkgs.lib.nixosSystem {
