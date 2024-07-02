@@ -37,7 +37,7 @@
         system = "x86_64-linux";
         modules = [
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
-          nixos-hardware.nixosModules.apple-macbook-pro-14-1
+          # nixos-hardware.nixosModules.apple-macbook-pro-14-1
           # home-manager.nixosModules.home-manager
           #./hardware/kb-uk.nix
           #./configuration.nix
