@@ -40,6 +40,21 @@
           {networking.hostName = "nixbook141";}
         ];
       };
+      nixbook141-iso = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          "${nixos}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          nixos-hardware.nixosModules.apple-macbook-pro-14-1
+          home-manager.nixosModules.home-manager
+          ./hardware-configuration.nix
+          ./hardware/kb-uk.nix
+          ./configuration.nix
+          ./roles/desktop.nix
+          ./modules/virtual.nix
+          {networking.hostName = "nixbook141-iso";}
+          {isoImage.squashfsCompression = "lz4";}
+        ];
+      };
       nixbook141-console = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [

@@ -348,6 +348,16 @@
         export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
+      "nix.iso" = ''
+        cd /etc/nixos &&\
+        sudo -v &&\
+        sudo alejandra --quiet . &&\
+        git reset &&\
+        git add . &&\
+        git commit -S -m update ;\
+        export HNAME="$(hostname)" ;\
+        sudo nix build --flake "/etc/nixos/.#$HNAME-iso" ;\
+        eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename /result/iso '';
       "nix.update" = ''
         cd /etc/nixos &&\
         sudo -v &&\
