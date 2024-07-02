@@ -74,7 +74,7 @@
           ./hardware-configuration.nix
           ./hardware/kb-uk.nix
           ./configuration.nix
-          ./roles/desktop.nix
+          ./roles/office.nix
           ./modules/virtual.nix
           {networking.hostName = "nixmac182";}
         ];
@@ -88,19 +88,6 @@
           ./hardware/kb-uk.nix
           ./configuration.nix
           {networking.hostName = "nixmac182-console";}
-        ];
-      };
-      nixmac182-office = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          nixos-hardware.nixosModules.apple-imac-18-2
-          home-manager.nixosModules.home-manager
-          ./hardware-configuration.nix
-          ./hardware/kb-uk.nix
-          ./configuration.nix
-          ./roles/office.nix
-          ./modules/virtual.nix
-          {networking.hostName = "nixmac182-office";}
         ];
       };
     };
