@@ -12,6 +12,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-release,
     nixos-hardware,
     home-manager,
   }: {
