@@ -1,8 +1,9 @@
 {
   description = "nixos flake";
   inputs = {
+    # nixpkgs.url = "github:NixOS/nixpkgs/master";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-release.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixos-hardware.url = "github:paepckehh/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -12,9 +13,8 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-release,
-    nixos-hardware,
     home-manager,
+    nixos-hardware,
   }: {
     nixosConfigurations = {
       ######################################
@@ -44,7 +44,7 @@
           ./roles/desktop.nix
           ./modules/virtual.nix
           {networking.hostName = "nixbook141";}
-          "${nixpkgs-release}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
         ];
       };
       nixbook141-console = nixpkgs.lib.nixosSystem {
