@@ -300,7 +300,6 @@
       passage
       procs
       rage
-      # ragenix
       ripgrep
       shfmt
       shellcheck
@@ -377,7 +376,6 @@
         git reset &&\
         git add . &&\
         git commit -S -m update ;\
-        export NIXPKGS_ALLOW_BROKEN=1 ;\
         export HNAME="$(hostname)" ;\
         sudo nix build --impure ".#nixosConfigurations.$HNAME-iso.config.system.build.isoImage" ;\
         eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename /result/iso '';
@@ -419,8 +417,7 @@
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v ;\
-        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME"            -p "$HNAME-$DTS" -v ;\
-        sudo nixos-rebuild boot --install-bootloader '';
+        sudo nixos-rebuild switch --flake "/etc/nixos/#$HNAME"             -p "$HNAME-$DTS" -v '';
     };
     interactiveShellInit = ''
       ( cd && touch .zshrc .bashrc && uname -a )
