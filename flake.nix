@@ -31,7 +31,9 @@
           ./roles/desktop.nix
           ./modules/virtual.nix
           ./hardware/kb-uk.nix
-          {networking.hostName = "nixbook141";}
+          {
+            networking.hostName = "nixbook141";
+          }
         ];
       };
       nixbook141-iso = nixpkgs.lib.nixosSystem {
