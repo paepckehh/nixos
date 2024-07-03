@@ -4,6 +4,13 @@
   lib,
   ...
 }: {
+  #################
+  #-=# IMPORTS #=-#
+  #################
+  imports = [
+    ../modules/open-webui.nix
+  ];
+
   ##################
   #-=# PROGRAMS #=-#
   ##################
@@ -35,6 +42,8 @@
   environment = {
     systemPackages =
       (with pkgs; [
+        alacritty
+        alacritty-theme
         gparted
         kitty
         librewolf
@@ -42,6 +51,10 @@
       ])
       ++ (with pkgs.gnomeExtensions; [
         todotxt
+        toggle-alacritty
+        wireguard-vpn-extention
+        wireless-hid
+        wifi-qrcode
       ]);
     gnome.excludePackages =
       (with pkgs; [
@@ -79,7 +92,11 @@
         "org/gnome/shell" = {
           disable-user-extensions = true;
           enabled-extensions = with pkgs.gnomeExtensions; [
-            # todotxt.extensionUuid
+            todotxt.extensionUuid
+            toggle-alacritty.extensionUuid
+            wireguard-vpn-extension.extensionUuid
+            wireless-hid.extensionUuid
+            wifi-qrcode.extensionUuid
           ];
         };
         "org/gnome/desktop/interface" = {
@@ -93,8 +110,6 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    avahi.enable = lib.mkForce false;
-    gnome.evolution-data-server.enable = lib.mkForce false;
     printing.enable = lib.mkForce false;
     xserver = {
       enable = true;
