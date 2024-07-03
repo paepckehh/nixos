@@ -117,9 +117,9 @@
   networking = {
     enableIPv6 = false;
     networkmanager.enable = true;
+    nftables.enable = true;
     firewall = {
       enable = true;
-      nftables.enable = true;
       allowedTCPPorts = [];
       allowedUDPPorts = [];
     };
