@@ -278,6 +278,15 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
+    memoryAllocator.provider = lib.mkForce "libc"; #TODO: hardening
+    interactiveShellInit = ''
+      ( cd && touch .zshrc .bashrc && uname -a )'';
+    variables = {
+      VISUAL = "vim";
+      EDITOR = "vim";
+      PAGER = "bat";
+      SHELLCHECK_OPTS = "-e SC2086";
+    };
     systemPackages = with pkgs; [
       alejandra
       bandwhich
@@ -348,7 +357,8 @@
         cd /etc/nixos &&\
         sudo -v &&\
         sudo rm /boot/loader/entries/* ;\
-        sudo rm /nix/var/nix/profiles/system-profiles/* ;\
+        sudo rm -rf /nix/var/nix/profiles/system* ;\
+        sudo mkdir -p /nix/var/nix/profiles/system-profiles ;\
         nix.all ;\
         sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 1d ;\
         sudo nix-collect-garbage --delete-older-than 1d ;\
@@ -417,16 +427,7 @@
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v ;\
-        sudo nixos-rebuild switch --flake "/etc/nixos/#$HNAME"             -p "$HNAME-$DTS" -v '';
-    };
-    interactiveShellInit = ''
-      ( cd && touch .zshrc .bashrc && uname -a )
-    '';
-    variables = {
-      VISUAL = "vim";
-      EDITOR = "vim";
-      PAGER = "bat";
-      SHELLCHECK_OPTS = "-e SC2086";
+        sudo nixos-rebuild switch --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v '';
     };
   };
   i18n = {
