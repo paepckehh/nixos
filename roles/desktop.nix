@@ -52,7 +52,7 @@
       ++ (with pkgs.gnomeExtensions; [
         todotxt
         toggle-alacritty
-        wireguard-vpn-extention
+        wireguard-vpn-extension
         wireless-hid
         wifi-qrcode
       ]);
