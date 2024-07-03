@@ -89,9 +89,9 @@
   ######################
   home-manager.users.me = {
     programs = {
-      alacritty = {
+      alacritty = { 
         enable = true;
-        settings.import = [pkgs.alacritty-theme.iterm];
+        settings.import = [ pkgs.alacritty-theme.iterm ];
       };
     };
     dconf = {
