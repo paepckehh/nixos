@@ -119,6 +119,7 @@
     networkmanager.enable = true;
     firewall = {
       enable = true;
+      nftables.enable = true;
       allowedTCPPorts = [];
       allowedUDPPorts = [];
     };
@@ -454,10 +455,10 @@
     thermald.enable = true;
     logind.hibernateKey = "ignore";
     opensnitch = {
-      enable = true;
+      enable = false;
       settings = {
-        firewall = "iptables"; # iptables or nftables
-        defaultAction = "allow"; # allow or deny
+        firewall = "nftables"; # iptables or nftables
+        defaultAction = "deny"; # allow or deny
       };
     };
     fstrim = {
