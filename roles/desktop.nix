@@ -92,7 +92,7 @@
             startup_mode = "Fullscreen";
           };
           selection = {
-            save_to_clipboard = "true";
+            save_to_clipboard = true;
           };
           mouse = {
             hide_when_typing = true;
