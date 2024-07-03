@@ -87,12 +87,10 @@
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
-  nixpkgs.overlays = [alacritty-theme.overlays.default];
   home-manager.users.me = {
     programs = {
       alacritty = {
         enable = true;
-        # settings.import = [alacritty-theme.cyber_punk_neon];
       };
     };
     dconf = {
