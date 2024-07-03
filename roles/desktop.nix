@@ -87,7 +87,7 @@
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
-  nixpkgs.overlays = [alacritty-theme.overlays.default];
+  nixpkgs.overlays = [pkgs.alacritty-theme.overlays.default];
   home-manager.users.me = {
     programs = {
       alacritty = {
