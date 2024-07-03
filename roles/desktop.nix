@@ -60,7 +60,6 @@
       ])
       ++ (with pkgs.gnome; [
         cheese
-        camera
         gnome-music
         gnome-contacts
         gnome-terminal
