@@ -278,7 +278,8 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    memoryAllocator.provider = lib.mkForce "libc"; #TODO: hardening
+    # TODO: hardening mem allocator
+    memoryAllocator.provider = lib.mkForce "libc";
     interactiveShellInit = ''
       ( cd && touch .zshrc .bashrc && uname -a )'';
     variables = {
