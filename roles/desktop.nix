@@ -13,6 +13,15 @@
     nm-applet.enable = true;
     tuxclocker.enable = true;
     coolercontrol.enable = true;
+    firejail = {
+      enable = true;
+      wrappedBinaries = {
+        librewolf = {
+          executeable = "${pkgs.librewolf}/bin/librewolf";
+          profile = "${pkgs.firejail}/etc/firejail/librewolf.profile";
+        };
+      };
+    };
   };
 
   #####################
