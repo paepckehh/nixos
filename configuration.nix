@@ -11,7 +11,7 @@
   #################
   imports = [
     ./hardware-configuration.nix
-    (modulesPath + "/profiles/hardened.nix")
+    # (modulesPath + "/profiles/hardened.nix")
   ];
 
   #############
