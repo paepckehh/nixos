@@ -64,8 +64,8 @@
       ])
       ++ (with pkgs.gnome; [
         cheese
+        camera
         gnome-music
-        gnome-camera
         gnome-contacts
         gnome-terminal
         gnome-characters
