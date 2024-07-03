@@ -39,7 +39,6 @@
     systemPackages =
       (with pkgs; [
         alacritty
-        alacritty-theme
         gparted
         kitty
         librewolf
