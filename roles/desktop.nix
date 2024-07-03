@@ -91,7 +91,7 @@
     programs = {
       alacritty = {
         enable = true;
-        settings.import = [pkgs.alacritty-theme.iterm];
+        settings.import = [pkgs.alacritty-theme.cyber_punk_neon];
       };
     };
     dconf = {
