@@ -17,7 +17,7 @@
       enable = true;
       wrappedBinaries = {
         librewolf = {
-          executeable = "${pkgs.librewolf}/bin/librewolf";
+          executable = "${pkgs.librewolf}/bin/librewolf";
           profile = "${pkgs.firejail}/etc/firejail/librewolf.profile";
         };
       };
