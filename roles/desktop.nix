@@ -27,10 +27,6 @@
           executable = "${pkgs.librewolf}/bin/librewolf";
           profile = "${pkgs.firejail}/etc/firejail/librewolf.profile";
         };
-        librewolf-wrapped = {
-          executable = "${pkgs.librewolf}/bin/librewolf-wrapped";
-          profile = "${pkgs.firejail}/etc/firejail/librewolf.profile";
-        };
       };
     };
   };
@@ -91,6 +87,18 @@
     programs = {
       alacritty = {
         enable = true;
+        settings = {
+          window = {
+            decorations = "none";
+            startup_mode = "Fullscreen";
+          };
+          selection = {
+            save_to_clipboard = "true";
+          };
+          mouse = {
+            hide_when_typing = true;
+          };
+        };
       };
     };
     dconf = {
