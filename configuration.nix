@@ -120,6 +120,7 @@
     nftables.enable = true;
     firewall = {
       enable = true;
+      allowPing = false;
       allowedTCPPorts = [];
       allowedUDPPorts = [];
     };
