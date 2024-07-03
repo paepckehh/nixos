@@ -65,11 +65,13 @@
       ++ (with pkgs.gnome; [
         cheese
         gnome-music
+        gnome-camera
+        gnome-contacts
         gnome-terminal
+        gnome-characters
         epiphany
         geary
         evince
-        gnome-characters
         totem
         tali
         iagno
