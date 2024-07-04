@@ -98,29 +98,29 @@
           };
           selection = {
             save_to_clipboard = true;
-          }; # emulate kitty
+          };
           colors.primary = {
             background = "#000000";
-            foreground = "#ffffff";
+            foreground = "#fffbf6";
           };
           colors.normal = {
-            black = "#cc0403";
-            red = "#19cb00";
-            green = "#cecb00";
-            yellow = "#0d73cc";
-            blue = "#cb1ed1";
-            magenta = "#0dcdcd";
-            cyan = "#dddddd";
-            white = "#ffffff";
+            black = "#2e2e2e";
+            red = "#eb4129";
+            green = "#abe047";
+            yellow = "#f6c744";
+            blue = "#47a0f3";
+            magenta = "#7b5cb0";
+            cyan = "#64dbed";
+            white = "#e5e9f0";
           };
           colors.bright = {
-            black = "#f2201f";
-            red = "#23fd00";
-            green = "#fffd00";
-            yellow = "#1a8fff";
-            blue = "#fd28ff";
-            magenta = "#14ffff";
-            cyan = "#ffffff";
+            black = "#565656";
+            red = "#ec5357";
+            green = "#c0e17d";
+            yellow = "#f9da6a";
+            blue = "#49a4f8";
+            magenta = "#a47de9";
+            cyan = "#99faf2";
             white = "#ffffff";
           };
         };
