@@ -56,20 +56,18 @@
       };
       grub = {
         enable = true;
-        enableCryptodisk = true;
+        enableCryptodisk = false;
         configurationLimit = 4;
         efiSupport = true;
         efiInstallAsRemovable = true;
+        forceInstall = true;
         extraEntries = ''
           menuentry "Reboot" { reboot }
           menuentry "Poweroff" { halt } '';
-        forceInstall = true;
         memtest86 = {
           enable = true;
           params = [];
         };
-        # splashImage = null;
-        # splashMode = "normal";
         darkmatter-theme = {
           enable = true;
           style = "nixos";
