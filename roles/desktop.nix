@@ -111,7 +111,7 @@
             blue = "#cb1ed1";
             magenta = "#0dcdcd";
             cyan = "#dddddd";
-            white = "#000000";
+            white = "#ffffff";
           };
           colors.bright = {
             black = "#f2201f";
@@ -121,7 +121,7 @@
             blue = "#fd28ff";
             magenta = "#14ffff";
             cyan = "#ffffff";
-            white = "#000000";
+            white = "#ffffff";
           };
         };
       };
