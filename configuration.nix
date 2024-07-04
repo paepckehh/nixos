@@ -63,7 +63,7 @@
   system = {
     stateVersion = "24.05"; # dummy target, do not modify
     autoUpgrade = {
-      enable = true;
+      enable = false;
       allowReboot = true;
       dates = "hourly";
       flake = "github.com/paepckehh/nixos";
@@ -418,6 +418,7 @@
         export HNAME="$(hostname)" ;\
         sudo nixos-rebuild boot   --install-bootloader ;\
         sudo nixos-rebuild switch --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v ;\
+        sudo nixos-rebuild boot   --flake /etc/nixos/#generic              -p "generic-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182-console    -p "nixmac182-console-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\

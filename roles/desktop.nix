@@ -56,17 +56,18 @@
         gnome-photos
         gnome-tour
         gedit
-      ])
-      ++ (with pkgs.gnome; [
-        cheese
-        gnome-music
-        gnome-contacts
         gnome-terminal
-        gnome-characters
+        gnome-calendar
+        totem
+        evince
         epiphany
         geary
-        evince
-        totem
+        cheese
+      ])
+      ++ (with pkgs.gnome; [
+        gnome-music
+        gnome-contacts
+        gnome-characters
         tali
         iagno
         hitori

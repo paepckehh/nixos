@@ -9,24 +9,23 @@
   ...
 }: {
   imports = [
-    (modulesPath + "/hardware/network/broadcom-43xx.nix")
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "uas" "sd_mod"];
+  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "uas" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/d50c5dd2-61e8-4d53-91e8-d625cfc4ed97";
+    device = "/dev/disk/by-uuid/2a643cf5-159a-4cfc-9986-2ab4dac381fc";
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."luks-5007ede2-d11f-4cea-92b7-af4620e90556".device = "/dev/disk/by-uuid/5007ede2-d11f-4cea-92b7-af4620e90556";
+  boot.initrd.luks.devices."luks-531ee4e2-0a5b-4893-b885-16393ef4a1ed".device = "/dev/disk/by-uuid/531ee4e2-0a5b-4893-b885-16393ef4a1ed";
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/F41A-F3F8";
+    device = "/dev/disk/by-uuid/9607-DF5C";
     fsType = "vfat";
     options = ["fmask=0022" "dmask=0022"];
   };
@@ -38,8 +37,7 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.virbr0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp0s31f6.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

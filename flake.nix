@@ -17,6 +17,20 @@
     nixos-hardware,
   }: {
     nixosConfigurations = {
+      ###########
+      # Generic #
+      ###########
+      generic = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./roles/desktop.nix
+          ./modules/virtual.nix
+          ./hardware/kb-uk.nix
+          {networking.hostName = "generic";}
+        ];
+      };
       ######################################
       # Apple MacBookPro14,1 / UK Keyboard #
       ######################################
