@@ -36,7 +36,10 @@
   #-=# BOOT #=-#
   ##############
   boot = {
-    initrd.availableKernelModules = ["xhci_pci" "uas" "sd_mod" "nvme"];
+    initrd = {
+      luks.mitigateDMAAttacks = true;
+      availableKernelModules = ["xhci_pci" "uas" "sd_mod" "nvme"];
+    };
     kernelPackages = pkgs.linuxPackages_latest;
     tmp = {
       cleanOnBoot = true;
@@ -48,11 +51,11 @@
         efiSysMountPoint = "/boot";
       };
       systemd-boot = {
-        enable = true;
+        enable = false;
         configurationLimit = 4;
       };
       grub = {
-        enable = false;
+        enable = true;
         enableCryptodisk = true;
         configurationLimit = 4;
         efiSupport = true;
