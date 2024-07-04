@@ -86,7 +86,7 @@
       kitty = {
         enable = true;
         settings = {
-          font_size = 11.0;
+          font_size = 11;
           hide_window_decorations = true;
         };
       };
