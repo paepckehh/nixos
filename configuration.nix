@@ -68,13 +68,13 @@
           enable = true;
           params = [];
         };
-        splashImage = null;
-        splashMode = "normal";
+        # splashImage = null;
+        # splashMode = "normal";
         darkmatter-theme = {
           enable = true;
           style = "nixos";
         };
-        useOSProber = true;
+        useOSProber = false;
         device = "nodev";
         zfsSupport = false;
       };
