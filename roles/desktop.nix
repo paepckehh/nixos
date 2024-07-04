@@ -94,7 +94,7 @@
             save_to_clipboard = true;
           };
           colors.primary = {
-            background = "#101421";
+            background = "#000000";
             foreground = "#fffbf6";
           };
           colors.normal = {
