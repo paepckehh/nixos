@@ -101,7 +101,7 @@
           }; # emulate kitty
           colors.primary = {
             background = "#000000";
-            foreground = "#fffacd";
+            foreground = "#767676";
           };
           colors.normal = {
             black = "#cc0403";
