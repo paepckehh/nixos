@@ -54,21 +54,6 @@
         enable = true;
         configurationLimit = 4;
       };
-      grub = {
-        enable = false;
-        enableCryptodisk = false;
-        configurationLimit = 4;
-        efiSupport = true;
-        efiInstallAsRemovable = true;
-        forceInstall = true;
-        extraEntries = ''
-          menuentry "Reboot" { reboot }
-          menuentry "Poweroff" { halt } '';
-        memtest86.enable = true;
-        useOSProber = false;
-        device = "nodev";
-        zfsSupport = false;
-      };
     };
   };
 
@@ -437,7 +422,7 @@
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182-console    -p "nixmac182-console-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v ;\
-        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v ;\ '';
+        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v '';
     };
   };
   i18n = {
