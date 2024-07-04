@@ -59,7 +59,10 @@
         enableCryptodisk = true;
         configurationLimit = 4;
         efiSupport = true;
-        efiInstallAsRemovable = false;
+        efiInstallAsRemovable = true;
+        extraEntries = ''
+          menuentry "Reboot" { reboot }
+          menuentry "Poweroff" { halt } '';
         forceInstall = true;
         memtest86 = {
           enable = true;
@@ -69,7 +72,7 @@
         splashMode = "normal";
         theme = null;
         useOSProber = true;
-        device = "/dev/sda";
+        device = "nodev";
         zfsSupport = false;
       };
     };

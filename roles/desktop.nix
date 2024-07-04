@@ -100,6 +100,7 @@
           selection = {
             save_to_clipboard = true;
           };
+          font.size = 10;
           colors.primary = {
             background = "#000000";
             foreground = "#fffbf6";
