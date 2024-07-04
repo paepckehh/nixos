@@ -70,7 +70,10 @@
         };
         splashImage = null;
         splashMode = "normal";
-        theme = null;
+        darkmatter-theme = {
+          enable = true;
+          style = "nixos";
+        };
         useOSProber = true;
         device = "nodev";
         zfsSupport = false;
@@ -253,9 +256,15 @@
         "curve25519-sha256@libssh.org"
         "diffie-hellman-group-exchange-sha256"
       ];
-      knownHosts.github = {
-        extraHostNames = ["github.com" "api.github.com"];
-        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+      knownHosts = {
+        github = {
+          extraHostNames = ["github.com" "api.github.com"];
+          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+        };
+        gitlab = {
+          extraHostNames = ["gitlab.com" "api.gitlab.com"];
+          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfuCHKVTjquxvt6CM6tdG4SLp1Btn/nOeHHE5UOzRdf";
+        };
       };
     };
     git = {
