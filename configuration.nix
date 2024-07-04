@@ -330,7 +330,6 @@
       ripgrep
       shfmt
       shellcheck
-      nixos-grub2-theme
       moreutils
       vimPlugins.vim-shellcheck
       vimPlugins.vim-go
