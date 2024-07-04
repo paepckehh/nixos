@@ -3,9 +3,9 @@
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    # nix-theme.url = "gitlab:VandalByte/darkmatter-grub-theme";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:paepckehh/nixos-hardware/master";
-    nix-theme.url = "gitlab:VandalByte/darkmatter-grub-theme";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,7 +14,6 @@
   outputs = {
     self,
     nixpkgs,
-    nix-theme,
     home-manager,
     nixos-hardware,
   }: {
@@ -27,7 +26,6 @@
         modules = [
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           home-manager.nixosModules.home-manager
-          nix-theme.nixosModule
           ./configuration.nix
           ./roles/desktop.nix
           ./modules/virtual.nix
@@ -47,7 +45,6 @@
         modules = [
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           home-manager.nixosModules.home-manager
-          nix-theme.nixosModule
           ./configuration.nix
           ./hardware/kb-uk.nix
           {networking.hostName = "nixbook141-console";}
@@ -58,7 +55,6 @@
         modules = [
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           home-manager.nixosModules.home-manager
-          nix-theme.nixosModule
           ./configuration.nix
           ./roles/office.nix
           ./hardware/kb-uk.nix
@@ -73,7 +69,6 @@
         modules = [
           nixos-hardware.nixosModules.apple-imac-18-2
           home-manager.nixosModules.home-manager
-          nix-theme.nixosModule
           ./configuration.nix
           ./roles/office.nix
           ./modules/virtual.nix
@@ -86,7 +81,6 @@
         modules = [
           nixos-hardware.nixosModules.apple-imac-18-2
           home-manager.nixosModules.home-manager
-          nix-theme.nixosModule
           ./configuration.nix
           ./hardware/kb-uk.nix
           {networking.hostName = "nixmac182-console";}

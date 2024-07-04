@@ -48,14 +48,14 @@
     loader = {
       efi = {
         canTouchEfiVariables = false;
-        efiSysMountPoint = "/boot/efi";
+        efiSysMountPoint = "/boot";
       };
       systemd-boot = {
-        enable = false;
+        enable = true;
         configurationLimit = 4;
       };
       grub = {
-        enable = true;
+        enable = false;
         enableCryptodisk = false;
         configurationLimit = 4;
         efiSupport = true;
@@ -64,14 +64,7 @@
         extraEntries = ''
           menuentry "Reboot" { reboot }
           menuentry "Poweroff" { halt } '';
-        memtest86 = {
-          enable = true;
-          params = [];
-        };
-        darkmatter-theme = {
-          enable = true;
-          style = "nixos";
-        };
+        memtest86.enable = true;
         useOSProber = false;
         device = "nodev";
         zfsSupport = false;
