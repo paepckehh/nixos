@@ -141,7 +141,7 @@
             wireless-hid.extensionUuid
             wifi-qrcode.extensionUuid
           ];
-          favorite-apps = ["alacritty.desktop" "kitty.desktop" "librewolf.desktop"];
+          favorite-apps = ["Alacritty.desktop" "kitty.desktop" "librewolf.desktop"];
         };
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings = ["/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"];
