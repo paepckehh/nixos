@@ -142,10 +142,12 @@
             wifi-qrcode.extensionUuid
           ];
           favorite-apps = [
-            alacritty.desktop
-            kitty.desktop
-            librewolf.desktop
-            opensnitch.desktop
+            ''
+              alacritty.desktop
+              kitty.desktop
+              librewolf.desktop
+              opensnitch.desktop
+            ''
           ];
         };
         "org/gnome/desktop/interface" = {
