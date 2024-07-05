@@ -163,6 +163,15 @@
   services = {
     autosuspend.enable = lib.mkForce false;
     printing.enable = lib.mkForce false;
+    gnome = {
+      games.enable = lib.mkForce false;
+      gnome-browser-connector.enable = lib.mkForce false;
+      gnome-initial-setup.enable = lib.mkForce false;
+      gnome-online-accounts.enable = lib.mkForce false;
+      gnome-remote-desktop.enable = lib.mkForce false;
+      gnome-online-miners.enable = lib.mkForce false;
+      gnome-user-share.enable = lib.mkForce false;
+    };
     xserver = {
       enable = true;
       displayManager.gdm = {
@@ -172,7 +181,6 @@
       desktopManager = {
         gnome = {
           enable = true;
-          services.gnome.gnome-initial-setup.enable = false;
         };
         xterm.enable = false;
       };
