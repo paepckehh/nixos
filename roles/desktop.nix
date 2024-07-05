@@ -158,7 +158,12 @@
       enable = true;
       displayManager.gdm.enable = true;
       desktopManager = {
-        gnome.enable = true;
+        gnome = {
+          enable = true;
+          favoriteAppsOverride = ''
+            [org.gnome.shell]
+            favorite-apps=[ 'alacritty.desktop', 'kitty.desktop', 'librewolf.desktop', 'opensnitch.desktop' ]'';
+        };
         xterm.enable = false;
       };
     };

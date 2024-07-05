@@ -37,8 +37,9 @@
   ##############
   boot = {
     initrd = {
-      luks.mitigateDMAAttacks = true;
       availableKernelModules = ["xhci_pci" "uas" "sd_mod" "nvme"];
+      luks.mitigateDMAAttacks = lib.mkDefault true;
+      # systemd.enable = lib.mkDefault true;
     };
     kernelPackages = pkgs.linuxPackages_latest;
     tmp = {
@@ -62,6 +63,7 @@
   ###############
   system = {
     stateVersion = "24.05"; # dummy target, do not modify
+    switch.enable = true; # allow updates
     autoUpgrade = {
       enable = false;
       allowReboot = true;
@@ -152,15 +154,16 @@
   ###############
   users = {
     defaultUserShell = pkgs.zsh;
+    mutableUsers = true;
     users = {
       root = {
         shell = pkgs.bashInteractive;
-        hashedPassword = "!"; # disable root account
+        hashedPassword = null; # disable root account
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-locked"];
       };
       me = {
         description = "minimal-env-admin";
-        initialPassword = "start-riot-bravo-charly-24";
+        initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7";
         uid = 1000;
         group = "users";
         createHome = true;
@@ -171,7 +174,7 @@
       };
       user = {
         description = "normal-user";
-        initialPassword = "start-delta-echo-delta-24";
+        initialHashedPassword = "$y$j9T$LHspGdWTX1m6WpLsN6xvH.$Ewnrv.azy5vko2dySQxtYZc2G3W5VpeIbhMBRxoO5TC";
         uid = 10000;
         group = "users";
         createHome = true;
