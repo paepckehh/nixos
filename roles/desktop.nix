@@ -141,14 +141,15 @@
             wireless-hid.extensionUuid
             wifi-qrcode.extensionUuid
           ];
-          favorite-apps = [
-            ''
-              alacritty.desktop
-              kitty.desktop
-              librewolf.desktop
-              opensnitch.desktop
-            ''
-          ];
+          favorite-apps = ["alacritty.desktop" "kitty.desktop" "librewolf.desktop"];
+        };
+        "org/gnome/settings-daemon/plugins/media-keys" = {
+          custom-keybindings = ["/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"];
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+          name = "alacritty terminal";
+          command = "alacritty";
+          binding = "<Super>Return";
         };
         "org/gnome/desktop/interface" = {
           clock-show-weekday = true;
