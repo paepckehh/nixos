@@ -133,7 +133,7 @@
       enable = true;
       settings = {
         "org/gnome/shell" = {
-          disable-user-extensions = true;
+          disable-user-extensions = false;
           enabled-extensions = with pkgs.gnomeExtensions; [
             todotxt.extensionUuid
             toggle-alacritty.extensionUuid
