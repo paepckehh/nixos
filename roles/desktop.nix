@@ -141,6 +141,12 @@
             wireless-hid.extensionUuid
             wifi-qrcode.extensionUuid
           ];
+          favorite-apps = [
+            alacritty.desktop
+            kitty.desktop
+            librewolf.desktop
+            opensnitch.desktop
+          ];
         };
         "org/gnome/desktop/interface" = {
           clock-show-weekday = true;
@@ -153,16 +159,18 @@
   #-=# SERVICES #=-#
   ##################
   services = {
+    autosuspend.enable = lib.mkForce false;
     printing.enable = lib.mkForce false;
     xserver = {
       enable = true;
-      displayManager.gdm.enable = true;
+      displayManager.gdm = {
+        enable = true;
+        autoSuspend = false;
+      };
       desktopManager = {
         gnome = {
           enable = true;
-          favoriteAppsOverride = ''
-            [org.gnome.shell]
-            favorite-apps=[ 'alacritty.desktop', 'kitty.desktop', 'librewolf.desktop', 'opensnitch.desktop' ]'';
+          services.gnome.gnome-initial-setup.enable = false;
         };
         xterm.enable = false;
       };
