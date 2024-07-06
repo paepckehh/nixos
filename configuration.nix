@@ -283,12 +283,20 @@
       ];
       knownHosts = {
         github = {
-          extraHostNames = ["github.com" "api.github.com"];
+          extraHostNames = ["github.com" "api.github.com" "git.github.com"];
           publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
         };
         gitlab = {
-          extraHostNames = ["gitlab.com" "api.gitlab.com"];
+          extraHostNames = ["gitlab.com" "api.gitlab.com" "git.gitlab.com"];
           publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfuCHKVTjquxvt6CM6tdG4SLp1Btn/nOeHHE5UOzRdf";
+        };
+        codeberg = {
+          extraHostNames = ["codeberg.org" "api.codeberg.org" "git.codeberg.org"];
+          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB";
+        };
+        sourcehut = {
+          extraHostNames = ["sr.ht" "api.sr.ht" "git.sr.ht"];
+          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZvRd4EtM7R+IHVMWmDkVU3VLQTSwQDSAvW0t2Tkj60";
         };
       };
     };
@@ -297,11 +305,28 @@
       prompt.enable = true;
       config = {
         branch.sort = "-committerdate";
+        commit.gpgsign = "true";
         init.defaultBranch = "main";
         safe.directory = "/etc/nixos";
         gpg.format = "ssh";
-        commit.gpgsign = "true";
-        url = {"https://github.com/" = {insteadOf = ["gh:" "github:"];};};
+        http = {
+          sslVerify = "true";
+          sslVersion = "tlsv1.3";
+          version = "HTTP/1.1";
+        };
+        protocol = {
+          allow = "never";
+          file.allow = "always";
+          git.allow = "never";
+          ssh.allow = "always";
+          http.allow = "never";
+          https.allow = "never";
+        };
+        url = {
+          "git@github.com/" = {insteadOf = ["gh:" "github:" "github.com" "https://github.com" "https://git.github.com"];};
+          "git@gitlab.com/" = {insteadOf = ["gl:" "gitlab:" "gitlab.com" "https://gitlab.com" "https://git.gitlab.com"];};
+          "git@codeberg.org/" = {insteadOf = ["cb:" "codeberg:" "codeberg.org" "https://codeberg.org" "https://git.codeberg.org"];};
+        };
       };
     };
     vim = {
