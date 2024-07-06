@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  modulesPath,
   home-manager,
   ...
 }: {
@@ -11,7 +10,6 @@
   #################
   imports = [
     ./hardware-configuration.nix
-    # (modulesPath + "/profiles/hardened.nix")
   ];
 
   #############
@@ -22,7 +20,8 @@
     extraOptions = "experimental-features = nix-command flakes ";
     settings = {
       auto-optimise-store = true;
-      trusted-users = ["root" "@wheel"];
+      trusted-users = lib.mkForce ["root" "@wheel"];
+      allowed-users = lib.mkForce ["@users" "@wheel"];
     };
     gc = {
       automatic = true;
@@ -42,6 +41,24 @@
       # systemd.enable = lib.mkDefault true;
     };
     kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = mkDefault pkgs.linuxPackages_hardened;
+    kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off"];
+    kernel.sysctl = {
+      "kernel.kptr_restrict" = lib.mkOverride 500 2;
+      "net.core.bpf_jit_enable" = lib.mkDefault false;
+      "kernel.ftrace_enabled" = lib.mkDefault false;
+      "net.ipv4.conf.all.log_martians" = lib.mkDefault true;
+      "net.ipv4.conf.all.rp_filter" = lib.mkDefault "1";
+      "net.ipv4.conf.default.log_martians" = lib.mkDefault true;
+      "net.ipv4.conf.default.rp_filter" = lib.mkDefault "1";
+      "net.ipv4.icmp_echo_ignore_broadcasts" = lib.mkDefault true;
+      "net.ipv4.conf.all.accept_redirects" = lib.mkDefault false;
+      "net.ipv4.conf.all.secure_redirects" = lib.mkDefault false;
+      "net.ipv4.conf.default.accept_redirects" = lib.mkDefault false;
+      "net.ipv4.conf.default.secure_redirects" = lib.mkDefault false;
+      "net.ipv6.conf.all.accept_redirects" = lib.mkDefault false;
+    };
+    blacklistedKernelModules = ["ax25" "netrom" "rose" "adfs" "affs" "bfs" "befs" "cramfs" "efs" "erofs" "exofs" "freevxfs" "f2fs" "hfs" "hpfs" "jfs" "minix" "nilfs2" "ntfs" "omfs" "qnx4" "qnx6" "sysv" "ufs"];
     tmp = {
       cleanOnBoot = true;
       useTmpfs = true;
@@ -123,6 +140,14 @@
   ##################
   security = {
     auditd.enable = true;
+    allowSimultaneousMultithreading = true; # perf
+    lockKernelModules = lib.mkForce true;
+    protectKernelImage = lib.mkForce true;
+    forcePageTableIsolation = lib.mkForce true;
+    apparmor = {
+      enable = lib.mkDefault true;
+      killUnconfinedConfinables = lib.mkDefault true;
+    };
     dhparams = {
       enable = true;
       stateful = false;
@@ -275,7 +300,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    # TODO: hardening mem allocator
+    # TODO: hardening mem allocator [scudo]
     memoryAllocator.provider = lib.mkForce "libc";
     interactiveShellInit = ''
       ( cd && touch .zshrc .bashrc && uname -a )'';
@@ -284,6 +309,7 @@
       EDITOR = "vim";
       PAGER = "bat";
       SHELLCHECK_OPTS = "-e SC2086";
+      # SCUDO_OPTIONS = mkDefault "ZeroContents=1";
     };
     systemPackages = with pkgs; [
       alejandra
@@ -423,11 +449,11 @@
         sudo nixos-rebuild boot   --install-bootloader ;\
         sudo nixos-rebuild switch --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#generic              -p "generic-$DTS" -v ;\
+        sudo nixos-rebuild boot   --flake /etc/nixos/#generic-console      -p "generic-console-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ;\
-        sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182-console    -p "nixmac182-console-$DTS" -v ;\
         sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
-        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v ;\
-        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v '';
+        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v ;\
+        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v '';
     };
   };
   i18n = {

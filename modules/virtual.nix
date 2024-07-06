@@ -1,24 +1,28 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
+  #################
+  #-=# IMPORTS #=-#
+  #################
+  imports = [
+    ./cockpit.nix
+  ];
+
   ##################
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    virt-manager.enable = true; # TODO cond. disable on headless
+    virt-manager.enable = true;
   };
 
   ##################
-  #-=# SERVICES #=-#
+  #-=# SECURITY #=-#
   ##################
-  services = {
-    cockpit = {
-      enable = false;
-      port = 9090;
-      settings.WebService.AllowUnencrypted = false;
-    };
+  security = {
+    unprivilegedUsernsClone = lib.mkForce true;
   };
 
   ########################
