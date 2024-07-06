@@ -201,7 +201,7 @@
   ###############
   users = {
     defaultUserShell = pkgs.zsh;
-    mutableUsers = true;
+    mutableUsers = false;
     users = {
       root = {
         shell = pkgs.bashInteractive;
