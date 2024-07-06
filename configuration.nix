@@ -38,9 +38,7 @@
     initrd = {
       availableKernelModules = ["xhci_pci" "uas" "sd_mod" "nvme"];
       luks.mitigateDMAAttacks = lib.mkDefault true;
-      # systemd.enable = lib.mkDefault true;
     };
-    # kernelPackages = pkgs.linuxPackages_latest;
     kernelPackages = lib.mkDefault pkgs.linuxPackages_hardened;
     kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off"];
     kernel.sysctl = {
@@ -206,7 +204,7 @@
       root = {
         shell = pkgs.bashInteractive;
         hashedPassword = null; # disable root account
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-locked"];
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
       me = {
         description = "minimal-env-admin";
@@ -217,7 +215,7 @@
         isNormalUser = true;
         useDefaultShell = true;
         extraGroups = ["wheel" "networkmanager" "video" "docker" "libvirt"];
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-locked"];
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
       user = {
         description = "normal-user";
@@ -228,7 +226,7 @@
         isNormalUser = true;
         useDefaultShell = true;
         extraGroups = ["video"];
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-locked"];
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
     };
   };
@@ -450,7 +448,8 @@
         git commit -S -m update ;\
         export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
         export HNAME="$(hostname)" ;\
-        sudo nixos-rebuild boot --install-bootloader ;\
+        sudo nixos-rebuild boot   --install-bootloader ;\
+        sudo nixos-rebuild boot   --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" ;\
         sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
       "nix.all" = ''
         cd /etc/nixos &&\
@@ -468,14 +467,14 @@
         git commit -S -m update ;\
         export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
         export HNAME="$(hostname)" ;\
-        sudo nixos-rebuild boot   --install-bootloader ;\
-        sudo nixos-rebuild switch --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v ;\
-        sudo nixos-rebuild boot   --flake /etc/nixos/#generic              -p "generic-$DTS" -v ;\
-        sudo nixos-rebuild boot   --flake /etc/nixos/#generic-console      -p "generic-console-$DTS" -v ;\
-        sudo nixos-rebuild boot   --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ;\
-        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
-        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v ;\
-        sudo nixos-rebuild boot   --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v '';
+        sudo nixos-rebuild boot --install-bootloader ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#generic              -p "generic-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#generic-console      -p "generic-console-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v '';
     };
   };
   i18n = {
