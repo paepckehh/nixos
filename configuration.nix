@@ -440,16 +440,6 @@
         git add . ;\
         git commit -S -m update ;\
         sudo nixos-rebuild dry-activate --flake /etc/nixos/.#$(hostname)'';
-      "nix.build" = ''
-        cd /etc/nixos &&\
-        sudo -v &&\
-        sudo alejandra --quiet . ;\
-        git reset ;\
-        git add . ;\
-        git commit -S -m update ;\
-        export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
-        export HNAME="$(hostname)" ;\
-        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
       "nix.iso" = ''
         cd /etc/nixos &&\
         sudo -v &&\
@@ -463,10 +453,6 @@
       "nix.update" = ''
         cd /etc/nixos &&\
         sudo -v &&\
-        sudo alejandra --quiet . &&\
-        git reset ;\
-        git add . ;\
-        git commit -S -m update ;\
         sudo nix --verbose flake update &&\
         sudo alejandra --quiet . &&\
         sudo nixos-generate-config &&\
@@ -478,20 +464,9 @@
         sudo nixos-rebuild boot   --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" ;\
         sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
       "nix.all" = ''
-        cd /etc/nixos &&\
-        sudo -v &&\
-        sudo alejandra --quiet . &&\
-        git reset ;\
-        git add . ;\
-        git commit -S -m update ;\
-        sudo nix --verbose flake update &&\
-        sudo alejandra --quiet . &&\
-        sudo nixos-generate-config &&\
-        sudo alejandra --quiet . &&\
-        nix.push ;\
-        export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
-        export HNAME="$(hostname)" ;\
-        sudo nixos-rebuild boot --install-bootloader ;\
+        nix.update ;\
+        echo "XXX $HNAME $DTS" 
+        exit 1
         sudo nixos-rebuild boot --flake /etc/nixos/#generic              -p "generic-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#generic-console      -p "generic-console-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ;\
