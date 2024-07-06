@@ -40,8 +40,8 @@
       luks.mitigateDMAAttacks = lib.mkDefault true;
       # systemd.enable = lib.mkDefault true;
     };
-    kernelPackages = pkgs.linuxPackages_latest;
-    # kernelPackages = mkDefault pkgs.linuxPackages_hardened;
+    # kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = mkDefault pkgs.linuxPackages_hardened;
     kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off"];
     kernel.sysctl = {
       "kernel.kptr_restrict" = lib.mkOverride 500 2;
@@ -58,7 +58,29 @@
       "net.ipv4.conf.default.secure_redirects" = lib.mkDefault false;
       "net.ipv6.conf.all.accept_redirects" = lib.mkDefault false;
     };
-    blacklistedKernelModules = ["ax25" "netrom" "rose" "adfs" "affs" "bfs" "befs" "cramfs" "efs" "erofs" "exofs" "freevxfs" "f2fs" "hfs" "hpfs" "jfs" "minix" "nilfs2" "ntfs" "omfs" "qnx4" "qnx6" "sysv" "ufs"];
+    blacklistedKernelModules = [
+      "ax25"
+      "netrom"
+      "rose"
+      "adfs"
+      "affs"
+      "bfs"
+      "befs"
+      "cramfs"
+      "efs"
+      "erofs"
+      "exofs"
+      "freevxfs"
+      "f2fs"
+      "hpfs"
+      "jfs"
+      "minix"
+      "nilfs2"
+      "omfs"
+      "qnx4"
+      "qnx6"
+      "sysv"
+    ];
     tmp = {
       cleanOnBoot = true;
       useTmpfs = true;
