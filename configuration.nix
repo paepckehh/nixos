@@ -354,7 +354,7 @@
       EDITOR = "vim";
       PAGER = "bat";
       SHELLCHECK_OPTS = "-e SC2086";
-      # SCUDO_OPTIONS = mkDefault "ZeroContents=1";
+      SCUDO_OPTIONS = lib.mkDefault "ZeroContents=1";
     };
     systemPackages = with pkgs; [
       alejandra
@@ -492,13 +492,13 @@
         export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         sudo nixos-rebuild boot --install-bootloader ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#generic             -p "generic-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#generic              -p "generic-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#generic-console      -p "generic-console-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v '';
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v '';
     };
   };
   i18n = {
