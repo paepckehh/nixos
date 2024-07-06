@@ -465,8 +465,9 @@
         sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
       "nix.all" = ''
         nix.update ;\
-        echo "XXX $HNAME $DTS" 
-        exit 1
+        echo "XXX $HNAME $DTS"
+      '';
+      "xx" = ''
         sudo nixos-rebuild boot --flake /etc/nixos/#generic              -p "generic-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#generic-console      -p "generic-console-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ;\
