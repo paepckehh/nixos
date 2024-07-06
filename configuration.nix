@@ -411,13 +411,16 @@
         cd /etc/nixos &&\
         sudo -v &&\
         sudo alejandra --quiet . ;\
+        git reset ;\
+        git add . ;\
+        git commit -S -m update ;\
         sudo nixos-rebuild dry-activate --flake /etc/nixos/.#$(hostname)'';
       "nix.build" = ''
         cd /etc/nixos &&\
         sudo -v &&\
-        sudo alejandra --quiet . &&\
-        git reset &&\
-        git add . &&\
+        sudo alejandra --quiet . ;\
+        git reset ;\
+        git add . ;\
         git commit -S -m update ;\
         export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
         export HNAME="$(hostname)" ;\
@@ -426,8 +429,8 @@
         cd /etc/nixos &&\
         sudo -v &&\
         sudo alejandra --quiet . &&\
-        git reset &&\
-        git add . &&\
+        git reset ;\
+        git add . ;\
         git commit -S -m update ;\
         export HNAME="$(hostname)" ;\
         sudo nix build --impure ".#nixosConfigurations.$HNAME-iso.config.system.build.isoImage" ;\
@@ -436,16 +439,14 @@
         cd /etc/nixos &&\
         sudo -v &&\
         sudo alejandra --quiet . &&\
-        git reset &&\
-        git add . &&\
+        git reset ;\
+        git add . ;\
         git commit -S -m update ;\
         sudo nix --verbose flake update &&\
         sudo alejandra --quiet . &&\
         sudo nixos-generate-config &&\
         sudo alejandra --quiet . &&\
-        git reset &&\
-        git add . &&\
-        git commit -S -m update ;\
+        nix.push ;\
         export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         sudo nixos-rebuild boot   --install-bootloader ;\
@@ -455,21 +456,19 @@
         cd /etc/nixos &&\
         sudo -v &&\
         sudo alejandra --quiet . &&\
-        git reset &&\
-        git add . &&\
+        git reset ;\
+        git add . ;\
         git commit -S -m update ;\
         sudo nix --verbose flake update &&\
         sudo alejandra --quiet . &&\
         sudo nixos-generate-config &&\
         sudo alejandra --quiet . &&\
-        git reset &&\
-        git add . &&\
-        git commit -S -m update ;\
+        nix.push ;\
         export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         sudo nixos-rebuild boot --install-bootloader ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#generic              -p "generic-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#generic             -p "generic-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#generic-console      -p "generic-console-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
