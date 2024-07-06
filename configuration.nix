@@ -412,7 +412,8 @@
         git reset &&\
         git add . &&\
         git commit -S -m update ;\
-        git gc --aggressive ;\
+        git fsck --full &&\
+        git gc --aggressive &&\
         git push --force '';
       "nix.clean" = ''
         cd /etc/nixos &&\
