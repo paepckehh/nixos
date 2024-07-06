@@ -41,7 +41,7 @@
       # systemd.enable = lib.mkDefault true;
     };
     # kernelPackages = pkgs.linuxPackages_latest;
-    kernelPackages = mkDefault pkgs.linuxPackages_hardened;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_hardened;
     kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off"];
     kernel.sysctl = {
       "kernel.kptr_restrict" = lib.mkOverride 500 2;
