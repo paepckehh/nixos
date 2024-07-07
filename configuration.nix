@@ -257,6 +257,7 @@
         };
         fonts.fontconfig.enable = true;
         programs = {
+          fzf.enable = true;
           home-manager.enable = true;
           starship.enable = true;
           gitui.enable = true;
