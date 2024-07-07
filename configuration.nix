@@ -211,15 +211,15 @@
           zsh = {
             enable = true;
             autocd = true;
+            autosuggestion.enable = true;
             defaultKeymap = "viins";
+            syntaxHighlighting.enable = true;
+            historySubstringSearch.enable = true;
             history = {
               extended = true;
               ignoreSpace = true;
               share = true;
             };
-            historySubStringSearch.enable = true;
-            autosuggestion.enable = true;
-            syntaxHighlighting.enable = true;
           };
         };
       };
