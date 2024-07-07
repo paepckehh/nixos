@@ -251,6 +251,7 @@
             lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
             li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
           };
+          packages = [pkgs.nerdfonts];
         };
         programs = {
           home-manager.enable = true;
