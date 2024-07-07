@@ -230,7 +230,6 @@
     };
   };
 
-  
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
@@ -253,6 +252,7 @@
             li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
           };
         };
+        fonts.fontsconfig.enable = true;
         programs = {
           home-manager.enable = true;
           starship.enable = true;
@@ -448,8 +448,8 @@
   ###############
   #-=# FONTS #=-#
   ###############
-  fonts { 
-    packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; })];
+  fonts = {
+    packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];})];
   };
 
   ##################
