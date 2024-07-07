@@ -39,6 +39,7 @@
           };
           shellAliases = {
             e = "vim";
+            n = "nvim";
             cat = "bat --paging=never";
             bandwhich = "sudo bandwhich";
             powertop = "sudo powertop";
@@ -91,6 +92,10 @@
             enable = true;
             userName = "PAEPCKE, Michael";
             userEmail = "git@github.com";
+          };
+          neovim = {
+            enable = true;
+            plugins = with pkgs.vimPlugins; [go-nvim];
           };
           vim = {
             enable = true;
