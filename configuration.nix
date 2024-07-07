@@ -437,51 +437,50 @@
     };
   };
 
-    ##################
-    #-=# SERVICES #=-#
-    ##################
-    services = {
-      power-profiles-daemon.enable = true;
-      thermald.enable = true;
-      logind.hibernateKey = "ignore";
-      opensnitch = {
-        enable = false;
-        settings = {
-          firewall = "nftables"; # iptables or nftables
-          defaultAction = "deny"; # allow or deny
-        };
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+  services = {
+    power-profiles-daemon.enable = true;
+    thermald.enable = true;
+    logind.hibernateKey = "ignore";
+    opensnitch = {
+      enable = false;
+      settings = {
+        firewall = "nftables"; # iptables or nftables
+        defaultAction = "deny"; # allow or deny
       };
-      fstrim = {
-        enable = true;
-        interval = "daily";
+    };
+    fstrim = {
+      enable = true;
+      interval = "daily";
+    };
+    openssh = {
+      enable = false;
+      allowSFTP = false;
+      settings = {
+        PasswordAuthentication = false;
+        StrictModes = true;
+        challengeResponseAuthentication = false;
       };
-      openssh = {
-        enable = false;
-        allowSFTP = false;
-        settings = {
-          PasswordAuthentication = false;
-          StrictModes = true;
-          challengeResponseAuthentication = false;
-        };
-        extraConfig = ''
-          AllowTcpForwarding yes
-          X11Forwarding no
-          AllowAgentForwarding no
-          AllowStreamLocalForwarding no
-          AuthenticationMethods publickey '';
-        hostKeys = [
-          {
-            path = "/etc/ssh/ssh_host_ed25519_key";
-            type = "ed25519";
-          }
-        ];
-        listenAddresses = [
-          {
-            addr = "0.0.0.0";
-            port = "8022";
-          }
-        ];
-      };
+      extraConfig = ''
+        AllowTcpForwarding yes
+        X11Forwarding no
+        AllowAgentForwarding no
+        AllowStreamLocalForwarding no
+        AuthenticationMethods publickey '';
+      hostKeys = [
+        {
+          path = "/etc/ssh/ssh_host_ed25519_key";
+          type = "ed25519";
+        }
+      ];
+      listenAddresses = [
+        {
+          addr = "0.0.0.0";
+          port = "8022";
+        }
+      ];
     };
   };
 }
