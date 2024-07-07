@@ -182,6 +182,7 @@
             PAGER = "bat";
           };
           file = {".config/starship.toml".source = ./res/starship/gruvbox-rainbow.toml;};
+          packages = with pkgs; [bandwich dust hyperfine tldr shellsheck shfmt vulnix];
         };
         fonts.fontconfig.enable = true;
         programs = {
@@ -189,6 +190,9 @@
           thefuck.enable = true;
           home-manager.enable = true;
           starship.enable = true;
+          go.enable = true;
+          gh.enable = true;
+          ripgrep.enable = true;
           gitui.enable = true;
           zoxide.enable = true;
           bat = {
@@ -262,8 +266,6 @@
     htop.enable = true;
     iftop.enable = true;
     iotop.enable = true;
-    nano.enable = false;
-    nix-index.enable = false;
     usbtop.enable = true;
     fzf.fuzzyCompletion = true;
     ssh = {
@@ -345,31 +347,7 @@
       SHELLCHECK_OPTS = "-e SC2086";
       SCUDO_OPTIONS = lib.mkDefault "ZeroContents=1";
     };
-    systemPackages = with pkgs; [
-      alejandra
-      bandwhich
-      fd
-      go
-      gopass
-      gh
-      git-crypt
-      git-agecrypt
-      dust
-      hyperfine
-      jq
-      tldr
-      tree
-      paper-age
-      passage
-      procs
-      rage
-      ripgrep
-      shfmt
-      shellcheck
-      moreutils
-      vulnix
-      yq
-    ];
+    systemPackages = with pkgs; [alejandra fd git-crypt git-agecrypt jq tree paper-age passage rage moreutils yq];
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
       l = "ls -la";
