@@ -254,9 +254,6 @@
             lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
             li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
           };
-          variables = {
-            # PAGER = "bat";
-          };
         };
         fonts.fontconfig.enable = true;
         programs = {
