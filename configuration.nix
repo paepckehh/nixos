@@ -230,6 +230,7 @@
     };
   };
 
+  
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
@@ -251,7 +252,6 @@
             lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
             li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
           };
-          packages = [pkgs.nerdfonts];
         };
         programs = {
           home-manager.enable = true;
@@ -428,7 +428,7 @@
   };
 
   ##############
-  #-=# i18n #=-#
+  #-=# I18N #=-#
   ##############
   i18n = {
     defaultLocale = "en_US.UTF-8";
@@ -443,6 +443,13 @@
       LC_TELEPHONE = "de_DE.UTF-8";
       LC_TIME = "de_DE.UTF-8";
     };
+  };
+
+  ###############
+  #-=# FONTS #=-#
+  ###############
+  fonts { 
+    packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; })];
   };
 
   ##################
