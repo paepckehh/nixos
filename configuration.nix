@@ -246,16 +246,17 @@
           homeDirectory = "/home/me";
           keyboard.layout = "us,de";
           shellAliases = {
-            cat = "bat --paging=never";
-            man = "batman";
+            # cat = "bat --paging=never";
+            # man = "batman";
             ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
             la = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
             lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
             lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
             li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
           };
-          variables = {};
-          PAGES = "bat";
+          variables = {
+            # PAGER = "bat";
+          };
         };
         fonts.fontconfig.enable = true;
         programs = {
