@@ -147,6 +147,10 @@
     iotop.enable = true;
     usbtop.enable = true;
     fzf.fuzzyCompletion = true;
+    nh = {
+      enable = true;
+      flake = /etc/nixos;
+    };
     ssh = {
       pubkeyAcceptedKeyTypes = ["ssh-ed25519" "ssh-rsa"];
       ciphers = ["chacha20-poly1305@openssh.com" "aes256-gcm@openssh.com"];
