@@ -235,14 +235,19 @@
   ######################
   home-manager = {
     useUserPackages = true;
-    root = {
-    };
     users = {
       me = {
         home = {
           stateVersion = "24.05";
           username = "me";
           homeDirectory = "/home/me";
+          shellAliases = {
+      ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
+      la = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
+      lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
+      lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
+      li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
+          };
         };
         programs = {
           home-manager.enable = true;
@@ -408,11 +413,6 @@
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
       l = "ls -la";
-      ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
-      la = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
-      lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
-      lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
-      li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
       e = "vim";
       h = "htop --tree --highlight-changes";
       p = "sudo powertop";
