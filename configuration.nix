@@ -181,7 +181,7 @@
             EDITOR = "vim";
             PAGER = "bat";
           };
-          file = {".config/starship.toml".source = "./res/starship/gruvbox-rainbow.toml"};
+          file.".config/starship.toml".source = "./res/starship/gruvbox-rainbow.toml";
         };
         fonts.fontconfig.enable = true;
         programs = {
