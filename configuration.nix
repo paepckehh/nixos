@@ -181,9 +181,9 @@
             EDITOR = "vim";
             PAGER = "bat";
           };
-        };
-        file = {
-          ".config/starship.toml".source = builtins.readFile (builtins.fetchurl {url = "https://starship.rs/presets/toml/gruvbox-rainbow.toml";});
+          file = {
+            ".config/starship.toml".source = builtins.readFile (builtins.fetchurl {url = "https://starship.rs/presets/toml/gruvbox-rainbow.toml";});
+          };
         };
         fonts.fontconfig.enable = true;
         programs = {
