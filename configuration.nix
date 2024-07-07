@@ -236,6 +236,9 @@
   home-manager = {
     useUserPackages = true;
     users = {
+      #################
+      #-=# USER:ME #=-#
+      #################
       me = {
         home = {
           stateVersion = "24.05";
@@ -284,6 +287,9 @@
           };
         };
       };
+      ###################
+      #-=# USER:USER #=-#
+      ###################
       user = {
         home = {
           stateVersion = "24.05";
