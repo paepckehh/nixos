@@ -67,7 +67,7 @@
           thefuck.enable = true;
           starship.enable = true;
           go.enable = true;
-          gh.enable = true;
+          gh-dash.enable = true;
           gitui.enable = true;
           home-manager.enable = true;
           navi.enable = true;
@@ -87,6 +87,10 @@
           fd = {
             enable = true;
             extraOptions = ["--absolute-path" "--no-ignore"];
+          };
+          gh = {
+            enable = true;
+            settings.git_protocol = "ssh";
           };
           git = {
             enable = true;
