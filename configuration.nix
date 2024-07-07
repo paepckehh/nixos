@@ -182,6 +182,9 @@
             PAGER = "bat";
           };
         };
+        file = { 
+          ".config/starship.toml".source = builtins.readFile(builtins.fetchurl {url = "https://starship.rs/presets/toml/gruvbox-rainbow.toml";});
+        };
         fonts.fontconfig.enable = true;
         programs = {
           fzf.enable = true;
@@ -189,6 +192,7 @@
           home-manager.enable = true;
           starship.enable = true;
           gitui.enable = true;
+          zoxide.enable = true;
           bat = {
             enable = true;
             extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch prettybat];
@@ -207,6 +211,19 @@
             enable = true;
             userName = "PAEPCKE, Michael";
             userEmail = "git@github.com";
+          };
+          vim = {
+            enable = true;
+            defaultEditor = true;
+            plugins = [ vimPlugins.vim-shellcheck vimPlugins.vim-go vimPlugins.vim-git];
+            settings = {
+             expandtab = true;
+             history = 1000;
+            };
+            extraConfig = { ''
+              set nocompatible
+              set nobackup '';
+            };
           };
           zsh = {
             enable = true;
@@ -353,9 +370,6 @@
       shfmt
       shellcheck
       moreutils
-      vimPlugins.vim-shellcheck
-      vimPlugins.vim-go
-      vimPlugins.vim-git
       vulnix
       yq
     ];
