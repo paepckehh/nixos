@@ -10,7 +10,8 @@
   #################
   imports = [
     ./hardware-configuration.nix
-    ./modules/nix-build.nix
+    ./modules/buildnix.nix
+    ./modules/hardening.nix
   ];
 
   #############
@@ -38,48 +39,7 @@
   boot = {
     initrd = {
       availableKernelModules = ["xhci_pci" "uas" "sd_mod" "nvme"];
-      luks.mitigateDMAAttacks = lib.mkDefault true;
     };
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_hardened;
-    kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off"];
-    kernel.sysctl = {
-      "kernel.kptr_restrict" = lib.mkOverride 500 2;
-      "net.core.bpf_jit_enable" = lib.mkDefault false;
-      "kernel.ftrace_enabled" = lib.mkDefault false;
-      "net.ipv4.conf.all.log_martians" = lib.mkDefault true;
-      "net.ipv4.conf.all.rp_filter" = lib.mkDefault "1";
-      "net.ipv4.conf.default.log_martians" = lib.mkDefault true;
-      "net.ipv4.conf.default.rp_filter" = lib.mkDefault "1";
-      "net.ipv4.icmp_echo_ignore_broadcasts" = lib.mkDefault true;
-      "net.ipv4.conf.all.accept_redirects" = lib.mkDefault false;
-      "net.ipv4.conf.all.secure_redirects" = lib.mkDefault false;
-      "net.ipv4.conf.default.accept_redirects" = lib.mkDefault false;
-      "net.ipv4.conf.default.secure_redirects" = lib.mkDefault false;
-      "net.ipv6.conf.all.accept_redirects" = lib.mkDefault false;
-    };
-    blacklistedKernelModules = [
-      "ax25"
-      "netrom"
-      "rose"
-      "adfs"
-      "affs"
-      "bfs"
-      "befs"
-      "cramfs"
-      "efs"
-      "erofs"
-      "exofs"
-      "freevxfs"
-      "f2fs"
-      "hpfs"
-      "jfs"
-      "minix"
-      "nilfs2"
-      "omfs"
-      "qnx4"
-      "qnx6"
-      "sysv"
-    ];
     tmp = {
       cleanOnBoot = true;
       useTmpfs = true;
