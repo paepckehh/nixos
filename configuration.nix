@@ -12,7 +12,7 @@
     ./hardware-configuration.nix
     ./modules/buildnix.nix
     ./modules/hardening.nix
-    ./user/me.nix
+    ./user/me-desktop.nix
   ];
 
   #############
