@@ -9,16 +9,18 @@
   #-=# USERS #=-#
   ###############
   users = {
-    me = {
-      description = "minimal-env-admin";
-      initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7";
-      uid = 1000;
-      group = "users";
-      createHome = true;
-      isNormalUser = true;
-      shell = pkgs.zsh;
-      extraGroups = ["wheel" "networkmanager" "video" "docker" "libvirt"];
-      openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
+    users = {
+      me = {
+        description = "minimal-env-admin";
+        initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7";
+        uid = 1000;
+        group = "users";
+        createHome = true;
+        isNormalUser = true;
+        shell = pkgs.zsh;
+        extraGroups = ["wheel" "networkmanager" "video" "docker" "libvirt"];
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
+      };
     };
   };
 
