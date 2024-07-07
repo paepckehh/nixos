@@ -182,8 +182,8 @@
             PAGER = "bat";
           };
         };
-        file = { 
-          ".config/starship.toml".source = builtins.readFile(builtins.fetchurl {url = "https://starship.rs/presets/toml/gruvbox-rainbow.toml";});
+        file = {
+          ".config/starship.toml".source = builtins.readFile (builtins.fetchurl {url = "https://starship.rs/presets/toml/gruvbox-rainbow.toml";});
         };
         fonts.fontconfig.enable = true;
         programs = {
@@ -215,15 +215,14 @@
           vim = {
             enable = true;
             defaultEditor = true;
-            plugins = [ vimPlugins.vim-shellcheck vimPlugins.vim-go vimPlugins.vim-git];
+            plugins = [vimPlugins.vim-shellcheck vimPlugins.vim-go vimPlugins.vim-git];
             settings = {
-             expandtab = true;
-             history = 1000;
+              expandtab = true;
+              history = 1000;
             };
-            extraConfig = { ''
+            extraConfig = ''
               set nocompatible
               set nobackup '';
-            };
           };
           zsh = {
             enable = true;
