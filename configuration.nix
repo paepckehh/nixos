@@ -242,11 +242,11 @@
           username = "me";
           homeDirectory = "/home/me";
           shellAliases = {
-      ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
-      la = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
-      lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
-      lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
-      li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
+            ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
+            la = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
+            lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
+            lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
+            li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
           };
         };
         programs = {
@@ -255,17 +255,17 @@
           gitui.enable = true;
           bat = {
             enable = true;
-            extraPackages = with pkgs.bat-extras; [ batdiff batman batgrep batwatch prettybat ];
+            extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch prettybat];
           };
           eza = {
             enable = true;
             git = true;
             icons = true;
-            extraOptions = [ "--group-directories-first" "--header" ];
+            extraOptions = ["--group-directories-first" "--header"];
           };
           fd = {
             enable = true;
-            extraOptions = [ "--absolute-path" "--no-ignore" ];
+            extraOptions = ["--absolute-path" "--no-ignore"];
           };
           git = {
             enable = true;
@@ -420,66 +420,67 @@
       less = "bat";
       man = "batman";
       slog = "journalctl --follow --priority=7 --lines=100";
-  };
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "de_DE.UTF-8";
-      LC_IDENTIFICATION = "de_DE.UTF-8";
-      LC_MEASUREMENT = "de_DE.UTF-8";
-      LC_MONETARY = "de_DE.UTF-8";
-      LC_NAME = "de_DE.UTF-8";
-      LC_NUMERIC = "de_DE.UTF-8";
-      LC_PAPER = "de_DE.UTF-8";
-      LC_TELEPHONE = "de_DE.UTF-8";
-      LC_TIME = "de_DE.UTF-8";
     };
-  };
+    i18n = {
+      defaultLocale = "en_US.UTF-8";
+      extraLocaleSettings = {
+        LC_ADDRESS = "de_DE.UTF-8";
+        LC_IDENTIFICATION = "de_DE.UTF-8";
+        LC_MEASUREMENT = "de_DE.UTF-8";
+        LC_MONETARY = "de_DE.UTF-8";
+        LC_NAME = "de_DE.UTF-8";
+        LC_NUMERIC = "de_DE.UTF-8";
+        LC_PAPER = "de_DE.UTF-8";
+        LC_TELEPHONE = "de_DE.UTF-8";
+        LC_TIME = "de_DE.UTF-8";
+      };
+    };
 
-  ##################
-  #-=# SERVICES #=-#
-  ##################
-  services = {
-    power-profiles-daemon.enable = true;
-    thermald.enable = true;
-    logind.hibernateKey = "ignore";
-    opensnitch = {
-      enable = false;
-      settings = {
-        firewall = "nftables"; # iptables or nftables
-        defaultAction = "deny"; # allow or deny
+    ##################
+    #-=# SERVICES #=-#
+    ##################
+    services = {
+      power-profiles-daemon.enable = true;
+      thermald.enable = true;
+      logind.hibernateKey = "ignore";
+      opensnitch = {
+        enable = false;
+        settings = {
+          firewall = "nftables"; # iptables or nftables
+          defaultAction = "deny"; # allow or deny
+        };
       };
-    };
-    fstrim = {
-      enable = true;
-      interval = "daily";
-    };
-    openssh = {
-      enable = false;
-      allowSFTP = false;
-      settings = {
-        PasswordAuthentication = false;
-        StrictModes = true;
-        challengeResponseAuthentication = false;
+      fstrim = {
+        enable = true;
+        interval = "daily";
       };
-      extraConfig = ''
-        AllowTcpForwarding yes
-        X11Forwarding no
-        AllowAgentForwarding no
-        AllowStreamLocalForwarding no
-        AuthenticationMethods publickey '';
-      hostKeys = [
-        {
-          path = "/etc/ssh/ssh_host_ed25519_key";
-          type = "ed25519";
-        }
-      ];
-      listenAddresses = [
-        {
-          addr = "0.0.0.0";
-          port = "8022";
-        }
-      ];
+      openssh = {
+        enable = false;
+        allowSFTP = false;
+        settings = {
+          PasswordAuthentication = false;
+          StrictModes = true;
+          challengeResponseAuthentication = false;
+        };
+        extraConfig = ''
+          AllowTcpForwarding yes
+          X11Forwarding no
+          AllowAgentForwarding no
+          AllowStreamLocalForwarding no
+          AuthenticationMethods publickey '';
+        hostKeys = [
+          {
+            path = "/etc/ssh/ssh_host_ed25519_key";
+            type = "ed25519";
+          }
+        ];
+        listenAddresses = [
+          {
+            addr = "0.0.0.0";
+            port = "8022";
+          }
+        ];
+      };
     };
   };
 }
