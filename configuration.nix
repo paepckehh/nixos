@@ -252,7 +252,7 @@
             li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
           };
         };
-        fonts.fontsconfig.enable = true;
+        fonts.fontconfig.enable = true;
         programs = {
           home-manager.enable = true;
           starship.enable = true;
