@@ -126,28 +126,6 @@
         hashedPassword = null; # disable root account
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
-      me = {
-        description = "minimal-env-admin";
-        initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7";
-        uid = 1000;
-        group = "users";
-        createHome = true;
-        isNormalUser = true;
-        shell = pkgs.zsh;
-        extraGroups = ["wheel" "networkmanager" "video" "docker" "libvirt"];
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
-      };
-      user = {
-        description = "normal-user";
-        initialHashedPassword = "$y$j9T$LHspGdWTX1m6WpLsN6xvH.$Ewnrv.azy5vko2dySQxtYZc2G3W5VpeIbhMBRxoO5TC";
-        uid = 10000;
-        group = "users";
-        createHome = true;
-        isNormalUser = true;
-        useDefaultShell = true;
-        extraGroups = ["video"];
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
-      };
     };
   };
 
@@ -156,112 +134,12 @@
   ######################
   home-manager = {
     useUserPackages = true;
-    users = {
-      #################
-      #-=# USER:ME #=-#
-      #################
-      me = {
-        home = {
-          stateVersion = "24.05";
-          username = "me";
-          homeDirectory = "/home/me";
-          keyboard.layout = "us,de";
-          shellAliases = {
-            e = "vim";
-            l = "ls -la";
-            cat = "bat --paging=never";
-            man = "batman";
-            ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
-            la = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
-            lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
-            lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
-            li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
-          };
-          sessionVariables = {
-            EDITOR = "vim";
-            PAGER = "bat";
-          };
-          file = {".config/starship.toml".source = ./res/starship/gruvbox-rainbow.toml;};
-          packages = with pkgs; [bandwich dust hyperfine tldr shellsheck shfmt vulnix];
-        };
-        fonts.fontconfig.enable = true;
-        programs = {
-          fzf.enable = true;
-          thefuck.enable = true;
-          home-manager.enable = true;
-          starship.enable = true;
-          go.enable = true;
-          gh.enable = true;
-          ripgrep.enable = true;
-          gitui.enable = true;
-          zoxide.enable = true;
-          bat = {
-            enable = true;
-            extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch prettybat];
-          };
-          eza = {
-            enable = true;
-            git = true;
-            icons = true;
-            extraOptions = ["--group-directories-first" "--header"];
-          };
-          fd = {
-            enable = true;
-            extraOptions = ["--absolute-path" "--no-ignore"];
-          };
-          git = {
-            enable = true;
-            userName = "PAEPCKE, Michael";
-            userEmail = "git@github.com";
-          };
-          vim = {
-            enable = true;
-            defaultEditor = true;
-            plugins = with pkgs.vimPlugins; [vim-shellcheck vim-go vim-git];
-            settings = {
-              expandtab = true;
-              history = 1000;
-            };
-            extraConfig = ''
-              set nocompatible
-              set nobackup '';
-          };
-          zsh = {
-            enable = true;
-            autocd = true;
-            autosuggestion.enable = true;
-            defaultKeymap = "viins";
-            syntaxHighlighting.enable = true;
-            historySubstringSearch.enable = true;
-            history = {
-              extended = true;
-              ignoreSpace = true;
-              share = true;
-            };
-          };
-        };
-      };
-      ###################
-      #-=# USER:USER #=-#
-      ###################
-      user = {
-        home = {
-          stateVersion = "24.05";
-          username = "user";
-          homeDirectory = "/home/user";
-        };
-        programs = {
-          home-manager.enable = true;
-        };
-      };
-    };
   };
 
   ##################
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    direnv.enable = true;
     gnupg.agent.enable = true;
     htop.enable = true;
     iftop.enable = true;
@@ -339,13 +217,10 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    memoryAllocator.provider = lib.mkForce "libc"; # hardening: scudo
     interactiveShellInit = ''uname -a '';
     variables = {
       VISUAL = "vim";
       EDITOR = "vim";
-      SHELLCHECK_OPTS = "-e SC2086";
-      SCUDO_OPTIONS = lib.mkDefault "ZeroContents=1";
     };
     systemPackages = with pkgs; [alejandra fd git-crypt git-agecrypt jq tree paper-age passage rage moreutils yq];
     shells = [pkgs.bashInteractive pkgs.zsh];
@@ -353,7 +228,6 @@
       l = "ls -la";
       e = "vim";
       h = "htop --tree --highlight-changes";
-      p = "sudo powertop";
       slog = "journalctl --follow --priority=7 --lines=100";
     };
   };
