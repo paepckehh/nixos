@@ -305,7 +305,8 @@
     nano.enable = false;
     nix-index.enable = false;
     usbtop.enable = true;
-    fzf.fuzzyCompletion = true;
+    # fzf.fuzzyCompletion = true;
+    zsh.enable = true;
     ssh = {
       pubkeyAcceptedKeyTypes = ["ssh-ed25519" "ssh-rsa"];
       ciphers = ["chacha20-poly1305@openssh.com" "aes256-gcm@openssh.com"];
