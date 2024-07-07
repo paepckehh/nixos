@@ -60,6 +60,7 @@
         };
         fonts.fontconfig.enable = true;
         programs = {
+          atuin.enable = true;
           direnv.enable = true;
           fzf.enable = true;
           thefuck.enable = true;
@@ -68,7 +69,9 @@
           gh.enable = true;
           gitui.enable = true;
           home-manager.enable = true;
+          navi.enable = true;
           ripgrep.enable = true;
+          skim.enable = true;
           zoxide.enable = true;
           bat = {
             enable = true;
