@@ -56,7 +56,7 @@
             SHELLCHECK_OPTS = "-e SC2086";
           };
           file = {".config/starship.toml".source = ./res/starship/gruvbox-rainbow.toml;};
-          packages = with pkgs; [bandwhich dust hyperfine tldr shellsheck shfmt vulnix];
+          packages = with pkgs; [bandwhich dust hyperfine tldr shellcheck shfmt vulnix];
         };
         fonts.fontconfig.enable = true;
         programs = {
