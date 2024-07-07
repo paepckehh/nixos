@@ -215,7 +215,7 @@
           vim = {
             enable = true;
             defaultEditor = true;
-            plugins = (with pkgs.vimPlugins [vim-shellcheck vim-go vim-git]);
+            plugins = with pkgs.vimPlugins; [vim-shellcheck vim-go vim-git];
             settings = {
               expandtab = true;
               history = 1000;
