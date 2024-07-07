@@ -251,6 +251,8 @@
             lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
             li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
           };
+          variables = {};
+          PAGES = "bat";
         };
         fonts.fontconfig.enable = true;
         programs = {
@@ -307,7 +309,7 @@
     nano.enable = false;
     nix-index.enable = false;
     usbtop.enable = true;
-    # fzf.fuzzyCompletion = true;
+    fzf.fuzzyCompletion = true;
     ssh = {
       pubkeyAcceptedKeyTypes = ["ssh-ed25519" "ssh-rsa"];
       ciphers = ["chacha20-poly1305@openssh.com" "aes256-gcm@openssh.com"];
@@ -380,12 +382,10 @@
   #####################
   environment = {
     memoryAllocator.provider = lib.mkForce "libc"; # hardening: scudo
-    interactiveShellInit = ''
-      ( cd && touch .zshrc .bashrc && uname -a )'';
+    interactiveShellInit = ''uname -a '';
     variables = {
       VISUAL = "vim";
       EDITOR = "vim";
-      PAGER = "bat";
       SHELLCHECK_OPTS = "-e SC2086";
       SCUDO_OPTIONS = lib.mkDefault "ZeroContents=1";
     };
