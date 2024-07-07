@@ -306,7 +306,6 @@
     nix-index.enable = false;
     usbtop.enable = true;
     # fzf.fuzzyCompletion = true;
-    zsh.enable = true;
     ssh = {
       pubkeyAcceptedKeyTypes = ["ssh-ed25519" "ssh-rsa"];
       ciphers = ["chacha20-poly1305@openssh.com" "aes256-gcm@openssh.com"];
@@ -366,6 +365,10 @@
     vim = {
       package = pkgs.vim-full;
       defaultEditor = true;
+    };
+    zsh = {
+      enable = true;
+      syntaxHighlighting.enable = true;
     };
   };
   nixpkgs.config.allowUnfree = true;
