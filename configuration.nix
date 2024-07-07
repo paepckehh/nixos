@@ -10,6 +10,7 @@
   #################
   imports = [
     ./hardware-configuration.nix
+    ./modules/nix-build.nix
   ];
 
   #############
@@ -198,11 +199,9 @@
   #-=# USERS #=-#
   ###############
   users = {
-    defaultUserShell = pkgs.zsh;
     mutableUsers = false;
     users = {
       root = {
-        shell = pkgs.bashInteractive;
         hashedPassword = null; # disable root account
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
@@ -213,7 +212,7 @@
         group = "users";
         createHome = true;
         isNormalUser = true;
-        useDefaultShell = true;
+        shell = pkgs.zsh;
         extraGroups = ["wheel" "networkmanager" "video" "docker" "libvirt"];
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
@@ -236,6 +235,8 @@
   ######################
   home-manager = {
     useUserPackages = true;
+    root = {
+    };
     users = {
       me = {
         home = {
@@ -245,6 +246,27 @@
         };
         programs = {
           home-manager.enable = true;
+          starship.enable = true;
+          gitui.enable = true;
+          bat = {
+            enable = true;
+            extraPackages = with pkgs.bat-extras; [ batdiff batman batgrep batwatch prettybat ];
+          };
+          eza = {
+            enable = true;
+            git = true;
+            icons = true;
+            extraOptions = [ "--group-directories-first" "--header" ];
+          };
+          fd = {
+            enable = true;
+            extraOptions = [ "--absolute-path" "--no-ignore" ];
+          };
+          git = {
+            enable = true;
+            userName = "PAEPCKE, Michael";
+            userEmail = "git@github.com";
+          };
         };
       };
       user = {
@@ -345,8 +367,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    # TODO: hardening mem allocator [scudo]
-    memoryAllocator.provider = lib.mkForce "libc";
+    memoryAllocator.provider = lib.mkForce "libc"; # hardening: scudo
     interactiveShellInit = ''
       ( cd && touch .zshrc .bashrc && uname -a )'';
     variables = {
@@ -359,10 +380,6 @@
     systemPackages = with pkgs; [
       alejandra
       bandwhich
-      bat
-      bat-extras.batman
-      bat-extras.prettybat
-      eza
       fd
       go
       gopass
@@ -399,81 +416,10 @@
       e = "vim";
       h = "htop --tree --highlight-changes";
       p = "sudo powertop";
-      d = "dmesg -Hw";
       cat = "bat --paging=never";
       less = "bat";
       man = "batman";
       slog = "journalctl --follow --priority=7 --lines=100";
-      "nix.push" = ''
-        cd /etc/nixos &&\
-        sudo -v &&\
-        sudo alejandra --quiet . &&\
-        sudo chown -R me:users .git &&\
-        git reset &&\
-        git add . &&\
-        git commit -S -m update ;\
-        git fsck --full &&\
-        git gc --aggressive &&\
-        git push --force '';
-      "nix.clean" = ''
-        cd /etc/nixos &&\
-        sudo -v &&\
-        sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 12d ;\
-        sudo nix-collect-garbage --delete-older-than 12d ;\
-        sudo nix-store --gc ;\
-        sudo nix-store --optimise '';
-      "nix.hardclean" = ''
-        cd /etc/nixos &&\
-        sudo -v &&\
-        sudo rm /boot/loader/entries/* ;\
-        sudo rm -rf /nix/var/nix/profiles/system* ;\
-        sudo mkdir -p /nix/var/nix/profiles/system-profiles ;\
-        nix.all ;\
-        sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 1d ;\
-        sudo nix-collect-garbage --delete-older-than 1d ;\
-        sudo nix-store --gc ;\
-        sudo nix-store --optimise '';
-      "nix.test" = ''
-        cd /etc/nixos &&\
-        sudo -v &&\
-        sudo alejandra --quiet . ;\
-        git reset ;\
-        git add . ;\
-        git commit -S -m update ;\
-        sudo nixos-rebuild dry-activate --flake /etc/nixos/.#$(hostname)'';
-      "nix.iso" = ''
-        cd /etc/nixos &&\
-        sudo -v &&\
-        sudo alejandra --quiet . &&\
-        git reset ;\
-        git add . ;\
-        git commit -S -m update ;\
-        export HNAME="$(hostname)" ;\
-        sudo nix build --impure ".#nixosConfigurations.$HNAME-iso.config.system.build.isoImage" ;\
-        eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename /result/iso '';
-      "nix.update" = ''
-        cd /etc/nixos &&\
-        sudo -v &&\
-        sudo nix --verbose flake update &&\
-        sudo alejandra --quiet . &&\
-        sudo nixos-generate-config &&\
-        sudo alejandra --quiet . &&\
-        nix.push ;\
-        export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
-        export HNAME="$(hostname)" ;\
-        sudo nixos-rebuild boot   --install-bootloader ;\
-        sudo nixos-rebuild boot   --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" ;\
-        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
-      "nix.all" = ''
-        nix.update ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#generic              -p "generic-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#generic-console      -p "generic-console-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v '';
-    };
   };
   i18n = {
     defaultLocale = "en_US.UTF-8";
@@ -507,15 +453,6 @@
     fstrim = {
       enable = true;
       interval = "daily";
-    };
-    journald.upload = {
-      enable = false;
-      settings = {
-        Upload.URL = "https://192.168.0.250:19532";
-        ServerKeyFile = "/etc/ca/client.key";
-        ServerCertificateFile = "/etc/ca/client.pem";
-        TrustedCertificateFile = "/etc/ca/journal-server.pem";
-      };
     };
     openssh = {
       enable = false;
