@@ -182,7 +182,7 @@
             PAGER = "bat";
           };
           file = {
-            ".config/starship.toml".source = builtins.readFile (builtins.fetchurl {url = "https://starship.rs/presets/toml/gruvbox-rainbow.toml";});
+            ".config/starship.toml".source = "./res/starship/gruvbox-rainbow.toml"
           };
         };
         fonts.fontconfig.enable = true;
