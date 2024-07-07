@@ -242,6 +242,8 @@
           username = "me";
           homeDirectory = "/home/me";
           shellAliases = {
+            cat = "bat --paging=never";
+            man = "batman";
             ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
             la = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
             lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
@@ -271,6 +273,11 @@
             enable = true;
             userName = "PAEPCKE, Michael";
             userEmail = "git@github.com";
+          };
+          zsh = {
+            enable = true;
+            autosuggestions.enable = true;
+            syntaxHighlighting.enable = true;
           };
         };
       };
@@ -360,11 +367,6 @@
       package = pkgs.vim-full;
       defaultEditor = true;
     };
-    zsh = {
-      enable = true;
-      autosuggestions.enable = true;
-      syntaxHighlighting.enable = true;
-    };
   };
   nixpkgs.config.allowUnfree = true;
 
@@ -416,9 +418,6 @@
       e = "vim";
       h = "htop --tree --highlight-changes";
       p = "sudo powertop";
-      cat = "bat --paging=never";
-      less = "bat";
-      man = "batman";
       slog = "journalctl --follow --priority=7 --lines=100";
     };
   };
