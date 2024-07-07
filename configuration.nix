@@ -116,45 +116,6 @@
     };
   };
 
-  ##################
-  #-=# SECURITY #=-#
-  ##################
-  security = {
-    auditd.enable = true;
-    allowSimultaneousMultithreading = true; # perf
-    lockKernelModules = lib.mkForce true;
-    protectKernelImage = lib.mkForce true;
-    forcePageTableIsolation = lib.mkForce true;
-    apparmor = {
-      enable = lib.mkDefault true;
-      killUnconfinedConfinables = lib.mkDefault true;
-    };
-    dhparams = {
-      enable = true;
-      stateful = false;
-      defaultBitSize = "3072";
-    };
-    doas = {
-      enable = false;
-      wheelNeedsPassword = lib.mkForce true;
-    };
-    sudo = {
-      enable = false;
-      execWheelOnly = lib.mkForce true;
-      wheelNeedsPassword = lib.mkForce true;
-    };
-    sudo-rs = {
-      enable = true;
-      execWheelOnly = lib.mkForce true;
-      wheelNeedsPassword = lib.mkForce true;
-    };
-    audit = {
-      enable = lib.mkForce true;
-      failureMode = "panic";
-      rules = ["-a exit,always -F arch=b64 -S execve"];
-    };
-  };
-
   ###############
   #-=# USERS #=-#
   ###############
@@ -224,6 +185,7 @@
         fonts.fontconfig.enable = true;
         programs = {
           fzf.enable = true;
+          thefuck.enable = true;
           home-manager.enable = true;
           starship.enable = true;
           gitui.enable = true;
@@ -248,6 +210,15 @@
           };
           zsh = {
             enable = true;
+            autocd = true;
+            defaultKeymap = "viins";
+            history = {
+              extended = true;
+              ignoreSpace = true;
+              share = true;
+            };
+            historySubStringSearch.enable = true;
+            autosuggestion.enable = true;
             syntaxHighlighting.enable = true;
           };
         };
