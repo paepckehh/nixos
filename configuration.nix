@@ -11,7 +11,7 @@
   imports = [
     ./hardware-configuration.nix
     ./modules/buildnix.nix
-    ./modules/hardening.nix
+    #./modules/hardening.nix
   ];
 
   #############
@@ -451,4 +451,11 @@
       ];
     };
   };
+
+  #################
+  #-=# IMPORTS #=-#
+  #################
+  imports = [
+    ./modules/hardening.nix
+  ];
 }
