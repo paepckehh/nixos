@@ -8,7 +8,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ../modules/open-webui.nix
+    ../../modules/open-webui.nix
   ];
 
   ##################

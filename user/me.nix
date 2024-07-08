@@ -94,8 +94,6 @@
           };
           git = {
             enable = true;
-            userName = "PAEPCKE, Michael";
-            userEmail = "git@github.com";
           };
           neovim = {
             enable = true;
