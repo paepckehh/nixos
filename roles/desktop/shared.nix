@@ -51,6 +51,7 @@
       enable = true;
       autoRepeatDelay = 150;
       autoRepeatInterval = 15;
+      xkb.layout = "us,de";
     };
     pipewire = {
       enable = true;

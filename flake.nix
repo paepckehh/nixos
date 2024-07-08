@@ -4,6 +4,7 @@
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-boot.url = "github:Melkor333/nixos-boot/master";
     nixos-hardware.url = "github:paepckehh/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -13,6 +14,7 @@
   outputs = {
     self,
     nixpkgs,
+    bootlogo,
     home-manager,
     nixos-hardware,
   }: {
@@ -27,8 +29,7 @@
           ./configuration.nix
           ./roles/desktop/gnome.nix
           ./person/desktop/mpp.nix
-          ./modules/virtual.nix
-          ./hardware/kb-uk.nix
+          ./modules/hardening.nix
           {networking.hostName = "generic";}
         ];
       };
@@ -38,7 +39,7 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./person/mpp.nix
-          ./hardware/kb-uk.nix
+          ./modules/hardening.nix
           {networking.hostName = "generic-console";}
         ];
       };
@@ -49,12 +50,13 @@
         system = "x86_64-linux";
         modules = [
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
+          nixos-boot.nixosModules.default
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./roles/desktop/gnome.nix
           ./person/desktop/mpp.nix
           ./modules/virtual.nix
-          ./hardware/kb-uk.nix
+          ./modules/hardening.nix
           {networking.hostName = "nixbook141";}
         ];
       };
@@ -66,8 +68,7 @@
           ./configuration.nix
           ./roles/desktop/hyperland.nix
           ./person/desktop/mpp.nix
-          ./modules/virtual.nix
-          ./hardware/kb-uk.nix
+          ./modules/hardening.nix
           {networking.hostName = "nixbook141-hyprland";}
         ];
       };
@@ -85,7 +86,7 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./person/mpp.nix
-          ./hardware/kb-uk.nix
+          ./modules/hardening.nix
           {networking.hostName = "nixbook141-console";}
         ];
       };
@@ -98,7 +99,7 @@
           ./roles/desktop/gnome.nix
           ./roles/office.nix
           ./person/desktop/mpp.nix
-          ./hardware/kb-uk.nix
+          ./modules/hardening.nix
           {networking.hostName = "nixbook141-office";}
         ];
       };
@@ -111,11 +112,12 @@
           nixos-hardware.nixosModules.apple-imac-18-2
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./hardware/kb-uk.nix
           ./roles/desktop/gnome.nix
           ./roles/office.nix
           ./person/desktop/mpp.nix
           ./modules/virtual.nix
-          ./hardware/kb-uk.nix
+          ./modules/hardening.nix
           {networking.hostName = "nixmac182";}
         ];
       };

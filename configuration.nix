@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  nixos-boot,
   home-manager,
   ...
 }: {
@@ -11,8 +12,6 @@
   imports = [
     ./hardware-configuration.nix
     ./modules/buildnix.nix
-    ./modules/hardening.nix
-    # ./modules/bootlogo.nix
   ];
 
   #############
@@ -59,6 +58,7 @@
       };
     };
   };
+  nixos-boot.enable = true;
 
   ###############
   #-= SYSTEM #=-#
