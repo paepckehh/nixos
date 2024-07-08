@@ -8,7 +8,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ../../user/me-desktop.nix
+    ../../user/desktop/me.nix
     ../person/mpp.nix
   ];
 }
