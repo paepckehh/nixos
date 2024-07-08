@@ -12,6 +12,7 @@
     ./hardware-configuration.nix
     ./modules/buildnix.nix
     ./modules/hardening.nix
+    ./modules/bootlogo.nix
   ];
 
   #############
@@ -56,12 +57,6 @@
         enable = true;
         configurationLimit = 4;
       };
-    };
-    plymouth = {
-      enable = true;
-      font = "${pkgs.jetbrains-mono}/share/fonts/truetype/JetBrainsMono-Regular.ttf";
-      themePackages = [pkgs.catppuccin-plymouth];
-      theme = "catppuccin-macchiato";
     };
   };
 
