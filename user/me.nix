@@ -68,6 +68,7 @@
           go.enable = true;
           gh-dash.enable = true;
           gitui.enable = true;
+          helix.enable = true;
           home-manager.enable = true;
           navi.enable = true;
           ripgrep.enable = true;
