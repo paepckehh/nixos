@@ -57,6 +57,7 @@
           ./person/desktop/mpp.nix
           ./modules/virtual.nix
           ./modules/hardening.nix
+          {nixos-boot.enable = true;}
           {networking.hostName = "nixbook141";}
         ];
       };
