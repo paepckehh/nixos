@@ -54,7 +54,7 @@
       "nix.update" = ''
         cd /etc/nixos &&\
         sudo -v &&\
-        sudo nix --verbose flake update &&\
+        sudo nix flake lock --update-input nixpkgs --update-input nixos-hardware --update-input home-manager ;\
         sudo alejandra --quiet . &&\
         sudo nixos-generate-config &&\
         sudo alejandra --quiet . &&\
