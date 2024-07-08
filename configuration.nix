@@ -12,7 +12,6 @@
     ./hardware-configuration.nix
     ./modules/buildnix.nix
     ./modules/hardening.nix
-    ./user/me-desktop.nix
   ];
 
   #############
@@ -112,7 +111,7 @@
       allowedUDPPorts = [];
     };
     proxy = {
-      noProxy = "1270.0.1,local,localhost,localdomain,nixos";
+      noProxy = "1270.0.1,local,localhost,localdomain,192.168.0.0/16";
       default = "";
     };
   };

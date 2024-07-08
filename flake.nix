@@ -26,6 +26,7 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./roles/desktop-gnome.nix
+          ./user/me-desktop.nix
           ./modules/virtual.nix
           ./hardware/kb-uk.nix
           {networking.hostName = "generic";}
@@ -36,6 +37,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./user/me.nix
           ./hardware/kb-uk.nix
           {networking.hostName = "generic-console";}
         ];
@@ -50,6 +52,7 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./roles/desktop-gnome.nix
+          ./user/me-desktop.nix
           ./modules/virtual.nix
           ./hardware/kb-uk.nix
           {networking.hostName = "nixbook141";}
@@ -62,6 +65,7 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./roles/desktop-hyprland.nix
+          ./user/me-desktop.nix
           ./modules/virtual.nix
           ./hardware/kb-uk.nix
           {networking.hostName = "nixbook141-hyprland";}
@@ -80,6 +84,7 @@
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./user/me.nix
           ./hardware/kb-uk.nix
           {networking.hostName = "nixbook141-console";}
         ];
@@ -91,6 +96,7 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./roles/office-gnome.nix
+          ./user/me-desktop.nix
           ./hardware/kb-uk.nix
           {networking.hostName = "nixbook141-office";}
         ];
@@ -105,6 +111,7 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./roles/office-gnome.nix
+          ./user/me-desktop.nix
           ./modules/virtual.nix
           ./hardware/kb-uk.nix
           {networking.hostName = "nixmac182";}
