@@ -33,7 +33,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [alacritty gparted librewolf networkmanagerapplet opensnitch-ui] ;
+    systemPackages = with pkgs; [alacritty gparted librewolf networkmanagerapplet opensnitch-ui];
     variables = {
       BROWSER = "librewolf";
       TERMINAL = "alacritty";
@@ -67,7 +67,7 @@
   #-=# HARDWARE #=-#
   ##################
   hardware = {
-    bluetooth { 
+    bluetooth = {
       enable = true;
       powerOnBoot = false;
     };
