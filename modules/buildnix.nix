@@ -71,6 +71,7 @@
         sudo nixos-rebuild boot --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-hyprland  -p "nixbook141-hyprland-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v '';
     };

@@ -17,10 +17,16 @@
   programs = {
     dconf.enable = true;
     geary.enable = false;
-    gparted.enable = true;
     nm-applet.enable = true;
     tuxclocker.enable = true;
     coolercontrol.enable = true;
+    programs.hyprland = {
+      enable = true;
+      xwayland = {
+        enable = true;
+        hidpi = true;
+      };
+    };
     firejail = {
       enable = true;
       wrappedBinaries = {
@@ -35,46 +41,12 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  # maximize-to-workspace-with-history
   environment = {
-    systemPackages =
-      (with pkgs; [
-        alacritty
-        kitty
-        librewolf
-      ])
-      ++ (with pkgs.gnomeExtensions; [
-        todotxt
-        toggle-alacritty
-        wireguard-vpn-extension
-        wireless-hid
-        wifi-qrcode
-      ]);
-    gnome.excludePackages =
-      (with pkgs; [
-        gnome-photos
-        gnome-tour
-        gedit
-        gnome-terminal
-        gnome-calendar
-        totem
-        evince
-        epiphany
-        geary
-        cheese
-      ])
-      ++ (with pkgs.gnome; [
-        gnome-music
-        gnome-contacts
-        gnome-characters
-        tali
-        iagno
-        hitori
-        atomix
-      ]);
+    systemPackages = with pkgs; [alacritty gparted librewolf];
     variables = {
       BROWSER = "librewolf";
       TERMINAL = "alacritty";
+      NIXOS_OZONE_WL = "1";
     };
   };
 
@@ -83,31 +55,8 @@
   ##################
   services = {
     autosuspend.enable = lib.mkForce false;
+    dbus.enable = true;
     printing.enable = lib.mkForce false;
-    gnome = {
-      games.enable = lib.mkForce false;
-      gnome-browser-connector.enable = lib.mkForce false;
-      gnome-initial-setup.enable = lib.mkForce false;
-      gnome-online-accounts.enable = lib.mkForce false;
-      gnome-remote-desktop.enable = lib.mkForce false;
-      gnome-online-miners.enable = lib.mkForce false;
-      gnome-user-share.enable = lib.mkForce false;
-    };
-    xserver = {
-      enable = true;
-      autoRepeatDelay = 150;
-      autoRepeatInterval = 15;
-      displayManager.gdm = {
-        enable = true;
-        autoSuspend = false;
-      };
-      desktopManager = {
-        gnome = {
-          enable = true;
-        };
-        xterm.enable = false;
-      };
-    };
     pipewire = {
       enable = true;
       alsa = {
@@ -115,6 +64,19 @@
         support32Bit = true;
       };
       pulse.enable = true;
+    };
+    xserver = {
+      enable = true;
+      autoRepeatDelay = 150;
+      autoRepeatInterval = 15;
+      desktopManager = {
+        xterm.enable = false;
+      };
+    };
+    xdg.portal = {
+      enable = true;
+      wlr.enable = true;
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
     };
   };
 

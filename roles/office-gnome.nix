@@ -8,7 +8,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./desktop.nix
+    ./desktop-gnome.nix
   ];
 
   ##################
