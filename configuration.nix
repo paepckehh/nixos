@@ -57,7 +57,7 @@
         configurationLimit = 4;
       };
     };
-    boot.plymouth = {
+    plymouth = {
       enable = true;
       font = "${pkgs.jetbrains-mono}/share/fonts/truetype/JetBrainsMono-Regular.ttf";
       themePackages = [pkgs.catppuccin-plymouth];
