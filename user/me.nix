@@ -18,7 +18,7 @@
         createHome = true;
         isNormalUser = true;
         shell = pkgs.zsh;
-        extraGroups = ["wheel" "networkmanager" "video" "docker" "libvirt"];
+        extraGroups = ["wheel" "networkmanager" "audio" "input" "video" "docker" "libvirt"];
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
     };
