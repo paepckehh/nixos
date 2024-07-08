@@ -20,6 +20,7 @@
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes ";
+    optimise.automatic = true;
     settings = {
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
