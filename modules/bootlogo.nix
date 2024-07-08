@@ -10,6 +10,4 @@
     rev = "main";
     sha256 = "sha256-Dj8LhVTOrHEnqgONbCEKIEyglO7zQej+KS08faO9NJk=";
   };
-in {
-  imports = ["${nixos-boot-src}/modules.nix"];
-}
+in {imports = ["${nixos-boot-src}/modules.nix"];}
