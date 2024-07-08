@@ -66,7 +66,7 @@
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./roles/desktop/hyperland.nix
+          ./roles/desktop/hyprland.nix
           ./person/desktop/mpp.nix
           ./modules/hardening.nix
           {networking.hostName = "nixbook141-hyprland";}
