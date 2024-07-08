@@ -20,7 +20,7 @@
     nm-applet.enable = true;
     tuxclocker.enable = true;
     coolercontrol.enable = true;
-    programs.hyprland = {
+    hyprland = {
       enable = true;
       xwayland = {
         enable = true;
@@ -42,7 +42,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [alacritty gparted librewolf];
+    systemPackages = with pkgs; [alacritty gparted librewolf opensnitch-ui];
     variables = {
       BROWSER = "librewolf";
       TERMINAL = "alacritty";
