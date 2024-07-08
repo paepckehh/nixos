@@ -30,7 +30,7 @@
   home-manager = {
     users = {
       me = {
-        home = {
+        programs = {
           git = {
             userName = lib.mkDefault "PAEPCKE, Michael";
             userEmail = lib.mkDefault "git@github.com";
