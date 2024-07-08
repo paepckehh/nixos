@@ -41,6 +41,7 @@
   boot = {
     initrd = {
       availableKernelModules = ["xhci_pci" "uas" "sd_mod" "nvme"];
+      systemd.enable = true;
     };
     tmp = {
       cleanOnBoot = true;
@@ -55,6 +56,12 @@
         enable = true;
         configurationLimit = 4;
       };
+    };
+    boot.plymouth = {
+      enable = true;
+      font = "${pkgs.jetbrains-mono}/share/fonts/truetype/JetBrainsMono-Regular.ttf";
+      themePackages = [pkgs.catppuccin-plymouth];
+      theme = "catppuccin-macchiato";
     };
   };
 
