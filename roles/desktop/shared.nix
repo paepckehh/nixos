@@ -47,7 +47,6 @@
     autosuspend.enable = lib.mkForce false;
     blueman.enable = true;
     printing.enable = lib.mkForce false;
-    xterm.enable = false;
     xserver = {
       enable = true;
       autoRepeatDelay = 150;
