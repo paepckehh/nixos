@@ -75,7 +75,7 @@
           zoxide.enable = true;
           atuin = {
             enable = true;
-            flags = "--disable-up-arrow";
+            flags = ["--disable-up-arrow"];
           };
           bat = {
             enable = true;
