@@ -134,6 +134,7 @@
   ######################
   home-manager = {
     useUserPackages = true;
+    backupFileExtension = "backup";
   };
 
   ##################
