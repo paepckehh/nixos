@@ -61,7 +61,6 @@
         };
         fonts.fontconfig.enable = true;
         programs = {
-          atuin.enable = true;
           direnv.enable = true;
           fzf.enable = true;
           thefuck.enable = true;
@@ -74,6 +73,10 @@
           ripgrep.enable = true;
           skim.enable = true;
           zoxide.enable = true;
+          atuin { 
+            enable = true;
+            flags = "--disable-up-arrow";
+          };
           bat = {
             enable = true;
             extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch prettybat];

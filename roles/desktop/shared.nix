@@ -15,8 +15,6 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    dconf.enable = true;
-    geary.enable = false;
     nm-applet.enable = true;
     tuxclocker.enable = true;
     coolercontrol.enable = true;
@@ -34,33 +32,8 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  # maximize-to-workspace-with-history
   environment = {
-    systemPackages =
-      (with pkgs; [alacritty gparted librewolf networkmanagerapplet opensnitch-ui])
-      ++ (with pkgs.gnomeExtensions; [todotxt toggle-alacritty wireguard-vpn-extension wireless-hid wifi-qrcode]);
-    gnome.excludePackages =
-      (with pkgs; [
-        gnome-photos
-        gnome-tour
-        gedit
-        gnome-terminal
-        gnome-calendar
-        totem
-        evince
-        epiphany
-        geary
-        cheese
-      ])
-      ++ (with pkgs.gnome; [
-        gnome-music
-        gnome-contacts
-        gnome-characters
-        tali
-        iagno
-        hitori
-        atomix
-      ]);
+    systemPackages = with pkgs; [alacritty gparted librewolf networkmanagerapplet opensnitch-ui] ;
     variables = {
       BROWSER = "librewolf";
       TERMINAL = "alacritty";
@@ -72,30 +45,13 @@
   ##################
   services = {
     autosuspend.enable = lib.mkForce false;
+    blueman.enable = true;
     printing.enable = lib.mkForce false;
-    gnome = {
-      games.enable = lib.mkForce false;
-      gnome-browser-connector.enable = lib.mkForce false;
-      gnome-initial-setup.enable = lib.mkForce false;
-      gnome-online-accounts.enable = lib.mkForce false;
-      gnome-remote-desktop.enable = lib.mkForce false;
-      gnome-online-miners.enable = lib.mkForce false;
-      gnome-user-share.enable = lib.mkForce false;
-    };
+    xterm.enable = false;
     xserver = {
       enable = true;
       autoRepeatDelay = 150;
       autoRepeatInterval = 15;
-      displayManager.gdm = {
-        enable = true;
-        autoSuspend = false;
-      };
-      desktopManager = {
-        gnome = {
-          enable = true;
-        };
-        xterm.enable = false;
-      };
     };
     pipewire = {
       enable = true;
@@ -111,7 +67,10 @@
   #-=# HARDWARE #=-#
   ##################
   hardware = {
-    bluetooth.enable = true;
+    bluetooth { 
+      enable = true;
+      powerOnBoot = false;
+    };
     pulseaudio.enable = false; # disable pulseaudio here (use pipewire)
   };
   sound.enable = false; # disable alsa here (use pipewire)

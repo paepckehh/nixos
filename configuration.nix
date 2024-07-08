@@ -22,8 +22,10 @@
     extraOptions = "experimental-features = nix-command flakes ";
     settings = {
       auto-optimise-store = true;
-      trusted-users = lib.mkForce ["root" "@wheel"];
-      allowed-users = lib.mkForce ["@users" "@wheel"];
+      allowed-users = lib.mkForce ["@wheel"];
+      trusted-users = lib.mkForce ["@wheel"];
+      require-sigs = lib.mkForce true;
+      trusted-public-keys = lib.mkForce ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
     };
     gc = {
       automatic = true;
@@ -67,6 +69,7 @@
       allowReboot = true;
       dates = "hourly";
       flake = "github.com/paepckehh/nixos";
+      flags = ["--update-input" "nixpkgs" "--commit-lock-file"];
       operation = "switch"; # switch or boot
       persistent = true;
       randomizedDelaySec = "15min";
