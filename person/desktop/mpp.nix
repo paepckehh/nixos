@@ -9,6 +9,6 @@
   #################
   imports = [
     ../../user/desktop/me.nix
-    ../person/mpp.nix
+    ../mpp.nix
   ];
 }
