@@ -14,9 +14,9 @@
   outputs = {
     self,
     nixpkgs,
-    bootlogo,
     home-manager,
     nixos-hardware,
+    nixos-boot,
   }: {
     nixosConfigurations = {
       ###########
