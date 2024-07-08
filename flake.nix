@@ -112,7 +112,6 @@
           nixos-hardware.nixosModules.apple-imac-18-2
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./hardware/kb-uk.nix
           ./roles/desktop/gnome.nix
           ./roles/office.nix
           ./person/desktop/mpp.nix
