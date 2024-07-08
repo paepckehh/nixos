@@ -58,7 +58,6 @@
       };
     };
   };
-  nixos-boot.enable = true;
 
   ###############
   #-= SYSTEM #=-#
