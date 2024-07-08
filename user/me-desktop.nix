@@ -16,6 +16,9 @@
   ######################
   home-manager.users.me = {
     programs = {
+      gparted = true;
+      librewolf = true;
+      opensnitch-ui = true;
       kitty = {
         enable = true;
         settings = {

@@ -24,8 +24,8 @@
       enable = true;
       wrappedBinaries = {
         librewolf = {
-          executable = "${pkgs.librewolf}/bin/librewolf";
-          profile = "${pkgs.firejail}/etc/firejail/librewolf.profile";
+          profile = "${lib.getBin pkgs.firejail}/etc/firejail/librewolf.profile";
+          executable = "${lib.getBin pkgs.librewolf}/bin/librewolf";
         };
       };
     };
@@ -39,10 +39,8 @@
     systemPackages =
       (with pkgs; [
         alacritty
-        gparted
         kitty
         librewolf
-        opensnitch-ui
       ])
       ++ (with pkgs.gnomeExtensions; [
         todotxt
