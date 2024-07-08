@@ -73,7 +73,7 @@
           ripgrep.enable = true;
           skim.enable = true;
           zoxide.enable = true;
-          atuin { 
+          atuin = {
             enable = true;
             flags = "--disable-up-arrow";
           };
