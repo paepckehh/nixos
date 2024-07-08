@@ -17,7 +17,6 @@
   home-manager.users.me = {
     programs = {
       librewolf.enable = true;
-      opensnitch-ui.enable = true;
       kitty = {
         enable = true;
         settings = {

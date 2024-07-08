@@ -37,7 +37,7 @@
   # maximize-to-workspace-with-history
   environment = {
     systemPackages =
-      (with pkgs; [alacritty gparted librewolf networkmanagerapplet])
+      (with pkgs; [alacritty gparted librewolf networkmanagerapplet opensnitch-ui])
       ++ (with pkgs.gnomeExtensions; [todotxt toggle-alacritty wireguard-vpn-extension wireless-hid wifi-qrcode]);
     gnome.excludePackages =
       (with pkgs; [
