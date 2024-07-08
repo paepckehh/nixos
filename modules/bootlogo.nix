@@ -12,7 +12,4 @@
   };
 in {
   imports = ["${nixos-boot-src}/modules.nix"];
-  nixos-boot = {
-    enable = true;
-  };
 }
