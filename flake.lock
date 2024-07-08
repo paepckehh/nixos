@@ -20,6 +20,21 @@
         "type": "github"
       }
     },
+    "nixos-boot": {
+      "locked": {
+        "lastModified": 1714108925,
+        "narHash": "sha256-gL1qrQsDT3SmcmoXZ+XFDaSQ1KLHWvNNjeXZsUHNPAw=",
+        "owner": "Melkor333",
+        "repo": "nixos-boot",
+        "rev": "b77ad68a6fd069b6031ecd5818c90efc62bef251",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Melkor333",
+        "repo": "nixos-boot",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1719735283,
@@ -55,6 +70,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "nixos-boot": "nixos-boot",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs"
       }
