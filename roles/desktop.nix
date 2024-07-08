@@ -17,6 +17,7 @@
   programs = {
     dconf.enable = true;
     geary.enable = false;
+    gparted.enable = true;
     nm-applet.enable = true;
     tuxclocker.enable = true;
     coolercontrol.enable = true;
