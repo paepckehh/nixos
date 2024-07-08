@@ -71,7 +71,7 @@
       allowReboot = true;
       dates = "hourly";
       flake = "github.com/paepckehh/nixos";
-      flags = ["--update-input" "nixpkgs" "--commit-lock-file"];
+      flags = ["--update-input" "nixpkgs" "--update-input" "nixos-hardware" "--update-input" "home-manager" "--commit-lock-file"];
       operation = "switch"; # switch or boot
       persistent = true;
       randomizedDelaySec = "15min";
