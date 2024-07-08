@@ -73,7 +73,13 @@
         xterm.enable = false;
       };
     };
-    xdg.portal = {
+  };
+
+  #############
+  #-=# XDG #=-#
+  #############
+  xdg = {
+    portal = {
       enable = true;
       wlr.enable = true;
       extraPortals = [pkgs.xdg-desktop-portal-gtk];
