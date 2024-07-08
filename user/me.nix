@@ -68,12 +68,10 @@
           go.enable = true;
           gh-dash.enable = true;
           gitui.enable = true;
-          helix.enable = true;
           home-manager.enable = true;
-          navi.enable = true;
+          neofetch.enable = true;
           ripgrep.enable = true;
           skim.enable = true;
-          zoxide.enable = true;
           atuin = {
             enable = true;
             flags = ["--disable-up-arrow"];
