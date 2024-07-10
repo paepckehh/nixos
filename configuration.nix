@@ -18,11 +18,13 @@
   #-=# NIX #=-#
   #############
   nix = {
+    enable = true;
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes ";
     optimise.automatic = true;
     settings = {
       auto-optimise-store = true;
+      allowed-uris = ["https://github.com/NixOS" "https://github.com/paepckehh"];
       allowed-users = lib.mkForce ["@wheel"];
       trusted-users = lib.mkForce ["@wheel"];
       require-sigs = lib.mkForce true;
@@ -33,6 +35,16 @@
       persistent = true;
       dates = "daily";
       options = "--delete-older-than 12d";
+    };
+  };
+
+  #############
+  #-=# NIX #=-#
+  #############
+  nixpkgs = {
+    config = {
+      allowBroken = true;
+      allowUnfree = true;
     };
   };
 
@@ -221,7 +233,6 @@
       syntaxHighlighting.enable = true;
     };
   };
-  nixpkgs.config.allowUnfree = true;
 
   #####################
   #-=# ENVIRONMENT #=-#
