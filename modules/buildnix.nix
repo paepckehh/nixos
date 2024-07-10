@@ -68,14 +68,15 @@
         sudo nixos-generate-config &&\
         sudo alejandra --quiet . &&\
         nix.push ;\
-        export DTS="$(date '+%Y-%m-%d:%H-%M')" ;\
+        export DTS="$(date '+%Y-%m-%d-(%H-%M)')" ;\
         export HNAME="$(hostname)" ;\
+        echo "############# ---> Rebuild for HOST: $HNAME TIMESTAMP: $DTS <--- ##################"
         sudo nixos-rebuild boot --install-bootloader ;\
         sudo nixos-rebuild boot --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
       "nix.all" = ''
         nix.update ;\
         nix.build ;\
-        echo "#################### ---> Rebuild all on HOST: $HNAME TIMESTAMP: $DTS <--- ############################"
+        echo "############# ---> Rebuild **all** for HOST: $HNAME TIMESTAMP: $DTS <--- ##########"
         sudo nixos-rebuild boot --flake /etc/nixos/#generic              -p "generic-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#generic-console      -p "generic-console-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ;\
