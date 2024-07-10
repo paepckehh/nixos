@@ -70,7 +70,7 @@
         sudo nixos-generate-config &&\
         sudo alejandra --quiet . &&\
         nix.push ;\
-        export DTS="$(date '+%Y-%m-%d-@%H-%M')" ;\
+        export DTS="----$(date '+%Y-%m-%d---%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         echo "############# ---> Rebuild for HOST: $HNAME TIMESTAMP: $DTS <--- ##################"
         sudo nixos-rebuild boot --install-bootloader ;\
