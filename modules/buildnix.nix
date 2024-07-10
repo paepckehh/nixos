@@ -57,6 +57,12 @@
         sudo nix flake lock --update-input nixpkgs --update-input nixos-hardware --update-input home-manager ;\
         sudo alejandra --quiet . &&\
         sudo nixos-generate-config &&\
+        sudo alejandra --quiet . '';
+      "nix.build" = ''
+        cd /etc/nixos &&\
+        sudo -v &&\
+        sudo alejandra --quiet . &&\
+        sudo nixos-generate-config &&\
         sudo alejandra --quiet . &&\
         nix.push ;\
         export DTS="$(date '+%Y-%m-%d-%H-%M')" ;\
