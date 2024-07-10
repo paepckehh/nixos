@@ -15,14 +15,17 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    nm-applet.enable = true;
-    tuxclocker.enable = true;
-    coolercontrol.enable = true;
     hyprland = {
       enable = true;
       xwayland = {
         enable = true;
       };
+    };
+    hyrlock = {
+      enable = true;
+    };
+    waybar = { 
+      enable = true;
     };
   };
 
@@ -39,10 +42,11 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    xserver = {
+    dbus = { 
       enable = true;
-      autoRepeatDelay = 150;
-      autoRepeatInterval = 15;
+    };
+    hypridle = {
+      enable = true;
     };
   };
 
@@ -53,7 +57,7 @@
     portal = {
       enable = true;
       wlr.enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-gtk];
+      extraPortals = with pkgs [ xdg-desktop-portal-gtk xdg-desktop-portal-hyprland ];
     };
   };
 }
