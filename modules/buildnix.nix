@@ -54,10 +54,12 @@
       "nix.update" = ''
         cd /etc/nixos &&\
         sudo -v &&\
+        nix.push ;\
         sudo nix flake lock --update-input nixpkgs --update-input nixos-hardware --update-input home-manager ;\
         sudo alejandra --quiet . &&\
         sudo nixos-generate-config &&\
-        sudo alejandra --quiet . '';
+        sudo alejandra --quiet . ;\
+        nix.push '';
       "nix.switch" = ''
         nix.build ;\
         sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
@@ -68,7 +70,7 @@
         sudo nixos-generate-config &&\
         sudo alejandra --quiet . &&\
         nix.push ;\
-        export DTS="$(date '+%Y-%m-%d-(%H-%M)')" ;\
+        export DTS="$(date '+%Y-%m-%d-@%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         echo "############# ---> Rebuild for HOST: $HNAME TIMESTAMP: $DTS <--- ##################"
         sudo nixos-rebuild boot --install-bootloader ;\
