@@ -21,7 +21,7 @@
         enable = true;
       };
     };
-    hyrlock = {
+    hyprlock = {
       enable = true;
     };
     waybar = {
