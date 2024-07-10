@@ -24,10 +24,21 @@
     optimise.automatic = true;
     settings = {
       auto-optimise-store = true;
-      allowed-uris = ["https://github.com/NixOS" "https://github.com/paepckehh"];
+      allowed-uris = lib.mkForce ["https://github.com/NixOS" "https://github.com/paepckehh"];
       allowed-users = lib.mkForce ["@wheel"];
       trusted-users = lib.mkForce ["@wheel"];
+      flake-registry = lib.mkForce "file://flake-registry.json";
+      http2 = lib.mkForce false;
+      sandbox = lib.mkForce true;
+      sandbox-build-dir = "/build";
+      sandbox-fallback = lib.mkForce false;
+      store = lib.mkForce "https://cache.nixos.org";
+      substituters = lib.mkForce "https://cache.nixos.org";
+      trace-verbose = true;
+      use-registries = true;
+      restrict-eval = lib.mkForce true;
       require-sigs = lib.mkForce true;
+      preallocate-content = true;
       trusted-public-keys = lib.mkForce ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
     };
     gc = {
