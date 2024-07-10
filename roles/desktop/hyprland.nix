@@ -24,7 +24,7 @@
     hyrlock = {
       enable = true;
     };
-    waybar = { 
+    waybar = {
       enable = true;
     };
   };
@@ -42,7 +42,7 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    dbus = { 
+    dbus = {
       enable = true;
     };
     hypridle = {
@@ -56,8 +56,10 @@
   xdg = {
     portal = {
       enable = true;
-      wlr.enable = true;
-      extraPortals = with pkgs [ xdg-desktop-portal-gtk xdg-desktop-portal-hyprland ];
+      wlr = {
+        enable = true;
+      };
+      extraPortals = [pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-hyprland];
     };
   };
 }
