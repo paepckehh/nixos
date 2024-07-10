@@ -32,7 +32,7 @@
       sandbox = lib.mkForce true;
       sandbox-build-dir = "/build";
       sandbox-fallback = lib.mkForce false;
-      # store = lib.mkForce "https://cache.nixos.org";
+      store = lib.mkForce "https://cache.nixos.org";
       # substituters = lib.mkForce ["https://cache.nixos.org"]; # todo
       trace-verbose = true;
       use-registries = true;
