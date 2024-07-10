@@ -4,7 +4,6 @@
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixos-boot.url = "github:Melkor333/nixos-boot";
     nixos-hardware.url = "github:paepckehh/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -16,7 +15,6 @@
     nixpkgs,
     home-manager,
     nixos-hardware,
-    nixos-boot,
   }: {
     nixosConfigurations = {
       ###########
@@ -50,14 +48,12 @@
         system = "x86_64-linux";
         modules = [
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
-          nixos-boot.nixosModules.default
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./roles/desktop/gnome.nix
           ./person/desktop/mpp.nix
           ./modules/virtual.nix
           ./modules/hardening.nix
-          {nixos-boot.enable = true;}
           {networking.hostName = "nixbook141";}
         ];
       };
