@@ -63,7 +63,7 @@
         programs = {
           direnv.enable = true;
           fzf.enable = true;
-          thefuck.enable = true;
+          thefuck.enable = false;
           starship.enable = true;
           go.enable = true;
           gh-dash.enable = true;
