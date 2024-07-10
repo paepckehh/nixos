@@ -38,7 +38,7 @@
       use-registries = true;
       restrict-eval = lib.mkForce true;
       require-sigs = lib.mkForce true;
-      preallocate-content = true;
+      preallocate-contents = true;
       trusted-public-keys = lib.mkForce ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
     };
     gc = {
