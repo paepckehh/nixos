@@ -4,7 +4,7 @@
   ##################
   services = {
     cockpit = {
-      enable = false;
+      enable = true;
       port = 9090;
       settings.WebService.AllowUnencrypted = false;
     };
