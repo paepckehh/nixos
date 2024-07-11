@@ -64,8 +64,8 @@
   ##############
   boot = {
     initrd = {
-      availableKernelModules = ["xhci_pci" "uas" "sd_mod" "nvme"];
-      systemd.enable = true;
+      availableKernelModules = ["aesni_intel" "cryptd" "sd_mod" "uas" "nvme" "xhci_pci"];
+      systemd.enable lib.mkForce = false;
     };
     tmp = {
       cleanOnBoot = true;
