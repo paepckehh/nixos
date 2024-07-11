@@ -8,7 +8,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./cockpit.nix
+    ../server/cockpit.nix
   ];
 
   ##################
