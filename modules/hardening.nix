@@ -9,27 +9,27 @@
   ##############
   boot = {
     initrd = {
-      luks.mitigateDMAAttacks = lib.mkDefault true;
+      luks.mitigateDMAAttacks = lib.mkForce true;
     };
     # kernelPackages = pkgs.linuxPackages_latest;
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_hardened;
+    kernelPackages = lib.mkForce pkgs.linuxPackages_hardened;
     kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off"];
     kernel.sysctl = {
       # kernel
-      "kernel.ftrace_enabled" = lib.mkDefault false;
-      "kernel.kptr_restrict" = lib.mkOverride 500 2;
+      "kernel.ftrace_enabled" = lib.mkForce false;
+      "kernel.kptr_restrict" = lib.mkForce 2;
       # network
-      "net.core.bpf_jit_enable" = lib.mkDefault false;
-      "net.ipv4.conf.all.log_martians" = lib.mkDefault true;
-      "net.ipv4.conf.all.rp_filter" = lib.mkDefault "1";
-      "net.ipv4.conf.default.log_martians" = lib.mkDefault true;
-      "net.ipv4.conf.default.rp_filter" = lib.mkDefault "1";
-      "net.ipv4.icmp_echo_ignore_broadcasts" = lib.mkDefault true;
-      "net.ipv4.conf.all.accept_redirects" = lib.mkDefault false;
-      "net.ipv4.conf.all.secure_redirects" = lib.mkDefault false;
-      "net.ipv4.conf.default.accept_redirects" = lib.mkDefault false;
-      "net.ipv4.conf.default.secure_redirects" = lib.mkDefault false;
-      "net.ipv6.conf.all.accept_redirects" = lib.mkDefault false;
+      "net.core.bpf_jit_enable" = lib.mkForce false;
+      "net.ipv4.conf.all.log_martians" = lib.mkForce true;
+      "net.ipv4.conf.all.rp_filter" = lib.mkForce "1";
+      "net.ipv4.conf.default.log_martians" = lib.mkForce true;
+      "net.ipv4.conf.default.rp_filter" = lib.mkForce "1";
+      "net.ipv4.icmp_echo_ignore_broadcasts" = lib.mkForce true;
+      "net.ipv4.conf.all.accept_redirects" = lib.mkForce false;
+      "net.ipv4.conf.all.secure_redirects" = lib.mkForce false;
+      "net.ipv4.conf.default.accept_redirects" = lib.mkForce false;
+      "net.ipv4.conf.default.secure_redirects" = lib.mkForce false;
+      "net.ipv6.conf.all.accept_redirects" = lib.mkForce false;
     };
     blacklistedKernelModules = [
       "ax25"
@@ -66,8 +66,8 @@
     protectKernelImage = lib.mkForce true;
     forcePageTableIsolation = lib.mkForce true;
     apparmor = {
-      enable = lib.mkDefault true;
-      killUnconfinedConfinables = lib.mkDefault true;
+      enable = lib.mkForce true;
+      killUnconfinedConfinables = lib.mkForce true;
     };
     dhparams = {
       enable = true;
@@ -102,7 +102,7 @@
     memoryAllocator.provider = lib.mkForce "libc";
     # memoryAllocator.provider = lib.mkForce "scudo";
     variables = {
-      # SCUDO_OPTIONS = lib.mkDefault "ZeroContents=1";
+      # SCUDO_OPTIONS = lib.mkForce "ZeroContents=1";
     };
   };
 }
