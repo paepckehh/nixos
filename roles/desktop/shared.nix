@@ -8,7 +8,8 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ../../modules/open-webui.nix
+    ../../server/adguard.nix
+    ../../server/openweb-ui.nix
   ];
 
   ##################
