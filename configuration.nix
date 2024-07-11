@@ -12,6 +12,8 @@
   imports = [
     ./hardware-configuration.nix
     ./modules/buildnix.nix
+    ./modules/hardening.nix
+    ./modules/securepublictime.nix
   ];
 
   #############

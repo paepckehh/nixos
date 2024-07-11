@@ -27,7 +27,6 @@
           ./configuration.nix
           ./roles/desktop/gnome.nix
           ./person/desktop/mpp.nix
-          ./modules/hardening.nix
           {networking.hostName = "generic";}
         ];
       };
@@ -37,7 +36,6 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./person/mpp.nix
-          ./modules/hardening.nix
           {networking.hostName = "generic-console";}
         ];
       };
@@ -53,7 +51,6 @@
           ./roles/desktop/gnome.nix
           ./person/desktop/mpp.nix
           ./modules/virtual.nix
-          ./modules/hardening.nix
           {networking.hostName = "nixbook141";}
         ];
       };
@@ -65,7 +62,6 @@
           ./configuration.nix
           ./roles/desktop/hyprland.nix
           ./person/desktop/mpp.nix
-          ./modules/hardening.nix
           {networking.hostName = "nixbook141-hyprland";}
         ];
       };
@@ -83,7 +79,6 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./person/mpp.nix
-          ./modules/hardening.nix
           {networking.hostName = "nixbook141-console";}
         ];
       };
@@ -96,7 +91,6 @@
           ./roles/desktop/gnome.nix
           ./roles/office.nix
           ./person/desktop/mpp.nix
-          ./modules/hardening.nix
           {networking.hostName = "nixbook141-office";}
         ];
       };
@@ -113,7 +107,6 @@
           ./roles/office.nix
           ./person/desktop/mpp.nix
           ./modules/virtual.nix
-          ./modules/hardening.nix
           {networking.hostName = "nixmac182";}
         ];
       };
