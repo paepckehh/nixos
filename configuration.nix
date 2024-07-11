@@ -65,6 +65,7 @@
   #-=# BOOT #=-#
   ##############
   boot = {
+    readOnlyNixStore = lib.mkForce true;
     initrd = {
       availableKernelModules = ["aesni_intel" "cryptd" "sd_mod" "uas" "nvme" "xhci_pci"];
       systemd.enable = lib.mkForce false;
