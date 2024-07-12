@@ -56,7 +56,7 @@
         filtering = {
           safe_search.enabled = true;
           filtering_enabled = true;
-          protection_enabled = false;
+          protection_enabled = true;
           parental_enabled = false;
         };
         filters =
