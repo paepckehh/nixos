@@ -2,6 +2,7 @@
   services.chrony = {
     enable = true;
     enableNTS = true;
+    enableMemoryLocking = true;
     servers = [
       "ntppool1.time.nl"
       "ntppool2.time.nl"
