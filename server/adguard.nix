@@ -67,6 +67,8 @@
             "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
             "https://easylist.to/easylist/easylist.txt"
             "https://easylist.to/easylistgermany/easylistgermany.txt"
+            "https://easylist-downloads.adblockplus.org/antiadblockfilters.txt"
+            "https://secure.fanboy.co.nz/fanboy-annoyance.txt"
           ];
       };
     };
