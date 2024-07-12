@@ -15,6 +15,7 @@
       "sth2.nts.netnod.se"
       "svl1.nts.netnod.se"
       "svl2.nts.netnod.se"
+      "paris.time.system76.com"
     ];
   };
 }
