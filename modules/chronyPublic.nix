@@ -6,7 +6,6 @@
     servers = [
       "ntppool1.time.nl"
       "ntppool2.time.nl"
-      "nts.netnod.se"
       "ntp.3eck.net"
       "ntp.trifence.ch"
       "ntp.zeitgitter.net"
