@@ -10,7 +10,7 @@
     resolved.enable = false;
     adguardhome = {
       enable = true;
-      mutableSettings = true;
+      mutableSettings = false;
       openFirewall = false;
       settings = {
         dhcp.enabled = false;
