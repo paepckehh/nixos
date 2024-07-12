@@ -9,7 +9,7 @@
   services = {
     unifi = {
       enable = true;
-      openfirewall = false;
+      openFirewall = false;
       unifiPackage = pkgs.unifi8;
     };
     prometheus.exporters.unifi.enable = false;
