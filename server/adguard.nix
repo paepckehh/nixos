@@ -65,6 +65,8 @@
             url = url;
           }) [
             "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+            "https://easylist.to/easylist/easylist.txt"
+            "https://easylist.to/easylistgermany/easylistgermany.txt"
           ];
       };
     };
