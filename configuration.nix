@@ -25,6 +25,8 @@
     extraOptions = "experimental-features = nix-command flakes ";
     optimise.automatic = true;
     settings = {
+      # store = lib.mkForce "https://cache.nixos.org";
+      # substituters = lib.mkForce ["https://cache.nixos.org"]; # todo
       auto-optimise-store = true;
       allowed-uris = lib.mkForce ["https://github.com/NixOS" "https://github.com/paepckehh"];
       allowed-users = lib.mkForce ["@wheel"];
@@ -34,8 +36,6 @@
       sandbox = lib.mkForce true;
       sandbox-build-dir = "/build";
       sandbox-fallback = lib.mkForce false;
-      # store = lib.mkForce "https://cache.nixos.org";
-      # substituters = lib.mkForce ["https://cache.nixos.org"]; # todo
       trace-verbose = true;
       use-registries = true;
       restrict-eval = lib.mkForce true;
@@ -292,6 +292,7 @@
     power-profiles-daemon.enable = true;
     thermald.enable = true;
     logind.hibernateKey = "ignore";
+    kmscon.enable = true;
     opensnitch = {
       enable = false;
       settings = {
