@@ -54,6 +54,13 @@
           enabled = true;
           interval = "2160h";
         };
+        filters =
+          map (url: {
+            enabled = true;
+            url = url;
+          }) [
+            "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+          ];
       };
     };
   };
