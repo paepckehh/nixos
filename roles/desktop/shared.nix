@@ -16,9 +16,10 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    nm-applet.enable = true;
-    tuxclocker.enable = true;
     coolercontrol.enable = true;
+    system-config-printer.enable = lib.mkForce true;
+    tuxclocker.enable = true;
+    nm-applet.enable = true;
     firejail = {
       enable = true;
       wrappedBinaries = {
@@ -34,7 +35,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [alacritty gparted librewolf networkmanagerapplet opensnitch-ui];
+    systemPackages = with pkgs; [alacritty gparted networkmanagerapplet opensnitch-ui];
     variables = {
       BROWSER = "librewolf";
       TERMINAL = "alacritty";

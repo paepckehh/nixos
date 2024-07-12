@@ -8,7 +8,7 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    system-config-printer.enable = true;
+    system-config-printer.enable = lib.mkForce true;
   };
 
   #####################
