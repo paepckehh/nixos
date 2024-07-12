@@ -8,7 +8,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ../../server/adguard.nix
+    # ../../server/adguard.nix
     ../../server/openweb-ui.nix
   ];
 
