@@ -40,7 +40,7 @@
           shellAliases = {
             e = "vim";
             n = "nvim";
-            t = "chronyc -n tracking ; chronyc -n sources ; chronyc -n sourcestats ; chronyc -N authdata ; chronyc serverstats";
+            t = "sudo -v && chronyc -n tracking ; chronyc -n sources ; chronyc -n sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
             cat = "bat --paging=never";
             bandwhich = "sudo bandwhich";
             powertop = "sudo powertop";
