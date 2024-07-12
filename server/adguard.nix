@@ -15,7 +15,6 @@
       settings = {
         dhcp.enabled = false;
         tls.enabled = false;
-        safe_search.enabled = true;
         http = {
           address = "127.0.0.1";
           pprof.enabled = false;
@@ -53,6 +52,12 @@
         statistics = {
           enabled = true;
           interval = "2160h";
+        };
+        filtering = {
+          safe_search.enabled = true;
+          filtering_enabled = true;
+          protection_enabled = false;
+          parental_enabled = false;
         };
         filters =
           map (url: {
