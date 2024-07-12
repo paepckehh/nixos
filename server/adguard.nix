@@ -49,7 +49,7 @@
         querylog = {
           enabled = true;
           interval = "2160h";
-          size_memory = "10000";
+          size_memory = 10000;
         };
         statistics = {
           enabled = true;
