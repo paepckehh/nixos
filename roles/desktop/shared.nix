@@ -17,7 +17,6 @@
   ##################
   programs = {
     coolercontrol.enable = true;
-    system-config-printer.enable = lib.mkForce true;
     tuxclocker.enable = true;
     nm-applet.enable = true;
     firejail = {
@@ -48,7 +47,7 @@
   services = {
     autosuspend.enable = lib.mkForce false;
     blueman.enable = true;
-    printing.enable = lib.mkForce false;
+    printing.enable = lib.mkForce true;
     xserver = {
       enable = true;
       autoRepeatDelay = 150;
