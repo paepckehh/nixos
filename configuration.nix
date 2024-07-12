@@ -292,7 +292,10 @@
     power-profiles-daemon.enable = true;
     thermald.enable = true;
     logind.hibernateKey = "ignore";
-    kmscon.enable = true;
+    kmscon = {
+      enable = true;
+      hwRender = true;
+    };
     opensnitch = {
       enable = false;
       settings = {
