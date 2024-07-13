@@ -4,7 +4,7 @@
   ##################
   services = {
     open-webui = {
-      enable = false;
+      enable = true;
       host = "127.0.0.1";
       port = 8080;
       openFirewall = false;

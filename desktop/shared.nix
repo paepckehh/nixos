@@ -9,8 +9,8 @@
   #################
   imports = [
     ../server/adguard.nix
-    ../server/unifi.nix
-    ../server/openweb-ui.nix
+    # ../server/unifi.nix
+    # ../server/openweb-ui.nix
   ];
 
   ##################
