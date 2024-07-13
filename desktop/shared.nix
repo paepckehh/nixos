@@ -11,6 +11,7 @@
     ../server/adguard.nix
     # ../server/unifi.nix
     # ../server/openweb-ui.nix
+    ../server/virtual.nix
   ];
 
   ##################
