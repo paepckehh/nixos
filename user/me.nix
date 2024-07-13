@@ -62,6 +62,7 @@
         };
         fonts.fontconfig.enable = true;
         programs = {
+          helix.enable = false;
           direnv.enable = true;
           fzf.enable = true;
           thefuck.enable = false;
