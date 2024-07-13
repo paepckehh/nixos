@@ -134,7 +134,7 @@
     enableIPv6 = lib.mkDefault false;
     useDHCP = lib.mkDefault true;
     networkmanager.enable = true;
-    nftables.enable = false;
+    nftables.enable = true;
     firewall = {
       enable = true;
       allowPing = false;
