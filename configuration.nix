@@ -27,11 +27,11 @@
     settings = {
       # store = lib.mkForce "https://cache.nixos.org";
       # substituters = lib.mkForce ["https://cache.nixos.org"]; # todo
+      # allowed-uris = lib.mkForce ["https://github.com/NixOS" "https://github.com/paepckehh" "https://cache.nixos.org"];
+      # flake-registry = lib.mkForce "file:///etc/nixos/flake-registry.json";
       auto-optimise-store = true;
-      allowed-uris = lib.mkForce ["https://github.com/NixOS" "https://github.com/paepckehh"];
       allowed-users = lib.mkForce ["@wheel"];
       trusted-users = lib.mkForce ["@wheel"];
-      flake-registry = lib.mkForce "file:///etc/nixos/flake-registry.json";
       http2 = lib.mkForce false;
       sandbox = lib.mkForce true;
       sandbox-build-dir = "/build";
@@ -292,16 +292,16 @@
     power-profiles-daemon.enable = true;
     thermald.enable = true;
     logind.hibernateKey = "ignore";
-    kmscon = {
-      enable = true;
-      hwRender = true;
-    };
     opensnitch = {
       enable = false;
       settings = {
         firewall = "nftables"; # iptables or nftables
         defaultAction = "deny"; # allow or deny
       };
+    };
+    kmscon = {
+      enable = false;
+      hwRender = true;
     };
     fstrim = {
       enable = true;

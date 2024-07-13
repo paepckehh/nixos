@@ -3,7 +3,8 @@
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:paepckehh/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -25,7 +26,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./roles/desktop/gnome.nix
+          ./desktop/gnome.nix
           ./person/desktop/mpp.nix
           {networking.hostName = "generic";}
         ];
@@ -48,7 +49,7 @@
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./roles/desktop/gnome.nix
+          ./desktop/gnome.nix
           ./person/desktop/mpp.nix
           ./modules/virtual.nix
           {networking.hostName = "nixbook141";}
@@ -60,7 +61,7 @@
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./roles/desktop/hyprland.nix
+          ./desktop/hyprland.nix
           ./person/desktop/mpp.nix
           {networking.hostName = "nixbook141-hyprland";}
         ];
@@ -88,8 +89,8 @@
           nixos-hardware.nixosModules.apple-macbook-pro-14-1
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./roles/desktop/gnome.nix
-          ./roles/office.nix
+          ./desktop/gnome.nix
+          ./modules/office.nix
           ./person/desktop/mpp.nix
           {networking.hostName = "nixbook141-office";}
         ];
@@ -103,10 +104,10 @@
           nixos-hardware.nixosModules.apple-imac-18-2
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./roles/desktop/gnome.nix
-          ./roles/office.nix
-          ./person/desktop/mpp.nix
+          ./desktop/gnome.nix
+          ./modules/office.nix
           ./modules/virtual.nix
+          ./person/desktop/mpp.nix
           {networking.hostName = "nixmac182";}
         ];
       };
