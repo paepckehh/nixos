@@ -7,7 +7,7 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    resolved.enable = false;
+    resolved.enable = lib.mkForce false;
     adguardhome = {
       enable = true;
       mutableSettings = false;

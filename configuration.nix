@@ -140,6 +140,7 @@
       allowPing = false;
       allowedTCPPorts = [];
       allowedUDPPorts = [];
+      checkReversePath = true;
     };
     proxy = {
       noProxy = "1270.0.1,local,localhost,localdomain,192.168.0.0/16";
@@ -306,6 +307,12 @@
     fstrim = {
       enable = true;
       interval = "daily";
+    };
+    resolved = {
+      enable = true;
+      dnssec = "true";
+      fallbackDns = ["9.9.9.10" "9.9.9.9"];
+      extraConfig = ''DNSOverTLS=yes '';
     };
     openssh = {
       enable = false;

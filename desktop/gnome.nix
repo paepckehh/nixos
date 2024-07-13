@@ -65,6 +65,7 @@
       displayManager.gdm = {
         enable = true;
         autoSuspend = false;
+        banner = ''hardened nixos gnome desktop '';
       };
       desktopManager = {
         gnome = {

@@ -33,6 +33,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
+    systemPackages = with pkgs; [rofi-wayland];
     variables = {
       NIXOS_OZONE_WL = "1";
     };
@@ -47,6 +48,10 @@
     };
     hypridle = {
       enable = true;
+    };
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
     };
   };
 
