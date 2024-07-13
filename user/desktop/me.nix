@@ -9,7 +9,6 @@
   ######################
   home-manager.users.me = {
     programs = {
-      foot.enable = true;
       librewolf.enable = true;
       kitty = {
         enable = true;
