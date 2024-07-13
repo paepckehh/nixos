@@ -51,7 +51,6 @@
           ./configuration.nix
           ./desktop/gnome.nix
           ./person/desktop/mpp.nix
-          ./modules/virtual.nix
           {networking.hostName = "nixbook141";}
         ];
       };
@@ -106,7 +105,6 @@
           ./configuration.nix
           ./desktop/gnome.nix
           ./modules/office.nix
-          ./modules/virtual.nix
           ./person/desktop/mpp.nix
           {networking.hostName = "nixmac182";}
         ];
