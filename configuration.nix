@@ -245,7 +245,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    interactiveShellInit = ''hostname && uname -a'';
+    interactiveShellInit = ''uname -a'';
     variables = {
       VISUAL = "vim";
       EDITOR = "vim";
