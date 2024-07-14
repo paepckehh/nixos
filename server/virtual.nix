@@ -25,6 +25,13 @@
     unprivilegedUsernsClone = lib.mkForce true;
   };
 
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking = {
+    nftables.enable = lib.mkForce false;
+  };
+
   ########################
   #-=# VIRTUALISATION #=-#
   ########################

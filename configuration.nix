@@ -66,6 +66,8 @@
   ##############
   boot = {
     readOnlyNixStore = lib.mkForce true;
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = ["ipv6.disable=1"];
     initrd = {
       availableKernelModules = ["aesni_intel" "cryptd" "sd_mod" "uas" "nvme" "xhci_pci"];
       systemd.enable = lib.mkForce false;
@@ -131,10 +133,10 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    enableIPv6 = lib.mkDefault false;
-    useDHCP = lib.mkDefault true;
+    enableIPv6 = lib.mkForce false;
+    useDHCP = true;
     networkmanager.enable = true;
-    nftables.enable = false;
+    nftables.enable = true; # libvirt
     firewall = {
       enable = true;
       allowPing = false;
