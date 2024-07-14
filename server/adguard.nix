@@ -11,12 +11,12 @@
     adguardhome = {
       enable = true;
       mutableSettings = false;
-      openFirewall = false;
+      openFirewall = true;
       settings = {
         dhcp.enabled = false;
         tls.enabled = false;
         http = {
-          address = "127.0.0.1";
+          address = "0.0.0.0";
           pprof.enabled = false;
         };
         dns = {
