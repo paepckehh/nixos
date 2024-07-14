@@ -68,6 +68,7 @@
     readOnlyNixStore = lib.mkForce true;
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = ["ipv6.disable=1"];
+    extraModulePackages = lib.mkForce [config.boot.kernelPackages.exfat-nofuse]; # nixxed by hardening kernel
     initrd = {
       availableKernelModules = ["aesni_intel" "cryptd" "sd_mod" "uas" "nvme" "xhci_pci"];
       systemd.enable = lib.mkForce false;
