@@ -52,6 +52,7 @@
     };
     libvirtd = {
       enable = true;
+      allowedBridges = "virbr0";
       onBoot = "start";
       qemu = {
         package = pkgs.qemu_kvm;

@@ -13,7 +13,7 @@
     };
     # kernelPackages = pkgs.linuxPackages_latest;
     kernelPackages = lib.mkForce pkgs.linuxPackages_hardened;
-    kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off"];
+    kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off" "ipv6.disable=1"];
     kernel.sysctl = {
       # kernel
       "kernel.ftrace_enabled" = lib.mkForce false;
@@ -61,7 +61,7 @@
   ##################
   security = {
     auditd.enable = true;
-    allowSimultaneousMultithreading = true; # perf
+    allowSimultaneousMultithreading = true; # xxx
     lockKernelModules = lib.mkForce true;
     protectKernelImage = lib.mkForce true;
     forcePageTableIsolation = lib.mkForce true;
