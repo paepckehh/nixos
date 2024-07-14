@@ -32,6 +32,13 @@
     nftables.enable = lib.mkForce false;
   };
 
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment = {
+    systemPackages = with pkgs; [quickemu];
+  };
+
   ########################
   #-=# VIRTUALISATION #=-#
   ########################
