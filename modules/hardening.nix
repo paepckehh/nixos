@@ -11,8 +11,8 @@
     initrd = {
       luks.mitigateDMAAttacks = lib.mkForce true;
     };
-    # kernelPackages = pkgs.linuxPackages_latest;
-    kernelPackages = lib.mkForce pkgs.linuxPackages_hardened;
+    kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = lib.mkForce pkgs.linuxPackages_hardened;
     kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off" "ipv6.disable=1"];
     kernel.sysctl = {
       # kernel
