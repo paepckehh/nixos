@@ -134,9 +134,8 @@
   ####################
   networking = {
     enableIPv6 = lib.mkForce false;
-    useDHCP = true;
     networkmanager.enable = true;
-    nftables.enable = true; # libvirt
+    nftables.enable = true;
     firewall = {
       enable = true;
       allowPing = false;
