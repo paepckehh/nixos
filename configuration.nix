@@ -12,7 +12,7 @@
   imports = [
     ./hardware-configuration.nix
     ./modules/buildnix.nix
-    ./modules/hardening.nix
+    # ./modules/hardening.nix
     ./modules/chronyPublic.nix
   ];
 
@@ -70,8 +70,8 @@
     kernelParams = ["ipv6.disable=1"];
     extraModulePackages = with pkgs; [];
     initrd = {
-      availableKernelModules = ["aesni_intel" "cryptd" "sd_mod" "uas" "nvme" "xhci_pci"];
       systemd.enable = lib.mkForce false;
+      availableKernelModules = ["aesni_intel" "cryptd" "sd_mod" "uas" "nvme" "xhci_pci"];
     };
     tmp = {
       cleanOnBoot = true;
