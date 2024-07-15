@@ -25,20 +25,20 @@
     settings = {
       # store = lib.mkForce "https://cache.nixos.org";
       # substituters = lib.mkForce ["https://cache.nixos.org"]; # todo
+      # flake-registry = lib.mkForce "file:///etc/nixos/flake-registry.json";
       allowed-uris = lib.mkForce ["https://github.com/NixOS" "https://github.com/paepckehh" "https://cache.nixos.org"];
-      flake-registry = lib.mkForce "file:///etc/nixos/flake-registry.json";
-      use-registries = true;
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
+      extra-sandbox-paths = [config.programs.ccache.cacheDir];
       trusted-users = lib.mkForce ["@wheel"];
       http2 = lib.mkForce false;
       sandbox = lib.mkForce true;
       sandbox-build-dir = "/build";
       sandbox-fallback = lib.mkForce false;
-      extra-sandbox-paths = [config.programs.ccache.cacheDir];
       trace-verbose = true;
       restrict-eval = lib.mkForce true;
       require-sigs = lib.mkForce true;
+      use-registries = true;
       preallocate-contents = true;
       trusted-public-keys = lib.mkForce ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
     };
