@@ -60,28 +60,28 @@
           file = {".config/starship.toml".source = ./resources/starship/gruvbox-rainbow.toml;};
           packages = with pkgs; [
             age
-            rage
-            age-yubikey-plugin
+            age-plugin-yubikey
             bandwhich
             dust
             dnsutils
             gcc
+            git-crypt
+            git-agecrypt
             hyperfine
             openssl
             tldr
             shellcheck
             shfmt
             moreutils
-            yubikey-personalization
-            vulnix
             fd
-            git-crypt
-            git-agecrypt
             jq
             openssl
             tree
             paper-age
             passage
+            rage
+            vulnix
+            yubikey-personalization
             yq
           ];
         };
