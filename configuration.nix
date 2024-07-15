@@ -36,6 +36,7 @@
       sandbox = lib.mkForce true;
       sandbox-build-dir = "/build";
       sandbox-fallback = lib.mkForce false;
+      extra-sandbox-paths = [config.programs.ccache.cacheDir];
       trace-verbose = true;
       restrict-eval = lib.mkForce true;
       require-sigs = lib.mkForce true;
@@ -237,6 +238,10 @@
     iotop.enable = true;
     usbtop.enable = true;
     zsh.enable = true;
+    ccache = {
+      enable = true;
+      packageNames = [];
+    };
     ssh = {
       pubkeyAcceptedKeyTypes = ["ssh-ed25519" "ssh-rsa"];
       ciphers = ["chacha20-poly1305@openssh.com" "aes256-gcm@openssh.com"];
@@ -317,6 +322,7 @@
       l = "ls -la";
       e = "vim";
       h = "htop --tree --highlight-changes";
+      s = "nix-ccache --show-stats";
       slog = "journalctl --follow --priority=7 --lines=100";
     };
   };
