@@ -58,7 +58,32 @@
             SHELLCHECK_OPTS = "-e SC2086";
           };
           file = {".config/starship.toml".source = ./resources/starship/gruvbox-rainbow.toml;};
-          packages = with pkgs; [bandwhich dust dnsutils gcc hyperfine openssl tldr shellcheck shfmt moreutils yubikey-personalization vulnix];
+          packages = with pkgs; [
+            age
+            rage
+            age-yubikey-plugin
+            bandwhich
+            dust
+            dnsutils
+            gcc
+            hyperfine
+            openssl
+            tldr
+            shellcheck
+            shfmt
+            moreutils
+            yubikey-personalization
+            vulnix
+            fd
+            git-crypt
+            git-agecrypt
+            jq
+            openssl
+            tree
+            paper-age
+            passage
+            yq
+          ];
         };
         fonts.fontconfig.enable = true;
         programs = {

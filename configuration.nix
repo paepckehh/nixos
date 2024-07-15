@@ -316,7 +316,7 @@
       EDITOR = "vim";
       # SCUDO_OPTIONS = lib.mkForce "ZeroContents=1";
     };
-    systemPackages = with pkgs; [alejandra fd git-crypt git-agecrypt jq openssl tree paper-age passage rage yq];
+    systemPackages = with pkgs; [alejandra];
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
       l = "ls -la";
