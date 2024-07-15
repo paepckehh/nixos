@@ -76,6 +76,5 @@
     };
     pulseaudio.enable = false; # disable pulseaudio here (use pipewire)
   };
-  sound.enable = false; # disable alsa here (use pipewire)
   security.rtkit.enable = true; # realtime, needed for audio
 }
