@@ -239,7 +239,7 @@
     usbtop.enable = true;
     zsh.enable = true;
     ccache = {
-      enable = true;
+      enable = false;
       packageNames = [];
     };
     ssh = {
