@@ -7,6 +7,8 @@
       "nix.push" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
+        host api.github.com ;\
+        host cache.nixos.org ;\
         sudo alejandra --quiet . &&\
         sudo chown -R me:users .git &&\
         git reset &&\
