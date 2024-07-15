@@ -7,6 +7,7 @@
       "nix.push" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
+        host github.com ;\
         host api.github.com ;\
         host cache.nixos.org ;\
         sudo alejandra --quiet . &&\
