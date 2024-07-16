@@ -25,9 +25,6 @@
     settings = {
       # store = lib.mkForce "https://cache.nixos.org";
       # substituters = lib.mkForce ["https://cache.nixos.org"]; # todo
-      # flake-registry = lib.mkForce "file:///etc/nixos/flake-registry.json";
-      # use-registries = true;
-      # extra-sandbox-paths = [config.programs.ccache.cacheDir];
       allowed-uris = lib.mkForce ["https://github.com/NixOS" "https://github.com/paepckehh" "https://cache.nixos.org" "https://channel.nixos.org"];
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
@@ -60,8 +57,6 @@
     };
   };
 
-  boot.extraModulePackages = [];
-
   ##############
   #-=# BOOT #=-#
   ##############
@@ -76,7 +71,7 @@
     initrd = {
       systemd.enable = lib.mkForce false;
       luks.mitigateDMAAttacks = lib.mkForce true;
-      availableKernelModules = ["aesni_intel" "ahci" "cryptd" "sd_mod" "uas" "usbhid" "nvme" "xhci_pci"];
+      availableKernelModules = ["aesni_intel" "ahci" "cryptd" "dm_mod" "sd_mod" "uas" "usbhid" "nvme" "vfat" "xhci_pci"];
     };
     tmp = {
       cleanOnBoot = true;
