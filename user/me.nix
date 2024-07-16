@@ -130,7 +130,6 @@
             plugins = with pkgs.vimPlugins; [vim-shellcheck vim-go vim-git];
             settings = {
               expandtab = true;
-              history = 100000;
               mousehide = false;
             };
             extraConfig = ''
