@@ -20,12 +20,14 @@
       alacritty = {
         enable = true;
         settings = {
-          window = {
-            decorations = "none";
-            startup_mode = "Fullscreen";
-          };
           selection = {
             save_to_clipboard = true;
+          };
+          scrolling = {
+            history = 100000;
+          };
+          mouse = {
+            hide_when_typing = true;
           };
           font.size = 10;
           colors.primary = {
@@ -51,6 +53,10 @@
             magenta = "#a47de9";
             cyan = "#99faf2";
             white = "#ffffff";
+          };
+          window = {
+            decorations = "none";
+            startup_mode = "Fullscreen";
           };
         };
       };

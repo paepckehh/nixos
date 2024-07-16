@@ -11,6 +11,13 @@
     ../server/cockpit.nix
   ];
 
+  ##############
+  #-=# BOOT #=-#
+  ##############
+  boot = {
+    kernelModules = ["kvm-intel" "kvm-amd"];
+  };
+
   ##################
   #-=# PROGRAMS #=-#
   ##################

@@ -26,10 +26,11 @@
       # store = lib.mkForce "https://cache.nixos.org";
       # substituters = lib.mkForce ["https://cache.nixos.org"]; # todo
       # flake-registry = lib.mkForce "file:///etc/nixos/flake-registry.json";
-      allowed-uris = lib.mkForce ["https://github.com/NixOS" "https://github.com/paepckehh" "https://cache.nixos.org"];
+      # use-registries = true;
+      # extra-sandbox-paths = [config.programs.ccache.cacheDir];
+      allowed-uris = lib.mkForce ["https://github.com/NixOS" "https://github.com/paepckehh" "https://cache.nixos.org" "https://channel.nixos.org"];
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
-      extra-sandbox-paths = [config.programs.ccache.cacheDir];
       trusted-users = lib.mkForce ["@wheel"];
       http2 = lib.mkForce false;
       sandbox = lib.mkForce true;
@@ -38,7 +39,6 @@
       trace-verbose = true;
       restrict-eval = lib.mkForce true;
       require-sigs = lib.mkForce true;
-      use-registries = true;
       preallocate-contents = true;
       trusted-public-keys = lib.mkForce ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
     };
@@ -60,19 +60,23 @@
     };
   };
 
+  boot.extraModulePackages = [];
+
   ##############
   #-=# BOOT #=-#
   ##############
   boot = {
-    readOnlyNixStore = lib.mkForce true;
-    kernelPackages = pkgs.linuxPackages_latest;
+    # extraModulePackages = with pkgs; [];
     # kernelPackages = lib.mkForce pkgs.linuxPackages_hardened;
+    kernelPackages = pkgs.linuxPackages_latest;
+    blacklistedKernelModules = ["ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "sysv"];
     kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off" "ipv6.disable=1"];
-    extraModulePackages = with pkgs; [];
+    kernelModules = ["kvm-intel" "kvm-amd"];
+    readOnlyNixStore = lib.mkForce true;
     initrd = {
       systemd.enable = lib.mkForce false;
       luks.mitigateDMAAttacks = lib.mkForce true;
-      availableKernelModules = ["aesni_intel" "cryptd" "sd_mod" "uas" "nvme" "xhci_pci"];
+      availableKernelModules = ["aesni_intel" "ahci" "cryptd" "sd_mod" "uas" "usbhid" "nvme" "xhci_pci"];
     };
     tmp = {
       cleanOnBoot = true;
@@ -103,7 +107,6 @@
       "net.ipv4.conf.default.secure_redirects" = lib.mkForce false;
       "net.ipv6.conf.all.accept_redirects" = lib.mkForce false;
     };
-    blacklistedKernelModules = ["ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "sysv"];
   };
 
   ###############
@@ -237,10 +240,6 @@
     iotop.enable = true;
     usbtop.enable = true;
     zsh.enable = true;
-    ccache = {
-      enable = false;
-      packageNames = [];
-    };
     ssh = {
       pubkeyAcceptedKeyTypes = ["ssh-ed25519" "ssh-rsa"];
       ciphers = ["chacha20-poly1305@openssh.com" "aes256-gcm@openssh.com"];
@@ -273,10 +272,11 @@
       prompt.enable = true;
       config = {
         branch.sort = "-committerdate";
-        commit.gpgsign = "true";
+        commit.gpgsign = true;
         init.defaultBranch = "main";
         safe.directory = "/etc/nixos";
         gpg.format = "ssh";
+        user.signingkey = "~/.ssh/id_ed25519.pub";
         http = {
           sslVerify = "true";
           sslVersion = "tlsv1.3";
@@ -322,7 +322,7 @@
       e = "vim";
       h = "htop --tree --highlight-changes";
       s = "nix-ccache --show-stats";
-      slog = "journalctl --follow --priority=7 --lines=100";
+      slog = "journalctl --follow --priority=7 --lines=2500";
     };
   };
 

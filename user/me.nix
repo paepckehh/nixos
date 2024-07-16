@@ -18,7 +18,7 @@
         createHome = true;
         isNormalUser = true;
         shell = pkgs.zsh;
-        extraGroups = ["wheel" "networkmanager" "audio" "input" "video" "docker" "libvirt"];
+        extraGroups = ["wheel" "networkmanager" "audio" "input" "video" "docker" "libvirtd" "qemu-libvirtd"];
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
     };
@@ -93,6 +93,7 @@
           starship.enable = true;
           go.enable = true;
           gh-dash.enable = true;
+          git.enable = true;
           gitui.enable = true;
           home-manager.enable = true;
           ripgrep.enable = true;
@@ -119,9 +120,6 @@
             enable = true;
             settings.git_protocol = "ssh";
           };
-          git = {
-            enable = true;
-          };
           neovim = {
             enable = true;
             plugins = with pkgs.vimPlugins; [go-nvim];
@@ -132,7 +130,8 @@
             plugins = with pkgs.vimPlugins; [vim-shellcheck vim-go vim-git];
             settings = {
               expandtab = true;
-              history = 1000;
+              history = 100000;
+              mousehide = false;
             };
             extraConfig = ''
               set nocompatible
