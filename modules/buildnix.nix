@@ -82,8 +82,8 @@
         nix.update ;\
         nix.build ;\
         echo "############# ---> NIXOS-REBUILD **all** NixOS [$HNAME-$DTS] <--- ##########"
-        sudo nixos-rebuild boot --flake /etc/nixos/#generic              -p "generic-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#generic-console      -p "generic-console-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixos                -p "nixos-generic-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixos-console        -p "nixos-generic-console-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixmac182            -p "nixmac182-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-office    -p "nixbook141-office-$DTS" -v ;\
