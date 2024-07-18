@@ -3,8 +3,8 @@
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixos-hardware.url = "github:paepckehh/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -18,26 +18,26 @@
     nixos-hardware,
   }: {
     nixosConfigurations = {
-      ###########
-      # GENERIC #
-      ###########
-      generic = nixpkgs.lib.nixosSystem {
+      #################
+      # GENERIC NIXOS #
+      #################
+      nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix
           ./person/desktop/mpp.nix
-          {networking.hostName = "generic";}
+          {networking.hostName = "nixos";}
         ];
       };
-      generic-console = nixpkgs.lib.nixosSystem {
+      nixos-console = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./person/mpp.nix
-          {networking.hostName = "generic-console";}
+          {networking.hostName = "nixos-console";}
         ];
       };
       ###########################################
