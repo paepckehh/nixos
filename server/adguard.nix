@@ -10,7 +10,7 @@
     resolved = {
       enable = true;
       dnssec = true;
-      llmnr = false;
+      llmnr = "false";
       fallbackDns = ["9.9.9.9" "9.9.9.10"];
     };
     adguardhome = {
