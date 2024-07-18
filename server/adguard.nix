@@ -8,7 +8,7 @@
   ##################
   services = {
     resolved = {
-      enable = true;
+      enable = false;
       dnssec = "true";
       llmnr = "false";
       fallbackDns = ["9.9.9.9" "9.9.9.10"];
@@ -39,7 +39,7 @@
             "sdns://AQcAAAAAAAAADzE3Ni4xMTEuMjE5LjEyNiDzuja5nmAyDvA5jakqkuLQEtb245xsAhNwJYDLkKraKhkyLmRuc2NyeXB0LWNlcnQuZG5zY3J5LnB0"
           ];
           bootstrap_dns = [
-            "127.0.0.1"
+            "9.9.9.9"
             "9.9.9.10"
             "1.1.1.1"
             "8.8.8.8"
@@ -85,7 +85,7 @@
   ####################
   networking = {
     dhcpcd.extraConfig = "nohook resolv.conf";
-    nameservers = lib.mkForce ["127.0.0.153"];
+    nameservers = lib.mkForce ["127.0.0.1"];
     # networkmanager.dns = "none";
   };
 }
