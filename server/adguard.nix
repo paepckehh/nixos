@@ -7,7 +7,12 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    resolved.enable = lib.mkForce false;
+    resolved = {
+      enable = false;
+      dnssec = true;
+      llmnr = false;
+      fallbackDns = ["9.9.9.9" "9.9.9.10"];
+    };
     adguardhome = {
       enable = true;
       mutableSettings = false;
@@ -23,7 +28,7 @@
           anonymize_client_ip = false;
           aaaa_disabled = true;
           enable_dnssec = true;
-          bind_hosts = ["127.0.0.1"];
+          bind_hosts = ["127.0.0.153"];
           bind_port = 53;
           upstream_mode = "parallel";
           upstream_dns = [
@@ -78,6 +83,8 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    nameservers = lib.mkForce ["127.0.0.1"];
+    dhcpcd.extraConfig = "nohook resolv.conf";
+    nameservers = lib.mkForce ["127.0.0.153"];
+    # networkmanager.dns = "none";
   };
 }
