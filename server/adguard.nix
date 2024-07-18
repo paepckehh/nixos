@@ -8,7 +8,7 @@
   ##################
   services = {
     resolved = {
-      enable = false;
+      enable = lib.mkForce false;
       dnssec = "true";
       llmnr = "false";
       fallbackDns = ["9.9.9.9" "9.9.9.10"];
