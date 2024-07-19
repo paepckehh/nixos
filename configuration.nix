@@ -170,7 +170,13 @@
   #-=# SECURITY #=-#
   ##################
   security = {
-    # auditd.enable = true;
+    auditd.enable = true;
+    audit = {
+      enable = lib.mkForce true;
+      backlogLimit = 256;
+      failureMode = "panic";
+      rules = ["-a exit,always -F arch=b64 -S execve"];
+    };
     allowSimultaneousMultithreading = true; # xxx
     lockKernelModules = lib.mkForce true;
     protectKernelImage = lib.mkForce true;
@@ -197,11 +203,6 @@
       enable = true;
       execWheelOnly = lib.mkForce true;
       wheelNeedsPassword = lib.mkForce true;
-    };
-    audit = {
-      enable = lib.mkForce true;
-      failureMode = "panic";
-      rules = ["-a exit,always -F arch=b64 -S execve"];
     };
   };
 
