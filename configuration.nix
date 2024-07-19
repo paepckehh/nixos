@@ -67,8 +67,8 @@
   nixpkgs = {
     hostPlatform = lib.mkDefault "x86_64-linux";
     config = {
-      allowBroken = true;
-      allowUnfree = true;
+      allowBroken = lib.mkDefault true;
+      allowUnfree = lib.mkDefault true;
     };
   };
 
@@ -76,12 +76,10 @@
   #-=# BOOT #=-#
   ##############
   boot = {
-    # extraModulePackages = with pkgs; [];
-    # kernelPackages = lib.mkForce pkgs.linuxPackages_hardened;
-    kernelPackages = pkgs.linuxPackages_latest;
     blacklistedKernelModules = ["ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "sysv"];
-    kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off" "ipv6.disable=1"];
-    kernelModules = ["kvm-intel" "kvm-amd" "vfat" "exfat"];
+    kernelPackages = pkgs.linuxPackages_latest; # opt _hardened
+    kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off" "ipv6.disable=1" "hid_apple.iso_layout=0" "i915.enable_guc=3"];
+    kernelModules = ["acpi_call" "kvm-intel" "intel_iommu=on" "kvm-amd" "vfat" "exfat" "applespi" "applesmc" "spi_pxa2xx_platform" "intel_lpss_pci"];
     readOnlyNixStore = lib.mkForce true;
     initrd = {
       systemd.enable = lib.mkForce false;
@@ -144,15 +142,18 @@
     };
   };
   hardware = {
-    cpu.intel.updateMicrocode = true;
-    enableRedistributableFirmware = true;
+    cpu.intel.updateMicrocode = lib.mkForce true;
+    enableRedistributableFirmware = lib.mkForce true;
+    facetimehd.enable = lib.mkForce false;
+    intelgpu.driver = "xe";
   };
   zramSwap = {
     enable = true;
     algorithm = "zstd";
   };
   console = {
-    earlySetup = true;
+    earlySetup = lib.mkForce true;
+    font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
   };
   time = {
     timeZone = "Europe/Berlin";
@@ -210,6 +211,7 @@
   networking = {
     useDHCP = lib.mkDefault true;
     enableIPv6 = lib.mkForce false;
+    enableB43Firmware = true;
     networkmanager.enable = true;
     nftables.enable = true;
     firewall = {
@@ -372,6 +374,7 @@
   services = {
     power-profiles-daemon.enable = true;
     thermald.enable = true;
+    mbpfan.enable = true;
     logind.hibernateKey = "ignore";
     opensnitch = {
       enable = false;
