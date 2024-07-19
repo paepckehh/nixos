@@ -78,7 +78,8 @@
   boot = {
     blacklistedKernelModules = ["ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "sysv"];
     kernelPackages = pkgs.linuxPackages_latest; # opt _hardened
-    kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off" "ipv6.disable=1" "hid_apple.iso_layout=0" "i915.enable_guc=3"];
+    kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off" "ipv6.disable=1" "hid_apple.iso_layout=0"];
+    # kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off" "ipv6.disable=1" "hid_apple.iso_layout=0" "i915.enable_guc=3"];
     kernelModules = ["acpi_call" "kvm-intel" "kvm-amd" "vfat" "exfat"];
     readOnlyNixStore = lib.mkForce true;
     initrd = {
