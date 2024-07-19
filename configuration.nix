@@ -208,7 +208,7 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    useDHCP = true;
+    useDHCP = lib.mkDefault true;
     enableIPv6 = lib.mkForce false;
     networkmanager.enable = true;
     nftables.enable = true;
