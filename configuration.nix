@@ -66,7 +66,7 @@
     kernelPackages = pkgs.linuxPackages_latest;
     blacklistedKernelModules = ["ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "sysv"];
     kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off" "ipv6.disable=1"];
-    kernelModules = ["kvm-intel" "kvm-amd"];
+    kernelModules = ["kvm-intel" "kvm-amd" "vfat"];
     readOnlyNixStore = lib.mkForce true;
     initrd = {
       systemd.enable = lib.mkForce false;
@@ -316,7 +316,6 @@
       l = "ls -la";
       e = "vim";
       h = "htop --tree --highlight-changes";
-      s = "nix-ccache --show-stats";
       slog = "journalctl --follow --priority=7 --lines=2500";
     };
   };
@@ -356,8 +355,8 @@
     opensnitch = {
       enable = false;
       settings = {
-        firewall = "nftables"; # iptables or nftables
-        defaultAction = "deny"; # allow or deny
+        firewall = "nftables";
+        defaultAction = "deny";
       };
     };
     kmscon = {
