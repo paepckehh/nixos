@@ -3,16 +3,31 @@
   pkgs,
   lib,
   home-manager,
+  modulesPath,
   ...
 }: {
   #################
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./hardware-configuration.nix
+    # (modulesPath + "/installer/scan/not-detected.nix")
     ./modules/buildnix.nix
     ./modules/chronyPublic.nix
   ];
+
+  ########################
+  #-=# STORAGE (TODO) #=-#
+  ########################
+  boot.initrd.luks.devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/783b1348-9349-494a-819f-5dd80eb0976d";
+    fsType = "ext4";
+  };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/B4C7-8864";
+    fsType = "vfat";
+    options = ["fmask=0022" "dmask=0022"];
+  };
 
   #############
   #-=# NIX #=-#
@@ -51,6 +66,7 @@
   #-=# NIX #=-#
   #############
   nixpkgs = {
+    hostPlatform = lib.mkDefault "x86_64-linux";
     config = {
       allowBroken = true;
       allowUnfree = true;
@@ -71,7 +87,7 @@
     initrd = {
       systemd.enable = lib.mkForce false;
       luks.mitigateDMAAttacks = lib.mkForce true;
-      availableKernelModules = ["aesni_intel" "ahci" "cryptd" "dm_mod" "sd_mod" "uas" "usbhid" "nvme" "vfat" "xhci_pci"];
+      availableKernelModules = ["aesni_intel" "ahci" "cryptd" "dm_mod" "sd_mod" "uas" "usbhid" "nvme" "xhci_pci"];
     };
     tmp = {
       cleanOnBoot = true;
@@ -126,6 +142,7 @@
     };
   };
   hardware = {
+    cpu.intel.updateMicrocode = true;
     enableRedistributableFirmware = true;
   };
   zramSwap = {
@@ -144,6 +161,7 @@
     powertop.enable = true;
     cpuFreqGovernor = "powersave";
   };
+  swapDevices = [];
 
   ##################
   #-=# SECURITY #=-#
@@ -188,6 +206,7 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
+    useDHCP = true;
     enableIPv6 = lib.mkForce false;
     networkmanager.enable = true;
     nftables.enable = true;

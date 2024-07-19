@@ -28,6 +28,7 @@
           ./configuration.nix
           ./desktop/gnome.nix
           ./person/desktop/mpp.nix
+          ./modules/office.nix
           {networking.hostName = "nixos";}
         ];
       };
@@ -38,6 +39,13 @@
           ./configuration.nix
           ./person/mpp.nix
           {networking.hostName = "nixos-console";}
+        ];
+      };
+      nixos-iso = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
+          {networking.hostName = "nixos-iso";}
         ];
       };
       ###########################################
@@ -51,6 +59,7 @@
           ./configuration.nix
           ./desktop/gnome.nix
           ./person/desktop/mpp.nix
+          ./modules/office.nix
           {networking.hostName = "nixbook141";}
         ];
       };
@@ -62,51 +71,8 @@
           ./configuration.nix
           ./desktop/hyprland.nix
           ./person/desktop/mpp.nix
+          ./modules/office.nix
           {networking.hostName = "nixbook141-hyprland";}
-        ];
-      };
-      nixbook141-iso = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
-          {networking.hostName = "nixbook141-iso";}
-        ];
-      };
-      nixbook141-console = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          nixos-hardware.nixosModules.apple-macbook-pro-14-1
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./person/mpp.nix
-          {networking.hostName = "nixbook141-console";}
-        ];
-      };
-      nixbook141-office = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          nixos-hardware.nixosModules.apple-macbook-pro-14-1
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./desktop/gnome.nix
-          ./modules/office.nix
-          ./person/desktop/mpp.nix
-          {networking.hostName = "nixbook141-office";}
-        ];
-      };
-      ##################
-      # APPLE iMac18,2 #
-      ##################
-      nixmac182 = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          nixos-hardware.nixosModules.apple-imac-18-2
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./desktop/gnome.nix
-          ./modules/office.nix
-          ./person/desktop/mpp.nix
-          {networking.hostName = "nixmac182";}
         ];
       };
     };
