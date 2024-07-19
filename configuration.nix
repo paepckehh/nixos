@@ -144,8 +144,8 @@
   hardware = {
     cpu.intel.updateMicrocode = lib.mkForce true;
     enableRedistributableFirmware = lib.mkForce true;
+    graphics.extraPackages = with pkgs; [intel-vaapi-driver intel-media-driver];
     facetimehd.enable = lib.mkForce false;
-    intelgpu.driver = "xe";
   };
   zramSwap = {
     enable = true;
