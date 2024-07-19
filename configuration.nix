@@ -79,15 +79,15 @@
     blacklistedKernelModules = ["ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "sysv"];
     kernelPackages = pkgs.linuxPackages_latest; # opt _hardened
     kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off" "ipv6.disable=1" "hid_apple.iso_layout=0" "i915.enable_guc=3"];
-    kernelModules = ["acpi_call" "kvm-intel" "intel_iommu=on" "kvm-amd" "vfat" "exfat" "applespi" "applesmc" "spi_pxa2xx_platform" "intel_lpss_pci"];
+    kernelModules = ["acpi_call" "kvm-intel" "kvm-amd" "vfat" "exfat"];
     readOnlyNixStore = lib.mkForce true;
     initrd = {
+      availableKernelModules = ["aesni_intel" "ahci" "cryptd" "dm_mod" "sd_mod" "uas" "usbhid" "applespi" "applesmc" "spi_pxa2xx_platform" "intel_lpss_pci"];
       systemd.enable = lib.mkForce false;
       luks = {
         mitigateDMAAttacks = lib.mkForce true;
         devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
       };
-      availableKernelModules = ["aesni_intel" "ahci" "cryptd" "dm_mod" "sd_mod" "uas" "usbhid" "nvme" "xhci_pci"];
     };
     tmp = {
       cleanOnBoot = true;
