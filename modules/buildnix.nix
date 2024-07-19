@@ -84,9 +84,7 @@
         echo "############# ---> NIXOS-REBUILD **all** NixOS [$HNAME-$DTS] <--- ##########"
         sudo nixos-rebuild boot --flake /etc/nixos/#nixos                -p "nixos-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixos-console        -p "nixos-console-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141           -p "nixbook141-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-hyprland  -p "nixbook141-hyprland-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixbook141-console   -p "nixbook141-console-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixos-hyprland       -p "nixos141-hyprland-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v '';
     };
   };
