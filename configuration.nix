@@ -153,7 +153,7 @@
   };
   console = {
     earlySetup = lib.mkForce true;
-    font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
+    # font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
   };
   time = {
     timeZone = "Europe/Berlin";
