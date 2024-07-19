@@ -144,7 +144,6 @@
   hardware = {
     cpu.intel.updateMicrocode = lib.mkForce true;
     enableRedistributableFirmware = lib.mkForce true;
-    graphics.extraPackages = with pkgs; [intel-vaapi-driver intel-media-driver];
     facetimehd.enable = lib.mkForce false;
   };
   zramSwap = {
@@ -153,7 +152,6 @@
   };
   console = {
     earlySetup = lib.mkForce true;
-    # font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
   };
   time = {
     timeZone = "Europe/Berlin";
