@@ -87,7 +87,7 @@
       systemd.enable = lib.mkForce false;
       luks = {
         mitigateDMAAttacks = lib.mkForce true;
-        # devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
+        devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
       };
       availableKernelModules = ["aesni_intel" "ahci" "cryptd" "dm_mod" "sd_mod" "uas" "usbhid" "nvme" "xhci_pci"];
     };
