@@ -18,7 +18,6 @@
   ########################
   #-=# STORAGE (TODO) #=-#
   ########################
-  boot.initrd.luks.devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/783b1348-9349-494a-819f-5dd80eb0976d";
     fsType = "ext4";
@@ -86,7 +85,10 @@
     readOnlyNixStore = lib.mkForce true;
     initrd = {
       systemd.enable = lib.mkForce false;
-      luks.mitigateDMAAttacks = lib.mkForce true;
+      luks = {
+        mitigateDMAAttacks = lib.mkForce true;
+        devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
+      };
       availableKernelModules = ["aesni_intel" "ahci" "cryptd" "dm_mod" "sd_mod" "uas" "usbhid" "nvme" "xhci_pci"];
     };
     tmp = {
