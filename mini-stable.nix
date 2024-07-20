@@ -10,7 +10,6 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    # (modulesPath + "/installer/scan/not-detected.nix")
     ./modules/buildnix.nix
     ./modules/chronyPublic.nix
   ];
@@ -24,8 +23,6 @@
     extraOptions = "experimental-features = nix-command flakes ";
     optimise.automatic = true;
     settings = {
-      # store = lib.mkForce "https://cache.nixos.org";
-      # substituters = lib.mkForce ["https://cache.nixos.org"]; # todo
       allowed-uris = lib.mkForce ["https://github.com/NixOS" "https://github.com/paepckehh" "https://cache.nixos.org" "https://channel.nixos.org"];
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
@@ -54,7 +51,7 @@
   nixpkgs = {
     hostPlatform = lib.mkDefault "x86_64-linux";
     config = {
-      allowBroken = lib.mkDefault true;
+      allowBroken = lib.mkDefault false;
       allowUnfree = lib.mkDefault true;
     };
   };
@@ -64,12 +61,10 @@
   #####################
   fileSystems = {
     "/" = {
-      # device = "/dev/disk/by-uuid/783b1348-9349-494a-819f-5dd80eb0976d";
-      device = "/dev/disk/dm-0";
+      device = "/dev/disk/by-diskseq/1-part2";
       fsType = "ext4";
     };
     "/boot" = {
-      # device = "/dev/disk/by-uuid/B4C7-8864";
       device = "/dev/disk/by-diskseq/1-part1";
       fsType = "vfat";
       options = ["fmask=0022" "dmask=0022"];
@@ -81,20 +76,13 @@
   ##############
   boot = {
     blacklistedKernelModules = ["ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "sysv"];
-    kernelPackages = pkgs.linuxPackages_latest; # opt _hardened
+    kernelPackages = pkgs.linuxPackages_hardened; # opt _hardened _latest
     kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off" "ipv6.disable=1" "hid_apple.iso_layout=0"];
     kernelModules = ["acpi_call" "kvm-intel" "kvm-amd" "vfat" "exfat"];
     readOnlyNixStore = lib.mkForce true;
     initrd = {
       availableKernelModules = ["aesni_intel" "ahci" "cryptd" "dm_mod" "sd_mod" "uas" "usbhid" "applespi" "applesmc" "spi_pxa2xx_platform" "intel_lpss_pci"];
       systemd.enable = lib.mkForce false;
-      unl0kr.enable = true;
-      luks = {
-        mitigateDMAAttacks = lib.mkForce true;
-        # devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
-        # devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-diskseq/1-part2";
-        devices."/dev/dm-0".device = "/dev/disk/by-diskseq/1-part2";
-      };
     };
     tmp = {
       cleanOnBoot = true;
@@ -138,7 +126,7 @@
       allowReboot = true;
       dates = "hourly";
       flake = "github.com/paepckehh/nixos";
-      flags = ["--update-input" "nixpkgs" "--update-input" "nixos-hardware" "--update-input" "home-manager" "--commit-lock-file"];
+      flags = ["--update-input" "nixpkgs" "--update-input" "home-manager" "--commit-lock-file"];
       operation = "switch"; # switch or boot
       persistent = true;
       randomizedDelaySec = "15min";
@@ -182,7 +170,7 @@
       failureMode = "panic";
       rules = ["-a exit,always -F arch=b64 -S execve"];
     };
-    allowSimultaneousMultithreading = true; # xxx
+    allowSimultaneousMultithreading = true; # perf
     lockKernelModules = lib.mkForce true;
     protectKernelImage = lib.mkForce true;
     forcePageTableIsolation = lib.mkForce true;
@@ -217,7 +205,6 @@
   networking = {
     useDHCP = lib.mkDefault true;
     enableIPv6 = lib.mkForce false;
-    enableB43Firmware = true;
     networkmanager.enable = true;
     nftables.enable = true;
     firewall = {
@@ -380,15 +367,7 @@
   services = {
     power-profiles-daemon.enable = true;
     thermald.enable = true;
-    mbpfan.enable = true;
     logind.hibernateKey = "ignore";
-    opensnitch = {
-      enable = false;
-      settings = {
-        firewall = "nftables";
-        defaultAction = "deny";
-      };
-    };
     kmscon = {
       enable = false;
       hwRender = true;
