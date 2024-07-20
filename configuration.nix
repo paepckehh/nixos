@@ -82,6 +82,7 @@
     kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off" "ipv6.disable=1" "hid_apple.iso_layout=0"];
     kernelModules = ["acpi_call" "kvm-intel" "kvm-amd" "vfat" "exfat"];
     readOnlyNixStore = lib.mkForce true;
+    systemd.enable = lib.mkForce false;
     initrd = {
       availableKernelModules = [
         "aesni_intel"
@@ -98,7 +99,6 @@
         "spi_pxa2xx_platform"
         "intel_lpss_pci"
       ];
-      ystemd.enable = lib.mkForce false;
       luks = {
         mitigateDMAAttacks = lib.mkForce true;
         # devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
