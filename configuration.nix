@@ -61,12 +61,10 @@
   #####################
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/783b1348-9349-494a-819f-5dd80eb0976d";
-      # device = "/dev/disk/dm-0";
+      device = "/dev/disk/by-diskseq/1-part2";
       fsType = "ext4";
     };
     "/boot" = {
-      # device = "/dev/disk/by-uuid/B4C7-8864";
       device = "/dev/disk/by-diskseq/1-part1";
       fsType = "vfat";
       options = ["fmask=0022" "dmask=0022"];
@@ -85,9 +83,7 @@
     initrd = {
       systemd.enable = lib.mkForce false;
       availableKernelModules = [
-        "aesni_intel"
         "ahci"
-        "cryptd"
         "dm_mod"
         "sd_mod"
         "uas"
@@ -99,11 +95,6 @@
         "spi_pxa2xx_platform"
         "intel_lpss_pci"
       ];
-      luks = {
-        mitigateDMAAttacks = lib.mkForce true;
-        # devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-diskseq/1-part2";
-        devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
-      };
     };
     tmp = {
       cleanOnBoot = true;

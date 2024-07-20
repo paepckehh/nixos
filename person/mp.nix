@@ -8,6 +8,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
+    ./luks.nix
     ../user/me.nix
   ];
 

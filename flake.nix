@@ -26,8 +26,17 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix
-          ./person/desktop/mpp.nix
-          # ./modules/office.nix
+          ./user/desktop/me.nix
+          {networking.hostName = "nixos";}
+        ];
+      };
+      nixos-mp = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./desktop/gnome.nix
+          ./person/desktop/mp.nix
           {networking.hostName = "nixos";}
         ];
       };
@@ -37,8 +46,17 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./desktop/hyprland.nix
-          ./person/desktop/mpp.nix
-          # ./modules/office.nix
+          ./user/desktop/me.nix
+          {networking.hostName = "nixos-hyprland";}
+        ];
+      };
+      nixos-hyprland-mp = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./desktop/hyprland.nix
+          ./person/desktop/mp.nix
           {networking.hostName = "nixos-hyprland";}
         ];
       };
@@ -47,7 +65,16 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./person/mpp.nix
+          ./person/me.nix
+          {networking.hostName = "nixos-console";}
+        ];
+      };
+      nixos-console-mp = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./person/mp.nix
           {networking.hostName = "nixos-console";}
         ];
       };
@@ -55,9 +82,10 @@
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
-          ./mini-stable.nix
-          ./person/mpp.nix
-          {networking.hostName = "nixname";}
+          ./configuration.nix
+          ./server/adguard.nix
+          ./user/me.nix
+          {networking.hostName = "nix-name";}
         ];
       };
       nixos-iso = nixpkgs.lib.nixosSystem {

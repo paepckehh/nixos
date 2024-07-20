@@ -74,6 +74,14 @@
         echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################"
         sudo nixos-rebuild boot --install-bootloader ;\
         sudo nixos-rebuild boot --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
+      "nix.mp" = ''
+        nix.update ;\
+        nix.build ;\
+        echo "############# ---> NIXOS-REBUILD **all** NixOS-MP [$HNAME-$DTS] <--- ##########"
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixos-mp             -p "nixos-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixos-console-mp     -p "nixos-console-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixos-hyprland-mp    -p "nixos141-hyprland-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v '';
       "nix.all" = ''
         nix.update ;\
         nix.build ;\
