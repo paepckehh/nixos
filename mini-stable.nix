@@ -81,7 +81,21 @@
     kernelModules = ["acpi_call" "kvm-intel" "kvm-amd" "vfat" "exfat"];
     readOnlyNixStore = lib.mkForce true;
     initrd = {
-      availableKernelModules = ["aesni_intel" "ahci" "cryptd" "dm_mod" "sd_mod" "uas" "usbhid" "applespi" "applesmc" "spi_pxa2xx_platform" "intel_lpss_pci"];
+      availableKernelModules = [
+        "aesni_intel"
+        "ahci"
+        "cryptd"
+        "dm_mod"
+        "sd_mod"
+        "uas"
+        "usbhid"
+        "usb_storage"
+        "xhci_pci"
+        "applespi"
+        "applesmc"
+        "spi_pxa2xx_platform"
+        "intel_lpss_pci"
+      ];
       systemd.enable = lib.mkForce false;
     };
     tmp = {

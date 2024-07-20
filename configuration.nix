@@ -10,7 +10,6 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    # (modulesPath + "/installer/scan/not-detected.nix")
     ./modules/buildnix.nix
     ./modules/chronyPublic.nix
   ];
@@ -24,8 +23,6 @@
     extraOptions = "experimental-features = nix-command flakes ";
     optimise.automatic = true;
     settings = {
-      # store = lib.mkForce "https://cache.nixos.org";
-      # substituters = lib.mkForce ["https://cache.nixos.org"]; # todo
       allowed-uris = lib.mkForce ["https://github.com/NixOS" "https://github.com/paepckehh" "https://cache.nixos.org" "https://channel.nixos.org"];
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
