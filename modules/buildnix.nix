@@ -31,7 +31,7 @@
         sudo rm /boot/loader/entries/* ;\
         sudo rm -rf /nix/var/nix/profiles/system* ;\
         sudo mkdir -p /nix/var/nix/profiles/system-profiles ;\
-        nix.all ;\
+        nix.build &&\
         sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 1d ;\
         sudo nix-collect-garbage --delete-older-than 1d ;\
         sudo nix-store --gc ;\
