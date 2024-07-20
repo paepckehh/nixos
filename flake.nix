@@ -76,14 +76,14 @@
           {networking.hostName = "nixos-console-mp";}
         ];
       };
-      nix-name = nixpkgs.lib.nixosSystem {
+      nix-named = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./server/adguard.nix
           ./user/me.nix
-          {networking.hostName = "nix-name";}
+          {networking.hostName = "nix-named";}
         ];
       };
       nixos-iso = nixpkgs.lib.nixosSystem {
