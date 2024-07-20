@@ -87,7 +87,7 @@
     readOnlyNixStore = lib.mkForce true;
     initrd = {
       availableKernelModules = ["aesni_intel" "ahci" "cryptd" "dm_mod" "sd_mod" "uas" "usbhid" "applespi" "applesmc" "spi_pxa2xx_platform" "intel_lpss_pci"];
-      systemd.enable = lib.mkForce false;
+      systemd.enable = lib.mkForce true;
       unl0kr.enable = true;
       luks = {
         mitigateDMAAttacks = lib.mkForce true;
