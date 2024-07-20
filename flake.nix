@@ -35,7 +35,7 @@
           ./configuration.nix
           ./desktop/gnome.nix
           ./person/desktop/mp.nix
-          {networking.hostName = "nixos";}
+          {networking.hostName = "nixos-mp";}
         ];
       };
       nixos-hyprland = nixpkgs.lib.nixosSystem {
@@ -55,7 +55,7 @@
           ./configuration.nix
           ./desktop/hyprland.nix
           ./person/desktop/mp.nix
-          {networking.hostName = "nixos-hyprland";}
+          {networking.hostName = "nixos-hyprland-mp";}
         ];
       };
       nixos-console = nixpkgs.lib.nixosSystem {
@@ -73,7 +73,7 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./person/mp.nix
-          {networking.hostName = "nixos-console";}
+          {networking.hostName = "nixos-console-mp";}
         ];
       };
       nix-name = nixpkgs.lib.nixosSystem {
