@@ -2,8 +2,8 @@
   description = "nixos generic flake";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgsMaster.url = "github:NixOS/nixpkgs/master";
-    nixpkgsRelease.url = "github:NixOS/nixpkgs/nixos-24.05";
+    # nixpkgs.url = "github:NixOS/nixpkgs/master";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -12,8 +12,6 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgsMaster,
-    nixpkgsRelease,
     home-manager,
   }: {
     nixosConfigurations = {
@@ -78,7 +76,7 @@
           {networking.hostName = "nixos-console";}
         ];
       };
-      nix-name = nixpkgsRelease.lib.nixosSystem {
+      nix-name = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager

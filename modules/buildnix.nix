@@ -58,7 +58,7 @@
         cd /etc/nixos &&\
         env sudo -v &&\
         nix.push ;\
-        sudo nix flake lock --update-input nixpkgs --update-input nixpkgsRelease --update-input nixpkgsMaster --update-input home-manager ;\
+        sudo nix flake lock --update-input nixpkgs --update-input home-manager ;\
         sudo alejandra --quiet . ;\
         nix.push '';
       "nix.switch" = ''
