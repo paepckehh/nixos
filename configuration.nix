@@ -23,10 +23,12 @@
     extraOptions = "experimental-features = nix-command flakes ";
     optimise.automatic = true;
     settings = {
+      # flake-registry = "/etc/nixos/.cache/flake-registry-json"; # https://channels.nixos.org/flake-registry.json
       allowed-uris = lib.mkForce ["https://github.com/NixOS" "https://github.com/paepckehh" "https://cache.nixos.org" "https://channel.nixos.org"];
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
       trusted-users = lib.mkForce ["@wheel"];
+      flake-registry = "";
       http2 = lib.mkForce false;
       sandbox = lib.mkForce true;
       sandbox-build-dir = "/build";
