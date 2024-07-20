@@ -98,8 +98,7 @@
         "spi_pxa2xx_platform"
         "intel_lpss_pci"
       ];
-      systemd.enable = lib.mkForce true;
-      unl0kr.enable = true;
+      ystemd.enable = lib.mkForce false;
       luks = {
         mitigateDMAAttacks = lib.mkForce true;
         # devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
