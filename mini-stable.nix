@@ -323,7 +323,7 @@
       };
     };
     vim = {
-      enable = true;
+      # enable = true;
       package = pkgs.vim-full;
       defaultEditor = true;
     };
