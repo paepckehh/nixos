@@ -394,13 +394,6 @@
       enable = true;
       interval = "daily";
     };
-    resolved = {
-      enable = true;
-      dnssec = "true";
-      llmnr = "false";
-      fallbackDns = ["9.9.9.10" "9.9.9.9"];
-      extraConfig = ''DNSOverTLS=yes '';
-    };
     openssh = {
       enable = false;
       allowSFTP = false;
