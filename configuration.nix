@@ -101,8 +101,8 @@
       ];
       luks = {
         mitigateDMAAttacks = lib.mkForce true;
-        # devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
-        devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-diskseq/1-part2";
+        # devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-diskseq/1-part2";
+        devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
       };
     };
     tmp = {
