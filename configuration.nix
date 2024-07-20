@@ -400,6 +400,7 @@
     resolved = {
       enable = true;
       dnssec = "true";
+      llmnr = "false";
       fallbackDns = ["9.9.9.10" "9.9.9.9"];
       extraConfig = ''DNSOverTLS=yes '';
     };
