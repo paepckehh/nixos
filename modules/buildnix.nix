@@ -57,7 +57,13 @@
       "nix.update" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
-        nix.push ;\
+        sudo alejandra --quiet . &&\
+        sudo chown -R me:users .git &&\
+        git reset &&\
+        git add . &&\
+        git commit -S -m update ;\
+        git fsck --full &&\
+        git gc --aggressive &&\
         sudo nix flake lock --update-input nixpkgs --update-input home-manager ;\
         sudo alejandra --quiet . ;\
         nix.push '';
@@ -78,9 +84,9 @@
         nix.update ;\
         nix.build ;\
         echo "############# ---> NIXOS-REBUILD **all** NixOS-MP [$HNAME-$DTS] <--- ##########"
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixos-mp             -p "nixos-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixos-console-mp     -p "nixos-console-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixos-hyprland-mp    -p "nixos141-hyprland-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixos-mp             -p "nixos-mp-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixos-console-mp     -p "nixos-console-mp-$DTS" -v ;\
+        sudo nixos-rebuild boot --flake /etc/nixos/#nixos-hyprland-mp    -p "nixos141-hyprland-mp-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v '';
       "nix.all" = ''
         nix.update ;\
