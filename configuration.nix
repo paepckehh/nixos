@@ -86,9 +86,23 @@
     kernelModules = ["acpi_call" "kvm-intel" "kvm-amd" "vfat" "exfat"];
     readOnlyNixStore = lib.mkForce true;
     initrd = {
-      availableKernelModules = ["aesni_intel" "ahci" "cryptd" "dm_mod" "sd_mod" "uas" "usbhid" "applespi" "applesmc" "spi_pxa2xx_platform" "intel_lpss_pci"];
-      # systemd.enable = lib.mkForce true;
-      # unl0kr.enable = true;
+      availableKernelModules = [
+        "aesni_intel"
+        "ahci"
+        "cryptd"
+        "dm_mod"
+        "sd_mod"
+        "uas"
+        "usbhid"
+        "usb_storage"
+        "xhci_pci"
+        "applespi"
+        "applesmc"
+        "spi_pxa2xx_platform"
+        "intel_lpss_pci"
+      ];
+      systemd.enable = lib.mkForce true;
+      unl0kr.enable = true;
       luks = {
         mitigateDMAAttacks = lib.mkForce true;
         # devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
