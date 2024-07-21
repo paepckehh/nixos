@@ -12,6 +12,9 @@
       openFirewall = false;
       unifiPackage = pkgs.unifi8;
     };
-    prometheus.exporters.unifi.enable = false;
+    prometheus.exporters.unifi = {
+      enable = false;
+      port = 9130;
+    };
   };
 }

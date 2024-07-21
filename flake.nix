@@ -1,9 +1,9 @@
 {
   description = "nixos generic flake";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,6 +25,7 @@
           ./configuration.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
+          ./server/adguard.nix
           {networking.hostName = "nixos";}
         ];
       };
@@ -35,6 +36,8 @@
           ./configuration.nix
           ./desktop/gnome.nix
           ./person/desktop/mp.nix
+          ./server/adguard.nix
+          ./server/unifi.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
@@ -45,6 +48,7 @@
           ./configuration.nix
           ./desktop/hyprland.nix
           ./user/desktop/me.nix
+          ./server/adguard.nix
           {networking.hostName = "nixos-hyprland";}
         ];
       };
@@ -55,6 +59,7 @@
           ./configuration.nix
           ./desktop/hyprland.nix
           ./person/desktop/mp.nix
+          ./server/adguard.nix
           {networking.hostName = "nixos-hyprland-mp";}
         ];
       };
@@ -76,14 +81,26 @@
           {networking.hostName = "nixos-console-mp";}
         ];
       };
-      nix-named = nixpkgs.lib.nixosSystem {
+      pinix = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./desktop/gnome.nix
+          ./user/desktop/me.nix
           ./server/adguard.nix
-          ./user/me.nix
-          {networking.hostName = "nix-named";}
+          ./server/unifi.nix
+          {
+            networking.hostName = "pinix";
+            services.unifi.openFirewall = lib.mkForce true;
+            services.adguard = {
+              openFirewall = lib.mkForce true;
+              settings = {
+                http.address = lib.mkForce "0.0.0.0";
+                dns.bindhosts = lib.mkForce "0.0.0.0";
+              };
+            };
+          }
         ];
       };
       nixos-iso = nixpkgs.lib.nixosSystem {

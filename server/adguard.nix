@@ -9,26 +9,23 @@
   services = {
     resolved = {
       enable = lib.mkForce false;
-      dnssec = "true";
-      llmnr = "false";
-      fallbackDns = ["9.9.9.9" "9.9.9.10"];
     };
     adguardhome = {
       enable = true;
       mutableSettings = false;
-      openFirewall = true;
+      openFirewall = false;
       settings = {
         dhcp.enabled = false;
         tls.enabled = false;
         http = {
-          address = "0.0.0.0";
+          address = "127.0.0.0";
           pprof.enabled = false;
         };
         dns = {
           anonymize_client_ip = false;
           aaaa_disabled = true;
           enable_dnssec = true;
-          bind_hosts = ["0.0.0.0"];
+          bind_hosts = ["127.0.0.0"];
           bind_port = 53;
           upstream_mode = "parallel";
           upstream_dns = [
