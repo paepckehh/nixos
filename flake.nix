@@ -10,7 +10,6 @@
     };
   };
   outputs = {
-    lib,
     self,
     nixpkgs,
     home-manager,
@@ -93,12 +92,12 @@
           ./server/unifi.nix
           {
             networking.hostName = "pinix";
-            services.unifi.openFirewall = lib.mkForce true;
+            services.unifi.openFirewall = true;
             services.adguard = {
-              openFirewall = lib.mkForce true;
+              openFirewall = true;
               settings = {
-                http.address = lib.mkForce "0.0.0.0";
-                dns.bindhosts = lib.mkForce "0.0.0.0";
+                http.address = "0.0.0.0";
+                dns.bindhosts = "0.0.0.0";
               };
             };
           }
