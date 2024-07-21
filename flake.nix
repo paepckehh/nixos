@@ -80,7 +80,7 @@
           {networking.hostName = "nixos-console-mp";}
         ];
       };
-      pinix = nixpkgs.lib.nixosSystem {
+      iss = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
@@ -90,8 +90,8 @@
           ./server/adguard.nix
           # ./server/unifi.nix
           {
-            networking.hostName = "pinix";
             # services.unifi.openFirewall = true;
+            networking.hostName = "iss";
             services.adguard = {
               openFirewall = true;
               settings = {
