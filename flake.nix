@@ -88,18 +88,7 @@
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
-          # ./server/unifi.nix
-          {
-            # services.unifi.openFirewall = true;
-            networking.hostName = "iss";
-            services.adguard = {
-              openFirewall = true;
-              settings = {
-                http.address = "0.0.0.0";
-                dns.bindhosts = "0.0.0.0";
-              };
-            };
-          }
+          {networking.hostName = "iss";}
         ];
       };
       nixos-iso = nixpkgs.lib.nixosSystem {

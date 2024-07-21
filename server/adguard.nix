@@ -25,7 +25,7 @@
           anonymize_client_ip = false;
           aaaa_disabled = true;
           enable_dnssec = true;
-          bind_hosts = ["127.0.0.1"];
+          bind_hosts = ["0.0.0.0"];
           bind_port = 53;
           upstream_mode = "parallel";
           upstream_dns = [
