@@ -18,14 +18,14 @@
         dhcp.enabled = false;
         tls.enabled = false;
         http = {
-          address = "127.0.0.0";
+          address = "127.0.0.1";
           pprof.enabled = false;
         };
         dns = {
           anonymize_client_ip = false;
           aaaa_disabled = true;
           enable_dnssec = true;
-          bind_hosts = ["127.0.0.0"];
+          bind_hosts = ["127.0.0.1"];
           bind_port = 53;
           upstream_mode = "parallel";
           upstream_dns = [
@@ -41,7 +41,7 @@
             "1.1.1.1"
             "8.8.8.8"
           ];
-          private_networks = ["192.168.0.0/8"];
+          private_networks = ["192.168.0.0/8" "127.0.0.0/16"];
           use_private_ptr_resolvers = false;
           serve_http3 = false;
           use_http3_upstreams = true;
