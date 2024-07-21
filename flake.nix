@@ -37,7 +37,6 @@
           ./desktop/gnome.nix
           ./person/desktop/mp.nix
           ./server/adguard.nix
-          ./server/unifi.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
