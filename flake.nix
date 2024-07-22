@@ -96,11 +96,29 @@
           {networking.hostName = "iss";}
         ];
       };
+      ########################
+      # ISO-INSTALLER-IMAGES #
+      ########################
       nixos-iso = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
           {networking.hostName = "nixos-iso";}
+        ];
+      };
+      #######################
+      # LIVE-SYSTEM-BUILDER #
+      #######################
+      nixos-new = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          disko.nixosModules.disko
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./desktop/gnome.nix
+          ./user/desktop/me.nix
+          ./server/adguard.nix
+          {networking.hostName = "nixos";}
         ];
       };
     };
