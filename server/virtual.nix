@@ -37,6 +37,7 @@
   ####################
   networking = {
     nftables.enable = lib.mkForce false;
+    firewall.trustedInterfaces = ["virbr0"];
   };
 
   #####################

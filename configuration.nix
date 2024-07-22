@@ -189,7 +189,7 @@
     protectKernelImage = lib.mkForce true;
     forcePageTableIsolation = lib.mkForce true;
     apparmor = {
-      enable = lib.mkForce true;
+      enable = lib.mkForce false;
       killUnconfinedConfinables = lib.mkForce true;
     };
     dhparams = {
