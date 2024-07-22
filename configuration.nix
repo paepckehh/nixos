@@ -23,7 +23,6 @@
     extraOptions = "experimental-features = nix-command flakes ";
     optimise.automatic = true;
     settings = {
-      # flake-registry = "/etc/nixos/.cache/flake-registry-json"; # https://channels.nixos.org/flake-registry.json
       allowed-uris = lib.mkForce ["https://github.com/NixOS" "https://github.com/paepckehh" "https://cache.nixos.org" "https://channel.nixos.org"];
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
@@ -80,7 +79,7 @@
     blacklistedKernelModules = ["ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "sysv"];
     kernelPackages = pkgs.linuxPackages_latest; # opt _hardened
     kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "debugfs=off" "ipv6.disable=1" "hid_apple.iso_layout=0"];
-    kernelModules = ["acpi_call" "kvm-intel" "kvm-amd" "vfat" "exfat"];
+    kernelModules = ["acpi_call" "kvm-intel" "vfat" "exfat"];
     readOnlyNixStore = lib.mkForce true;
     initrd = {
       systemd.enable = lib.mkForce false;
