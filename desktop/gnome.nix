@@ -15,8 +15,11 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    dconf.enable = true;
     geary.enable = false;
+    dconf = {
+      enable = true;
+      profiles.gdm.databases = [{settings."org/gnome/settings-daemon/plugins/power" = {power-button-action = "suspend";};}];
+    };
   };
 
   #####################
