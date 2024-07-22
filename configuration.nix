@@ -176,6 +176,18 @@
   ##################
   #-=# SECURITY #=-#
   ##################
+  systemd = {
+    targets = {
+      sleep.enable = true;
+      suspend.enable = false;
+      hibernate.enable = false;
+      hybrid-sleep.enable = false;
+    };
+  };
+
+  ##################
+  #-=# SECURITY #=-#
+  ##################
   security = {
     auditd.enable = true;
     audit = {
