@@ -15,6 +15,7 @@
   };
   outputs = {
     self,
+    disko,
     nixpkgs,
     home-manager,
   }: {
