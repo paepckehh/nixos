@@ -29,16 +29,17 @@
   # gnome-terminal
   # totem
   # geary
+  # cheese
+  # gnome-photos
+  # gnome-tour
+  # gedit
+  # evince
+  # epiphany
   environment = {
     systemPackages = with pkgs.gnomeExtensions; [todotxt toggle-alacritty wireguard-vpn-extension wireless-hid wifi-qrcode];
     gnome.excludePackages =
       (with pkgs; [
-        gnome-photos
         gnome-tour
-        gedit
-        evince
-        epiphany
-        cheese
       ])
       ++ (with pkgs.gnome; [
         gnome-music
