@@ -25,6 +25,8 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
+  # gnome-calendar
+  # gnome-terminal
   environment = {
     systemPackages = with pkgs.gnomeExtensions; [todotxt toggle-alacritty wireguard-vpn-extension wireless-hid wifi-qrcode];
     gnome.excludePackages =
@@ -32,7 +34,6 @@
         gnome-photos
         gnome-tour
         gedit
-        gnome-calendar
         totem
         evince
         epiphany
