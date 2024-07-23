@@ -38,7 +38,6 @@
         gedit
         evince
         epiphany
-        geary
         cheese
       ])
       ++ (with pkgs.gnome; [
