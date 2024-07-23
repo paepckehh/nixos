@@ -20,9 +20,9 @@
     self,
     disko,
     nixpkgs,
-    nixpkgsRel,
+    nixpkgs-Release,
     home-manager,
-    home-managerRel,
+    home-manager-Release,
   }: {
     nixosConfigurations = {
       #################
