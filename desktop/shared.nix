@@ -8,7 +8,6 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ../server/openweb-ui.nix
     ../server/virtual.nix
   ];
 

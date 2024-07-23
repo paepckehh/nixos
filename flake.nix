@@ -44,6 +44,7 @@
           ./person/desktop/mp.nix
           ./server/adguard.nix
           ./server/unifi.nix
+          # ./server/openweb-ui.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
