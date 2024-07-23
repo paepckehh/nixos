@@ -32,7 +32,6 @@
         gnome-photos
         gnome-tour
         gedit
-        gnome-terminal
         gnome-calendar
         totem
         evince
