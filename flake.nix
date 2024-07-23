@@ -1,18 +1,19 @@
 {
   description = "nixos generic flake";
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-Release.url = "github:NixOS/nixpkgs/nixos-24.05";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      # url = "github:nix-community/home-manager/master";
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    home-manager-Release = {
+      url = "github:nix-community/home-manager/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs-Release";
     };
   };
   outputs = {
@@ -44,8 +45,8 @@
           ./desktop/gnome.nix
           ./person/desktop/mp.nix
           ./server/adguard.nix
-          ./server/unifi.nix
-          # ./server/openweb-ui.nix
+          ./server/openweb-ui.nix
+          # ./server/unifi.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
@@ -89,15 +90,28 @@
           {networking.hostName = "nixos-console-mp";}
         ];
       };
-      iss = nixpkgs.lib.nixosSystem {
+      iss = nixpkgs-Release.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          home-manager.nixosModules.home-manager
+          home-manager-Release.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
+          ./server/unifi.nix
           {networking.hostName = "iss";}
+        ];
+      };
+      iss-mp = nixpkgs-Release.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager-Release.nixosModules.home-manager
+          ./configuration.nix
+          ./desktop/gnome.nix
+          ./person/desktop/mp.nix
+          ./server/adguard.nix
+          ./server/unifi.nix
+          {networking.hostName = "iss-mp";}
         ];
       };
       ########################
