@@ -28,6 +28,7 @@
   # gnome-calendar
   # gnome-terminal
   # totem
+  # geary
   environment = {
     systemPackages = with pkgs.gnomeExtensions; [todotxt toggle-alacritty wireguard-vpn-extension wireless-hid wifi-qrcode];
     gnome.excludePackages =
