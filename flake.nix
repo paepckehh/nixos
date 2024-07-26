@@ -48,7 +48,7 @@
           ./person/desktop/mp.nix
           ./server/adguard.nix
           ./server/openweb-ui.nix
-          # ./server/unifi.nix
+          ./server/unifi.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
@@ -100,7 +100,7 @@
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
-          ./server/unifi.nix
+          # ./server/unifi.nix
           {networking.hostName = "iss";}
         ];
       };
