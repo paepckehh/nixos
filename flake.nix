@@ -100,7 +100,7 @@
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
-          ./server/unifi.nix
+          # ./server/unifi.nix
           {networking.hostName = "iss";}
         ];
       };
@@ -112,7 +112,7 @@
           ./desktop/gnome.nix
           ./person/desktop/mp.nix
           ./server/adguard.nix
-          ./server/unifi.nix
+          # ./server/unifi.nix
           {networking.hostName = "iss-mp";}
         ];
       };
