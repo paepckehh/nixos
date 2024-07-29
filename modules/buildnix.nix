@@ -64,7 +64,14 @@
         git commit -S -m update ;\
         export HNAME="$(hostname)" ;\
         sudo nix build --impure ".#nixosConfigurations.$HNAME-iso.config.system.build.isoImage" ;\
-        eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename /result/iso '';
+        eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename /result/iso'';
+      "nix.followremote" = ''
+        cd /etc/nixos &&\
+        env sudo -v &&\
+        git reset ;\
+        git checkout -f ;\
+        git pull --ff ;\
+        nix.updaten'';
       "nix.update" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
@@ -79,7 +86,7 @@
         sudo alejandra --quiet .'';
       "nix.switch" = ''
         nix.build ;\
-        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
+        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS"'';
       "nix.build" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
