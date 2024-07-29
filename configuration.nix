@@ -166,9 +166,9 @@
   };
   console = {
     earlySetup = lib.mkForce true;
-    font = "ter-124b";
     keyMap = "us";
-    packages = with pkgs; [terminus_font];
+    font = "ter-powerline-v24b";
+    packages = with pkgs; [powerline-fonts];
   };
   time = {
     timeZone = "Europe/Berlin";
@@ -411,8 +411,13 @@
       };
     };
     kmscon = {
-      enable = false;
+      enable = true;
       hwRender = true;
+      extraConfig = ''
+        font-name=FiraCode
+        font-size=11
+        xkb-layout=us
+      '';
     };
     fstrim = {
       enable = true;
