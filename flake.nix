@@ -83,7 +83,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./person/mp.nix
+          ./user/me.nix
           {networking.hostName = "nixos-console";}
         ];
       };
@@ -100,8 +100,8 @@
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
-          ./server/adguard.nix
           ./configuration.nix
+          ./server/adguard.nix
           {networking.hostName = "starlink";}
         ];
       };
