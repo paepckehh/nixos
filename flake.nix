@@ -36,6 +36,7 @@
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
+          ./server/virtual.nix
           {networking.hostName = "nixos";}
         ];
       };
@@ -48,7 +49,7 @@
           ./person/desktop/mp.nix
           ./server/adguard.nix
           ./server/openweb-ui.nix
-          # ./server/unifi.nix
+          ./server/virtual.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
@@ -60,6 +61,7 @@
           ./desktop/hyprland.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
+          ./server/virtual.nix
           {networking.hostName = "nixos-hyprland";}
         ];
       };
@@ -71,6 +73,8 @@
           ./desktop/hyprland.nix
           ./person/desktop/mp.nix
           ./server/adguard.nix
+          ./server/openweb-ui.nix
+          ./server/virtual.nix
           {networking.hostName = "nixos-hyprland-mp";}
         ];
       };
@@ -97,23 +101,20 @@
         modules = [
           home-manager-Release.nixosModules.home-manager
           ./configuration.nix
-          ./desktop/gnome.nix
-          ./user/desktop/me.nix
-          ./server/adguard.nix
-          # ./server/unifi.nix
+          ./server/unifi.nix
+          {boot.kernelPackages = pkgs.linuxPackages_hardened;}
           {networking.hostName = "iss";}
         ];
       };
-      iss-mp = nixpkgs-Release.lib.nixosSystem {
+      iss-command = nixpkgs-Release.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager-Release.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix
-          ./person/desktop/mp.nix
-          ./server/adguard.nix
-          # ./server/unifi.nix
-          {networking.hostName = "iss-mp";}
+          ./user/desktop/me.nix
+          {boot.kernelPackages = pkgs.linuxPackages_hardened;}
+          {networking.hostName = "iss-command";}
         ];
       };
       ########################
