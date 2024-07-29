@@ -167,7 +167,7 @@
   console = {
     earlySetup = lib.mkForce true;
     keyMap = "us";
-    font = "ter-powerline-v24b";
+    font = "ter-powerline-v16n";
     packages = with pkgs; [powerline-fonts];
   };
   time = {
@@ -406,11 +406,11 @@
       };
     };
     kmscon = {
-      enable = true;
+      enable = false;
       hwRender = true;
       extraConfig = ''
         font-name=FiraCode
-        font-size=11
+        font-size=14
         xkb-layout=us
       '';
     };
