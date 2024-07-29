@@ -76,8 +76,7 @@
         git fsck --full &&\
         git gc --aggressive &&\
         sudo nix flake lock --update-input nixpkgs --update-input home-manager ;\
-        sudo alejandra --quiet . ;\
-        nix.push '';
+        sudo alejandra --quiet .'';
       "nix.switch" = ''
         nix.build ;\
         sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
@@ -85,7 +84,10 @@
         cd /etc/nixos &&\
         env sudo -v &&\
         sudo alejandra --quiet . &&\
-        nix.push ;\
+        sudo chown -R me:users .git &&\
+        git reset &&\
+        git add . &&\
+        git commit -S -m update ;\
         export DTS="-$(date '+%Y-%m-%d--%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################"
