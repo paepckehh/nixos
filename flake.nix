@@ -96,6 +96,15 @@
           {networking.hostName = "nixos-console-mp";}
         ];
       };
+      starlink = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./server/adguard.nix
+          ./configuration.nix
+          {networking.hostName = "starlink";}
+        ];
+      };
       iss = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
