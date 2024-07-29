@@ -96,19 +96,19 @@
           {networking.hostName = "nixos-console-mp";}
         ];
       };
-      iss = nixpkgs-Release.lib.nixosSystem {
+      iss = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          home-manager-Release.nixosModules.home-manager
+          home-manager.nixosModules.home-manager
           ./configuration.nix
           ./server/unifi.nix
           {networking.hostName = "iss";}
         ];
       };
-      iss-command = nixpkgs-Release.lib.nixosSystem {
+      iss-command = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          home-manager-Release.nixosModules.home-manager
+          home-manager.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
