@@ -153,7 +153,6 @@
     cpu = {
       amd.updateMicrocode = lib.mkForce true;
       intel = {
-        msr.enable = lib.mkForce false;
         sgx.provision.enable = lib.mkForce false;
         updateMicrocode = lib.mkForce true;
       };
