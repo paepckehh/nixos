@@ -11,8 +11,8 @@
   users = {
     users = {
       me = {
-        description = "minimal-env-admin";
         initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7";
+        description = "minimal-env-admin";
         uid = 1000;
         group = "users";
         createHome = true;
