@@ -411,7 +411,6 @@
       hwRender = true;
       extraConfig = ''
         font-name=FiraCode
-        font-size=14
         xkb-layout=us
       '';
     };
