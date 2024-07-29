@@ -407,7 +407,7 @@
       };
     };
     kmscon = {
-      enable = true;
+      enable = false;
       hwRender = true;
       extraConfig = ''
         font-name=FiraCode
