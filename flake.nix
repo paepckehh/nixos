@@ -102,7 +102,7 @@
           home-manager-Release.nixosModules.home-manager
           ./configuration.nix
           ./server/unifi.nix
-          {boot.kernelPackages = pkgs.linuxPackages_hardened;}
+          {boot.kernelPackages = nixpkgs.linuxPackages_hardened;}
           {networking.hostName = "iss";}
         ];
       };
@@ -113,7 +113,7 @@
           ./configuration.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
-          {boot.kernelPackages = pkgs.linuxPackages_hardened;}
+          {boot.kernelPackages = nixpkgs.linuxPackages_hardened;}
           {networking.hostName = "iss-command";}
         ];
       };
