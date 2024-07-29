@@ -316,6 +316,8 @@
     git = {
       enable = true;
       prompt.enable = true;
+      userEmail = "nix@nixos.local";
+      userName = "NIXOS, Generic Local";
       config = {
         branch.sort = "-committerdate";
         commit.gpgsign = true;
@@ -323,8 +325,6 @@
         safe.directory = "/etc/nixos";
         gpg.format = "ssh";
         user.signingkey = "~/.ssh/id_ed25519.pub";
-        userName = "NIXOS, Generic Local";
-        userEmail = "nix@nixos.local";
         http = {
           sslVerify = "true";
           sslVersion = "tlsv1.3";
