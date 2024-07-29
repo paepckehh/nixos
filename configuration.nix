@@ -150,7 +150,14 @@
     };
   };
   hardware = {
-    cpu.intel.updateMicrocode = lib.mkForce true;
+    cpu = {
+      amd.updateMicrocode = lib.mkForce true;
+      intel = {
+        msr.enable = lib.mkForce false;
+        sgx.provision.enable = lib.mkForce false;
+        updateMicrocode = lib.mkForce true;
+      };
+    };
     enableRedistributableFirmware = lib.mkForce true;
     facetimehd.enable = lib.mkForce false;
   };
@@ -160,6 +167,9 @@
   };
   console = {
     earlySetup = lib.mkForce true;
+    font = "ter-124b";
+    keyMap = "us";
+    packages = with pkgs; [terminus_font];
   };
   time = {
     timeZone = "Europe/Berlin";
