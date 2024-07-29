@@ -168,7 +168,7 @@
   console = {
     earlySetup = lib.mkForce true;
     keyMap = "us";
-    font = "ter-powerline-v18b";
+    font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
     packages = with pkgs; [powerline-fonts];
   };
   time = {
