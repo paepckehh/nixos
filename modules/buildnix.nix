@@ -97,7 +97,6 @@
         echo "############# ---> NIXOS-REBUILD **all** NixOS-MP [$HNAME-$DTS] <--- ##########"
         sudo nixos-rebuild boot --flake /etc/nixos/#nixos-mp             -p "nixos-mp-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixos-console-mp     -p "nixos-console-mp-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#iss-mp               -p "nixos141-iss-mp-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v '';
       "nix.all" = ''
         nix.update ;\
@@ -105,7 +104,6 @@
         echo "############# ---> NIXOS-REBUILD **all** NixOS [$HNAME-$DTS] <--- ##########"
         sudo nixos-rebuild boot --flake /etc/nixos/#nixos                -p "nixos-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#nixos-console        -p "nixos-console-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#iss                  -p "nixos-iss-$DTS" -v ;\
         sudo nixos-rebuild boot --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v '';
     };
   };
