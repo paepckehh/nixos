@@ -83,7 +83,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./person/me.nix
+          ./person/mp.nix
           {networking.hostName = "nixos-console";}
         ];
       };
