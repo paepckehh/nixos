@@ -316,15 +316,17 @@
     git = {
       enable = true;
       prompt.enable = true;
-      userEmail = "nix@nixos.local";
-      userName = "NIXOS, Generic Local";
       config = {
         branch.sort = "-committerdate";
         commit.gpgsign = true;
         init.defaultBranch = "main";
         safe.directory = "/etc/nixos";
         gpg.format = "ssh";
-        user.signingkey = "~/.ssh/id_ed25519.pub";
+        user = {
+          email = "nix@nixos.local";
+          name = "NIXOS, Generic Local";
+          signingkey = "~/.ssh/id_ed25519.pub";
+        };
         http = {
           sslVerify = "true";
           sslVersion = "tlsv1.3";
