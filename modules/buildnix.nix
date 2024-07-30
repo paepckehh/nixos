@@ -68,10 +68,10 @@
       "nix.followremote" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
-        git reset ;\
-        git checkout -f ;\
-        git pull --ff ;\
-        nix.updaten'';
+        sudo git reset ;\
+        sudo git checkout -f ;\
+        sudo git pull --ff ;\
+        nix.update'';
       "nix.update" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
