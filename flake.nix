@@ -36,6 +36,7 @@
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
+          ./server/unifi.nix
           ./server/virtual.nix
           {networking.hostName = "nixos";}
         ];
