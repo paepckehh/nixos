@@ -15,13 +15,16 @@
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager.users.me = {
+    services = {
+      remmina.enable = true;
+    };
     programs = {
       librewolf.enable = true;
       kitty = {
         enable = true;
         settings = {
           font_size = 10;
-          hide_window_decorations = true;
+          hide_window_decorations = false;
         };
       };
       alacritty = {

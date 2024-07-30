@@ -182,9 +182,9 @@
   };
   swapDevices = [];
 
-  ##################
-  #-=# SECURITY #=-#
-  ##################
+  #################
+  #-=# SYSTEMD #=-#
+  #################
   systemd = {
     targets = {
       sleep.enable = true;
