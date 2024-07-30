@@ -100,6 +100,7 @@
     tmp = {
       cleanOnBoot = true;
       useTmpfs = true;
+      tmpfsSize = "85%";
     };
     loader = {
       efi = {
