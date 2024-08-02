@@ -48,7 +48,7 @@
           ./desktop/gnome.nix
           ./person/desktop/mp.nix
           ./server/adguard.nix
-          ./server/openweb-ui.nix
+          # ./server/openweb-ui.nix
           # ./server/unifi.nix
           ./server/virtual.nix
           {networking.hostName = "nixos-mp";}
