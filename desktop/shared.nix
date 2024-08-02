@@ -57,7 +57,7 @@
         enable = true;
         support32Bit = true;
       };
-      pulse.enable = true;
+      # pulse.enable = true;
     };
   };
 

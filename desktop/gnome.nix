@@ -52,24 +52,12 @@
       ]);
   };
 
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd = {
-    services = {
-      geoclue = {
-        enable = false;
-        restartIfChanged = false;
-      };
-    };
-  };
-
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
     gnome = {
-      core-utilities.enable = lib.mkForce false;
+      # core-utilities.enable = lib.mkForce false;
       games.enable = lib.mkForce false;
       gnome-browser-connector.enable = lib.mkForce false;
       gnome-initial-setup.enable = lib.mkForce false;

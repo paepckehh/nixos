@@ -78,23 +78,13 @@
   boot = {
     blacklistedKernelModules = ["ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "sysv"];
     kernelPackages = pkgs.linuxPackages_latest; # opt _hardened
-    kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "ipv6.disable=1" "hid_apple.iso_layout=0"];
+    # kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "ipv6.disable=1" "hid_apple.iso_layout=0"]; # alloc hardening
+    kernelParams = ["page_alloc.shuffle=1" "ipv6.disable=1" "hid_apple.iso_layout=0"];
     kernelModules = ["acpi_call" "kvm-intel" "vfat" "exfat"];
     readOnlyNixStore = lib.mkForce true;
     initrd = {
       systemd.enable = lib.mkForce false;
-      availableKernelModules = [
-        "ahci"
-        "dm_mod"
-        "sd_mod"
-        "uas"
-        "usb_storage"
-        "xhci_pci"
-        "applespi"
-        "applesmc"
-        "spi_pxa2xx_platform"
-        "intel_lpss_pci"
-      ];
+      availableKernelModules = ["dm_mod" "applespi" "applesmc" "spi_pxa2xx_platform" "intel_lpss_pci"];
     };
     tmp = {
       cleanOnBoot = true;
@@ -113,9 +103,9 @@
       };
     };
     kernel.sysctl = {
-      "kernel.ftrace_enabled" = lib.mkForce false;
-      "kernel.kptr_restrict" = lib.mkForce 2;
-      "net.core.bpf_jit_enable" = lib.mkForce false;
+      # "net.core.bpf_jit_enable" = lib.mkForce false;
+      # "kernel.ftrace_enabled" = lib.mkForce false;
+      # "kernel.kptr_restrict" = lib.mkForce 2;
       "net.ipv4.conf.all.log_martians" = lib.mkForce true;
       "net.ipv4.conf.all.rp_filter" = lib.mkForce "1";
       "net.ipv4.conf.default.log_martians" = lib.mkForce true;
