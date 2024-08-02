@@ -84,7 +84,18 @@
     readOnlyNixStore = lib.mkForce true;
     initrd = {
       systemd.enable = lib.mkForce false;
-      availableKernelModules = ["dm_mod" "sd_mod" "applespi" "applesmc" "usb_storage" "xhci_pci" "spi_pxa2xx_platform" "intel_lpss_pci"];
+      availableKernelModules = [
+        "ahci"
+        "dm_mod"
+        "sd_mod"
+        "uas"
+        "usb_storage"
+        "xhci_pci"
+        "applespi"
+        "applesmc"
+        "spi_pxa2xx_platform"
+        "intel_lpss_pci"
+      ];
     };
     tmp = {
       cleanOnBoot = true;
