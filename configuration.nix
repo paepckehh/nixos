@@ -48,7 +48,7 @@
     distributedBuilds = true;
     buildMachines = [
       {
-        hostName = "builder.lan"; # internal nixos build cluster
+        hostName = "nix-build.lan"; # internal nixos build host/cluster
         system = "x86_64-linux aarch64-linux aarch64-freebsd";
         protocol = "ssh-ng";
         maxJobs = 1;

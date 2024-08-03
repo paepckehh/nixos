@@ -17,7 +17,7 @@
         challengeResponseAuthentication = false;
       };
       extraConfig = ''
-        AllowTcpForwarding yes
+        AllowTcpForwarding no
         X11Forwarding no
         AllowAgentForwarding no
         AllowStreamLocalForwarding no
