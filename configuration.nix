@@ -49,7 +49,7 @@
     buildMachines = [
       {
         hostName = "builder.lan"; # internal nixos build cluster
-        system = "x86_64-linux" "aarch64-linux" "aarch64-freebsd";
+        system = ["x86_64-linux" "aarch64-linux" "aarch64-freebsd"];
         protocol = "ssh-ng";
         maxJobs = 1;
         speedFactor = 2;
