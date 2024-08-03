@@ -33,6 +33,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./modules/chronyPublic.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
@@ -45,6 +46,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./modules/chronyPublic.nix
           ./desktop/gnome.nix
           ./person/desktop/mp.nix
           ./server/adguard.nix
@@ -59,6 +61,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./modules/chronyPublic.nix
           ./desktop/hyprland.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
@@ -71,6 +74,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./modules/chronyPublic.nix
           ./desktop/hyprland.nix
           ./person/desktop/mp.nix
           ./server/adguard.nix
@@ -84,6 +88,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./modules/chronyPublic.nix
           ./user/me.nix
           {networking.hostName = "nixos-console";}
         ];
@@ -93,6 +98,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./modules/chronyPublic.nix
           ./person/mp.nix
           {networking.hostName = "nixos-console-mp";}
         ];

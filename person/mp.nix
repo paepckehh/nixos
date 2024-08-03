@@ -11,13 +11,41 @@
     ../user/me.nix
   ];
 
+  ##############
+  #-=# BOOT #=-#
+  ##############
+  boot = {
+    initrd = {
+      availableKernelModules = ["aesni_intel" "cryptd"];
+      luks = {
+        mitigateDMAAttacks = lib.mkForce true;
+        devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
+      };
+    };
+  };
+
+  #####################
+  #-=# FILESYSTEMS #=-#
+  #####################
+  fileSystems = {
+    "/" = lib.mkForce {
+      device = "/dev/disk/by-uuid/783b1348-9349-494a-819f-5dd80eb0976d";
+      fsType = "ext4";
+    };
+  };
+
+  ####################
+  #-=# Networking #=-#
+  ####################
+  networking.extraHosts = ''192.168.8.99 builder.lan'';
+
   ###############
   #-=# USERS #=-#
   ###############
   users = {
     users = {
       me = {
-        # initialHashedPassword = lib.mkForce "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7";
+        initialHashedPassword = lib.mkForce "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7";
         description = lib.mkForce "PAEPCKE Michael env admin";
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
@@ -51,28 +79,6 @@
             };
           };
         };
-      };
-    };
-  };
-  #####################
-  #-=# FILESYSTEMS #=-#
-  #####################
-  fileSystems = {
-    "/" = lib.mkForce {
-      device = "/dev/disk/by-uuid/783b1348-9349-494a-819f-5dd80eb0976d";
-      fsType = "ext4";
-    };
-  };
-
-  ##############
-  #-=# BOOT #=-#
-  ##############
-  boot = {
-    initrd = {
-      availableKernelModules = ["aesni_intel" "cryptd"];
-      luks = {
-        mitigateDMAAttacks = lib.mkForce true;
-        devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
       };
     };
   };

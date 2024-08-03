@@ -11,7 +11,6 @@
   #################
   imports = [
     ./modules/buildnix.nix
-    ./modules/chronyPublic.nix
   ];
 
   #############
@@ -44,6 +43,19 @@
       dates = "daily";
       options = "--delete-older-than 12d";
     };
+    distributedBuilds = true;
+    extraOptions = ''builders-use-substitutes = true'';
+    buildMachines = [
+      {
+        hostName = "builder.lan"; # internal nixos build cluster
+        system = "x86_64-linux" "aarch64-linux" "aarch64-freebsd";
+        protocol = "ssh-ng";
+        maxJobs = 1;
+        speedFactor = 2;
+        supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+        mandatoryFeatures = [];
+      }
+    ];
   };
 
   #############
@@ -418,33 +430,6 @@
     fstrim = {
       enable = true;
       interval = "daily";
-    };
-    openssh = {
-      enable = false;
-      allowSFTP = false;
-      settings = {
-        PasswordAuthentication = false;
-        StrictModes = true;
-        challengeResponseAuthentication = false;
-      };
-      extraConfig = ''
-        AllowTcpForwarding yes
-        X11Forwarding no
-        AllowAgentForwarding no
-        AllowStreamLocalForwarding no
-        AuthenticationMethods publickey '';
-      hostKeys = [
-        {
-          path = "/etc/ssh/ssh_host_ed25519_key";
-          type = "ed25519";
-        }
-      ];
-      listenAddresses = [
-        {
-          addr = "0.0.0.0";
-          port = "8022";
-        }
-      ];
     };
   };
 }
