@@ -19,8 +19,10 @@
   nix = {
     enable = true;
     package = pkgs.nixFlakes;
-    extraOptions = "experimental-features = nix-command flakes ";
     optimise.automatic = true;
+    extraOptions = ''
+      builders-use-substitutes = false
+      experimental-features = nix-command flakes'';
     settings = {
       allowed-uris = lib.mkForce ["https://github.com/NixOS" "https://github.com/paepckehh" "https://cache.nixos.org" "https://channel.nixos.org"];
       auto-optimise-store = true;
@@ -44,7 +46,6 @@
       options = "--delete-older-than 12d";
     };
     distributedBuilds = true;
-    extraOptions = ''builders-use-substitutes = true'';
     buildMachines = [
       {
         hostName = "builder.lan"; # internal nixos build cluster
