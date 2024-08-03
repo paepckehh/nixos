@@ -26,12 +26,12 @@
   ##################
   services = {
     endless-go = {
-      enable = true;
+      enable = false;
       openFirewall = true;
       port = 22;
       listenAddress = "0.0.0.0";
       prometheus = {
-        enable = true;
+        enable = false;
         port = 9119;
         listenAddress = "0.0.0.0";
       };
@@ -67,7 +67,7 @@
       listenAddresses = [
         {
           addr = "0.0.0.0";
-          port = "8822";
+          port = "22";
         }
       ];
     };

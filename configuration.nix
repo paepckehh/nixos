@@ -10,7 +10,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./modules/buildnix.nix
+    ./alias/buildnix.nix
   ];
 
   #############
@@ -48,7 +48,7 @@
     distributedBuilds = true;
     buildMachines = {
       nix-build-lan = {
-        hostName = "nix-build.lan:8822"; # internal nixos build host/cluster
+        hostName = "nix-build.lan"; # internal nixos build host/cluster
         systems = ["x86_64-linux" "aarch64-linux" "aarch64-freebsd"];
         protocol = "ssh-ng";
         publicHostKey = null; #
