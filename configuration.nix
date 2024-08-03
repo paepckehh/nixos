@@ -46,8 +46,8 @@
       options = "--delete-older-than 12d";
     };
     distributedBuilds = true;
-    buildMachines = {
-      builder = {
+    buildMachines = [
+      {
         hostName = "nix-build.lan"; # internal nixos build host/cluster
         systems = ["x86_64-linux" "aarch64-linux" "aarch64-freebsd"];
         protocol = "ssh-ng";
@@ -57,8 +57,8 @@
         maxJobs = 1;
         speedFactor = 2;
         supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
-      };
-    };
+      }
+    ];
   };
 
   #############
