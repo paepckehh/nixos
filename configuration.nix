@@ -47,7 +47,7 @@
     };
     distributedBuilds = true;
     buildMachines = {
-      nix-build-lan = {
+      builder = {
         hostName = "nix-build.lan"; # internal nixos build host/cluster
         systems = ["x86_64-linux" "aarch64-linux" "aarch64-freebsd"];
         protocol = "ssh-ng";
