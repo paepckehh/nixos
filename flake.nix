@@ -79,7 +79,6 @@
           ./desktop/hyprland.nix
           ./person/desktop/mp.nix
           ./server/adguard.nix
-          ./server/openweb-ui.nix
           ./server/virtual.nix
           {networking.hostName = "nixos-hyprland-mp";}
         ];
@@ -90,7 +89,6 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./modules/chronyPublic.nix
-          ./server/builder.nix
           ./user/me.nix
           {networking.hostName = "nixos-console";}
         ];
@@ -133,7 +131,7 @@
           {networking.hostName = "iss-command";}
         ];
       };
-      nixbuild = nixpkgs.lib.nixosSystem {
+      nix-build = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
