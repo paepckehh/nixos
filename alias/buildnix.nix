@@ -98,8 +98,8 @@
         export DTS="-$(date '+%Y-%m-%d--%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################"
-        sudo nixos-rebuild boot --install-bootloader ;\
-        sudo nixos-rebuild boot --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
+        sudo nixos-rebuild boot --verbose --install-bootloader ;\
+        sudo nixos-rebuild boot --verbose --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
       "nix.mp" = ''
         nix.update ;\
         nix.build ;\
