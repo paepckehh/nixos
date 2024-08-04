@@ -299,6 +299,7 @@
   ##################
   programs = {
     gnupg.agent.enable = true;
+    nano.enable = true;
     htop.enable = true;
     iftop.enable = true;
     iotop.enable = true;
