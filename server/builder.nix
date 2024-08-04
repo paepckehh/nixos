@@ -27,11 +27,20 @@
   services = {
     nix-serve = {
       enable = true;
-      port = 80;
-      bindAddress = "0.0.0.0";
+      port = 5000;
+      bindAddress = "127.0.0.1";
       openFirewall = true;
-      # sudo nix-store --generate-binary-cache-key nix-build.lan /var/cache-priv-key.pem /etc/nixos/cache-pub-key.pem
       secretKeyFile = "/var/cache-priv-key.pem";
+      # sudo nix-store --generate-binary-cache-key nix-build.lan /var/cache-priv-key.pem /etc/nixos/server/resources/cache-pub-key.pem
+    };
+    nginx = {
+      enable = true;
+      recommendedProxySettings = true;
+      virtualHosts = {
+        "nix-build.lan" = {
+          locations."/".proxyPass = "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
+        };
+      };
     };
     endlessh-go = {
       enable = false;
