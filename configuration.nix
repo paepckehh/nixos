@@ -24,7 +24,6 @@
       builders-use-substitutes = false
       experimental-features = nix-command flakes'';
     settings = {
-      allowed-uris = lib.mkForce ["https://github.com/NixOS" "https://github.com/paepckehh" "https://cache.nixos.org" "https://channel.nixos.org"];
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
       trusted-users = lib.mkForce ["@wheel"];
@@ -37,7 +36,18 @@
       restrict-eval = lib.mkForce true;
       require-sigs = lib.mkForce true;
       preallocate-contents = true;
-      trusted-public-keys = lib.mkForce ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
+      allowed-uris = lib.mkForce [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org"
+      ];
+      substituters = lib.mkForce [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org/"
+      ];
+      trusted-public-keys = lib.mkForce [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
     };
     gc = {
       automatic = true;
