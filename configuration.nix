@@ -45,20 +45,6 @@
       dates = "daily";
       options = "--delete-older-than 12d";
     };
-    distributedBuilds = true;
-    buildMachines = [
-      {
-        hostName = "nix-build.lan"; # internal nixos build host/cluster
-        systems = ["x86_64-linux" "aarch64-linux" "aarch64-freebsd"];
-        protocol = "ssh-ng";
-        publicHostKey = null; #
-        sshUser = "nixbuilder";
-        sshKey = "/home/me/.ssh/id_nixbuilder";
-        maxJobs = 1;
-        speedFactor = 2;
-        supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
-      }
-    ];
   };
 
   #############
@@ -272,7 +258,6 @@
       noProxy = "1270.0.1,local,localhost,localdomain,192.168.0.0/16";
     };
     domain = "lan";
-    hosts = {"192.168.8.99" = ["nix-builder.lan" "nix-builder"];};
   };
 
   ###############
