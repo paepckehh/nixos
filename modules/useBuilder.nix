@@ -29,7 +29,6 @@
     buildMachines = [
       {
         hostName = "nix-build.lan"; # internal nixos build host/cluster
-        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUMvSzFybnlXc1kwSmFwbkU5d2d6MGxuYm5reGhuTjhsbU5CT0dwMWlEcGMgbml4YnVpbGRlckBuaXgtYnVpbGQubGFuCg==";
         systems = ["x86_64-linux"];
         protocol = "ssh-ng";
         sshUser = "nixbuilder";
