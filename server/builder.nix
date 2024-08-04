@@ -49,7 +49,7 @@
         Ciphers = ["chacha20-poly1305@openssh.com"]; # legacy: "aes256-gcm@openssh.com"
         KexAlgorithms = ["curve25519-sha256" "curve25519-sha256@libssh.org"]; # legacy: "diffie-hellman-group-exchange-sha256"
         StrictModes = true;
-        LogLevel = "Info";
+        LogLevel = "INFO";
         PasswordAuthentication = false;
         PermitRootLogin = false;
         UseDns = false;
