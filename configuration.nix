@@ -53,7 +53,7 @@
         protocol = "ssh-ng";
         publicHostKey = null; #
         sshUser = "nixbuilder";
-        sshKey = "/root/.ssh/id-nixbuilder";
+        sshKey = "/home/me/.ssh/id_nixbuilder";
         maxJobs = 1;
         speedFactor = 2;
         supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];

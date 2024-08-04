@@ -16,7 +16,7 @@
         createHome = true;
         isNormalUser = true;
         hashedPassword = null; # disable interactive authentication
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC/K1rnyWsY0JapnE9wgz0lnbnkxhnN8lmNBOGp1iDpc nixbuilder@nix-build.lan"];
       };
     };
   };
@@ -49,7 +49,7 @@
         Ciphers = ["chacha20-poly1305@openssh.com"]; # legacy: "aes256-gcm@openssh.com"
         KexAlgorithms = ["curve25519-sha256" "curve25519-sha256@libssh.org"]; # legacy: "diffie-hellman-group-exchange-sha256"
         StrictModes = true;
-        LogLevel = "Info"; # IDS
+        LogLevel = "Info";
         PasswordAuthentication = false;
         PermitRootLogin = false;
         UseDns = false;
@@ -59,8 +59,8 @@
       startWhenNeeded = true;
       hostKeys = [
         {
-          path = "/etc/ssh/ssh_host_ed25519_key";
           type = "ed25519";
+          path = "/etc/ssh/ssh_host_ed25519_key";
         }
       ];
       openFireWall = true;

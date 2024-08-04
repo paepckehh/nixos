@@ -89,6 +89,7 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./modules/chronyPublic.nix
+          ./server/builder.nix
           ./user/me.nix
           {networking.hostName = "nixos-console";}
         ];
