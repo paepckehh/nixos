@@ -11,6 +11,7 @@
   #################
   imports = [
     ./alias/buildnix.nix
+    (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
   #############

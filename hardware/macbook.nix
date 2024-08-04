@@ -26,6 +26,7 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
+    wireless.enable = true;
     enableB43Firmware = true;
   };
 
