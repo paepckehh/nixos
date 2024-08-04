@@ -20,7 +20,7 @@
         "https://cache.nixos.org/"
       ];
       trusted-public-keys = lib.mkForce [
-        "nix-build.lan-1:uQdcz6CZnERTINBerLtn4+xfJuK1KenGkco7YFxiDJA="
+        "nix-build.lan:T7R9J0KEfVCH5XTX8MUHvR9to7suYeVD9B7fpswfpho="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
