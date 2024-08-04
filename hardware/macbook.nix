@@ -6,7 +6,9 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [];
+  imports = [
+    (modulesPath + "/hardware/network/broadcom-43xx.nix")
+  ];
 
   ##############
   #-=# BOOT #=-#
