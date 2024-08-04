@@ -43,7 +43,6 @@
             c = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
             cat = "bat --paging=never";
             bandwhich = "sudo bandwhich";
-            powertop = "sudo powertop";
             man = "batman";
             ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
             la = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";

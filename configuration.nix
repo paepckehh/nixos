@@ -124,9 +124,9 @@
       };
     };
     kernel.sysctl = {
-      "net.core.bpf_jit_enable" = lib.mkForce false;
-      "kernel.ftrace_enabled" = lib.mkForce false;
       "kernel.kptr_restrict" = lib.mkForce 2;
+      "kernel.ftrace_enabled" = lib.mkForce false;
+      "net.core.bpf_jit_enable" = lib.mkForce false;
       "net.ipv4.conf.all.log_martians" = lib.mkForce true;
       "net.ipv4.conf.all.rp_filter" = lib.mkForce "1";
       "net.ipv4.conf.default.log_martians" = lib.mkForce true;
