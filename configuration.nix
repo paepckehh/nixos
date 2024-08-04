@@ -216,14 +216,14 @@
       failureMode = "panic";
       rules = ["-a exit,always -F arch=b64 -S execve"];
     };
-    # allowSimultaneousMultithreading = true;
-    # lockKernelModules = lib.mkForce true;
-    # protectKernelImage = lib.mkForce true;
-    # forcePageTableIsolation = lib.mkForce true;
-    # apparmor = {
-    #  enable = lib.mkForce true;
-    #  killUnconfinedConfinables = lib.mkForce true;
-    # };
+    allowSimultaneousMultithreading = true;
+    lockKernelModules = lib.mkForce true;
+    protectKernelImage = lib.mkForce true;
+    forcePageTableIsolation = lib.mkForce true;
+    apparmor = {
+      enable = lib.mkForce true;
+      killUnconfinedConfinables = lib.mkForce true;
+    };
     dhparams = {
       enable = true;
       stateful = false;
