@@ -103,6 +103,7 @@
         "ahci"
         "dm_mod"
         "sd_mod"
+        "uas"
         "usb_storage"
         "xhci_pci"
         "applespi"
