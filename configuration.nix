@@ -103,6 +103,7 @@
         "ahci"
         "dm_mod"
         "sd_mod"
+        "usb_storage"
         "xhci_pci"
         "applespi"
         "applesmc"
@@ -219,7 +220,7 @@
       failureMode = "panic";
       rules = ["-a exit,always -F arch=b64 -S execve"];
     };
-    allowSimultaneousMultithreading = true; # xxx
+    allowSimultaneousMultithreading = true;
     lockKernelModules = lib.mkForce true;
     protectKernelImage = lib.mkForce true;
     forcePageTableIsolation = lib.mkForce true;
@@ -268,6 +269,8 @@
       default = "";
       noProxy = "1270.0.1,local,localhost,localdomain,192.168.0.0/16";
     };
+    domain = "lan";
+    hosts = {"192.168.8.99" = ["nix-builder.lan" "nix-builder"];};
   };
 
   ###############
