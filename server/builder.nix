@@ -40,7 +40,7 @@
       enable = lib.mkForce true;
       allowSFTP = false;
       settings = {
-        AllowUsers = "nixbuilder";
+        AllowUsers = ["nixbuilder"];
         AllowAgentForwarding = false;
         AllowStreamLocalForwarding = false;
         AllowTcpForwarding = false;
