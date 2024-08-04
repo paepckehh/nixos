@@ -63,7 +63,7 @@
           path = "/etc/ssh/ssh_host_ed25519_key";
         }
       ];
-      openFireWall = true;
+      openFirewall = true;
       listenAddresses = [
         {
           addr = "0.0.0.0";
