@@ -188,8 +188,8 @@
   };
   powerManagement = {
     enable = true;
-    # powertop.enable = true;
-    # cpuFreqGovernor = "powersave";
+    powertop.enable = false;
+    cpuFreqGovernor = "powersave";
   };
   swapDevices = [];
 
