@@ -62,23 +62,29 @@
             age
             age-plugin-yubikey
             bandwhich
+            bmon
+            curlie
             dust
             dnsutils
             gcc
             git-crypt
             git-agecrypt
+            httpie
             hyperfine
             openssl
             tldr
             shellcheck
             shfmt
+            sysz
             moreutils
             fd
             jq
+            oha
             openssl
             tgpt
             tran
             tree
+            trippy
             tz
             paper-age
             passage
@@ -93,6 +99,7 @@
         };
         fonts.fontconfig.enable = true;
         programs = {
+          btop.enable = true;
           direnv.enable = true;
           fzf.enable = true;
           thefuck.enable = true;
@@ -101,6 +108,7 @@
           gh-dash.enable = true;
           git.enable = true;
           gitui.enable = true;
+          lazygit.enable = true;
           home-manager.enable = true;
           ripgrep.enable = true;
           skim.enable = true;
