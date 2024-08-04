@@ -6,8 +6,9 @@
     shellAliases = {
       "nix.sign" = ''
         cd /etc/nixos &&\
+        cd /nix/store &&\
         env sudo -v &&\
-        nix store sign --all --key-file /var/cache-priv-key.pem '';
+        sudo nix store sign --all --key-file /var/cache-priv-key.pem '';
       "nix.push" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
