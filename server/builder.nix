@@ -46,14 +46,14 @@
         AllowTcpForwarding = false;
         AuthenticationMethods = "publickey";
         ChallengeResponseAuthentication = false;
-        Ciphers = ["chacha20-poly1305@openssh.com"]; # legacy: "aes256-gcm@openssh.com"
-        KexAlgorithms = ["curve25519-sha256"]; # legacy: "diffie-hellman-group-exchange-sha256" "...@libssh.org"
+        Ciphers = ["chacha20-poly1305@openssh.com"];
+        KexAlgorithms = ["curve25519-sha256" "curve25519-sha256@libssh.org"];
         StrictModes = true;
         LogLevel = "INFO";
         PasswordAuthentication = false;
         PermitRootLogin = "no";
         UseDns = false;
-        UsePAM = false;
+        UsePAM = true;
         X11Forwarding = false;
       };
       startWhenNeeded = true;
