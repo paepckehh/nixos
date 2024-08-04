@@ -35,12 +35,18 @@
     };
     nginx = {
       enable = true;
+      port = 80;
+      bindAddress = "0.0.0.0";
+      openFirewall = true;
       recommendedProxySettings = true;
       virtualHosts = {
         "nix-build.lan" = {
           locations."/".proxyPass = "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
         };
       };
+    };
+    prometheus.exporters.nginx = {
+      enable = false;
     };
     endlessh-go = {
       enable = false;
