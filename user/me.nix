@@ -79,6 +79,7 @@
             tree
             paper-age
             passage
+            portal
             rage
             vulnix
             yubikey-personalization
