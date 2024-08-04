@@ -35,9 +35,6 @@
     };
     nginx = {
       enable = true;
-      port = 80;
-      bindAddress = "0.0.0.0";
-      openFirewall = true;
       recommendedProxySettings = true;
       virtualHosts = {
         "nix-build.lan" = {
