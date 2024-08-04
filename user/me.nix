@@ -76,11 +76,16 @@
             fd
             jq
             openssl
+            tgpt
+            tran
             tree
+            tz
             paper-age
             passage
             portal
             rage
+            ugm
+            superfile
             vulnix
             yubikey-personalization
             yq

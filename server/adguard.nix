@@ -3,6 +3,22 @@
   lib,
   ...
 }: {
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking = {
+    dhcpcd.extraConfig = "nohook resolv.conf";
+    nameservers = lib.mkForce ["127.0.0.1"];
+    # networkmanager.dns = "none";
+  };
+
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment = {
+    systemPackages = with pkgs; [adguardian];
+  };
+
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -75,14 +91,5 @@
           ];
       };
     };
-  };
-
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking = {
-    dhcpcd.extraConfig = "nohook resolv.conf";
-    nameservers = lib.mkForce ["127.0.0.1"];
-    # networkmanager.dns = "none";
   };
 }
