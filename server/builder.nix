@@ -53,7 +53,7 @@
         PasswordAuthentication = false;
         PermitRootLogin = "no";
         UseDns = false;
-        UsePam = false;
+        UsePAM = false;
         X11Forwarding = false;
       };
       startWhenNeeded = true;
