@@ -47,6 +47,7 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./modules/chronyPublic.nix
+          ./modules/useBuilder.nix
           ./desktop/gnome.nix
           ./person/desktop/mp.nix
           ./server/adguard.nix
@@ -130,6 +131,17 @@
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           {networking.hostName = "iss-command";}
+        ];
+      };
+      nixbuild = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./modules/chronyPublic.nix
+          ./server/builder.nix
+          ./user/me.nix
+          {networking.hostName = "nix-build";}
         ];
       };
       ########################
