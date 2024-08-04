@@ -293,13 +293,14 @@
     usbtop.enable = true;
     zsh.enable = true;
     ssh = {
-      pubkeyAcceptedKeyTypes = ["ssh-ed25519" "ssh-rsa"];
-      ciphers = ["chacha20-poly1305@openssh.com" "aes256-gcm@openssh.com"];
-      hostKeyAlgorithms = ["ssh-ed25519" "ssh-rsa"];
-      kexAlgorithms = [
-        "curve25519-sha256@libssh.org"
-        "diffie-hellman-group-exchange-sha256"
-      ];
+      # hostKeyAlgorithms = ["ssh-ed25519" "ssh-rsa"];
+      # pubkeyAcceptedKeyTypes = ["ssh-ed25519" "ssh-rsa"];
+      # ciphers = ["chacha20-poly1305@openssh.com" "aes256-gcm@openssh.com"];
+      # kexAlgorithms = ["curve25519-sha256" "curve25519-sha256@libssh.org" "diffie-hellman-group-exchange-sha256"];
+      hostKeyAlgorithms = ["ssh-ed25519"];
+      pubkeyAcceptedKeyTypes = ["ssh-ed25519"];
+      ciphers = ["chacha20-poly1305@openssh.com"];
+      kexAlgorithms = ["curve25519-sha256"];
       knownHosts = {
         github = {
           extraHostNames = ["github.com" "api.github.com" "git.github.com"];

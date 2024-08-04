@@ -11,8 +11,8 @@
     distributedBuilds = true;
     buildMachines = [
       {
-        # publicHostKey = null;
         hostName = "nix-build.lan"; # internal nixos build host/cluster
+        publicHostKey = "nix-build.lan ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILrC1lSUssAm020IA6B6MuSHYduKejtNi2VRbcB9ifeA";
         systems = ["x86_64-linux"];
         protocol = "ssh-ng";
         sshUser = "nixbuilder";

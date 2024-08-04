@@ -47,7 +47,7 @@
         AuthenticationMethods = "publickey";
         ChallengeResponseAuthentication = false;
         Ciphers = ["chacha20-poly1305@openssh.com"]; # legacy: "aes256-gcm@openssh.com"
-        KexAlgorithms = ["curve25519-sha256" "curve25519-sha256@libssh.org"]; # legacy: "diffie-hellman-group-exchange-sha256"
+        KexAlgorithms = ["curve25519-sha256"]; # legacy: "diffie-hellman-group-exchange-sha256" "...@libssh.org"
         StrictModes = true;
         LogLevel = "INFO";
         PasswordAuthentication = false;
@@ -70,6 +70,20 @@
           addr = "0.0.0.0";
         }
       ];
+    };
+  };
+
+  ##################
+  #-=# PROGRAMS #=-#
+  ##################
+  programs = {
+    ssh = {
+      knownHosts = {
+        nix-build = {
+          extraHostNames = ["nix-build.lan"];
+          publicKey = "";
+        };
+      };
     };
   };
 }
