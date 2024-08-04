@@ -51,7 +51,7 @@
         StrictModes = true;
         LogLevel = "INFO";
         PasswordAuthentication = false;
-        PermitRootLogin = false;
+        PermitRootLogin = no;
         UseDns = false;
         UsePam = false;
         X11Forwarding = false;
