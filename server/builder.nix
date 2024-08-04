@@ -66,8 +66,8 @@
       openFirewall = true;
       listenAddresses = [
         {
+          port = 22;
           addr = "0.0.0.0";
-          port = "22";
         }
       ];
     };
