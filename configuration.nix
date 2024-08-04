@@ -188,8 +188,8 @@
   };
   powerManagement = {
     enable = true;
-    # powertop.enable = true;
-    # cpuFreqGovernor = "powersave";
+    powertop.enable = true;
+    cpuFreqGovernor = "powersave";
   };
   swapDevices = [];
 
@@ -217,9 +217,9 @@
       rules = ["-a exit,always -F arch=b64 -S execve"];
     };
     allowSimultaneousMultithreading = true;
-    lockKernelModules = lib.mkForce true;
-    protectKernelImage = lib.mkForce true;
-    # forcePageTableIsolation = lib.mkForce true;
+    # lockKernelModules = lib.mkForce true;
+    # protectKernelImage = lib.mkForce true;
+    forcePageTableIsolation = lib.mkForce true;
     apparmor = {
       enable = lib.mkForce true;
       killUnconfinedConfinables = lib.mkForce true;
