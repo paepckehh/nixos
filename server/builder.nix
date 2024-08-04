@@ -27,7 +27,7 @@
   services = {
     nix-serve = {
       enable = true;
-      port = 5000;
+      port = 80;
       bindAddress = "0.0.0.0";
       openFirewall = true;
       # sudo nix-store --generate-binary-cache-key nix-build.lan /var/cache-priv-key.pem /etc/nixos/cache-pub-key.pem
