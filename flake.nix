@@ -48,6 +48,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./hardware/macbook.nix
           ./modules/chronyPublic.nix
           ./modules/useBuilder.nix
           ./desktop/gnome.nix
@@ -77,6 +78,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./hardware/macbook.nix
           ./modules/chronyPublic.nix
           ./desktop/hyprland.nix
           ./person/desktop/mp.nix
@@ -100,6 +102,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./hardware/macbook.nix
           ./modules/chronyPublic.nix
           ./person/mp.nix
           {networking.hostName = "nixos-console-mp";}

@@ -103,10 +103,6 @@
         "uas"
         "usb_storage"
         "xhci_pci"
-        "applespi"
-        "applesmc"
-        "spi_pxa2xx_platform"
-        "intel_lpss_pci"
       ];
     };
     tmp = {
@@ -251,9 +247,9 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
+    domain = "lan";
     useDHCP = lib.mkDefault true;
     enableIPv6 = lib.mkForce false;
-    enableB43Firmware = true;
     networkmanager.enable = true;
     nftables.enable = true;
     firewall = {
@@ -267,7 +263,6 @@
       default = "";
       noProxy = "1270.0.1,local,localhost,localdomain,192.168.0.0/16";
     };
-    domain = "lan";
   };
 
   ###############
@@ -303,10 +298,6 @@
     usbtop.enable = true;
     zsh.enable = true;
     ssh = {
-      # hostKeyAlgorithms = ["ssh-ed25519" "ssh-rsa"];
-      # pubkeyAcceptedKeyTypes = ["ssh-ed25519" "ssh-rsa"];
-      # ciphers = ["chacha20-poly1305@openssh.com" "aes256-gcm@openssh.com"];
-      # kexAlgorithms = ["curve25519-sha256" "curve25519-sha256@libssh.org" "diffie-hellman-group-exchange-sha256"];
       hostKeyAlgorithms = ["ssh-ed25519"];
       pubkeyAcceptedKeyTypes = ["ssh-ed25519"];
       ciphers = ["chacha20-poly1305@openssh.com"];
@@ -370,7 +361,7 @@
     variables = {
       VISUAL = "vim";
       EDITOR = "vim";
-      # SCUDO_OPTIONS = lib.mkForce "ZeroContents=1";
+      SCUDO_OPTIONS = lib.mkForce "ZeroContents=1";
     };
     systemPackages = with pkgs; [alejandra];
     shells = [pkgs.bashInteractive pkgs.zsh];
@@ -411,9 +402,8 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    power-profiles-daemon.enable = true;
-    thermald.enable = true;
-    mbpfan.enable = true;
+    # power-profiles-daemon.enable = true;
+    # thermald.enable = true;
     logind.hibernateKey = "ignore";
     opensnitch = {
       enable = false;
@@ -421,14 +411,6 @@
         firewall = "nftables";
         defaultAction = "deny";
       };
-    };
-    kmscon = {
-      enable = false;
-      hwRender = true;
-      extraConfig = ''
-        font-name=FiraCode
-        xkb-layout=us
-      '';
     };
     fstrim = {
       enable = true;
