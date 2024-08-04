@@ -25,7 +25,7 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    endless-go = {
+    endlessh-go = {
       enable = false;
       openFirewall = true;
       port = 22;

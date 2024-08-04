@@ -94,8 +94,8 @@
     blacklistedKernelModules = ["ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "sysv"];
     kernelPackages = pkgs.linuxPackages_latest; # opt _hardened
     # kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "ipv6.disable=1" "hid_apple.iso_layout=0"]; # alloc hardening
-    kernelParams = ["ipv6.disable=1" "hid_apple.iso_layout=0"];
-    kernelModules = ["acpi_call" "kvm-intel" "vfat" "exfat"];
+    kernelParams = ["ipv6.disable=1"];
+    kernelModules = ["acpi_call" "kvm-intel" "kvm-amd" "vfat" "exfat"];
     readOnlyNixStore = lib.mkForce true;
     initrd = {
       systemd.enable = lib.mkForce false;
@@ -103,8 +103,6 @@
         "ahci"
         "dm_mod"
         "sd_mod"
-        "uas"
-        "usb_storage"
         "xhci_pci"
         "applespi"
         "applesmc"
