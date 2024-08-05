@@ -42,6 +42,7 @@
             n = "nvim";
             c = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
             cat = "bat --paging=never";
+            termshark = "sudo termshark";
             bandwhich = "sudo bandwhich";
             man = "batman";
             ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
