@@ -81,7 +81,6 @@
             oha
             openssl
             tgpt
-            tran
             tree
             trippy
             tshark
@@ -91,7 +90,6 @@
             portal
             rage
             ugm
-            superfile
             vulnix
             yubikey-personalization
             yq
