@@ -106,7 +106,7 @@
         sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS"'';
       "nix.boot" = ''
         nix.build &&\
-        sudo nixos-rebuild boot -v --install-bootloader '';
+        sudo nixos-rebuild boot -v --fallback --install-bootloader '';
       "nix.build" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
@@ -118,7 +118,7 @@
         export DTS="-$(date '+%Y-%m-%d--%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################"
-        sudo nixos-rebuild boot -v --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
+        sudo nixos-rebuild boot -v --fallback --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
       "nix.mp" = ''
         nix.update ;\
         nix.build ;\
