@@ -84,6 +84,7 @@
             tran
             tree
             trippy
+            tshark
             tz
             paper-age
             passage
