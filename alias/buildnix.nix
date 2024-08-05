@@ -4,6 +4,12 @@
   #####################
   environment = {
     shellAliases = {
+      "nix.cacheall" = ''
+        cd /etc/nixos &&\
+        nix.update ;\
+        cd && mkdir -p cache && cd cache &&\
+        nixos-rebuild build -v --fallback --flake /etc/nixos/#cacheall ;\
+        nix.sign'';
       "nix.sign" = ''
         cd /etc/nixos &&\
         cd /nix/store &&\
@@ -92,6 +98,9 @@
       "nix.switch" = ''
         nix.build ;\
         sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS"'';
+      "nix.boot" = ''
+        nix.build &&\
+        sudo nixos-rebuild boot -v --install-bootloader '';
       "nix.build" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
@@ -103,22 +112,21 @@
         export DTS="-$(date '+%Y-%m-%d--%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################"
-        sudo nixos-rebuild boot --verbose --install-bootloader ;\
-        sudo nixos-rebuild boot --verbose --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
+        sudo nixos-rebuild boot -v --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
       "nix.mp" = ''
         nix.update ;\
         nix.build ;\
         echo "############# ---> NIXOS-REBUILD **all** NixOS-MP [$HNAME-$DTS] <--- ##########"
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixos-mp             -p "nixos-mp-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixos-console-mp     -p "nixos-console-mp-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v '';
+        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixos-mp         -p "nixos-mp-$DTS" ;\
+        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixos-console-mp -p "nixos-console-mp-$DTS" ;\
+        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#$HNAME           -p "$HNAME-$DTS" '';
       "nix.all" = ''
         nix.update ;\
         nix.build ;\
         echo "############# ---> NIXOS-REBUILD **all** NixOS [$HNAME-$DTS] <--- ##########"
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixos                -p "nixos-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#nixos-console        -p "nixos-console-$DTS" -v ;\
-        sudo nixos-rebuild boot --flake /etc/nixos/#$HNAME               -p "$HNAME-$DTS" -v '';
+        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixos         -p "nixos-$DTS" ;\
+        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixos-console -p "nixos-console-$DTS" ;\
+        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#$HNAME        -p "$HNAME-$DTS" '';
     };
   };
 }
