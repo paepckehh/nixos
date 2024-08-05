@@ -73,11 +73,11 @@
             httpie
             hyperfine
             openssl
-            oterm
             tldr
             shellcheck
             shfmt
             sysz
+            tailspin
             kmon
             moreutils
             fd
@@ -99,6 +99,7 @@
             vulnix
             yubikey-personalization
             yq
+            xh
           ];
         };
         fonts.fontconfig.enable = true;
