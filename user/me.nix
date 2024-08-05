@@ -65,10 +65,8 @@
             bandwhich
             bmon
             curlie
-            cyme
             dust
             dnsutils
-            fastfetch
             gobang
             git-crypt
             git-agecrypt
@@ -87,7 +85,6 @@
             jq
             oha
             openssl
-            tailspin
             tig
             tree
             trippy
