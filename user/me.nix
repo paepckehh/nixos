@@ -65,7 +65,6 @@
             curlie
             dust
             dnsutils
-            gcc
             git-crypt
             git-agecrypt
             httpie
@@ -80,10 +79,9 @@
             jq
             oha
             openssl
-            tgpt
             tree
             trippy
-            tshark
+            termshark
             tz
             paper-age
             passage
