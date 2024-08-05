@@ -59,6 +59,7 @@
           };
           file = {".config/starship.toml".source = ./resources/starship/gruvbox-rainbow.toml;};
           packages = with pkgs; [
+            asn
             age
             age-plugin-yubikey
             bandwhich
