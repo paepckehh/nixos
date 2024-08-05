@@ -79,7 +79,6 @@
             kmon
             moreutils
             fd
-            impala
             jq
             oha
             openssl
