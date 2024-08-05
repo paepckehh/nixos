@@ -23,6 +23,7 @@
       ADGUARD_PORT = "3000";
       ADGUARD_PROTOCOL = "http";
       ADGUARD_USERNAME = "";
+      ADGUARD_PASSWORD = "";
     };
   };
 
