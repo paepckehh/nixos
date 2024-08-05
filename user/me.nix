@@ -99,7 +99,6 @@
             vulnix
             yubikey-personalization
             yq
-            viddy
           ];
         };
         fonts.fontconfig.enable = true;
