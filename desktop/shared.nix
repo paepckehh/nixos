@@ -31,7 +31,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [alacritty gparted networkmanagerapplet opensnitch-ui];
+    systemPackages = with pkgs; [alacritty element-desktop gparted networkmanagerapplet opensnitch-ui];
     variables = {
       BROWSER = "librewolf";
       TERMINAL = "alacritty";
