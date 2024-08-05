@@ -15,6 +15,8 @@
   #-=# BOOT #=-#
   ##############
   boot = {
+    # kernelParams = ["brcmfmac.feature_disable=0x82000"];
+    kernelParams = ["hid_apple.iso_layout=0"];
     initrd = {
       availableKernelModules = [
         "applespi"
@@ -23,6 +25,13 @@
         "intel_lpss_pci"
       ];
     };
+  };
+
+  ##################
+  #-=# HARDWARE #=-#
+  ##################
+  hardware = {
+    facetimehd.enable = lib.mkForce false;
   };
 
   ####################

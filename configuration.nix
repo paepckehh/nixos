@@ -43,14 +43,14 @@
         "https://nixpkgs-unfree.cachix.org"
       ];
       substituters = lib.mkForce [
-        "https://cache.nixos.org/"
-        "https://nix-community.cachix.org"
         "https://nixpkgs-unfree.cachix.org"
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org/"
       ];
       trusted-public-keys = lib.mkForce [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
     };
     gc = {
@@ -61,9 +61,9 @@
     };
   };
 
-  #############
-  #-=# NIX #=-#
-  #############
+  #################
+  #-=# NIXPKGS #=-#
+  #################
   nixpkgs = {
     hostPlatform = lib.mkDefault "x86_64-linux";
     config = {
@@ -93,7 +93,7 @@
   boot = {
     blacklistedKernelModules = ["ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "sysv"];
     kernelPackages = pkgs.linuxPackages_latest; # opt _hardened
-    kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "ipv6.disable=1" "hid_apple.iso_layout=0"]; # alloc hardening
+    kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "ipv6.disable=1"];
     kernelModules = ["acpi_call" "kvm-intel" "kvm-amd" "vfat" "exfat"];
     readOnlyNixStore = lib.mkForce true;
     initrd = {
@@ -161,27 +161,6 @@
       };
     };
   };
-  hardware = {
-    cpu = {
-      amd.updateMicrocode = lib.mkForce true;
-      intel = {
-        sgx.provision.enable = lib.mkForce false;
-        updateMicrocode = lib.mkForce true;
-      };
-    };
-    enableRedistributableFirmware = lib.mkForce true;
-    facetimehd.enable = lib.mkForce false;
-  };
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-  };
-  console = {
-    earlySetup = lib.mkForce true;
-    keyMap = "us";
-    font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
-    packages = with pkgs; [powerline-fonts];
-  };
   time = {
     timeZone = "Europe/Berlin";
     hardwareClockInLocalTime = false;
@@ -191,7 +170,17 @@
     powertop.enable = false;
     cpuFreqGovernor = "powersave";
   };
+  console = {
+    earlySetup = lib.mkForce true;
+    keyMap = "us";
+    font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
+    packages = with pkgs; [powerline-fonts];
+  };
   swapDevices = [];
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+  };
 
   #################
   #-=# SYSTEMD #=-#
@@ -203,6 +192,22 @@
       hibernate.enable = false;
       hybrid-sleep.enable = false;
     };
+  };
+
+  ##################
+  #-=# HARDWARE #=-#
+  ##################
+  hardware = {
+    cpu = {
+      amd = {
+        updateMicrocode = lib.mkForce true;
+      };
+      intel = {
+        updateMicrocode = lib.mkForce true;
+        sgx.provision.enable = lib.mkForce false;
+      };
+    };
+    enableRedistributableFirmware = lib.mkForce true;
   };
 
   ##################
@@ -363,7 +368,7 @@
     variables = {
       VISUAL = "vim";
       EDITOR = "vim";
-      SCUDO_OPTIONS = lib.mkForce "ZeroContents=1";
+      # SCUDO_OPTIONS = lib.mkForce "ZeroContents=1";
     };
     systemPackages = with pkgs; [alejandra];
     shells = [pkgs.bashInteractive pkgs.zsh];
