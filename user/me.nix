@@ -100,7 +100,6 @@
             yubikey-personalization
             yq
             viddy
-            xh
           ];
         };
         fonts.fontconfig.enable = true;
