@@ -34,9 +34,7 @@
           stateVersion = "24.05";
           username = "me";
           homeDirectory = "/home/me";
-          keyboard = {
-            layout = "us,de";
-          };
+          keyboard.layout = "us,de";
           shellAliases = {
             e = "vim";
             n = "nvim";
