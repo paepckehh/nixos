@@ -105,6 +105,26 @@
           {networking.hostName = "nixos-console-mp";}
         ];
       };
+      nix-build = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./modules/chronyPublic.nix
+          ./server/builder.nix
+          ./user/me.nix
+          {networking.hostName = "nix-build";}
+        ];
+      };
+      ai = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./server/openweb-ui.nix
+          {networking.hostName = "ai";}
+        ];
+      };
       starlink = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -131,35 +151,6 @@
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           {networking.hostName = "iss-command";}
-        ];
-      };
-      nix-build = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./modules/chronyPublic.nix
-          ./server/builder.nix
-          ./user/me.nix
-          {networking.hostName = "nix-build";}
-        ];
-      };
-      cachall = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./hardware/macbook.nix
-          ./modules/chronyPublic.nix
-          ./modules/useBuilder.nix
-          ./desktop/gnome.nix
-          ./desktop/hyprland.nix
-          ./person/desktop/mp.nix
-          ./server/adguard.nix
-          ./server/openweb-ui.nix
-          ./server/unifi.nix
-          ./server/virtual.nix
-          {networking.hostName = "cacheall";}
         ];
       };
       ########################

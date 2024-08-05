@@ -8,7 +8,13 @@
         cd /etc/nixos &&\
         nix.update ;\
         cd && mkdir -p cache && cd cache &&\
-        nixos-rebuild build -v --fallback --flake /etc/nixos/#cacheall ;\
+        nixos-rebuild build -v --fallback --flake /etc/nixos/#ai ;\
+        nixos-rebuild build -v --fallback --flake /etc/nixos/#iss ;\
+        nixos-rebuild build -v --fallback --flake /etc/nixos/#nix-build ;\
+        nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos ;\
+        nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos-console ;\
+        nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos-mp ;\
+        nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos-console-mp ;\
         nix.sign'';
       "nix.sign" = ''
         cd /etc/nixos &&\
