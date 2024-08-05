@@ -96,6 +96,7 @@
             rage
             rustscan
             ugm
+            viddy
             vulnix
             yubikey-personalization
             yq
