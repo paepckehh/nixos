@@ -153,6 +153,7 @@
           ./modules/chronyPublic.nix
           ./modules/useBuilder.nix
           ./desktop/gnome.nix
+          ./desktop/hyprland.nix
           ./person/desktop/mp.nix
           ./server/adguard.nix
           ./server/openweb-ui.nix
