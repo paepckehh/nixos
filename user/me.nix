@@ -65,22 +65,30 @@
             bandwhich
             bmon
             curlie
+            cyme
             dust
             dnsutils
+            fastfetch
+            gobang
             git-crypt
             git-agecrypt
             httpie
             hyperfine
             openssl
+            oterm
             tldr
             shellcheck
             shfmt
             sysz
+            kmon
             moreutils
             fd
+            impala
             jq
             oha
             openssl
+            tailspin
+            tig
             tree
             trippy
             termshark
@@ -89,10 +97,13 @@
             passage
             portal
             rage
+            rustscan
             ugm
             vulnix
             yubikey-personalization
             yq
+            viddy
+            xh
           ];
         };
         fonts.fontconfig.enable = true;
