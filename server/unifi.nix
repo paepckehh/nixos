@@ -20,12 +20,20 @@
   };
   static-web-server = {
     enable = true;
-    listen = "[::]:80";
+    listen = "[::]:9090";
     root = "/var/www";
     configuration = {
       general = {
         directory-listing = true;
       };
+    };
+  };
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking = {
+    firewall = {
+      allowedTCPPorts = [9090];
     };
   };
   #################
