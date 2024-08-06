@@ -35,6 +35,11 @@
         git fsck --full &&\
         git gc --aggressive &&\
         git push --force '';
+      "nix.repair" = ''
+        cd /etc/nixos &&\
+        env sudo -v &&\
+        sudo nix-store --gc ;\
+        sudo nix-store --verify --check-contens --repair'';
       "nix.clean" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
