@@ -31,7 +31,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [alacritty element-desktop fractal gparted networkmanagerapplet opensnitch-ui];
+    systemPackages = with pkgs; [alacritty gparted networkmanagerapplet opensnitch-ui];
     variables = {
       BROWSER = "librewolf";
       TERMINAL = "alacritty";
@@ -57,7 +57,7 @@
         enable = true;
         support32Bit = true;
       };
-      # pulse.enable = true;
+      pulse.enable = true;
     };
   };
 
@@ -66,7 +66,7 @@
   ##################
   hardware = {
     # graphics.extraPackages = with pkgs; [intel-vaapi-driver intel-media-driver];
-    pulseaudio.enable = false; # disable pulseaudio here (use pipewire)
+    # pulseaudio.enable = false; # disable pulseaudio here (use pipewire)
     bluetooth = {
       enable = true;
       powerOnBoot = false;

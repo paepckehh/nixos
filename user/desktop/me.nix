@@ -11,6 +11,13 @@
     ../me.nix
   ];
 
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment = {
+    systemPackages = with pkgs; [element-desktop fractal linphone jitsi jami baresip];
+  };
+
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
