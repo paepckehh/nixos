@@ -28,7 +28,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [alacritty];
+    systemPackages = with pkgs; [alacritty kitty];
     variables = {
       BROWSER = "librewolf";
       TERMINAL = "alacritty";

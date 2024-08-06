@@ -10,7 +10,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./alias/buildnix.nix
+    ./alias/nixops.nix
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 

@@ -107,6 +107,18 @@
       "nix.boot" = ''
         nix.build &&\
         sudo nixos-rebuild boot -v --fallback --install-bootloader '';
+      "nix.offlinebuild" = ''
+        cd /etc/nixos &&\
+        env sudo -v &&\
+        sudo alejandra --quiet . &&\
+        sudo chown -R me:users .git &&\
+        git reset &&\
+        git add . &&\
+        git commit -S -m update ;\
+        export DTS="-$(date '+%Y-%m-%d--%H-%M')" ;\
+        export HNAME="$(hostname)" ;\
+        echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################"
+        sudo nixos-rebuild boot -v --option use-binary-caches false --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS-offline" '';
       "nix.build" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
