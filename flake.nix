@@ -140,7 +140,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./server/unifi.nix
+          # ./server/unifi.nix
           {networking.hostName = "iss";}
         ];
       };
@@ -175,7 +175,7 @@
           ./configuration.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
-          {networking.hostName = "nixos";}
+          {networking.hostName = "nixos-new";}
         ];
       };
     };

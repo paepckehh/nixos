@@ -92,8 +92,8 @@
   ##############
   boot = {
     blacklistedKernelModules = ["ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "sysv"];
-    kernelPackages = pkgs.linuxPackages_latest; # opt _hardened
-    kernelParams = ["slab_nomerge" "page_poison=1" "page_alloc.shuffle=1" "ipv6.disable=1"];
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = ["page_alloc.shuffle=1" "ipv6.disable=1"];
     kernelModules = ["acpi_call" "kvm-intel" "kvm-amd" "vfat" "exfat"];
     readOnlyNixStore = lib.mkForce true;
     initrd = {
@@ -224,7 +224,6 @@
     allowSimultaneousMultithreading = true;
     lockKernelModules = lib.mkForce true;
     protectKernelImage = lib.mkForce true;
-    forcePageTableIsolation = lib.mkForce true;
     apparmor = {
       enable = lib.mkForce true;
       killUnconfinedConfinables = lib.mkForce true;
@@ -363,12 +362,10 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    # memoryAllocator.provider = lib.mkForce "scudo"; # alloc hardening
     interactiveShellInit = ''uname -a'';
     variables = {
       VISUAL = "vim";
       EDITOR = "vim";
-      # SCUDO_OPTIONS = lib.mkForce "ZeroContents=1";
     };
     systemPackages = with pkgs; [alejandra];
     shells = [pkgs.bashInteractive pkgs.zsh];
