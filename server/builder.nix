@@ -47,6 +47,34 @@
   };
 
   ##################
+  #-=# PROGRAMS #=-#
+  ##################
+  programs = {
+    ccache = {
+      enable = true;
+      cacheDir = "/var/cache/ccache";
+      packageNames = with pkgs; ["mongodb" "mongodb-5_0" "mongodb-6_0"];
+    };
+    ssh = {
+      knownHosts = {
+        nix-build = {
+          extraHostNames = ["nix-build.lan"];
+          publicKey = "";
+        };
+      };
+    };
+  };
+
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking = {
+    firewall = {
+      allowedTCPPorts = [80 443];
+    };
+  };
+
+  ##################
   #-=# SERVICES #=-#
   ##################
   services = {
@@ -115,33 +143,6 @@
           addr = "0.0.0.0";
         }
       ];
-    };
-  };
-
-  ##################
-  #-=# PROGRAMS #=-#
-  ##################
-  programs = {
-    ccache = {
-      enable = true;
-      packageNames = ["mongodb" "mongodb-5_0" "mongodb-6_0"];
-    };
-    ssh = {
-      knownHosts = {
-        nix-build = {
-          extraHostNames = ["nix-build.lan"];
-          publicKey = "";
-        };
-      };
-    };
-  };
-
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking = {
-    firewall = {
-      allowedTCPPorts = [80];
     };
   };
 }
