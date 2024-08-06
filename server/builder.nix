@@ -97,6 +97,10 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
+    ccache = {
+      enable = true;
+      packageNames = ["mongodb" "mongodb-5_0" "mongodb-6_0"];
+    };
     ssh = {
       knownHosts = {
         nix-build = {
