@@ -12,9 +12,9 @@
       (self: super: {
         ccacheWrapper = super.ccacheWrapper.override {
           extraConfig = ''
+            export CCACHE_UMASK=007
             export CCACHE_COMPRESS=1
             export CCACHE_DIR="/var/cache/ccache"
-            export CCACHE_UMASK=007
             if [ ! -d "$CCACHE_DIR" ]; then
               echo "Directory '$CCACHE_DIR' does not exist! Please create it with: sudo mkdir -m0770 '$CCACHE_DIR' && sudo chown root:nixbld '$CCACHE_DIR'"
               exit 1
@@ -27,6 +27,20 @@
         };
       })
     ];
+  };
+
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment = {
+    variables = {
+      CCACHE_UMASK = "007";
+      CCACHE_COMPRESS = "1";
+      CCACHE_DIR = "/var/cache/ccache";
+    };
+    shellAliases = {
+      ccstat = "nix-ccache --show-stats && sudo nix-ccache --show-stats";
+    };
   };
 
   ###############
