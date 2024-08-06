@@ -39,7 +39,7 @@
         cd /etc/nixos &&\
         env sudo -v &&\
         sudo nix-store --gc ;\
-        sudo nix-store --verify --check-contens --repair'';
+        sudo nix-store --verify --check-contents --repair'';
       "nix.clean" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
