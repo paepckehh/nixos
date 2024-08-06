@@ -15,7 +15,15 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [element-desktop fractal linphone jitsi jami baresip];
+    systemPackages = with pkgs; [element-desktop fractal linphone jitsi jami baresip gparted networkmanagerapplet opensnitch-ui];
+  };
+
+  ##################
+  #-=# PROGRAMS #=-#
+  ##################
+  programs = {
+    coolercontrol.enable = true;
+    tuxclocker.enable = true;
   };
 
   ######################

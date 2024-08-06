@@ -13,9 +13,6 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    coolercontrol.enable = true;
-    tuxclocker.enable = true;
-    nm-applet.enable = true;
     firejail = {
       enable = true;
       wrappedBinaries = {
@@ -31,7 +28,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [alacritty gparted networkmanagerapplet opensnitch-ui];
+    systemPackages = with pkgs; [alacritty];
     variables = {
       BROWSER = "librewolf";
       TERMINAL = "alacritty";
@@ -66,7 +63,7 @@
   ##################
   hardware = {
     # graphics.extraPackages = with pkgs; [intel-vaapi-driver intel-media-driver];
-    # pulseaudio.enable = false; # disable pulseaudio here (use pipewire)
+    pulseaudio.enable = false; # disable pulseaudio here (use pipewire)
     bluetooth = {
       enable = true;
       powerOnBoot = false;
