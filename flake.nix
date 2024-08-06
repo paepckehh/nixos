@@ -140,7 +140,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./server/unifi.nix
+          # ./server/unifi.nix
           {networking.hostName = "iss";}
         ];
       };

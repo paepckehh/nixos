@@ -26,7 +26,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs.gnomeExtensions; [todotxt toggle-alacritty wireguard-vpn-extension wireless-hid wifi-qrcode];
+    systemPackages = with pkgs.gnomeExtensions; [toggle-alacritty wireguard-vpn-extension wifi-qrcode];
     gnome.excludePackages =
       (with pkgs; [
         gnome-tour
@@ -57,7 +57,7 @@
   ##################
   services = {
     gnome = {
-      # core-utilities.enable = lib.mkForce false;
+      core-utilities.enable = lib.mkForce false;
       games.enable = lib.mkForce false;
       gnome-browser-connector.enable = lib.mkForce false;
       gnome-initial-setup.enable = lib.mkForce false;
