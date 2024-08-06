@@ -76,7 +76,7 @@
     ccache = {
       enable = true;
       cacheDir = "/var/cache/ccache";
-      packageNames = with pkgs; ["mongodb" "mongodb-5_0" "mongodb-6_0"];
+      packageNames = ["mongodb" "mongodb-5_0" "mongodb-6_0"];
     };
     ssh = {
       knownHosts = {
