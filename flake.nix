@@ -20,7 +20,7 @@
         ccacheWrapper = super.ccacheWrapper.override {
           extraConfig = ''
             export CCACHE_COMPRESS=1
-            export CCACHE_DIR="${config.programs.ccache.cacheDir}"
+            export CCACHE_DIR="/var/cache/ccache"
             export CCACHE_UMASK=007
             if [ ! -d "$CCACHE_DIR" ]; then
               echo "Directory '$CCACHE_DIR' does not exist! Please create it with: sudo mkdir -m0770 '$CCACHE_DIR' && sudo chown root:nixbld '$CCACHE_DIR'"
