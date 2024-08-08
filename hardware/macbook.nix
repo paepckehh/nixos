@@ -16,7 +16,8 @@
   ##############
   boot = {
     # kernelParams = ["brcmfmac.feature_disable=0x82000"];
-    kernelParams = ["hid_apple.iso_layout=0" "hid_apple.swap_opt_cmd=1"];
+    # kernelParams = ["hid_apple.iso_layout=0"];
+    kernelParams = ["hid_apple.swap_opt_cmd=1"];
     initrd = {
       availableKernelModules = [
         "applespi"
