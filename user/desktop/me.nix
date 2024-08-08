@@ -15,7 +15,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [element-desktop fractal linphone jitsi jami baresip gparted networkmanagerapplet opensnitch-ui];
+    systemPackages = with pkgs; [gparted networkmanagerapplet opensnitch-ui];
   };
 
   ##################
