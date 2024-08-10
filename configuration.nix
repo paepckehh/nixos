@@ -405,8 +405,9 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    thermald.enable = true;
     auto-cpufreq.enable = true;
+    power-profiles-daemon.enable = lib.mkForce false;
+    thermald.enable = true;
     logind.hibernateKey = "ignore";
     opensnitch = {
       enable = false;
