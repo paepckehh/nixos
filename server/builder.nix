@@ -10,6 +10,7 @@
   nix = {
     settings = {
       allowed-users = lib.mkForce ["@wheel" "nixbuilder"];
+      trusted-users = lib.mkForce ["@wheel" "nixbuilder"];
       extra-sandbox-paths = lib.mkForce [config.programs.ccache.cacheDir];
     };
   };
