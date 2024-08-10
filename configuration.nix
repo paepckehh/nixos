@@ -168,7 +168,7 @@
   powerManagement = {
     enable = true;
     powertop.enable = false;
-    cpuFreqGovernor = "powersave";
+    cpuFreqGovernor = "balanced";
   };
   console = {
     earlySetup = lib.mkForce true;
@@ -253,7 +253,6 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    domain = "lan";
     useDHCP = lib.mkDefault true;
     enableIPv6 = lib.mkForce false;
     networkmanager.enable = true;
@@ -406,8 +405,8 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    # power-profiles-daemon.enable = true;
-    # thermald.enable = true;
+    thermald.enable = true;
+    auto-cpufreq.enable = true;
     logind.hibernateKey = "ignore";
     opensnitch = {
       enable = false;
