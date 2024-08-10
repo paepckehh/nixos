@@ -126,13 +126,18 @@
           {networking.hostName = "ai";}
         ];
       };
-      starlink = nixpkgs.lib.nixosSystem {
+      stargazer = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./server/adguard.nix
-          {networking.hostName = "starlink";}
+          {
+            networking = {
+              hostName = "stargazer";
+              domain = "admin.lan";
+            };
+          }
         ];
       };
       iss = nixpkgs.lib.nixosSystem {
@@ -140,8 +145,13 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          # ./server/unifi.nix
-          {networking.hostName = "iss";}
+          ./server/unifi.nix
+          {
+            networking = {
+              hostName = "iss";
+              domain = "admin.lan";
+            };
+          }
         ];
       };
       iss-command = nixpkgs.lib.nixosSystem {
@@ -151,7 +161,12 @@
           ./configuration.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
-          {networking.hostName = "iss-command";}
+          {
+            networking = {
+              hostName = "iss-command";
+              domain = "admin.lan";
+            };
+          }
         ];
       };
       ########################

@@ -39,8 +39,8 @@
             l = "ls -la";
             e = "vim";
             h = "htop --tree --highlight-changes";
+            b = "btop";
             n = "nvim";
-            b = "bmon";
             d = "dmesg --follow --human --kernel --userspace";
             c = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
             man = "batman";
