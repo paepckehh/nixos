@@ -33,7 +33,7 @@
       {
         hostName = "nix-build.lan"; # internal nixos build host/cluster
         systems = ["x86_64-linux"];
-        protocol = "ssh";
+        protocol = "ssh-ng";
         sshUser = "nixbuilder";
         sshKey = "/home/me/.ssh/id_nixbuilder";
         maxJobs = 1;
