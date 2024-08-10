@@ -36,13 +36,18 @@
           homeDirectory = "/home/me";
           keyboard.layout = "us,de";
           shellAliases = {
+            l = "ls -la";
             e = "vim";
+            h = "htop --tree --highlight-changes";
             n = "nvim";
+            b = "bmon";
+            d = "dmesg --follow --human --kernel --userspace";
             c = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
+            man = "batman";
+            slog = "journalctl --follow --priority=7 --lines=2500";
             cat = "bat --paging=never";
             termshark = "sudo termshark";
             bandwhich = "sudo bandwhich";
-            man = "batman";
             ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
             la = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
             lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
