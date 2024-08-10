@@ -47,7 +47,7 @@
   ##################
   services = {
     mbpfan.enable = true;
-    services.auto-cpufreq = {
+    auto-cpufreq = {
       enable = true;
       settings = {
         battery = {
