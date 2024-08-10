@@ -8,8 +8,10 @@
   #-=# NIXPKGS #=-#
   #################
   nix = {
-    allowed-users = lib.mkForce ["@wheel" "nixbuilder"];
-    settings.extra-sandbox-paths = [config.programs.ccache.cacheDir];
+    setting = {
+      allowed-users = lib.mkForce ["@wheel" "nixbuilder"];
+      extra-sandbox-paths = [config.programs.ccache.cacheDir];
+    };
   };
 
   #################
