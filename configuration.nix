@@ -266,7 +266,7 @@
     };
     proxy = {
       default = "";
-      noProxy = "1270.0.1,local,localhost,localdomain,192.168.0.0/16";
+      noProxy = "127.0.0.1,local,localhost,localdomain,192.168.0.0/16,10.0.0.0/8";
     };
   };
 
@@ -366,7 +366,7 @@
       VISUAL = "vim";
       EDITOR = "vim";
     };
-    systemPackages = with pkgs; [alejandra];
+    systemPackages = with pkgs; [alejandra ssh-tpm-agent];
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
       l = "ls -la";

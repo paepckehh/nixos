@@ -97,6 +97,7 @@
             portal
             rage
             rustscan
+            usbutils
             ugm
             viddy
             vulnix
