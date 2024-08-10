@@ -32,7 +32,7 @@
       };
     };
     static-web-server = {
-      enable = true;
+      enable = false;
       listen = ":9090";
       root = "/var/www";
       configuration = {
