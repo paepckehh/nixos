@@ -56,6 +56,10 @@
       };
       pulse.enable = true;
     };
+    usbguard = {
+      enable = true;
+      dbus.enable = true;
+    };
   };
 
   ##################
