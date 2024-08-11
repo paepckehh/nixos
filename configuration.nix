@@ -405,7 +405,6 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    auto-cpufreq.enable = true;
     dbus.apparmor = "required";
     power-profiles-daemon.enable = true;
     thermald.enable = true;
