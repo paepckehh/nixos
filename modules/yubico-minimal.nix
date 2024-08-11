@@ -4,15 +4,15 @@
   lib,
   ...
 }: {
-  boot = {
-    initrd = {
-      luks = {
-        fido2Support = false;
-        gpgSupport = false;
-        yubikeySupport = false;
-      };
-    };
-  };
+  # boot = {
+  #  initrd = {
+  #    luks = {
+  #      fido2Support = false;
+  #      gpgSupport = false;
+  #      yubikeySupport = false;
+  #    };
+  #  };
+  # };
 
   ##################
   #-=# SECURITY #=-#
@@ -74,8 +74,8 @@
   ##################
   #-=# PROGRAMS #=-#
   ##################
-  # programs.gnupg.agent = {
-  #   enable = false;
-  #   enableSSHSupport = false;
-  # };
+  programs.gnupg.agent = {
+    enable = false;
+    enableSSHSupport = false;
+  };
 }
