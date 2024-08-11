@@ -9,7 +9,6 @@
       luks = {
         fido2Support = false;
         gpgSupport = false;
-        mitigateDMAAttacks = true;
         yubikeySupport = false;
       };
     };
@@ -22,8 +21,8 @@
   security = {
     pam = {
       services = {
-        login.yubicoAuth = true;
-        sudo.yubicoAuth = true;
+        login.yubicoAuth = false;
+        sudo.yubicoAuth = false;
       };
       yubico = {
         enable = false;
@@ -46,6 +45,7 @@
   environment = {
     systemPackages = with pkgs; [
       age-plugin-yubikey
+      pcsclite
       yubioath-flutter
       yubikey-touch-detector
       yubikey-manager
@@ -75,7 +75,7 @@
   ##################
 
   programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
+    enable = false;
+    enableSSHSupport = false;
   };
 }

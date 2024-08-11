@@ -49,6 +49,7 @@
           ./hardware/macbook.nix
           ./modules/chronyPublic.nix
           ./modules/useBuilder.nix
+          ./modules/yubico-minimal.nix
           ./desktop/gnome.nix
           ./person/desktop/mp.nix
           ./server/adguard.nix
