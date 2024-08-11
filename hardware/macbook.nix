@@ -33,6 +33,7 @@
   ##################
   hardware = {
     facetimehd.enable = lib.mkForce false;
+    # graphics.extraPackages = with pkgs; [intel-vaapi-driver intel-ocl intel-media-driver];
   };
 
   ####################

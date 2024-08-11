@@ -7,8 +7,7 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [
-  ];
+  # imports = [];
 
   ##############
   #-=# BOOT #=-#
@@ -18,22 +17,6 @@
     extraModprobeConfig = ''
       blacklist nouveau
       options nouveau modeset=0'';
-    initrd = {
-      availableKernelModules = [
-      ];
-    };
-  };
-
-  ##################
-  #-=# HARDWARE #=-#
-  ##################
-  hardware = {
-  };
-
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking = {
   };
 
   ##################

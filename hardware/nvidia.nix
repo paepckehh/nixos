@@ -7,18 +7,7 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [
-  ];
-
-  ##############
-  #-=# BOOT #=-#
-  ##############
-  boot = {
-    initrd = {
-      availableKernelModules = [
-      ];
-    };
-  };
+  # imports = [];
 
   ##################
   #-=# HARDWARE #=-#
@@ -32,12 +21,6 @@
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
-  };
-
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking = {
   };
 
   ##################
