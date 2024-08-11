@@ -422,12 +422,9 @@
     };
     usbguard = {
       enable = true;
-      dbus.enable = true;
+      # dbus.enable = true;
       rules = ''
-        allow with-interface equals { 02:*:* }
-        allow with-interface equals { 08:*:* }
-        allow with-interface equals { 09:*:* }
-        allow with-interface equals { 11:*:* }
+        allow with-interface one-of { 02:*:* 08:*:* 09:*:* 11:*:* }
         reject with-interface all-of { 08:*:* 03:00:* }
         reject with-interface all-of { 08:*:* 03:01:* }
         reject with-interface all-of { 08:*:* e0:*:* }
