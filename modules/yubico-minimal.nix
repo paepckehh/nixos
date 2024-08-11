@@ -26,7 +26,7 @@
       };
       yubico = {
         enable = false;
-        challengeResponePath = "$HOME/.yubico/challenge";
+        challengeResponsePath = "$HOME/.yubico/challenge";
         control = "optional"; # required or optional
         debug = true;
         mode = "challenge-response";
