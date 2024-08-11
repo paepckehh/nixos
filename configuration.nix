@@ -406,7 +406,8 @@
   ##################
   services = {
     auto-cpufreq.enable = true;
-    power-profiles-daemon.enable = lib.mkForce false;
+    dbus.apparmor = "required";
+    power-profiles-daemon.enable = true;
     thermald.enable = true;
     logind.hibernateKey = "ignore";
     opensnitch = {
@@ -419,6 +420,11 @@
     fstrim = {
       enable = true;
       interval = "daily";
+    };
+    usbguard = {
+      enable = true;
+      dbus.enable = true;
+      rules = ''allow with-interface equals { *:*:* }'';
     };
   };
 }

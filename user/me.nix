@@ -70,28 +70,30 @@
             curlie
             dust
             dnsutils
+            goaccess
             gobang
             git-crypt
             git-agecrypt
             httpie
             hyperfine
             openssl
-            tldr
             shellcheck
             shfmt
             sysz
+            tldr
             tailspin
+            termdbms
+            termshark
+            tig
+            tree
+            trippy
+            tz
             kmon
             moreutils
             fd
             jq
             oha
             openssl
-            tig
-            tree
-            trippy
-            termshark
-            tz
             paper-age
             passage
             portal
