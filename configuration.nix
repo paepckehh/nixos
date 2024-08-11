@@ -421,8 +421,8 @@
       interval = "daily";
     };
     usbguard = {
-      enable = false;
-      dbus.enable = false;
+      enable = true;
+      dbus.enable = true;
       rules = ''allow with-interface equals { *:*:* }'';
     };
   };
