@@ -295,7 +295,7 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    gnupg.agent.enable = true;
+    gnupg.agent.enable = false;
     nano.enable = true;
     htop.enable = true;
     iftop.enable = true;
