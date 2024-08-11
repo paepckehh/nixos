@@ -266,7 +266,7 @@
     };
     proxy = {
       default = "";
-      noProxy = "127.0.0.1,local,localhost,localdomain,192.168.0.0/16,10.0.0.0/8";
+      noProxy = "local,localhost,localdomain,127.0.0.0/8,192.168.0.0/16,10.0.0.0/8";
     };
   };
 
