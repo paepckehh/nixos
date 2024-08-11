@@ -330,7 +330,7 @@
       prompt.enable = true;
       config = {
         branch.sort = "-committerdate";
-        commit.gpgsign = true;
+        commit.gpgsign = false;
         init.defaultBranch = "main";
         safe.directory = "/etc/nixos";
         gpg.format = "ssh";

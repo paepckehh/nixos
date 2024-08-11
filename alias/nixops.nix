@@ -11,6 +11,7 @@
         nixos-rebuild build -v --fallback --flake /etc/nixos/#ai ;\
         nixos-rebuild build -v --fallback --flake /etc/nixos/#iss ;\
         nixos-rebuild build -v --fallback --flake /etc/nixos/#nix-build ;\
+        nixos-rebuild build -v --fallback --flake /etc/nixos/#nix-build-desktop ;\
         nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos ;\
         nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos-console ;\
         nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos-mp ;\
@@ -147,9 +148,10 @@
         nix.update ;\
         nix.build ;\
         echo "############# ---> NIXOS-REBUILD **all** NixOS [$HNAME-$DTS] <--- ##########"
-        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixos         -p "nixos-$DTS" ;\
-        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixos-console -p "nixos-console-$DTS" ;\
-        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#$HNAME        -p "$HNAME-$DTS" '';
+        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nix-build         -p "nixos-$DTS" ;\
+        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nix-build-desktop -p "nixos-$DTS" ;\
+        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixos-console     -p "nixos-console-$DTS" ;\
+        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#$HNAME            -p "$HNAME-$DTS" '';
     };
   };
 }

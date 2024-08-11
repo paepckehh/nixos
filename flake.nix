@@ -125,6 +125,21 @@
           {networking.hostName = "nix-build";}
         ];
       };
+      nix-build-desktop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./hardware/nvidia-off.nix
+          ./modules/chronyPublic.nix
+          ./server/builder.nix
+          ./desktop/gnome.nix
+          ./user/desktop/me.nix
+          ./server/adguard.nix
+          ./server/virtual.nix
+          {networking.hostName = "nix-build-desktop";}
+        ];
+      };
       ai = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [

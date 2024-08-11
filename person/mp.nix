@@ -63,8 +63,8 @@
             userName = lib.mkForce "PAEPCKE, Michael";
             userEmail = lib.mkForce "git@github.com";
             signing = {
-              signByDefault = true;
-              key = "~/.ssh/id_ed25519_sk.pub";
+              signByDefault = lib.mkForce true;
+              key = lib.mkForce "~/.ssh/id_ed25519_sk.pub";
             };
             extraConfig = {
               protocol = {
