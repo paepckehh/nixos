@@ -405,7 +405,7 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    dbus.apparmor = "required";
+    # dbus.apparmor = "required";
     power-profiles-daemon.enable = true;
     thermald.enable = true;
     logind.hibernateKey = "ignore";
@@ -421,8 +421,8 @@
       interval = "daily";
     };
     usbguard = {
-      enable = true;
-      dbus.enable = true;
+      enable = false;
+      dbus.enable = false;
       rules = ''allow with-interface equals { *:*:* }'';
     };
   };
