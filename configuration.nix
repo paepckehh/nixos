@@ -303,8 +303,8 @@
     usbtop.enable = true;
     zsh.enable = true;
     ssh = {
-      hostKeyAlgorithms = ["ssh-ed25519"];
-      pubkeyAcceptedKeyTypes = ["ssh-ed25519"];
+      hostKeyAlgorithms = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
+      pubkeyAcceptedKeyTypes = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
       ciphers = ["chacha20-poly1305@openssh.com"];
       kexAlgorithms = ["curve25519-sha256" "curve25519-sha256@libssh.org"];
       knownHosts = {
