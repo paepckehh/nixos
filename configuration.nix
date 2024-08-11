@@ -207,7 +207,7 @@
         sgx.provision.enable = lib.mkForce false;
       };
     };
-    enableRedistributableFirmware = lib.mkForce true;
+    enableAllFirmware = lib.mkForce true;
   };
 
   ##################
@@ -295,7 +295,6 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    gnupg.agent.enable = false;
     nano.enable = true;
     htop.enable = true;
     iftop.enable = true;

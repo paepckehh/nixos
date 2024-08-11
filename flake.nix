@@ -33,6 +33,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./hardware/nvidia-off.nix
           ./modules/chronyPublic.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
@@ -46,6 +47,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./hardware/nvidia-off.nix
           ./hardware/macbook.nix
           ./modules/chronyPublic.nix
           ./modules/useBuilder.nix
@@ -64,6 +66,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./hardware/nvidia-off.nix
           ./modules/chronyPublic.nix
           ./desktop/hyprland.nix
           ./user/desktop/me.nix
@@ -77,6 +80,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./hardware/nvidia-off.nix
           ./hardware/macbook.nix
           ./modules/chronyPublic.nix
           ./desktop/hyprland.nix
@@ -91,6 +95,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./hardware/nvidia-off.nix
           ./modules/chronyPublic.nix
           ./user/me.nix
           {networking.hostName = "nixos-console";}
@@ -101,6 +106,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./hardware/nvidia-off.nix
           ./hardware/macbook.nix
           ./modules/chronyPublic.nix
           ./person/mp.nix
@@ -112,6 +118,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./hardware/nvidia-off.nix
           ./modules/chronyPublic.nix
           ./server/builder.nix
           ./user/me.nix

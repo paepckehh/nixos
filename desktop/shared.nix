@@ -62,7 +62,8 @@
   #-=# HARDWARE #=-#
   ##################
   hardware = {
-    # graphics.extraPackages = with pkgs; [intel-vaapi-driver intel-media-driver];
+    # graphics.extraPackages = with pkgs; [intel-vaapi-driver intel-ocl intel-media-driver];
+    graphics.enable = true;
     pulseaudio.enable = false; # disable pulseaudio here (use pipewire)
     bluetooth = {
       enable = true;
