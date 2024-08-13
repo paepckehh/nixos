@@ -98,14 +98,7 @@
     readOnlyNixStore = lib.mkForce true;
     initrd = {
       systemd.enable = lib.mkForce false;
-      availableKernelModules = [
-        "ahci"
-        "dm_mod"
-        "sd_mod"
-        "uas"
-        "usb_storage"
-        "xhci_pci"
-      ];
+      availableKernelModules = ["ahci" "dm_mod" "sd_mod" "sr_mod" "nvme" "mmc_block" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
     tmp = {
       cleanOnBoot = true;
