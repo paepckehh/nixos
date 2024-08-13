@@ -58,7 +58,15 @@
           ./server/openweb-ui.nix
           ./server/unifi.nix
           ./server/virtual.nix
-          {networking.hostName = "nixos-mp";}
+          {
+            networking = {
+              hostName = "nixos-mp";
+              hosts = {
+                "192.168.8.98" = ["ai" "ai.admin.lan" "ai.pvz.lan"];
+                "192.168.8.99" = ["nix-build" "nix-build.admin.lan" "nix-build.pvz.lan"];
+              };
+            };
+          }
         ];
       };
       nixos-hyprland = nixpkgs.lib.nixosSystem {
@@ -121,18 +129,6 @@
           ./hardware/nvidia-off.nix
           ./modules/chronyPublic.nix
           ./server/builder.nix
-          ./user/me.nix
-          {networking.hostName = "nix-build";}
-        ];
-      };
-      nix-build-desktop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./hardware/nvidia-off.nix
-          ./modules/chronyPublic.nix
-          ./server/builder.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
@@ -141,13 +137,12 @@
           ./server/virtual.nix
           {
             networking = {
-              hostName = "nix-build-desktop";
+              hostName = "nix-build";
               hosts = {
-                "192.168.8.98" = ["ai" "ai.admin.lan"];
-                "192.168.8.99" = ["nix-builder" "nix-builder.admin.lan"];
+                "192.168.8.98" = ["ai" "ai.admin.lan" "ai.pvz.lan"];
+                "192.168.8.99" = ["nix-build" "nix-build.pvz.lan" "nix-build.pvz.lan"];
               };
               defaultGateway = "192.168.8.1";
-              nameservers = ["192.168.8.1"];
               interfaces.enp0s20f0u2.ipv4.addresses = [
                 {
                   address = "192.168.8.98";

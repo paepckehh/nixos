@@ -5,11 +5,11 @@
   services = {
     ollama = {
       enable = true;
-      host = "0.0.0.0";
-      port = 6060;
+      host = "127.0.0.1";
+      port = 11434;
       openFirewall = false;
-      user = "ollama";
-      group = "ollama";
+      # user = "ollama";
+      # group = "ollama";
       # acceleration = false;
       # environmentVariables = [];
       # home = "";
