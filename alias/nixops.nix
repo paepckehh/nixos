@@ -10,11 +10,9 @@
         cd && mkdir -p cache && cd cache &&\
         nixos-rebuild build -v --fallback --flake /etc/nixos/#iss ;\
         nixos-rebuild build -v --fallback --flake /etc/nixos/#nix-build ;\
-        nixos-rebuild build -v --fallback --flake /etc/nixos/#nix-build-desktop ;\
         nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos ;\
         nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos-console ;\
         nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos-mp ;\
-        nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos-console-mp ;\
         nix.sign'';
       "nix.sign" = ''
         cd /etc/nixos &&\
@@ -141,7 +139,6 @@
         nix.build ;\
         echo "############# ---> NIXOS-REBUILD **all** NixOS-MP [$HNAME-$DTS] <--- ##########"
         sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixos-mp         -p "nixos-mp-$DTS" ;\
-        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixos-console-mp -p "nixos-console-mp-$DTS" ;\
         sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#$HNAME           -p "$HNAME-$DTS" '';
       "nix.all" = ''
         nix.update ;\
@@ -149,7 +146,6 @@
         echo "############# ---> NIXOS-REBUILD **all** NixOS [$HNAME-$DTS] <--- ##########"
         sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixos             -p "nixos-$DTS" ;\
         sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nix-build         -p "nix-build-$DTS" ;\
-        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nix-build-desktop -p "nix-build-desktop-$DTS" ;\
         sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#$HNAME            -p "$HNAME-$DTS" '';
     };
   };
