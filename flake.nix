@@ -109,18 +109,6 @@
           {networking.hostName = "nixos-console";}
         ];
       };
-      nixos-console-mp = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./hardware/nvidia-off.nix
-          ./hardware/macbook.nix
-          ./modules/chronyPublic.nix
-          ./person/mpaepcke.nix
-          {networking.hostName = "nixos-console-mp";}
-        ];
-      };
       nix-build = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
