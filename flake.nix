@@ -139,7 +139,10 @@
           ./server/ollama.nix
           ./server/openweb-ui.nix
           ./server/virtual.nix
-          {networking.hostName = "nix-build-desktop";}
+          {
+            networking.hostName = "nix-build-desktop";
+            nixpkgs.config.cudaSupport = true;
+          }
         ];
       };
       stargazer = nixpkgs.lib.nixosSystem {
