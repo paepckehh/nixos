@@ -53,7 +53,7 @@
           ./modules/useBuilder.nix
           ./modules/yubico-minimal.nix
           ./desktop/gnome.nix
-          ./person/desktop/mp.nix
+          ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/openweb-ui.nix
           ./server/unifi.nix
@@ -84,7 +84,7 @@
           ./hardware/macbook.nix
           ./modules/chronyPublic.nix
           ./desktop/hyprland.nix
-          ./person/desktop/mp.nix
+          ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/virtual.nix
           {networking.hostName = "nixos-hyprland-mp";}
@@ -109,7 +109,7 @@
           ./hardware/nvidia-off.nix
           ./hardware/macbook.nix
           ./modules/chronyPublic.nix
-          ./person/mp.nix
+          ./person/mpaepcke.nix
           {networking.hostName = "nixos-console-mp";}
         ];
       };
@@ -136,17 +136,10 @@
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
+          ./server/ollama.nix
+          ./server/openweb-ui.nix
           ./server/virtual.nix
           {networking.hostName = "nix-build-desktop";}
-        ];
-      };
-      ai = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./server/openweb-ui.nix
-          {networking.hostName = "ai";}
         ];
       };
       stargazer = nixpkgs.lib.nixosSystem {
@@ -177,7 +170,7 @@
           }
         ];
       };
-      iss-command = nixpkgs.lib.nixosSystem {
+      iss-command-tk = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
@@ -186,7 +179,22 @@
           ./user/desktop/me.nix
           {
             networking = {
-              hostName = "iss-command";
+              hostName = "iss-command-tk";
+              domain = "admin.lan";
+            };
+          }
+        ];
+      };
+      iss-command-jk = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./desktop/gnome.nix
+          ./user/desktop/me.nix
+          {
+            networking = {
+              hostName = "iss-command-jk";
               domain = "admin.lan";
             };
           }

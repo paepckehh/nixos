@@ -70,13 +70,13 @@
             curlie
             dust
             dnsutils
+            fastfetch
             goaccess
             gobang
             git-crypt
             git-agecrypt
             httpie
             hyperfine
-            openssl
             shellcheck
             shfmt
             sysz
@@ -88,8 +88,10 @@
             tree
             trippy
             tz
+            openssl
             kmon
             moreutils
+            fastfetch
             fd
             jq
             oha
