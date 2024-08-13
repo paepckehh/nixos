@@ -146,6 +146,8 @@
                 "192.168.8.98" = ["ai" "ai.admin.lan"];
                 "192.168.8.99" = ["nix-builder" "nix-builder.admin.lan"];
               };
+              defaultGateway = "192.168.8.1";
+              nameservers = ["192.168.8.1"];
               interfaces.enp0s20f0u2.ipv4.addresses = [
                 {
                   address = "192.168.8.98";
