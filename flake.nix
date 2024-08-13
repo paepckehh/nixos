@@ -62,8 +62,8 @@
             networking = {
               hostName = "nixos-mp";
               hosts = {
-                "192.168.8.98" = ["ai" "ai.admin.lan" "ai.pvz.lan"];
-                "192.168.8.99" = ["nix-build" "nix-build.admin.lan" "nix-build.pvz.lan"];
+                "192.168.8.98" = ["ai" "ai.lan" "ai.admin.lan" "ai.pvz.lan"];
+                "192.168.8.99" = ["nix-build" "nix-build.lan" "nix-build.pvz.lan" "nix-build.pvz.lan"];
               };
             };
           }
@@ -127,8 +127,8 @@
             networking = {
               hostName = "nix-build";
               hosts = {
-                "192.168.8.98" = ["ai" "ai.admin.lan" "ai.pvz.lan"];
-                "192.168.8.99" = ["nix-build" "nix-build.pvz.lan" "nix-build.pvz.lan"];
+                "192.168.8.98" = ["ai" "ai.lan" "ai.admin.lan" "ai.pvz.lan"];
+                "192.168.8.99" = ["nix-build" "nix-build.lan" "nix-build.pvz.lan" "nix-build.pvz.lan"];
               };
               defaultGateway = "192.168.8.1";
               interfaces.enp0s20f0u2.ipv4.addresses = [

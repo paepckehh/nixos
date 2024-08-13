@@ -47,6 +47,6 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    hosts = {"192.168.8.99" = ["nix-build.lan" "nix-build"];};
+    hosts = {"192.168.8.99" = ["nix-build" "nix-build.lan" "nix-build.admin.lan"];};
   };
 }
