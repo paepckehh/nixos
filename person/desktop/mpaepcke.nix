@@ -8,7 +8,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ../mp.nix
+    ../mpaepcke.nix
     ../../user/desktop/me.nix
   ];
 }
