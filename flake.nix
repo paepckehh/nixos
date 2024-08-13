@@ -140,8 +140,27 @@
           ./server/openweb-ui.nix
           ./server/virtual.nix
           {
-            networking.hostName = "nix-build-desktop";
-            nixpkgs.config.cudaSupport = true;
+            networking = {
+              hostName = "nix-build-desktop";
+              hosts = {
+                "192.168.8.98" = ["ai" "ai.admin.lan"];
+                "192.168.8.99" = ["nix-builder" "nix-builder.admin.lan"];
+              };
+              interfaces.enp0s20f0u2.ipv4.addresses = [
+                {
+                  address = "192.168.8.98";
+                  prefixLength = 24;
+                }
+                {
+                  address = "192.168.8.99";
+                  prefixLength = 24;
+                }
+              ];
+            };
+            nixpkgs.config = {
+              cudaSupport = false;
+              rocmSupport = false;
+            };
           }
         ];
       };
