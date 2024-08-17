@@ -91,6 +91,7 @@
             openssl
             kmon
             moreutils
+            mtr
             fastfetch
             fd
             jq

@@ -9,7 +9,7 @@
         nix.update ;\
         cd && mkdir -p cache && cd cache &&\
         nixos-rebuild build -v --fallback --flake /etc/nixos/#iss ;\
-        nixos-rebuild build -v --fallback --flake /etc/nixos/#nix-build ;\
+        nixos-rebuild build -v --fallback --flake /etc/nixos/#nixbuilder ;\
         nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos ;\
         nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos-console ;\
         nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos-mp ;\
@@ -97,6 +97,7 @@
         env sudo -v &&\
         sudo alejandra --quiet . &&\
         sudo chown -R me:users .git &&\
+        sudo cp flock.nix .attic/flock.nix/$(date '+%Y-%m-%d--%H-%M').nix" ;\
         git reset &&\
         git add . &&\
         git commit -S -m update ;\
@@ -145,7 +146,7 @@
         nix.build ;\
         echo "############# ---> NIXOS-REBUILD **all** NixOS [$HNAME-$DTS] <--- ##########"
         sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixos             -p "nixos-$DTS" ;\
-        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nix-build         -p "nix-build-$DTS" ;\
+        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixbuilder        -p "nixbuilder-$DTS" ;\
         sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#$HNAME            -p "$HNAME-$DTS" '';
     };
   };

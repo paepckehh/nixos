@@ -50,23 +50,15 @@
           ./hardware/nvidia-off.nix
           ./hardware/macbook.nix
           ./modules/chronyPublic.nix
-          ./modules/useBuilder.nix
+          # ./modules/useBuilder.nix
           ./modules/yubico-minimal.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/openweb-ui.nix
-          ./server/unifi.nix
+          # ./server/openweb-ui.nix
+          # ./server/unifi.nix
           ./server/virtual.nix
-          {
-            networking = {
-              hostName = "nixos-mp";
-              hosts = {
-                "192.168.8.98" = ["ai" "ai.lan" "ai.admin.lan" "ai.pvz.lan"];
-                "192.168.8.99" = ["nix-build" "nix-build.lan" "nix-build.pvz.lan" "nix-build.pvz.lan"];
-              };
-            };
-          }
+          {networking.hostName = "nixos-mp";}
         ];
       };
       nixos-hyprland = nixpkgs.lib.nixosSystem {
@@ -109,6 +101,18 @@
           {networking.hostName = "nixos-console";}
         ];
       };
+      nixos-console-mp = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./hardware/nvidia-off.nix
+          ./hardware/macbook.nix
+          ./modules/chronyPublic.nix
+          ./person/mpaepcke.nix
+          {networking.hostName = "nixos-console-mp";}
+        ];
+      };
       nix-build = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -127,8 +131,8 @@
             networking = {
               hostName = "nix-build";
               hosts = {
-                "192.168.8.98" = ["ai" "ai.lan" "ai.admin.lan" "ai.pvz.lan"];
-                "192.168.8.99" = ["nix-build" "nix-build.lan" "nix-build.pvz.lan" "nix-build.pvz.lan"];
+                "192.168.8.98" = ["ai" "ai.admin.lan" "ai.pvz.lan"];
+                "192.168.8.99" = ["nix-build" "nix-build.pvz.lan" "nix-build.pvz.lan"];
               };
               defaultGateway = "192.168.8.1";
               interfaces.enp0s20f0u2.ipv4.addresses = [

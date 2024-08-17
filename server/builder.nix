@@ -82,14 +82,14 @@
       cacheDir = "/var/cache/ccache";
       packageNames = ["mongodb" "mongodb-5_0" "mongodb-6_0"];
     };
-    ssh = {
-      knownHosts = {
-        nix-build = {
-          extraHostNames = ["nix-build.lan"];
-          publicKey = "";
-        };
-      };
-    };
+    #ssh = {
+    #  knownHosts = {
+    #    nixbuilder = {
+    #      extraHostNames = ["nixbuilder.lan"];
+    #      publicKey = "";
+    #    };
+    #  };
+    # };
   };
 
   ####################
@@ -117,7 +117,7 @@
       enable = true;
       recommendedProxySettings = true;
       virtualHosts = {
-        "nix-build.lan" = {
+        "nixbuilder.lan" = {
           locations."/".proxyPass = "http://${config.services.nix-serve.bindAddress}:${toString config.services.nix-serve.port}";
         };
       };
@@ -151,6 +151,8 @@
         StrictModes = true;
         LogLevel = "INFO";
         PasswordAuthentication = false;
+        PubkeyAcceptedAlgorithms = "ssh-ed25519,sk-ssh-ed25519@openssh.com";
+        PubkeyAuthentication = "yes";
         PermitRootLogin = "no";
         UseDns = false;
         UsePAM = true;
