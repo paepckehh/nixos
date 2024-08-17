@@ -20,7 +20,7 @@
     systemPackages = with pkgs; [adguardian];
     variables = {
       ADGUARD_IP = "127.0.0.1";
-      ADGUARD_PORT = "3000";
+      ADGUARD_PORT = "3232";
       ADGUARD_PROTOCOL = "http";
       ADGUARD_USERNAME = "";
       ADGUARD_PASSWORD = "";
