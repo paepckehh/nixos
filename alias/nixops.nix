@@ -97,7 +97,7 @@
         env sudo -v &&\
         sudo alejandra --quiet . &&\
         sudo chown -R me:users .git &&\
-        sudo cp flock.nix .attic/flock.nix/$(date '+%Y-%m-%d--%H-%M').nix" ;\
+        sudo cp flock.nix .attic/flock.nix/$"(date '+%Y-%m-%d--%H-%M')".nix ;\
         git reset &&\
         git add . &&\
         git commit -S -m update ;\
