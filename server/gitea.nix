@@ -9,11 +9,8 @@
       settings = {
         server = {
           protocol = "http";
-          http_port = "3232";
+          http_port = 3232;
           http_addr = "127.0.0.1";
-          # domain = "pvz.lan";
-          disable_ssh = false;
-          ssh_port = "22";
         };
       };
     };
