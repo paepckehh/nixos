@@ -128,7 +128,7 @@
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
           # ./server/virtual.nix
-          { networking.hostName = "nixbuilder"; }
+          {networking.hostName = "nixbuilder";}
         ];
       };
       stargazer = nixpkgs.lib.nixosSystem {
