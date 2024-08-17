@@ -41,11 +41,8 @@
       settings = {
         dhcp.enabled = false;
         tls.enabled = false;
-        http = {
-          address = "127.0.0.1";
-          port = 3232;
-          pprof.enabled = false;
-        };
+        host = "127.0.0.1";
+        port = 3232;
         dns = {
           anonymize_client_ip = false;
           aaaa_disabled = true;
