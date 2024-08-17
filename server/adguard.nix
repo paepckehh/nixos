@@ -42,7 +42,8 @@
         dhcp.enabled = false;
         tls.enabled = false;
         http = {
-          address = "127.0.0.1:3232";
+          address = "127.0.0.1";
+          port = "3232";
           pprof.enabled = false;
         };
         dns = {
