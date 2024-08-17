@@ -43,7 +43,7 @@
         tls.enabled = false;
         http = {
           address = "127.0.0.1";
-          port = "3232";
+          port = 3232;
           pprof.enabled = false;
         };
         dns = {
