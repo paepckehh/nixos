@@ -114,7 +114,7 @@
           {networking.hostName = "nixos-console-mp";}
         ];
       };
-      nix-build = nixpkgs.lib.nixosSystem {
+      nixbuilder = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
@@ -124,34 +124,11 @@
           ./server/builder.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
-          ./server/adguard.nix
-          ./server/ollama.nix
-          ./server/openweb-ui.nix
-          ./server/virtual.nix
-          {
-            networking = {
-              hostName = "nix-build";
-              hosts = {
-                "192.168.8.98" = ["ai" "ai.admin.lan" "ai.pvz.lan"];
-                "192.168.8.99" = ["nix-build" "nix-build.pvz.lan" "nix-build.pvz.lan"];
-              };
-              defaultGateway = "192.168.8.1";
-              interfaces.enp0s20f0u2.ipv4.addresses = [
-                {
-                  address = "192.168.8.98";
-                  prefixLength = 24;
-                }
-                {
-                  address = "192.168.8.99";
-                  prefixLength = 24;
-                }
-              ];
-            };
-            nixpkgs.config = {
-              cudaSupport = false;
-              rocmSupport = false;
-            };
-          }
+          # ./server/adguard.nix
+          # ./server/ollama.nix
+          # ./server/openweb-ui.nix
+          # ./server/virtual.nix
+          { networking.hostName = "nixbuilder"; }
         ];
       };
       stargazer = nixpkgs.lib.nixosSystem {
