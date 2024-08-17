@@ -55,9 +55,10 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
+          ./server/gitea.nix
           # ./server/openweb-ui.nix
           # ./server/unifi.nix
-          ./server/virtual.nix
+          # ./server/virtual.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
