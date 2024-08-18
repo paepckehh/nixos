@@ -65,10 +65,11 @@
             asn
             age
             age-plugin-yubikey
-            bandwhich
+            # bandwhich
             bmon
             curlie
             dust
+            dmidecode
             dnsutils
             fastfetch
             goaccess
