@@ -64,7 +64,6 @@
           packages = with pkgs; [
             asn
             age
-            age-plugin-yubikey
             # bandwhich
             bmon
             curlie
@@ -102,12 +101,9 @@
             passage
             portal
             rage
-            rustscan
             usbutils
             ugm
-            viddy
             vulnix
-            yubikey-personalization
             yq
             xh
           ];
