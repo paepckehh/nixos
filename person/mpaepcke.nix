@@ -8,36 +8,10 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
+    ./luks.me
     ../user/me.nix
   ];
 
-  ##############
-  #-=# BOOT #=-#
-  ##############
-  boot = {
-    initrd = {
-      availableKernelModules = ["aesni_intel" "cryptd"];
-      luks = {
-        mitigateDMAAttacks = lib.mkForce true;
-        devices."luks-d23b5430-fff4-456e-a94f-951fb8ef6992".device = "/dev/disk/by-uuid/d23b5430-fff4-456e-a94f-951fb8ef6992";
-      };
-    };
-  };
-
-  #####################
-  #-=# FILESYSTEMS #=-#
-  #####################
-  fileSystems = {
-    "/" = lib.mkForce {
-      device = "/dev/disk/by-uuid/783b1348-9349-494a-819f-5dd80eb0976d";
-      fsType = "ext4";
-    };
-  };
-
-  ####################
-  #-=# Networking #=-#
-  ####################
-  networking.extraHosts = ''192.168.8.99 builder.lan'';
 
   ###############
   #-=# USERS #=-#
@@ -58,6 +32,7 @@
   home-manager = {
     users = {
       me = {
+         home.file = {".config/Yubico/u2f_keys".text = ''me:sSrgGgPQa/v0aVMtp0xJjBk4MiGQ7J69z+IOyLM6k/fllVmaqMAYepVNYMLNnMgOJI4Fkf3uyjtIJfnd4qFHmw==,lXeZ32meNOQO1xEA70CjCFn/NDl5qL3rXJn/3LY5ayvaLGvyWE6rUaVYnagNhfaoIIeYfEDvKOXvqlgpn3xoMQ==,es256,+presence''
         programs = {
           git = {
             userName = lib.mkForce "PAEPCKE, Michael";
@@ -87,3 +62,4 @@
     };
   };
 }
+
