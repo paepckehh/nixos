@@ -8,7 +8,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./luks.me
+    ./luks.nix
     ../user/me.nix
     ../modules/yubico-minimal.nix
   ];
