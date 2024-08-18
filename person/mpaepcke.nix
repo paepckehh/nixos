@@ -10,7 +10,7 @@
   imports = [
     ./luks.nix
     ../user/me.nix
-    ../modules/yubico-minimal.nix
+    ../modules/yubico.nix
   ];
 
   ###############

@@ -24,8 +24,27 @@
   #-=# SECURITY #=-#
   ##################
   security.pam.services = {
-    login.u2fAuth = true;
-    sudo.u2fAuth = true;
+    login = {
+      allowNullPassword = false;
+      failDelay = {
+        enable = true;
+        delay = 10000000;
+      };
+      logFailures = true;
+      u2fAuth = true;
+      unixAuth = true;
+    };
+    sudo = {
+      allowNullPassword = false;
+      failDelay = {
+        enable = true;
+        delay = 10000000;
+      };
+      u2fAuth = true;
+      unixAuth = true;
+      logFailures = true;
+      requireWheel = true;
+    };
   };
 
   ##################
