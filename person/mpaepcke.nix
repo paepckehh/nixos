@@ -10,8 +10,8 @@
   imports = [
     ./luks.me
     ../user/me.nix
+    ../modules/yubico-minimal.nix
   ];
-
 
   ###############
   #-=# USERS #=-#
@@ -32,7 +32,12 @@
   home-manager = {
     users = {
       me = {
-         home.file = {".config/Yubico/u2f_keys".text = ''me:sSrgGgPQa/v0aVMtp0xJjBk4MiGQ7J69z+IOyLM6k/fllVmaqMAYepVNYMLNnMgOJI4Fkf3uyjtIJfnd4qFHmw==,lXeZ32meNOQO1xEA70CjCFn/NDl5qL3rXJn/3LY5ayvaLGvyWE6rUaVYnagNhfaoIIeYfEDvKOXvqlgpn3xoMQ==,es256,+presence''
+        home = {
+          file = {
+            ".config/Yubico/u2f_keys".text = ''
+              me:sSrgGgPQa/v0aVMtp0xJjBk4MiGQ7J69z+IOyLM6k/fllVmaqMAYepVNYMLNnMgOJI4Fkf3uyjtIJfnd4qFHmw==,lXeZ32meNOQO1xEA70CjCFn/NDl5qL3rXJn/3LY5ayvaLGvyWE6rUaVYnagNhfaoIIeYfEDvKOXvqlgpn3xoMQ==,es256,+presence'';
+          };
+        };
         programs = {
           git = {
             userName = lib.mkForce "PAEPCKE, Michael";
@@ -62,4 +67,3 @@
     };
   };
 }
-

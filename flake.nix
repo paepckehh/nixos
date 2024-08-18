@@ -50,7 +50,6 @@
           ./hardware/nvidia-off.nix
           ./hardware/macbook.nix
           ./modules/chronyPublic.nix
-          ./modules/yubico-minimal.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
