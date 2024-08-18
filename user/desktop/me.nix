@@ -15,7 +15,8 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [nvtopPackages.full gparted networkmanagerapplet opensnitch-ui];
+    # systemPackages = with pkgs; [nvtopPackages.full gparted networkmanagerapplet opensnitch-ui];
+    systemPackages = with pkgs; [gparted networkmanagerapplet];
   };
 
   ##################
