@@ -50,15 +50,16 @@
           ./hardware/nvidia-off.nix
           ./hardware/macbook.nix
           ./modules/chronyPublic.nix
-          # ./modules/useBuilder.nix
           ./modules/yubico-minimal.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/gitea.nix
+          # ./server/gitea.nix
           # ./server/openweb-ui.nix
+          # ./server/ollama.nix
           # ./server/unifi.nix
           # ./server/virtual.nix
+          # ./modules/useBuilder.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
@@ -121,9 +122,9 @@
           ./configuration.nix
           ./hardware/nvidia-off.nix
           ./modules/chronyPublic.nix
-          ./server/builder.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
+          ./server/builder.nix
           # ./server/adguard.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
