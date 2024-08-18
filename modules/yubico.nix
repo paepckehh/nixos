@@ -25,7 +25,7 @@
   ##################
   security.pam.services = {
     login = {
-      allowNullPassword = false;
+      allowNullPassword = lib.mkForce false;
       failDelay = {
         enable = true;
         delay = 10000000;
@@ -35,7 +35,7 @@
       unixAuth = true;
     };
     sudo = {
-      allowNullPassword = false;
+      allowNullPassword = lib.mkForce false;
       failDelay = {
         enable = true;
         delay = 10000000;
