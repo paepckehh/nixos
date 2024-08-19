@@ -155,7 +155,9 @@
             networking = {
               hostName = "iss";
               domain = "admin.lan";
+              wireless.enable = false;
             };
+            hardware.bluetooth.enable = false;
           }
         ];
       };
@@ -172,6 +174,7 @@
               domain = "admin.lan";
               wireless.enable = false;
             };
+            hardware.bluetooth.enable = false;
           }
         ];
       };
@@ -188,6 +191,7 @@
               domain = "admin.lan";
               wireless.enable = false;
             };
+            hardware.bluetooth.enable = false;
           }
         ];
       };
