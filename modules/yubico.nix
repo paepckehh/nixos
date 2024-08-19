@@ -61,8 +61,8 @@
   #-=# PROGRAMS #=-#
   ##################
   programs.gnupg.agent = {
-    enable = lib.mkForce true;
-    enableSSHSupport = lib.mkForce true;
+    enable = lib.mkForce false;
+    enableSSHSupport = lib.mkForce false;
   };
 
   #####################
