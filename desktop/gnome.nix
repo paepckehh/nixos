@@ -56,6 +56,7 @@
   #-=# SERVICES #=-#
   ##################
   services = {
+    gvfs.enable = lib.mkForce false;
     gnome = {
       core-utilities.enable = lib.mkForce false;
       games.enable = lib.mkForce false;

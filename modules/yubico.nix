@@ -23,27 +23,29 @@
   ##################
   #-=# SECURITY #=-#
   ##################
-  security.pam.services = {
-    login = {
-      allowNullPassword = lib.mkForce false;
-      failDelay = {
-        enable = true;
-        delay = 10000000;
+  security = {
+    pam.services = {
+      login = {
+        allowNullPassword = lib.mkForce false;
+        failDelay = {
+          enable = true;
+          delay = 10000000;
+        };
+        logFailures = true;
+        u2fAuth = true;
+        unixAuth = true;
       };
-      logFailures = true;
-      u2fAuth = true;
-      unixAuth = true;
-    };
-    sudo = {
-      allowNullPassword = lib.mkForce false;
-      failDelay = {
-        enable = true;
-        delay = 10000000;
+      sudo = {
+        allowNullPassword = lib.mkForce false;
+        failDelay = {
+          enable = true;
+          delay = 10000000;
+        };
+        u2fAuth = true;
+        unixAuth = true;
+        logFailures = true;
+        requireWheel = true;
       };
-      u2fAuth = true;
-      unixAuth = true;
-      logFailures = true;
-      requireWheel = true;
     };
   };
 
