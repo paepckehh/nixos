@@ -29,7 +29,7 @@
         enable = true;
         control = "sufficient"; # required
         cue = true;
-        debug = true;
+        debug = false;
       };
       services = {
         login = {
