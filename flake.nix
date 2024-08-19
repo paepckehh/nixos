@@ -49,9 +49,9 @@
           ./configuration.nix
           ./hardware/nvidia-off.nix
           ./hardware/macbook.nix
-          ./modules/chronyPublic.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
+          ./modules/chronyPublic.nix
           ./server/adguard.nix
           # ./server/gitea.nix
           # ./server/openweb-ui.nix
