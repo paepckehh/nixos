@@ -98,7 +98,7 @@
         sudo alejandra --quiet . &&\
         sudo chown -R me:users .git &&\
         sudo mkdir -p .attic/flake.lock &&\
-        sudo cp flake.lock .attic/flake.lock/$"(date '+%Y-%m-%d--%H-%M')".flake.lock ;\
+        sudo cp -f flake.lock .attic/flake.lock/$(date '+%Y-%m-%d--%H-%M').flake.lock ;\
         git reset &&\
         git add . &&\
         git commit -S -m update ;\
