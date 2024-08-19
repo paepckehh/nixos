@@ -16,6 +16,7 @@
   ##################
   programs = {
     geary.enable = false;
+    seahorse.enable = true;
     dconf = {
       enable = true;
       profiles.gdm.databases = [{settings."org/gnome/settings-daemon/plugins/power" = {power-button-action = "suspend";};}];

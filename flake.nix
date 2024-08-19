@@ -170,6 +170,7 @@
             networking = {
               hostName = "iss-command-tk";
               domain = "admin.lan";
+              wireless.enable = lib.mkForce false;
             };
           }
         ];
@@ -185,6 +186,7 @@
             networking = {
               hostName = "iss-command-jk";
               domain = "admin.lan";
+              wireless.enable = lib.mkForce false;
             };
           }
         ];
