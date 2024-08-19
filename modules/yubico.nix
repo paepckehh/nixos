@@ -62,9 +62,12 @@
   ##################
   #-=# PROGRAMS #=-#
   ##################
-  programs.gnupg.agent = {
-    enable = lib.mkForce false;
-    enableSSHSupport = lib.mkForce false;
+  programs = {
+    seahorse.enable = lib.mkForce false;
+    gnupg.agent = {
+      enable = lib.mkForce false;
+      enableSSHSupport = lib.mkForce false;
+    };
   };
 
   #####################
