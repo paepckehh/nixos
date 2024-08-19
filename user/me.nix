@@ -64,7 +64,7 @@
           packages = with pkgs; [
             asn
             age
-            bandwhich
+            # broken: bandwhich
             bmon
             curlie
             dust
