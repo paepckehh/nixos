@@ -62,11 +62,11 @@
       games.enable = lib.mkForce false;
       gnome-browser-connector.enable = lib.mkForce false;
       gnome-initial-setup.enable = lib.mkForce false;
-      gnome-keyring.enable = lib.mkForce false;
       gnome-online-accounts.enable = lib.mkForce false;
       gnome-online-miners.enable = lib.mkForce false;
       gnome-remote-desktop.enable = lib.mkForce false;
       gnome-user-share.enable = lib.mkForce false;
+      # gnome-keyring.enable = lib.mkForce false;
     };
     xserver = {
       displayManager.gdm = {
