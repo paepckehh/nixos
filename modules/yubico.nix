@@ -60,5 +60,8 @@
   #####################
   environment = {
     systemPackages = with pkgs; [pam_u2f];
+    shellAliases = {
+      yubico-reload = "pkill ssh-agent ; ssh-add -k";
+    };
   };
 }
