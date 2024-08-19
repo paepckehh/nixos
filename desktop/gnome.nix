@@ -15,8 +15,8 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    geary.enable = false;
-    seahorse.enable = true;
+    geary.enable = lib.mkForce false;
+    seahorse.enable = lib.mkForce false;
     dconf = {
       enable = true;
       profiles.gdm.databases = [{settings."org/gnome/settings-daemon/plugins/power" = {power-button-action = "suspend";};}];
@@ -67,7 +67,7 @@
       gnome-online-miners.enable = lib.mkForce false;
       gnome-remote-desktop.enable = lib.mkForce false;
       gnome-user-share.enable = lib.mkForce false;
-      # gnome-keyring.enable = lib.mkForce false;
+      gnome-keyring.enable = lib.mkForce false;
     };
     xserver = {
       displayManager.gdm = {
