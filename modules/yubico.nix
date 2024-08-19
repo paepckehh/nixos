@@ -28,8 +28,10 @@
       u2f = {
         enable = true;
         control = "sufficient"; # required
-        cue = true;
-        debug = false;
+        settings = {
+          cue = true;
+          debug = false;
+        };
       };
       services = {
         login = {
