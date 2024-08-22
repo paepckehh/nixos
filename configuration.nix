@@ -292,6 +292,8 @@
     usbtop.enable = true;
     zsh.enable = true;
     ssh = {
+      startAgent = lib.mkForce true;
+      extraConfig = "AddKeysToAgent yes";
       hostKeyAlgorithms = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
       pubkeyAcceptedKeyTypes = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
       ciphers = ["chacha20-poly1305@openssh.com"];
@@ -350,7 +352,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    interactiveShellInit = ''uname -a'';
+    interactiveShellInit = ''uname -a && eval "$(ssh-agent)"'';
     variables = {
       VISUAL = "vim";
       EDITOR = "vim";
