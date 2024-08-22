@@ -16,7 +16,7 @@
   nixpkgs = {
     config.packageOverrides = pkgs: with pkgs; {
      librewolf = stdenv.lib.overrideDerivation librewolf (_: {
-      desktopItem = makeDesktopItem {...};
+      desktopItem = makeDesktopItem {Icon=librewolf};
      });
    };
  };
