@@ -9,14 +9,14 @@
   #################
   # imports = [];
 
-
   #################
   #-=# NIXPKGS #=-#
   #################
   nixpkgs = {
-    config.packageOverrides = pkgs: with pkgs; {
-      librewolf = stdenv.lib.overrideDerivation librewolf (_: { desktopItem = makeDesktopItem }; );
-    };
+    config.packageOverrides = pkgs:
+      with pkgs; {
+        # librewolf = stdenv.lib.overrideDerivation librewolf (_: { desktopItem = makeDesktopItem {...}; }; );
+      };
   };
 
   ##################
