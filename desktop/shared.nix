@@ -16,10 +16,10 @@
     firejail = {
       enable = true;
       wrappedBinaries = {
-        # librewolf = {
-        #  profile = "${lib.getBin pkgs.firejail}/etc/firejail/librewolf.profile";
-        #  executable = "${lib.getBin pkgs.librewolf}/bin/librewolf";
-        # };
+        librewolf = {
+          profile = "${lib.getBin pkgs.firejail}/etc/firejail/librewolf.profile";
+          executable = "${lib.getBin pkgs.librewolf}/bin/librewolf";
+        };
       };
     };
   };
