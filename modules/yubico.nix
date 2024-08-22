@@ -63,6 +63,10 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
+    ssh = {
+      startAgent = lib.mkForce true;
+      extraConfig = "AddKeysToAgent yes";
+    };
     seahorse.enable = lib.mkForce false;
     gnupg.agent = {
       enable = lib.mkForce false;
