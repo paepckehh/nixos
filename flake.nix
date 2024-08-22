@@ -56,12 +56,11 @@
           ./person/desktop/mpaepcke.nix
           ./modules/chronyPublic.nix
           ./server/adguard.nix
+          ./server/virtual.nix
           # ./server/gitea.nix
           # ./server/openweb-ui.nix
           # ./server/ollama.nix
           # ./server/unifi.nix
-          # ./server/virtual.nix
-          # ./modules/useBuilder.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
