@@ -9,6 +9,18 @@
   #################
   # imports = [];
 
+
+  #################
+  #-=# NIXPKGS #=-#
+  #################
+  nixpkgs = {
+    config.packageOverrides = pkgs: with pkgs; {
+     firefox = stdenv.lib.overrideDerivation librefox (_: {
+      desktopItem = makeDesktopItem {...};
+     });
+   };
+ };
+
   ##################
   #-=# PROGRAMS #=-#
   ##################
