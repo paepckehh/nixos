@@ -40,7 +40,8 @@
   ##################
   services = {
     autosuspend.enable = lib.mkForce false;
-    blueman.enable = true;
+    blueman.enable = lib.mkForce true;
+    speechd.enable = lib.mkForce false;
     printing.enable = lib.mkForce true;
     xserver = {
       enable = true;
