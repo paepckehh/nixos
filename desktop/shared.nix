@@ -15,7 +15,7 @@
   #################
   nixpkgs = {
     config.packageOverrides = pkgs: with pkgs; {
-     firefox = stdenv.lib.overrideDerivation librefox (_: {
+     firefox = stdenv.lib.overrideDerivation librewolf (_: {
       desktopItem = makeDesktopItem {...};
      });
    };
