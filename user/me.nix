@@ -40,7 +40,6 @@
             e = "vim";
             h = "htop --tree --highlight-changes";
             b = "btop";
-            n = "nvim";
             d = "dmesg --follow --human --kernel --userspace";
             c = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
             man = "batman";
@@ -64,7 +63,7 @@
           packages = with pkgs; [
             asn
             age
-            # broken: bandwhich
+            bandwhich
             bmon
             curlie
             dust
