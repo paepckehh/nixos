@@ -9,7 +9,7 @@
   ##################
   services = {
     udev = {
-      packages = [pkgs.yubikey-personalization];
+      # packages = [pkgs.yubikey-personalization];
       extraRules = ''
         ACTION=="remove",\
          ENV{ID_BUS}=="usb",\
