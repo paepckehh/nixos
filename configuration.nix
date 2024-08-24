@@ -247,6 +247,7 @@
     enableIPv6 = lib.mkForce false;
     networkmanager.enable = true;
     nftables.enable = true;
+    wireguard.enable = true;
     firewall = {
       enable = true;
       allowPing = false;
