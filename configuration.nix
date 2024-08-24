@@ -357,7 +357,7 @@
       VISUAL = "vim";
       EDITOR = "vim";
     };
-    systemPackages = with pkgs; [alejandra ssh-tpm-agent];
+    systemPackages = with pkgs; [alejandra ssh-tpm-agent wireguard-tools];
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
       l = "ls -la";
