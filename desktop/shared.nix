@@ -9,16 +9,6 @@
   #################
   # imports = [];
 
-  #################
-  #-=# NIXPKGS #=-#
-  #################
-  nixpkgs = {
-    config.packageOverrides = pkgs:
-      with pkgs; {
-        # librewolf = stdenv.lib.overrideDerivation librewolf (_: { desktopItem = makeDesktopItem {...}; });
-      };
-  };
-
   ##################
   #-=# PROGRAMS #=-#
   ##################
@@ -39,7 +29,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [alacritty kitty];
+    systemPackages = with pkgs; [alacritty kitty librewolf];
     variables = {
       BROWSER = "librewolf";
       TERMINAL = "alacritty";
