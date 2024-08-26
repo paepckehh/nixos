@@ -29,7 +29,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [alacritty kitty librewolf];
+    systemPackages = with pkgs; [alacritty kitty];
     variables = {
       BROWSER = "librewolf";
       TERMINAL = "alacritty";

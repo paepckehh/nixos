@@ -35,6 +35,9 @@
       remmina.enable = true;
     };
     programs = {
+      librewolf = {
+        enable = true;
+      };
       kitty = {
         enable = true;
         settings = {
