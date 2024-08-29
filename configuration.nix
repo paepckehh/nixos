@@ -397,17 +397,9 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    # dbus.apparmor = "required";
     power-profiles-daemon.enable = true;
     thermald.enable = true;
     logind.hibernateKey = "ignore";
-    opensnitch = {
-      enable = false;
-      settings = {
-        firewall = "nftables";
-        defaultAction = "deny";
-      };
-    };
     fstrim = {
       enable = true;
       interval = "daily";

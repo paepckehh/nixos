@@ -1,10 +1,11 @@
-{
+tart
+
   description = "nixos generic flake";
   inputs = {
+    # nixpkgs.url = "github:NixOS/nixpkgs/1840a27";
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    nixpkgs.url = "github:NixOS/nixpkgs/1840a27";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-Release.url = "github:NixOS/nixpkgs/nixos-24.05";
     disko = {
       url = "github:nix-community/disko";
@@ -58,9 +59,9 @@
           ./server/adguard.nix
           ./server/virtual.nix
           # ./server/gitea.nix
+          # ./server/unifi.nix
           # ./server/openweb-ui.nix
           # ./server/ollama.nix
-          # ./server/unifi.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
