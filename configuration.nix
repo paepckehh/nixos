@@ -353,11 +353,10 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
+    etc."lvm/lvm.conf".text = lib.mkForce ''
+      devices { issue_discards = 1 }
+      allocations { thin_pool_discards = 1 }'';
     interactiveShellInit = ''uname -a && eval "$(ssh-agent)"'';
-    variables = {
-      VISUAL = "vim";
-      EDITOR = "vim";
-    };
     systemPackages = with pkgs; [alejandra ssh-tpm-agent wireguard-tools];
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
@@ -365,6 +364,10 @@
       e = "vim";
       h = "htop --tree --highlight-changes";
       slog = "journalctl --follow --priority=7 --lines=2500";
+    };
+    variables = {
+      VISUAL = "vim";
+      EDITOR = "vim";
     };
   };
 
