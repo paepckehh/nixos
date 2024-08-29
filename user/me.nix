@@ -92,8 +92,11 @@
             tz
             openssl
             kmon
+            keepassxc
+            keepassxc-go
             moreutils
             mtr
+            nodejs
             nix-tree
             fastfetch
             fd
