@@ -91,6 +91,7 @@
             kmon
             moreutils
             mtr
+            nix-tree
             fastfetch
             fd
             jq

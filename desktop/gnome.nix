@@ -19,7 +19,7 @@
     seahorse.enable = lib.mkForce false;
     dconf = {
       enable = true;
-      profiles.gdm.databases = [{settings."org/gnome/settings-daemon/plugins/power" = {power-button-action = "suspend";};}];
+      profiles.gdm.databases = [{settings."org/gnome/settings-daemon/plugins/power" = {power-button-action = "poweroff";};}];
     };
   };
 
@@ -27,7 +27,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs.gnomeExtensions; [toggle-alacritty wireguard-vpn-extension wifi-qrcode];
+    systemPackages = with pkgs.gnomeExtensions; [toggle-alacritty battery-health-charging wireguard-vpn-extension wifi-qrcode];
     gnome.excludePackages = with pkgs; [
       gnome-characters
       gnome-calendar
