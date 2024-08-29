@@ -59,6 +59,7 @@
             PAGER = "bat";
             SHELLCHECK_OPTS = "-e SC2086";
           };
+          file = {".config/starship.toml".source = ./resources/starship/gruvbox-rainbow.toml;}; # ".config/npmrc".text = ''prefix=~/.npm-packages'';
           packages = with pkgs; [
             asn
             age
@@ -174,8 +175,6 @@
             };
           };
         };
-        file = {".config/starship.toml".source = ./resources/starship/gruvbox-rainbow.toml;};
-        # ".config/npmrc".text = ''prefix=~/.npm-packages'';
       };
     };
   };
