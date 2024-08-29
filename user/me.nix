@@ -174,10 +174,8 @@
             };
           };
         };
-        file = {
-          # ".config/npmrc".text = ''prefix=~/.npm-packages'';
-          ".config/starship.toml".source = ./resources/starship/gruvbox-rainbow.toml;
-        };
+        file = {".config/starship.toml".source = ./resources/starship/gruvbox-rainbow.toml;};
+        # ".config/npmrc".text = ''prefix=~/.npm-packages'';
       };
     };
   };
