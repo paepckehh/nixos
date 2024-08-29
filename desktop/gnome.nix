@@ -28,29 +28,25 @@
   #####################
   environment = {
     systemPackages = with pkgs.gnomeExtensions; [toggle-alacritty wireguard-vpn-extension wifi-qrcode];
-    gnome.excludePackages =
-      (with pkgs; [
-        gnome-tour
-        gnome-calendar
-        gnome-terminal
-        totem
-        geary
-        cheese
-        gnome-photos
-        gnome-tour
-        gedit
-        evince
-        epiphany
-      ])
-      ++ (with pkgs.gnome; [
-        gnome-music
-        gnome-contacts
-        gnome-characters
-        tali
-        iagno
-        hitori
-        atomix
-      ]);
+    gnome.excludePackages = with pkgs; [
+      gnome-characters
+      gnome-calendar
+      gnome-contacts
+      gnome-photos
+      gnome-tour
+      gnome-terminal
+      gnome-music
+      atomix
+      cheese
+      geary
+      epiphany
+      iagno
+      totem
+      gedit
+      evince
+      hitori
+      tali
+    ];
   };
 
   ##################
