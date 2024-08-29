@@ -354,8 +354,12 @@
   #####################
   environment = {
     etc."lvm/lvm.conf".text = lib.mkForce ''
-      devices { issue_discards = 1 }
-      allocations { thin_pool_discards = 1 }'';
+      devices { 
+         issue_discards = 1 
+      }
+      allocations { 
+        thin_pool_discards = 1 
+      }'';
     interactiveShellInit = ''uname -a && eval "$(ssh-agent)"'';
     systemPackages = with pkgs; [alejandra ssh-tpm-agent wireguard-tools];
     shells = [pkgs.bashInteractive pkgs.zsh];
