@@ -1,3 +1,4 @@
+{
   description = "nixos generic flake";
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/1840a27";
