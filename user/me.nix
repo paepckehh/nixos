@@ -43,6 +43,7 @@
             d = "dmesg --follow --human --kernel --userspace";
             c = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
             man = "batman";
+            ollama-commit = "/home/me/.npm-packages/bin/ollama-commit --language en --api http://localhost:11434 --model mistral";
             slog = "journalctl --follow --priority=7 --lines=2500";
             cat = "bat --paging=never";
             termshark = "sudo termshark";
@@ -60,7 +61,8 @@
             SHELLCHECK_OPTS = "-e SC2086";
           };
           file = {
-            ".config/npmrc".text = ''prefix=~/.npm-packages'';
+            # ".config/npmrc".text = ''prefix=~/.npm-packages'';
+            ".npmrc".text = ''prefix=~/.npm-packages'';
             ".config/starship.toml".source = ./resources/starship/gruvbox-rainbow.toml;
           };
           packages = with pkgs; [
