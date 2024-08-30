@@ -83,7 +83,7 @@
     };
     "/boot" = {
       fsType = "vfat";
-      device = "/dev/disk/by-diskseq/1-part1";
+      device = "/dev/disk/by-diskseq/1-part1"; # always boot from drive one
       options = ["fmask=0022" "dmask=0022"];
     };
   };
