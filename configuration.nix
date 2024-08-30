@@ -77,13 +77,13 @@
   #####################
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-diskseq/1-part2";
       fsType = "ext4";
+      device = "/dev/disk/by-diskseq/1-part2";
       options = ["noatime" "nodiratime" "discard"];
     };
     "/boot" = {
-      device = "/dev/disk/by-diskseq/1-part1";
       fsType = "vfat";
+      device = "/dev/disk/by-diskseq/1-part1";
       options = ["fmask=0022" "dmask=0022"];
     };
   };
