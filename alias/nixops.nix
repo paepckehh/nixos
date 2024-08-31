@@ -135,7 +135,7 @@
         export DTS="-$(date '+%Y-%m-%d--%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################" &&\
-        nom build .#nixosConfigurations.$HNAME.config.system.build.toplevel ;\
+        sudo nom build .#nixosConfigurations.$HNAME.config.system.build.toplevel ;\
         sudo nixos-rebuild boot -v --fallback --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
       "nix.mp" = ''
         nix.update ;\
