@@ -70,9 +70,11 @@
             age
             bandwhich
             bmon
+            certgraph
             curlie
             dust
             dmidecode
+            dnstracer
             dnsutils
             fastfetch
             goaccess
@@ -83,6 +85,7 @@
             hyperfine
             shellcheck
             shfmt
+            socialscan
             sysz
             tldr
             tailspin
@@ -114,9 +117,10 @@
             rage
             usbutils
             ugm
+            webanalyze
             vulnix
-            yq
             xh
+            yq
           ];
         };
         fonts.fontconfig.enable = true;
