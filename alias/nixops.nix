@@ -27,11 +27,12 @@
         host cache.nixos.org ;\
         sudo alejandra --quiet . &&\
         sudo chown -R me:users .git &&\
-        git reset &&\
-        git add . &&\
+        git reset ;\
+        git add . ;\
         git commit -S -m update ;\
-        git fsck --full &&\
-        git gc --aggressive &&\
+        git reflog expire --expire-unreachable=now --all ;\
+        git gc --aggressive --prune=now ;\
+        git fsck --full ;\
         git push --force '';
       "nix.repair" = ''
         cd /etc/nixos &&\
