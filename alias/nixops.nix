@@ -141,12 +141,14 @@
       "nix.mp" = ''
         nix.update ;\
         nix.build ;\
+        export DTS="-$(date '+%Y-%m-%d--%H-%M')" ;\
         echo "############# ---> NIXOS-REBUILD **all** NixOS-MP [$HNAME-$DTS] <--- ##########"
         sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixos-mp         -p "nixos-mp-$DTS" ;\
         sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#$HNAME           -p "$HNAME-$DTS" '';
       "nix.all" = ''
         nix.update ;\
         nix.build ;\
+        export DTS="-$(date '+%Y-%m-%d--%H-%M')" ;\
         echo "############# ---> NIXOS-REBUILD **all** NixOS [$HNAME-$DTS] <--- ##########"
         sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixos             -p "nixos-$DTS" ;\
         sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixbuilder        -p "nixbuilder-$DTS" ;\
