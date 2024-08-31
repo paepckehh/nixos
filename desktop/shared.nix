@@ -29,7 +29,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [alacritty kitty];
+    systemPackages = with pkgs; [alacritty pulseaudio kitty];
     variables = {
       BROWSER = "librewolf";
       TERMINAL = "alacritty";
@@ -52,11 +52,12 @@
     };
     pipewire = {
       enable = true;
+      pulse.enable = true;
+      wireplumber.enable = true;
       alsa = {
         enable = true;
         support32Bit = true;
       };
-      pulse.enable = true;
     };
   };
 
@@ -66,7 +67,7 @@
   hardware = {
     # graphics.extraPackages = with pkgs; [intel-vaapi-driver intel-ocl intel-media-driver];
     graphics.enable = true;
-    pulseaudio.enable = false; # disable pulseaudio here (use pipewire)
+    pulseaudio.enable = false;
     bluetooth = {
       enable = true;
       powerOnBoot = false;
