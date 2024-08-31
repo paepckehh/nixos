@@ -1,21 +1,32 @@
 {config, ...}: {
-  services.chrony = {
-    enable = true;
-    enableNTS = true;
-    enableMemoryLocking = true;
-    servers = [
-      "ntppool1.time.nl"
-      "ntppool2.time.nl"
-      "ntp.3eck.net"
-      "ntp.trifence.ch"
-      "ntp.zeitgitter.net"
-      "paris.time.system76.com"
-      "brazil.time.system76.com"
-      "ohio.time.system76.com"
-      "oregon.time.system76.com"
-      "virginia.time.system76.com"
-      "stratum1.time.cifelli.xyz"
-      "time.txryan.com"
-    ];
+  services = {
+    timesyncd.enable = false;
+    chrony = {
+      enable = true;
+      extraFlags = ["-F 1"];
+      enableNTS = true;
+      enableMemoryLocking = true;
+      extraConfig = ''
+        server ntppool1.time.nl iburst nts
+        server ntppool2.time.nl iburst nts
+        server nts.netnod.se iburst nts
+        server ptbtime1.ptb.de iburst nts
+        server time.dfm.dk iburst nts
+        server time.cifelli.xyz iburst nts
+        server ntp.3eck.net iburst nts
+        server ntp.trifence.ch iburst nts
+        server ntp.zeitgitter.net iburst nts
+        server paris.time.system76.com iburst nts 
+        minsources 4
+        authselectmode require
+        dscp 46
+        driftfile /var/lib/chrony/drift
+        ntsdumpdir /var/lib/chrony
+        leapsectz right/UTC
+        makestep 1.0 3
+        rtconutc
+        rtcsync
+        cmdport 0'';
+    };
   };
 }
