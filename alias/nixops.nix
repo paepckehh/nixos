@@ -136,7 +136,7 @@
         export HNAME="$(hostname)" ;\
         echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################" &&\
         sudo nom build .#nixosConfigurations.$HNAME.config.system.build.toplevel ;\
-        sudo nixos-rebuild boot -v --fallback --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
+        sudo nixos-rebuild boot --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
       "nix.mp" = ''
         nix.update ;\
         nix.build ;\
