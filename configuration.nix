@@ -34,7 +34,7 @@
       sandbox-build-dir = "/build";
       sandbox-fallback = lib.mkForce false;
       trace-verbose = true;
-      restrict-eval = lib.mkForce false;
+      restrict-eval = lib.mkForce true;
       require-sigs = lib.mkForce true;
       preallocate-contents = true;
       allowed-uris = [
