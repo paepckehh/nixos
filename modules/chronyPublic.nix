@@ -3,10 +3,12 @@
     timesyncd.enable = false;
     chrony = {
       enable = true;
+      servers = [""];
       extraFlags = ["-F 1"];
       enableNTS = true;
       enableMemoryLocking = true;
       extraConfig = ''
+        # cmdport 0
         server ntppool1.time.nl iburst nts
         server ntppool2.time.nl iburst nts
         server nts.netnod.se iburst nts
@@ -24,8 +26,7 @@
         ntsdumpdir /var/lib/chrony
         leapsectz right/UTC
         makestep 1.0 3
-        rtconutc
-        cmdport 0'';
+        rtconutc'';
     };
   };
 }

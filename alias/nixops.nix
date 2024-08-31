@@ -119,11 +119,11 @@
         git commit -S -m update ;\
         export DTS="-$(date '+%Y-%m-%d--%H-%M')" ;\
         export HNAME="$(hostname)" ;\
-        echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################"
+        echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################" &&\
         sudo nixos-rebuild boot -v --option use-binary-caches false --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS-offline" '';
       "nix.switch" = ''
         nix.build ;\
-        sudo nom switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS"'';
+        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS"'';
       "nix.build" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
@@ -134,8 +134,9 @@
         git commit -S -m update ;\
         export DTS="-$(date '+%Y-%m-%d--%H-%M')" ;\
         export HNAME="$(hostname)" ;\
-        echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################"
-        sudo nom boot -v --fallback --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
+        echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################" &&\
+        nom build .#nixosConfigurations.$HNAME.config.system.build.toplevel ;\
+        sudo nixos-rebuild boot -v --fallback --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
       "nix.mp" = ''
         nix.update ;\
         nix.build ;\
