@@ -100,6 +100,7 @@
             mtr
             nodejs
             nix-tree
+            nix-search
             fastfetch
             fd
             jq
