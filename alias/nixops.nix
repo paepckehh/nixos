@@ -106,9 +106,6 @@
         git gc --aggressive &&\
         sudo nix flake lock --update-input nixpkgs --update-input nixpkgs-Release --update-input home-manager ;\
         sudo alejandra --quiet .'';
-      "nix.switch" = ''
-        nix.build ;\
-        sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS"'';
       "nix.boot" = ''
         nix.build &&\
         sudo nixos-rebuild boot -v --fallback --install-bootloader '';
@@ -124,6 +121,9 @@
         export HNAME="$(hostname)" ;\
         echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################"
         sudo nixos-rebuild boot -v --option use-binary-caches false --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS-offline" '';
+      "nix.switch" = ''
+        nix.build ;\
+        sudo nom switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS"'';
       "nix.build" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
@@ -135,7 +135,7 @@
         export DTS="-$(date '+%Y-%m-%d--%H-%M')" ;\
         export HNAME="$(hostname)" ;\
         echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################"
-        sudo nixos-rebuild boot -v --fallback --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
+        sudo nom boot -v --fallback --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
       "nix.mp" = ''
         nix.update ;\
         nix.build ;\
