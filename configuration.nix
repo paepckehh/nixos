@@ -61,7 +61,7 @@
     };
     optimise = {
       automatic = true;
-      dates = "daily";
+      dates = "23h";
     };
   };
 
