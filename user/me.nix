@@ -101,6 +101,7 @@
             nodejs
             nix-tree
             nix-search-cli
+            nix-output-monitor
             fastfetch
             fd
             jq
