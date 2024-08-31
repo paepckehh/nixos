@@ -19,8 +19,8 @@
   #############
   nix = {
     enable = true;
+    daemonCPUSchedPolicy = "idle";
     package = pkgs.nixFlakes;
-    optimise.automatic = true;
     extraOptions = ''
       builders-use-substitutes = false
       experimental-features = nix-command flakes'';
@@ -55,9 +55,13 @@
     };
     gc = {
       automatic = true;
-      persistent = true;
       dates = "daily";
-      options = "--delete-older-than 12d";
+      persistent = true;
+      options = "--delete-older-than 14d";
+    };
+    optimise = {
+      automatic = true;
+      dates = "daily";
     };
   };
 
@@ -152,8 +156,8 @@
     };
   };
   time = {
-    timeZone = "Europe/Berlin";
-    hardwareClockInLocalTime = false;
+    timeZone = null; # UTC, alt: "Europe/Berlin";
+    hardwareClockInLocalTime = true;
   };
   powerManagement = {
     enable = true;
@@ -188,6 +192,7 @@
   #-=# HARDWARE #=-#
   ##################
   hardware = {
+    enableAllFirmware = lib.mkForce true;
     cpu = {
       amd = {
         updateMicrocode = lib.mkForce true;
@@ -197,7 +202,6 @@
         sgx.provision.enable = lib.mkForce false;
       };
     };
-    enableAllFirmware = lib.mkForce true;
   };
 
   ##################
@@ -246,8 +250,8 @@
     useDHCP = lib.mkDefault true;
     enableIPv6 = lib.mkForce false;
     networkmanager.enable = true;
-    nftables.enable = true;
     wireguard.enable = true;
+    nftables.enable = true;
     firewall = {
       enable = true;
       allowPing = false;
@@ -257,7 +261,7 @@
     };
     proxy = {
       default = "";
-      noProxy = "local,localhost,localdomain,127.0.0.0/8,192.168.0.0/16,10.0.0.0/8";
+      noProxy = "lan,local,localhost,localdomain,127.0.0.0/8,192.168.0.0/16,10.0.0.0/8";
     };
   };
 
@@ -269,7 +273,7 @@
     users = {
       root = {
         hashedPassword = null; # disable root account
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # disable pubkey auth
       };
     };
   };

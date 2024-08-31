@@ -36,6 +36,15 @@
     programs = {
       librewolf = {
         enable = true;
+        settings = {
+          "browser.cache.disk.enable" = false;
+          "browser.compactmode.show" = true;
+          "browser.startup.homepage" = "";
+          "browser.search.isUS" = true;
+          "signon.rememberSignons" = true;
+          "webgl.disabled" = false;
+          "widget.use-xdg-desktop-portal.file-picker" = 1;
+        };
       };
       kitty = {
         enable = true;
