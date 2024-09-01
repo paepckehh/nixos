@@ -1,4 +1,5 @@
 {config, ...}: {
+
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -17,5 +18,14 @@
       # loadModels = [];
       # rocmOverrideGfx = "";
     };
+  };
+
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment = {
+    shellAliases = {
+     tlm = "go run github.com/yusufcanb/tlm@latest $*";
+     gollama = "go run github.com/sammcj/gollama@latest $*";
   };
 }

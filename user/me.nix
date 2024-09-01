@@ -48,6 +48,8 @@
             cat = "bat --paging=never";
             termshark = "sudo termshark";
             bandwhich = "sudo bandwhich";
+            tlsinfo = "go run paepcke.de/tlsinfo@latest $*";
+            certinfo = "go run paepcke.de/certinfo@latest $*";
             ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
             la = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
             lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
@@ -130,7 +132,6 @@
           fzf.enable = true;
           thefuck.enable = true;
           starship.enable = true;
-          go.enable = true;
           gh-dash.enable = true;
           git.enable = true;
           gitui.enable = true;
@@ -159,6 +160,9 @@
           gh = {
             enable = true;
             settings.git_protocol = "ssh";
+          };
+          go = {
+            enable = true;
           };
           neovim = {
             enable = true;
