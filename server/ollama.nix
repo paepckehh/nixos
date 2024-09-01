@@ -1,5 +1,4 @@
 {config, ...}: {
-
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -25,7 +24,8 @@
   #####################
   environment = {
     shellAliases = {
-     tlm = "go run github.com/yusufcanb/tlm@latest $*";
-     gollama = "go run github.com/sammcj/gollama@latest $*";
+      tlm = "go run github.com/yusufcanb/tlm@latest $*";
+      gollama = "go run github.com/sammcj/gollama@latest $*";
+    };
   };
 }
