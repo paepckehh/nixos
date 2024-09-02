@@ -41,8 +41,15 @@
   #-=# HARDWARE #=-#
   ##################
   hardware = {
+    enableAllFirmware = lib.mkForce true;
     facetimehd.enable = lib.mkForce false;
     graphics.extraPackages = with pkgs; [intel-vaapi-driver intel-ocl intel-media-driver];
+    cpu = {
+      intel = {
+        updateMicrocode = lib.mkForce true;
+        sgx.provision.enable = lib.mkForce false;
+      };
+    };
   };
 
   ####################

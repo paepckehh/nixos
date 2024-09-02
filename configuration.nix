@@ -192,15 +192,6 @@
   ##################
   hardware = {
     enableAllFirmware = lib.mkForce true;
-    cpu = {
-      amd = {
-        updateMicrocode = lib.mkForce true;
-      };
-      intel = {
-        updateMicrocode = lib.mkForce true;
-        sgx.provision.enable = lib.mkForce false;
-      };
-    };
   };
 
   ##################
