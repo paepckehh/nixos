@@ -40,7 +40,7 @@
             e = "vim";
             h = "htop --tree --highlight-changes";
             b = "btop";
-            d = "dmesg --follow --human --kernel --userspace";
+            d = "sudo dmesg --follow --human --kernel --userspace";
             c = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
             man = "batman";
             ollama-commit = "/home/me/.npm-packages/bin/ollama-commit --language de --api http://localhost:11434 --model mistral";
