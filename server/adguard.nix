@@ -12,9 +12,6 @@
       enable = true;
       useLocalResolver = true;
     };
-    # dhcpcd.extraConfig = "nohook resolv.conf";
-    # networkmanager.dns = "none";
-    # nameservers = lib.mkForce ["127.0.0.1"];
   };
 
   #####################
@@ -35,9 +32,6 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    #resolved = {
-    #  enable = lib.mkForce false;
-    #};
     adguardhome = {
       enable = true;
       mutableSettings = false;
