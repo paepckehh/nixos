@@ -48,8 +48,10 @@
             cat = "bat --paging=never";
             termshark = "sudo termshark";
             bandwhich = "sudo bandwhich";
-            tlsinfo = "go run paepcke.de/tlsinfo/cmd/tlsinfo@latest $*";
+            gdu = "go run github.com/dundee/gdu@latest $i*";
+            godap = "go run github.com/Macmod/godap@latest $i*";
             certinfo = "go run paepcke.de/certinfo/cmd/certinfo@latest $*";
+            tlsinfo = "go run paepcke.de/tlsinfo/cmd/tlsinfo@latest $*";
             ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
             la = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
             lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
