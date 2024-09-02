@@ -63,7 +63,7 @@
     };
     podman = {
       enable = true;
-      dockerCompat = true;
+      dockerCompat = lib.mkForce true;
     };
     lxd = {
       enable = false;
