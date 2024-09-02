@@ -49,8 +49,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./hardware/nvidia-off.nix
-          ./hardware/macbook.nix
+          ./hardware/macbook-intel.nix
           ./modules/chronyPublic.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
@@ -70,6 +69,7 @@
           ./configuration.nix
           ./hardware/nvidia-off.nix
           ./modules/chronyPublic.nix
+          ./server/adguard.nix
           ./user/me.nix
           {networking.hostName = "nixos-console";}
         ];
@@ -80,8 +80,9 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./hardware/nvidia-off.nix
-          ./hardware/macbook.nix
+          ./hardware/macbook-intel.nix
           ./modules/chronyPublic.nix
+          ./server/adguard.nix
           ./person/mpaepcke.nix
           {networking.hostName = "nixos-console-mp";}
         ];
