@@ -52,7 +52,7 @@
   #-=# VIRTUALISATION #=-#
   ########################
   virtualisation = {
-    containers.enable = false;
+    containers.enable = true;
     containerd.enable = false;
     lxc.enable = false;
     xen.enable = false;
