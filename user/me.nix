@@ -82,6 +82,7 @@
             gobang
             git-crypt
             git-agecrypt
+            gping
             httpie
             hyperfine
             shellcheck
