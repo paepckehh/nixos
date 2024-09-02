@@ -45,7 +45,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [quickemu distrobox distrobox-tui];
+    systemPackages = with pkgs; [quickemu distrobox distrobox-tui dive podman-tui podman-compose];
   };
 
   ########################
