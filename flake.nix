@@ -55,41 +55,12 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          # ./server/ollama.nix
-          # ./server/virtual.nix
           # ./server/gitea.nix
-          # ./server/unifi.nix
+          # ./server/ollama.nix
           # ./server/openweb-ui.nix
+          # ./server/unifi.nix
+          # ./server/virtual.nix
           {networking.hostName = "nixos-mp";}
-        ];
-      };
-      nixos-hyprland = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./hardware/nvidia-off.nix
-          ./modules/chronyPublic.nix
-          ./desktop/hyprland.nix
-          ./user/desktop/me.nix
-          ./server/adguard.nix
-          ./server/virtual.nix
-          {networking.hostName = "nixos-hyprland";}
-        ];
-      };
-      nixos-hyprland-mp = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./hardware/nvidia-off.nix
-          ./hardware/macbook.nix
-          ./modules/chronyPublic.nix
-          ./desktop/hyprland.nix
-          ./person/desktop/mpaepcke.nix
-          ./server/adguard.nix
-          ./server/virtual.nix
-          {networking.hostName = "nixos-hyprland-mp";}
         ];
       };
       nixos-console = nixpkgs.lib.nixosSystem {
@@ -126,9 +97,9 @@
           ./user/desktop/me.nix
           ./server/builder.nix
           # ./server/adguard.nix
+          # ./server/gitea.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
-          # ./server/virtual.nix
           {networking.hostName = "nixbuilder";}
         ];
       };

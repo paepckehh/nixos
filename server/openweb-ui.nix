@@ -6,7 +6,7 @@
     open-webui = {
       enable = true;
       host = "127.0.0.1";
-      port = 6262;
+      port = 6161;
       openFirewall = false;
     };
   };
@@ -29,7 +29,7 @@
       recommendedProxySettings = true;
       virtualHosts = {
         "ai.pvz.lan" = {
-          locations."/".proxyPass = "http://127.0.0.1:6262";
+          locations."/".proxyPass = "http://127.0.0.1:6161";
         };
       };
     };
