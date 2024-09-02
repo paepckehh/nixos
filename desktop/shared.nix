@@ -51,11 +51,11 @@
       xkb.layout = "us,de";
     };
     pipewire = {
-      enable = true;
-      pulse.enable = true;
-      wireplumber.enable = true;
+      enable = false;
+      pulse.enable = false;
+      wireplumber.enable = false;
       alsa = {
-        enable = true;
+        enable = false;
         support32Bit = true;
       };
     };
@@ -77,5 +77,5 @@
   ##################
   #-=# SECURITY #=-#
   ##################
-  security.rtkit.enable = true; # realtime, only needed for audio
+  security.rtkit.enable = false; # realtime, only needed for audio
 }
