@@ -45,7 +45,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [quickemu];
+    systemPackages = with pkgs; [quickemu nemu distrobox distrobox-tui];
   };
 
   ########################
