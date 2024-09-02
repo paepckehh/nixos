@@ -62,7 +62,7 @@
       enableOnBoot = false;
     };
     podman = {
-      enable = false;
+      enable = true;
       dockerCompat = true;
     };
     lxd = {
