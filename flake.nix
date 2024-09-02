@@ -41,7 +41,6 @@
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
-          ./server/virtual.nix
           {networking.hostName = "nixos";}
         ];
       };
@@ -131,20 +130,6 @@
           # ./server/openweb-ui.nix
           # ./server/virtual.nix
           {networking.hostName = "nixbuilder";}
-        ];
-      };
-      stargazer = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./server/adguard.nix
-          {
-            networking = {
-              hostName = "stargazer";
-              domain = "admin.lan";
-            };
-          }
         ];
       };
       iss = nixpkgs.lib.nixosSystem {
