@@ -38,6 +38,12 @@
             daylight_ham = "IATA=HAM go run paepcke.de/daylight@latest";
             daylight_lbc = "IATA=LBC go run paepcke.de/daylight@latest";
             daylight_txl = "IATA=TXL go run paepcke.de/daylight@latest";
+            daylight_tls = "IATA=TXL go run paepcke.de/daylight@latest";
+            wetter_fxl = "curl https://wttr.in/fxl";
+            wetter_ham = "curl https://wttr.in/ham";
+            wetter_lbc = "curl https://wttr.in/lbc";
+            wetter_txl = "curl https://wttr.in/txl";
+            wetter_tls = "curl https://wttr.in/tls";
           };
           file = {
             ".config/Yubico/u2f_keys" = {
