@@ -48,8 +48,8 @@
             cat = "bat --paging=never";
             termshark = "sudo termshark";
             bandwhich = "sudo bandwhich";
-            tlsinfo = "go run paepcke.de/tlsinfo@latest $*";
-            certinfo = "go run paepcke.de/certinfo@latest $*";
+            tlsinfo = "go run paepcke.de/tlsinfo/cmd/tlsinfo@latest $*";
+            certinfo = "go run paepcke.de/certinfo/cmd/certinfo@latest $*";
             ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
             la = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
             lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
@@ -63,7 +63,6 @@
             SHELLCHECK_OPTS = "-e SC2086";
           };
           file = {
-            # ".config/npmrc".text = ''prefix=~/.npm-packages'';
             ".npmrc".text = ''prefix=~/.npm-packages'';
             ".config/starship.toml".source = ./resources/starship/gruvbox-rainbow.toml;
           };
@@ -106,7 +105,6 @@
             nodejs
             nix-tree
             nix-search-cli
-            nix-fast-build
             nix-output-monitor
             fastfetch
             fd

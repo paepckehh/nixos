@@ -41,9 +41,9 @@
   ##################
   services = {
     autosuspend.enable = lib.mkForce false;
-    blueman.enable = lib.mkForce true;
+    blueman.enable = lib.mkForce false;
     speechd.enable = lib.mkForce false;
-    printing.enable = lib.mkForce true;
+    printing.enable = lib.mkForce false;
     xserver = {
       enable = true;
       autoRepeatDelay = 150;
@@ -69,7 +69,7 @@
     graphics.enable = true;
     pulseaudio.enable = false;
     bluetooth = {
-      enable = true;
+      enable = false;
       powerOnBoot = false;
     };
   };
@@ -77,5 +77,5 @@
   ##################
   #-=# SECURITY #=-#
   ##################
-  security.rtkit.enable = true; # realtime, needed for audio
+  security.rtkit.enable = true; # realtime, only needed for audio
 }
