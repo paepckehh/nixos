@@ -69,7 +69,6 @@
   #-=# NIXPKGS #=-#
   #################
   nixpkgs = {
-    hostPlatform = lib.mkDefault "x86_64-linux";
     config = {
       allowBroken = lib.mkDefault true;
       allowUnfree = lib.mkDefault true;
@@ -99,7 +98,7 @@
     blacklistedKernelModules = ["ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "sysv"];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = ["page_alloc.shuffle=1" "ipv6.disable=1"];
-    kernelModules = ["kvm-intel" "kvm-amd" "vfat" "exfat"];
+    kernelModules = ["vfat" "exfat"];
     readOnlyNixStore = lib.mkForce true;
     initrd = {
       systemd.enable = lib.mkForce false;
@@ -156,7 +155,7 @@
     };
   };
   time = {
-    timeZone = null; # UTC, alt: "Europe/Berlin";
+    timeZone = null; # UTC, local: "Europe/Berlin";
     hardwareClockInLocalTime = true;
   };
   powerManagement = {
@@ -365,7 +364,7 @@
         thin_pool_discards = 1 
       }'';
     interactiveShellInit = ''uname -a && eval "$(ssh-agent)"'';
-    systemPackages = with pkgs; [alejandra ssh-tpm-agent wireguard-tools];
+    systemPackages = with pkgs; [alejandra wireguard-tools];
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
       l = "ls -la";
