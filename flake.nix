@@ -54,8 +54,8 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
+          ./server/ollama.nix
           # ./server/gitea.nix
-          # ./server/ollama.nix
           # ./server/openweb-ui.nix
           # ./server/unifi.nix
           # ./server/wiki.nix
