@@ -56,7 +56,7 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    # enableB43Firmware = true;
+    enableB43Firmware = true;
   };
 
   ##################
