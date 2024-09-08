@@ -30,7 +30,7 @@
     blacklistedKernelModules = ["b43" "bcma" "brcmsmac" "brcmfmac" "ssb"];
     kernelParams = ["hid_apple.swap_opt_cmd=1" "intel_iommu=on"];
     kernelModules = ["kvm-intel"];
-    extraModulePackages = with config.boot.kernelPackages; [linux_latest_libre.broadcom_sta];
+    extraModulePackages = with config.boot.kernelPackages; [broadcom_sta];
     initrd = {
       availableKernelModules = [
         "applespi"
