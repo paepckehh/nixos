@@ -5,11 +5,19 @@
   modulesPath,
   ...
 }: {
+  # boot.kernelModules = [ "wl" ];
+  # boot.extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];
+
+  # blacklist similar modules to avoid collision
+  # boot.blacklistedKernelModules = [ "b43" "bcma" ];
+
+  # nixpkgs.config.allowUnfree = true;
+
   #################
   #-=# IMPORTS #=-#
   #################
   imports = [
-    (modulesPath + "/hardware/network/broadcom-43xx.nix")
+    # (modulesPath + "/hardware/network/broadcom-43xx.nix")
   ];
 
   #################
