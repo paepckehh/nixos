@@ -65,9 +65,8 @@
   #-=# HARDWARE #=-#
   ##################
   hardware = {
-    # graphics.extraPackages = with pkgs; [intel-vaapi-driver intel-ocl intel-media-driver];
     graphics.enable = true;
-    pulseaudio.enable = lib.mkForce true;
+    pulseaudio.enable = lib.mkForce false;
     bluetooth = {
       enable = false;
       powerOnBoot = false;
