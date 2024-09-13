@@ -95,6 +95,7 @@
             tailspin
             termdbms
             termshark
+            tshark
             tig
             tree
             trippy
