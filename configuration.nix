@@ -285,6 +285,7 @@
     iftop.enable = true;
     iotop.enable = true;
     usbtop.enable = true;
+    wireshark.enable = true;
     zsh.enable = true;
     ssh = {
       startAgent = lib.mkForce true;
