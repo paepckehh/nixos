@@ -43,11 +43,11 @@
             d = "sudo dmesg --follow --human --kernel --userspace";
             c = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
             man = "batman";
-            ollama-commit = "/home/me/.npm-packages/bin/ollama-commit --language de --api http://localhost:11434 --model mistral";
             slog = "journalctl --follow --priority=7 --lines=2500";
             cat = "bat --paging=never";
-            termshark = "sudo termshark";
-            bandwhich = "sudo bandwhich";
+            ollama-commit = "/home/me/.npm-packages/bin/ollama-commit --language en --api http://localhost:11434 --model mistral";
+            tlm = "go run github.com/yusufcanb/tlm@latest $*";
+            gollama = "go run github.com/sammcj/gollama@latest $*";
             gdu = "go run github.com/dundee/gdu@latest $i*";
             godap = "go run github.com/Macmod/godap@latest $i*";
             certinfo = "go run paepcke.de/certinfo/cmd/certinfo@latest $*";

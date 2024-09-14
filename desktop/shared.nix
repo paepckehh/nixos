@@ -76,5 +76,5 @@
   ##################
   #-=# SECURITY #=-#
   ##################
-  security.rtkit.enable = false; # realtime, only needed for audio
+  security.rtkit.enable = true; # realtime, only needed for audio
 }
