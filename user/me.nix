@@ -45,7 +45,7 @@
             man = "batman";
             slog = "journalctl --follow --priority=7 --lines=2500";
             cat = "bat --paging=never";
-            ollama-commit = "/home/me/.npm-packages/bin/ollama-commit --language en --api http://localhost:11434 --model mistral";
+            ollama-commit = "/home/me/.npm-packages/bin/ollama-commit -v -s --language en --api http://localhost:11434 --model mistral";
             tlm = "go run github.com/yusufcanb/tlm@latest $*";
             gollama = "go run github.com/sammcj/gollama@latest $*";
             gdu = "go run github.com/dundee/gdu@latest $i*";
