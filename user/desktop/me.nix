@@ -16,6 +16,9 @@
   #####################
   environment = {
     systemPackages = with pkgs; [gparted];
+    variables = {
+      BROWSER = "firejail librewolf";
+    };
   };
 
   ##################
@@ -112,12 +115,26 @@
           favorite-apps = ["Alacritty.desktop" "kitty.desktop" "librewolf.desktop"];
         };
         "org/gnome/settings-daemon/plugins/media-keys" = {
-          custom-keybindings = ["/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"];
+          custom-keybindings = [
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
+          ];
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
           name = "alacritty terminal";
           command = "alacritty";
           binding = "<Super>Return";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+          name = "librewolf @ firejail";
+          command = "firejail librewolf";
+          binding = "<Super>j";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+          name = "librewolf @ os-native";
+          command = "librewolf";
+          binding = "<Super>w";
         };
         "org/gnome/desktop/interface" = {
           clock-show-weekday = true;
