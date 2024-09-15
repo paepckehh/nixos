@@ -80,6 +80,7 @@
             dnstracer
             dnsutils
             fastfetch
+            filezilla
             goaccess
             gobang
             git-crypt
