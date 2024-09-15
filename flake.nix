@@ -56,10 +56,10 @@
           ./server/adguard.nix
           ./server/ollama.nix
           ./server/openweb-ui.nix
+          ./server/virtual.nix
           # ./server/gitea.nix
           # ./server/unifi.nix
           # ./server/wiki.nix
-          # ./server/virtual.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
