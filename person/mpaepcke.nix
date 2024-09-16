@@ -54,7 +54,7 @@
         programs = {
           git = {
             userName = lib.mkForce "PAEPCKE, Michael";
-            userEmail = lib.mkForce "git@github.com";
+            userEmail = lib.mkForce "git@paepcke.de";
             signing = {
               signByDefault = lib.mkForce false;
               key = lib.mkForce "~/.ssh/id_ed25519_sk.pub";
