@@ -15,7 +15,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [gparted];
+    systemPackages = with pkgs; [gparted mission-center];
     variables = {
       BROWSER = "firejail librewolf";
     };
