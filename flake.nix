@@ -58,6 +58,7 @@
           ./server/openweb-ui.nix
           ./server/virtual.nix
           ./server/gitea.nix
+          ./server/webserver.nix
           # ./server/unifi.nix
           # ./server/wiki.nix
           {networking.hostName = "nixos-mp";}

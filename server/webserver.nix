@@ -7,15 +7,14 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    static-web-server = {
+    caddy = {
       enable = true;
-      path = "/var/www";
-      listen = "0.0.0.0:8282";
-      configuration = {
-        general = {
-          directory-listing = false;
+      dataDir = "/var/www"
+      virtualHosts = {
+        "pki.paepcke.de".listenAddresses = "0.0.0.0:8282";
+        "portal.paepcke.de".listenAddresses = "0.0.0.0:9292";
+
         };
-      };
     };
   };
   ####################
@@ -23,7 +22,7 @@
   ####################
   networking = {
     firewall = {
-      allowedTCPPorts = [80 443];
+      allowedTCPPorts = [8282 9292];
     };
   };
 }
