@@ -9,11 +9,12 @@
   services = {
     caddy = {
       enable = true;
-      dataDir = "/var/www";
-      virtualHosts = {
-        "pki.paepcke.de".listenAddresses = ["127.0.0.1:8282"];
-        "portal.paepcke.de".listenAddresses = ["127.0.0.1:9292"];
-      };
+      globalConfig = ''
+        admin off
+        auto_https off
+      '';
+      virtualHosts."portal.paepcke.de".extraConfig = ''root /var/www/portal.paepcke.de'';
+      virtualHosts."pki.paepcke.de".extraConfig = ''root /var/www.pki.paepcke.de'';
     };
   };
   ####################
@@ -21,7 +22,7 @@
   ####################
   networking = {
     firewall = {
-      allowedTCPPorts = [8282 9292];
+      allowedTCPPorts = [8080];
     };
   };
 }
