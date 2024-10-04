@@ -11,8 +11,8 @@
       enable = true;
       dataDir = "/var/www";
       virtualHosts = {
-        "pki.paepcke.de".listenAddresses = [":8282"];
-        "portal.paepcke.de".listenAddresses = [":9292"];
+        "pki.paepcke.de".listenAddresses = ["127.0.0.1:8282"];
+        "portal.paepcke.de".listenAddresses = ["127.0.0.1:9292"];
       };
     };
   };
