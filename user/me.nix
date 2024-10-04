@@ -43,12 +43,6 @@
             d = "sudo dmesg --follow --human --kernel --userspace";
             c = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
             man = "batman";
-            s-log = "journalctl --since='30 min ago' -u $(systemctl list-units --type=service | fzf | cut --fields 3 --delimiter ' ')";
-            s-stop = "sudo systemctl start -u $(systemctl list-units --type=service | fzf | cut --fields 3 --delimiter ' ')";
-            s-start = "sudo systemctl start -u $(systemctl list-units --type=service | fzf | cut --fields 3 --delimiter ' ')";
-            s-restart = "sudo systemctl restart -u $(systemctl list-units --type=service | fzf | cut --fields 3 --delimiter ' ')";
-            s-enable = "sudo systemctl enable -u $(systemctl list-units --type=service | fzf | cut --fields 3 --delimiter ' ')";
-            s-disable = "sudo systemctl disable -u $(systemctl list-units --type=service | fzf | cut --fields 3 --delimiter ' ')";
             slog = "journalctl --follow --priority=7 --lines=2500";
             cat = "bat --paging=never";
             ollama-commit = "/home/me/.npm-packages/bin/ollama-commit -v -s --language en --api http://localhost:11434 --model mistral";
@@ -63,6 +57,12 @@
             lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
             lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
             li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
+            "service.log" = "journalctl --since='30 min ago' -u $(systemctl list-units --type=service | fzf | cut --fields 3 --delimiter ' ')";
+            "service.stop" = "sudo systemctl start $(systemctl list-units --type=service | fzf | cut --fields 3 --delimiter ' ')";
+            "service.start" = "sudo systemctl start $(systemctl list-units --type=service | fzf | cut --fields 3 --delimiter ' ')";
+            "service.restart" = "sudo systemctl restart $(systemctl list-units --type=service | fzf | cut --fields 3 --delimiter ' ')";
+            "service.enable" = "sudo systemctl enable $(systemctl list-units --type=service | fzf | cut --fields 3 --delimiter ' ')";
+            "service.disable" = "sudo systemctl disable $(systemctl list-units --type=service | fzf | cut --fields 3 --delimiter ' ')";
           };
           sessionVariables = {
             EDITOR = "vim";
