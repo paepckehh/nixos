@@ -12,7 +12,7 @@
       globalConfig = ''
         admin off
         auto_https off
-        default_bind_port 8080
+        http_port 8080
       '';
       virtualHosts."portal.paepcke.de".extraConfig = ''root /var/www/portal.paepcke.de'';
       virtualHosts."pki.paepcke.de".extraConfig = ''root /var/www.pki.paepcke.de'';
