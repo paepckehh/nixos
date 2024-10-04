@@ -9,7 +9,12 @@
   services = {
     nginx = {
       enable = true;
-      defaultListen = ["127.0.0.1"];
+      defaultListen = [
+        {
+          addr = "127.0.0.1";
+          ssl = false;
+        }
+      ];
       defaultHTTPListenPort = 8282;
       virtualHosts = {
         "pki.paepcke.de" = {root = "/var/www/pki.paepcke.de";};
