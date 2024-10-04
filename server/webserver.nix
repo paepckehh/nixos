@@ -10,7 +10,6 @@
     caddy = {
       enable = true;
       globalConfig = ''
-        admin off
         auto_https off
         http_port 8282
       '';
