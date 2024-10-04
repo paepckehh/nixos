@@ -12,7 +12,7 @@
       globalConfig = ''
         admin off
         auto_https off
-        http_port 8080
+        http_port 8282
       '';
       virtualHosts."portal.paepcke.de".extraConfig = ''root /var/www/portal.paepcke.de'';
       virtualHosts."pki.paepcke.de".extraConfig = ''root /var/www.pki.paepcke.de'';
@@ -23,7 +23,7 @@
   ####################
   networking = {
     firewall = {
-      allowedTCPPorts = [8080];
+      allowedTCPPorts = [8282];
     };
   };
 }
