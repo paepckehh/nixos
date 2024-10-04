@@ -9,17 +9,8 @@
       settings = {
         server = {
           protocol = "http";
-          http_port = 3010;
+          http_port = 3030;
           http_addr = "127.0.0.1";
-        };
-      };
-    };
-    nginx = {
-      enable = true;
-      recommendedProxySettings = true;
-      virtualHosts = {
-        "git.pvz.lan" = {
-          locations."/".proxyPass = "http://127.0.0.1:3010";
         };
       };
     };

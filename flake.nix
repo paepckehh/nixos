@@ -54,11 +54,11 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/ollama.nix
-          ./server/openweb-ui.nix
           ./server/virtual.nix
           ./server/gitea.nix
           ./server/webserver.nix
+          # ./server/ollama.nix
+          # ./server/openweb-ui.nix
           # ./server/unifi.nix
           # ./server/wiki.nix
           {networking.hostName = "nixos-mp";}
