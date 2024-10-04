@@ -57,7 +57,7 @@
           ./server/ollama.nix
           ./server/openweb-ui.nix
           ./server/virtual.nix
-          # ./server/gitea.nix
+          ./server/gitea.nix
           # ./server/unifi.nix
           # ./server/wiki.nix
           {networking.hostName = "nixos-mp";}

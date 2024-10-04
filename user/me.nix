@@ -92,6 +92,7 @@
             shfmt
             socialscan
             sysz
+            tea
             tldr
             tailspin
             termdbms
