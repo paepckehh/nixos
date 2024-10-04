@@ -9,6 +9,7 @@
   services = {
     caddy = {
       enable = true;
+      dataDir = "/var/www/catchall";
       globalConfig = ''
         auto_https off
         http_port 8282
