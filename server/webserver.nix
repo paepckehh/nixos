@@ -9,12 +9,11 @@
   services = {
     caddy = {
       enable = true;
-      dataDir = "/var/www"
+      dataDir = "/var/www";
       virtualHosts = {
         "pki.paepcke.de".listenAddresses = "0.0.0.0:8282";
         "portal.paepcke.de".listenAddresses = "0.0.0.0:9292";
-
-        };
+      };
     };
   };
   ####################
