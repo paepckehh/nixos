@@ -13,12 +13,11 @@
       enabledCollectors = [
         "logind"
         "systemd"
+        "wireguard"
       ];
-      disabledCollectors = [
-        "textfile"
-      ];
+      disabledCollectors = [];
       openFirewall = true;
-      firewallFilter = "-i br0 -p tcp -m tcp --dport 9100";
+      # firewallFilter = "-i br0 -p tcp -m tcp --dport 9100";
     };
   };
 }
