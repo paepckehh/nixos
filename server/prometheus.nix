@@ -8,7 +8,6 @@
       alertmanager.port = 9093;
       port = 9090;
       retentionTime = "365d";
-      settings.WebService.AllowUnencrypted = true;
       scrapeConfigs = [
         {
           job_name = "node";
