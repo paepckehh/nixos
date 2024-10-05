@@ -20,7 +20,7 @@
       ];
       exporters.node = {
         enable = true;
-        port = 9000;
+        port = 9100;
         enabledCollectors = ["systemd" "wireguard"];
         extraFlags = ["--collector.ethtool" "--collector.softirqs" "--collector.tcpstat" "--collector.wifi"];
       };
