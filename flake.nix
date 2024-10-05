@@ -51,7 +51,6 @@
           ./configuration.nix
           ./hardware/macbook-intel.nix
           ./modules/chronyPublic.nix
-          ./modules/prometheus-node.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
