@@ -12,18 +12,17 @@
       scrapeConfigs = [
         {
           job_name = "node";
-          static_configs = [
-            {
+          static_configs = [{
               targets = ["127.0.0.1:9100"];
-            }
-          ];
+            }];
         }
       ];
-    };
-  prometheus.exporters.node = {
+   exporters.node = {
     enable = true;
     port = 9000;
     enabledCollectors = [ "systemd" "wireguard"] ;
     extraFlags = [ "--collector.ethtool" "--collector.softirqs" "--collector.tcpstat" "--collector.wifi" ];
   };
+
+    };
 }
