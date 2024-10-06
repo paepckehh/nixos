@@ -56,7 +56,7 @@
     };
     loki = {
       enable = true;
-      configFile = "./resources/loki.yaml";
+      configFile = ./resources/loki.yaml;
     };
     promtail = {
       enable = true;
