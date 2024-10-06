@@ -108,7 +108,6 @@
           max_chunk_age = "1h";
           chunk_target_size = 999999;
           chunk_retain_period = "30s";
-          max_transfer_retries = 0;
         };
         schema_config = {
           configs = [
