@@ -5,8 +5,8 @@
   services = {
     prometheus = {
       enable = true;
-      alertmanager.port = 9393;
-      port = 9090;
+      alertmanager.port = 9292;
+      port = 9191;
       retentionTime = "365d";
       scrapeConfigs = [
         {
@@ -38,7 +38,7 @@
       settings = {
         server = {
           http_addr = "127.0.0.1";
-          http_port = 9292;
+          http_port = 9090;
           domain = "localhost";
         };
       };
