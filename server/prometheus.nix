@@ -46,7 +46,6 @@
     };
     grafana = {
       enable = true;
-      declarativePlugins = ["alexanderzobnin-zabbix-app" "grafana-clock-panel" "camptocamp-prometheus-alertmanager-datasource"];
       settings = {
         server = {
           http_addr = "127.0.0.1";
