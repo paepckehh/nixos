@@ -114,6 +114,7 @@
             mtr
             nodejs
             nix-tree
+            nix-top
             nix-search-cli
             nix-output-monitor
             fastfetch
