@@ -21,17 +21,6 @@
             }
           ];
         }
-        {
-          job_name = "haproxy";
-          static_configs = [
-            {
-              targets = [
-                "192.168.122.2:8404" # example opnsense node IP
-                "192.168.122.3:8404" # example opnsense node IP
-              ];
-            }
-          ];
-        }
       ];
       exporters.node = {
         enable = true;
