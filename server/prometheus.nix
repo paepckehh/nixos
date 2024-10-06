@@ -129,7 +129,6 @@
             active_index_directory = "/var/lib/loki/boltdb-shipper-active";
             cache_location = "/var/lib/loki/boltdb-shipper-cache";
             cache_ttl = "24h";
-            shared_store = "filesystem";
           };
           filesystem = {
             directory = "/var/lib/loki/chunks";
