@@ -145,10 +145,6 @@
           reject_old_samples_max_age = "168h";
         };
 
-        chunk_store_config = {
-          max_look_back_period = "0s";
-        };
-
         table_manager = {
           retention_deletes_enabled = false;
           retention_period = "0s";
