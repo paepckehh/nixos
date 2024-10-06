@@ -60,6 +60,7 @@
       enable = true;
       configuration = {
         server = {
+          http_listen_address = "127.0.0.1";
           http_listen_port = 9393;
           grpc_listen_port = 0;
         };
