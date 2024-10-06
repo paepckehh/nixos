@@ -5,9 +5,11 @@
   services = {
     prometheus = {
       enable = true;
-      alertmanager.port = 9292;
       port = 9191;
       retentionTime = "365d";
+      alertmanager = {
+        port = 9292;
+      };
       scrapeConfigs = [
         {
           job_name = "node";
@@ -58,7 +60,7 @@
       enable = true;
       configuration = {
         server = {
-          http_listen_port = 3031;
+          http_listen_port = 9393;
           grpc_listen_port = 0;
         };
         positions = {
@@ -76,7 +78,7 @@
               max_age = "12h";
               labels = {
                 job = "systemd-journal";
-                host = "localhost";
+                host = "nixos-mp";
               };
             };
             relabel_configs = [
@@ -125,15 +127,16 @@
             directory = "/var/lib/loki/chunks";
           };
         };
-        compactor = {
-          working_directory = "/var/lib/loki";
-          compactor_ring = {
-            kvstore = {
-              store = "inmemory";
-            };
-          };
-        };
       };
     };
   };
 }
+#compactor = {
+#  working_directory = "/var/lib/loki";
+#  compactor_ring = {
+#    kvstore = {
+#      store = "inmemory";
+#    };
+#  };
+#};
+
