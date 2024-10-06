@@ -74,18 +74,24 @@
         ];
         scrape_configs = [
           {
-            job_name = "journal";
+            job_name = "journal-systemd-promtail";
             journal = {
+              json = false;
               max_age = "12h";
               labels = {
-                job = "systemd-journal";
-                host = "nixos-mp";
+                instance = "nixos-mp";
+                job = "promtail";
               };
             };
             relabel_configs = [
               {
                 source_labels = ["__journal__systemd_unit"];
                 target_label = "unit";
+              }
+              {
+                source_labels = ["__journal__systemd_unit"];
+                action = "keep";
+                regex = "promtail.service";
               }
             ];
           }
