@@ -14,7 +14,7 @@
           static_configs = [
             {
               targets = [
-                "127.0.0.1::${toString config.services.prometheus.exporters.node.port}" # self
+                "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" # self
                 "192.168.122.2:9100" # example opnsense node IP
                 "192.168.122.3:9100" # example opnsense node IP
               ];
