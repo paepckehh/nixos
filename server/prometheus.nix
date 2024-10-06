@@ -5,7 +5,7 @@
   services = {
     prometheus = {
       enable = true;
-      alertmanager.port = 9093;
+      alertmanager.port = 9393;
       port = 9090;
       retentionTime = "365d";
       scrapeConfigs = [
@@ -31,6 +31,16 @@
         ];
         disabledCollectors = [];
         openFirewall = true;
+      };
+    };
+    grafana = {
+      enable = true;
+      settings = {
+        server = {
+          http_addr = "127.0.0.1";
+          http_port = 9292;
+          domain = "localhost";
+        };
       };
     };
   };
