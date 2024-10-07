@@ -26,7 +26,6 @@
   ##################
   programs = {
     coolercontrol.enable = true;
-    tuxclocker.enable = true;
   };
 
   ######################
