@@ -56,5 +56,11 @@
         };
       };
     };
+    graylog = {
+      enable = true;
+    };
+    influxdb2 = {
+      enable = true;
+    };
   };
 }
