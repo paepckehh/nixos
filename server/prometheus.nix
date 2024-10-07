@@ -58,6 +58,7 @@
     };
     graylog = {
       enable = true;
+      securePassword = "start";
     };
     influxdb2 = {
       enable = true;

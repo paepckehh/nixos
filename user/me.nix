@@ -125,6 +125,7 @@
             paper-age
             passage
             portal
+            pwgen
             rage
             usbutils
             ugm
