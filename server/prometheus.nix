@@ -59,6 +59,7 @@
     graylog = {
       enable = true;
       passwordSecret = "start";
+      rootPasswordSha2 = "cced28c6dc3f99c2396a5eaad732bf6b28142335892b1cd0e6af6cdb53f5ccfa";
     };
     influxdb2 = {
       enable = true;
