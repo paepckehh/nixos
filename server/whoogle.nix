@@ -17,12 +17,26 @@
         WHOOGLE_CONFIG_LANGUAGE = " en ";
         WHOOGLE_CONFIG_SEARCH_LANGUAGE = " en ";
         WHOOGLE_CONFIG_SAFE = " 1 ";
-        WHOOGLE_CONFIG_URL = " http://localhost:50000 ";
+        WHOOGLE_CONFIG_URL = " http://localhost:8080";
       };
     };
     nocdb = {
       image = "nocdb/nocdb:latest";
       ports = ["0.0.0.0:8181:5000"];
+      environment = {
+        EXPOSE_PORT = "5000";
+      };
+    };
+    baserow = {
+      image = "baserow/basero:latest";
+      ports = ["0.0.0.0:8282:5000"];
+      environment = {
+        EXPOSE_PORT = "5000";
+      };
+    };
+    grist = {
+      image = "gristlabs/grist:latest";
+      ports = ["0.0.0.0:8383:5000"];
       environment = {
         EXPOSE_PORT = "5000";
       };
