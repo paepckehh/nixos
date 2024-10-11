@@ -9,7 +9,7 @@
   virtualisation.oci-containers.containers = {
     whoogle = {
       image = "benbusby/whoogle-search:latest";
-      ports = ["0.0.0.0:4040:8080"];
+      ports = ["0.0.0.0:8080:8080"];
       environment = {
         EXPOSE_PORT = "8080";
         WHOOGLE_MINIMAL = " 1 ";
@@ -28,7 +28,7 @@
       };
     };
     baserow = {
-      image = "baserow/basero:latest";
+      image = "baserow/baserow:latest";
       ports = ["0.0.0.0:8282:8080"];
       environment = {
         EXPOSE_PORT = "8080";
