@@ -9,9 +9,9 @@
   virtualisation.oci-containers.containers = {
     whoogle = {
       image = "benbusby/whoogle-search:latest";
-      ports = ["0.0.0.0:8080:5000"];
+      ports = ["0.0.0.0:8080:8080"];
       environment = {
-        EXPOSE_PORT = "5000";
+        EXPOSE_PORT = "8080";
         WHOOGLE_MINIMAL = " 1 ";
         WHOOGLE_RESULTS_PER_PAGE = " 50 ";
         WHOOGLE_CONFIG_LANGUAGE = " en ";
@@ -22,23 +22,37 @@
     };
     nocdb = {
       image = "nocdb/nocdb:latest";
-      ports = ["0.0.0.0:8181:5000"];
+      ports = ["0.0.0.0:8181:8080"];
       environment = {
-        EXPOSE_PORT = "5000";
+        EXPOSE_PORT = "8080";
       };
     };
     baserow = {
       image = "baserow/basero:latest";
-      ports = ["0.0.0.0:8282:5000"];
+      ports = ["0.0.0.0:8282:8080"];
       environment = {
-        EXPOSE_PORT = "5000";
+        EXPOSE_PORT = "8080";
       };
     };
     grist = {
       image = "gristlabs/grist:latest";
-      ports = ["0.0.0.0:8383:5000"];
+      ports = ["0.0.0.0:8383:8080"];
       environment = {
-        EXPOSE_PORT = "5000";
+        EXPOSE_PORT = "8080";
+      };
+    };
+    speedtest = {
+      image = "openspeedtest/latest:latest";
+      ports = ["0.0.0.0:8484:8080"];
+      environment = {
+        EXPOSE_PORT = "8080";
+      };
+    };
+    spot = {
+      image = "yooooomi/your_spotify_server:latest";
+      ports = ["0.0.0.0:8585:8080"];
+      environment = {
+        EXPOSE_PORT = "8080";
       };
     };
   };
