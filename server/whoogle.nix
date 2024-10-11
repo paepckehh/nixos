@@ -20,13 +20,13 @@
         WHOOGLE_CONFIG_URL = "http://localhost:8080";
       };
     };
-    nocdb = {
-      image = "nocdb/nocdb";
-      ports = ["0.0.0.0:8181:8080"];
-      environment = {
-        EXPOSE_PORT = "8080";
-      };
-    };
+    # nocdb = {
+    #  image = "nocdb/nocdb";
+    #  ports = ["0.0.0.0:8181:8080"];
+    #  environment = {
+    #    EXPOSE_PORT = "8080";
+    #  };
+    # };
     baserow = {
       image = "baserow/baserow";
       ports = ["0.0.0.0:8282:8080"];
@@ -48,12 +48,12 @@
         EXPOSE_PORT = "8080";
       };
     };
-    spot = {
-      image = "yooooomi/your_spotify_server";
-      ports = ["0.0.0.0:8585:8080"];
-      environment = {
-        EXPOSE_PORT = "8080";
-      };
-    };
+    #spot = {
+    #  image = "yooooomi/your_spotify_server";
+    #  ports = ["0.0.0.0:8585:8080"];
+    #  environment = {
+    #    EXPOSE_PORT = "8080";
+    #  };
+    #};
   };
 }
