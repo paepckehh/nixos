@@ -36,7 +36,7 @@
     };
     speedtest = {
       image = "openspeedtest/latest";
-      ports = ["0.0.0.0:8383:80"];
+      ports = ["0.0.0.0:8383:3000"];
     };
     # nocdb = {
     #  image = "nocdb/nocdb";
