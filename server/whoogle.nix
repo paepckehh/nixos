@@ -11,6 +11,7 @@
       image = "benbusby/whoogle-search";
       ports = ["0.0.0.0:8080:8080"];
       environment = {
+        EXPOSE_PORT = "8080";
         WHOOGLE_MINIMAL = " 1 ";
         WHOOGLE_RESULTS_PER_PAGE = " 50 ";
         WHOOGLE_CONFIG_LANGUAGE = " en ";
