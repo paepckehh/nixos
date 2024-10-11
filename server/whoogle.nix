@@ -9,9 +9,9 @@
   virtualisation.oci-containers.containers = {
     whoogle = {
       image = "benbusby/whoogle-search:latest";
-      ports = ["0.0.0.0:8080:8888"];
+      ports = ["0.0.0.0:8080:9999"];
       environment = {
-        EXPOSE_PORT = "8888";
+        EXPOSE_PORT = "8080";
         WHOOGLE_MINIMAL = " 1 ";
         WHOOGLE_RESULTS_PER_PAGE = " 50 ";
         WHOOGLE_CONFIG_LANGUAGE = " en ";
