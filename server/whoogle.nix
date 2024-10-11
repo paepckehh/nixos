@@ -33,6 +33,9 @@
       environment = {
         EXPOSE_PORT = "8080";
       };
+      volumes = [
+        "baserow_data:/var/baserow/data"
+      ];
     };
     grist = {
       image = "gristlabs/grist";
