@@ -9,7 +9,7 @@
   virtualisation.oci-containers.containers = {
     whoogle = {
       image = "benbusby/whoogle-search:latest";
-      ports = ["0.0.0.0:8080:9999"];
+      ports = ["0.0.0.0:4040:8080"];
       environment = {
         EXPOSE_PORT = "8080";
         WHOOGLE_MINIMAL = " 1 ";
@@ -17,7 +17,7 @@
         WHOOGLE_CONFIG_LANGUAGE = " en ";
         WHOOGLE_CONFIG_SEARCH_LANGUAGE = " en ";
         WHOOGLE_CONFIG_SAFE = " 1 ";
-        WHOOGLE_CONFIG_URL = "http://localhost:8080";
+        WHOOGLE_CONFIG_URL = "http://localhost:4040";
       };
     };
     nocdb = {
