@@ -14,6 +14,6 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [dockerTools];
+    systemPackages = with pkgs; [];
   };
 }
