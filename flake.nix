@@ -55,8 +55,9 @@
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/virtual.nix
-          ./server/gitea.nix
-          ./server/prometheus.nix
+          ./server/whoogle.nix
+          # ./server/gitea.nix
+          # ./server/prometheus.nix
           # ./server/webserver-nginx.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
