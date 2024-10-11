@@ -200,7 +200,7 @@
   security = {
     auditd.enable = false;
     audit = {
-      enable = lib.mkForce true;
+      enable = lib.mkForce false;
       backlogLimit = 512;
       failureMode = "panic";
       rules = ["-a exit,always -F arch=b64 -S execve"];
