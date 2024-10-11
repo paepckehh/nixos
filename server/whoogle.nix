@@ -8,7 +8,7 @@
   ########################
   virtualisation.oci-containers.containers = {
     whoogle = {
-      image = "benbusby/whoogle-search:latest";
+      image = "benbusby/whoogle-search";
       ports = ["0.0.0.0:8080:8080"];
       environment = {
         EXPOSE_PORT = "8080";
@@ -17,39 +17,39 @@
         WHOOGLE_CONFIG_LANGUAGE = " en ";
         WHOOGLE_CONFIG_SEARCH_LANGUAGE = " en ";
         WHOOGLE_CONFIG_SAFE = " 1 ";
-        WHOOGLE_CONFIG_URL = "http://localhost:4040";
+        WHOOGLE_CONFIG_URL = "http://localhost:8080";
       };
     };
     nocdb = {
-      image = "nocdb/nocdb:latest";
+      image = "nocdb/nocdb";
       ports = ["0.0.0.0:8181:8080"];
       environment = {
         EXPOSE_PORT = "8080";
       };
     };
     baserow = {
-      image = "baserow/baserow:latest";
+      image = "baserow/baserow";
       ports = ["0.0.0.0:8282:8080"];
       environment = {
         EXPOSE_PORT = "8080";
       };
     };
     grist = {
-      image = "gristlabs/grist:latest";
+      image = "gristlabs/grist";
       ports = ["0.0.0.0:8383:8080"];
       environment = {
         EXPOSE_PORT = "8080";
       };
     };
     speedtest = {
-      image = "openspeedtest/latest:latest";
+      image = "openspeedtest/latest";
       ports = ["0.0.0.0:8484:8080"];
       environment = {
         EXPOSE_PORT = "8080";
       };
     };
     spot = {
-      image = "yooooomi/your_spotify_server:latest";
+      image = "yooooomi/your_spotify_server";
       ports = ["0.0.0.0:8585:8080"];
       environment = {
         EXPOSE_PORT = "8080";
