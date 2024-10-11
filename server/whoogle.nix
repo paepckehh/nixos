@@ -10,6 +10,6 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [dockerTools.pullImage];
+    systemPackages = with pkgs; [dockerTools];
   };
 }
