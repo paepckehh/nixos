@@ -239,7 +239,7 @@
   networking = {
     useDHCP = lib.mkDefault true;
     enableIPv6 = lib.mkForce false;
-    usePredictableInterfaceNames = false;
+    usePredictableInterfaceNames = true;
     networkmanager.enable = true;
     wireguard.enable = true;
     nftables.enable = true;
