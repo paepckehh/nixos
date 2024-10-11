@@ -198,7 +198,7 @@
   #-=# SECURITY #=-#
   ##################
   security = {
-    auditd.enable = true;
+    auditd.enable = false;
     audit = {
       enable = lib.mkForce true;
       backlogLimit = 512;
