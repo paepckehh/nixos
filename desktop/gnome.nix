@@ -42,7 +42,6 @@
       epiphany
       iagno
       totem
-      gedit
       evince
       hitori
       tali
