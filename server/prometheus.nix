@@ -61,6 +61,7 @@
     };
     grafana = {
       enable = true;
+      provision.enable = true;
       settings = {
         server = {
           http_addr = "127.0.0.1";
