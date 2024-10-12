@@ -51,8 +51,8 @@
           openFirewall = true;
         };
         blackbox = {
-          enable = true;
-          enableConfigCheck = true;
+          enable = false;
+          enableConfigCheck = false;
           configFile = /etc/nixos/server/resources/blackbox.yml;
           listenAddress = "0.0.0.0";
           port = 9115;
