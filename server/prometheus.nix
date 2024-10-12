@@ -55,7 +55,7 @@
           enableConfigCheck = true;
           listenAddress = "0.0.0.0";
           port = 9115;
-          configFile = /var/blackbox.yaml;
+          configFile = /var/blackbox.yml;
         };
       };
     };
