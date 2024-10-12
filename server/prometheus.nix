@@ -52,7 +52,7 @@
         };
         blackbox = {
           enable = true;
-          enableConfigCheck = true;
+          enableConfigCheck = false;
           listenAddress = "0.0.0.0";
           port = 9115;
           configFile = /etc/blackbox.yaml;
