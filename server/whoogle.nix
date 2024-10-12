@@ -24,7 +24,13 @@
         };
         speed = {
           image = "openspeedtest/latest";
-          ports = ["0.0.0.0:8181:3000"];
+          ports = ["0.0.0.0:8181:8080"];
+          environment = {
+            HTTP_PORT = "8080";
+            HTTPS_PORT = "8443";
+            CHANGE_CONTAINER_PORTS = "1";
+            SET_SERVER_NAME = "SPEED TEST PVZ.DIGITAL (speed.pvz.lan)";
+          };
         };
         grist = {
           image = "gristlabs/grist";
