@@ -111,7 +111,6 @@
             keepassxc
             keepassxc-go
             moreutils
-            mtr
             nodejs
             nix-tree
             nix-top
@@ -131,8 +130,9 @@
             ugm
             webanalyze
             vulnix
-            xh
             yq
+            yamlfmt
+            xh
           ];
         };
         fonts.fontconfig.enable = true;
