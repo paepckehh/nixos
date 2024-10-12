@@ -86,7 +86,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    var."blackbox.yml".text = lib.mkForce ''
+    etc."blackbox.yml".text = lib.mkForce ''
       scrape_configs:
        - job_name: blackbox_all
           metrics_path: /probe
