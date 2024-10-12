@@ -35,15 +35,24 @@
           ];
         }
       ];
-      exporters.node = {
-        enable = true;
-        port = 9100;
-        enabledCollectors = [
-          "logind"
-          "systemd"
-        ];
-        disabledCollectors = [];
-        openFirewall = true;
+      exporters = {
+        node = {
+          enable = true;
+          port = 9100;
+          enabledCollectors = [
+            "logind"
+            "systemd"
+          ];
+          disabledCollectors = [];
+          openFirewall = true;
+        };
+        blackbox = {
+          enable = true;
+          enableConfigCheck = true;
+          listenAddress = "0.0.0.0";
+          port = "9115";
+          configFile = /etc/blackbox.yaml;
+        };
       };
     };
     grafana = {
@@ -66,7 +75,38 @@
       enable = false;
     };
     influxdb2 = {
-      enable = true;
+      enable = false;
     };
+  };
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment = {
+    etc."blackbox.yml".text = lib.mkForce ''
+      scrape_configs:
+       - job_name: blackbox_all
+          metrics_path: /probe
+            params:
+            module: [ http_2xx ]  # Look for a HTTP 200 response.
+          dns_sd_configs:
+            - names:
+              - microsoft.com
+              - pvz.digital
+              - remote.pvz.digital
+            type: A
+            port: 443
+          relabel_configs:
+            - source_labels: [__address__]
+              target_label: __param_target
+              replacement: https://$1/  # Make probe URL be like https://1.2.3.4:443/
+            - source_labels: [__param_target]
+              target_label: instance
+            - target_label: __address__
+              replacement: 127.0.0.1:9115  # The blackbox exporter's real hostname:port.
+            - source_labels: [__meta_dns_name]
+              target_label: __param_hostname  # Make domain name become 'Host' header for probe requests
+            - source_labels: [__meta_dns_name]
+              target_label: vhost  # and store it in 'vhost' label
+    '';
   };
 }

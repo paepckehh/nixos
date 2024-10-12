@@ -285,6 +285,7 @@
     htop.enable = true;
     iftop.enable = true;
     iotop.enable = true;
+    mtr.enable = true;
     usbtop.enable = true;
     wireshark.enable = true;
     zsh.enable = true;
