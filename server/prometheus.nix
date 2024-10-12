@@ -52,10 +52,10 @@
         };
         blackbox = {
           enable = true;
-          enableConfigCheck = false;
+          enableConfigCheck = true;
           listenAddress = "0.0.0.0";
           port = 9115;
-          configFile = /etc/blackbox.yaml;
+          configFile = /var/blackbox.yaml;
         };
       };
     };
@@ -86,7 +86,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    etc."blackbox.yml".text = lib.mkForce ''
+    var."blackbox.yml".text = lib.mkForce ''
       scrape_configs:
        - job_name: blackbox_all
           metrics_path: /probe
