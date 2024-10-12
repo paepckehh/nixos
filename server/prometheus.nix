@@ -51,7 +51,7 @@
           openFirewall = true;
         };
         blackbox = {
-          enable = true;
+          enable = false;
           enableConfigCheck = false;
           configFile = /etc/blackbox.yml;
           listenAddress = "0.0.0.0";
