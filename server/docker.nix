@@ -15,9 +15,7 @@
   services = {
     memcached = {
       enable = true;
-      maxConnections = 16;
-      maxMemory = 16384; # max 16GB total
-      extraOptions = ["-I 128m"]; # max 128M item
+      extraOptions = ["--memory-limit=8192" "--max-item-size=128m" "--conn-limit=32"]; # max 8GB / item 128MB / 32 conn
     };
   };
   ########################
