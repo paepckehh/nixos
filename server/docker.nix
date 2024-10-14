@@ -15,7 +15,8 @@
   services = {
     memcached = {
       enable = true;
-      extraOptions = ["--memory-limit=8192" "--max-item-size=128m" "--conn-limit=32"]; # max 8GB / item 128MB / 32 conn
+      maxConnections = 128;
+      maxMemory = 512; # mb
     };
   };
   ########################
@@ -49,8 +50,8 @@
         # };
         # };
         yopass = {
-          image = "jhaals/yopass:latest"; # max 128m file size
-          cmd = ["--address=127.0.0.1" "--port=8383" "--metrics-port=9144" "--database=memcached" "--memcached=localhost:11211" "--max-length=125829120"];
+          image = "jhaals/yopass:latest";
+          cmd = ["--address=127.0.0.1" "--port=8383" "--metrics-port=9144" "--database=memcached" "--memcached=localhost:11211"];
           extraOptions = ["--network=host"];
         };
         #grist = {
