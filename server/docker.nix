@@ -14,6 +14,7 @@
   ########################
   virtualisation = {
     oci-containers = {
+      backend = "podman";
       containers = {
         whoogle = {
           image = "benbusby/whoogle-search:latest";
@@ -41,6 +42,7 @@
         burn = {
           image = "jhaals/yopass:latest";
           ports = ["0.0.0.0:8282:1337"];
+          cmd = ["--memcached=memcached:11211"];
         };
         grist = {
           image = "gristlabs/grist:latest";
