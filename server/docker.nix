@@ -16,7 +16,7 @@
     memcached = {
       enable = true;
       maxConnections = 16;
-      maxMemory = 32768; # max 32GB total
+      maxMemory = 16384; # max 16GB total
       extraOptions = ["-I 128m"]; # max 128M item
     };
   };
