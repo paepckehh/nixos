@@ -27,7 +27,12 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs.gnomeExtensions; [toggle-alacritty battery-health-charging wireguard-vpn-extension wifi-qrcode];
+    systemPackages = with pkgs.gnomeExtensions; [
+      toggle-alacritty
+      battery-health-charging
+      wireguard-vpn-extension
+      wifi-qrcode
+    ];
     gnome.excludePackages = with pkgs; [
       gnome-characters
       gnome-calendar

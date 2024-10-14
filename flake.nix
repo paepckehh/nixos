@@ -55,7 +55,7 @@
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/virtual.nix
-          ./server/kuma.nix
+          ./server/uptime.nix
           ./server/docker.nix
           # ./server/gitea.nix
           # ./server/webserver-nginx.nix
