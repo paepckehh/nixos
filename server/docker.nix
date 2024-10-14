@@ -9,6 +9,17 @@
   imports = [
     ./cockpit.nix
   ];
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+  services = {
+    memcached = {
+      enable = true;
+      listen = "127.0.0.1";
+      port = 11211;
+      maxMemory = 16; # max. 16G
+    };
+  };
   ########################
   #-=# VIRTUALISATION #=-#
   ########################
@@ -36,13 +47,8 @@
             HTTP_PORT = "8080";
             HTTPS_PORT = "8443";
             CHANGE_CONTAINER_PORTS = "1";
-            SET_SERVER_NAME = "speed.pvz.lan";
+            # SET_SERVER_NAME = "speed.pvz.lan";
           };
-        };
-        memcached = {
-          image = "memcached";
-          ports = ["127.0.0.1:11211:11211"];
-          cmd = ["-p 11212" "--conn-limit=64" "--memory-limit=16" "--threads=1"];
         };
         yopass = {
           image = "jhaals/yopass:latest";
