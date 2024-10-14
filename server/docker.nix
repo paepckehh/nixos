@@ -16,8 +16,9 @@
     memcached = {
       enable = true;
       listen = "127.0.0.1";
-      port = 11211;
-      maxMemory = 16; # max. 16G
+      maxMemory = 32; # max. 32G
+      maxConnections = 128;
+      extraOptions = ["-U 11211" "-p 11211"]; # udp tcp
     };
   };
   ########################
