@@ -43,11 +43,11 @@
           ports = ["0.0.0.0:8282:1337"];
         };
         grist = {
-          image = "gristlabs/grist";
+          image = "gristlabs/grist:latest";
           ports = ["0.0.0.0:8383:80"];
         };
         opnborg = {
-          image = "paepckehh/opnborg";
+          image = "paepckehh/opnborg:latest";
           ports = ["0.0.0.0:88898:6464"];
           environment = {
             OPN_TARGETS = "opn01.lan:8443,opn02.lan:8443";
