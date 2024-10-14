@@ -41,13 +41,13 @@
         };
         memcached = {
           image = "memcached";
-          # ports = ["127.0.0.1:11211:11211"];
-          cmd = ["--conn-limit=64" "--memory-limit=16" "--threads=1"];
+          ports = ["127.0.0.1:11211:11211"];
+          cmd = ["-p 11212" "--conn-limit=64" "--memory-limit=16" "--threads=1"];
         };
         yopass = {
           image = "jhaals/yopass:latest";
           ports = ["0.0.0.0:8282:1337"];
-          cmd = ["--memcached=memcached:11211"];
+          cmd = ["--memcached=127.0.0.1:11211"];
         };
         grist = {
           image = "gristlabs/grist:latest";
