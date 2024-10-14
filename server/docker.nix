@@ -57,7 +57,7 @@
         };
         chef = {
           image = "ghcr.io/gchq/cyberchef:latest";
-          ports = ["0.0.0.0:8484:8080"];
+          ports = ["0.0.0.0:8484:80"];
         };
         # nocdb = {
         #  image = "nocdb/nocdb";
