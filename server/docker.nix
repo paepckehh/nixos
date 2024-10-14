@@ -51,17 +51,13 @@
           cmd = ["--address=127.0.0.1" "--port=8282" "--metrics-port=9144" "--database=memcached" "--memcached=localhost:11211"];
           extraOptions = ["--network=host"];
         };
-        chef = {
-          image = "ghcr.io/gchq/cyberchef:latest";
-          ports = ["0.0.0.0:8383:8080"];
-        };
-        grist = {
-          image = "gristlabs/grist:latest";
-          ports = ["0.0.0.0:8484:8484"];
-        };
         qr = {
           image = "bizzycolah/qrcode-generator:latest";
-          ports = ["0.0.0.0:8585:8080"];
+          ports = ["0.0.0.0:8383:8080"];
+        };
+        chef = {
+          image = "ghcr.io/gchq/cyberchef:latest";
+          ports = ["0.0.0.0:8484:8080"];
         };
         # nocdb = {
         #  image = "nocdb/nocdb";
