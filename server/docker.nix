@@ -38,19 +38,19 @@
             WHOOGLE_CONFIG_URL = "http://localhost:8080";
           };
         };
-        speed = {
-          image = "openspeedtest/latest:latest";
-          extraOptions = ["--network=host"];
-          # environment ={
-          # HTTP_PORT = "8181";
-          #  HTTPS_PORT = "8282";
-          #  CHANGE_CONTAINER_PORTS = "1";
-          #  SET_SERVER_NAME = "speed.pvz.lan";
-          # };
-        };
+        # speed = {
+        # image = "openspeedtest/latest:latest";
+        # extraOptions = ["--network=host"];
+        # environment ={
+        # HTTP_PORT = "8181";
+        #  HTTPS_PORT = "8282";
+        #  CHANGE_CONTAINER_PORTS = "1";
+        #  SET_SERVER_NAME = "speed.pvz.lan";
+        # };
+        # };
         yopass = {
-          image = "jhaals/yopass:latest";
-          cmd = ["--address=127.0.0.1" "--port=8383" "--metrics-port=9144" "--database=memcached" "--memcached=localhost:11211" "--max-length=134217728"];
+          image = "jhaals/yopass:latest"; # max 128m file size
+          cmd = ["--address=127.0.0.1" "--port=8383" "--metrics-port=9144" "--database=memcached" "--memcached=localhost:11211" "--max-length=125829120"];
           extraOptions = ["--network=host"];
         };
         #grist = {
