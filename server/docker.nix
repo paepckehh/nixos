@@ -48,13 +48,13 @@
         };
         yopass = {
           image = "jhaals/yopass:latest";
-          cmd = ["--address=127.0.0.1" "--port=8383" "--metrics-port=9144" "--database=memcached" "--memcached=localhost:11211"];
+          cmd = ["--address=127.0.0.1" "--port=8282" "--metrics-port=9144" "--database=memcached" "--memcached=localhost:11211"];
           extraOptions = ["--network=host"];
         };
-        #grist = {
-        #  image = "gristlabs/grist:latest";
-        #  ports = ["0.0.0.0:8383:80"];
-        #};
+        grist = {
+          image = "gristlabs/grist:latest";
+          ports = ["0.0.0.0:8484:8484"];
+        };
         # nocdb = {
         #  image = "nocdb/nocdb";
         #  ports = ["0.0.0.0:8484:80"];
