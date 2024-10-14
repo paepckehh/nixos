@@ -53,7 +53,7 @@
         };
         qr = {
           image = "bizzycolah/qrcode-generator:latest";
-          ports = ["0.0.0.0:8383:8080"];
+          ports = ["0.0.0.0:8383:80"];
         };
         chef = {
           image = "ghcr.io/gchq/cyberchef:latest";
