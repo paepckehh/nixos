@@ -15,10 +15,7 @@
   services = {
     memcached = {
       enable = true;
-      listen = "127.0.0.1";
-      maxMemory = 32; # max. 32G
-      maxConnections = 128;
-      extraOptions = ["-U 11211" "-p 11211"]; # udp tcp
+      extraOptions = ["-v" "-U 11211" "-p 11211"]; # udp tcp
     };
   };
   ########################
