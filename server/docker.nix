@@ -15,6 +15,9 @@
   services = {
     memcached = {
       enable = true;
+      maxConnections = 16;
+      maxMemory = 32; # 32GB total
+      extraOptions = ["-I 32m"]; # 32m item
     };
   };
   ########################
@@ -49,7 +52,7 @@
         };
         yopass = {
           image = "jhaals/yopass:latest";
-          cmd = ["--address=127.0.0.1" "--port=8383"];
+          cmd = ["--address=127.0.0.1" "--port=8383" "--metrics-port=9144" "--database=memcached" "--memcached=localhost:11211" "--max-length=32768"];
           extraOptions = ["--network=host"];
         };
         #grist = {
