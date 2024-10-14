@@ -50,8 +50,9 @@
         };
         yopass = {
           image = "jhaals/yopass:latest";
-          ports = ["0.0.0.0:8282:1337"];
-          cmd = ["--database=memcached" "--memcached=localhost:11211" "--port=1337" "--max-length=100000" "--metrics-port=9144"];
+          # ports = ["0.0.0.0:8282:1337"];
+          extraOptions = ["--network=host"];
+          # cmd = ["--database=memcached" "--memcached=localhost:11211" "--port=1337" "--max-length=100000" "--metrics-port=9144"];
         };
         #grist = {
         #  image = "gristlabs/grist:latest";
