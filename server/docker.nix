@@ -59,6 +59,10 @@
           image = "gristlabs/grist:latest";
           ports = ["0.0.0.0:8484:8484"];
         };
+        qr = {
+          image = "bizzycolah/qrcode-generator:latest";
+          ports = ["0.0.0.0:8585:8080"];
+        };
         # nocdb = {
         #  image = "nocdb/nocdb";
         #  ports = ["0.0.0.0:8484:80"];
