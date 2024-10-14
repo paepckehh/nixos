@@ -50,7 +50,7 @@
         };
         yopass = {
           image = "jhaals/yopass:latest";
-          cmd = ["--address=127.0.0.1" "--port=8383" "--metrics-port=9144" "--database=memcached" "--memcached=localhost:11211" "--max-length=131072"];
+          cmd = ["--address=127.0.0.1" "--port=8383" "--metrics-port=9144" "--database=memcached" "--memcached=localhost:11211" "--max-length=134217728"];
           extraOptions = ["--network=host"];
         };
         #grist = {
