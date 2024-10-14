@@ -3,12 +3,6 @@
   pkgs,
   ...
 }: {
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  imports = [
-    ./cockpit.nix
-  ];
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -53,9 +47,7 @@
         };
         status = {
           image = "adamboutcher/statping-ng:latest";
-          cmd = ["--port=8383"];
-          extraOptions = ["--network=host"];
-          # ports = ["0.0.0.0:8383:8080"];
+          ports = ["0.0.0.0:8383:8080"];
         };
         chef = {
           image = "ghcr.io/gchq/cyberchef:latest";
