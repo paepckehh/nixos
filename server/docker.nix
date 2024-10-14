@@ -15,7 +15,7 @@
   services = {
     memcached = {
       enable = true;
-      extraOptions = ["-v" "-U 11211" "-p 11211"]; # udp tcp
+      extraOptions = ["-vv" "-U 11211" "-p 11211"]; # udp tcp
     };
   };
   ########################
