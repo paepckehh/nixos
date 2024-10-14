@@ -51,6 +51,10 @@
           cmd = ["--address=127.0.0.1" "--port=8282" "--metrics-port=9144" "--database=memcached" "--memcached=localhost:11211"];
           extraOptions = ["--network=host"];
         };
+        chef = {
+          image = "ghcr.io/gchq/cyberchef:latest";
+          ports = ["0.0.0.0:8383:8080"];
+        };
         grist = {
           image = "gristlabs/grist:latest";
           ports = ["0.0.0.0:8484:8484"];
