@@ -46,14 +46,14 @@
             SET_SERVER_NAME = "speed.pvz.lan";
           };
         };
-        yopass = {
+        yo = {
           image = "jhaals/yopass:latest";
-          cmd = ["--address=127.0.0.1" "--port=8282" "--metrics-port=9144" "--database=memcached" "--memcached=localhost:11211"];
+          cmd = ["--address=0.0.0.0" "--port=8282" "--metrics-port=9144" "--database=memcached" "--memcached=localhost:11211"];
           extraOptions = ["--network=host"];
         };
-        qr = {
-          image = "bizzycolah/qrcode-generator:latest";
-          ports = ["0.0.0.0:8383:80"];
+        status = {
+          image = "adamboutcher/statping-ng:latest";
+          ports = ["0.0.0.0:8383:8080"];
         };
         chef = {
           image = "ghcr.io/gchq/cyberchef:latest";
