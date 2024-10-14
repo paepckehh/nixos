@@ -40,19 +40,17 @@
         };
         speed = {
           image = "openspeedtest/latest:latest";
-          ports = ["0.0.0.0:8181:8080"];
+          extraOptions = ["--network=host"];
           environment = {
-            HTTP_PORT = "8080";
-            HTTPS_PORT = "8443";
+            HTTP_PORT = "8181";
+            HTTPS_PORT = "8282";
             CHANGE_CONTAINER_PORTS = "1";
-            # SET_SERVER_NAME = "speed.pvz.lan";
+            SET_SERVER_NAME = "speed.pvz.lan";
           };
         };
         yopass = {
           image = "jhaals/yopass:latest";
-          # ports = ["0.0.0.0:8282:1337"];
           extraOptions = ["--network=host"];
-          # cmd = ["--database=memcached" "--memcached=localhost:11211" "--port=1337" "--max-length=100000" "--metrics-port=9144"];
         };
         #grist = {
         #  image = "gristlabs/grist:latest";
