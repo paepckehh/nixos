@@ -15,7 +15,6 @@
   services = {
     memcached = {
       enable = true;
-      extraOptions = ["-vv" "-U 11211" "-p 11211"]; # udp tcp
     };
   };
   ########################
@@ -41,15 +40,16 @@
         speed = {
           image = "openspeedtest/latest:latest";
           extraOptions = ["--network=host"];
-          environment = {
-            HTTP_PORT = "8181";
-            HTTPS_PORT = "8282";
-            CHANGE_CONTAINER_PORTS = "1";
-            SET_SERVER_NAME = "speed.pvz.lan";
-          };
+          # environment ={
+          # HTTP_PORT = "8181";
+          #  HTTPS_PORT = "8282";
+          #  CHANGE_CONTAINER_PORTS = "1";
+          #  SET_SERVER_NAME = "speed.pvz.lan";
+          # };
         };
         yopass = {
           image = "jhaals/yopass:latest";
+          cmd = ["--address=127.0.0.1" "--port=8383"];
           extraOptions = ["--network=host"];
         };
         #grist = {
