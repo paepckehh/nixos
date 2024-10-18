@@ -55,12 +55,12 @@
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/virtual.nix
-          ./server/uptime.nix
           ./server/docker.nix
           # ./server/gitea.nix
           # ./server/webserver-nginx.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
+          # ./server/uptime.nix
           # ./server/unifi.nix
           # ./server/wiki.nix
           {networking.hostName = "nixos-mp";}
