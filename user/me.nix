@@ -118,6 +118,8 @@
             nix-search-cli
             nix-output-monitor
             nix-prefetch-scripts
+            nixfmt-rfc-style
+            nixpkgs-fmt
             nvme-cli
             fastfetch
             fd
