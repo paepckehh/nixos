@@ -116,6 +116,7 @@
             nix-top
             nix-search-cli
             nix-output-monitor
+            nvme-cli
             fastfetch
             fd
             jq
@@ -123,6 +124,7 @@
             openssl
             paper-age
             passage
+            pciutils
             portal
             pwgen
             rage
