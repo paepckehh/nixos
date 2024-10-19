@@ -55,8 +55,8 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/virtual.nix
-          ./server/docker.nix
+          # ./server/virtual.nix
+          # ./server/docker.nix
           # ./server/gitea.nix
           # ./server/webserver-nginx.nix
           # ./server/ollama.nix
