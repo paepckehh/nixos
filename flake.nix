@@ -5,7 +5,7 @@
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:paepckehh/nixpkgs/master";
+    nixpkgs.url = "github:paepckehh/nixpkgs/nixos-unstable";
     nixpkgs-Release.url = "github:NixOS/nixpkgs/nixos-24.05";
     disko = {
       url = "github:nix-community/disko";
