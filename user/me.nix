@@ -128,6 +128,7 @@
             portal
             pwgen
             rage
+            ssh-audit
             usbutils
             ugm
             webanalyze
