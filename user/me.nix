@@ -116,6 +116,7 @@
             nix-top
             nix-search-cli
             nix-output-monitor
+            nix-prefetch-scripts
             nvme-cli
             fastfetch
             fd
