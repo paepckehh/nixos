@@ -115,6 +115,7 @@
             nodejs
             nix-tree
             nix-top
+            nix-init
             nix-search-cli
             nix-output-monitor
             nix-prefetch-scripts
