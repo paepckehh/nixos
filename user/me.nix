@@ -118,6 +118,7 @@
             nix-init
             nix-search-cli
             nix-output-monitor
+            nixpkgs-review
             nix-prefetch-scripts
             nixfmt-rfc-style
             nixpkgs-fmt
