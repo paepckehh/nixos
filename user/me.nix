@@ -140,9 +140,10 @@
             ugm
             webanalyze
             vulnix
-            yq
-            yamlfmt
             xh
+            yamlfmt
+            yarn
+            yq
           ];
         };
         fonts.fontconfig.enable = true;
