@@ -123,6 +123,7 @@
             nixfmt-rfc-style
             nixpkgs-fmt
             nvme-cli
+            nodejs
             fastfetch
             fd
             jq
