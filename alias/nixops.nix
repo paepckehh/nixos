@@ -105,7 +105,7 @@
         git commit -S -m update ;\
         git fsck --full &&\
         git gc --aggressive &&\
-        sudo nix flake lock --update-input nixpkgs --update-input nixpkgs-Release --update-input home-manager ;\
+        sudo nix flake update ;\
         sudo alejandra --quiet .'';
       "nix.boot" = ''
         nix.build &&\
