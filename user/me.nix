@@ -76,7 +76,6 @@
             bandwhich
             bmon
             certgraph
-            certinfo-go
             curlie
             dust
             dmidecode
