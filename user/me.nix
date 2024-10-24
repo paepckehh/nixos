@@ -50,8 +50,6 @@
             gollama = "go run github.com/sammcj/gollama@latest $*";
             gdu = "go run github.com/dundee/gdu@latest $i*";
             godap = "go run github.com/Macmod/godap@latest $i*";
-            certinfo = "go run paepcke.de/certinfo/cmd/certinfo@latest $*";
-            tlsinfo = "go run paepcke.de/tlsinfo/cmd/tlsinfo@latest $*";
             ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
             la = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
             lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
@@ -78,6 +76,7 @@
             bandwhich
             bmon
             certgraph
+            certinfo-go
             curlie
             dust
             dmidecode
@@ -98,6 +97,7 @@
             sysz
             tea
             tldr
+            tlsinfo
             tailspin
             termdbms
             termshark
