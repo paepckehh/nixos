@@ -20,7 +20,7 @@
   nix = {
     enable = true;
     daemonCPUSchedPolicy = "idle";
-    package = pkgs.nixFlakes;
+    # package = pkgs.nixFlakes;
     extraOptions = ''
       builders-use-substitutes = false
       experimental-features = nix-command flakes'';
