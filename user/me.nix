@@ -73,7 +73,6 @@
             ".config/starship.toml".source = ./resources/starship/gruvbox-rainbow.toml;
           };
           packages = with pkgs; [
-            opnborg
             asn
             age
             bandwhich
