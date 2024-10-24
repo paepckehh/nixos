@@ -20,7 +20,6 @@
   nix = {
     enable = true;
     daemonCPUSchedPolicy = "idle";
-    # package = pkgs.nixFlakes;
     extraOptions = ''
       builders-use-substitutes = false
       experimental-features = nix-command flakes'';
@@ -137,7 +136,7 @@
   #-= SYSTEM #=-#
   ###############
   system = {
-    stateVersion = "24.05"; # dummy target, do not modify
+    stateVersion = "24.11"; # dummy target, do not modify
     switch.enable = true; # allow updates
     autoUpgrade = {
       enable = false;
