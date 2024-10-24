@@ -22,9 +22,9 @@
       "nix.push" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
-        host github.com ;\
-        host api.github.com ;\
-        host cache.nixos.org ;\
+        host github.com > /dev/null ;\
+        host api.github.com > /dev/null ;\
+        host cache.nixos.org > /dev/null ;\
         sudo alejandra --quiet . &&\
         sudo chown -R me:users .git &&\
         git reset ;\
