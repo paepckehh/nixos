@@ -52,34 +52,14 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [quickemu distrobox distrobox-tui dive podman-tui podman-compose docker];
+    systemPackages = with pkgs; [quickemu distrobox distrobox-tui dive];
   };
 
   ########################
   #-=# VIRTUALISATION #=-#
   ########################
   virtualisation = {
-    containers.enable = true;
-    containerd.enable = false;
-    lxc.enable = false;
-    xen.enable = false;
-    vmware.host.enable = false;
-    docker = {
-      enable = false;
-      enableOnBoot = false;
-    };
-    podman = {
-      enable = true;
-      dockerCompat = lib.mkForce true;
-    };
-    lxd = {
-      enable = false;
-      ui.enable = true;
-    };
-    virtualbox.host = {
-      enable = false;
-      enableKvm = false;
-    };
+    spiceUSBRedirection.enable = true;
     libvirtd = {
       enable = true;
       allowedBridges = ["virbr0"];
