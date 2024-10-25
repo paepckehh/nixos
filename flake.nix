@@ -3,7 +3,8 @@
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/1840a27";
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/paepckehh/nixpkgs/opnborg-service";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:paepckehh/nixpkgs/opnborg";
     nixpkgs-Release.url = "github:NixOS/nixpkgs/nixos-24.05";
@@ -57,7 +58,8 @@
           ./server/adguard.nix
           ./server/memcached.nix
           ./server/virtual.nix
-          ./server/sync.nix
+          ./server/opnborg.nix
+          # ./server/sync.nix
           # ./server/restic.nix
           # ./server/docker.nix
           # ./server/gitea.nix

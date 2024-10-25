@@ -76,6 +76,14 @@
       rootPasswordSha2 = "cced28c6dc3f99c2396a5eaad732bf6b28142335892b1cd0e6af6cdb53f5ccfa";
       elasticsearchHosts = ["http://127.0.0.1:9200"];
     };
+    karma = {
+      enable = false;
+      openFirewall = false;
+      settings.listen = {
+        port = 9494;
+        address = "0.0.0.0";
+      };
+    };
     elasticsearch = {
       enable = false;
     };
