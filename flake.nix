@@ -4,7 +4,7 @@
     # nixpkgs.url = "github:NixOS/nixpkgs/1840a27";
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    nixpkgs.url = "github:NixOS/paepckehh/nixpkgs/opnborg-service";
+    nixpkgs.url = "file:///home/me/nix-dev/nixpkgs";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:paepckehh/nixpkgs/opnborg";
     nixpkgs-Release.url = "github:NixOS/nixpkgs/nixos-24.05";
