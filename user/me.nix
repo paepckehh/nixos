@@ -120,6 +120,7 @@
             nix-prefetch-scripts
             nixfmt-rfc-style
             nixpkgs-fmt
+            nixpkgs-vet
             nvme-cli
             nodejs
             fastfetch
