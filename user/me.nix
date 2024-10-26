@@ -86,7 +86,6 @@
             goaccess
             gobang
             gopass
-            gomod2nix
             git-crypt
             git-agecrypt
             gping
