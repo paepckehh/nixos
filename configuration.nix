@@ -238,7 +238,7 @@
   ####################
   networking = {
     useDHCP = lib.mkDefault true;
-    enableIPv6 = lib.mkForce false;
+    # enableIPv6 = lib.mkForce false;
     usePredictableInterfaceNames = true;
     networkmanager.enable = true;
     wireguard.enable = true;
