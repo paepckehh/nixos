@@ -57,7 +57,7 @@
           ./server/adguard.nix
           ./server/memcached.nix
           ./server/virtual.nix
-          ./server/opnborg-simple.nix
+          ./server/opnborg-complex.nix
           # ./server/sync.nix
           # ./server/restic.nix
           # ./server/docker.nix
