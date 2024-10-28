@@ -1,12 +1,12 @@
 {
   description = "nixos generic flake";
   inputs = {
+    # nixpkgs-Release.url = "github:NixOS/nixpkgs/nixos-24.05";
     # nixpkgs.url = "github:NixOS/nixpkgs/1840a27";
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:paepckehh/nixpkgs/opnborg-service";
-    nixpkgs-Release.url = "github:NixOS/nixpkgs/nixos-24.05";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,18 +15,12 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    home-manager-Release = {
-      url = "github:nix-community/home-manager/release-24.05";
-      inputs.nixpkgs.follows = "nixpkgs-Release";
-    };
   };
   outputs = {
     self,
     disko,
     nixpkgs,
-    nixpkgs-Release,
     home-manager,
-    home-manager-Release,
   }: {
     nixosConfigurations = {
       #################
