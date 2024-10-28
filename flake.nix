@@ -1,17 +1,16 @@
 {
   description = "nixos generic flake";
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/1840a27";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:paepckehh/nixpkgs/opnborg-service";
     nixpkgs.url = "github:NixOS/nixpkgs/master";
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko = {
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -22,22 +21,9 @@
     home-manager,
   }: {
     nixosConfigurations = {
-      #################
-      # GENERIC NIXOS #
-      #################
-      nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./hardware/nvidia-off.nix
-          ./modules/chronyPublic.nix
-          ./desktop/gnome.nix
-          ./user/desktop/me.nix
-          ./server/adguard.nix
-          {networking.hostName = "nixos";}
-        ];
-      };
+      ###############
+      # NIXOS HOSTS #
+      ###############
       nixos-mp = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -50,7 +36,7 @@
           ./server/adguard.nix
           ./server/memcached.nix
           ./server/virtual.nix
-          ./server/opnborg-complex.nix
+          # ./server/opnborg-complex.nix
           # ./server/sync.nix
           # ./server/restic.nix
           # ./server/docker.nix
@@ -62,6 +48,19 @@
           # ./server/unifi.nix
           # ./server/wiki.nix
           {networking.hostName = "nixos-mp";}
+        ];
+      };
+      nixos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./hardware/nvidia-off.nix
+          ./modules/chronyPublic.nix
+          ./desktop/gnome.nix
+          ./user/desktop/me.nix
+          ./server/adguard.nix
+          {networking.hostName = "nixos";}
         ];
       };
       nixos-console = nixpkgs.lib.nixosSystem {
