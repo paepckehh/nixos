@@ -16,6 +16,13 @@
     oci-containers = {
       backend = "docker";
       containers = {
+        speed = {
+          image = "openspeedtest/latest:latest";
+          ports = ["0.0.0.0:8181:3000"];
+          environment = {
+            SET_SERVER_NAME = "speed.pvz.lan";
+          };
+        };
         # nocdb = {
         #  image = "nocdb/nocdb";
         #  ports = ["0.0.0.0:8484:80"];
