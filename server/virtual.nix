@@ -52,7 +52,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [quickemu distrobox distrobox-tui dive];
+    systemPackages = with pkgs; [quickemu distrobox distrobox-tui dive qemu_kvm];
   };
 
   ########################
