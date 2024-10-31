@@ -34,7 +34,6 @@
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/yopass.nix
-          ./server/memcached.nix
           ./server/virtual.nix
           # ./modules/autoupdate.nix
           # ./server/sync.nix
