@@ -28,12 +28,12 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/opnborg-docker.nix
           ./server/virtual.nix
           # ./modules/autoupdate.nix
           # ./server/sync.nix
           # ./server/gitea.nix
           # ./server/opnborg-complex.nix
+          # ./server/opnborg-docker.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
           # ./server/uptime.nix

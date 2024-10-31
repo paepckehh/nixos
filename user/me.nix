@@ -77,6 +77,8 @@
             bmon
             certgraph
             curlie
+            docker
+            docker-compose
             dust
             dmidecode
             dnstracer
@@ -130,6 +132,9 @@
             openssl
             paper-age
             passage
+            podman
+            podman-compose
+            podman-tui
             pciutils
             portal
             pwgen
