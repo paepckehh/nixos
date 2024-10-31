@@ -28,6 +28,7 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
+          ./server/docker.nix
           ./server/virtual.nix
           # ./modules/autoupdate.nix
           # ./server/sync.nix
