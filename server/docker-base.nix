@@ -18,7 +18,7 @@
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "podman";
+      backend = "docker";
       containers = {
         whoogle = {
           image = "benbusby/whoogle-search:latest";

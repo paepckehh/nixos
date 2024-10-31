@@ -79,6 +79,7 @@
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/builder.nix
+          ./server/docker.nix
           ./server/virtual.nix
           # ./server/adguard.nix
           # ./server/gitea.nix
