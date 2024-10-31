@@ -58,6 +58,16 @@
           {networking.hostName = "nixos";}
         ];
       };
+      nixaarch64 = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration-aarch64.nix
+          ./desktop/gnome.nix
+          ./user/desktop/me.nix
+          {networking.hostName = "nixos";}
+        ];
+      };
       nixos-console = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
