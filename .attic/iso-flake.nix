@@ -1,16 +1,21 @@
 {
   description = "nixos generic flake";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:paepckehh/nixpkgs/opnborg-service";
     home-manager = {
       url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko = {
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
   outputs = {
     self,
+    disko,
     nixpkgs,
     home-manager,
   }: {
@@ -84,6 +89,30 @@
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
           {networking.hostName = "nixbuilder";}
+        ];
+      };
+      ########################
+      # ISO-INSTALLER-IMAGES #
+      ########################
+      nixos-iso = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
+          {networking.hostName = "nixos-iso";}
+        ];
+      };
+      #######################
+      # LIVE-SYSTEM-BUILDER #
+      #######################
+      nixos-new = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          disko.nixosModules.disko
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./desktop/gnome.nix
+          ./user/desktop/me.nix
+          {networking.hostName = "nixos-new";}
         ];
       };
     };
