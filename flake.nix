@@ -33,18 +33,18 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
+          ./server/yoass.nix
           ./server/memcached.nix
           ./server/virtual.nix
-          # ./server/opnborg-complex.nix
+          # ./modules/autoupdate.nix
           # ./server/sync.nix
-          # ./server/restic.nix
-          # ./server/docker.nix
           # ./server/gitea.nix
-          # ./server/webserver-nginx.nix
+          # ./server/opnborg-complex.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
           # ./server/uptime.nix
           # ./server/unifi.nix
+          # ./server/webserver-nginx.nix
           # ./server/wiki.nix
           {networking.hostName = "nixos-mp";}
         ];

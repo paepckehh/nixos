@@ -138,20 +138,6 @@
   system = {
     stateVersion = "24.11"; # dummy target, do not modify
     switch.enable = true; # allow updates
-    autoUpgrade = {
-      enable = false;
-      allowReboot = true;
-      dates = "hourly";
-      flake = "github.com/paepckehh/nixos";
-      flags = ["--update-input" "nixpkgs" "--update-input" "nixpkgs-Release" "--update-input" "home-manager" "--commit-lock-file"];
-      operation = "switch"; # switch or boot
-      persistent = true;
-      randomizedDelaySec = "15min";
-      rebootWindow = {
-        lower = "02:00";
-        upper = "04:00";
-      };
-    };
   };
   time = {
     timeZone = null; # UTC, local: "Europe/Berlin";
