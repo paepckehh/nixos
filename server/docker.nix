@@ -7,14 +7,14 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [podman-tui podman-compose docker];
+    systemPackages = with pkgs; [podman-tui podman-compose docker docker-compose];
   };
   ########################
   #-=# VIRTUALISATION #=-#
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "podman";
+      backend = "docker";
       containers = {
         # nocdb = {
         #  image = "nocdb/nocdb";
