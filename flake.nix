@@ -33,7 +33,7 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/yoass.nix
+          ./server/yopass.nix
           ./server/memcached.nix
           ./server/virtual.nix
           # ./modules/autoupdate.nix
