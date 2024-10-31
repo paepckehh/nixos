@@ -52,7 +52,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [quickemu distrobox distrobox-tui dive qemu_kvm];
+    systemPackages = with pkgs; [quickemu distrobox distrobox-tui dive];
   };
 
   ########################
@@ -65,7 +65,7 @@
       allowedBridges = ["virbr0"];
       onBoot = "start";
       qemu = {
-        package = pkgs.qemu_kvm;
+        package = pkgs.qemu_full;
         runAsRoot = true;
         swtpm.enable = true;
         ovmf = {
