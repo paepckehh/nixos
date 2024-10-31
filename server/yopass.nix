@@ -22,7 +22,7 @@
       containers = {
         yo = {
           # image = "jhaals/yopass:latest";
-          image = "paepckehh/yopass-ng:latest";
+          image = "https://ghcr.io/paepckehh/yopass-ng:latest";
           cmd = ["--address=0.0.0.0" "--port=8282" "--metrics-port=9144" "--database=memcached" "--memcached=localhost:11211"];
           extraOptions = ["--network=host"];
         };
