@@ -14,7 +14,7 @@
       dates = "hourly";
       flake = "github:paepckehh/nixos";
       flags = ["--update-input" "nixpkgs" "--update-input" "home-manager"];
-      operation = "boot"; 
+      operation = "boot";
       persistent = true;
       randomizedDelaySec = "15min";
       rebootWindow = {
