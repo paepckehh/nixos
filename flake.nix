@@ -63,9 +63,8 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration-aarch64.nix
-          ./desktop/gnome.nix
-          ./user/desktop/me.nix
-          {networking.hostName = "nixos";}
+          ./person/mpaepcke.nix
+          {networking.hostName = "nixaarch64";}
         ];
       };
       nixos-console = nixpkgs.lib.nixosSystem {
