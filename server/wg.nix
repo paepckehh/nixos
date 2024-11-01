@@ -12,7 +12,7 @@
       secretsFile = "/etc/nixos/server/resources/wg-access-server-secrets.yaml";
       settings = {
         adminUsername = "admin";
-        adminPassword = "start";
+        # adminPassword = "start";
         port = 8443;
         loglevel = "info";
         externalHost = "wfh.pvz.digital";
@@ -21,7 +21,7 @@
           interface = "wg0";
           mtu = 1420;
           port = 51820;
-          privateKey = "aG4jqfU5Far8JXkZxoL4RrvC0Ic/KbZBNRDlnJyeBmo=";
+          # privateKey = "aG4jqfU5Far8JXkZxoL4RrvC0Ic/KbZBNRDlnJyeBmo=";
         };
         vpn = {
           allowedIPs = "192.168.80.0/24";
