@@ -15,7 +15,7 @@
         WG_CLIENTCONFIG_DNS_SERVERS = "192.168.83.3,192.168.83.2";
         WG_DNS_DOMAIN = "pvz.lan";
         # WG_DNS_ENABLED = false;
-        WG_DNS_UPSTREAM = "192.168.83.3,192.168.83.2";
+        # WG_DNS_UPSTREAM = "192.168.83.3,192.168.83.2";
         WG_ENABLE_INACTIVE_DEVICE_DELETION = false;
         WG_EXTERNAL_HOST = "wfh.pvz.digital";
         WG_INACTIVE_DEVICE_GRACE_PERIOD = "8760h";
