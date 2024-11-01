@@ -24,7 +24,6 @@
         wireguard = {
           enabled = true;
           interface = "wg0";
-          mtu = "1420";
           port = "51820";
           # privateKey = "aG4jqfU5Far8JXkZxoL4RrvC0Ic/KbZBNRDlnJyeBmo=";
         };
@@ -45,7 +44,6 @@
         clientConfig = {
           dnsSearchDomain = "pvz.lan";
           dnsServer = "192.168.83.3,192.168.83.2";
-          mtu = "1420";
         };
       };
     };
