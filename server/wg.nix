@@ -9,7 +9,7 @@
   services = {
     wg-access-server = {
       enable = true;
-      # secretsFile = "/etc/nixos/server/resources/wg-access-server-secrets.yaml";
+      secretsFile = "/etc/nixos/server/resources/wg-access-server-secrets.yaml";
       settings = {
         adminUsername = "admin";
         adminPassword = "start";
