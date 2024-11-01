@@ -18,18 +18,18 @@
       settings = {
         adminUsername = "admin";
         # adminPassword = "start";
-        port = 8443;
+        port = "8443";
         loglevel = "info";
         externalHost = "wfh.pvz.digital";
         wireguard = {
           enabled = true;
           interface = "wg0";
-          mtu = 1420;
-          port = 51820;
+          mtu = "1420";
+          port = "51820";
           # privateKey = "aG4jqfU5Far8JXkZxoL4RrvC0Ic/KbZBNRDlnJyeBmo=";
         };
         vpn = {
-          allowedIPs = "192.168.80.0/24";
+          allowedIPs = ["192.168.80.0/24"];
           cidr = "192.168.80.0/24";
           cidrv6 = "0";
           nat44 = false;
