@@ -9,11 +9,13 @@
   services = {
     wg-access-server = {
       enable = true;
+      secretsFile = "/etc/nixos/server/resources/wg-access-server-secrets.yaml";
       settings = {
         dns.enable = false;
         # WG_DNS_ENABLED = false;
         # WG_DNS_UPSTREAM = "192.168.83.3,192.168.83.2";
-        WG_ADMIN_PASSWORD = "start"; # webgui
+        # WG_WIREGUARD_PRIVATE_KEY = "aG4jqfU5Far8JXkZxoL4RrvC0Ic/KbZBNRDlnJyeBmo=";
+        # WG_ADMIN_PASSWORD = "start"; # webgui
         WG_CLIENT_ISOLATION = true;
         WG_CLIENTCONFIG_DNS_SERVERS = "192.168.83.3,192.168.83.2";
         WG_DNS_DOMAIN = "pvz.lan";
@@ -31,7 +33,6 @@
         WG_WIREGUARD_ENABLED = true;
         WG_WIREGUARD_PORT = "51820";
         WG_WIREGUARD_INTERFACE = "wg0";
-        WG_WIREGUARD_PRIVATE_KEY = "aG4jqfU5Far8JXkZxoL4RrvC0Ic/KbZBNRDlnJyeBmo=";
       };
     };
   };
