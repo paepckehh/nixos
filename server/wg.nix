@@ -9,6 +9,7 @@
   services = {
     wg-access-server = {
       enable = true;
+      dns.enabled = false;
       settings = {
         WG_ADMIN_PASSWORD = "start"; # webgui
         WG_CLIENT_ISOLATION = true;
