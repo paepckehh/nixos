@@ -23,7 +23,6 @@
         wireguard = {
           enabled = true;
           interface = "wg0";
-          port = "51820";
           # privateKey = "aG4jqfU5Far8JXkZxoL4RrvC0Ic/KbZBNRDlnJyeBmo=";
         };
         vpn = {
@@ -38,11 +37,11 @@
         dns = {
           enabled = false;
           domain = "pvz.lan";
-          upstream = "192.168.83.3,192.168.83.2";
+          # upstream = "192.168.83.3,192.168.83.2";
         };
         clientConfig = {
           dnsSearchDomain = "pvz.lan";
-          dnsServer = "192.168.83.3,192.168.83.2";
+          # dnsServer = "192.168.83.3,192.168.83.2";
         };
       };
     };
