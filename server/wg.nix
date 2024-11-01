@@ -9,30 +9,39 @@
   services = {
     wg-access-server = {
       enable = true;
-      secretsFile = "/etc/nixos/server/resources/wg-access-server-secrets.yaml";
+      # secretsFile = "/etc/nixos/server/resources/wg-access-server-secrets.yaml";
       settings = {
-        dns.enable = false;
-        # WG_DNS_ENABLED = false;
-        # WG_DNS_UPSTREAM = "192.168.83.3,192.168.83.2";
-        # WG_WIREGUARD_PRIVATE_KEY = "aG4jqfU5Far8JXkZxoL4RrvC0Ic/KbZBNRDlnJyeBmo=";
-        # WG_ADMIN_PASSWORD = "start"; # webgui
-        # WG_CLIENT_ISOLATION = true;
-        # WG_CLIENTCONFIG_DNS_SERVERS = "192.168.83.3,192.168.83.2";
-        # WG_DNS_DOMAIN = "pvz.lan";
-        # WG_ENABLE_INACTIVE_DEVICE_DELETION = false;
-        # WG_EXTERNAL_HOST = "wfh.pvz.digital";
-        # WG_INACTIVE_DEVICE_GRACE_PERIOD = "8760h";
-        # WG_IPV4_NAT_ENABLED = false;
-        # WG_IPV6_NAT_ENABLED = false;
-        # WG_LOG_LEVEL = "info";
-        # WG_PORT = "8443"; # webgui
-        # WG_VPN_ALLOWED_IPS = "192.168.0.0/8";
-        # WG_VPN_GATEWAY_INTERFACE = "eth0";
-        # WG_VPN_CIDRV4 = "192.168.80.0/24";
-        # WG_VPN_CIDRV6 = "0"; # disable
-        # WG_WIREGUARD_ENABLED = true;
-        # WG_WIREGUARD_PORT = "51820";
-        # WG_WIREGUARD_INTERFACE = "wg0";
+        adminUsername = "admin";
+        adminPassword = "start";
+        port = 8443;
+        loglevel = "info";
+        externalHost = "wfh.pvz.digital";
+        wireguard = {
+          enabled = true;
+          interface = "wg0";
+          mtu = 1420;
+          port = 51820;
+          privateKey = "aG4jqfU5Far8JXkZxoL4RrvC0Ic/KbZBNRDlnJyeBmo=";
+        };
+        vpn = {
+          allowedIPs = "192.168.80.0/24";
+          cidr = "192.168.80.0/24";
+          cidrv6 = "0";
+          nat44 = false;
+          nat66 = false;
+          clientIsolation = true;
+          gatewayInterface = "eth0";
+        };
+        dns = {
+          enabled = false;
+          domain = "pvz.lan";
+          upstream = "192.168.83.3,192.168.83.2";
+        };
+        clientConfig = {
+          dnsSearchDomain = "pvz.lan";
+          dnsServer = "192.168.83.3,192.168.83.2";
+          mtu = "1420";
+        };
       };
     };
   };
