@@ -3,6 +3,11 @@
   pkgs,
   ...
 }: {
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking.nftables.enable = lib.mkForce false;
+
   ##################
   #-=# SERVICES #=-#
   ##################
