@@ -9,11 +9,9 @@
         "OPN_APIKEY" = "+RIb6YWNdcDWMMM7W5ZYDkUvP4qx6e1r7e/Lg/Uh3aBH+veuWfKc7UvEELH/lajWtNxkOaOPjWR8uMcD";
         "OPN_APISECRET" = "8VbjM3HKKqQW2ozOe5PTicMXOBVi9jZTSPCGfGrHp8rW6m+TeTxHyZyAI1GjERbuzjmz6jK/usMCWR/p";
         "OPN_TLSKEYPIN" = "8VbjM3HKKqQW2ozOe5PTicMXOBVi9jZTSPCGfGrHp8rW6m+TeTxHyZyAI1GjERbuzjmz6jK/usMCWR/p";
-        "OPN_MASTER" = "opn00.lan:8443";
-        "OPN_TARGETS_HOTSTANDBY" = "opn00.lan:8443";
-        "OPN_TARGETS_PRODUCTION" = "opn01.lan:8443,opn02.lan:8443";
-        "OPN_TARGETS_IMGURL_HOTSTANDBY" = "https://icon-library.com/images/freebsd-icon/freebsd-icon-16.jpg";
-        "OPN_TARGETS_IMGURL_PRODUCTION" = "https://icon-library.com/images/freebsd-icon/freebsd-icon-16.jpg";
+        "OPN_MASTER" = "opn01.lan:8443";
+        "OPN_TARGETS_HOTSTANDBY" = "opn01.lan:8443";
+        "OPN_TARGETS_PRODUCTION" = "opn02.lan:8443,opn03.lan:8443";
         "OPN_SLEEP" = "60";
         "OPN_DEBUG" = "true";
         "OPN_SYNC_PKG" = "true";
