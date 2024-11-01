@@ -18,7 +18,6 @@
       settings = {
         adminUsername = "admin";
         # adminPassword = "start";
-        port = "8443";
         loglevel = "info";
         externalHost = "wfh.pvz.digital";
         wireguard = {
