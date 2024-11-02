@@ -98,11 +98,7 @@
         "org/gnome/shell" = {
           disable-user-extensions = false;
           enabled-extensions = with pkgs.gnomeExtensions; [
-            todotxt.extensionUuid
             toggle-alacritty.extensionUuid
-            wireguard-vpn-extension.extensionUuid
-            wireless-hid.extensionUuid
-            wifi-qrcode.extensionUuid
           ];
           favorite-apps = ["Alacritty.desktop" "librewolf.desktop"];
         };
