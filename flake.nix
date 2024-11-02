@@ -3,8 +3,8 @@
   inputs = {
     # nixpkgs.url = "github:paepckehh/nixpkgs/wg-access-server-fix";
     # nixpkgs.url = "github:paepckehh/nixpkgs/opnborg-service";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -33,7 +33,6 @@
           ./server/docker.nix
           ./server/wg.nix
           # ./server/virtual.nix
-          # ./modules/autoupdate.nix
           # ./server/sync.nix
           # ./server/gitea.nix
           # ./server/opnborg.nix
@@ -46,6 +45,7 @@
           # ./server/yopass-ng.nix
           # ./server/webserver-nginx.nix
           # ./server/wiki.nix
+          # ./modules/autoupdate.nix
           {networking.hostName = "nixos-mp";}
         ];
       };

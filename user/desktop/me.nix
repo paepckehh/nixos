@@ -15,7 +15,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [gparted mission-center];
+    systemPackages = with pkgs; [gparted mission-center]; # krita gimp
     variables = {
       BROWSER = "firejail librewolf";
     };
@@ -46,13 +46,6 @@
           "signon.rememberSignons" = true;
           "webgl.disabled" = false;
           "widget.use-xdg-desktop-portal.file-picker" = 1;
-        };
-      };
-      kitty = {
-        enable = true;
-        settings = {
-          font_size = 10;
-          hide_window_decorations = false;
         };
       };
       alacritty = {
@@ -111,7 +104,7 @@
             wireless-hid.extensionUuid
             wifi-qrcode.extensionUuid
           ];
-          favorite-apps = ["Alacritty.desktop" "kitty.desktop" "librewolf.desktop"];
+          favorite-apps = ["Alacritty.desktop" "librewolf.desktop"];
         };
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings = [
