@@ -30,7 +30,6 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/mopidy.nix
           # ./server/wg.nix
           # ./server/docker.nix
           # ./server/virtual.nix
@@ -41,6 +40,7 @@
           # ./server/opnborg-docker.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
+          # ./server/mopidy.nix
           # ./server/uptime.nix
           # ./server/unifi.nix
           # ./server/yopass-ng.nix
