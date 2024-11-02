@@ -3,13 +3,13 @@
   lib,
   ...
 }: {
-
   ##################
   #-=# SERVICES #=-#
   ##################
-  services = { 
+  services = {
     mopidy = {
       enable = true;
-      extensionPackages = with pkgs; [ mopidy-spotify mopidy-iris mopidy-tidal mopidy-tunein mopidy-youtube mopidy-podcast mopidy-soundcloud ]
-  }; };
+      extensionPackages = with pkgs; [mopidy-spotify mopidy-iris mopidy-tidal mopidy-tunein mopidy-youtube mopidy-podcast mopidy-soundcloud];
+    };
+  };
 }
