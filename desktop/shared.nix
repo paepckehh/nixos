@@ -67,7 +67,7 @@
     graphics.enable = true;
     pulseaudio.enable = lib.mkForce false;
     bluetooth = {
-      enable = false;
+      enable = true;
       powerOnBoot = false;
     };
   };
