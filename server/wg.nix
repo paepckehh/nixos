@@ -33,7 +33,7 @@
           gatewayInterface = "eth0";
         };
         dns = {
-          enabled = true;
+          enabled = false;
           domain = "pvz.lan";
           upstream = ["192.168.83.3" "192.168.83.2"];
         };
