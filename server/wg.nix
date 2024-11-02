@@ -17,13 +17,11 @@
       secretsFile = "/etc/nixos/server/resources/wg-access-server-secrets.yaml";
       settings = {
         adminUsername = "admin";
-        # adminPassword = "start";
         loglevel = "info";
         externalHost = "wfh.pvz.digital";
         wireguard = {
           enabled = true;
           interface = "wg0";
-          # privateKey = "aG4jqfU5Far8JXkZxoL4RrvC0Ic/KbZBNRDlnJyeBmo=";
         };
         vpn = {
           allowedIPs = ["192.168.80.0/24"];
@@ -37,11 +35,11 @@
         dns = {
           enabled = false;
           domain = "pvz.lan";
-          # upstream = "192.168.83.3,192.168.83.2";
+          upstream = ["192.168.83.3" "192.168.83.2"];
         };
         clientConfig = {
           dnsSearchDomain = "pvz.lan";
-          # dnsServer = "192.168.83.3,192.168.83.2";
+          dnsServer = ["192.168.83.3" "192.168.83.2"];
         };
       };
     };
