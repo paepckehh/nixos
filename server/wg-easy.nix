@@ -18,7 +18,7 @@
           extraOptions = ["--cap-add NET_ADMIN" "--cap-add SYS_MODULE" "--sysctl 'net.ipv4.conf.all.src_valid_mark=1'" "--sysctl 'net.ipv4.ip_forward=1'"];
           environment = {
             PASSWORD_HASH = m "$2a$12$z8e9VadQr8XmxQvKisrIR.H6h1KwdiBjBKLlXHshla7pt7RFhTOTy"; # start
-            PORT = "51821"; # webgui 
+            PORT = "51821"; # webgui
             LANG = "DE";
             WG_PORT = "51820";
             WG_HOST = "127.0.0.1";
