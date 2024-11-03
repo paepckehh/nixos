@@ -10,7 +10,7 @@
     nat = {
       enable = true;
       externalInterface = "wg0";
-      internalInterfaces = ["lo0"];
+      # internalInterfaces = ["lo0"];
     };
   };
 
