@@ -77,6 +77,7 @@
             bmon
             certgraph
             curlie
+            compose2nix
             docker
             docker-compose
             dust

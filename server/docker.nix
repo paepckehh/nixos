@@ -7,7 +7,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [podman-tui podman-compose docker docker-compose];
+    systemPackages = with pkgs; [podman-tui podman-compose docker docker-compose compose2nix];
   };
 
   ########################
