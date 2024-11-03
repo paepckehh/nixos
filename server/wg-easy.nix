@@ -3,6 +3,17 @@
   pkgs,
   ...
 }: {
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking = {
+    nat = {
+      enable = true;
+      # internalInterfaces = [ "ens3" ];
+      # externalInterface = "wg0";
+    };
+  };
+
   ########################
   #-=# VIRTUALISATION #=-#
   ########################
