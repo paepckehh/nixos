@@ -101,7 +101,6 @@
             tea
             tldr
             tlsinfo
-            tailspin
             termdbms
             termshark
             tshark
