@@ -16,7 +16,6 @@
         server time.dfm.dk iburst nts
         server time.cifelli.xyz iburst nts
         server ntp.3eck.net iburst nts
-        server ntp.trifence.ch iburst nts
         server ntp.zeitgitter.net iburst nts
         server paris.time.system76.com iburst nts 
         minsources 4
