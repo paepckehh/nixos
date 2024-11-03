@@ -30,7 +30,8 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          # ./server/wg.nix
+          ./server/wg-easy.nix
+          # ./server/wg-acccess-server.nix
           # ./server/docker.nix
           # ./server/virtual.nix
           # ./server/sync.nix
