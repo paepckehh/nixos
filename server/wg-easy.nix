@@ -9,8 +9,8 @@
   networking = {
     nat = {
       enable = true;
-      # internalInterfaces = [ "ens3" ];
-      # externalInterface = "wg0";
+      externalInterface = "wg0";
+      internalInterfaces = ["eth0"];
     };
   };
 

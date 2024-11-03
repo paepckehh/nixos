@@ -229,7 +229,7 @@
   ####################
   networking = {
     useDHCP = lib.mkDefault true;
-    usePredictableInterfaceNames = true;
+    usePredictableInterfaceNames = false;
     networkmanager.enable = true;
     wireguard.enable = true;
     nftables.enable = true;
