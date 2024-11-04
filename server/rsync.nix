@@ -23,19 +23,6 @@
     '';
   };
 
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking = {
-    firewall = {
-      enable = true;
-      allowPing = false;
-      allowedTCPPorts = [];
-      allowedUDPPorts = [];
-      checkReversePath = true;
-    };
-  };
-
   ###############
   #-=# USERS #=-#
   ###############
