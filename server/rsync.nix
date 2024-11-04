@@ -4,6 +4,23 @@
   lib,
   ...
 }: {
+  # client side exmple
+  # rsync --archive --acls --checksum --delete --ignore-times --stats --progress --rsh 'ssh' --verbose /var/www/ rsync@<targetip>:/
+  #
+  # client side example keypair
+  #
+  # ~/.ssh/rsync.pub
+  # ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF5QmLQPORNtjN8xyRQ+iVeexdSJ9HRhkUk3uxJJZty7 rsync
+  #
+  # ~/.ssh/rsync (0700)
+  # -----BEGIN OPENSSH PRIVATE KEY-----
+  # b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+  # QyNTUxOQAAACBeUJi0DzkTbYzfMckUPolXnsXUifR0YZFJN7sSSWbcuwAAAIh7BLp6ewS6
+  # egAAAAtzc2gtZWQyNTUxOQAAACBeUJi0DzkTbYzfMckUPolXnsXUifR0YZFJN7sSSWbcuw
+  # AAAED620gdmYdYNTyoEZfCMIHka3KYbXsSmHZLuVvig01unl5QmLQPORNtjN8xyRQ+iVee
+  # xdSJ9HRhkUk3uxJJZty7AAAABXJzeW5j
+  # -----END OPENSSH PRIVATE KEY-----
+
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
@@ -39,17 +56,6 @@
           ''command="${pkgs.rrsync}/bin/rrsync /var/www",restrict ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF5QmLQPORNtjN8xyRQ+iVeexdSJ9HRhkUk3uxJJZty7'' # sample
           ''command="${pkgs.rrsync}/bin/rrsync /var/www",restrict sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIA44D5TOInaQRb7DrUzMVOciR3kdXhQK9ghkjaZiZJAFAAAABHNzaDo='' # git@paepcke.de
         ];
-        # client side example keypair
-        # ~/.ssh/rsync.pub
-        # ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF5QmLQPORNtjN8xyRQ+iVeexdSJ9HRhkUk3uxJJZty7 rsync
-        # ~/.ssh/rsync (0700)
-        # -----BEGIN OPENSSH PRIVATE KEY-----
-        # b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
-        # QyNTUxOQAAACBeUJi0DzkTbYzfMckUPolXnsXUifR0YZFJN7sSSWbcuwAAAIh7BLp6ewS6
-        # egAAAAtzc2gtZWQyNTUxOQAAACBeUJi0DzkTbYzfMckUPolXnsXUifR0YZFJN7sSSWbcuw
-        # AAAED620gdmYdYNTyoEZfCMIHka3KYbXsSmHZLuVvig01unl5QmLQPORNtjN8xyRQ+iVee
-        # xdSJ9HRhkUk3uxJJZty7AAAABXJzeW5j
-        # -----END OPENSSH PRIVATE KEY-----
       };
     };
     groups.rsync.gid = 6688;
