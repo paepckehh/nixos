@@ -30,7 +30,7 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/rsync.nix
+          # ./server/rsync.nix
           # ./server/wg-easy.nix
           # ./server/wg-acccess-server.nix
           # ./server/docker.nix
@@ -65,15 +65,6 @@
           {networking.hostName = "nixos";}
         ];
       };
-      nixaarch64 = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration-aarch64.nix
-          ./person/mpaepcke.nix
-          {networking.hostName = "nixaarch64";}
-        ];
-      };
       nixos-console = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -95,10 +86,11 @@
           ./modules/chronyPublic.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
-          ./server/builder.nix
-          ./server/docker.nix
-          ./server/virtual.nix
-          # ./server/adguard.nix
+          ./server/adguard.nix
+          ./server/rsync.nix
+          # ./server/builder.nix
+          # ./server/virtual.nix
+          # ./server/docker.nix
           # ./server/gitea.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
