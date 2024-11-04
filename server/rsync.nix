@@ -30,7 +30,7 @@
     firewall = {
       enable = true;
       allowPing = false;
-      allowedTCPPorts = [8866];
+      allowedTCPPorts = [];
       allowedUDPPorts = [];
       checkReversePath = true;
     };
@@ -95,17 +95,11 @@
         X11Forwarding = false;
       };
       startWhenNeeded = true;
+      openFirewall = true;
       hostKeys = [
         {
           type = "ed25519";
           path = "/etc/ssh/ssh_host_ed25519_key";
-        }
-      ];
-      openFirewall = true;
-      listenAddresses = [
-        {
-          port = 6688;
-          addr = "0.0.0.0";
         }
       ];
     };
