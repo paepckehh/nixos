@@ -22,7 +22,7 @@
       ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINKPfAPA+Mq7nTPpOhVOD1vRoi6BHDSL0OoJs55yXlpP me@nixos-mp
     '';
   };
-  
+
   ####################
   #-=# NETWORKING #=-#
   ####################
@@ -30,10 +30,11 @@
     firewall = {
       enable = true;
       allowPing = false;
-      allowedTCPPorts = [ 8866 ];
+      allowedTCPPorts = [8866];
       allowedUDPPorts = [];
       checkReversePath = true;
     };
+  };
 
   ###############
   #-=# USERS #=-#
