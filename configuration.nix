@@ -375,17 +375,11 @@
     };
   };
 
-  ###############
-  #-=# FONTS #=-#
-  ###############
-  fonts = {
-    packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];})];
-  };
-
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
+    openssh.enable = false;
     power-profiles-daemon.enable = true;
     thermald.enable = true;
     logind.hibernateKey = "ignore";

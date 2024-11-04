@@ -31,8 +31,7 @@
     users = {
       me = {
         home = {
-          stateVersion = "24.05";
-          username = "me";
+          stateVersion = "24.11";
           homeDirectory = "/home/me";
           keyboard.layout = "us,de";
           shellAliases = {

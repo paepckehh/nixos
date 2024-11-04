@@ -25,6 +25,13 @@
     };
   };
 
+  ###############
+  #-=# FONTS #=-#
+  ###############
+  fonts = {
+    packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];})];
+  };
+
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
