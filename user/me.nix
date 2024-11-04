@@ -138,6 +138,7 @@
             portal
             pwgen
             rage
+            rsync
             ssh-audit
             usbutils
             ugm
