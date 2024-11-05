@@ -4,7 +4,7 @@
   ####################
   networking = {
     firewall = {
-      allowedTCPPorts = [6464]; # open tcp port 6464
+      allowedTCPPorts = [6464];
     };
   };
   ########################
@@ -16,6 +16,7 @@
       containers = {
         opnborg = {
           image = "ghcr.io/paepckehh/opnborg";
+          volumes = "/var/opnborg:/var/opnborg";
           extraOptions = ["--network=host"];
           environment = {
             "OPN_APIKEY" = "+RIb6YWNdcDWMMM7W5ZYDkUvP4qx6e1r7e/Lg/Uh3aBH+veuWfKc7UvEELH/lajWtNxkOaOPjWR8uMcD";
@@ -27,6 +28,7 @@
             "OPN_TARGETS_IMGURL_HOTSTANDBY" = "https://icon-library.com/images/freebsd-icon/freebsd-icon-16.jpg";
             "OPN_TARGETS_IMGURL_PRODUCTION" = "https://icon-library.com/images/freebsd-icon/freebsd-icon-16.jpg";
             "OPN_SLEEP" = "60";
+            "OPN_PATH" = "/var/opnborg";
             "OPN_DEBUG" = "true";
             "OPN_SYNC_PKG" = "true";
             "OPN_HTTPD_ENABLE" = "true";

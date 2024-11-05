@@ -30,7 +30,7 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/pingvin.nix
+          # ./server/pingvin.nix
           # ./server/picoshare.nix
           # ./server/shifter.nix
           # ./server/rsync.nix
@@ -41,7 +41,7 @@
           # ./server/sync.nix
           # ./server/gitea.nix
           # ./server/opnborg.nix
-          # ./server/opnborg-complex.nix
+          ./server/opnborg-complex.nix
           # ./server/opnborg-docker.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
