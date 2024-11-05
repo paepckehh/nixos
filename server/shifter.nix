@@ -11,12 +11,11 @@
       backend = "docker";
       containers = {
         picoshare = {
-          image = "mtlynch/picoshare";
-          ports = ["0.0.0.0:4001:4001"];
-          volumes = ["/var/pico:/data"];
+          image = "tobysuch/shifter";
+          ports = ["0.0.0.0:4002:4002"];
+          volumes = ["/var/shifter:/data"];
           environment = {
-            "PORT" = "4001";
-            "PS_SHARED_SECRET" = "start";
+            "PORT" = "4002";
           };
         };
       };
