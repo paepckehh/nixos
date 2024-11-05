@@ -24,7 +24,7 @@
             "SECRET_KEY" = "mkinmfrivreERo4fm4oim3f3" ;
             "CSRF_TRUSTED_ORIGINS" = "http://localhost";
             "CLIENT_MAX_BODY_SIZE" = "1G"
-            "DATABASE" = "sqlite"
+            "DATABASE" = "sqlite";
             "EXPIRED_FILE_CLEANUP_SCHEDULE" = "*/15 * * * *  ";
             "SHIFTER_FULL_DOMAIN" = "http://localhost";
             "TIMEZONE" = "UTC";
