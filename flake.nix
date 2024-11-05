@@ -42,7 +42,7 @@
           # ./server/gitea.nix
           # ./server/opnborg.nix
           # ./server/opnborg-complex.nix
-          ./server/opnborg-docker.nix
+          ./server/opnborg-docker-complex.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
           # ./server/mopidy.nix
