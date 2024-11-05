@@ -13,7 +13,7 @@
         picoshare = {
           image = "";
           ports = ["0.0.0.0:4001:4001"];
-          volume = "/var/pico:/data";
+          volumes = ["/var/pico:/data"];
           environment = {
             "PORT" = "4001";
             "PS_SHARED_SECRET" = "start";
