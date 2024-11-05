@@ -30,6 +30,7 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
+          ./server/picoshare.nix
           # ./server/rsync.nix
           # ./server/wg-easy.nix
           # ./server/wg-acccess-server.nix
