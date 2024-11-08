@@ -30,6 +30,7 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
+          ./server/virtual.nix
           # ./server/pingvin.nix
           # ./server/picoshare.nix
           # ./server/shifter.nix
@@ -37,12 +38,11 @@
           # ./server/wg-easy.nix
           # ./server/wg-acccess-server.nix
           # ./server/docker.nix
-          # ./server/virtual.nix
           # ./server/sync.nix
           # ./server/gitea.nix
           # ./server/opnborg.nix
           # ./server/opnborg-complex.nix
-          ./server/opnborg-docker-complex.nix
+          # ./server/opnborg-docker-complex.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
           # ./server/mopidy.nix
