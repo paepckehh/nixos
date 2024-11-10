@@ -79,7 +79,7 @@
       enable = true;
       settings = {
         port = 0; # disable dns resolver
-        dhcp-range = ["10.0.0,100,10.0.0.250"];
+        dhcp-range = ["10.0.0.100,10.0.0.250"];
         dhcp-option = ["6,10.0.0.30"]; # 3 - gw, 4 - ntp, 6 - dns
         dhcp-leasefile = "/var/lib/dnsmasq/dnsmasq.leases";
       };
