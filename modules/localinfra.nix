@@ -11,7 +11,10 @@
     #   vlan001 = { id = 001; interface = "wlp2s0"; };
     #   vlan100 = { id = 100; interface = "wlp2s0"; };
     # };
-    vswitches."vs001".interfaces = ["vlan001" "vlan100"];
+    vswitches = {
+      vs1.interfaces = {vlan001 = {};};
+      vs2.interfaces = {vlan100 = {};};
+    };
     interfaces.vlan001 = {
       virtual = true;
       ipv4.addresses = [
