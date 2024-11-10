@@ -7,14 +7,20 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    # vlans = {
-    #   vlan001 = { id = 001; interface = "wlp2s0"; };
-    #   vlan100 = { id = 100; interface = "wlp2s0"; };
-    # };
-    vswitches = {
-      vs1.interfaces = {vlan001 = {};};
-      vs2.interfaces = {vlan100 = {};};
+    vlans = {
+      vlan001 = {
+        id = 001;
+        interface = "wlp2s0";
+      };
+      vlan100 = {
+        id = 100;
+        interface = "wlp2s0";
+      };
     };
+    # vswitches = {
+    #  vs1.interfaces = {vlan001 = {};};
+    #  vs2.interfaces = {vlan100 = {};};
+    # };
     interfaces.vlan001 = {
       virtual = true;
       ipv4.addresses = [
@@ -44,7 +50,9 @@
   ##################
   services = {
     bind = {
-      enable = false;
+      enable = true;
+      listenOn = ["vlan001"];
+      ipv4Only = true;
       cacheNetworks = ["127.0.0.0/24" "10.0.0.0/24"];
       zones = {
         "lan" = {
@@ -88,7 +96,7 @@
               {
           interfaces-config = {
             interfaces = [
-              "vlan1"
+              "vlan001"
             ];
           };
           lease-database = {
