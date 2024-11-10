@@ -34,9 +34,10 @@
   services = {
     bind = {
       enable = true;
-      listenOn = ["vlan001"];
+      listenOn = ["10.0.0.30"];
       ipv4Only = true;
-      cacheNetworks = ["127.0.0.0/24" "10.0.0.0/24"];
+      cacheNetworks = ["127.0.0.0/24"];
+      extraOptions = "recursion no;";
       zones = {
         "lan" = {
           master = true;
