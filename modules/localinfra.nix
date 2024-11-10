@@ -24,7 +24,7 @@
       virtual = true;
       ipv4.addresses = [
         {
-          address = "192.168.0.30";
+          address = "192.168.83.30";
           prefixLength = 24;
         }
       ];
