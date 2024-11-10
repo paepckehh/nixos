@@ -29,8 +29,6 @@
   environment = {
     systemPackages = with pkgs.gnomeExtensions; [
       toggle-alacritty
-      battery-health-charging
-      wireguard-vpn-extension
       wifi-qrcode
     ];
     gnome.excludePackages = with pkgs; [

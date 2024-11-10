@@ -30,6 +30,7 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
+          ./server/unifi.nix
           ./server/virtual.nix
           # ./server/pingvin.nix
           # ./server/picoshare.nix
@@ -47,7 +48,6 @@
           # ./server/openweb-ui.nix
           # ./server/mopidy.nix
           # ./server/uptime.nix
-          # ./server/unifi.nix
           # ./server/yopass-ng.nix
           # ./server/webserver-nginx.nix
           # ./server/wiki.nix
