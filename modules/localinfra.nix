@@ -44,7 +44,7 @@
   ##################
   services = {
     bind = {
-      enable = true;
+      enable = false;
       cacheNetworks = ["127.0.0.0/24" "10.0.0.0/24"];
       zones = {
         "lan" = {
@@ -83,7 +83,7 @@
       };
     };
     kea.dhcp4 = {
-      enable = true;
+      enable = false;
       settings = ''
               {
           interfaces-config = {
