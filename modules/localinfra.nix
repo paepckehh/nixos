@@ -11,20 +11,24 @@
     #   vlan001 = { id = 001; interface = "wlp2s0"; };
     #   vlan100 = { id = 100; interface = "wlp2s0"; };
     # };
-    interfaces.vlan001.ipv4.addresses = [
-      {
-        address = "10.0.0.30";
-        prefixLength = 24;
-        virtual = true;
-      }
-    ];
-    interfaces.vlan100.ipv4.addresses = [
-      {
-        address = "192.168.0.30";
-        prefixLength = 24;
-        virtual = true;
-      }
-    ];
+    interfaces.vlan001 = {
+      virtual = true;
+      ipv4.addresses = [
+        {
+          address = "10.0.0.30";
+          prefixLength = 24;
+        }
+      ];
+    };
+    interfaces.vlan100 = {
+      virtual = true;
+      ipv4.addresses = [
+        {
+          address = "192.168.0.30";
+          prefixLength = 24;
+        }
+      ];
+    };
     firewall = {
       allowedUDPPorts = [53];
       allowedTCPPorts = [53];
