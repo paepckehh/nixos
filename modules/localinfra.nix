@@ -7,25 +7,34 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-      vlans = {
-        vlan001 = { id=001; interface="lo0"; };
-        vlan100 = { id=101; interface="lo0"; };
+    vlans = {
+      vlan001 = {
+        id = 001;
+        interface = "lo0";
       };
-      interfaces.vlan001.ipv4.addresses = [{
+      vlan100 = {
+        id = 101;
+        interface = "lo0";
+      };
+    };
+    interfaces.vlan001.ipv4.addresses = [
+      {
         address = "10.0.0.30";
         prefixLength = 24;
-      }];
-      interfaces.vlan100.ipv4.addresses = [{
+      }
+    ];
+    interfaces.vlan100.ipv4.addresses = [
+      {
         address = "192.168.0.30";
         prefixLength = 24;
-      }];
-    };
+      }
+    ];
     firewall = {
       allowedUDPPorts = [53];
       allowedTCPPorts = [53];
     };
   };
-  
+
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -70,31 +79,30 @@
       };
     };
   };
-    kea.dhcp4 = {
-      enable = true;
-      settings = ''
-              {
-          interfaces-config = {
-            interfaces = [
-              "vlan1"
-            ];
-          };
-          lease-database = {
-            name = "/var/lib/kea/dhcp4.leases";
-            persist = true;
-            type = "memfile";
-          };
-          rebind-timer = 2000;
-          renew-timer = 1000;
-          intra4 = [
+  kea.dhcp4 = {
+    enable = true;
+    settings = ''
             {
-              subnet = "10.0.0.0/24";
-              pools = [{ pool = "10.0.0.100 - 10.0.0.200"; }];
-              option-data = [{ domain-name-servers = "10.0.0.30, 10.0.0.30"; }];
-            }
+        interfaces-config = {
+          interfaces = [
+            "vlan1"
           ];
-          valid-lifetime = 4000;
-        }'';
-    };
-
+        };
+        lease-database = {
+          name = "/var/lib/kea/dhcp4.leases";
+          persist = true;
+          type = "memfile";
+        };
+        rebind-timer = 2000;
+        renew-timer = 1000;
+        intra4 = [
+          {
+            subnet = "10.0.0.0/24";
+            pools = [{ pool = "10.0.0.100 - 10.0.0.200"; }];
+            option-data = [{ domain-name-servers = "10.0.0.30, 10.0.0.30"; }];
+          }
+        ];
+        valid-lifetime = 4000;
+      }'';
+  };
 }
