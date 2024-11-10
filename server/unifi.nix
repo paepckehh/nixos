@@ -10,15 +10,11 @@
     unifi = {
       enable = true;
       openFirewall = true;
-      unifiPackage = pkgs.unifi8;
+      # unifiPackage = pkgs.unifi8;
       # mongodbPackage = pkgs.mongodb-6_0;
     };
     prometheus = {
       exporters = {
-        unifi = {
-          enable = false;
-          port = 9130;
-        };
         unpoller = {
           enable = false;
           controllers = [
