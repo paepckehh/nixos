@@ -75,8 +75,17 @@
         };
       };
     };
-    dhcpd4 = {
+    dnsmasq = {
       enable = true;
+      settings = {
+        port = 0; # disable dns resolver
+        dhcp-range = ["10.0.0,100,10.0.0.250"];
+        dhcp-option = ["6,10.0.0.30"]; # 3 - gw, 4 - ntp, 6 - dns
+        dhcp-leasefile = "/var/lib/dnsmasq/dnsmasq.leases";
+      };
+    };
+    dhcpd4 = {
+      enable = false;
       extraConfig = ''
         subnet 10.0.0.0 netmask 255.255.255.0 {
           interface vlan001;
