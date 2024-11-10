@@ -3,6 +3,8 @@
   pkgs,
   ...
 }: {
+  #  nixpkgs.config.permittedInsecurePackages = [  "dhcpd" ];
+
   ####################
   #-=# NETWORKING #=-#
   ####################
@@ -73,8 +75,20 @@
         };
       };
     };
-    kea.dhcp4 = {
+    dhcpd4 = {
       enable = true;
+      extraConfig = ''
+        subnet 10.0.0.0 netmask 255.255.255.0 {
+          interface vlan001;
+          range 10.0.0.100 10.0.0.200;
+          option routers 10.0.0.30;
+          option domain-name-servers 10.0.0.30;
+          option subnet-mask 255.255.255.0;
+        }
+      '';
+    };
+    kea.dhcp4 = {
+      enable = false;
       settings = ''
               {
           interfaces-config = {
