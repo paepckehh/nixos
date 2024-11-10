@@ -10,11 +10,11 @@
     vlans = {
       vlan001 = {
         id = 001;
-        interface = "lo0";
+        interface = "wlp2s0";
       };
       vlan100 = {
         id = 101;
-        interface = "lo0";
+        interface = "wlp2s0";
       };
     };
     interfaces.vlan001.ipv4.addresses = [
