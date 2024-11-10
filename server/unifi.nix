@@ -11,7 +11,7 @@
       enable = true;
       openFirewall = true;
       unifiPackage = pkgs.unifi8;
-      mongodbPackage = pkgs.mongodb-6_0;
+      # mongodbPackage = pkgs.mongodb-6_0;
     };
     prometheus = {
       exporters = {
@@ -25,7 +25,7 @@
             {
               url = "https://iss.admin.lan";
               user = "read-only-account";
-              pass = /etc/nixos/iunifi.pass;
+              pass = /etc/nixos/server/resources/unifi.txt;
             }
           ];
         };
