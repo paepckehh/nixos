@@ -27,11 +27,12 @@
           ./configuration.nix
           ./hardware/macbook-intel.nix
           ./modules/chronyPublic.nix
+          ./modules/localinfra.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/unifi.nix
-          ./server/virtual.nix
+          # ./server/unifi.nix
+          # ./server/virtual.nix
           # ./server/pingvin.nix
           # ./server/picoshare.nix
           # ./server/shifter.nix
