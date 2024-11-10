@@ -12,29 +12,12 @@
         id = 001;
         interface = "wlp2s0";
       };
-      vlan100 = {
-        id = 100;
-        interface = "wlp2s0";
-      };
     };
-    # vswitches = {
-    #  vs1.interfaces = {vlan001 = {};};
-    #  vs2.interfaces = {vlan100 = {};};
-    # };
     interfaces.vlan001 = {
       virtual = true;
       ipv4.addresses = [
         {
           address = "10.0.0.30";
-          prefixLength = 24;
-        }
-      ];
-    };
-    interfaces.vlan100 = {
-      virtual = true;
-      ipv4.addresses = [
-        {
-          address = "192.168.83.30";
           prefixLength = 24;
         }
       ];
@@ -60,15 +43,14 @@
           file = pkgs.writeText "lan" ''
             $ORIGIN lan.
             $TTL    1h
-            @            IN      SOA     ns1 hostmaster (
+            @            IN      SOA     ns hostmaster (
                                              1    ; Serial
                                              3h   ; Refresh
                                              1h   ; Retry
                                              1w   ; Expire
                                              1h)  ; Negative Cache TTL
-                         IN      NS      ns1
-
-            ns1          IN      A       10.0.0.30
+                         IN      NS      ns
+            ns           IN      A       10.0.0.30
           '';
         };
         "infra.lan" = {
@@ -76,22 +58,22 @@
           file = pkgs.writeText "infra.lan" ''
             $ORIGIN infra.lan.
             $TTL    1h
-            @            IN      SOA     ns1 hostmaster (
+            @            IN      SOA     ns hostmaster (
                                              1    ; Serial
                                              3h   ; Refresh
                                              1h   ; Retry
                                              1w   ; Expire
                                              1h)  ; Negative Cache TTL
-                         IN      NS      ns1
-
-            ns1          IN      A       10.0.0.30
+                         IN      NS      ns
+            ns           IN      A       10.0.0.30
             firmware     IN      A       10.0.0.30
+            nixbuilder   IN      A       10.0.0.30
           '';
         };
       };
     };
     kea.dhcp4 = {
-      enable = false;
+      enable = true;
       settings = ''
               {
           interfaces-config = {
