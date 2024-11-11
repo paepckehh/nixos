@@ -31,7 +31,7 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          # ./server/unifi.nix
+          ./server/unifi.nix
           # ./server/virtual.nix
           # ./server/pingvin.nix
           # ./server/picoshare.nix
