@@ -27,11 +27,12 @@
           ./configuration.nix
           ./hardware/macbook-intel.nix
           ./modules/chronyPublic.nix
-          ./modules/localinfra.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/unifi.nix
+          # ./modules/autoupdate.nix
+          # ./modules/localinfra.nix
+          # ./server/unifi.nix
           # ./server/virtual.nix
           # ./server/pingvin.nix
           # ./server/picoshare.nix
@@ -52,7 +53,6 @@
           # ./server/yopass-ng.nix
           # ./server/webserver-nginx.nix
           # ./server/wiki.nix
-          # ./modules/autoupdate.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
