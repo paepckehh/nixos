@@ -14,7 +14,7 @@
     prometheus = {
       exporters = {
         unpoller = {
-          enable = ;
+          enable = true;
           controllers = [
             {
               url = "http://localhost:8443";
