@@ -20,11 +20,11 @@
   environment = {
     systemPackages = with pkgs; [adguardian];
     variables = {
-      ADGUARD_IP = "127.0.0.1";
-      ADGUARD_PORT = "3232";
-      ADGUARD_PROTOCOL = "http";
-      ADGUARD_USERNAME = "";
-      ADGUARD_PASSWORD = "";
+      # ADGUARD_IP = "127.0.0.1";
+      # ADGUARD_PORT = "3232";
+      # ADGUARD_PROTOCOL = "http";
+      # ADGUARD_USERNAME = "";
+      # ADGUARD_PASSWORD = "";
     };
   };
 
@@ -66,7 +66,7 @@
           serve_http3 = false;
           use_http3_upstreams = true;
           serve_plain_dns = true;
-          hostsfile_enabled = true;
+          hostsfile_enabled = false;
         };
         querylog = {
           enabled = true;
@@ -80,7 +80,7 @@
           safe_search.enabled = true;
           filtering_enabled = true;
           protection_enabled = true;
-          parental_enabled = false;
+          parental_enabled = true;
         };
         filters =
           map (url: {

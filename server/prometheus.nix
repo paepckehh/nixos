@@ -10,7 +10,7 @@
     prometheus = {
       enable = true;
       port = 9191;
-      retentionTime = "365d";
+      retentionTime = "180d";
       alertmanager = {
         port = 9292;
       };
@@ -21,8 +21,8 @@
             {
               targets = [
                 "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" # self
-                "192.168.122.2:9100" # example opnsense node IP
-                "192.168.122.3:9100" # example opnsense node IP
+                # "192.168.122.2:9100" # example opnsense node IP
+                # "192.168.122.3:9100" # example opnsense node IP
               ];
             }
           ];
@@ -32,8 +32,20 @@
           static_configs = [
             {
               targets = [
-                "192.168.122.2:8404" # example opnsense node IP
-                "192.168.122.3:8404" # example opnsense node IP
+                # "192.168.122.2:8404" # example opnsense node IP
+                # "192.168.122.3:8404" # example opnsense node IP
+              ];
+            }
+          ];
+        }
+        {
+          job_name = "unpoller";
+          static_configs = [
+            {
+              targets = [
+                "localhost:9130"
+                # "192.168.122.2:8404" # example opnsense node IP
+                # "192.168.122.3:8404" # example opnsense node IP
               ];
             }
           ];
@@ -75,20 +87,6 @@
       passwordSecret = "start";
       rootPasswordSha2 = "cced28c6dc3f99c2396a5eaad732bf6b28142335892b1cd0e6af6cdb53f5ccfa";
       elasticsearchHosts = ["http://127.0.0.1:9200"];
-    };
-    karma = {
-      enable = false;
-      openFirewall = false;
-      settings.listen = {
-        port = 9494;
-        address = "0.0.0.0";
-      };
-    };
-    elasticsearch = {
-      enable = false;
-    };
-    influxdb2 = {
-      enable = false;
     };
   };
 }

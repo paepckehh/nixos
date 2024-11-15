@@ -14,12 +14,12 @@
     prometheus = {
       exporters = {
         unpoller = {
-          enable = false;
+          enable = ;
           controllers = [
             {
-              url = "https://iss.admin.lan";
-              user = "read-only-account";
-              pass = /etc/nixos/server/resources/unifi.txt;
+              url = "http://localhost:8443";
+              user = "readonly";
+              pass = "/etc/nixos/server/resources/unifi.txt";
             }
           ];
         };
