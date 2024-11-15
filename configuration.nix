@@ -353,7 +353,13 @@
     shellAliases = {
       l = "ls -la";
       h = "htop --tree --highlight-changes";
+      d = "sudo dmesg --follow --human --kernel --userspace";
       slog = "journalctl --follow --priority=7 --lines=2500";
+      nvmeinfo = "sudo smartctl --all /dev/sda";
+      "service.log" = "journalctl --since='30 min ago' -u $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.start" = "sudo systemctl start $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.stop" = "sudo systemctl stop $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.restart" = "sudo systemctl restart $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
     };
   };
 
