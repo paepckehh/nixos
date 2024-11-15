@@ -44,8 +44,16 @@
             {
               targets = [
                 "localhost:9130"
-                # "192.168.122.2:8404" # example opnsense node IP
-                # "192.168.122.3:8404" # example opnsense node IP
+              ];
+            }
+          ];
+        }
+        {
+          job_name = "smartctl";
+          static_configs = [
+            {
+              targets = [
+                "localhost:9633"
               ];
             }
           ];
@@ -68,6 +76,10 @@
           configFile = /etc/nixos/server/resources/blackbox.yml;
           listenAddress = "0.0.0.0";
           port = 9115;
+        };
+        smartctl = {
+          enable = true;
+          devices = ["/dev/sda" "/dev/nvme0n1"];
         };
       };
     };
