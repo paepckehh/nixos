@@ -228,7 +228,7 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    useDHCP = lib.mkDefault true;
+    # useDHCP = lib.mkDefault true;
     usePredictableInterfaceNames = true;
     networkmanager.enable = true;
     wireguard.enable = true;
@@ -348,7 +348,7 @@
         thin_pool_discards = 1 
       }'';
     interactiveShellInit = ''uname -a && eval "$(ssh-agent)"'';
-    systemPackages = with pkgs; [alejandra smartmontools wireguard-tools];
+    systemPackages = with pkgs; [alejandra smartmontools fzf wireguard-tools];
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
       l = "ls -la";
