@@ -79,7 +79,7 @@
         };
         smartctl = {
           enable = true;
-          devices = ["/dev/sda" "/dev/nvme0n1"];
+          devices = ["/dev/sda"];
         };
       };
     };
