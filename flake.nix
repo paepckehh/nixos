@@ -32,9 +32,9 @@
           ./server/adguard.nix
           ./server/unifi.nix
           ./server/prometheus.nix
+          ./server/virtual.nix
           # ./modules/autoupdate.nix
           # ./modules/localinfra.nix
-          # ./server/virtual.nix
           # ./server/pingvin.nix
           # ./server/picoshare.nix
           # ./server/shifter.nix
