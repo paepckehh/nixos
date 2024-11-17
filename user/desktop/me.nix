@@ -16,9 +16,6 @@
   #####################
   environment = {
     systemPackages = with pkgs; [gparted]; # mission-center krita gimp
-    variables = {
-      BROWSER = "firejail librewolf";
-    };
   };
 
   ##################
@@ -45,7 +42,6 @@
           "browser.search.isUS" = true;
           "signon.rememberSignons" = true;
           "webgl.disabled" = false;
-          "widget.use-xdg-desktop-portal.file-picker" = 1;
         };
       };
       alacritty = {
