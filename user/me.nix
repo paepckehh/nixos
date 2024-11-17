@@ -109,6 +109,7 @@
             keepassxc-go
             moreutils
             nodejs
+            nix-du
             nix-tree
             nix-top
             nix-init
@@ -144,6 +145,7 @@
             yamlfmt
             yarn
             yq
+            zgrviewer
           ];
         };
         fonts.fontconfig.enable = true;
