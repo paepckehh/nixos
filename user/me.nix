@@ -87,6 +87,7 @@
             git-crypt
             git-agecrypt
             gping
+            graphviz
             httpie
             hyperfine
             shellcheck
