@@ -15,7 +15,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [gparted mission-center]; # krita gimp
+    systemPackages = with pkgs; [gparted]; # mission-center krita gimp
     variables = {
       BROWSER = "firejail librewolf";
     };
