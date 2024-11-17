@@ -41,6 +41,7 @@
             b = "btop";
             d = "sudo dmesg --follow --human --kernel --userspace";
             c = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
+            fd = "fd --hidden --no-ignore --absolute-path --ignore-case";
             man = "batman";
             slog = "journalctl --follow --priority=7 --lines=2500";
             cat = "bat --paging=never";
