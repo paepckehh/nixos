@@ -263,8 +263,9 @@
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager = {
-    useUserPackages = true;
     backupFileExtension = "backup";
+    useUserPackages = true;
+    # home.enableNixpkgsReleaseCheck = false;
   };
 
   ##################

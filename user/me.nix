@@ -65,6 +65,9 @@
             ".npmrc".text = ''prefix=~/.npm-packages'';
             ".config/starship.toml".source = ./resources/starship/gruvbox-rainbow.toml;
           };
+          services = {
+            udiskie.enable = true;
+          };
           packages = with pkgs; [
             asn
             age
@@ -195,10 +198,10 @@
           vim = {
             enable = true;
             defaultEditor = true;
-            plugins = with pkgs.vimPlugins; [vim-shellcheck vim-go vim-git];
+            plugins = with pkgs.vimPlugins; [vim-airline vim-shellcheck vim-go vim-git];
             settings = {
               expandtab = true;
-              mousehide = false;
+              number = true;
             };
             extraConfig = ''
               set nocompatible
