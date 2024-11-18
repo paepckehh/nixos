@@ -139,7 +139,6 @@
             pciutils
             portal
             pwgen
-            qsv
             rage
             rsync
             ssh-audit
