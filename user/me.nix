@@ -71,6 +71,7 @@
             age
             bandwhich
             bmon
+            binsider
             certgraph
             curlie
             compose2nix
@@ -197,7 +198,7 @@
           vim = {
             enable = true;
             defaultEditor = true;
-            plugins = with pkgs.vimPlugins; [sudoedit-vim vim-airline vim-shellcheck vim-go vim-git vim-nix];
+            plugins = with pkgs.vimPlugins; [SudoEdit-vim vim-airline vim-shellcheck vim-go vim-git vim-nix];
             settings = {
               history = 10000;
               expandtab = true;
