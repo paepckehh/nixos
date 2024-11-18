@@ -113,6 +113,7 @@
             keepassxc-go
             moreutils
             nodejs
+            netscanner
             nix-du
             nix-tree
             nix-top
