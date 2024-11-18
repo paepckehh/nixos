@@ -53,10 +53,6 @@
           scrolling = {
             history = 100000;
           };
-          mouse = {
-            enabled = true;
-            hide_when_typing = false;
-          };
           font.size = 10;
           colors.primary = {
             background = "#000000";
