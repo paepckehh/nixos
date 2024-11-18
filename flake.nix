@@ -30,9 +30,9 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/unifi.nix
-          ./server/prometheus.nix
-          ./server/virtual.nix
+          # ./server/unifi.nix
+          # ./server/prometheus.nix
+          # ./server/virtual.nix
           # ./modules/autoupdate.nix
           # ./modules/localinfra.nix
           # ./server/pingvin.nix
