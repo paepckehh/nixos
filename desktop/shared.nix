@@ -50,7 +50,6 @@
     blueman.enable = lib.mkForce false;
     speechd.enable = lib.mkForce false;
     printing.enable = lib.mkForce false;
-    udiskie.enable = true;
     xserver = {
       enable = true;
       autoRepeatDelay = 150;
