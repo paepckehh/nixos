@@ -54,7 +54,8 @@
             history = 100000;
           };
           mouse = {
-            hide_when_typing = true;
+            enabled = true;
+            hide_when_typing = false;
           };
           font.size = 10;
           colors.primary = {
@@ -81,6 +82,7 @@
             cyan = "#99faf2";
             white = "#ffffff";
           };
+          draw_bold_text_with_bright_colors = true;
           window = {
             decorations = "none";
             startup_mode = "Fullscreen";
