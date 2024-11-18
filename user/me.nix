@@ -32,6 +32,7 @@
       me = {
         home = {
           stateVersion = "24.11";
+          enableNixpkgsReleaseCheck = false;
           homeDirectory = "/home/me";
           keyboard.layout = "us,de";
           shellAliases = {
