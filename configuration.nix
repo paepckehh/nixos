@@ -228,10 +228,10 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    # useDHCP = lib.mkDefault true;
     usePredictableInterfaceNames = true;
     networkmanager.enable = true;
     wireguard.enable = true;
+    wireless.enable = lib.mkForce false;
     nftables.enable = true;
     firewall = {
       enable = true;
