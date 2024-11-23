@@ -182,27 +182,18 @@
   #-=# HARDWARE #=-#
   ##################
   hardware = {
-    enableAllFirmware = lib.mkForce true;
+    acpilight.enable = true;
+    enableAllFirmware = true;
     cpu = {
-      x86 = {
-        msr = {
-          enable = lib.mkForce false;
-        };
-      };
+      x86.msr.enable = false;
       amd = {
-        updateMicrocode = lib.mkForce true;
-        ryzen-smu = lib.mkForce true;
-        sev = {
-          enable = lib.mkForce false;
-        };
+        updateMicrocode = true;
+        ryzen-smu.enable = true;
+        sev.enable = false;
       };
       intel = {
-        updateMicrocode = lib.mkForce true;
-        sgx = {
-          provision = {
-            enable = lib.mkForce false;
-          };
-        };
+        updateMicrocode = true;
+        sgx.provision.enable = false;
       };
     };
   };
