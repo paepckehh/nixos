@@ -100,7 +100,7 @@
             socialscan
             sysz
             tea
-            tcping
+            tcping-go
             tldr
             tlsinfo
             termdbms
