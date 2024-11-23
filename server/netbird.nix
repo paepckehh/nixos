@@ -14,6 +14,7 @@
         };
         dashboard = {
           enable = true;
+          managementServer = "localhost";
         };
       };
     };
