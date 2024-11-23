@@ -93,6 +93,7 @@
             graphviz
             httpie
             hyperfine
+            inetutils
             shellcheck
             shfmt
             socialscan
@@ -108,12 +109,15 @@
             trippy
             tz
             openssl
+            progress
+            pv
             kmon
             keepassxc
             keepassxc-go
             moreutils
             nodejs
             netscanner
+            ncftp
             nix-du
             nix-tree
             nix-top
