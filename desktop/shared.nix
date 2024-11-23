@@ -71,8 +71,6 @@
   #-=# HARDWARE #=-#
   ##################
   hardware = {
-    # graphics.enable = true;
-    # pulseaudio.enable = lib.mkForce false;
     bluetooth = {
       enable = true;
       powerOnBoot = false;
