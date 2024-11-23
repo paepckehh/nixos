@@ -95,7 +95,7 @@
   ##############
   boot = {
     blacklistedKernelModules = ["ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "sysv"];
-    # kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = ["page_alloc.shuffle=1"];
     kernelModules = ["vfat" "exfat" "uas"];
     readOnlyNixStore = lib.mkForce true;
