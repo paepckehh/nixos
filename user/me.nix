@@ -100,6 +100,7 @@
             socialscan
             sysz
             tea
+            tere
             tldr
             tlsinfo
             termdbms
