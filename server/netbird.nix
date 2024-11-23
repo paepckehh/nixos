@@ -10,7 +10,8 @@
           enable = true;
         };
         management = {
-          enable = true;
+          enable = false;
+          oidcConfigEndpoint = "localhost";
         };
         dashboard = {
           enable = false;
