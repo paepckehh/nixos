@@ -26,7 +26,7 @@
   boot = {
     # kernelParams = ["brcmfmac.feature_disable=0x82000"];
     # kernelParams = ["hid_apple.iso_layout=0"];
-    # blacklistedKernelModules = ["b43" "bcma" "brcmfmac" "brcmsmac" "ssb"];
+    blacklistedKernelModules = ["b43" "bcma" "brcmfmac" "brcmsmac" "ssb"];
     # extraModulePackages = with config.boot.kernelPackages; [broadcom_sta];
     # kernelModules = ["kvm-intel"];
     # blacklistedKernelModules = ["b43" "bcma" "brcmsmac" "ssb"];
