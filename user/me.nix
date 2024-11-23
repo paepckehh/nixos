@@ -55,7 +55,9 @@
             lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
             lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
             li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
-            kbdlight = "echo 1 | sudo tee  /sys/class/leds/input1::scrolllock/brightness";
+            keybordlight1 = "echo 1 | sudo tee /sys/class/leds/input1::scrolllock/brightness";
+            keybordlight2 = "echo 1 | sudo tee /sys/class/leds/input2::scrolllock/brightness";
+            keybordlight3 = "echo 1 | sudo tee /sys/class/leds/input3::scrolllock/brightness";
           };
           sessionVariables = {
             EDITOR = "vim";
