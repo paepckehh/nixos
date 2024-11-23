@@ -13,7 +13,7 @@
           enable = true;
         };
         dashboard = {
-          enable = true;
+          enable = false;
           managementServer = "localhost";
         };
       };
