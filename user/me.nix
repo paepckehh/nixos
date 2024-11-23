@@ -73,6 +73,7 @@
             bmon
             binsider
             certgraph
+            caligula
             curlie
             compose2nix
             ddgr
