@@ -183,7 +183,8 @@
   ##################
   hardware = {
     acpilight.enable = true;
-    enableAllFirmware = true;
+    enableAllFirmware = lib.mkForce true;
+    facetimehd.enable = lib.mkForce false;
     cpu = {
       x86.msr.enable = false;
       amd = {
@@ -361,7 +362,7 @@
         thin_pool_discards = 1 
       }'';
     interactiveShellInit = ''uname -a && eval "$(ssh-agent)"'';
-    systemPackages = with pkgs; [alejandra smartmontools fzf wireguard-tools];
+    systemPackages = with pkgs; [alejandra fzf smartmontools libsmbios wireguard-tools];
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
       l = "ls -la";
