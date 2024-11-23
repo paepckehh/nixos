@@ -94,14 +94,14 @@
   #-=# BOOT #=-#
   ##############
   boot = {
-    blacklistedKernelModules = ["ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "sysv"];
+    blacklistedKernelModules = ["b43" "bcma" "brcmfmac" "brcmsmac" "ssb" "ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6"];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = ["page_alloc.shuffle=1"];
-    kernelModules = ["vfat" "exfat" "uas"];
+    kernelModules = ["vfat" "exfat" "uas" "kvm-intel" "kvm-amd"];
     readOnlyNixStore = lib.mkForce true;
     initrd = {
       systemd.enable = lib.mkForce false;
-      availableKernelModules = ["ahci" "dm_mod" "sd_mod" "sr_mod" "nvme" "mmc_block" "uas" "usbhid" "usb_storage" "xhci_pci"];
+      availableKernelModules = ["applespi" "applesmc" "spi_pxa2xx_platform" "intel_lpss_pci" "ahci" "dm_mod" "sd_mod" "sr_mod" "nvme" "mmc_block" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
     tmp = {
       cleanOnBoot = true;
