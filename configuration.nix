@@ -185,6 +185,10 @@
     acpilight.enable = true;
     enableAllFirmware = lib.mkForce true;
     facetimehd.enable = lib.mkForce false;
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
     cpu = {
       x86.msr.enable = false;
       amd = {

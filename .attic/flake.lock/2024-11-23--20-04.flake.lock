@@ -1,0 +1,49 @@
+{
+  "nodes": {
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1732383377,
+        "narHash": "sha256-FnTC1Eycct/oD1I0ZUuy9FmQFfBeuymbVD2ptlQWaGc=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "16fe78182e924c9a2b0cffa1f343efea80945ef2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "master",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1731908494,
+        "narHash": "sha256-eK1nuhFukEDHv2A8lsrinCVuvW61exxSUtjQeBiwhsM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3048d1e373b04fe851d90a87c3dfb965d4f42a75",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "3048d1e",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
