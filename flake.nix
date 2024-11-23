@@ -26,12 +26,12 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./hardware/macbook-intel.nix
           ./modules/chronyPublic.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/netbird.nix
+          # ./hardware/macbook-intel.nix
+          # ./server/netbird.nix
           # ./server/unifi.nix
           # ./server/prometheus.nix
           # ./server/virtual.nix

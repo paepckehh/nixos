@@ -53,7 +53,7 @@
           scrolling = {
             history = 100000;
           };
-          font.size = 10;
+          font.size = 11;
           colors = {
             primary = {
               background = "#000000";
