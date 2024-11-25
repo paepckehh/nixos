@@ -16,8 +16,8 @@
   ##################
   hardware = {
     graphics = {
-      enable = false; # TODO: performance impact
-      enable32Bit = false;
+      enable = lib.mkForce true;
+      enable32Bit = lib.mkForce true;
     };
   };
 
