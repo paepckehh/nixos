@@ -11,6 +11,16 @@
     packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];})];
   };
 
+  ##################
+  #-=# HARDWARE #=-#
+  ##################
+  hardware = {
+    graphics = {
+      enable = false; # TODO: performance impact
+      enable32Bit = false;
+    };
+  };
+
   #####################
   #-=# ENVIRONMENT #=-#
   #####################

@@ -39,9 +39,8 @@
           "browser.cache.disk.enable" = false;
           "browser.compactmode.show" = true;
           "browser.startup.homepage" = "";
-          "browser.search.isUS" = true;
-          "signon.rememberSignons" = true;
-          "webgl.disabled" = false;
+          "signon.rememberSignons" = false;
+          "webgl.disabled" = true; # TODO: performance impact
         };
       };
       alacritty = {
