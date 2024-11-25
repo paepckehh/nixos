@@ -216,7 +216,7 @@
             extraConfig = ''
               set nocompatible
               set nobackup
-              comment_leader = '# '
+              let comment_leader = '# '
               au FileType haskell,vhdl,ada let b:comment_leader = '-- '
               au FileType vim let b:comment_leader = '" '
               au FileType c,cpp,java,golang,go let b:comment_leader = '// '
