@@ -256,7 +256,7 @@
       allowPing = true;
       allowedTCPPorts = [];
       allowedUDPPorts = [];
-      checkReversePath = false;
+      checkReversePath = true;
     };
     proxy = {
       default = "";
