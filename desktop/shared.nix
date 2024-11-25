@@ -4,27 +4,6 @@
   lib,
   ...
 }: {
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  # imports = [];
-
-  ##################
-  #-=# PROGRAMS #=-#
-  ##################
-  programs = {
-    firejail = {
-      enable = true;
-      wrappedBinaries = {
-        librewolf = {
-          profile = "${lib.getBin pkgs.firejail}/etc/firejail/librewolf.profile";
-          executable = "${lib.getBin pkgs.librewolf}/bin/librewolf";
-          desktop = "${lib.getBin pkgs.librewolf}/share/applications/librewolf.desktop";
-        };
-      };
-    };
-  };
-
   ###############
   #-=# FONTS #=-#
   ###############
@@ -36,7 +15,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [alacritty kitty];
+    systemPackages = with pkgs; [alacritty];
     variables = {
       TERMINAL = "alacritty";
     };
@@ -57,28 +36,44 @@
       xkb.layout = "us,de";
     };
     pipewire = {
-      enable = true;
-      pulse.enable = true;
-      wireplumber.enable = true;
+      enable = false;
+      pulse.enable = false;
+      wireplumber.enable = false;
       alsa = {
-        enable = true;
-        support32Bit = true;
+        enable = false;
+        support32Bit = false;
       };
-    };
-  };
-
-  ##################
-  #-=# HARDWARE #=-#
-  ##################
-  hardware = {
-    bluetooth = {
-      enable = true;
-      powerOnBoot = false;
     };
   };
 
   ##################
   #-=# SECURITY #=-#
   ##################
-  security.rtkit.enable = true; # realtime, only needed for audio
+  security.rtkit.enable = false; # realtime, only needed for audio
+
+  ##################
+  #-=# HARDWARE #=-#
+  ##################
+  hardware = {
+    bluetooth = {
+      enable = false;
+      powerOnBoot = false;
+    };
+  };
+
+  ##################
+  #-=# PROGRAMS #=-#
+  ##################
+  # programs = {
+  #  firejail = {
+  #   enable = true;
+  #    wrappedBinaries = {
+  #      librewolf = {
+  #        profile = "${lib.getBin pkgs.firejail}/etc/firejail/librewolf.profile";
+  #        executable = "${lib.getBin pkgs.librewolf}/bin/librewolf";
+  #        desktop = "${lib.getBin pkgs.librewolf}/share/applications/librewolf.desktop";
+  #      };
+  #    };
+  #  };
+  #};
 }
