@@ -4,8 +4,9 @@
     # nixpkgs.url = "github:paepckehh/nixpkgs/wg-access-server-fix";
     # nixpkgs.url = "github:paepckehh/nixpkgs/opnborg-service";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/3048d1e";
+    # nixpkgs.url = "github:NixOS/nixpkgs/3048d1e";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     # nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
     home-manager = {
