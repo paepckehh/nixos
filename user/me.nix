@@ -229,7 +229,7 @@
                    \'vim': '"',
                    \'make': '#',
                    \'conf': '#',
-                   \'nix': '#',
+                   \'nix': ' #',
               \}
               noremap <silent> <expr> <F12> ((synIDattr(synID(line("."), col("."), 0), "name") =~ 'comment\c') ? ':<S-Right>:s/^\([ \t]*\)' . get(commentTextMap, &filetype, '#') . '/\1/<CR>' : ':<S-Right>:s/^/' . get(commentTextMap, &filetype, '#') . '/<CR>:nohl<CR>') . ':nohl<CR>:call histdel("/", -1)<CR>'
             '';
