@@ -253,10 +253,10 @@
     nftables.enable = true;
     firewall = {
       enable = true;
-      allowPing = false;
+      allowPing = true;
       allowedTCPPorts = [];
       allowedUDPPorts = [];
-      checkReversePath = true;
+      checkReversePath = false;
     };
     proxy = {
       default = "";
