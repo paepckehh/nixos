@@ -14,7 +14,7 @@
     prometheus = {
       exporters = {
         unpoller = {
-          enable = true;
+          enable = false;
           controllers = [
             {
               url = "http://localhost:8443";
@@ -43,7 +43,7 @@
   networking = {
     firewall = {
       allowedUDPPorts = [];
-      allowedTCPPorts = [9090];
+      allowedTCPPorts = [8443 9090];
     };
   };
 
