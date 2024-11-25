@@ -186,8 +186,8 @@
     enableAllFirmware = lib.mkForce true;
     facetimehd.enable = lib.mkForce false;
     graphics = {
-      enable = true;
-      enable32Bit = true;
+      enable = false;
+      enable32Bit = false;
     };
     cpu = {
       x86.msr.enable = false;
