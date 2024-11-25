@@ -214,14 +214,24 @@
               expandtab = true;
             };
             extraConfig = ''
-              set nocompatible
-              set nobackup
-              let comment_leader = '# '
-              au FileType haskell,vhdl,ada let b:comment_leader = '-- '
-              au FileType vim let b:comment_leader = '" '
-              au FileType c,cpp,java,golang,go let b:comment_leader = '// '
-              noremap <silent> F12 :<C-B>sil <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:noh<CR>
-              noremap <silent> F11 :<C-B>sil <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:noh<CR>
+               set nocompatible
+               set nobackup
+               let commentTextMap = {
+                   \'c': '\/\/',
+                   \'h': '\/\/',
+                   \'cpp': '\/\/',
+                   \'java': '\/\/',
+                   \'php': '\/\/',
+                   \'javascript': '\/\/',
+                   \'go': '\/\/',
+                   \'python': '#',
+                   \'sh': '#',
+                   \'vim': '"',
+                   \'make': '#',
+                   \'conf': '#',
+                   \'nix': '#',
+              \}
+              noremap <silent> <expr> <F12> ((synIDattr(synID(line("."), col("."), 0), "name") =~ 'comment\c') ? ':<S-Right>:s/^\([ \t]*\)' . get(commentTextMap, &filetype, '#') . '/\1/<CR>' : ':<S-Right>:s/^/' . get(commentTextMap, &filetype, '#') . '/<CR>:nohl<CR>') . ':nohl<CR>:call histdel("/", -1)<CR>'
             '';
           };
           zsh = {
