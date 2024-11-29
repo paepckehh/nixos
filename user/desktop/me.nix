@@ -15,7 +15,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [gparted]; # mission-center krita gimp
+    systemPackages = with pkgs; [gparted mission-center forge-sparks]; # mission-center krita gimp
   };
 
   ##################

@@ -32,7 +32,7 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/unifi.nix
+          # ./server/unifi.nix
           # ./hardware/macbook-intel.nix
           # ./server/netbird.nix
           # ./server/prometheus.nix
@@ -51,8 +51,8 @@
           # ./server/opnborg.nix
           # ./server/opnborg-complex.nix
           # ./server/opnborg-docker-complex.nix
-          ./server/ollama.nix
-          ./server/openweb-ui.nix
+          # ./server/ollama.nix
+          # ./server/openweb-ui.nix
           # ./server/mopidy.nix
           # ./server/uptime.nix
           # ./server/yopass-ng.nix
