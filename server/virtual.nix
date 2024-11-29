@@ -41,6 +41,7 @@
       "192.168.122.3" = ["opn02" "opn02.lan"];
       "192.168.122.4" = ["opn03" "opn03.lan"];
       "192.168.122.5" = ["opn04" "opn04.lan"];
+      "192.168.122.9" = ["opn00" "opn00.lan"];
     };
     nftables.enable = lib.mkForce false;
     firewall.trustedInterfaces = ["virbr0"];
