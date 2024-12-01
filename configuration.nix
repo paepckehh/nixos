@@ -186,7 +186,6 @@
       enable32Bit = false;
     };
     cpu = {
-      x86.msr.enable = false;
       amd = {
         updateMicrocode = true;
         ryzen-smu.enable = true;
