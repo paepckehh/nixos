@@ -393,7 +393,7 @@
     thermald.enable = true;
     logind.hibernateKey = "ignore";
     fwupd.enable = true;
-    power-profiles-daemon = lib.mkForce false;
+    power-profiles-daemon.enable = lib.mkForce false;
     wg-netmanager.enable = true;
     tlp = {
       enable = true;
