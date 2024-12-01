@@ -408,6 +408,7 @@
     smartd.enable = true;
     thermald.enable = true;
     logind.hibernateKey = "ignore";
+    fwupd.enable = true;
     wg-netmanager.enable = true;
     fstrim = {
       enable = true;
