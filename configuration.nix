@@ -390,9 +390,10 @@
   services = {
     openssh.enable = false;
     smartd.enable = true;
-    # thermald.enable = true;
+    thermald.enable = true;
     logind.hibernateKey = "ignore";
     fwupd.enable = true;
+    power-profiles-daemon = lib.mkForce false;
     wg-netmanager.enable = true;
     tlp = {
       enable = true;
