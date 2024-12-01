@@ -220,15 +220,6 @@
       stateful = false;
       defaultBitSize = "3072";
     };
-    doas = {
-      enable = false;
-      wheelNeedsPassword = lib.mkForce true;
-    };
-    sudo = {
-      enable = false;
-      execWheelOnly = lib.mkForce true;
-      wheelNeedsPassword = lib.mkForce true;
-    };
     sudo-rs = {
       enable = true;
       execWheelOnly = lib.mkForce true;
@@ -399,7 +390,7 @@
   services = {
     openssh.enable = false;
     smartd.enable = true;
-    thermald.enable = true;
+    # thermald.enable = true;
     logind.hibernateKey = "ignore";
     fwupd.enable = true;
     wg-netmanager.enable = true;
