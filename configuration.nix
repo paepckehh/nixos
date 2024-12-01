@@ -399,7 +399,6 @@
   ##################
   services = {
     openssh.enable = false;
-    power-profiles-daemon.enable = true;
     smartd.enable = true;
     thermald.enable = true;
     logind.hibernateKey = "ignore";
