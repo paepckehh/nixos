@@ -143,7 +143,6 @@
     timeZone = null; # UTC, local: "Europe/Berlin";
     hardwareClockInLocalTime = true;
   };
-  powerManagement.enable = true;
   console = {
     earlySetup = lib.mkForce true;
     keyMap = "us";
