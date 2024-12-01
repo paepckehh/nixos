@@ -33,7 +33,7 @@
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/send.nix
-          # ./server/virtual.nix
+          ./server/virtual.nix
           # ./server/unifi.nix
           # ./hardware/macbook-intel.nix
           # ./server/netbird.nix
