@@ -406,7 +406,7 @@
     logind.hibernateKey = "ignore";
     fwupd.enable = true;
     wg-netmanager.enable = true;
-    services.tlp = {
+    tlp = {
       enable = true;
       settings = {
         CPU_SCALING_GOVERNOR_ON_AC = "powersave";
