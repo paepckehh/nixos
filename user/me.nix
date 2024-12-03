@@ -87,6 +87,7 @@
             dnstracer
             dnsutils
             fastfetch
+            ffsend
             filezilla
             goaccess
             gobang
