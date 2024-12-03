@@ -11,7 +11,6 @@
   #################
   imports = [
     ./alias/nixops.nix
-    # (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
   #############
@@ -94,10 +93,11 @@
   #-=# BOOT #=-#
   ##############
   boot = {
-    blacklistedKernelModules = ["b43" "bcma" "brcmfmac" "brcmsmac" "ssb" "ax25" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6"];
+    blacklistedKernelModules = ["b43" "bcma" "brcmfmac" "brcmsmac" "ssb" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp"];
+    extraModulePackages = [config.boot.kernelPackages.zenpower];
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = ["page_alloc.shuffle=1"];
-    kernelModules = ["vfat" "exfat" "uas" "kvm-intel" "kvm-amd"];
+    kernelParams = ["page_alloc.shuffle=1" "amd_pstate=active"];
+    kernelModules = ["vfat" "exfat" "uas" "kvm-intel" "kvm-amd" "amd-pstate"];
     readOnlyNixStore = lib.mkForce true;
     initrd = {
       systemd.enable = lib.mkForce false;
@@ -178,11 +178,12 @@
   ##################
   hardware = {
     acpilight.enable = true;
-    enableAllFirmware = lib.mkForce true;
-    facetimehd.enable = lib.mkForce false;
-    graphics = {
-      enable = false;
-      enable32Bit = false;
+    amdgpu = {
+      amdvlk = {
+        enable = true;
+        support32bit.enable = true;
+      };
+      opencl.enable = true;
     };
     cpu = {
       amd = {
@@ -194,6 +195,12 @@
         updateMicrocode = true;
         sgx.provision.enable = false;
       };
+    };
+    enableAllFirmware = lib.mkForce true;
+    facetimehd.enable = lib.mkForce false;
+    graphics = {
+      enable = false;
+      enable32Bit = false;
     };
   };
 
