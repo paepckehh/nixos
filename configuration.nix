@@ -181,7 +181,7 @@
     amdgpu = {
       amdvlk = {
         enable = true;
-        support32bit.enable = true;
+        support32Bit.enable = true;
       };
       opencl.enable = true;
     };
