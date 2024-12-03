@@ -32,14 +32,13 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/send.nix
-          ./server/virtual.nix
-          # ./server/unifi.nix
-          # ./hardware/macbook-intel.nix
-          # ./server/netbird.nix
-          # ./server/prometheus.nix
+          ./server/unifi.nix
           # ./modules/autoupdate.nix
           # ./modules/localinfra.nix
+          # ./server/virtual.nix
+          # ./server/send.nix
+          # ./server/netbird.nix
+          # ./server/prometheus.nix
           # ./server/pingvin.nix
           # ./server/picoshare.nix
           # ./server/shifter.nix
