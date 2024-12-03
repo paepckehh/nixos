@@ -28,12 +28,12 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./infra/local.nix
           ./modules/chronyPublic.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/unifi.nix
+          # ./infra/local.nix
           # ./modules/autoupdate.nix
           # ./server/virtual.nix
           # ./server/send.nix

@@ -17,21 +17,11 @@
           enable = false;
           controllers = [
             {
-              url = "http://10.0.0.10:8443";
+              url = "http://localhost:8443";
               user = "readonly";
               pass = "/etc/nixos/server/resources/unifi.txt";
             }
           ];
-        };
-      };
-    };
-    static-web-server = {
-      enable = false;
-      listen = "10.0.0.10:9090";
-      root = "/var/www";
-      configuration = {
-        general = {
-          directory-listing = true;
         };
       };
     };
@@ -43,14 +33,7 @@
   networking = {
     firewall = {
       allowedUDPPorts = [];
-      allowedTCPPorts = [8443 9090];
+      allowedTCPPorts = [8443];
     };
   };
-
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.tmpfiles.rules = [
-    "d /var/www 0755 root users"
-  ];
 }
