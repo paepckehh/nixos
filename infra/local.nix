@@ -10,15 +10,19 @@
     vlans = {
       vlan001 = {
         id = 001;
-        interface = "wlp2s0";
+        interface = "enp1s0f4u2";
       };
     };
     interfaces.vlan001 = {
       virtual = true;
       ipv4.addresses = [
         {
-          address = "10.0.0.30";
-          prefixLength = 24;
+          address = "10.0.0.2";
+          prefixLength = 32;
+        }
+        {
+          address = "10.0.0.3";
+          prefixLength = 32;
         }
       ];
     };
@@ -34,8 +38,8 @@
   services = {
     bind = {
       enable = true;
-      listenOn = ["10.0.0.30"];
-      ipv4Only = true; # cmd switch
+      listenOn = ["10.0.0.2" "10.0.0.3"];
+      ipv4Only = true;
       cacheNetworks = ["127.0.0.0/24"];
       extraOptions = "recursion no;";
       zones = {
@@ -44,14 +48,16 @@
           file = pkgs.writeText "lan" ''
             $ORIGIN lan.
             $TTL    1h
-            @            IN      SOA     ns hostmaster (
+            @            IN      SOA     ns1 hostmaster (
                                              1    ; Serial
                                              3h   ; Refresh
                                              1h   ; Retry
                                              1w   ; Expire
                                              1h)  ; Negative Cache TTL
-                         IN      NS      ns
-            ns           IN      A       10.0.0.30
+                         IN      NS      ns1
+                         IN      NS      ns2
+            ns1          IN      A       10.0.0.2
+            ns2          IN      A       10.0.0.3
           '';
         };
         "infra.lan" = {
@@ -66,9 +72,9 @@
                                              1w   ; Expire
                                              1h)  ; Negative Cache TTL
                          IN      NS      ns
-            ns           IN      A       10.0.0.30
-            firmware     IN      A       10.0.0.30
-            nixbuilder   IN      A       10.0.0.30
+            ns1          IN      A       10.0.0.2
+            ns2          IN      A       10.0.0.3
+            unifi        IN      A       10.0.0.100
           '';
         };
       };
@@ -77,8 +83,8 @@
       enable = true;
       settings = {
         port = 0; # disable dns resolver
-        dhcp-range = ["10.0.0.100,10.0.0.250"];
-        dhcp-option = ["6,10.0.0.30"]; # 3 - gw, 4 - ntp, 6 - dns
+        dhcp-range = ["10.0.0.200,10.0.0.245"];
+        dhcp-option = ["6,10.0.0.2"]; # 3 - gw, 4 - ntp, 6 - dns
         dhcp-leasefile = "/var/lib/dnsmasq/dnsmasq.leases";
       };
     };

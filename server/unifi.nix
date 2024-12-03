@@ -17,7 +17,7 @@
           enable = false;
           controllers = [
             {
-              url = "http://localhost:8443";
+              url = "http://10.0.0.10:8443";
               user = "readonly";
               pass = "/etc/nixos/server/resources/unifi.txt";
             }
@@ -27,7 +27,7 @@
     };
     static-web-server = {
       enable = false;
-      listen = "10.0.0.30:9090";
+      listen = "10.0.0.10:9090";
       root = "/var/www";
       configuration = {
         general = {
