@@ -11,6 +11,7 @@
     search = ["admin.lan" "infra.lan" "intranet.lan" "iotnet.lan" "lan"];
     nameservers = ["127.0.0.1"];
     timeServers = ["127.0.0.1"];
+    enableIPv6 = lib.mkForce false;
     usePredictableInterfaceNames = lib.mkForce false;
     networkmanager.enable = lib.mkForce false;
     wireless.enable = lib.mkForce false;
