@@ -8,7 +8,7 @@
   #################
   imports = [
     # do not enable permanently (!) - on demand only
-    ./setup-vlan-interfaces.nix
+    ./vlan-setup-interfaces.nix
   ];
 
   ####################
