@@ -226,7 +226,7 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    usePredictableInterfaceNames = true;
+    usePredictableInterfaceNames = false;
     networkmanager.enable = true;
     nftables.enable = true;
     wireguard.enable = true;
