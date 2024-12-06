@@ -20,76 +20,75 @@
     home-manager,
   }: {
     nixosConfigurations = {
-      nixpkgs.lib.genAttr = "nixos-mp" (hostName:
-        nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            home-manager.nixosModules.home-manager
-            ./configuration.nix
-            ./desktop/gnome.nix
-            ./modules/chronyPublic.nix
-            ./person/desktop/mpaepcke.nix
-            ./server/adguard.nix
-            # ./server/unifi.nix
-            # ./infra/local.nix
-            # ./modules/autoupdate.nix
-            # ./server/virtual.nix
-            # ./server/send.nix
-            # ./server/netbird.nix
-            # ./server/prometheus.nix
-            # ./server/pingvin.nix
-            # ./server/picoshare.nix
-            # ./server/shifter.nix
-            # ./server/rsync.nix
-            # ./server/wg-easy.nix
-            # ./server/wg-acccess-server.nix
-            # ./server/docker.nix
-            # ./server/sync.nix
-            # ./server/gitea.nix
-            # ./server/opnborg.nix
-            # ./server/opnborg-complex.nix
-            # ./server/opnborg-docker-complex.nix
-            # ./server/ollama.nix
-            # ./server/openweb-ui.nix
-            # ./server/mopidy.nix
-            # ./server/uptime.nix
-            # ./server/yopass-ng.nix
-            # ./server/webserver-nginx.nix
-            # ./server/wiki.nix
-            {
-              networking = {
-                domain = "intra.lan";
-                defaultGateway = {
-                  address = "192.168.8.1";
-                  interface = "intranet";
+      nixos-mp = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./desktop/gnome.nix
+          ./modules/chronyPublic.nix
+          ./person/desktop/mpaepcke.nix
+          ./server/adguard.nix
+          # ./server/unifi.nix
+          # ./infra/local.nix
+          # ./modules/autoupdate.nix
+          # ./server/virtual.nix
+          # ./server/send.nix
+          # ./server/netbird.nix
+          # ./server/prometheus.nix
+          # ./server/pingvin.nix
+          # ./server/picoshare.nix
+          # ./server/shifter.nix
+          # ./server/rsync.nix
+          # ./server/wg-easy.nix
+          # ./server/wg-acccess-server.nix
+          # ./server/docker.nix
+          # ./server/sync.nix
+          # ./server/gitea.nix
+          # ./server/opnborg.nix
+          # ./server/opnborg-complex.nix
+          # ./server/opnborg-docker-complex.nix
+          # ./server/ollama.nix
+          # ./server/openweb-ui.nix
+          # ./server/mopidy.nix
+          # ./server/uptime.nix
+          # ./server/yopass-ng.nix
+          # ./server/webserver-nginx.nix
+          # ./server/wiki.nix
+          {
+            networking = {
+              domain = "intra.lan";
+              defaultGateway = {
+                address = "192.168.8.1";
+                interface = "intranet";
+              };
+              hostName = "nixos-mp";
+              interfaces = {
+                "admin" = {
+                  address = "10.0.0.100";
+                  prefixLength = 24;
                 };
-                hostName = hostName;
-                interfaces = {
-                  "admin" = {
-                    address = "10.0.0.100";
-                    prefixLength = 24;
-                  };
-                  "intranet" = {
-                    address = "192.168.8.100";
-                    prefixLength = 24;
-                  };
-                };
-                search = ["intra.lan" "admin" "lan"];
-                timeServers = ["127.0.0.1"];
-                vlans = {
-                  "admin" = {
-                    id = 1;
-                    interface = "eth0";
-                  };
-                  "intranet" = {
-                    id = 0;
-                    interface = "eth0";
-                  };
+                "intranet" = {
+                  address = "192.168.8.100";
+                  prefixLength = 24;
                 };
               };
-            }
-          ];
-        });
+              search = ["intra.lan" "admin" "lan"];
+              timeServers = ["127.0.0.1"];
+              vlans = {
+                "admin" = {
+                  id = 1;
+                  interface = "eth0";
+                };
+                "intranet" = {
+                  id = 0;
+                  interface = "eth0";
+                };
+              };
+            };
+          }
+        ];
+      };
     };
   };
 }
