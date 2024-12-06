@@ -93,16 +93,16 @@
   #-=# BOOT #=-#
   ##############
   boot = {
+    initrd = {
+      systemd.enable = lib.mkForce false;
+      availableKernelModules = ["applespi" "applesmc" "spi_pxa2xx_platform" "intel_lpss_pci" "ahci" "dm_mod" "sd_mod" "sr_mod" "nvme" "mmc_block" "uas" "usbhid" "usb_storage" "xhci_pci"];
+    };
     blacklistedKernelModules = ["b43" "bcma" "brcmfmac" "brcmsmac" "ssb" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp"];
     extraModulePackages = [config.boot.kernelPackages.zenpower];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = ["page_alloc.shuffle=1" "amd_pstate=active"];
     kernelModules = ["vfat" "exfat" "uas" "kvm-intel" "kvm-amd" "amd-pstate"];
     readOnlyNixStore = lib.mkForce true;
-    initrd = {
-      systemd.enable = lib.mkForce false;
-      availableKernelModules = ["applespi" "applesmc" "spi_pxa2xx_platform" "intel_lpss_pci" "ahci" "dm_mod" "sd_mod" "sr_mod" "nvme" "mmc_block" "uas" "usbhid" "usb_storage" "xhci_pci"];
-    };
     tmp = {
       cleanOnBoot = true;
       useTmpfs = true;
@@ -178,30 +178,18 @@
   ##################
   hardware = {
     acpilight.enable = true;
-    amdgpu = {
-      amdvlk = {
-        enable = true;
-        support32Bit.enable = true;
-      };
-      opencl.enable = true;
-    };
     cpu = {
       amd = {
         updateMicrocode = true;
         ryzen-smu.enable = true;
-        sev.enable = false;
+        sev.enable = true;
       };
       intel = {
         updateMicrocode = true;
-        sgx.provision.enable = false;
+        sgx.provision.enable = true;
       };
     };
     enableAllFirmware = lib.mkForce true;
-    facetimehd.enable = lib.mkForce false;
-    graphics = {
-      enable = false;
-      enable32Bit = false;
-    };
   };
 
   ##################
@@ -240,9 +228,9 @@
   networking = {
     usePredictableInterfaceNames = true;
     networkmanager.enable = true;
+    nftables.enable = true;
     wireguard.enable = true;
     wireless.enable = lib.mkForce false;
-    nftables.enable = true;
     firewall = {
       enable = true;
       allowPing = true;
@@ -281,10 +269,10 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    nano.enable = true;
     htop.enable = true;
     iftop.enable = true;
     iotop.enable = true;
+    nano.enable = true;
     mtr.enable = true;
     usbtop.enable = true;
     wireshark.enable = true;
@@ -365,7 +353,7 @@
       h = "htop --tree --highlight-changes";
       d = "sudo dmesg --follow --human --kernel --userspace";
       slog = "journalctl --follow --priority=7 --lines=2500";
-      nvmeinfo = "sudo smartctl --all /dev/sda";
+      nvmeinfo = "sudo smartctl --all /dev/sda"; # /dev/nvme0
       "service.log" = "journalctl --since='30 min ago' -u $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
       "service.start" = "sudo systemctl start $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
       "service.stop" = "sudo systemctl stop $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
@@ -377,7 +365,7 @@
   #-=# I18N #=-#
   ##############
   i18n = {
-    defaultLocale = "en_US.UTF-8";
+    defaultLocale = "en_US.UTF-8"; # "de_DE.UTF-8"
     extraLocaleSettings = {
       LC_ADDRESS = "de_DE.UTF-8";
       LC_IDENTIFICATION = "de_DE.UTF-8";
@@ -395,19 +383,19 @@
   #-=# SERVICES #=-#
   ##################
   services = {
+    fwupd.enable = true;
     openssh.enable = false;
     smartd.enable = true;
     thermald.enable = true;
     logind.hibernateKey = "ignore";
-    fwupd.enable = true;
-    power-profiles-daemon.enable = lib.mkForce false;
+    # power-profiles-daemon.enable = lib.mkForce false;
     wg-netmanager.enable = true;
     tlp = {
       enable = true;
       settings = {
-        START_CHARGE_THRESH_BAT0 = 30;
-        STOP_CHARGE_THRESH_BAT0 = 60;
-        USB_AUTOSUSPEND = "0";
+        USB_AUTOSUSPEND = "0"; # disable
+        START_CHARGE_THRESH_BAT0 = 40;
+        STOP_CHARGE_THRESH_BAT0 = 80;
         CPU_SCALING_GOVERNOR_ON_AC = "powersave";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
         CPU_ENERGY_PERF_POLICY_ON_AC = "balance_power";
