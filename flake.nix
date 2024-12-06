@@ -19,10 +19,10 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix
-          ./network/admin.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
+          # ./network/admin.nix
           # ./server/unifi.nix
           # ./infra/local.nix
           # ./modules/autoupdate.nix
