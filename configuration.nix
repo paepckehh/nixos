@@ -226,21 +226,14 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    # ipv6 disable
-    usePredictableInterfaceNames = false;
-    networkmanager.enable = false;
+    networkmanager.enable = true;
     nftables.enable = true;
-    wireless.enable = lib.mkForce false;
     firewall = {
       enable = true;
       allowPing = true;
       allowedTCPPorts = [];
       allowedUDPPorts = [];
       checkReversePath = true;
-    };
-    proxy = {
-      default = "";
-      noProxy = "lan,local,localhost,localdomain,127.0.0.0/8,192.168.0.0/16,10.0.0.0/8";
     };
   };
 
