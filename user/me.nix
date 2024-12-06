@@ -101,6 +101,8 @@
             inetutils
             shellcheck
             shfmt
+            s-tui
+            stress
             socialscan
             sysz
             tea
@@ -152,6 +154,7 @@
             rage
             rsync
             ssh-audit
+            undervolt
             usbutils
             ugm
             webanalyze
