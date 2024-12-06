@@ -64,11 +64,11 @@
               };
               hostName = "nixos-mp";
               interfaces = {
-                "admin" = {
+                "admin".ipv4 = {
                   address = "10.0.0.100";
                   prefixLength = 24;
                 };
-                "intranet" = {
+                "intranet".ipv4 = {
                   address = "192.168.8.100";
                   prefixLength = 24;
                 };
