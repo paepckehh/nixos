@@ -83,7 +83,7 @@
                     prefixLength = 24;
                   }
                 ];
-                "iotnet".ipv4.addresses = [
+                "iot".ipv4.addresses = [
                   {
                     address = "192.168.9.100";
                     prefixLength = 24;
