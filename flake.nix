@@ -22,7 +22,19 @@
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
-          # ./network/admin.nix
+          {networking.hostName = "nixos-mp";}
+        ];
+      };
+      nixos-mp-infra = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./desktop/gnome.nix
+          ./person/desktop/mpaepcke.nix
+          ./server/adguard.nix
+          ./server/chronyPublic.nix
+          ./network/admin.nix
           ./server/unifi.nix
           # ./infra/local.nix
           # ./modules/autoupdate.nix
@@ -51,17 +63,29 @@
           # ./server/wiki.nix
           {
             networking = {
-              hostName = "nixos-mp";
+              hostName = "nixos-mp-infra";
               interfaces = {
-                "admin".ipv4.addresses = [
+                "infra".ipv4.addresses = [
                   {
                     address = "10.0.0.100";
+                    prefixLength = 24;
+                  }
+                ];
+                "admin".ipv4.addresses = [
+                  {
+                    address = "10.0.4.100";
                     prefixLength = 24;
                   }
                 ];
                 "intranet".ipv4.addresses = [
                   {
                     address = "192.168.8.100";
+                    prefixLength = 24;
+                  }
+                ];
+                "iotnet".ipv4.addresses = [
+                  {
+                    address = "192.168.9.100";
                     prefixLength = 24;
                   }
                 ];

@@ -8,7 +8,7 @@
   ####################
   networking = {
     domain = "admin.lan";
-    search = ["admin.lan" "intra.lan" "iot.lan" "lan"];
+    search = ["admin.lan" "infra.lan" "intranet.lan" "iotnet.lan" "lan"];
     nameservers = ["127.0.0.1"];
     timeServers = ["127.0.0.1"];
     usePredictableInterfaceNames = lib.mkForce false;
@@ -23,15 +23,19 @@
       noProxy = "";
     };
     vlans = {
-      "admin" = {
+      "infra" = {
         id = 1;
+        interface = "eth0";
+      };
+      "admin" = {
+        id = 4;
         interface = "eth0";
       };
       "intranet" = {
         id = 8;
         interface = "eth0";
       };
-      "iot" = {
+      "iotnet" = {
         id = 9;
         interface = "eth0";
       };
