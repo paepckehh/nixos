@@ -23,7 +23,7 @@
           ./server/adguard.nix
           ./server/chronyPublic.nix
           # ./network/admin.nix
-          # ./server/unifi.nix
+          ./server/unifi.nix
           # ./infra/local.nix
           # ./modules/autoupdate.nix
           # ./server/virtual.nix
