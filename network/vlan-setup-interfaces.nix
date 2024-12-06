@@ -7,9 +7,17 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
+    vlans = {
+      "setup" = {
+        id = 4060; # vlan id 4060 -> dedicated setup vlan (temporary)
+        interface = "eth0";
+      };
+    };
     interfaces = {
       # complete device setup list(s):
       # https://www.techspot.com/guides/287-default-router-ip-addresses
+      # https://www.securitybind.com/list-default-router-ip-addresses-common-router-brands/
+      #
       "setup".ipv4.addresses = [
         {
           address = "192.168.0.250";
@@ -39,11 +47,11 @@
           prefixLength = 24;
           # .1 [zyxel] setup
         }
-        {
-          address = "192.168.8.250";
-          prefixLength = 32; # fixme
-          # .1 [gl-inet] setup
-        }
+        #        {
+        #          address = "192.168.8.250";
+        #          prefixLength = 24; # fixme
+        #          # .1 [gl-inet] setup
+        #        }
         {
           address = "192.168.178.250";
           prefixLength = 24;
