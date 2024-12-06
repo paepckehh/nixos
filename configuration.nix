@@ -178,6 +178,7 @@
   ##################
   hardware = {
     acpilight.enable = true;
+    enableAllFirmware = lib.mkForce true;
     cpu = {
       amd = {
         updateMicrocode = true;
@@ -189,7 +190,6 @@
         sgx.provision.enable = true;
       };
     };
-    enableAllFirmware = lib.mkForce true;
   };
 
   ##################
@@ -388,7 +388,7 @@
     smartd.enable = true;
     thermald.enable = true;
     logind.hibernateKey = "ignore";
-    # power-profiles-daemon.enable = lib.mkForce false;
+    power-profiles-daemon.enable = lib.mkForce false;
     wg-netmanager.enable = true;
     tlp = {
       enable = true;
