@@ -8,7 +8,7 @@
   #################
   imports = [
     # do not enable permanently (!) - on demand only
-    ./vlan-setup-interfaces.nix
+    # ./vlan-setup-interfaces.nix
   ];
 
   ####################
@@ -47,10 +47,6 @@
       };
       "iot" = {
         id = 9; # vlan id 9 -> iotnet.lan (internet of things)
-        interface = "eth0";
-      };
-      "setup" = {
-        id = 4060; # vlan id 4060 -> dedicated setup vlan (temporary)
         interface = "eth0";
       };
     };
