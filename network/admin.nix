@@ -11,12 +11,13 @@
     search = ["admin.lan" "intra.lan" "iot.lan" "lan"];
     nameservers = ["127.0.0.1"];
     timeServers = ["127.0.0.1"];
+    usePredictableInterfaceNames = lib.mkForce false;
+    networkmanager.enable = lib.mkForce false;
+    wireless.enable = lib.mkForce false;
     defaultGateway = {
       address = "192.168.8.1";
       interface = "intranet";
     };
-    usePredictableInterfaceNames = lib.mkForce false;
-    networkmanager.enable = lib.mkForce false;
     proxy = {
       default = "";
       noProxy = "";
@@ -34,7 +35,6 @@
         id = 9;
         interface = "eth0";
       };
-      wireless.enable = lib.mkForce false;
     };
   };
 }
