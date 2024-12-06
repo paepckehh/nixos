@@ -4,16 +4,6 @@
   #####################
   environment = {
     shellAliases = {
-      "nix.cacheall" = ''
-        cd /etc/nixos &&\
-        nix.update ;\
-        cd && mkdir -p cache && cd cache &&\
-        nixos-rebuild build -v --fallback --flake /etc/nixos/#iss ;\
-        nixos-rebuild build -v --fallback --flake /etc/nixos/#nixbuilder ;\
-        nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos ;\
-        nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos-console ;\
-        nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos-mp ;\
-        nix.sign'';
       "nix.sign" = ''
         cd /etc/nixos &&\
         cd /nix/store &&\
@@ -22,9 +12,6 @@
       "nix.push" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
-        host github.com > /dev/null ;\
-        host api.github.com > /dev/null ;\
-        host cache.nixos.org > /dev/null ;\
         sudo alejandra --quiet . &&\
         sudo chown -R me:users .git &&\
         git reset ;\
@@ -57,17 +44,6 @@
         sudo nix-collect-garbage --delete-older-than 1d ;\
         sudo nix-store --gc ;\
         sudo nix-store --optimise '';
-      "nix.hardclean.mp" = ''
-        cd /etc/nixos &&\
-        sudo -v &&\
-        sudo rm /boot/loader/entries/* ;\
-        sudo rm -rf /nix/var/nix/profiles/system* ;\
-        sudo mkdir -p /nix/var/nix/profiles/system-profiles ;\
-        nix.mp &&\
-        sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 1d ;\
-        sudo nix-collect-garbage --delete-older-than 1d ;\
-        sudo nix-store --gc ;\
-        sudo nix-store --optimise '';
       "nix.test" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
@@ -76,16 +52,6 @@
         git add . ;\
         git commit -S -m update ;\
         sudo nixos-rebuild dry-activate --flake /etc/nixos/.#$(hostname)'';
-      "nix.iso" = ''
-        cd /etc/nixos &&\
-        env sudo -v &&\
-        sudo alejandra --quiet . &&\
-        git reset ;\
-        git add . ;\
-        git commit -S -m update ;\
-        export HNAME="$(hostname)" ;\
-        sudo nix build --impure ".#nixosConfigurations.$HNAME-iso.config.system.build.isoImage" ;\
-        eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename /result/iso'';
       "nix.followremote" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
@@ -140,21 +106,12 @@
         sudo nom build .#nixosConfigurations.$HNAME.config.system.build.toplevel ;\
         sudo rm -f result ;\
         sudo nixos-rebuild boot --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" '';
-      "nix.mp" = ''
+      "nix.cacheall" = ''
+        cd /etc/nixos &&\
         nix.update ;\
-        nix.build ;\
-        export DTS="-$(date '+%Y-%m-%d--%H-%M')" ;\
-        echo "############# ---> NIXOS-REBUILD **all** NixOS-MP [$HNAME-$DTS] <--- ##########"
-        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixos-mp         -p "nixos-mp-$DTS" ;\
-        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#$HNAME           -p "$HNAME-$DTS" '';
-      "nix.all" = ''
-        nix.update ;\
-        nix.build ;\
-        export DTS="-$(date '+%Y-%m-%d--%H-%M')" ;\
-        echo "############# ---> NIXOS-REBUILD **all** NixOS [$HNAME-$DTS] <--- ##########"
-        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixos             -p "nixos-$DTS" ;\
-        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#nixbuilder        -p "nixbuilder-$DTS" ;\
-        sudo nixos-rebuild boot -v --fallback --flake /etc/nixos/#$HNAME            -p "$HNAME-$DTS" '';
+        cd && mkdir -p cache && cd cache &&\
+        nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos ;\
+        nix.sign'';
     };
   };
 }

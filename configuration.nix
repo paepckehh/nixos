@@ -384,12 +384,16 @@
   ##################
   services = {
     fwupd.enable = true;
-    openssh.enable = false;
     smartd.enable = true;
     thermald.enable = true;
-    logind.hibernateKey = "ignore";
+    openssh.enable = false;
     power-profiles-daemon.enable = lib.mkForce false;
+    logind.hibernateKey = "ignore";
     wg-netmanager.enable = true;
+    fstrim = {
+      enable = true;
+      interval = "daily";
+    };
     tlp = {
       enable = true;
       settings = {
@@ -409,10 +413,6 @@
         PLATFORM_PROFILE_ON_AC = "low-power";
         PLATFORM_PROFILE_ON_BAT = "low-power";
       };
-    };
-    fstrim = {
-      enable = true;
-      interval = "daily";
     };
     usbguard = {
       enable = false;
