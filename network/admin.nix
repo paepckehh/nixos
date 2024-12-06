@@ -8,7 +8,7 @@
   #################
   imports = [
     # do not enable permanently (!) - on demand only
-    ./setup-vlans.nix
+    ./setup-vlan-interfaces.nix
   ];
 
   ####################
@@ -48,10 +48,14 @@
         id = 9; # vlan id 9 -> iotnet.lan (internet of things)
         interface = "eth0";
       };
+      "setup" = {
+        id = 4096; # vlan id 4096 -> dedicated setup vlan (temporary)
+        interface = "eth0";
+      };
     };
+    # work from home on-demand (pwa/bastion/jump)
     interfaces."admin" = {
       wakeOnLan = {
-        # work from home on-demand (pwa/bastion/jump)
         enable = true;
         policy = ["secureon"];
       };

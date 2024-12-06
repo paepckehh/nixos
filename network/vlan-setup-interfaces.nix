@@ -7,12 +7,6 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    vlans = {
-      "setup" = {
-        id = 4096; # vlan id 4096 -> dedicated setup vlan (temporary)
-        interface = "eth0";
-      };
-    };
     interfaces = {
       # complete device setup list(s):
       # https://www.techspot.com/guides/287-default-router-ip-addresses
