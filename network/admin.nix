@@ -53,7 +53,7 @@
       wakeOnLan = {
         # work from home on-demand (pwa/bastion/jump)
         enable = true;
-        policy = "magic";
+        policy = ["secureon"];
       };
     };
   };
