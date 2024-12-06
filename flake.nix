@@ -64,14 +64,18 @@
               };
               hostName = "nixos-mp";
               interfaces = {
-                "admin".ipv4 = {
-                  address = "10.0.0.100";
-                  prefixLength = 24;
-                };
-                "intranet".ipv4 = {
-                  address = "192.168.8.100";
-                  prefixLength = 24;
-                };
+                "admin".ipv4.adresses = [
+                  {
+                    address = "10.0.0.100";
+                    prefixLength = 24;
+                  }
+                ];
+                "intranet".ipv4.addresses = [
+                  {
+                    address = "192.168.8.100";
+                    prefixLength = 24;
+                  }
+                ];
               };
               search = ["intra.lan" "admin" "lan"];
               timeServers = ["127.0.0.1"];
