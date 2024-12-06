@@ -29,15 +29,12 @@
   environment = {
     systemPackages = with pkgs.gnomeExtensions; [
       toggle-alacritty
-      wifi-qrcode
     ];
     gnome.excludePackages = with pkgs; [
-      gnome-characters
       gnome-calendar
       gnome-contacts
       gnome-photos
       gnome-tour
-      gnome-terminal
       gnome-music
       atomix
       cheese
@@ -57,7 +54,7 @@
   services = {
     gvfs.enable = lib.mkForce false;
     gnome = {
-      core-utilities.enable = lib.mkForce false;
+      core-utilities.enable = true;
       games.enable = lib.mkForce false;
       gnome-browser-connector.enable = lib.mkForce false;
       gnome-initial-setup.enable = lib.mkForce false;

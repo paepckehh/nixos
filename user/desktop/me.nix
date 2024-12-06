@@ -15,7 +15,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [gparted mission-center forge-sparks zenmonitor]; # krita gimp
+    systemPackages = with pkgs; [gparted mission-center]; # krita gimp
   };
 
   ##################
@@ -40,7 +40,7 @@
           "browser.compactmode.show" = true;
           "browser.startup.homepage" = "";
           "signon.rememberSignons" = false;
-          "webgl.disabled" = true; # TODO: performance impact
+          "webgl.disabled" = true; # TODO: performance/security
         };
       };
       alacritty = {
@@ -101,23 +101,17 @@
           custom-keybindings = [
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
-            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
           ];
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-          name = "alacritty terminal";
+          name = "alacritty terminal"; # <windows-key> + <return> = terminal
           command = "alacritty";
           binding = "<Super>Return";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-          name = "librewolf @ firejail";
-          command = "firejail librewolf";
-          binding = "<Super>j";
-        };
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
-          name = "librewolf @ os-native";
+          name = "librewolf @ os-native"; # <windows-key> +  <b> = browser
           command = "librewolf";
-          binding = "<Super>w";
+          binding = "<Super>b";
         };
         "org/gnome/desktop/interface" = {
           clock-show-weekday = true;

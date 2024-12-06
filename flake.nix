@@ -28,8 +28,8 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./modules/chronyPublic.nix
           ./desktop/gnome.nix
+          ./modules/chronyPublic.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/unifi.nix
@@ -59,51 +59,6 @@
           # ./server/webserver-nginx.nix
           # ./server/wiki.nix
           {networking.hostName = "nixos-mp";}
-        ];
-      };
-      nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./hardware/nvidia-off.nix
-          ./modules/chronyPublic.nix
-          ./desktop/gnome.nix
-          ./user/desktop/me.nix
-          ./server/adguard.nix
-          {networking.hostName = "nixos";}
-        ];
-      };
-      nixos-console = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./hardware/nvidia-off.nix
-          ./modules/chronyPublic.nix
-          ./server/adguard.nix
-          ./user/me.nix
-          {networking.hostName = "nixos-console";}
-        ];
-      };
-      nixbuilder = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./hardware/nvidia-off.nix
-          ./modules/chronyPublic.nix
-          ./desktop/gnome.nix
-          ./user/desktop/me.nix
-          ./server/adguard.nix
-          ./server/rsync.nix
-          # ./server/builder.nix
-          # ./server/virtual.nix
-          # ./server/docker.nix
-          # ./server/gitea.nix
-          # ./server/ollama.nix
-          # ./server/openweb-ui.nix
-          {networking.hostName = "nixbuilder";}
         ];
       };
     };

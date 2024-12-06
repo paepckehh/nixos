@@ -12,7 +12,7 @@
     users = {
       me = {
         initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
-        description = "minimal-env-admin";
+        description = "me";
         uid = 1000;
         group = "users";
         createHome = true;
@@ -34,7 +34,7 @@
           stateVersion = "24.11";
           enableNixpkgsReleaseCheck = false;
           homeDirectory = "/home/me";
-          keyboard.layout = "us,de";
+          keyboard.layout = "us,de"; # TODO: adapt
           shellAliases = {
             l = "ls -la";
             e = "vim";
@@ -56,8 +56,6 @@
             lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
             li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
             keybordlight1 = "echo 1 | sudo tee /sys/class/leds/input1::scrolllock/brightness";
-            keybordlight2 = "echo 1 | sudo tee /sys/class/leds/input2::scrolllock/brightness";
-            keybordlight3 = "echo 1 | sudo tee /sys/class/leds/input3::scrolllock/brightness";
           };
           sessionVariables = {
             EDITOR = "vim";
@@ -204,10 +202,6 @@
           };
           go = {
             enable = true;
-          };
-          neovim = {
-            enable = true;
-            plugins = with pkgs.vimPlugins; [go-nvim];
           };
           vim = {
             enable = true;

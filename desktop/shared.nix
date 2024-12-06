@@ -70,20 +70,4 @@
       powerOnBoot = false;
     };
   };
-
-  ##################
-  #-=# PROGRAMS #=-#
-  ##################
-  # programs = {
-  #  firejail = {
-  #   enable = true;
-  #    wrappedBinaries = {
-  #      librewolf = {
-  #        profile = "${lib.getBin pkgs.firejail}/etc/firejail/librewolf.profile";
-  #        executable = "${lib.getBin pkgs.librewolf}/bin/librewolf";
-  #        desktop = "${lib.getBin pkgs.librewolf}/share/applications/librewolf.desktop";
-  #      };
-  #    };
-  #  };
-  #};
 }
