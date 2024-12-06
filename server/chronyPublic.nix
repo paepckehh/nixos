@@ -1,4 +1,7 @@
 {config, ...}: {
+  ##################
+  #-=# SERVICES #=-#
+  ##################
   services = {
     timesyncd.enable = false;
     chrony = {

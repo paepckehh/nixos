@@ -1,10 +1,14 @@
-{config, lib, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking = {
     domain = "admin.lan";
-    search = ["admin.lan" "intra.lan" "lan"];
+    search = ["admin.lan" "intra.lan" "iot.lan" "lan"];
     nameservers = ["127.0.0.1"];
     timeServers = ["127.0.0.1"];
     defaultGateway = {
@@ -18,20 +22,19 @@
       noProxy = "";
     };
     vlans = {
-     "admin" = {
-       id = 1;
-       interface = "eth0";
+      "admin" = {
+        id = 1;
+        interface = "eth0";
+      };
+      "intranet" = {
+        id = 8;
+        interface = "eth0";
+      };
+      "iot" = {
+        id = 9;
+        interface = "eth0";
+      };
+      wireless.enable = lib.mkForce false;
     };
-    "intranet" = {
-       id = 8;
-       interface = "eth0";
-     };
-     "iot" = {
-       id = 9 
-       interface = "eth0";
-     }
-    wireless.enable = lib.mkForce false;
   };
-};
-};
 }
