@@ -1,13 +1,6 @@
 {
   description = "nixos generic flake";
   inputs = {
-    # nixpkgs.url = "github:paepckehh/nixpkgs/wg-access-server-fix";
-    # nixpkgs.url = "github:paepckehh/nixpkgs/opnborg-service";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
-    # nixpkgs.url = "github:NixOS/nixpkgs/master";
-    # nixpkgs.url = "github:NixOS/nixpkgs/3048d1e";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -26,9 +19,10 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix
-          ./modules/chronyPublic.nix
+          ./network/admin.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
+          ./server/chronyPublic.nix
           # ./server/unifi.nix
           # ./infra/local.nix
           # ./modules/autoupdate.nix
@@ -57,11 +51,6 @@
           # ./server/wiki.nix
           {
             networking = {
-              domain = "intra.lan";
-              defaultGateway = {
-                address = "192.168.8.1";
-                interface = "intranet";
-              };
               hostName = "nixos-mp";
               interfaces = {
                 "admin".ipv4.addresses = [
@@ -76,18 +65,6 @@
                     prefixLength = 24;
                   }
                 ];
-              };
-              search = ["intra.lan" "admin" "lan"];
-              timeServers = ["127.0.0.1"];
-              vlans = {
-                "admin" = {
-                  id = 1;
-                  interface = "eth0";
-                };
-                "intranet" = {
-                  id = 0;
-                  interface = "eth0";
-                };
               };
             };
           }

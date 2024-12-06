@@ -226,10 +226,10 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
+    # ipv6 disable
     usePredictableInterfaceNames = false;
-    networkmanager.enable = true;
+    networkmanager.enable = false;
     nftables.enable = true;
-    wireguard.enable = true;
     wireless.enable = lib.mkForce false;
     firewall = {
       enable = true;
