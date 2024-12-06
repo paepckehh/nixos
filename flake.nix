@@ -64,7 +64,7 @@
               };
               hostName = "nixos-mp";
               interfaces = {
-                "admin".ipv4.adresses = [
+                "admin".ipv4.addresses = [
                   {
                     address = "10.0.0.100";
                     prefixLength = 24;
