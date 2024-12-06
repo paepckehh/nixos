@@ -39,10 +39,6 @@
       "admin" = {
         id = 4; # vlan id 4 -> admin.lan
         interface = "eth0";
-        wakeOnLan = {
-          enable = true;
-          policy = "magic"; # work from home (pwa/jump-station/bastion)
-        };
       };
       "intranet" = {
         id = 8; # vlan id 8 -> intranet.lan
@@ -51,6 +47,13 @@
       "iotnet" = {
         id = 9; # vlan id 9 -> iotnet.lan (internet of things)
         interface = "eth0";
+      };
+    };
+    interfaces."admin" = {
+      wakeOnLan = {
+        # work from home on-demand (pwa/bastion/jump)
+        enable = true;
+        policy = "magic";
       };
     };
   };
