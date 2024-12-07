@@ -185,7 +185,7 @@
               auto_sync = "true";
               dialect = "us"; # TODO
               update_check = false;
-              sync_address = "https://localhost:8888";
+              sync_address = "http://localhost:8888";
               sync_frequency = "1h";
             };
           };
