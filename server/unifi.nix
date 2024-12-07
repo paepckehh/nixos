@@ -32,8 +32,9 @@
   ####################
   networking = {
     firewall = {
-      allowedUDPPorts = [53];
-      allowedTCPPorts = [53 67 68];
+      enable = lib.mkForce false;
+      allowedUDPPorts = [53 67 68];
+      allowedTCPPorts = [53];
     };
   };
 
