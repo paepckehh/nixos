@@ -34,7 +34,7 @@
           stateVersion = "24.11";
           enableNixpkgsReleaseCheck = false;
           homeDirectory = "/home/me";
-          keyboard.layout = "us,de"; # TODO: adapt
+          keyboard.layout = "us,de"; # TODO
           shellAliases = {
             l = "ls -la";
             e = "vim";
@@ -181,6 +181,13 @@
           atuin = {
             enable = true;
             flags = ["--disable-up-arrow"];
+            settings = {
+              auto_sync = "true";
+              dialect = "us"; # TODO
+              update_check = false;
+              sync_address = "https://localhost:8888";
+              sync_frequency = "1h";
+            };
           };
           bat = {
             enable = true;
