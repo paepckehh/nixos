@@ -1,8 +1,8 @@
 {
   description = "nixos generic flake";
   inputs = {
-    nixpkgs.url = "github:paepckehh/nixpkgs/master";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    # nixpkgs.url = "github:paepckehh/nixpkgs/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";

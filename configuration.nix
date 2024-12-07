@@ -120,15 +120,15 @@
       };
     };
     kernel.sysctl = {
-      "kernel.kptr_restrict" = lib.mkForce 2;
-      "kernel.ftrace_enabled" = lib.mkForce false;
-      "net.core.bpf_jit_enable" = lib.mkForce false;
-      "net.ipv4.icmp_echo_ignore_broadcasts" = lib.mkForce true;
-      "net.ipv4.conf.all.accept_redirects" = lib.mkForce false;
-      "net.ipv4.conf.all.secure_redirects" = lib.mkForce false;
-      "net.ipv4.conf.default.accept_redirects" = lib.mkForce false;
-      "net.ipv4.conf.default.secure_redirects" = lib.mkForce false;
-      "net.ipv6.conf.all.accept_redirects" = lib.mkForce false;
+      # "kernel.kptr_restrict" = lib.mkForce 2;
+      # "kernel.ftrace_enabled" = lib.mkForce false;
+      # "net.core.bpf_jit_enable" = lib.mkForce false;
+      # "net.ipv4.icmp_echo_ignore_broadcasts" = lib.mkForce true;
+      # "net.ipv4.conf.all.accept_redirects" = lib.mkForce false;
+      # "net.ipv4.conf.all.secure_redirects" = lib.mkForce false;
+      # "net.ipv4.conf.default.accept_redirects" = lib.mkForce false;
+      # "net.ipv4.conf.default.secure_redirects" = lib.mkForce false;
+      # "net.ipv6.conf.all.accept_redirects" = lib.mkForce false;
     };
   };
 
@@ -226,8 +226,8 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    enableIPv6 = false;
-    networkmanager.enable = true;
+    # enableIPv6 = false;
+    # networkmanager.enable = true;
     nftables.enable = true;
     firewall = {
       enable = true;
@@ -379,11 +379,11 @@
   services = {
     fwupd.enable = true;
     smartd.enable = true;
-    thermald.enable = true;
+    # thermald.enable = true;
     openssh.enable = false;
     power-profiles-daemon.enable = lib.mkForce false;
     logind.hibernateKey = "ignore";
-    wg-netmanager.enable = true;
+    # wg-netmanager.enable = true;
     fstrim = {
       enable = true;
       interval = "daily";
