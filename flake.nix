@@ -90,6 +90,10 @@
                     address = "10.0.0.30";
                     prefixLength = 24;
                   }
+                  {
+                    address = "192.168.8.254";
+                    prefixLength = 24;
+                  }
                 ];
                 "admin".ipv4.addresses = [
                   {
@@ -100,7 +104,7 @@
                 "intranet".ipv4.addresses = [
                   {
                     address = "192.168.8.100";
-                    prefixLength = 24;
+                    prefixLength = 32; # xxx
                   }
                 ];
                 "iot".ipv4.addresses = [

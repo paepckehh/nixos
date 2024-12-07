@@ -53,7 +53,7 @@
     kea.dhcp4 = {
       enable = true;
       settings = {
-        authorative = true;
+        authoritative = true;
         rebind-timer = 2000;
         renew-timer = 1000;
         valid-lifetime = 4000;
