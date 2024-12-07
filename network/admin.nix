@@ -3,20 +3,12 @@
   lib,
   ...
 }: {
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  imports = [
-    # do not enable permanently (!) - on demand only
-    # ./vlan-setup-interfaces.nix
-  ];
-
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking = {
     domain = "admin.lan";
-    search = ["admin.lan" "infra.lan" "intranet.lan" "iot.lan" "lan"]; # modify-here
+    search = ["admin.lan" "intranet.lan" "iot.lan" "infra.lan" "lan"]; # modify-here
     nameservers = ["192.168.8.3" "192.168.8.2"]; # modify-here
     timeServers = ["192.168.8.3" "192.168.8.2"]; # modify-here
     enableIPv6 = lib.mkForce false;
@@ -33,10 +25,6 @@
       noProxy = "";
     };
     vlans = {
-      "infra" = {
-        id = 1; # vlan id 1 -> infral.lan (default management trunk)
-        interface = "eth0";
-      };
       "admin" = {
         id = 4; # vlan id 4 -> admin.lan
         interface = "eth0";

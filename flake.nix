@@ -31,11 +31,11 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./network/admin.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
-          ./network/admin.nix
           ./server/unifi.nix
           # ./infra/local.nix
           # ./modules/autoupdate.nix
@@ -68,13 +68,19 @@
               interfaces = {
                 "eth0".ipv4.addresses = [
                   {
-                    address = "192.168.0.250";
+                    address = "10.0.0.2";
+                    prefixLength = 32;
+                  }
+                  {
+                    address = "10.0.0.3";
+                    prefixLength = 32;
+                  }
+                  {
+                    address = "10.0.0.30";
                     prefixLength = 24;
                   }
-                ];
-                "infra".ipv4.addresses = [
                   {
-                    address = "10.0.0.100";
+                    address = "192.168.0.30";
                     prefixLength = 24;
                   }
                 ];

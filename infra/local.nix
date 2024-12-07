@@ -74,7 +74,7 @@
                          IN      NS      ns
             ns1          IN      A       10.0.0.2
             ns2          IN      A       10.0.0.3
-            unifi        IN      A       10.0.0.100
+            unifi        IN      A       10.0.0.30
           '';
         };
       };
@@ -82,9 +82,10 @@
     dnsmasq = {
       enable = true;
       settings = {
+        interface = "eth0";
         port = 0; # disable dns resolver
         dhcp-range = ["10.0.0.200,10.0.0.245"];
-        dhcp-option = ["6,10.0.0.2"]; # 3 - gw, 4 - ntp, 6 - dns
+        dhcp-option = ["6,10.0.0.3" "6,10.0.0.2"]; # 3 - gw, 4 - ntp, 6 - dns
         dhcp-leasefile = "/var/lib/dnsmasq/dnsmasq.leases";
       };
     };
