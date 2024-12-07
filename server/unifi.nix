@@ -8,7 +8,7 @@
   #-=# SYSTEMD #=-#
   #################
   # workaround for kea
-  systemd.network.enable = false;
+  # systemd.network.enable = false;
 
   ####################
   #-=# NETWORKING #=-#
