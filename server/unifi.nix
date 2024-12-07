@@ -4,12 +4,11 @@
   lib,
   ...
 }: {
-
   #################
   #-=# SYSTEMD #=-#
   #################
   # workaround for kea
-  systemd.networking.enable = false; 
+  systemd.networking.enable = false;
 
   ####################
   #-=# NETWORKING #=-#
@@ -21,7 +20,7 @@
       allowedTCPPorts = [53];
     };
   };
- 
+
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -34,20 +33,23 @@
       exporters = {
         unpoller = {
           enable = false;
-          controllers = [{
+          controllers = [
+            {
               url = "http://localhost:8443";
               user = "readonly";
               pass = "/etc/nixos/server/resources/unifi.txt";
-              }];
+            }
+          ];
         };
         kea = {
           enable = false;
           targets = [
             "/run/kea/kea-dhcp4.socket"
             "http://10.0.0.2"
-          };
+          ];
         };
       };
+    };
     kea.dhcp4 = {
       enable = true;
       settings = {
