@@ -84,14 +84,27 @@
         };
       };
     };
-    dnsmasq = {
+    kea.dhcp4 = {
       enable = true;
       settings = {
-        interface = "eth0";
-        port = 0; # disable dns resolver
-        dhcp-range = ["10.0.0.200,10.0.0.245"];
-        dhcp-option = ["6,10.0.0.3" "6,10.0.0.2"]; # 3 - gw, 4 - ntp, 6 - dns
-        dhcp-leasefile = "/var/lib/dnsmasq/dnsmasq.leases";
+        interfaces-config = {
+          interfaces = ["eth0"];
+        };
+        lease-database = {
+          name = "/var/lib/kea/dhcp4.leases";
+          persist = true;
+          type = "memfile";
+        };
+        rebind-timer = 2000;
+        renew-timer = 1000;
+        valid-lifetime = 4000;
+        subnet4 = [
+          {
+            id = 1;
+            subnet = "10.0.0.0/24";
+            pools = [{pool = "10.0.0.220 - 10.0.0.240";}];
+          }
+        ];
       };
     };
   };
