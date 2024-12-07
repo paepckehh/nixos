@@ -13,6 +13,18 @@
     home-manager,
   }: {
     nixosConfigurations = {
+      nixos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./desktop/gnome.nix
+          ./user/desktop/me.nix
+          ./server/adguard.nix
+          ./server/chronyPublic.nix
+          {networking.hostName = "nixos-mp";}
+        ];
+      };
       nixos-mp = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -22,7 +34,6 @@
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
-          ./server/atuin.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
