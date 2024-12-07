@@ -230,7 +230,7 @@
     networkmanager.enable = true;
     nftables.enable = true;
     firewall = {
-      enable = true;
+      enable = false;
       allowPing = true;
       allowedTCPPorts = [];
       allowedUDPPorts = [];
