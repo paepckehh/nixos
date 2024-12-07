@@ -9,7 +9,7 @@
   ###############
   fonts = {
     # packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];})];
-    packages = with pkgs; [nerdfonts.FiraCode];
+    packages = with pkgs; [nerd-fonts.FiraCode];
   };
 
   ##################
