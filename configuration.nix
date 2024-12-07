@@ -55,7 +55,7 @@
       automatic = true;
       dates = "daily";
       persistent = true;
-      options = "--delete-older-than 14d";
+      options = "--delete-older-than 60d";
     };
     optimise = {
       automatic = true;
