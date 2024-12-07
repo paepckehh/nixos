@@ -41,6 +41,30 @@
   #-=# SERVICES #=-#
   ##################
   services = {
+    kea.dhcp4 = {
+      enable = true;
+      settings = {
+        interfaces-config = {
+          interfaces = ["eth0/10.0.0.30"];
+          dhcp-socket-type = "udp";
+        };
+        lease-database = {
+          name = "/var/lib/kea/dhcp4.leases";
+          persist = true;
+          type = "memfile";
+        };
+        rebind-timer = 2000;
+        renew-timer = 1000;
+        valid-lifetime = 4000;
+        subnet4 = [
+          {
+            id = 1;
+            subnet = "10.0.0.0/24";
+            pools = [{pool = "10.0.0.220 - 10.0.0.240";}];
+          }
+        ];
+      };
+    };
     bind = {
       enable = true;
       listenOn = ["10.0.0.2" "10.0.0.3"];
@@ -82,29 +106,6 @@
             unifi        IN      A       10.0.0.30
           '';
         };
-      };
-    };
-    kea.dhcp4 = {
-      enable = true;
-      settings = {
-        interfaces-config = {
-          interfaces = ["eth0"];
-        };
-        lease-database = {
-          name = "/var/lib/kea/dhcp4.leases";
-          persist = true;
-          type = "memfile";
-        };
-        rebind-timer = 2000;
-        renew-timer = 1000;
-        valid-lifetime = 4000;
-        subnet4 = [
-          {
-            id = 1;
-            subnet = "10.0.0.0/24";
-            pools = [{pool = "10.0.0.220 - 10.0.0.240";}];
-          }
-        ];
       };
     };
   };
