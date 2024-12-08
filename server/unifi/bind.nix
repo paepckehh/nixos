@@ -111,7 +111,7 @@
           file = pkgs.writeText "iot.lan" ''
             $ORIGIN iot.lan.
             $TTL    1h
-            @                             IN   SOA   ns1 hostmaster (
+            @                              IN   SOA  ns1 hostmaster (
                                                          1    ; Serial
                                                          3h   ; Refresh
                                                          1h   ; Retry
