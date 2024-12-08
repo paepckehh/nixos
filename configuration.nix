@@ -226,6 +226,7 @@
   ####################
   networking = {
     enableIPv6 = false;
+    networkmanager.enable = true;
     nftables.enable = true;
     firewall = {
       enable = true;
@@ -377,11 +378,9 @@
   services = {
     fwupd.enable = true;
     smartd.enable = true;
-    # thermald.enable = true;
     openssh.enable = false;
     power-profiles-daemon.enable = lib.mkForce false;
     logind.hibernateKey = "ignore";
-    # wg-netmanager.enable = true;
     fstrim = {
       enable = true;
       interval = "daily";

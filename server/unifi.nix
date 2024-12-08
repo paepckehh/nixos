@@ -8,8 +8,8 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
+    networkmanager.enable = lib.mkForce false;
     firewall = {
-      # enable = lib.mkForce false;
       allowedUDPPorts = [53 67 68];
       allowedTCPPorts = [53];
     };
