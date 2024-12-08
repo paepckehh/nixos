@@ -179,7 +179,6 @@
               }
             ];
             reservations-global = false;
-            reservations-global = false;
             reservations-in-subnet = true;
             reservations-out-of-pool = false;
             reservations = [
