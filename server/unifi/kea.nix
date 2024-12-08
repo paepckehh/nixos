@@ -213,12 +213,12 @@
               {
                 hostname = "eco-sock-centralheater-mp-hh";
                 ip-address = "10.0.9.123";
-                client-id = " 40:4c:ca:c4:7a:0c";
+                client-id = "40:4c:ca:c4:7a:0c";
               }
               {
                 hostname = "eco-sock-windowheater-mp-hh";
                 ip-address = "10.0.9.124";
-                client-id = " 40:4c:ca:aa:42:54";
+                client-id = "40:4c:ca:aa:42:54";
               }
               {
                 hostname = "eco-sock-fridge-mp-hh";
