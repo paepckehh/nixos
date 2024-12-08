@@ -3,9 +3,12 @@
   #-=# SERVICES #=-#
   ##################
   services = {
+    mysql.package = pkgs.mariadb;
     firefox-syncserver = {
       enable = true;
-      secrets = builtins.toFile "super-secret-sync-secrets" ''SYNC_MASTER_SECRET=nix-store-super-secret'';
+      secrets = builtins.toFile "sync-secrets" ''
+        SYNC_MASTER_SECRET=mkvmekqPUBLICmvke3cmld
+      '';
       singleNode = {
         enable = true;
         hostname = "localhost";
