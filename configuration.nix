@@ -122,7 +122,6 @@
     kernel.sysctl = {
       "kernel.kptr_restrict" = lib.mkForce 2;
       "kernel.ftrace_enabled" = lib.mkForce false;
-      "net.core.bpf_jit_enable" = lib.mkForce false;
       "net.ipv4.icmp_echo_ignore_broadcasts" = lib.mkForce true;
       "net.ipv4.conf.all.accept_redirects" = lib.mkForce false;
       "net.ipv4.conf.all.secure_redirects" = lib.mkForce false;
