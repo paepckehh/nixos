@@ -94,17 +94,41 @@
                 ];
                 "admin".ipv4.addresses = [
                   {
+                    address = "10.0.4.2";
+                    prefixLength = 32;
+                  }
+                  {
+                    address = "10.0.4.3";
+                    prefixLength = 32;
+                  }
+                  {
                     address = "10.0.4.30";
                     prefixLength = 24;
                   }
                 ];
                 "intranet".ipv4.addresses = [
                   {
+                    address = "10.0.8.2";
+                    prefixLength = 32;
+                  }
+                  {
+                    address = "10.0.8.3";
+                    prefixLength = 32;
+                  }
+                  {
                     address = "192.168.8.30";
                     prefixLength = 24;
                   }
                 ];
                 "iot".ipv4.addresses = [
+                  {
+                    address = "10.0.9.2";
+                    prefixLength = 32;
+                  }
+                  {
+                    address = "10.0.9.3";
+                    prefixLength = 32;
+                  }
                   {
                     address = "192.168.9.30";
                     prefixLength = 24;

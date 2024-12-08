@@ -231,8 +231,6 @@
     firewall = {
       enable = true;
       allowPing = true;
-      allowedTCPPorts = [];
-      allowedUDPPorts = [];
       checkReversePath = true;
     };
   };
