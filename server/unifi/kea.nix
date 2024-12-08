@@ -39,8 +39,6 @@
           interfaces = ["eth0"];
           dhcp-socket-type = "raw";
         };
-        service-sockets-max-retries = 10;
-        service-sockets-retry-wait-time = 120;
         lease-database = {
           name = "/var/lib/kea/dhcp4.leases";
           persist = true;
