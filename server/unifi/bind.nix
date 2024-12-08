@@ -22,7 +22,7 @@
       exporters = {
         bind = {
           enable = false;
-          bind-URI = "http://localhost:8053/";
+          bindURI = "http://localhost:8053/";
         };
       };
     };
