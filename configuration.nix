@@ -195,9 +195,9 @@
   #-=# SECURITY #=-#
   ##################
   security = {
+    # lockKernelModules = lib.mkForce true;
     auditd.enable = false;
     allowSimultaneousMultithreading = true;
-    # lockKernelModules = lib.mkForce true;
     protectKernelImage = lib.mkForce true;
     audit = {
       enable = lib.mkForce false;
