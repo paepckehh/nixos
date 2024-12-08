@@ -58,11 +58,11 @@
               }
               {
                 name = "domain-name-servers";
-                data = ["10.0.0.3" "10.0.0.2"];
+                data = "10.0.0.3, 10.0.0.2";
               }
               {
                 name = "time-servers";
-                data = ["10.0.0.3" "10.0.0.2"];
+                data = "10.0.0.3, 10.0.0.2";
               }
             ];
             reservations-global = false;
@@ -99,11 +99,11 @@
               }
               {
                 name = "domain-name-servers";
-                data = ["10.0.4.3" "10.0.4.2"];
+                data = "10.0.4.3, 10.0.4.2";
               }
               {
                 name = "time-servers";
-                data = ["10.0.4.3" "10.0.4.2"];
+                data = "10.0.4.3, 10.0.4.2";
               }
             ];
             reservations-global = false;
@@ -134,11 +134,11 @@
               }
               {
                 name = "domain-name-servers";
-                data = ["10.0.8.1"];
+                data = "10.0.8.1";
               }
               {
                 name = "time-servers";
-                data = ["10.0.8.3" "10.0.8.2"];
+                data = "10.0.8.3, 10.0.8.2";
               }
             ];
             reservations-global = false;
@@ -169,11 +169,11 @@
               }
               {
                 name = "domain-name-servers";
-                data = ["10.0.9.3" "10.0.9.2"];
+                data = "10.0.9.3, 10.0.9.2";
               }
               {
                 name = "time-servers";
-                data = ["10.0.9.3" "10.0.9.2"];
+                data = "10.0.9.3, 10.0.9.2";
               }
             ];
             reservations-global = false;
