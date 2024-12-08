@@ -47,12 +47,12 @@
       xkb.layout = "us,de";
     };
     pipewire = {
-      enable = false;
-      pulse.enable = false;
-      wireplumber.enable = false;
+      enable = true;
+      pulse.enable = true;
+      wireplumber.enable = true;
       alsa = {
-        enable = false;
-        support32Bit = false;
+        enable = true;
+        support32Bit = true;
       };
     };
   };
