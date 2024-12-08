@@ -4,18 +4,12 @@
   lib,
   ...
 }: {
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  # workaround for kea
-  # systemd.network.enable = false;
-
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking = {
     firewall = {
-      enable = lib.mkForce false;
+      # enable = lib.mkForce false;
       allowedUDPPorts = [53 67 68];
       allowedTCPPorts = [53];
     };
