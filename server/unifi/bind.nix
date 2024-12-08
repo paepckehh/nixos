@@ -111,27 +111,27 @@
           file = pkgs.writeText "iot.lan" ''
             $ORIGIN iot.lan.
             $TTL    1h
-            @                              IN   SOA  ns1 hostmaster (
-                                                         1    ; Serial
-                                                         3h   ; Refresh
-                                                         1h   ; Retry
-                                                         1w   ; Expire
-                                                         1h)  ; Negative Cache TTL
-                                           IN   NS   ns1
-                                           IN   NS   ns2
-            ns1                            IN   A    10.0.9.2
-            ns2                            IN   A    10.0.9.3
-            nixos-mp-infra                 IN   A    10.0.9.30
-            eco-powerstream-mphh           IN   A    10.0.9.100
-            eco-delta2-mphh                IN   A    10.0.9.110
-            eco-socket-desk-mphh           IN   A    10.0.9.120
-            eco-socket-desk2-mphh          IN   A    10.0.9.121
-            eco-socket-catroaster-mphh     IN   A    10.0.9.122
-            eco-socket-centralheater-mphh  IN   A    10.0.9.123
-            eco-socket-windowheater-mphh   IN   A    10.0.9.124
-            eco-socket-fridge-mphh         IN   A    10.0.9.125
-            eco-socket-hotplate-mphh       IN   A    10.0.9.126
-            eco-socket-roomba-mphh         IN   A    10.0.9.127
+            @                            IN   SOA  ns1 hostmaster (
+                                                       1    ; Serial
+                                                       3h   ; Refresh
+                                                       1h   ; Retry
+                                                       1w   ; Expire
+                                                       1h)  ; Negative Cache TTL
+                                         IN   NS   ns1
+                                         IN   NS   ns2
+            ns1                          IN   A    10.0.9.2
+            ns2                          IN   A    10.0.9.3
+            nixos-mp-infra               IN   A    10.0.9.30
+            eco-powerstream-mphh         IN   A    10.0.9.100
+            eco-delta2-mphh              IN   A    10.0.9.110
+            eco-sock-desk-mphh           IN   A    10.0.9.120
+            eco-sock-desk2-mphh          IN   A    10.0.9.121
+            eco-sock-catroaster-mphh     IN   A    10.0.9.122
+            eco-sock-centralheater-mphh  IN   A    10.0.9.123
+            eco-sock-windowheater-mphh   IN   A    10.0.9.124
+            eco-sock-fridge-mphh         IN   A    10.0.9.125
+            eco-sock-hotplate-mphh       IN   A    10.0.9.126
+            eco-sock-roomba-mphh         IN   A    10.0.9.127
           '';
         };
       };
