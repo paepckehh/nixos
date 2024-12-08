@@ -37,7 +37,7 @@
         valid-lifetime = 4000;
         interfaces-config = {
           interfaces = ["eth0"];
-          dhcp-sock-type = "raw";
+          dhcp-socket-type = "raw";
         };
         service-socks-max-retries = 10;
         service-socks-retry-wait-time = 120;
