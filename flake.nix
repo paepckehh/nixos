@@ -49,10 +49,10 @@
           ./server/adguard.nix
           ./server/chronyPublic.nix
           ./server/unifi.nix
-          ./server/firefox-sync-server.nix
+          ./server/virtual.nix
+          # ./server/firefox-sync-server.nix
           # ./infra/local.nix
           # ./modules/autoupdate.nix
-          # ./server/virtual.nix
           # ./server/send.nix
           # ./server/netbird.nix
           # ./server/prometheus.nix
