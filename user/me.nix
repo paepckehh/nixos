@@ -182,7 +182,7 @@
             enable = true;
             flags = ["--disable-up-arrow"];
             settings = {
-              auto_sync = "false";
+              auto_sync = false;
               dialect = "us"; # TODO
               update_check = false;
               sync_address = "http://localhost:8888"; # TODO
