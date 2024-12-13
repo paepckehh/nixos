@@ -78,14 +78,14 @@
             networking = {
               hostName = "nixos-mp-infra";
               domain = "infra.lan";
-              search = ["infra.lan" "client.lan" "iot.lan" "server.lan" "admin.lan" "infra.lan" "lan"];
+              search = ["infra.lan" "client.home.lan" "iot.home.lan" "server.home.lan" "admin.lan" "infra.lan" "lan"];
               nameservers = ["10.0.0.3" "10.0.0.2"];
               timeServers = ["10.0.0.3" "10.0.0.2"];
-              enableIPv6 = lib.mkForce false;
-              useDHCP = lib.mkForce false;
-              usePredictableInterfaceNames = lib.mkForce false;
-              networkmanager.enable = lib.mkForce false;
-              wireless.enable = lib.mkForce false;
+              enableIPv6 = false;
+              useDHCP = false;
+              usePredictableInterfaceNames = false;
+              networkmanager.enable = false;
+              wireless.enable = false;
               defaultGateway = {
                 address = "10.0.128.1"; # internet via client network
                 interface = "client";
@@ -107,20 +107,6 @@
                 ];
                 "admin".ipv4.addresses = [
                   {
-                    address = "10.0.4.2";
-                    prefixLength = 32;
-                  }
-                  {
-                    address = "10.0.4.3";
-                    prefixLength = 32;
-                  }
-                  {
-                    address = "10.0.4.30";
-                    prefixLength = 24;
-                  }
-                ];
-                "server".ipv4.addresses = [
-                  {
                     address = "10.0.8.2";
                     prefixLength = 32;
                   }
@@ -129,7 +115,21 @@
                     prefixLength = 32;
                   }
                   {
-                    address = "192.168.8.30";
+                    address = "10.0.8.30";
+                    prefixLength = 24;
+                  }
+                ];
+                "server".ipv4.addresses = [
+                  {
+                    address = "10.0.16.2";
+                    prefixLength = 32;
+                  }
+                  {
+                    address = "10.0.16.3";
+                    prefixLength = 32;
+                  }
+                  {
+                    address = "10.0.16.30";
                     prefixLength = 24;
                   }
                 ];

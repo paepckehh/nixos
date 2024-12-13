@@ -28,10 +28,11 @@
     };
     bind = {
       enable = true;
-      listenOn = ["127.0.0.1" "10.0.0.2" "10.0.0.3" "10.0.8.2" "10.0.8.3" "10.0.16.2" "10.0.16.3" "10.0.128.2" "10.0.128.3" "10.0.250.2" "10.0.250.3"];
-      ipv4Only = true;
       cacheNetworks = ["127.0.0.0/24"];
       extraOptions = "recursion no;";
+      listenOn = ["10.0.0.2" "10.0.0.3" "10.0.8.2" "10.0.8.3" "10.0.16.2" "10.0.16.3" "10.0.128.2" "10.0.128.3" "10.0.250.2" "10.0.250.3"];
+      ipv4Only = true;
+      forwarders = ["127.0.0.1"];
       zones = {
         #########
         ## lan ##
@@ -107,22 +108,22 @@
                                              1h   ; Retry
                                              1w   ; Expire
                                              1h)  ; Negative Cache TTL
-                         IN      NS      ns1
-                         IN      NS      ns2
+                         IN      NS      ns1.lan.
+                         IN      NS      ns2.lan.
             2            IN      PTR     ns1.lan.
             3            IN      PTR     ns2.lan.
             30           IN      PTR     nixos-mp-infra.infra.lan.
             110          IN      PTR     unifi-ux.infra.lan.
-            120          IN      PTR     unifi-usw-flex-mini.infra.lan
+            120          IN      PTR     unifi-usw-flex-mini.infra.lan.
           '';
         };
-        ####################
-        ## admin.home.lan ##
-        ####################
-        "admin.home.lan" = {
+        ###############
+        ## admin.lan ##
+        ###############
+        "admin.lan" = {
           master = true;
-          file = pkgs.writeText "admin.home.lan" ''
-            $ORIGIN admin.home.lan.
+          file = pkgs.writeText "admin.lan" ''
+            $ORIGIN admin.lan.
             $TTL    1h
             @               IN   SOA  ns1 hostmaster (
                                           1   ; Serial
@@ -148,11 +149,11 @@
                                              1h   ; Retry
                                              1w   ; Expire
                                              1h)  ; Negative Cache TTL
-                         IN      NS      ns1.admin.home.lan.
-                         IN      NS      ns2.admin.home.lan.
-            2            IN      PTR     ns1.admin.home.lan.
-            3            IN      PTR     ns2.admin.home.lan.
-            30           IN      PTR     nixos-mp-infra.admin.home.lan.
+                         IN      NS      ns1.admin.lan.
+                         IN      NS      ns2.admin.lan.
+            2            IN      PTR     ns1.admin.lan.
+            3            IN      PTR     ns2.admin.lan.
+            30           IN      PTR     nixos-mp-infra.admin.lan.
           '';
         };
         #####################
@@ -161,7 +162,7 @@
         "server.home.lan" = {
           master = true;
           file = pkgs.writeText "server.home.lan" ''
-            $ORIGIN server.lan.
+            $ORIGIN server.home.lan.
             $TTL    1h
             @                IN   SOA ns1 hostmaster (
                                           1    ; Serial
@@ -233,13 +234,13 @@
             30           IN      PTR     nixos-mp-infra.client.home..lan
           '';
         };
-        ##################
-        ## iot.home.lan ##
-        ##################
-        "iot.home.lan" = {
+        #############
+        ## iot.lan ##
+        #############
+        "iot.lan" = {
           master = true;
-          file = pkgs.writeText "iot.home.lan" ''
-            $ORIGIN iot.home.lan.
+          file = pkgs.writeText "iot.lan" ''
+            $ORIGIN iot.lan.
             $TTL    1h
             @                            IN   SOA  ns1 hostmaster (
                                                        1    ; Serial
@@ -275,21 +276,21 @@
                                              1h   ; Retry
                                              1w   ; Expire
                                              1h)  ; Negative Cache TTL
-                         IN      NS      ns1.iot.home.lan
-                         IN      NS      ns2.iot.home.lan
-            2            IN      PTR     ns1.iot.home.lan.
-            3            IN      PTR     ns2.iot.home.lan.
-            30           IN      PTR     nixos-mp-infra.iot.home.lan.
-            100          IN      PTR     eco-powerstream.iot.home.lan.
-            110          IN      PTR     eco-delta2.iot.iot.home.lan.
-            120          IN      PTR     eco-sock-desk.iot.home.lan.
-            121          IN      PTR     eco-sock-desk2.iot.home.lan.
-            122          IN      PTR     eco-sock-catroaster.iot.home.lan.
-            123          IN      PTR     eco-sock-centralheater.iot.home.lan.
-            124          IN      PTR     eco-sock-windowheater.iot.home.lan.
-            125          IN      PTR     eco-sock-fridge.iot.home.lan.
-            126          IN      PTR     eco-sock-hotplate.iot.home.lan.
-            127          IN      PTR     eco-sock-roomba.iot.home.lan.
+                         IN      NS      ns1.iot.lan.
+                         IN      NS      ns2.iot.lan.
+            2            IN      PTR     ns1.iot.lan.
+            3            IN      PTR     ns2.iot.lan.
+            30           IN      PTR     nixos-mp-infra.iot.lan.
+            100          IN      PTR     eco-powerstream.iot.lan.
+            110          IN      PTR     eco-delta2.iot.iot.lan.
+            120          IN      PTR     eco-sock-desk.iot.lan.
+            121          IN      PTR     eco-sock-desk2.iot.lan.
+            122          IN      PTR     eco-sock-catroaster.iot.lan.
+            123          IN      PTR     eco-sock-centralheater.iot.lan.
+            124          IN      PTR     eco-sock-windowheater.iot.lan.
+            125          IN      PTR     eco-sock-fridge.iot.lan.
+            126          IN      PTR     eco-sock-hotplate.iot.lan.
+            127          IN      PTR     eco-sock-roomba.iot.lan.
           '';
         };
       };
