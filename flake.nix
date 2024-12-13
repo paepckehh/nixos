@@ -42,7 +42,6 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./network/admin.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
