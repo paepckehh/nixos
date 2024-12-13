@@ -7,12 +7,12 @@
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking = {
-    resolvconf = {
-      enable = true;
-      useLocalResolver = true;
-    };
-  };
+  # networking = {
+  #  resolvconf = {
+  #    enable = true;
+  #    useLocalResolver = true;
+  #  };
+  # };
 
   #####################
   #-=# ENVIRONMENT #=-#
