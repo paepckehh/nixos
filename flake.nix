@@ -1,7 +1,6 @@
 {
   description = "nixos generic flake";
   inputs = {
-    # nixpkgs.url = "github:paepckehh/nixpkgs/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -49,8 +48,8 @@
           ./server/adguard.nix
           ./server/chronyPublic.nix
           ./server/unifi.nix
-          # ./server/virtual.nix
-          # ./server/firefox-sync-server.nix
+          ./server/firefox-sync-server.nix
+          ./server/virtual.nix
           # ./infra/local.nix
           # ./modules/autoupdate.nix
           # ./server/send.nix
@@ -78,6 +77,19 @@
           {
             networking = {
               hostName = "nixos-mp-infra";
+              domain = "infra.lan";
+              search = [ "infra.lan" "client.lan" "iot.lan" "server.lan" "admin.lan" "infra.lan" "lan"]; 
+              nameservers = ["10.0.0.3" "10.0.0.2"]; 
+              timeServers = ["10.0.0.3" "10.0.0.2"]; 
+              enableIPv6 = lib.mkForce false;
+              useDHCP = lib.mkForce false;
+              usePredictableInterfaceNames = lib.mkForce false;
+              networkmanager.enable = lib.mkForce false;
+              wireless.enable = lib.mkForce false;
+              defaultGateway = {
+                address = "10.0.128.1"; # internet via client network 
+                interface = "client";
+              };
               interfaces = {
                 "eth0".ipv4.addresses = [
                   {
@@ -107,7 +119,7 @@
                     prefixLength = 24;
                   }
                 ];
-                "intranet".ipv4.addresses = [
+                "server".ipv4.addresses = [
                   {
                     address = "10.0.8.2";
                     prefixLength = 32;
@@ -121,17 +133,31 @@
                     prefixLength = 24;
                   }
                 ];
+                "client".ipv4.addresses = [
+                  {
+                    address = "10.0.128.2";
+                    prefixLength = 32;
+                  }
+                  {
+                    address = "10.0.128.3";
+                    prefixLength = 32;
+                  }
+                  {
+                    address = "10.0.128.30";
+                    prefixLength = 24;
+                  }
+                ];
                 "iot".ipv4.addresses = [
                   {
-                    address = "10.0.9.2";
+                    address = "10.0.250.2";
                     prefixLength = 32;
                   }
                   {
-                    address = "10.0.9.3";
+                    address = "10.0.250.3";
                     prefixLength = 32;
                   }
                   {
-                    address = "192.168.9.30";
+                    address = "10.0.250.30";
                     prefixLength = 24;
                   }
                 ];

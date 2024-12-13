@@ -49,7 +49,7 @@
         subnet4 = [
           {
             id = 1;
-            comment = "infra.lan: unifi internal infrastructure";
+            comment = "infra.lan";
             subnet = "10.0.0.0/24";
             interface = "eth0";
             pools = [{pool = "10.0.0.200 - 10.0.0.249";}];
@@ -77,66 +77,31 @@
                 ip-address = "10.0.0.30";
               }
               {
-                hostname = "unifi-express-mphh";
+                hostname = "unifi-ux";
                 hw-address = "28:70:4e:ff:ff:ff";
                 ip-address = "10.0.0.110";
               }
               {
-                hostname = "usw-flex-mini-mphh";
+                hostname = "unifi-usw-flex-mini";
                 hw-address = "28:70:4e:c2:de:a8";
                 ip-address = "10.0.0.120";
               }
             ];
           }
           {
-            id = 4;
-            comment = "admin.lan: administrative network";
-            subnet = "10.0.4.0/24";
-            interface = "eth0";
-            pools = [{pool = "10.0.4.200 - 10.0.4.249";}];
-            option-data = [
-              {
-                name = "domain-name";
-                data = "admin.lan";
-              }
-              {
-                name = "domain-name-servers";
-                data = "10.0.4.3, 10.0.4.2";
-              }
-              {
-                name = "time-servers";
-                data = "10.0.4.3, 10.0.4.2";
-              }
-            ];
-            reservations-global = false;
-            reservations-in-subnet = true;
-            reservations-out-of-pool = false;
-            reservations = [
-              {
-                hostname = "nixos-mp-infra";
-                ip-address = "10.0.4.30";
-                hw-address = "00:ec:4c:36:08:63";
-              }
-            ];
-          }
-          {
             id = 8;
-            comment = "intra.lan: intranet network";
+            comment = "admin.home.lan";
             subnet = "10.0.8.0/24";
             interface = "eth0";
             pools = [{pool = "10.0.8.200 - 10.0.8.249";}];
             option-data = [
               {
-                name = "routers";
-                data = "10.0.8.1";
-              }
-              {
                 name = "domain-name";
-                data = "intra.lan";
+                data = "admin.home.lan";
               }
               {
                 name = "domain-name-servers";
-                data = "10.0.8.1";
+                data = "10.0.8.3, 10.0.8.2";
               }
               {
                 name = "time-servers";
@@ -155,27 +120,27 @@
             ];
           }
           {
-            id = 9;
-            comment = "iot.lan: iot internet of things";
-            subnet = "10.0.9.0/24";
+            id = 16;
+            comment = "server.home.lan";
+            subnet = "10.0.16.0/24";
             interface = "eth0";
-            pools = [{pool = "10.0.9.200 - 10.0.9.249";}];
+            pools = [{pool = "10.0.16.200 - 10.0.16.249";}];
             option-data = [
               {
                 name = "routers";
-                data = "10.0.9.1";
+                data = "10.0.16.1";
               }
               {
                 name = "domain-name";
-                data = "intra.lan";
+                data = "server.home.lan";
               }
               {
                 name = "domain-name-servers";
-                data = "10.0.9.3, 10.0.9.2";
+                data = "10.0.16.3, 10.0.16.2";
               }
               {
                 name = "time-servers";
-                data = "10.0.9.3, 10.0.9.2";
+                data = "10.0.16.3, 10.0.16.2";
               }
             ];
             reservations-global = false;
@@ -184,57 +149,127 @@
             reservations = [
               {
                 hostname = "nixos-mp-infra";
-                ip-address = "10.0.9.30";
+                ip-address = "10.0.8.30";
+                hw-address = "00:ec:4c:36:08:63";
+              }
+            ];
+          }
+          {
+            id = 128;
+            comment = "client.home.lan";
+            subnet = "10.0.9.0/24";
+            interface = "eth0";
+            pools = [{pool = "10.0.128.200 - 10.0.128.249";}];
+            option-data = [
+              {
+                name = "routers";
+                data = "10.0.128.1";
+              }
+              {
+                name = "domain-name";
+                data = "client.home.lan";
+              }
+              {
+                name = "domain-name-servers";
+                data = "10.0.128.3, 10.0.128.2";
+              }
+              {
+                name = "time-servers";
+                data = "10.0.128.3, 10.0.128.2";
+              }
+            ];
+            reservations-global = false;
+            reservations-in-subnet = true;
+            reservations-out-of-pool = false;
+            reservations = [
+              {
+                hostname = "nixos-mp-infra";
+                ip-address = "10.0.128.30";
+                hw-address = "00:ec:4c:36:08:63";
+              }
+            ];
+          }
+          {
+            id = 250;
+            comment = "iot.home.lan";
+            subnet = "10.0.250.0/24";
+            interface = "eth0";
+            pools = [{pool = "10.0.250.200 - 10.0.250.249";}];
+            option-data = [
+              {
+                name = "routers";
+                data = "10.0.250.1";
+              }
+              {
+                name = "domain-name";
+                data = "iot.home.lan";
+              }
+              {
+                name = "domain-name-servers";
+                data = "10.0.250.3, 10.0.250.2";
+              }
+              {
+                name = "time-servers";
+                data = "10.0.250.3, 10.0.250.2";
+              }
+            ];
+            reservations-global = false;
+            reservations-in-subnet = true;
+            reservations-out-of-pool = false;
+            reservations = [
+              {
+                hostname = "nixos-mp-infra";
+                ip-address = "10.0.250.30";
                 hw-address = "00:ec:4c:36:08:63";
               }
               {
-                hostname = "eco-powerstream-mp-hh";
-                ip-address = "10.0.9.100";
+                hostname = "eco-powerstream";
+                ip-address = "10.0.250.100";
                 hw-address = "40:4c:ca:e9:b6:3c";
               }
               {
-                hostname = "eco-delta2-mp-hh";
-                ip-address = "10.0.9.110";
+                hostname = "eco-delta2";
+                ip-address = "10.0.250.110";
                 hw-address = "dc:54:75:9b:1d:04";
               }
               {
-                hostname = "eco-sock-desk-mp-hh";
-                ip-address = "10.0.9.120";
+                hostname = "eco-sock-desk";
+                ip-address = "10.0.250.120";
                 hw-address = "40:4C:ca:ba:fc:6c";
               }
               {
-                hostname = "eco-sock-desk2-mp-hh";
-                ip-address = "10.0.9.121";
+                hostname = "eco-sock-desk2";
+                ip-address = "10.0.250.121";
                 hw-address = "40:4C:ca:b9:54:70";
               }
               {
-                hostname = "eco-sock-catroaster-mp-hh";
-                ip-address = "10.0.9.122";
+                hostname = "eco-sock-catroaster";
+                ip-address = "10.0.250.122";
                 hw-address = "40:4C:ca:c5:a8:f4";
               }
               {
-                hostname = "eco-sock-centralheater-mp-hh";
-                ip-address = "10.0.9.123";
+                hostname = "eco-sock-centralheater";
+                ip-address = "10.0.250.123";
                 hw-address = "40:4c:ca:c4:7a:0c";
               }
               {
-                hostname = "eco-sock-windowheater-mp-hh";
-                ip-address = "10.0.9.124";
+                hostname = "eco-sock-windowheater";
+                ip-address = "10.0.250.124";
                 hw-address = "40:4c:ca:aa:42:54";
               }
               {
-                hostname = "eco-sock-fridge-mp-hh";
-                ip-address = "10.0.9.125";
+                hostname = "eco-sock-fridge";
+                ip-address = "10.0.250.125";
                 hw-address = "ec:da:3b:a9:fa:64";
               }
               {
-                hostname = "eco-sock-hotplate-mp-hh";
-                ip-address = "10.0.9.126";
+                hostname = "eco-sock-hotplate";
+                ip-address = "10.0.250.126";
                 hw-address = "ec:da:3b:aa:3a:fc";
               }
               {
-                hostname = "eco-sock-roomba-mp-hh";
-                ip-address = "10.0.9.127";
+                hostname = "eco-sock-roomba";
+                ip-address = "10.0.250.127";
                 hw-address = "ec:da:3b:af:12:dc";
               }
             ];
