@@ -78,16 +78,16 @@
             networking = {
               hostName = "nixos-mp-infra";
               domain = "infra.lan";
-              search = [ "infra.lan" "client.lan" "iot.lan" "server.lan" "admin.lan" "infra.lan" "lan"]; 
-              nameservers = ["10.0.0.3" "10.0.0.2"]; 
-              timeServers = ["10.0.0.3" "10.0.0.2"]; 
+              search = ["infra.lan" "client.lan" "iot.lan" "server.lan" "admin.lan" "infra.lan" "lan"];
+              nameservers = ["10.0.0.3" "10.0.0.2"];
+              timeServers = ["10.0.0.3" "10.0.0.2"];
               enableIPv6 = lib.mkForce false;
               useDHCP = lib.mkForce false;
               usePredictableInterfaceNames = lib.mkForce false;
               networkmanager.enable = lib.mkForce false;
               wireless.enable = lib.mkForce false;
               defaultGateway = {
-                address = "10.0.128.1"; # internet via client network 
+                address = "10.0.128.1"; # internet via client network
                 interface = "client";
               };
               interfaces = {
