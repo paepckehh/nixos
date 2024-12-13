@@ -86,8 +86,8 @@
               networkmanager.enable = false;
               wireless.enable = false;
               defaultGateway = {
-                address = "10.0.128.1"; # internet via client network
-                interface = "client";
+                address = "192.168.8.1"; # legacy
+                interface = "setup";
               };
               interfaces = {
                 "eth0".ipv4.addresses = [
@@ -101,6 +101,12 @@
                   }
                   {
                     address = "10.0.0.30";
+                    prefixLength = 24;
+                  }
+                ];
+                "setup".ipv4.addresses = [
+                  {
+                    address = "192.168.8.2"; # legacy
                     prefixLength = 24;
                   }
                 ];
