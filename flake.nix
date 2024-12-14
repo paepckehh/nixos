@@ -73,6 +73,15 @@
           # ./server/yopass-ng.nix
           # ./server/webserver-nginx.nix
           # ./server/wiki.nix
+          ####################
+          #-=# NETWORKING #=-#
+          ####################
+          # networking = {
+          #  resolvconf = {
+          #    enable = true;
+          #    useLocalResolver = true;
+          #  };
+          # };
           {
             networking = {
               hostName = "nixos-mp-infra";
@@ -88,6 +97,10 @@
               defaultGateway = {
                 address = "192.168.8.1"; # legacy
                 interface = "setup";
+              };
+              resolvconf = {
+                enable = true;
+                useLocalResolver = false;
               };
               interfaces = {
                 "eth0".ipv4.addresses = [
