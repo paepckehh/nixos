@@ -29,7 +29,7 @@
     bind = {
       enable = true;
       cacheNetworks = ["127.0.0.0/24"];
-      extraOptions = "recursion no;";
+      # extraOptions = "recursion no;";
       listenOn = ["10.0.0.2" "10.0.0.3" "10.0.8.2" "10.0.8.3" "10.0.16.2" "10.0.16.3" "10.0.128.2" "10.0.128.3" "10.0.250.2" "10.0.250.3"];
       ipv4Only = true;
       forward = "only";
