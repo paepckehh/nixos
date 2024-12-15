@@ -40,7 +40,7 @@
           "browser.compactmode.show" = true;
           "browser.startup.homepage" = "";
           "identity.fxaccounts" = true;
-          "identity.fxaccounts.autoconfig.uri" = "http://localhost:5000";
+          "identity.fxaccounts.autoconfig.uri" = "https://localhost:5000";
           "signon.rememberSignons" = false;
           "privacy.clearOnShutdown.history" = false;
           "privacy.clearOnShutdown.cookies" = false;
