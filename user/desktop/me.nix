@@ -39,8 +39,12 @@
           "browser.cache.disk.enable" = false;
           "browser.compactmode.show" = true;
           "browser.startup.homepage" = "";
+          "identity.fxaccounts" = true;
+          "identity.fxaccounts.autoconfig.uri" = "http://localhost:5000";
           "signon.rememberSignons" = false;
-          "webgl.disabled" = true; # TODO: performance/security
+          "privacy.clearOnShutdown.history" = false;
+          "privacy.clearOnShutdown.cookies" = false;
+          "webgl.disabled" = true;
         };
       };
       alacritty = {
