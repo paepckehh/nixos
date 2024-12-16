@@ -7,6 +7,10 @@
       enable = true;
       openFirewall = true;
       settings = {
+        ListenPort = 9191;
+        ListenAddress = "0.0.0.0";
+        MetricsPort = 0;
+        MetricsAddress = "0.0.0.0";
         AbuseContac = "it@pvz.digital";
         MaxFileSizeStr = "4GB";
         MaxUserSizeStr = "4GB";
