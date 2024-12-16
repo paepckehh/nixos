@@ -47,7 +47,7 @@
           ./server/adguard.nix
           ./server/chronyPublic.nix
           ./server/plik.nix
-          # ./server/unifi.nix
+          ./server/unifi.nix
           # ./server/firefox-sync-server.nix
           # ./server/virtual.nix
           # ./infra/local.nix
@@ -74,6 +74,7 @@
           # ./server/yopass-ng.nix
           # ./server/webserver-nginx.nix
           # ./server/wiki.nix
+
           ####################
           #-=# NETWORKING #=-#
           ####################
