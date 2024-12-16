@@ -7,7 +7,7 @@
       enable = true;
       openFirewall = true;
       settings = {
-        ListenPort = 9191;
+        ListenPort = 9393;
         ListenAddress = "0.0.0.0";
         MetricsPort = 0;
         MetricsAddress = "0.0.0.0";
