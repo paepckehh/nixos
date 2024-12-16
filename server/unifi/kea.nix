@@ -149,7 +149,7 @@
             reservations = [
               {
                 hostname = "nixos-mp-infra";
-                ip-address = "10.0.8.30";
+                ip-address = "10.0.16.30";
                 hw-address = "00:ec:4c:36:08:63";
               }
             ];
