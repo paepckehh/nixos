@@ -5,7 +5,7 @@
   services = {
     plikd = {
       enable = true;
-      openFireWall = true;
+      openFirewall = true;
       settings = {};
     };
   };
