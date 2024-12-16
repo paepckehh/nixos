@@ -157,7 +157,7 @@
           {
             id = 128;
             comment = "client.home.lan";
-            subnet = "10.0.9.0/24";
+            subnet = "10.0.128.0/24";
             interface = "eth0";
             pools = [{pool = "10.0.128.200 - 10.0.128.249";}];
             option-data = [
