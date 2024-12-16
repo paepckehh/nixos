@@ -15,7 +15,7 @@
         FeatureAuthentication = "disabled";
         FeatureOneShot = "enabled"; # Upload with files that are automatically deleted after the first download
         FeatureRemovable = "disabled"; # Upload with files that anybody can delete
-        FeatureStream = "false"; # Upload with files that are not stored on the server
+        FeatureStream = "disabled"; # Upload with files that are not stored on the server
         FeaturePassword = "enabled"; # Upload that are protected by HTTP basic auth login/password
         FeatureComments = "disabled"; # Upload with markdown comments / forced -> default
         FeatureSetTTL = "enabled"; # When disabled upload TTL is always set to DefaultTTL
