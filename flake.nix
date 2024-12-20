@@ -46,44 +46,25 @@
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
-          ./server/plik.nix
           ./server/unifi.nix
           # ./server/firefox-sync-server.nix
           # ./server/virtual.nix
           # ./infra/local.nix
           # ./modules/autoupdate.nix
           # ./server/send.nix
-          # ./server/netbird.nix
           # ./server/prometheus.nix
-          # ./server/pingvin.nix
-          # ./server/picoshare.nix
-          # ./server/shifter.nix
           # ./server/rsync.nix
           # ./server/wg-easy.nix
           # ./server/wg-acccess-server.nix
-          # ./server/docker.nix
-          # ./server/sync.nix
           # ./server/gitea.nix
           # ./server/opnborg.nix
           # ./server/opnborg-complex.nix
           # ./server/opnborg-docker-complex.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
-          # ./server/mopidy.nix
-          # ./server/uptime.nix
-          # ./server/yopass-ng.nix
           # ./server/webserver-nginx.nix
           # ./server/wiki.nix
 
-          ####################
-          #-=# NETWORKING #=-#
-          ####################
-          # networking = {
-          #  resolvconf = {
-          #    enable = true;
-          #    useLocalResolver = true;
-          #  };
-          # };
           {
             networking = {
               hostName = "nixos-mp-infra";

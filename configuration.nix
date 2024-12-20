@@ -337,7 +337,7 @@
         thin_pool_discards = 1 
       }'';
     interactiveShellInit = ''uname -a && eval "$(ssh-agent)"'';
-    systemPackages = with pkgs; [alejandra fzf smartmontools libsmbios wireguard-tools];
+    systemPackages = with pkgs; [alejandra amdgpu_top fzf smartmontools libsmbios wireguard-tools];
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
       l = "ls -la";
