@@ -47,11 +47,11 @@
           ./server/adguard.nix
           ./server/chronyPublic.nix
           ./server/unifi.nix
-          # ./server/firefox-sync-server.nix
-          # ./server/virtual.nix
+          ./server/virtual.nix
           # ./infra/local.nix
           # ./modules/autoupdate.nix
           # ./server/send.nix
+          # ./server/firefox-sync-server.nix
           # ./server/prometheus.nix
           # ./server/rsync.nix
           # ./server/wg-easy.nix
