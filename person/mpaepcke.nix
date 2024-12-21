@@ -19,7 +19,7 @@
     users = {
       me = {
         initialHashedPassword = lib.mkForce "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7";
-        description = lib.mkForce "PAEPCKE Michael env admin";
+        description = lib.mkForce "PAEPCKE Michael";
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
     };
