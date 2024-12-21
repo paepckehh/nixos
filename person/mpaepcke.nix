@@ -8,7 +8,6 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./mpaepcke_luks.nix
     ../user/me.nix
     ../modules/yubico.nix
   ];
@@ -66,13 +65,13 @@
                 git.allow = "never";
                 ssh.allow = "always";
                 http.allow = "never";
-                https.allow = "never";
+                https.allow = "always";
               };
-              url = {
-                "git@github.com:" = {insteadOf = ["gh:" "github:" "https://github.com/" "https://git.github.com/"];};
-                "git@gitlab.com:" = {insteadOf = ["gl:" "gitlab:" "https://gitlab.com/" "https://git.gitlab.com/"];};
-                "git@codeberg.org:" = {insteadOf = ["cb:" "codeberg:" "https://codeberg.org/" "https://git.codeberg.org/"];};
-              };
+              # url = {
+              #  "git@github.com:" = {insteadOf = ["gh:" "github:" "https://github.com/" "https://git.github.com/"];};
+              #  "git@gitlab.com:" = {insteadOf = ["gl:" "gitlab:" "https://gitlab.com/" "https://git.gitlab.com/"];};
+              #  "git@codeberg.org:" = {insteadOf = ["cb:" "codeberg:" "https://codeberg.org/" "https://git.codeberg.org/"];};
+              # };
             };
           };
         };

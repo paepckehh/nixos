@@ -19,9 +19,9 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix
+          ./user/desktop/me.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
-          ./user/desktop/me.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
@@ -31,9 +31,9 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix
+          ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
-          ./person/desktop/mpaepcke.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
@@ -43,6 +43,7 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix
+          ./person/mpaepcke_luks.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
