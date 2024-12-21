@@ -75,8 +75,9 @@
             binsider
             certgraph
             caligula
-            curlie
+            cifs-utils
             compose2nix
+            curlie
             ddgr
             docker
             docker-compose
