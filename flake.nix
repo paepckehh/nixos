@@ -19,9 +19,9 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix
-          ./user/desktop/me.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
+          ./user/desktop/me.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
@@ -31,9 +31,9 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix
-          ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
+          ./person/desktop/mpaepcke.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
@@ -47,7 +47,7 @@
           ./server/adguard.nix
           ./server/chronyPublic.nix
           ./server/unifi.nix
-          ./server/virtual.nix
+          # ./server/virtual.nix
           # ./infra/local.nix
           # ./modules/autoupdate.nix
           # ./server/send.nix
@@ -60,8 +60,8 @@
           # ./server/opnborg.nix
           # ./server/opnborg-complex.nix
           # ./server/opnborg-docker-complex.nix
-          # ./server/ollama.nix
-          # ./server/openweb-ui.nix
+          ./server/ollama.nix
+          ./server/openweb-ui.nix
           # ./server/webserver-nginx.nix
           # ./server/wiki.nix
 
