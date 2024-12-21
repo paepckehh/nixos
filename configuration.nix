@@ -97,7 +97,7 @@
       systemd.enable = lib.mkForce false;
       availableKernelModules = ["applespi" "applesmc" "spi_pxa2xx_platform" "intel_lpss_pci" "ahci" "dm_mod" "sd_mod" "sr_mod" "nvme" "mmc_block" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
-    blacklistedKernelModules = ["b43" "bcma" "brcmfmac" "brcmsmac" "ssb" "netrom" "rose" "affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp"];
+    blacklistedKernelModules = ["affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp"];
     extraModulePackages = [config.boot.kernelPackages.zenpower];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = ["page_alloc.shuffle=1" "amd_pstate=active"];
