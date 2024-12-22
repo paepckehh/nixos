@@ -137,6 +137,7 @@
             nixpkgs-fmt
             nvme-cli
             nodejs
+            mongosh
             fastfetch
             fd
             jq
