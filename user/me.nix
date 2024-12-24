@@ -221,6 +221,7 @@
               expandtab = true;
             };
             extraConfig = ''
+               set hlsearch
                set nocompatible
                set nobackup
                let commentTextMap = {
