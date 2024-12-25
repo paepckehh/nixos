@@ -162,6 +162,7 @@
             xh
             yamlfmt
             yarn
+            yubikey-manager
             yq
             zgrviewer
           ];
