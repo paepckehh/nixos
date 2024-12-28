@@ -68,7 +68,7 @@
               }
               {
                 name = "vendor-encapsulated-options"; # dhcp-option 43
-                data = "0x0A00001E"; # unifi controller inform host ip hex (here: 10.0.0.30)
+                data = "01:04:0A:00:00:1E"; # unifi controller inform host ip hex (01: option, 04: number & hex from: 10.0.0.30 -> 0x0A00001E -> 0A:00:00:1E)
               }
             ];
             reservations-global = false;
