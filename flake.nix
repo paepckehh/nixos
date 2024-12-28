@@ -99,6 +99,10 @@
                     address = "10.0.0.30";
                     prefixLength = 24;
                   }
+                  {
+                    address = "192.168.1.150";
+                    prefixLength = 24;
+                  }
                 ];
                 "setup".ipv4.addresses = [
                   {
