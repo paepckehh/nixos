@@ -14,7 +14,7 @@
   #-=# BOOT #=-#
   ##############
   boot = {
-    kernelModules = ["kvm-intel"]; # ["kvm-intel" "kvm-amd"];
+    kernelModules = ["kvm-intel" "kvm-amd"];
   };
 
   ##################

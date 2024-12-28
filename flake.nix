@@ -48,7 +48,7 @@
           ./server/adguard.nix
           ./server/chronyPublic.nix
           ./server/unifi.nix
-          ./server/virtual.nix
+          # ./server/virtual.nix
           # ./modules/autoupdate.nix
           # ./server/send.nix
           # ./server/firefox-sync-server.nix
