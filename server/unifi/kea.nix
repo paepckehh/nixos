@@ -78,7 +78,7 @@
               }
               {
                 hostname = "unifi-ux";
-                hw-address = "28:70:4e:ff:ff:ff";
+                hw-address = "94:2a:6f:1e:b0:c7";
                 ip-address = "10.0.0.110";
               }
               {
