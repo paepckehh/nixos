@@ -46,6 +46,14 @@
           persist = true;
           type = "memfile";
         };
+        option-def = [
+          {
+            name = "unifi-inform-host";
+            code = 43;
+            type = "ipv4-address";
+            space = "dhcp4";
+          }
+        ];
         subnet4 = [
           {
             id = 1;
@@ -67,8 +75,8 @@
                 data = "10.0.0.3, 10.0.0.2";
               }
               {
-                name = "vendor-encapsulated-options"; # dhcp-option 43
-                data = "01:04:0A:00:00:1E"; # unifi controller inform host ip hex (01: option, 04: number & hex from: 10.0.0.30 -> 0x0A00001E -> 0A:00:00:1E)
+                name = "unifi-inform-host"; # custom-dhcp-option 43, details see option-def
+                data = "10.0.0.30"; # unifi controller inform host ipv4
               }
             ];
             reservations-global = false;
