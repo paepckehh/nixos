@@ -50,7 +50,8 @@
           {
             name = "unifi-inform-host";
             code = 43;
-            type = "ipv4-address";
+            type = "string";
+            # type = "ipv4-address";
             space = "dhcp4";
           }
         ];
@@ -76,7 +77,8 @@
               }
               {
                 name = "unifi-inform-host"; # custom-dhcp-option 43, details see option-def
-                data = "10.0.0.30"; # unifi controller inform host ipv4
+                data = "http://10.0.0.30:8080/inform"; # unifi controller inform host url
+                # data = "10.0.0.30"; # unifi controller inform host ipv4-address
               }
             ];
             reservations-global = false;
