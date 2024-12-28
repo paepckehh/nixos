@@ -66,6 +66,10 @@
                 name = "time-servers";
                 data = "10.0.0.3, 10.0.0.2";
               }
+              {
+                name = "vendor-encapsulated-options"; # dhcp-option 43
+                data = "0x0A00001E"; # unifi controller inform host ip hex (here: 10.0.0.30)
+              }
             ];
             reservations-global = false;
             reservations-in-subnet = true;
@@ -77,7 +81,7 @@
                 ip-address = "10.0.0.30";
               }
               {
-                hostname = "unifi-ux";
+                hostname = "unifi-express";
                 hw-address = "94:2a:6f:1e:b0:c7";
                 ip-address = "10.0.0.110";
               }

@@ -92,8 +92,9 @@
                                  IN   NS   ns2
             ns1                  IN   A    10.0.0.2
             ns2                  IN   A    10.0.0.3
+            unifi                IN   A    10.0.0.30
             nixos-mp-infra       IN   A    10.0.0.30
-            unifi-ux             IN   A    10.0.0.110
+            unifi-express        IN   A    10.0.0.110
             unifi-usw-flex-mini  IN   A    10.0.0.120
           '';
         };
@@ -113,7 +114,7 @@
             2            IN      PTR     ns1.lan.
             3            IN      PTR     ns2.lan.
             30           IN      PTR     nixos-mp-infra.infra.lan.
-            110          IN      PTR     unifi-ux.infra.lan.
+            110          IN      PTR     unifi-express.infra.lan.
             120          IN      PTR     unifi-usw-flex-mini.infra.lan.
           '';
         };
