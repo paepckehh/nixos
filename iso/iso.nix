@@ -9,6 +9,7 @@
   installer = pkgs.writeShellApplication {
     name = "installer";
     runtimeInputs = with pkgs; [
+      git
       dosfstools
       e2fsprogs
       gawk
@@ -17,41 +18,51 @@
       config.nix.package
     ];
     text = ''
+      #!/bin/sh
       set -euo pipefail
+      echo ""
       echo "-=!*** [ NIXOS-AUTO-SETUP ] ***!=-"
       echo ""
-      echo "[NIX-AUTO] Setting up disks..."
+      echo "[NIX-AUTO] Lets try to find a usable disk."
+      echo "[NIX-AUTO] This is your current storage device list."
+      echo "############################################################"
+      lsblk
+      echo "############################################################"
       for i in $(lsblk -pln -o NAME,TYPE | grep disk | awk '{ print $1 }'); do
-        if [[ "$i" == "/dev/fd0" ]]; then
-          echo "$i is a floppy, skipping..."
+        echo "[NIX-AUTO] Testing Disk: $i"
+        case $i in
+        /dev/sda)
+          echo "[NIX-AUTO] Disk /dev/sda is most likely your usb installation boot device, skip it for now."
           continue
-        fi
-        if grep -ql "^$i" <(mount); then
-          echo "[NIX-AUTO] Disk: $i is in use -> skip"
-        else
+          ;;
+        /dev/sdb)
+          echo "[NIX-AUTO] Disk /dev/sdb is most likely your usb installation boot device, skip it for now."
+          continue
+          ;;
+        *)
+          echo "[NIX-AUTO] Set New Active Disk: $i"
           DEVICE_MAIN="$i"
           break
-        fi
+          ;;
+        esac
       done
-
       if [[ -z "$DEVICE_MAIN" ]]; then
-        echo "[NIX-AUTO][ERROR] No usable disk found on this machine!"
-        exit 1
-      else
-        echo "[NIX-AUTO] Disk: $DEVICE_MAIN will be erased."
-        echo "[NIX-AUTO] You have 5 seconds to cancel this operation!"
-        sleep 7
+        echo "[NIX-AUTO][ERROR] Unable to find a valid secure target disk, please enter it manually:  "
+        read -r DEVICE_MAIN
       fi
-
-      DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript} 2> /dev/null
-
+      echo "[NIX-AUTO] Disk: $DEVICE_MAIN will be erased."
+      dd if=/dev/zero of="$DEVICE_MAIN" oflag=direct bs=1M count=128 status=progress
+      DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript}
+      echo "############################################################"
+      lsblk
+      echo "############################################################"
+      df -h
+      echo "############################################################"
+      sleep 10
       echo "[NIX-AUTO] Installing NixOS now."
       nixos-install --no-channel-copy --no-root-password --option substituters "" --system ${targetSystem.config.system.build.toplevel}
-
       echo "[NIX-AUTO] Installation Done!
       echo "[NIX-AUTO] Rebooting Now!
-      echo "[NIX-AUTO] You have 5 seconds to cancel this operation!"
-      sleep 7
       reboot
     '';
   };
@@ -74,7 +85,7 @@ in {
     isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
     makeEfiBootable = true;
     makeUsbBootable = true;
-    squashfsCompression = "zstd -Xcompression-level 18";
+    squashfsCompression = "zstd";
   };
   systemd.services."getty@tty1" = {
     overrideStrategy = "asDropin";

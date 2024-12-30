@@ -159,6 +159,7 @@
             ugm
             webanalyze
             vulnix
+            ventoy-full
             xh
             yamlfmt
             yarn

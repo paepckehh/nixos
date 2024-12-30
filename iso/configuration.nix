@@ -36,7 +36,14 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = ["fmask=0022" "dmask=0022"];
+              };
+            };
+            swap = {
+              size = "8G";
+              content = {
+                type = "swap";
+                randomEncryption = true;
+                priority = 100;
               };
             };
             root = {
@@ -45,7 +52,6 @@
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/";
-                mountOptions = ["noatime"];
               };
             };
           };
