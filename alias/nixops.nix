@@ -112,6 +112,10 @@
         cd && mkdir -p cache && cd cache &&\
         nixos-rebuild build -v --fallback --flake /etc/nixos/#nixos ;\
         nix.sign'';
+      "nix.iso" = ''
+        cd /tmp &&\
+        nix build -L .#nixosConfigurations.iso.config.system.build.isoImage
+        ls -la ./result/iso'';
     };
   };
 }
