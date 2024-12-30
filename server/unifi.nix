@@ -34,7 +34,7 @@
     enableIPv6 = false;
     useDHCP = false;
     usePredictableInterfaceNames = false;
-    networkmanager.enable = nixpkgs.lib.mkForce false;
+    networkmanager.enable = lib.mkForce false;
     wireless.enable = false;
     defaultGateway = {
       address = "192.168.8.1"; # legacy
