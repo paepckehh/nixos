@@ -28,6 +28,7 @@
                 type = "swap";
                 randomEncryption = true;
                 priority = 100;
+                extraArgs = "-Lswap";
               };
             };
             root = {
