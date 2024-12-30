@@ -23,6 +23,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix
+          ./iso/disko.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
@@ -74,7 +75,7 @@
       };
       iso = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs.targetSystem = self.nixosConfigurations.nix-auto;
+        specialArgs.targetSystem = self.nixosConfigurations.nixos;
         modules = [
           ./iso/iso.nix
         ];
