@@ -12,7 +12,6 @@
   installer = pkgs.writeShellApplication {
     name = "installer";
     runtimeInputs = with pkgs; [
-      git
       dosfstools
       e2fsprogs
       gawk

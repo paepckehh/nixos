@@ -79,12 +79,12 @@
   fileSystems = lib.mkDefault {
     "/" = {
       fsType = "ext4";
-      device = "/dev/disk/by-diskseq/1-part2";
+      device = "/dev/disk/by-partlabel/root";
       options = ["noatime" "nodiratime" "discard"];
     };
     "/boot" = lib.mkDefault {
       fsType = "vfat";
-      device = "/dev/disk/by-diskseq/1-part1"; # always boot from drive one
+      device = "/dev/disk/by-partlabel/EFI";
       options = ["fmask=0022" "dmask=0022"];
     };
   };

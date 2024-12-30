@@ -18,18 +18,25 @@
     home-manager,
   }: {
     nixosConfigurations = {
+      iso = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs.targetSystem = self.nixosConfigurations.nixos;
+        modules = [
+          ./modules/iso-image.nix
+        ];
+      };
       nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./iso/disko.nix
+          ./modules/disko.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
-          {networking.hostName = "nixos-mp";}
+          {networking.hostName = "nixos";}
         ];
       };
       nixos-mp = nixpkgs.lib.nixosSystem {
@@ -72,21 +79,6 @@
           # ./server/webserver-nginx.nix
           # ./server/wiki.nix
           {networking.hostName = "nixos-mp-infra";}
-        ];
-      };
-      iso = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs.targetSystem = self.nixosConfigurations.nixos;
-        modules = [
-          ./iso/iso.nix
-        ];
-      };
-      nix-auto = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          disko.nixosModules.disko
-          ./iso/configuration.nix
-          {networking.hostName = "nix-auto";}
         ];
       };
     };
