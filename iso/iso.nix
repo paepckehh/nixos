@@ -6,6 +6,9 @@
   targetSystem,
   ...
 }: let
+  installerFailsafe = pkgs.writeShellScript "failsafe" ''
+    ${lib.getExe installer} || echo "ERROR: Installation failure!"
+    sleep 3600'';
   installer = pkgs.writeShellApplication {
     name = "installer";
     runtimeInputs = with pkgs; [
@@ -60,10 +63,6 @@
       df -h
       echo "############################################################"
       echo "############################################################"
-      ip a
-      ls -la /etc/nixos
-      echo "############################################################"
-      echo "############################################################"
       sleep 20
       echo "[NIX-AUTO] Installing NixOS now."
       nixos-generate-config --force --root /mnt
@@ -91,7 +90,6 @@ in {
     isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
     makeEfiBootable = true;
     makeUsbBootable = true;
-    includeSystemBuildDependencies = true;
     squashfsCompression = "zstd";
   };
   systemd.services."getty@tty1" = {

@@ -44,6 +44,12 @@
       "net.ipv6.conf.all.accept_redirects" = lib.mkForce false;
     };
   };
+  nixpkgs = {
+    config = {
+      allowBroken = lib.mkDefault true;
+      allowUnfree = lib.mkDefault true;
+    };
+  };
   system = {
     stateVersion = "24.11"; # dummy target, do not modify
     switch.enable = true; # allow updates
@@ -76,7 +82,6 @@
   hardware.enableAllFirmware = true;
   services.getty.autologinUser = "root";
   users.users.root.initialHashedPassword = "";
-  system.stateVersion = "24.11";
   disko.devices = {
     disk = {
       main = {
