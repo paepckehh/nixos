@@ -1,4 +1,26 @@
 {
+  config,
+  disko,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}: {
+  imports = [
+    (modulesPath + "/profiles/all-hardware.nix")
+  ];
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
+  console = {
+    earlySetup = true;
+    font = "ter-v16n";
+    packages = [pkgs.terminus_font];
+  };
+  services.getty.autologinUser = "root";
+  users.users.root.initialHashedPassword = "";
+  system.stateVersion = "24.11";
   disko.devices = {
     disk = {
       main = {

@@ -18,34 +18,40 @@
     ];
     text = ''
       set -euo pipefail
-
-      echo "Setting up disks..."
+      echo "-=!*** [ NIXOS-AUTO-SETUP ] ***!=-"
+      echo ""
+      echo "[NIX-AUTO] Setting up disks..."
       for i in $(lsblk -pln -o NAME,TYPE | grep disk | awk '{ print $1 }'); do
         if [[ "$i" == "/dev/fd0" ]]; then
           echo "$i is a floppy, skipping..."
           continue
         fi
         if grep -ql "^$i" <(mount); then
-          echo "$i is in use, skipping..."
+          echo "[NIX-AUTO] Disk: $i is in use -> skip"
         else
           DEVICE_MAIN="$i"
           break
         fi
       done
+
       if [[ -z "$DEVICE_MAIN" ]]; then
-        echo "ERROR: No usable disk found on this machine!"
+        echo "[NIX-AUTO][ERROR] No usable disk found on this machine!"
         exit 1
       else
-        echo "Found $DEVICE_MAIN, erasing..."
+        echo "[NIX-AUTO] Disk: $DEVICE_MAIN will be erased."
+        echo "[NIX-AUTO] You have 5 seconds to cancel this operation!"
+        sleep 7
       fi
 
       DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript} 2> /dev/null
 
-      echo "Installing the system..."
+      echo "[NIX-AUTO] Installing NixOS now."
       nixos-install --no-channel-copy --no-root-password --option substituters "" --system ${targetSystem.config.system.build.toplevel}
 
-      echo "Done! Rebooting..."
-      sleep 3
+      echo "[NIX-AUTO] Installation Done! 
+      echo "[NIX-AUTO] Rebooting Now!
+      echo "[NIX-AUTO] You have 5 seconds to cancel this operation!"
+      sleep 7
       reboot
     '';
   };
@@ -67,10 +73,12 @@ in {
     packages = [pkgs.terminus_font];
   };
 
-  isoImage.isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
-  isoImage.makeEfiBootable = true;
-  isoImage.makeUsbBootable = true;
-  isoImage.squashfsCompression = "zstd -Xcompression-level 15"; # xz takes forever
+  isoImage = { 
+    isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
+     makeEfiBootable = true;
+     makeUsbBootable = true;
+     squashfsCompression = "zstd -Xcompression-level 18"; 
+  }
 
   systemd.services."getty@tty1" = {
     overrideStrategy = "asDropin";
@@ -81,5 +89,5 @@ in {
     };
   };
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
 }
