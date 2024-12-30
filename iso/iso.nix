@@ -48,7 +48,7 @@
       echo "[NIX-AUTO] Installing NixOS now."
       nixos-install --no-channel-copy --no-root-password --option substituters "" --system ${targetSystem.config.system.build.toplevel}
 
-      echo "[NIX-AUTO] Installation Done! 
+      echo "[NIX-AUTO] Installation Done!
       echo "[NIX-AUTO] Rebooting Now!
       echo "[NIX-AUTO] You have 5 seconds to cancel this operation!"
       sleep 7
@@ -64,22 +64,18 @@ in {
     (modulesPath + "/installer/cd-dvd/iso-image.nix")
     (modulesPath + "/profiles/all-hardware.nix")
   ];
-
   boot.kernelParams = ["systemd.unit=getty.target"];
-
   console = {
     earlySetup = true;
     font = "ter-v16n";
     packages = [pkgs.terminus_font];
   };
-
-  isoImage = { 
+  isoImage = {
     isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
-     makeEfiBootable = true;
-     makeUsbBootable = true;
-     squashfsCompression = "zstd -Xcompression-level 18"; 
-  }
-
+    makeEfiBootable = true;
+    makeUsbBootable = true;
+    squashfsCompression = "zstd -Xcompression-level 18";
+  };
   systemd.services."getty@tty1" = {
     overrideStrategy = "asDropin";
     serviceConfig = {
@@ -88,6 +84,5 @@ in {
       StandardInput = "null";
     };
   };
-
   system.stateVersion = "24.11";
 }
