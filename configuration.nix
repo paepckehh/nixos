@@ -76,13 +76,13 @@
   #####################
   #-=# FILESYSTEMS #=-#
   #####################
-  fileSystems = {
+  fileSystems = lib.mkDefault {
     "/" = {
       fsType = "ext4";
       device = "/dev/disk/by-diskseq/1-part2";
       options = ["noatime" "nodiratime" "discard"];
     };
-    "/boot" = {
+    "/boot" = lib.mkDefault {
       fsType = "vfat";
       device = "/dev/disk/by-diskseq/1-part1"; # always boot from drive one
       options = ["fmask=0022" "dmask=0022"];
