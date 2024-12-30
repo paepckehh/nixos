@@ -19,7 +19,6 @@
     ];
     text = ''
       #!/bin/sh
-      set -euo pipefail
       echo ""
       echo "-=!*** [ NIXOS-AUTO-SETUP ] ***!=-"
       echo ""
@@ -52,7 +51,7 @@
       fi
       echo "[NIX-AUTO] Disk: $DEVICE_MAIN will be erased."
       wipefs --all --force "$DEVICE_MAIN"
-      DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript}
+      DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript} 2> /dev/null
       echo "############################################################"
       echo "############################################################"
       lsblk
@@ -61,22 +60,22 @@
       df -h
       echo "############################################################"
       echo "############################################################"
-      sleep 10
+      ip a
+      ls -la /etc/nixos
+      echo "############################################################"
+      echo "############################################################"
+      sleep 20
       echo "[NIX-AUTO] Installing NixOS now."
-      nixos-install --no-channel-copy --no-root-password --option substituters "" --system ${targetSystem.config.system.build.toplevel}
+      nixos-generate-config --force --root /mnt
+      nixos-install --keep-going --no-root-password --cores 0 --option substituters "" --system ${targetSystem.config.system.build.toplevel}
       echo "[NIX-AUTO] Installation Done!
       echo "[NIX-AUTO] Setup Custom /etc/nixos
       cd /mnt/etc
-      git clone https://github.com/paepckehh/nixos
       echo "[NIX-AUTO] Installation Done!
       echo "[NIX-AUTO] Rebooting Now!
       reboot
     '';
   };
-  installerFailsafe = pkgs.writeShellScript "failsafe" ''
-    ${lib.getExe installer} || echo "ERROR: Installation failure!"
-    sleep 3600
-  '';
 in {
   imports = [
     (modulesPath + "/installer/cd-dvd/iso-image.nix")
@@ -92,6 +91,7 @@ in {
     isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
     makeEfiBootable = true;
     makeUsbBootable = true;
+    includeSystemBuildDependencies = true;
     squashfsCompression = "zstd";
   };
   systemd.services."getty@tty1" = {
