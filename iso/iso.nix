@@ -51,16 +51,23 @@
         read -r DEVICE_MAIN
       fi
       echo "[NIX-AUTO] Disk: $DEVICE_MAIN will be erased."
-      dd if=/dev/zero of="$DEVICE_MAIN" oflag=direct bs=1M count=128 status=progress
+      wipefs --all --force "$DEVICE_MAIN"
       DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript}
+      echo "############################################################"
       echo "############################################################"
       lsblk
       echo "############################################################"
+      echo "############################################################"
       df -h
+      echo "############################################################"
       echo "############################################################"
       sleep 10
       echo "[NIX-AUTO] Installing NixOS now."
       nixos-install --no-channel-copy --no-root-password --option substituters "" --system ${targetSystem.config.system.build.toplevel}
+      echo "[NIX-AUTO] Installation Done!
+      echo "[NIX-AUTO] Setup Custom /etc/nixos
+      cd /mnt/etc
+      git clone https://github.com/paepckehh/nixos
       echo "[NIX-AUTO] Installation Done!
       echo "[NIX-AUTO] Rebooting Now!
       reboot
