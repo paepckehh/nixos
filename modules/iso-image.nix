@@ -53,7 +53,7 @@
       fi
       echo "[NIX-AUTO] Disk: $DEVICE_MAIN will be erased."
       wipefs --all --force "$DEVICE_MAIN"
-      DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript} 2> /dev/null
+      DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript}
       echo "############################################################"
       lsblk
       echo "############################################################"
