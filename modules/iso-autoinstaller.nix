@@ -49,22 +49,22 @@
           ;;
         esac
       done
-      switch $DEVICE_MAIN in
+      case $DEVICE_MAIN in
       "")
         echo "[NIX-AUTO][ERROR] Unable to find a valid secure target disk, please enter it manually."
         echo "######################################################################################"
         lsblk
         echo "######################################################################################"
         DEVICE_MAIN=$(gum choose -- $(lsblk -pln -o NAME,TYPE | grep disk | awk '{ print $1 }'))
-        echo "[NIX-AUTO] New Manually Selected Active Disk: $i"
+        echo "[NIX-AUTO] New Manually Selected Active Disk: $DEVICE_MAIN"
         ;;
       *)
-        echo "[NIX-AUTO] Selected Active Disk: $i"
+        echo "[NIX-AUTO] Selected Active Disk: $DEVICE_MAIN"
         ;;
       esac
       echo "[NIX-AUTO] Disk: $DEVICE_MAIN will be erased."
       wipefs --all --force "$DEVICE_MAIN"
-      DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript} 2> /dev/null
+      DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript}
       echo "[NIX-AUTO] Installing NixOS now."
       nixos-generate-config --force --root /mnt
       nixos-install --keep-going --no-root-password --cores 0 --option substituters "" --system ${targetSystem.config.system.build.toplevel}
