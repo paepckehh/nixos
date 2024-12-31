@@ -62,8 +62,8 @@
           ./server/adguard.nix
           ./server/chronyPublic.nix
           ./server/unifi.nix
-          # ./server/virtual.nix
-          # ./modules/autoupdate.nix
+          ./server/ollama.nix
+          ./server/virtual.nix
           # ./server/send.nix
           # ./server/firefox-sync-server.nix
           # ./server/prometheus.nix
@@ -74,7 +74,6 @@
           # ./server/opnborg.nix
           # ./server/opnborg-complex.nix
           # ./server/opnborg-docker-complex.nix
-          ./server/ollama.nix
           # ./server/openweb-ui.nix
           # ./server/webserver-nginx.nix
           # ./server/wiki.nix
