@@ -374,8 +374,8 @@
   ##################
   services = {
     fwupd.enable = true;
-    smartd.enable = true;
     openssh.enable = false;
+    smartd.enable = true;
     pcscd.enable = true;
     power-profiles-daemon.enable = lib.mkForce false;
     logind.hibernateKey = "ignore";
