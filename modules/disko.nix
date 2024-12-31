@@ -19,7 +19,6 @@
                 format = "vfat";
                 mountpoint = "/boot";
                 mountOptions = ["umask=0077"];
-                extraArgs = ["-LEFI"];
               };
             };
             swap = {
@@ -37,6 +36,7 @@
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/";
+                extraArgs = ["-Lroot"];
               };
             };
           };
