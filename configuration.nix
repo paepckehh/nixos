@@ -84,7 +84,7 @@
     "/boot" = lib.mkDefault {
       fsType = "vfat";
       device = "/dev/disk/by-partlabel/EFI";
-      options = ["fmask=0022" "dmask=0022"];
+      options = ["fmask=0077" "dmask=0077" "defaults"];
     };
   };
 
