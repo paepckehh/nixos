@@ -21,6 +21,7 @@
     ];
     text = ''
       #!/bin/sh
+      sleep 5 && sync # wait for delayed parallel bg boot processes
       echo ""
       echo "-=!*** [ NIXOS-AUTO-SETUP ] ***!=-"
       echo ""
@@ -55,7 +56,7 @@
         lsblk
         echo "###################################################################"
         echo "[NIX-AUTO][ERROR] Enter full qualified device name (eg: /dev/sda):"
-        read DEVICE_MAIN
+        read -r DEVICE_MAIN
         echo "[NIX-AUTO] New Manually Selected Active Disk: $DEVICE_MAIN"
         ;;
       *)
