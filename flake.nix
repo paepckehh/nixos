@@ -22,7 +22,7 @@
         system = "x86_64-linux";
         specialArgs.targetSystem = self.nixosConfigurations.nixos;
         modules = [
-          ./modules/iso-image.nix
+          ./modules/iso-autoinstaller.nix
         ];
       };
       nixos = nixpkgs.lib.nixosSystem {

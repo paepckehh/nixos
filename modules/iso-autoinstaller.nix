@@ -12,6 +12,7 @@
   installer = pkgs.writeShellApplication {
     name = "installer";
     runtimeInputs = with pkgs; [
+      gum
       dosfstools
       e2fsprogs
       gawk
@@ -29,35 +30,41 @@
       echo "############################################################"
       lsblk
       echo "############################################################"
+      DEVICE_MAIN=""
       for i in $(lsblk -pln -o NAME,TYPE | grep disk | awk '{ print $1 }'); do
         echo "[NIX-AUTO] Testing Disk: $i"
         case $i in
-        /dev/sda)
-          echo "[NIX-AUTO] Disk /dev/sda is most likely your usb installation boot device, skip it for now."
+        /dev/sd*)
+          echo "[NIX-AUTO] Found Disk: i$ - This may be your usb installation boot device, skip it for now."
           continue
           ;;
-        /dev/sdb)
-          echo "[NIX-AUTO] Disk /dev/sdb is most likely your usb installation boot device, skip it for now."
+        /dev/zram*)
+          echo "[NIX-AUTO] Found Disk: i$ - This is your swap device, skip it."
           continue
           ;;
         *)
-          echo "[NIX-AUTO] Set New Active Disk: $i"
+          echo "[NIX-AUTO] Found Disk: $i"
           DEVICE_MAIN="$i"
           break
           ;;
         esac
       done
-      if [[ -z "$DEVICE_MAIN" ]]; then
-        echo "[NIX-AUTO][ERROR] Unable to find a valid secure target disk, please enter it manually:  "
-        read -r DEVICE_MAIN
-      fi
+      switch $DEVICE_MAIN in
+      "")
+        echo "[NIX-AUTO][ERROR] Unable to find a valid secure target disk, please enter it manually."
+        echo "######################################################################################"
+        lsblk
+        echo "######################################################################################"
+        DEVICE_MAIN=$(gum choose -- $(lsblk -pln -o NAME,TYPE | grep disk | awk '{ print $1 }'))
+        echo "[NIX-AUTO] New Manually Selected Active Disk: $i"
+        ;;
+      *)
+        echo "[NIX-AUTO] Selected Active Disk: $i"
+        ;;
+      esac
       echo "[NIX-AUTO] Disk: $DEVICE_MAIN will be erased."
       wipefs --all --force "$DEVICE_MAIN"
-      DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript}
-      echo "############################################################"
-      lsblk
-      echo "############################################################"
-      sleep 20
+      DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript} 2> /dev/null
       echo "[NIX-AUTO] Installing NixOS now."
       nixos-generate-config --force --root /mnt
       nixos-install --keep-going --no-root-password --cores 0 --option substituters "" --system ${targetSystem.config.system.build.toplevel}
