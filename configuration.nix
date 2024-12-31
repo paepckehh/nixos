@@ -3,7 +3,6 @@
   pkgs,
   lib,
   home-manager,
-  # modulesPath,
   ...
 }: {
   #################
@@ -178,7 +177,6 @@
   hardware = {
     acpilight.enable = true;
     enableAllFirmware = lib.mkForce true;
-    enableRedistributable = lib.mkForce true;
     cpu = {
       amd = {
         updateMicrocode = true;
