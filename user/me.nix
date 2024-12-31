@@ -109,6 +109,8 @@
             trippy
             tz
             openssl
+            parted
+            parallel
             progress
             pv
             kmon
