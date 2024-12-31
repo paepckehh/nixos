@@ -8,8 +8,8 @@
   #-=# FONTS #=-#
   ###############
   fonts = {
-    # packages = with pkgs; [nerd-fonts.fira-code];
-    packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];})];
+    packages = with pkgs; [nerd-fonts.fira-code];
+    # packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];})];
   };
 
   ##################
