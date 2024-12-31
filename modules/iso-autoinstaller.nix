@@ -12,7 +12,6 @@
   installer = pkgs.writeShellApplication {
     name = "installer";
     runtimeInputs = with pkgs; [
-      gum
       dosfstools
       e2fsprogs
       gawk
@@ -35,11 +34,11 @@
         echo "[NIX-AUTO] Testing Disk: $i"
         case $i in
         /dev/sd*)
-          echo "[NIX-AUTO] Found Disk: i$ - This may be your usb installation boot device, skip it for now."
+          echo "[NIX-AUTO] Found Disk: $i - Maybe a usb install device, skip."
           continue
           ;;
         /dev/zram*)
-          echo "[NIX-AUTO] Found Disk: i$ - This is your swap device, skip it."
+          echo "[NIX-AUTO] Found Disk: $i - This is your swap device, skip."
           continue
           ;;
         *)
@@ -51,11 +50,12 @@
       done
       case $DEVICE_MAIN in
       "")
-        echo "[NIX-AUTO][ERROR] Unable to find a valid secure target disk, please enter it manually."
-        echo "######################################################################################"
+        echo "[NIX-AUTO][ERROR] Unable to find a valid secure target disk."
+        echo "###################################################################"
         lsblk
-        echo "######################################################################################"
-        DEVICE_MAIN=$(gum choose -- $(lsblk -pln -o NAME,TYPE | grep disk | awk '{ print $1 }'))
+        echo "###################################################################"
+        echo "[NIX-AUTO][ERROR] Enter full qualified device name (eg: /dev/sda):"
+        read DEVICE_MAIN
         echo "[NIX-AUTO] New Manually Selected Active Disk: $DEVICE_MAIN"
         ;;
       *)
