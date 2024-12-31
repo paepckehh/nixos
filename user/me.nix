@@ -34,7 +34,7 @@
           stateVersion = "24.11";
           enableNixpkgsReleaseCheck = false;
           homeDirectory = "/home/me";
-          keyboard.layout = "us,de"; # TODO
+          keyboard.layout = "us,de";
           shellAliases = {
             l = "ls -la";
             e = "vim";
@@ -74,27 +74,20 @@
             bmon
             binsider
             certgraph
-            caligula
             cifs-utils
-            compose2nix
             curlie
             ddgr
-            docker
-            docker-compose
             dust
             dmidecode
             dnstracer
             dnsutils
             fastfetch
-            ffsend
-            filezilla
             goaccess
             gobang
             gopass
             git-crypt
             git-agecrypt
             gping
-            graphviz
             httpie
             hyperfine
             inetutils
@@ -102,7 +95,6 @@
             shfmt
             s-tui
             stress
-            socialscan
             sysz
             tea
             tcping-go
@@ -124,7 +116,6 @@
             moreutils
             nodejs
             netscanner
-            ncftp
             nix-du
             nix-tree
             nix-top
@@ -141,31 +132,22 @@
             fastfetch
             fd
             jq
-            oha
-            openssl
             paper-age
             passage
-            podman
-            podman-compose
-            podman-tui
             pciutils
-            portal
             pwgen
             rage
             rsync
             ssh-audit
-            undervolt
             usbutils
             ugm
             webanalyze
-            vulnix
             ventoy-full
             xh
             yamlfmt
             yarn
             yubikey-manager
             yq
-            zgrviewer
           ];
         };
         fonts.fontconfig.enable = true;
