@@ -103,7 +103,6 @@
       # main
       info
       loop
-      debug
       finish
     '';
   };
