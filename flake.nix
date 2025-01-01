@@ -24,15 +24,15 @@
         system = "x86_64-linux";
         specialArgs.targetSystem = self.nixosConfigurations.nixos;
         modules = [
-          disko.nixosModules.disko
-          ./modules/disko.nix
           ./modules/iso-autoinstaller.nix
         ];
       };
       nixos = nixpkgs-release.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          disko.nixosModules.disko
           home-manager.nixosModules.home-manager
+          ./modules/disko.nix
           ./configuration.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
