@@ -21,9 +21,75 @@
     ];
     text = ''
 
+      info() {
+      	echo ""
+      	echo ""
+      	echo "   ######################################"
+      	echo "   # -=!*** [ NIXOS-AUTO-SETUP ] ***!=- #"
+      	echo "   ######################################"
+      	echo ""
+      	echo ""
+      	echo ""
+      	echo "[NIX-AUTO] Lets try to find a usable disk."
+      	echo "[NIX-AUTO] This is your current storage device list."
+      	echo "############################################################"
+      	lsblk
+      	echo "############################################################"
+      }
 
-      # 'DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript}'
-      # nixos-install --keep-going --no-root-password --cores 0 --option substituters "" --system ${targetSystem.config.system.build.toplevel}
+      action() {
+      	echo "[NIX-AUTO] Disk: $DEVICE_MAIN will be erased."
+      	wipefs --all --force "$DEVICE_MAIN"
+              DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript}
+      	echo "[NIX-AUTO] Installing NixOS now."
+              nixos-install --keep-going --no-root-password --cores 0 --option substituters "" --system ${targetSystem.config.system.build.toplevel}
+      }
+
+      loop() {
+      	DEVICE_MAIN=""
+      	for DEVICE_MAIN in $(lsblk -pln -o NAME,TYPE | grep disk | awk '{ print $1 }'); do
+      		echo "[NIX-AUTO] Testing Disk: $DEVICE_MAIN"
+      		case "$DEVICE_MAIN" in
+      		/dev/sd*)
+
+      			echo "[NIX-AUTO] Found a Legacy Disk: $DEVICE_MAIN"
+      			BUSTYPE="$(udevadm info --query=all --name=$DEVICE_MAIN | grep ID_BUS | cut -d = -f 2)"
+      			case $BUSTYPE in
+      			usb)
+      				echo "[NIX-AUTO] [ERROR:USB] Legacy Disk: $DEVICE_MAIN is a usb device, skip it."
+      				continue
+      				;;
+      			*)
+      				echo "[NIX-AUTO] [SUCCESS] Found Disk: $DEVICE_MAIN"
+      				action
+      				;;
+      			esac
+      			;;
+
+      		/dev/zram*)
+      			echo "[NIX-AUTO] [ERROR:ZRAM] Found Disk: $DEVICE_MAIN - This is your swap device, skip."
+      			continue
+      			;;
+      		*)
+      			echo "[NIX-AUTO] [SUCCESS] Found Disk: $DEVICE_MAIN"
+      			action
+      			;;
+
+      		esac
+      	done
+      }
+
+      finish() {
+      	echo "[NIX-AUTO] All Actions done."
+      	echo "[NIX-AUTO] Computer will poweroff in 30 seconds"
+      	# sleep 30
+      	# poweroff
+      }
+
+      # main
+      info
+      loop
+      finish
     '';
   };
 in {
