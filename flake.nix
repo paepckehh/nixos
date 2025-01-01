@@ -65,11 +65,11 @@
           ./server/adguard.nix
           ./server/chronyPublic.nix
           ./server/unifi.nix
-          ./server/ollama.nix
-          ./server/openweb-ui.nix
           ./server/virtual.nix
           # ./server/firefox-sync-server.nix
           # ./server/gitea.nix
+          # ./server/ollama.nix
+          # ./server/openweb-ui.nix
           # ./server/opnborg.nix
           # ./server/opnborg-complex.nix
           # ./server/opnborg-docker-complex.nix
@@ -88,12 +88,12 @@
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
-          ./server/ollama.nix
-          ./server/openweb-ui.nix
           ./server/unifi.nix
           ./server/virtual.nix
           # ./server/firefox-sync-server.nix
           # ./server/gitea.nix
+          # ./server/ollama.nix
+          # ./server/openweb-ui.nix
           # ./server/opnborg.nix
           # ./server/opnborg-complex.nix
           # ./server/opnborg-docker-complex.nix
