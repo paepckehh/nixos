@@ -88,7 +88,6 @@
             git-crypt
             git-agecrypt
             gping
-            gum
             httpie
             hyperfine
             inetutils
@@ -97,7 +96,6 @@
             s-tui
             stress
             sysz
-            tea
             tcping-go
             tldr
             tlsinfo
@@ -116,9 +114,8 @@
             keepassxc
             keepassxc-go
             moreutils
-            nodejs
+            ncdu
             netscanner
-            nix-du
             nix-tree
             nix-top
             nix-init
@@ -129,7 +126,6 @@
             nixfmt-rfc-style
             nixpkgs-fmt
             nvme-cli
-            nodejs
             mongosh
             fastfetch
             fd
@@ -159,7 +155,6 @@
           fzf.enable = true;
           thefuck.enable = true;
           starship.enable = true;
-          gh-dash.enable = true;
           git.enable = true;
           gitui.enable = true;
           lazygit.enable = true;
@@ -203,7 +198,7 @@
             defaultEditor = true;
             plugins = with pkgs.vimPlugins; [SudoEdit-vim vim-airline vim-shellcheck vim-go vim-git vim-nix];
             settings = {
-              history = 10000;
+              history = 25000;
               expandtab = true;
             };
             extraConfig = ''

@@ -1,7 +1,7 @@
 {
   description = "nixos infra";
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-release.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     disko = {
       url = "github:nix-community/disko/master";
@@ -16,6 +16,7 @@
     self,
     disko,
     nixpkgs,
+    nixpkgs-release,
     home-manager,
   }: {
     nixosConfigurations = {
@@ -26,7 +27,7 @@
           ./modules/iso-autoinstaller.nix
         ];
       };
-      nixos = nixpkgs.lib.nixosSystem {
+      nixos = nixpkgs-release.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
@@ -40,7 +41,7 @@
           {networking.hostName = "nixos";}
         ];
       };
-      nixos-mp = nixpkgs.lib.nixosSystem {
+      nixos-mp = nixpkgs-Release.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
@@ -52,7 +53,7 @@
           {networking.hostName = "nixos-mp";}
         ];
       };
-      nixos-infra = nixpkgs.lib.nixosSystem {
+      nixos-infra = nixpkgs-Release.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
