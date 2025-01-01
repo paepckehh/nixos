@@ -53,7 +53,7 @@
       		/dev/sd*)
 
       			echo "[NIX-AUTO] Found a Legacy Disk: $DEVICE_MAIN"
-      			BUSTYPE="$(udevadm info --query=all --name=$DEVICE_MAIN | grep ID_BUS | cut -d = -f 2)"
+      			BUSTYPE="$(udevadm info --query=all --name="$DEVICE_MAIN" | grep ID_BUS | cut -d = -f 2)"
       			case $BUSTYPE in
       			usb)
       				echo "[NIX-AUTO] [ERROR:USB] Legacy Disk: $DEVICE_MAIN is a usb device, skip it."
@@ -97,11 +97,15 @@ in {
     (modulesPath + "/installer/cd-dvd/iso-image.nix")
     (modulesPath + "/profiles/all-hardware.nix")
   ];
-  boot.kernelParams = ["systemd.unit=getty.target"];
+  boot = {
+    kernelParams = ["systemd.unit=getty.target"];
+    kernelPackages = pkgs.linuxPackages_latest;
+  };
   console = {
-    earlySetup = true;
-    font = "ter-v16n";
-    packages = [pkgs.terminus_font];
+    earlySetup = lib.mkForce true;
+    keyMap = "us";
+    font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
+    packages = with pkgs; [powerline-fonts];
   };
   isoImage = {
     isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
