@@ -147,10 +147,11 @@
     font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
     packages = with pkgs; [powerline-fonts];
   };
-  swapDevices = [];
+  swapDevices = lib.mkForce [];
   zramSwap = {
     enable = true;
     algorithm = "zstd";
+    priority = 100;
   };
 
   #################

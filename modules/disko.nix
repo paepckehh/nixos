@@ -30,7 +30,7 @@
                 content = {
                   type = "swap";
                   randomEncryption = true;
-                  priority = 100;
+                  priority = 50;
                 };
               };
               root = {

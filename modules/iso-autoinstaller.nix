@@ -20,61 +20,10 @@
       config.nix.package
     ];
     text = ''
-      #!/bin/sh
-      sleep 5 && sync # wait for delayed parallel bg boot processes
-      echo ""
-      echo "-=!*** [ NIXOS-AUTO-SETUP ] ***!=-"
-      echo ""
-      echo "[NIX-AUTO] Lets try to find a usable disk."
-      echo "[NIX-AUTO] This is your current storage device list."
-      echo "############################################################"
-      lsblk
-      echo "############################################################"
-      DEVICE_MAIN=""
-      for i in $(lsblk -pln -o NAME,TYPE | grep disk | awk '{ print $1 }'); do
-        echo "[NIX-AUTO] Testing Disk: $i"
-        case $i in
-        /dev/sd*)
-          echo "[NIX-AUTO] Found Disk: $i - Maybe a usb install device, skip."
-          continue
-          ;;
-        /dev/zram*)
-          echo "[NIX-AUTO] Found Disk: $i - This is your swap device, skip."
-          continue
-          ;;
-        *)
-          echo "[NIX-AUTO] Found Disk: $i"
-          DEVICE_MAIN="$i"
-          break
-          ;;
-        esac
-      done
-      case $DEVICE_MAIN in
-      "")
-        echo "[NIX-AUTO][ERROR] Unable to find a valid secure target disk."
-        echo "###################################################################"
-        lsblk
-        echo "###################################################################"
-        echo "[NIX-AUTO][ERROR] Enter full qualified device name (eg: /dev/sda):"
-        read -r DEVICE_MAIN
-        echo "[NIX-AUTO] New Manually Selected Active Disk: $DEVICE_MAIN"
-        ;;
-      *)
-        echo "[NIX-AUTO] Selected Active Disk: $DEVICE_MAIN"
-        ;;
-      esac
-      echo "[NIX-AUTO] Disk: $DEVICE_MAIN will be erased."
-      wipefs --all --force "$DEVICE_MAIN"
-      DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript}
-      echo "[NIX-AUTO] Installing NixOS now."
-      nixos-generate-config --force --root /mnt
-      nixos-install --keep-going --no-root-password --cores 0 --option substituters "" --system ${targetSystem.config.system.build.toplevel}
-      echo "[NIX-AUTO] Installation Done!
-      echo "[NIX-AUTO] Setup Custom /etc/nixos
-      cd /mnt/etc
-      echo "[NIX-AUTO] Installation Done!
-      echo "[NIX-AUTO] Rebooting Now!
-      reboot
+
+
+      # 'DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript}'
+      # nixos-install --keep-going --no-root-password --cores 0 --option substituters "" --system ${targetSystem.config.system.build.toplevel}
     '';
   };
 in {
