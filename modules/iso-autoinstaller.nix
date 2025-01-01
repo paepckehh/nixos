@@ -44,6 +44,12 @@
         dd if=/dev/zero of="$DEVICE_MAIN" oflag=direct bs=1M count=128 > /dev/null 2>&1
         sync
         wipefs --all --force "$DEVICE_MAIN"
+      	case "$DEVICE_MAIN" in
+                /dev/nvme*)
+                echo "[NIX-AUTO] NVME Detected, perform factory reset on $DEVICE_MAIN."
+                nvme format "$DEVICE_MAIN" --force
+                ;;
+        esac
         sync
         echo "[NIX-AUTO] Finish Disk wipe $DEVICE_MAIN."
       	echo "[NIX-AUTO] Starting $DEVICE_MAIN partition table create."
