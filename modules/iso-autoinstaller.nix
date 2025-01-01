@@ -47,7 +47,7 @@
         sync
         echo "[NIX-AUTO] Finish Disk wipe $DEVICE_MAIN."
       	echo "[NIX-AUTO] Starting $DEVICE_MAIN partition table create."
-        DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript}
+        DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript} 2> /dev/null
         sync
         echo "[NIX-AUTO] Finish $DEVICE_MAIN partition tables create."
       	echo "[NIX-AUTO] Starting installation NixOS now on $DEVICE_MAIN"
