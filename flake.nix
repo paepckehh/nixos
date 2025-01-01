@@ -2,20 +2,20 @@
   description = "nixos infra";
   inputs = {
     nixpkgs-release.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     disko = {
       url = "github:nix-community/disko/master";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-release";
     };
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
   outputs = {
     self,
     disko,
-    nixpkgs,
+    nixpkgs-unstable,
     nixpkgs-release,
     home-manager,
   }: {
@@ -41,7 +41,7 @@
           {networking.hostName = "nixos";}
         ];
       };
-      nixos-mp = nixpkgs-Release.lib.nixosSystem {
+      nixos-mp = nixpkgs-release.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager

@@ -88,6 +88,7 @@
             git-crypt
             git-agecrypt
             gping
+            gum
             httpie
             hyperfine
             inetutils
