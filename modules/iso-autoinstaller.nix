@@ -38,11 +38,18 @@
       }
 
       action() {
-      	echo "[NIX-AUTO] Disk: $DEVICE_MAIN will be erased."
-      	wipefs --all --force "$DEVICE_MAIN"
-              DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript}
-      	echo "[NIX-AUTO] Installing NixOS now."
-              nixos-install --keep-going --no-root-password --cores 0 --option substituters "" --system ${targetSystem.config.system.build.toplevel}
+      	echo "[NIX-AUTO] Starting $DEVICE_MAIN full disk wipe."
+        wipefs --all --force "$DEVICE_MAIN"
+        echo "[NIX-AUTO] Finish Disk wipe $DEVICE_MAIN."
+      	echo "[NIX-AUTO] Starting $DEVICE_MAIN partition table create."
+        DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript} 2> /dev/null
+        echo "[NIX-AUTO] Finish $DEVICE_MAIN partition tables create."
+      	echo "[NIX-AUTO] Starting installation NixOS now on $DEVICE_MAIN"
+        nixos-install --keep-going --no-root-password --cores 0 --option substituters "" --system ${targetSystem.config.system.build.toplevel}
+      	echo "[NIX-AUTO] Finish installation NixOS on $DEVICE_MAIN"
+      	echo "############################################################"
+        lsblk
+      	echo "############################################################"
       }
 
       loop() {
@@ -81,23 +88,26 @@
 
       finish() {
       	echo "[NIX-AUTO] All Actions done."
-      	echo "[NIX-AUTO] Computer will poweroff in 30 seconds"
-      	# sleep 30
-      	# poweroff
+      	echo "[NIX-AUTO] Computer will poweroff in 10 seconds"
+      	sleep 10
+        poweroff
       }
 
       # main
       info
       loop
+      debug
       finish
     '';
   };
 in {
   imports = [
-    (modulesPath + "/installer/cd-dvd/iso-image.nix")
+    # (modulesPath + "/installer/cd-dvd/iso-image.nix")
+    (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
     (modulesPath + "/profiles/all-hardware.nix")
   ];
   boot = {
+    loader.timeout = lib.mkForce 0;
     kernelParams = ["systemd.unit=getty.target"];
     kernelPackages = pkgs.linuxPackages_latest;
   };
