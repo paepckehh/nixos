@@ -199,7 +199,7 @@
             defaultEditor = true;
             plugins = with pkgs.vimPlugins; [SudoEdit-vim vim-airline vim-shellcheck vim-go vim-git vim-nix];
             settings = {
-              history = 25000;
+              history = 10000;
               expandtab = true;
             };
             extraConfig = ''
