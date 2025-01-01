@@ -31,7 +31,7 @@
                   type = "swap";
                   randomEncryption = true;
                   priority = 100;
-                  extraArgs = ["-Lswap"];
+                  extraArgs = ["--label swap"];
                 };
               };
               root = {
@@ -40,7 +40,7 @@
                   type = "filesystem";
                   format = "ext4";
                   mountpoint = "/";
-                  extraArgs = ["-Lroot"];
+                  extraArgs = ["--label root"];
                 };
               };
             };
@@ -49,4 +49,4 @@
       };
     };
   };
-}
+
