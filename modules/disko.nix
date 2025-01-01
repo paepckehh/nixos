@@ -17,12 +17,11 @@
             partitions = {
               ESP = {
                 type = "EF00";
-                size = "1G";
+                size = "500M";
                 content = {
                   type = "filesystem";
                   format = "vfat";
                   mountpoint = "/boot";
-                  mountOptions = ["umask=0077"];
                 };
               };
               swap = {

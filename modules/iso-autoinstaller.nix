@@ -40,12 +40,19 @@
       action() {
       	echo "[NIX-AUTO] Starting $DEVICE_MAIN full disk wipe."
         wipefs --all --force "$DEVICE_MAIN"
+        sync
+        dd if=/dev/zero of="$DEVICE_MAIN" oflag=direct bs=1M count=100 status=progress
+        sync
+        wipefs --all --force "$DEVICE_MAIN"
+        sync
         echo "[NIX-AUTO] Finish Disk wipe $DEVICE_MAIN."
       	echo "[NIX-AUTO] Starting $DEVICE_MAIN partition table create."
         DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript} 2> /dev/null
+        sync
         echo "[NIX-AUTO] Finish $DEVICE_MAIN partition tables create."
       	echo "[NIX-AUTO] Starting installation NixOS now on $DEVICE_MAIN"
         nixos-install --keep-going --no-root-password --cores 0 --option substituters "" --system ${targetSystem.config.system.build.toplevel}
+        sync
       	echo "[NIX-AUTO] Finish installation NixOS on $DEVICE_MAIN"
       	echo "############################################################"
         lsblk
