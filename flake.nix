@@ -9,7 +9,7 @@
     };
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-release";
     };
   };
   outputs = {
@@ -77,7 +77,31 @@
           {networking.hostName = "nixos-infra";}
         ];
       };
-      nixos-mp-infra = nixpkgs-unstable.lib.nixosSystem {
+      nixos-mp-infra = nixpkgs-release.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          disko.nixosModules.disko
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./desktop/gnome.nix
+          ./person/mpaepcke_luks.nix # XXX
+          ./person/desktop/mpaepcke.nix
+          ./server/adguard.nix
+          ./server/chronyPublic.nix
+          ./server/unifi.nix
+          ./server/virtual.nix
+          # ./server/firefox-sync-server.nix
+          # ./server/gitea.nix
+          # ./server/ollama.nix
+          # ./server/openweb-ui.nix
+          # ./server/opnborg.nix
+          # ./server/opnborg-complex.nix
+          # ./server/opnborg-docker-complex.nix
+          # ./server/webserver-nginx.nix
+          {networking.hostName = "nixos-mp-infra";}
+        ];
+      };
+      nixos-mp-infra-beta = nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
@@ -89,7 +113,7 @@
           ./server/adguard.nix
           ./server/chronyPublic.nix
           ./server/unifi.nix
-          ./server/virtual.nix
+          # ./server/virtual.nix
           # ./server/firefox-sync-server.nix
           # ./server/gitea.nix
           # ./server/ollama.nix
