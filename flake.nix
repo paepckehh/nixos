@@ -15,12 +15,12 @@
   outputs = {
     self,
     disko,
-    nixpkgs-unstable,
     nixpkgs-release,
+    nixpkgs-unstable,
     home-manager,
   }: {
     nixosConfigurations = {
-      iso = nixpkgs.lib.nixosSystem {
+      iso = nixpkgs-release.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs.targetSystem = self.nixosConfigurations.nixos;
         modules = [
@@ -33,7 +33,6 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./modules/disko.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
@@ -44,6 +43,7 @@
       nixos-mp = nixpkgs-release.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix
@@ -56,6 +56,7 @@
       nixos-infra = nixpkgs-Release.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix
@@ -79,6 +80,7 @@
       nixos-mp-infra = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix

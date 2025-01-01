@@ -3,6 +3,14 @@
   disko,
   ...
 }: {
+  ###############
+  #-=# DISKO #=-#
+  ###############
+  imports = [
+    ./alias/nixops.nix
+    ./modules/disko.nix
+  ];
+
   disko.devices = {
     disk = {
       main = {
