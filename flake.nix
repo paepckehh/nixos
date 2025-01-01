@@ -83,7 +83,7 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./desktop/gnome.nix
+          ./desktop/gnome2505.nix
           ./person/mpaepcke_luks.nix # XXX
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
