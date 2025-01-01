@@ -83,7 +83,7 @@
     };
     "/boot" = lib.mkDefault {
       fsType = "vfat";
-      device = "/dev/disk/by-partlabel/disk-main-EFI";
+      device = "/dev/disk/by-partlabel/disk-main-ESP";
       options = ["fmask=0077" "dmask=0077" "defaults"];
     };
   };
