@@ -53,7 +53,7 @@
           {networking.hostName = "nixos-mp";}
         ];
       };
-      nixos-infra = nixpkgs-Release.lib.nixosSystem {
+      nixos-infra = nixpkgs-release.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
@@ -77,7 +77,7 @@
           {networking.hostName = "nixos-infra";}
         ];
       };
-      nixos-mp-infra = nixpkgs.lib.nixosSystem {
+      nixos-mp-infra = nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
