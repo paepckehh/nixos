@@ -17,6 +17,7 @@
       gawk
       nixos-install-tools
       util-linux
+      nvme-cli
       config.nix.package
     ];
     text = ''
