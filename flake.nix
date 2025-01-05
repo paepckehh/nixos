@@ -82,7 +82,7 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./desktop/gnome.nix
-          ./person/mpaepcke_luks.nix # XXX
+          ./person/mpaepcke_luks.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
