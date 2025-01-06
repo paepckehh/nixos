@@ -2,7 +2,6 @@
   description = "nixos infra";
   inputs = {
     # nixpkgs-release.url = "github:NixOS/nixpkgs/nixos-24.11";
-    # nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     # disko = {
     #   url = "github:nix-community/disko/master";
     #   inputs.nixpkgs.follows = "nixpkgs-release";
@@ -13,11 +12,11 @@
     # };
     nixpkgs-release.url = "path:/home/me/dev/nixos/nixos-24.11";
     disko = {
-      url = "path:/home/me/dev/disko";
+      url = "path:/home/me/dev/nixos/disko";
       inputs.nixpkgs.follows = "nixpkgs-release";
     };
     home-manager = {
-      url = "path:/home/me/dev/home-manager";
+      url = "path:/home/me/dev/nixos/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-release";
     };
   };

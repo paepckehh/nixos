@@ -74,7 +74,6 @@
             bmon
             binsider
             certgraph
-            cifs-utils
             curlie
             ddgr
             dust
@@ -82,7 +81,6 @@
             dnstracer
             dnsutils
             fastfetch
-            goaccess
             git-crypt
             git-agecrypt
             gping
