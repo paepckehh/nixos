@@ -126,9 +126,10 @@ in {
     (modulesPath + "/installer/cd-dvd/installation-cd-base.nix")
   ];
   boot = {
-    loader = { 
+    loader = {
       timeout = lib.mkForce 1;
       grub.memtest86.enable = lib.mkForce false;
+    };
     kernelParams = ["systemd.unit=getty.target"];
     kernelPackages = pkgs.linuxPackages_latest;
   };
@@ -138,10 +139,10 @@ in {
     font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
     packages = with pkgs; [powerline-fonts];
   };
-  documentation = { 
+  documentation = {
     man.enable = lib.mkOverride 500 false;
     doc.enable = lib.mkOverride 500 false;
- }
+  };
   fonts.fontconfig.enable = true;
   isoImage = {
     edition = lib.mkOverride 500 "minimal";
