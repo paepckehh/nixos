@@ -7,13 +7,13 @@
         ]
       },
       "locked": {
-        "lastModified": 1736137693,
-        "narHash": "sha256-dkqZXCYVT+/p2pP/aMwsG2ly4CX8ldAy56dabmzYp3s=",
-        "path": "/home/me/dev/disko",
+        "lastModified": 1736151765,
+        "narHash": "sha256-2dt1nOe9zf9pDkf5Kn7FUFyPRo581s0n90jxYXJ94l0=",
+        "path": "/home/me/dev/nixos/disko",
         "type": "path"
       },
       "original": {
-        "path": "/home/me/dev/disko",
+        "path": "/home/me/dev/nixos/disko",
         "type": "path"
       }
     },
@@ -24,13 +24,13 @@
         ]
       },
       "locked": {
-        "lastModified": 1736137137,
-        "narHash": "sha256-zpeI2QQhpXAB6Hyj4BMs7uvay16XnLkw/nEk0PcwRHM=",
-        "path": "/home/me/dev/home-manager",
+        "lastModified": 1736151778,
+        "narHash": "sha256-/LPWMiiJGPHGd7ZYEgmbE2da4zvBW0acmshUjYC3WG4=",
+        "path": "/home/me/dev/nixos/home-manager",
         "type": "path"
       },
       "original": {
-        "path": "/home/me/dev/home-manager",
+        "path": "/home/me/dev/nixos/home-manager",
         "type": "path"
       }
     },
