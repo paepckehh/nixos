@@ -36,7 +36,7 @@
     },
     "nixpkgs-release": {
       "locked": {
-        "lastModified": 1736140568,
+        "lastModified": 0,
         "narHash": "sha256-HB/D3uKg0c0c+eoSScHC0VbXvgK5e0makWJDRY936pM=",
         "path": "/home/me/dev/nixpkgs",
         "type": "path"
