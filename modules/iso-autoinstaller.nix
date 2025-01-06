@@ -119,11 +119,11 @@
   };
 in {
   imports = [
-    # (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
+    (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
     # (modulesPath + "/installer/cd-dvd/iso-image.nix")
     # (modulesPath + "/profiles/all-hardware.nix")
-    (modulesPath + "/profiles/minimal.nix")
-    (modulesPath + "/installer/cd-dvd/installation-cd-base.nix")
+    # (modulesPath + "/profiles/minimal.nix")
+    # (modulesPath + "/installer/cd-dvd/installation-cd-base.nix")
   ];
   boot = {
     loader = {
@@ -140,10 +140,16 @@ in {
     packages = with pkgs; [powerline-fonts];
   };
   documentation = {
-    man.enable = lib.mkOverride 500 false;
-    doc.enable = lib.mkOverride 500 false;
+    man.enable = lib.mkForce false;
+    doc.enable = lib.mkForce false;
   };
-  fonts.fontconfig.enable = true;
+  font.fontconfig.enable = lib.mkForce false;
+  networking = {
+    enableIPv6 = false;
+    useDHCP = false;
+    interfaces = {};
+    networkmanager.enable = false;
+  };
   isoImage = {
     edition = lib.mkOverride 500 "minimal";
     isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
