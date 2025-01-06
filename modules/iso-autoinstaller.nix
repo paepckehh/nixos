@@ -119,11 +119,11 @@
   };
 in {
   imports = [
-    (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
+    # (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
     # (modulesPath + "/installer/cd-dvd/iso-image.nix")
     # (modulesPath + "/profiles/all-hardware.nix")
     # (modulesPath + "/profiles/minimal.nix")
-    # (modulesPath + "/installer/cd-dvd/installation-cd-base.nix")
+    (modulesPath + "/installer/cd-dvd/installation-cd-base.nix")
   ];
   boot = {
     loader = {
@@ -143,20 +143,21 @@ in {
     man.enable = lib.mkForce false;
     doc.enable = lib.mkForce false;
   };
-  font.fontconfig.enable = lib.mkForce false;
+  fonts.fontconfig.enable = lib.mkForce false;
   networking = {
-    enableIPv6 = false;
-    useDHCP = false;
-    interfaces = {};
-    networkmanager.enable = false;
+    enableIPv6 = lib.mkForce false;
+    useDHCP = lib.mkForce false;
+    interfaces = lib.mkForce {};
+    networkmanager.enable = lib.mkForce false;
   };
   isoImage = {
-    edition = lib.mkOverride 500 "minimal";
+    edition = lib.mkForce "minimal";
     isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
     makeEfiBootable = true;
     makeUsbBootable = true;
     squashfsCompression = "zstd";
   };
+  system.stateVersion = "24.11";
   systemd.services."getty@tty1" = {
     overrideStrategy = "asDropin";
     serviceConfig = {
@@ -165,5 +166,4 @@ in {
       StandardInput = "null";
     };
   };
-  system.stateVersion = "24.11";
 }

@@ -83,12 +83,9 @@
             dnsutils
             fastfetch
             goaccess
-            gobang
-            gopass
             git-crypt
             git-agecrypt
             gping
-            gum
             httpie
             hyperfine
             inetutils
@@ -100,7 +97,6 @@
             tcping-go
             tldr
             tlsinfo
-            termdbms
             termshark
             tshark
             tig
@@ -127,7 +123,6 @@
             nixfmt-rfc-style
             nixpkgs-fmt
             nvme-cli
-            mongosh
             fastfetch
             fd
             jq
@@ -137,10 +132,8 @@
             pwgen
             rage
             rsync
-            ssh-audit
             usbutils
             ugm
-            webanalyze
             ventoy-full
             xh
             yamlfmt
