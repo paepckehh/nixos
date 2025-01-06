@@ -12,7 +12,6 @@
     #   inputs.nixpkgs.follows = "nixpkgs-release";
     # };
     nixpkgs-release.url  = "path:/home/me/dev/nixpkgs";
-    nixpkgs-unstable.url = "path:/home/me/dev/nixpkgs";
     disko = {
       url = "path:/home/me/dev/disko";
       inputs.nixpkgs.follows = "nixpkgs-release";
@@ -26,7 +25,6 @@
     self,
     disko,
     nixpkgs-release,
-    nixpkgs-unstable,
     home-manager,
   }: {
     nixosConfigurations = {
@@ -98,29 +96,6 @@
           ./server/chronyPublic.nix
           ./server/unifi.nix
           ./server/virtual.nix
-          # ./server/firefox-sync-server.nix
-          # ./server/gitea.nix
-          # ./server/ollama.nix
-          # ./server/openweb-ui.nix
-          # ./server/opnborg.nix
-          # ./server/opnborg-complex.nix
-          # ./server/opnborg-docker-complex.nix
-          # ./server/webserver-nginx.nix
-          {networking.hostName = "nixos-mp-infra";}
-        ];
-      };
-      nixos-mp-infra-beta = nixpkgs-unstable.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./desktop/gnome2505.nix
-          ./person/mpaepcke_luks.nix # XXX
-          ./person/desktop/mpaepcke.nix
-          ./server/adguard.nix
-          ./server/chronyPublic.nix
-          ./server/unifi.nix
-          # ./server/virtual.nix
           # ./server/firefox-sync-server.nix
           # ./server/gitea.nix
           # ./server/ollama.nix

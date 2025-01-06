@@ -7,7 +7,7 @@
         ]
       },
       "locked": {
-        "lastModified": 1736137136,
+        "lastModified": 1736137693,
         "narHash": "sha256-dkqZXCYVT+/p2pP/aMwsG2ly4CX8ldAy56dabmzYp3s=",
         "path": "/home/me/dev/disko",
         "type": "path"
@@ -36,20 +36,8 @@
     },
     "nixpkgs-release": {
       "locked": {
-        "lastModified": 1736137098,
-        "narHash": "sha256-nKxJZ4V/TWtUbMUBmlW2lkV7xmEliyDFD265P0A9I/M=",
-        "path": "/home/me/dev/nixpkgs",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/me/dev/nixpkgs",
-        "type": "path"
-      }
-    },
-    "nixpkgs-unstable": {
-      "locked": {
-        "lastModified": 1736137098,
-        "narHash": "sha256-nKxJZ4V/TWtUbMUBmlW2lkV7xmEliyDFD265P0A9I/M=",
+        "lastModified": 1736140568,
+        "narHash": "sha256-HB/D3uKg0c0c+eoSScHC0VbXvgK5e0makWJDRY936pM=",
         "path": "/home/me/dev/nixpkgs",
         "type": "path"
       },
@@ -62,8 +50,7 @@
       "inputs": {
         "disko": "disko",
         "home-manager": "home-manager",
-        "nixpkgs-release": "nixpkgs-release",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-release": "nixpkgs-release"
       }
     }
   },

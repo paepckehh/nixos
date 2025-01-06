@@ -119,12 +119,16 @@
   };
 in {
   imports = [
+    # (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
     # (modulesPath + "/installer/cd-dvd/iso-image.nix")
-    (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
-    (modulesPath + "/profiles/all-hardware.nix")
+    # (modulesPath + "/profiles/all-hardware.nix")
+    (modulesPath + "/profiles/minimal.nix")
+    (modulesPath + "/installer/cd-dvd/installation-cd-base.nix")
   ];
   boot = {
-    loader.timeout = lib.mkForce 0;
+    loader = { 
+      timeout = lib.mkForce 1;
+      grub.memtest86.enable = lib.mkForce false;
     kernelParams = ["systemd.unit=getty.target"];
     kernelPackages = pkgs.linuxPackages_latest;
   };
@@ -134,7 +138,13 @@ in {
     font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
     packages = with pkgs; [powerline-fonts];
   };
+  documentation = { 
+    man.enable = lib.mkOverride 500 false;
+    doc.enable = lib.mkOverride 500 false;
+ }
+  fonts.fontconfig.enable = true;
   isoImage = {
+    edition = lib.mkOverride 500 "minimal";
     isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
     makeEfiBootable = true;
     makeUsbBootable = true;

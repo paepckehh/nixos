@@ -187,12 +187,12 @@
             enable = true;
             extraOptions = ["--absolute-path" "--no-ignore" "--hidden" "--ignore-case"];
           };
-          gh = {
-            enable = true;
-            settings.git_protocol = "ssh";
-          };
           go = {
             enable = true;
+          };
+          ghostty = {
+            enable = true;
+            enableZshIntegration = true;
           };
           vim = {
             enable = true;
