@@ -11,7 +11,7 @@
     #   url = "github:nix-community/home-manager/master";
     #   inputs.nixpkgs.follows = "nixpkgs-release";
     # };
-    nixpkgs-release.url  = "path:/home/me/dev/nixpkgs";
+    nixpkgs-release.url = "path:/home/me/dev/nixpkgs";
     disko = {
       url = "path:/home/me/dev/disko";
       inputs.nixpkgs.follows = "nixpkgs-release";
