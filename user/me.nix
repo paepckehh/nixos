@@ -72,8 +72,6 @@
             age
             bandwhich
             bmon
-            binsider
-            certgraph
             curlie
             ddgr
             dust
@@ -135,7 +133,6 @@
             ventoy-full
             xh
             yamlfmt
-            yarn
             yubikey-manager
             yq
           ];
