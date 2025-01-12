@@ -51,7 +51,9 @@
       nixos-mp = nixpkgs-release.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          disko.nixosModules.disko
           home-manager.nixosModules.home-manager
+          ./modules/disko.nix
           ./configuration.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
@@ -60,10 +62,12 @@
           {networking.hostName = "nixos-mp";}
         ];
       };
-      nixos-infra = nixpkgs-release.lib.nixosSystem {
+      nixos-srv = nixpkgs-release.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          disko.nixosModules.disko
           home-manager.nixosModules.home-manager
+          ./modules/disko.nix
           ./configuration.nix
           ./desktop/gnome.nix
           ./person/mpaepcke.nix
@@ -83,18 +87,20 @@
           {networking.hostName = "nixos-infra";}
         ];
       };
-      nixos-mp-infra = nixpkgs-release.lib.nixosSystem {
+      nixos-srv-mp = nixpkgs-release.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          disko.nixosModules.disko
           home-manager.nixosModules.home-manager
+          ./modules/disko.nix
           ./configuration.nix
           ./desktop/gnome.nix
-          ./person/mpaepcke_luks.nix
+          ./person/mpaepcke_luks.nix # XXX
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
-          ./server/unifi.nix
           ./server/virtual.nix
+          # ./server/unifi.nix
           # ./server/firefox-sync-server.nix
           # ./server/gitea.nix
           # ./server/ollama.nix
