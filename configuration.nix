@@ -318,7 +318,7 @@
           file.allow = "always";
           git.allow = "never";
           ssh.allow = "always";
-          http.allow = "never";
+          http.allow = "always";
           https.allow = "always";
         };
       };

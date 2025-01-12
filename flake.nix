@@ -74,8 +74,8 @@
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
-          ./server/unifi.nix
           ./server/virtual.nix
+          # ./server/unifi.nix
           # ./server/firefox-sync-server.nix
           # ./server/gitea.nix
           # ./server/ollama.nix
