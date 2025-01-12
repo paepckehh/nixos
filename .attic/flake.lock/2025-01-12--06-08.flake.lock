@@ -1,0 +1,59 @@
+{
+  "nodes": {
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-release"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736657513,
+        "narHash": "sha256-4NjJEtkYvOy1rucoQLm69TCTj76ahzZ6MTemRUQj7V4=",
+        "path": "/home/me/dev/nixos/disko",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/me/dev/nixos/disko",
+        "type": "path"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-release"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736658205,
+        "narHash": "sha256-tAXtQkEFx4Bfz+L9uqgLSuasLzDbvECI+eWZqyeviVg=",
+        "path": "/home/me/dev/nixos/home-manager",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/me/dev/nixos/home-manager",
+        "type": "path"
+      }
+    },
+    "nixpkgs-release": {
+      "locked": {
+        "lastModified": 0,
+        "narHash": "sha256-+hdCiSOyNkCpN13LgOYsHotaNQQx7wjD9wF8sBr8Uro=",
+        "path": "/home/me/dev/nixos/nixos-24.11",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/me/dev/nixos/nixos-24.11",
+        "type": "path"
+      }
+    },
+    "root": {
+      "inputs": {
+        "disko": "disko",
+        "home-manager": "home-manager",
+        "nixpkgs-release": "nixpkgs-release"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
