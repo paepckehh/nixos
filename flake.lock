@@ -7,8 +7,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1736151765,
-        "narHash": "sha256-2dt1nOe9zf9pDkf5Kn7FUFyPRo581s0n90jxYXJ94l0=",
+        "lastModified": 1736657513,
+        "narHash": "sha256-4NjJEtkYvOy1rucoQLm69TCTj76ahzZ6MTemRUQj7V4=",
         "path": "/home/me/dev/nixos/disko",
         "type": "path"
       },
@@ -24,8 +24,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1736151778,
-        "narHash": "sha256-/LPWMiiJGPHGd7ZYEgmbE2da4zvBW0acmshUjYC3WG4=",
+        "lastModified": 1736658205,
+        "narHash": "sha256-tAXtQkEFx4Bfz+L9uqgLSuasLzDbvECI+eWZqyeviVg=",
         "path": "/home/me/dev/nixos/home-manager",
         "type": "path"
       },
@@ -37,7 +37,7 @@
     "nixpkgs-release": {
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-PE5JaSk5hGGKfRkSJMtfHPRAFHSd6q4T9bOByL/KPYY=",
+        "narHash": "sha256-C1Vlm8pWA10q5iQw/HdR/XczY/8mz2fzfLUkJmEHBG4=",
         "path": "/home/me/dev/nixos/nixos-24.11",
         "type": "path"
       },
