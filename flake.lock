@@ -37,7 +37,7 @@
     "nixpkgs-release": {
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-C1Vlm8pWA10q5iQw/HdR/XczY/8mz2fzfLUkJmEHBG4=",
+        "narHash": "sha256-+hdCiSOyNkCpN13LgOYsHotaNQQx7wjD9wF8sBr8Uro=",
         "path": "/home/me/dev/nixos/nixos-24.11",
         "type": "path"
       },
