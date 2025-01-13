@@ -1,24 +1,18 @@
 {
   description = "nixos infra";
   inputs = {
+    # ONLINE
     # nixpkgs-release.url = "github:NixOS/nixpkgs/nixos-24.11";
-    # disko = {
-    #   url = "github:nix-community/disko/master";
-    #   inputs.nixpkgs.follows = "nixpkgs-release";
-    # };
-    # home-manager = {
-    #   url = "github:nix-community/home-manager/master";
-    #   inputs.nixpkgs.follows = "nixpkgs-release";
-    # };
-    nixpkgs-release.url = "path:/home/me/dev/nixos/nixos-24.11";
-    disko = {
-      url = "path:/home/me/dev/nixos/disko";
-      inputs.nixpkgs.follows = "nixpkgs-release";
-    };
-    home-manager = {
-      url = "path:/home/me/dev/nixos/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-release";
-    };
+    # disko.url = "github:nix-community/disko/master";
+    # home-manager.url = "github:nix-community/home-manager/master";
+    #
+    # OFFLINE: GIT+FILE
+    disko.url = "git+file:///home/me/repos/nix-community.disko/master";
+    home-manager.url = "git+file:///home/me/repos/nix-community.home-manager/master";
+    nixpkgs-release.url = "git+file:///home/me/repos/nixos.nixpkgs/nixos-24.11";
+    #
+    disko.inputs.nixpkgs.follows = "nixpkgs-release";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs-release";
   };
   outputs = {
     self,

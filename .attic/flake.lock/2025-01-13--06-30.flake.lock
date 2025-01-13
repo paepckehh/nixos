@@ -36,17 +36,14 @@
     },
     "nixpkgs-release": {
       "locked": {
-        "lastModified": 1736549401,
-        "narHash": "sha256-ibkQrMHxF/7TqAYcQE+tOnIsSEzXmMegzyBWza6uHKM=",
-        "ref": "refs/heads/nixos-24.11",
-        "rev": "1dab772dd4a68a7bba5d9460685547ff8e17d899",
-        "revCount": 712909,
-        "type": "git",
-        "url": "file:///home/me/dev/nixos/nixos-24.11"
+        "lastModified": 0,
+        "narHash": "sha256-+hdCiSOyNkCpN13LgOYsHotaNQQx7wjD9wF8sBr8Uro=",
+        "path": "/home/me/dev/nixos/nixos-24.11",
+        "type": "path"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/me/dev/nixos/nixos-24.11"
+        "path": "/home/me/dev/nixos/nixos-24.11",
+        "type": "path"
       }
     },
     "root": {
