@@ -2,15 +2,16 @@
   description = "nixos infra";
   inputs = {
     # ONLINE
-    # nixpkgs-release.url = "github:NixOS/nixpkgs/nixos-24.11";
     # disko.url = "github:nix-community/disko/master";
     # home-manager.url = "github:nix-community/home-manager/master";
+    # nixpkgs-release.url = "github:NixOS/nixpkgs/nixos-24.11";
     #
-    # OFFLINE: GIT+FILE
-    disko.url = "git+file:///home/me/repos/nix-community.disko/master";
-    home-manager.url = "git+file:///home/me/repos/nix-community.home-manager/master";
-    nixpkgs-release.url = "git+file:///home/me/repos/nixos.nixpkgs/nixos-24.11";
+    # OFFLINE
+    disko.url = "http://git.localnet/nix-community.disko/master";
+    home-manager.url = "http://git.localnet/nix-community.home-manager/master";
+    nixpkgs-release.url = "http://git.localnet/nixos.nixpkgs/nixos-24.11";
     #
+    # CONFIG
     disko.inputs.nixpkgs.follows = "nixpkgs-release";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-release";
   };
@@ -38,6 +39,7 @@
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
+          ./server/cgit.nix
           ./server/chronyPublic.nix
           {networking.hostName = "nixos";}
         ];
@@ -52,6 +54,7 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
+          ./server/cgit.nix
           ./server/chronyPublic.nix
           {networking.hostName = "nixos-mp";}
         ];
@@ -67,6 +70,7 @@
           ./person/mpaepcke.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
+          ./server/cgit.nix
           ./server/chronyPublic.nix
           ./server/virtual.nix
           # ./server/unifi.nix
@@ -92,6 +96,7 @@
           ./person/mpaepcke_luks.nix # XXX
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
+          ./server/cgit.nix
           ./server/chronyPublic.nix
           ./server/virtual.nix
           # ./server/unifi.nix
