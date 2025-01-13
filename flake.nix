@@ -3,12 +3,12 @@
   inputs = {
     # ONLINE
     nixpkgs-release.url = "github:NixOS/nixpkgs/nixos-24.11";
-    disko.url = "github:nix-community/disko/master";
+    # disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
     #
     # OFFLINE
     # nixpkgs-release.url = "http://git.localnet/nixos/nixpkgs";
-    # disko.url = "http://git.localnet/nix-community/disko/.git";
+    disko.url = "http://git.localnet/nix-community/disko";
     # home-manager.url = "http://git.localnet/nix-community/home-manager";
     #
     # CONFIG
