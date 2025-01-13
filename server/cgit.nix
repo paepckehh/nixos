@@ -19,8 +19,10 @@
         enable = true;
         scanPath = "/var/repo";
         settings = {
-          enable-http-clone = true;
+          enable-commit-graph = true;
           enable-follow-links = true;
+          enable-http-clone = true;
+          enable-remote-branches = true;
           clone-url = "http://git.localnet/$CGIT_REPO_URL";
           remove-suffix = true;
           root-title = "http://git.localnet";
