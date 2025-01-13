@@ -22,6 +22,7 @@
           enable-http-clone = true;
           enable-follow-links = true;
           clone-url = "http://git.localnet/$CGIT_REPO_URL";
+          remove-suffix = true;
           root-title = "http://git.localnet";
           root-desc = "local git repo store path: /var/repo";
           snapshots = "all";
