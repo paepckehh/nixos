@@ -18,6 +18,7 @@
       enable = true;
       cgit = {
         enable = true;
+        subdir = "/";
         configText = ''
           enable-commit-graph=1
           enable-follow-links=1
