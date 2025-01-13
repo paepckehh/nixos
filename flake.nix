@@ -68,9 +68,9 @@
           ./person/mpaepcke.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/cgit-ngninx.nix
           ./server/chronyPublic.nix
           ./server/virtual.nix
+          # ./server/cgit-ngninx.nix
           # ./server/unifi.nix
           # ./server/firefox-sync-server.nix
           # ./server/gitea.nix
