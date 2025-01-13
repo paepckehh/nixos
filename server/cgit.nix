@@ -14,7 +14,7 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    lighttp.cgit = {
+    lighttpd.cgit = {
       enable = true;
       configText = ''
         enable-commit-graph=1
