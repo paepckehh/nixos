@@ -39,7 +39,6 @@
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
-          ./server/cgit.nix
           ./server/chronyPublic.nix
           {networking.hostName = "nixos";}
         ];
@@ -54,7 +53,6 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/cgit.nix
           ./server/chronyPublic.nix
           {networking.hostName = "nixos-mp";}
         ];
@@ -70,7 +68,7 @@
           ./person/mpaepcke.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/cgit.nix
+          ./server/cgit-ngninx.nix
           ./server/chronyPublic.nix
           ./server/virtual.nix
           # ./server/unifi.nix
@@ -96,7 +94,7 @@
           ./person/mpaepcke_luks.nix # XXX
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/cgit.nix
+          ./server/cgit-ngninx.nix
           ./server/chronyPublic.nix
           ./server/virtual.nix
           # ./server/unifi.nix
