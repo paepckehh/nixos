@@ -70,7 +70,7 @@
           ./server/adguard.nix
           ./server/chronyPublic.nix
           ./server/virtual.nix
-          # ./server/cgit-ngninx.nix
+          # ./server/cgit-nginx.nix
           # ./server/unifi.nix
           # ./server/firefox-sync-server.nix
           # ./server/gitea.nix
@@ -94,7 +94,6 @@
           ./person/mpaepcke_luks.nix # XXX
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
-          ./server/cgit-ngninx.nix
           ./server/chronyPublic.nix
           ./server/virtual.nix
           # ./server/unifi.nix
