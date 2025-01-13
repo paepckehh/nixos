@@ -1,4 +1,3 @@
-cgit
 {
   config,
   pkgs,
