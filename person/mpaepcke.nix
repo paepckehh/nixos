@@ -60,9 +60,9 @@
             };
             extraConfig = {
               protocol = {
-                allow = "never";
+                allow = "always";
                 file.allow = "always";
-                git.allow = "never";
+                git.allow = "always";
                 ssh.allow = "always";
                 http.allow = "always";
                 https.allow = "always";

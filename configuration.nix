@@ -25,7 +25,7 @@
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
       trusted-users = lib.mkForce ["@wheel"];
-      flake-registry = "";
+      # flake-registry = "";
       http2 = lib.mkForce false;
       sandbox = lib.mkForce true;
       sandbox-build-dir = "/build";
@@ -314,9 +314,9 @@
           version = "HTTP/1.1";
         };
         protocol = {
-          allow = "never";
+          allow = "always";
           file.allow = "always";
-          git.allow = "never";
+          git.allow = "always";
           ssh.allow = "always";
           http.allow = "always";
           https.allow = "always";
