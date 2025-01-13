@@ -1,3 +1,4 @@
+cgit
 {
   config,
   pkgs,
@@ -16,9 +17,9 @@
   services = {
     lighttpd = {
       enable = true;
+      document-root = "/var/www";
       cgit = {
         enable = true;
-        subdir = "/";
         configText = ''
           enable-commit-graph=1
           enable-follow-links=1
