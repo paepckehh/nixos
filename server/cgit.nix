@@ -14,23 +14,20 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    cgit = {
-      "git.localnet" = {
-        enable = true;
-        scanPath = "/var/repo";
-        settings = {
-          enable-commit-graph = true;
-          enable-follow-links = true;
-          enable-http-clone = true;
-          enable-remote-branches = true;
-          clone-url = "http://git.localnet/$CGIT_REPO_URL";
-          remove-suffix = true;
-          root-title = "http://git.localnet";
-          root-desc = "local git repo store path: /var/repo";
-          snapshots = "all";
-        };
-        nginx.virtualHost = "git.localnet";
-      };
+    lighttp.cgit = {
+      enable = true;
+      configText = ''
+        enable-commit-graph=1
+        enable-follow-links=1
+        enable-http-clone=1
+        enable-index-links=1
+        enable-remote-branches=1
+        clone-url=http://git.localnet/$CGIT_REPO_URL
+        remove-suffix=1
+        root-title=http://git.localnet
+        root-desc=local git repo store path: /var/repo
+        scanPath=/var/repo
+        snapshots=all'';
     };
   };
 }
