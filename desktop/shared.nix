@@ -37,7 +37,7 @@
   ##################
   services = {
     autosuspend.enable = lib.mkForce false;
-    blueman.enable = lib.mkForce false;
+    blueman.enable = true;
     speechd.enable = lib.mkForce false;
     printing.enable = lib.mkForce false;
     xserver = {
@@ -67,7 +67,7 @@
   ##################
   hardware = {
     bluetooth = {
-      enable = false;
+      enable = true;
       powerOnBoot = false;
     };
   };

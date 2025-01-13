@@ -84,7 +84,7 @@
           # ./server/opnborg-complex.nix
           # ./server/opnborg-docker-complex.nix
           # ./server/webserver-nginx.nix
-          {networking.hostName = "nixos-infra";}
+          {networking.hostName = "nixos-srv";}
         ];
       };
       nixos-srv-mp = nixpkgs-release.lib.nixosSystem {
@@ -109,7 +109,7 @@
           # ./server/opnborg-complex.nix
           # ./server/opnborg-docker-complex.nix
           # ./server/webserver-nginx.nix
-          {networking.hostName = "nixos-mp-infra";}
+          {networking.hostName = "nixos-srv-mp";}
         ];
       };
     };
