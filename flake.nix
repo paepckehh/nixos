@@ -2,7 +2,7 @@
   description = "nixos infra";
   inputs = {
     # ONLINE
-    nixpkgs-release.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
@@ -19,21 +19,23 @@
   outputs = {
     self,
     disko,
-    nixpkgs-release,
+    nixpkgs,
     nixpkgs-unstable,
     home-manager,
   }: let
-    overlay-unstable = final: prev: {unstable = nixpkgs-unstable.legacyPackages.${prev.system};};
+    overlay-unstable = final: prev: {
+      unstable = nixpkgs-unstable.legacyPackages.${prev.system};
+    };
   in {
     nixosConfigurations = {
-      iso = nixpkgs-release.lib.nixosSystem {
+      iso = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs.targetSystem = self.nixosConfigurations.nixos;
         modules = [
           ./modules/iso-autoinstaller.nix
         ];
       };
-      nixos = nixpkgs-release.lib.nixosSystem {
+      nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
@@ -47,7 +49,7 @@
           {networking.hostName = "nixos";}
         ];
       };
-      nixos-mp = nixpkgs-release.lib.nixosSystem {
+      nixos-mp = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
@@ -61,7 +63,7 @@
           {networking.hostName = "nixos-mp";}
         ];
       };
-      nixos-srv = nixpkgs-release.lib.nixosSystem {
+      nixos-srv = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
@@ -87,7 +89,7 @@
           {networking.hostName = "nixos-srv";}
         ];
       };
-      nixos-srv-mp = nixpkgs-release.lib.nixosSystem {
+      nixos-srv-mp = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ({
