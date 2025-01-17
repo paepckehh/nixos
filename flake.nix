@@ -23,9 +23,7 @@
     nixpkgs-unstable,
     home-manager,
   }: let
-    overlay-unstable = final: prev: {
-      unstable = nixpkgs-unstable.legacyPackages.${prev.system};
-    };
+    overlay-unstable = final: prev: {unstable = nixpkgs-unstable.legacyPackages.${prev.system};};
   in {
     nixosConfigurations = {
       iso = nixpkgs.lib.nixosSystem {
@@ -76,16 +74,6 @@
           ./server/adguard.nix
           ./server/chronyPublic.nix
           ./server/virtual.nix
-          # ./server/cgit-nginx.nix
-          # ./server/unifi.nix
-          # ./server/firefox-sync-server.nix
-          # ./server/gitea.nix
-          # ./server/ollama.nix
-          # ./server/openweb-ui.nix
-          # ./server/opnborg.nix
-          # ./server/opnborg-complex.nix
-          # ./server/opnborg-docker-complex.nix
-          # ./server/webserver-nginx.nix
           {networking.hostName = "nixos-srv";}
         ];
       };
@@ -108,6 +96,7 @@
           ./server/chronyPublic.nix
           ./server/virtual.nix
           ./server/opnborg-systemd.nix
+          # ./server/cgit.nix
           # ./server/unifi.nix
           # ./server/firefox-sync-server.nix
           # ./server/gitea.nix
