@@ -39,7 +39,7 @@
       wantedBy = ["multi-user.target"];
       description = "OPNBorg Service";
       serviceConfig = {
-        ExecStart = "${pkgs.opnborg}/bin/opnborg";
+        ExecStart = "${pkgs.unstable.opnborg}/bin/opnborg";
         KillMode = "process";
         Restart = "always";
         PreStart = "cd /var/lib/opnborg";
