@@ -3,6 +3,7 @@
   inputs = {
     # ONLINE
     nixpkgs-release.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
     #
@@ -19,8 +20,11 @@
     self,
     disko,
     nixpkgs-release,
+    nixpkgs-unstable,
     home-manager,
-  }: {
+  }: let
+    overlay-unstable = final: prev: {unstable = nixpkgs-unstable.legacyPackages.${prev.system};};
+  in {
     nixosConfigurations = {
       iso = nixpkgs-release.lib.nixosSystem {
         system = "x86_64-linux";
@@ -86,6 +90,11 @@
       nixos-srv-mp = nixpkgs-release.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          ({
+            config,
+            pkgs,
+            ...
+          }: {nixpkgs.overlays = [overlay-unstable];})
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./modules/disko.nix
