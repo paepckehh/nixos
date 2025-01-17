@@ -4,17 +4,15 @@
   lib,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.opnborg;
-in
-{
+in {
   options.services.opnborg = {
     enable = mkEnableOption "opnborg";
 
     extraOptions = mkOption {
       type = with types; attrsOf str;
-      default = { };
+      default = {};
       example = ''
         # minimal config
         "OPN_TARGETS" = "opn01.lan";
@@ -67,16 +65,16 @@ in
       };
       groups."opnborg" = {
         name = "opnborg";
-        members = [ "opnborg" ];
+        members = ["opnborg"];
         gid = 6464;
       };
     };
 
-    environment.systemPackages = [ pkgs.opnborg ];
+    environment.systemPackages = [pkgs.opnborg];
 
     systemd.services.opnborg = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       description = "OPNBorg Service";
       environment = cfg.extraOptions;
       serviceConfig = {
@@ -99,5 +97,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ paepcke ];
+  meta.maintainers = with maintainers; [paepcke];
 }
