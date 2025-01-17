@@ -7,7 +7,7 @@
   ####################
   #-=# ENVIROMENT #=-#
   ####################
-  environment.systemPackages = [pkgs.opnborg];
+  environment.systemPackages = [pkgs.unstable.opnborg];
 
   ###############
   #-=# USERS #=-#
