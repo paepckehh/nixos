@@ -13,8 +13,8 @@
     # home-manager.url = "http://git.localnet/nix-community/home-manager";
     #
     # CONFIG
-    disko.inputs.nixpkgs.follows = "nixpkgs-release";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs-release";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
     self,
