@@ -3,17 +3,59 @@
   pkgs,
   lib,
   ...
-}:
-with lib; let
-  cfg = config.services.opnborg;
-in {
-  options.services.opnborg = {
-    enable = mkEnableOption "opnborg";
+}: {
+  ####################
+  #-=# ENVIROMENT #=-#
+  ####################
+  environment.systemPackages = [pkgs.opnborg];
 
-    extraOptions = mkOption {
-      type = with types; attrsOf str;
-      default = {};
-      example = ''
+  ###############
+  #-=# USERS #=-#
+  ###############
+  users = {
+    users = {
+      opnborg = {
+        createHome = true;
+        description = "opnborg service account";
+        uid = 6464;
+        isSystemUser = true;
+        group = "opnborg";
+        home = "/var/lib/opnborg";
+      };
+    };
+    groups."opnborg" = {
+      name = "opnborg";
+      members = ["opnborg"];
+      gid = 6464;
+    };
+  };
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd = {
+    services.opnborg = {
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      description = "OPNBorg Service";
+      serviceConfig = {
+        ExecStart = "${pkgs.opnborg}/bin/opnborg";
+        KillMode = "process";
+        Restart = "always";
+        PreStart = "cd /var/lib/opnborg";
+        User = "opnborg";
+        StateDirectory = "opnborg";
+        StateDirectoryMode = "0750";
+        WorkingDirectory = "/var/lib/opnborg";
+        MemoryDenyWriteExecute = true;
+        NoNewPrivileges = true;
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
+      };
+      environment = ''
         # minimal config
         "OPN_TARGETS" = "opn01.lan";
         "OPN_APIKEY" = "+RIb6YWNdcDWMMM7W5ZYDkUvP4qx6e1r7e/Lg/Uh3aBH+veuWfKc7UvEELH/lajWtNxkOaOPjWR8uMcD";
@@ -42,60 +84,6 @@ in {
         "OPN_WAZUH_WEBUI" = "http://localhost:9292";
         "OPN_PROMETHEUS_WEBUI" = "http://localhost:9191";
       '';
-      description = ''
-        Additional setup enviroment variables
-        Details and more examples: https://github.com/paepckehh/opnborg
-        - Keep opnborg services tcp port numbers > 1024.
-        - Storage Path: /var/lib/opnborg (do not set OPN_PATH)
-      '';
     };
   };
-
-  config = mkIf config.services.opnborg.enable {
-    users = {
-      users = {
-        opnborg = {
-          createHome = true;
-          description = "opnborg service account";
-          uid = 6464;
-          isSystemUser = true;
-          group = "opnborg";
-          home = "/var/lib/opnborg";
-        };
-      };
-      groups."opnborg" = {
-        name = "opnborg";
-        members = ["opnborg"];
-        gid = 6464;
-      };
-    };
-
-    environment.systemPackages = [pkgs.opnborg];
-
-    systemd.services.opnborg = {
-      after = ["network.target"];
-      wantedBy = ["multi-user.target"];
-      description = "OPNBorg Service";
-      environment = cfg.extraOptions;
-      serviceConfig = {
-        ExecStart = "${pkgs.opnborg}/bin/opnborg";
-        KillMode = "process";
-        Restart = "always";
-        PreStart = "cd /var/lib/opnborg";
-        User = "opnborg";
-        StateDirectory = "opnborg";
-        StateDirectoryMode = "0750";
-        WorkingDirectory = "/var/lib/opnborg";
-        MemoryDenyWriteExecute = true;
-        NoNewPrivileges = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-          "AF_UNIX"
-        ];
-      };
-    };
-  };
-
-  meta.maintainers = with maintainers; [paepcke];
 }

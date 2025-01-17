@@ -91,11 +91,12 @@
           ./modules/disko.nix
           ./configuration.nix
           ./desktop/gnome.nix
-          ./person/mpaepcke_luks.nix # XXX
+          ./person/mpaepcke_luks.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
           ./server/chronyPublic.nix
           ./server/virtual.nix
+          ./server/opnborg-systemd.nix
           # ./server/unifi.nix
           # ./server/firefox-sync-server.nix
           # ./server/gitea.nix
