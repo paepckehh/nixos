@@ -3,7 +3,7 @@
     "disko": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-release"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -24,7 +24,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-release"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -42,7 +42,7 @@
         "type": "github"
       }
     },
-    "nixpkgs-release": {
+    "nixpkgs": {
       "locked": {
         "lastModified": 1736916166,
         "narHash": "sha256-puPDoVKxkuNmYIGMpMQiK8bEjaACcCksolsG36gdaNQ=",
@@ -78,7 +78,7 @@
       "inputs": {
         "disko": "disko",
         "home-manager": "home-manager",
-        "nixpkgs-release": "nixpkgs-release",
+        "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }
     }
