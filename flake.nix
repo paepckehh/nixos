@@ -23,14 +23,14 @@
     nixpkgs-unstable,
     home-manager,
   }: let
-    # Global
-    nix-iso-target-hostname = self.nixosConfigurations.nixos;
+    # global var
+    nix-iso-target-hostname = "nixos";
     overlay-unstable = final: prev: {unstable = nixpkgs-unstable.legacyPackages.${prev.system};};
   in {
     nixosConfigurations = {
       iso = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs.targetSystem = nix-iso-target-hostname;
+        specialArgs.targetSystem = self.nixosConfigurations.${nix-iso-target-hostname};
         modules = [
           ./modules/iso-autoinstaller.nix
         ];
@@ -40,11 +40,8 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./desktop/gnome.nix
+          ./role/client-desktop.nix
           ./user/desktop/me.nix
-          ./server/adguard.nix
-          ./server/chronyPublic.nix
           {networking.hostName = "nixos";}
         ];
       };
@@ -53,11 +50,8 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./desktop/gnome.nix
+          ./role/client-desktop.nix
           ./person/desktop/mpaepcke.nix
-          ./server/adguard.nix
-          ./server/chronyPublic.nix
           {networking.hostName = "nixos-mp";}
         ];
       };
@@ -66,12 +60,9 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./desktop/gnome.nix
+          ./role/client-desktop.nix
           ./person/mpaepcke.nix
           ./person/desktop/mpaepcke.nix
-          ./server/adguard.nix
-          ./server/chronyPublic.nix
           ./server/virtual.nix
           {networking.hostName = "nixos-srv";}
         ];
@@ -86,13 +77,10 @@
           }: {nixpkgs.overlays = [overlay-unstable];})
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./modules/wg-client-adm.nix
-          ./desktop/gnome.nix
+          ./role/client-desktop.nix
           ./person/mpaepcke_luks.nix
           ./person/desktop/mpaepcke.nix
-          ./server/adguard.nix
-          ./server/chronyPublic.nix
+          # ./modules/wg-client-adm.nix
           # ./server/virtual.nix
           # ./server/unifi.nix
           # ./server/opnborg-systemd.nix

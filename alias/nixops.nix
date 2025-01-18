@@ -114,7 +114,7 @@
       "nix.iso" = ''
         cd /etc/nixos &&\
         nix build -L .#nixosConfigurations.iso.config.system.build.isoImage &&\
-        ls -la ./result/iso'';
+        cd /etc/nixos/result/iso && ls -la'';
     };
   };
 }
