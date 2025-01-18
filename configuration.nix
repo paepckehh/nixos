@@ -1,5 +1,6 @@
 {
   config,
+  disko,
   pkgs,
   lib,
   home-manager,
