@@ -1,29 +1,23 @@
 {
   description = "nixos infra";
   inputs = {
-    # ONLINE
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # ONLINE URLs
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
-    #
-    # OFFLINE
-    # nixpkgs-release.url = "http://git.localnet/nixos/nixpkgs";
-    # disko.url = "http://git.localnet/nix-community/disko";
-    # home-manager.url = "http://git.localnet/nix-community/home-manager";
-    #
-    # CONFIG
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # GLOBAL
     disko.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
     self,
     disko,
+    home-manager,
     nixpkgs,
     nixpkgs-unstable,
-    home-manager,
   }: let
-    # global var
+    # GLOBAL
     nix-iso-target-hostname = "nixos";
     overlay-unstable = final: prev: {unstable = nixpkgs-unstable.legacyPackages.${prev.system};};
   in {
@@ -80,6 +74,7 @@
           ./role/client-desktop.nix
           ./person/mpaepcke_luks.nix
           ./person/desktop/mpaepcke.nix
+          ./hosts/nixos-srv-mp.nix
           # ./modules/wg-client-adm.nix
           # ./server/virtual.nix
           # ./server/unifi.nix
@@ -93,13 +88,6 @@
           # ./server/opnborg-complex.nix
           # ./server/opnborg-docker-complex.nix
           # ./server/webserver-nginx.nix
-          {networking.hostName = "nixos-srv-mp";}
-          {
-            networking.wg-quick.interfaces."wg-pvz-adm" = {
-              address = ["10.0.8.201/24"];
-              privateKey = nixpkgs.lib.mkForce "8CFstz9PNB/wxoJKW2Dk5nzgd/slMUkItBcnumUB5GE=";
-            };
-          }
         ];
       };
     };
