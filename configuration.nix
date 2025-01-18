@@ -25,7 +25,6 @@
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
       trusted-users = lib.mkForce ["@wheel"];
-      # flake-registry = "";
       http2 = lib.mkForce false;
       sandbox = lib.mkForce true;
       sandbox-build-dir = "/build";
@@ -329,13 +328,6 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    etc."lvm/lvm.conf".text = lib.mkForce ''
-      devices { 
-         issue_discards = 1 
-      }
-      allocations { 
-        thin_pool_discards = 1 
-      }'';
     interactiveShellInit = ''uname -a && eval "$(ssh-agent)"'';
     systemPackages = with pkgs; [alejandra amdgpu_top fzf smartmontools libsmbios wireguard-tools];
     shells = [pkgs.bashInteractive pkgs.zsh];

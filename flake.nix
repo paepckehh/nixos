@@ -113,7 +113,7 @@
           {
             networking.wg-quick.interfaces."wg-pvz-adm" = {
               address = ["10.0.8.201/24"];
-              privateKey = "8CFstz9PNB/wxoJKW2Dk5nzgd/slMUkItBcnumUB5GE=";
+              privateKey = nixpkgs.lib.mkForce "8CFstz9PNB/wxoJKW2Dk5nzgd/slMUkItBcnumUB5GE=";
             };
           }
         ];
