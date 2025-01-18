@@ -24,13 +24,13 @@
     home-manager,
   }: let
     # Global
-    nix-iso-build-target-hostname = self.nixosConfigurations.nixos;
+    nix-iso-target-hostname = self.nixosConfigurations.nixos;
     overlay-unstable = final: prev: {unstable = nixpkgs-unstable.legacyPackages.${prev.system};};
   in {
     nixosConfigurations = {
       iso = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs.targetSystem = nix-iso-build-target-hostname;
+        specialArgs.targetSystem = nix-iso-target-hostname;
         modules = [
           ./modules/iso-autoinstaller.nix
         ];
@@ -110,6 +110,12 @@
           # ./server/opnborg-docker-complex.nix
           # ./server/webserver-nginx.nix
           {networking.hostName = "nixos-srv-mp";}
+          {
+            networking.wg-quick.interfaces."wg-pvz-adm" = {
+              address = ["10.0.8.201/24"];
+              privateKey = "8CFstz9PNB/wxoJKW2Dk5nzgd/slMUkItBcnumUB5GE=";
+            };
+          }
         ];
       };
     };

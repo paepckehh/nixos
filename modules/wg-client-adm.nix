@@ -10,7 +10,7 @@
         privateKey = "[INVALID-PRIVATE-KEY-FROM-GENERIC-WG-NIX-CONFIG-FILE-PLEASE-CHECK-YOUR-NIX-CONF]"; # XXX
         peers = [
           {
-            publicKey = "AAA..."; # XXX
+            publicKey = "y3bEhTE6I3Ux/rvi1sYJ389cfhb3EmofN+aU9e5M3Dc="; # XXX
             allowedIPs = ["10.0.8.0/24"];
             endpoint = "AA66-Z22P-Y22Y-KQ59.pvz.digital:51820";
             persistentKeepalive = 25;
