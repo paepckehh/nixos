@@ -23,12 +23,14 @@
     nixpkgs-unstable,
     home-manager,
   }: let
+    # Global 
+    nix-iso-build-target-hostname = specialArgs.targetSystem = self.nixosConfigurations.nixos;
     overlay-unstable = final: prev: {unstable = nixpkgs-unstable.legacyPackages.${prev.system};};
   in {
     nixosConfigurations = {
       iso = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs.targetSystem = self.nixosConfigurations.nixos;
+        specialArgs.targetSystem = nix-iso-build-target-hostname;
         modules = [
           ./modules/iso-autoinstaller.nix
         ];
@@ -88,6 +90,7 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./modules/disko.nix
+          ./modules/wg-client-adm.nix
           ./configuration.nix
           ./desktop/gnome.nix
           ./person/mpaepcke_luks.nix
