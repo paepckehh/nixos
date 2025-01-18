@@ -38,10 +38,8 @@
       nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
-          ./modules/disko.nix
           ./configuration.nix
+          ./modules/disko.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
@@ -52,10 +50,8 @@
       nixos-mp = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
-          ./modules/disko.nix
           ./configuration.nix
+          ./modules/disko.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
@@ -66,10 +62,8 @@
       nixos-srv = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
-          ./modules/disko.nix
           ./configuration.nix
+          ./modules/disko.nix
           ./desktop/gnome.nix
           ./person/mpaepcke.nix
           ./person/desktop/mpaepcke.nix
@@ -87,11 +81,9 @@
             pkgs,
             ...
           }: {nixpkgs.overlays = [overlay-unstable];})
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
+          ./configuration.nix
           ./modules/disko.nix
           ./modules/wg-client-adm.nix
-          ./configuration.nix
           ./desktop/gnome.nix
           ./person/mpaepcke_luks.nix
           ./person/desktop/mpaepcke.nix
