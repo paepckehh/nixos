@@ -23,8 +23,8 @@
     nixpkgs-unstable,
     home-manager,
   }: let
-    # Global 
-    nix-iso-build-target-hostname = specialArgs.targetSystem = self.nixosConfigurations.nixos;
+    # Global
+    nix-iso-build-target-hostname = self.nixosConfigurations.nixos;
     overlay-unstable = final: prev: {unstable = nixpkgs-unstable.legacyPackages.${prev.system};};
   in {
     nixosConfigurations = {
