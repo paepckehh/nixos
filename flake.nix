@@ -39,7 +39,6 @@
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
-          ./modules/disko.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./server/adguard.nix
@@ -51,7 +50,6 @@
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
-          ./modules/disko.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./server/adguard.nix
@@ -63,7 +61,6 @@
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
-          ./modules/disko.nix
           ./desktop/gnome.nix
           ./person/mpaepcke.nix
           ./person/desktop/mpaepcke.nix
@@ -82,7 +79,6 @@
             ...
           }: {nixpkgs.overlays = [overlay-unstable];})
           ./configuration.nix
-          ./modules/disko.nix
           ./modules/wg-client-adm.nix
           ./desktop/gnome.nix
           ./person/mpaepcke_luks.nix

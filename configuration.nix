@@ -13,6 +13,7 @@
     disko.nixosModules.disko
     home-manager.nixosModules.home-manager
     ./alias/nixops.nix
+    ./modules/disko.nix
   ];
 
   #############
