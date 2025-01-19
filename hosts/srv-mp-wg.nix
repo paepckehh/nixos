@@ -15,7 +15,7 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    hostName = "nixos-srv-mp-adm";
+    hostName = "srv-mp-wg";
     wg-quick.interfaces."wg-pvz-adm" = {
       address = ["10.0.8.201/24"];
       privateKey = nixpkgs.lib.mkForce "8CFstz9PNB/wxoJKW2Dk5nzgd/slMUkItBcnumUB5GE=";

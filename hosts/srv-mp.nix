@@ -7,5 +7,5 @@
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking.hostName = "nixos-srv-mp";
+  networking.hostName = "srv-mp";
 }

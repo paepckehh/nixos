@@ -61,6 +61,7 @@
             EDITOR = "vim";
             VISUAL = "vim";
             PAGER = "bat";
+            STARSHIP_LOG = "error";
             SHELLCHECK_OPTS = "-e SC2086";
           };
           file = {

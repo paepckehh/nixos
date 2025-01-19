@@ -94,13 +94,13 @@
   boot = {
     initrd = {
       systemd.enable = lib.mkForce false;
-      availableKernelModules = ["applespi" "applesmc" "spi_pxa2xx_platform" "intel_lpss_pci" "ahci" "dm_mod" "sd_mod" "sr_mod" "nvme" "mmc_block" "uas" "usbhid" "usb_storage" "xhci_pci"];
+      availableKernelModules = ["ahci" "applespi" "applesmc" "dm_mod" "intel_lpss_pci" "nvme" "mmc_block" "spi_pxa2xx_platform" "sd_mod" "sr_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
-    blacklistedKernelModules = ["affs" "bfs" "befs" "freevxfs" "f2fs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp"];
-    extraModulePackages = [config.boot.kernelPackages.zenpower];
+    blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "brcmfmac" "brcmsmac" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb"];
+    extraModulePackages = [config.boot.kernelPackages.broadcom_sta config.boot.kernelPackages.zenpower];
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = ["page_alloc.shuffle=1" "amd_pstate=active"];
-    kernelModules = ["vfat" "exfat" "uas" "kvm-intel" "kvm-amd" "amd-pstate"];
+    kernelParams = ["amd_pstate=active" "page_alloc.shuffle=1"];
+    kernelModules = ["vfat" "exfat" "uas" "kvm-intel" "kvm-amd" "amd-pstate" "amdgpu" "wl"];
     readOnlyNixStore = lib.mkForce true;
     tmp = {
       cleanOnBoot = true;
@@ -182,12 +182,17 @@
       amd = {
         updateMicrocode = true;
         ryzen-smu.enable = true;
-        sev.enable = true;
+        sev.enable = lib.mkForce false;
       };
       intel = {
         updateMicrocode = true;
-        sgx.provision.enable = true;
+        sgx.provision.enable = lib.mkForce false;
       };
+    };
+    graphics = {
+      enable = lib.mkForce true;
+      enable32Bit = lib.mkForce false;
+      extraPackages = with pkgs; [amdvlk intel-media-driver intel-compute-runtime rocmPackages.clr.icd vpl-gpu-rt];
     };
   };
 
@@ -331,6 +336,7 @@
   environment = {
     interactiveShellInit = ''uname -a && eval "$(ssh-agent)"'';
     systemPackages = with pkgs; [alejandra amdgpu_top fzf smartmontools libsmbios wireguard-tools];
+    variables = {ROC_ENABLE_PRE_VEGA = "1";};
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
       l = "ls -la";

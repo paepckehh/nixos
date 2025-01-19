@@ -44,7 +44,8 @@
           "signon.rememberSignons" = false;
           "privacy.clearOnShutdown.history" = false;
           "privacy.clearOnShutdown.cookies" = false;
-          "webgl.disabled" = true;
+          "media.ffmpeg.vaapi.enabled" = true;
+          "webgl.disabled" = false;
         };
       };
       alacritty = {

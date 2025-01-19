@@ -1,9 +1,14 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+# command_timeout = 2000 
+
 format = """
 [](color_orange)\
 $os\
+$battery\
+$sudo\
 $username\
+$hostname\
 [](bg:color_yellow fg:color_orange)\
 $directory\
 [](fg:color_yellow bg:color_aqua)\
@@ -39,6 +44,7 @@ color_green = '#98971a'
 color_orange = '#d65d0e'
 color_purple = '#b16286'
 color_red = '#cc241d'
+color_white = '#f8f8ff'
 color_yellow = '#d79921'
 
 [os]
@@ -70,11 +76,34 @@ RedHatEnterprise = "󱄛"
 show_always = true
 style_user = "bg:color_orange fg:color_fg0"
 style_root = "bg:color_orange fg:color_fg0"
-format = '[ $user ]($style)'
+format = '[ 🐈 $user ]($style)'
+
+[hostname]
+ssh_only = false
+style = "bg:color_orange fg:color_fg0"
+format = '[@](bg:color_orange fg:color_white)[ $hostname ]($style)'
+
+[battery]
+empty_symbol = '🪫'
+charging_symbol = '🔌'
+discharging_symbol = '🔋'
+full_symbol = '🔋'
+format = "[$symbol $percentage]($style)"
+disabled = false
+
+[[battery.display]]
+threshold = 100
+style = "bg:color_orange fg:color_fg0"
+
+[sudo]
+style = "bg:color_orange fg:color_fg0"
+symbol = '[🤘]($style)'
+disabled = false
 
 [directory]
 style = "fg:color_fg0 bg:color_yellow"
 format = "[ $path ]($style)"
+truncate_to_repo = false
 truncation_length = 3
 truncation_symbol = "…/"
 
@@ -159,8 +188,8 @@ disabled = false
 
 [character]
 disabled = false
-success_symbol = '[#](bold fg:color_green)'
-error_symbol = '[#](bold fg:color_red)'
+success_symbol = '👍'
+error_symbol = '[👎](bg:color_red)'
 vimcmd_symbol = '[](bold fg:color_green)'
 vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
 vimcmd_replace_symbol = '[](bold fg:color_purple)'

@@ -16,9 +16,9 @@
   #-=# HARDWARE #=-#
   ##################
   hardware = {
-    graphics = {
-      enable = lib.mkForce true;
-      enable32Bit = lib.mkForce true;
+    bluetooth = {
+      enable = true;
+      powerOnBoot = false;
     };
   };
 
@@ -61,14 +61,4 @@
   #-=# SECURITY #=-#
   ##################
   security.rtkit.enable = true;
-
-  ##################
-  #-=# HARDWARE #=-#
-  ##################
-  hardware = {
-    bluetooth = {
-      enable = true;
-      powerOnBoot = false;
-    };
-  };
 }
