@@ -44,7 +44,7 @@ color_green = '#98971a'
 color_orange = '#d65d0e'
 color_purple = '#b16286'
 color_red = '#cc241d'
-color_white = '#f8f8ff'
+color_white = '#ffffff'
 color_yellow = '#d79921'
 
 [os]
@@ -76,12 +76,12 @@ RedHatEnterprise = "󱄛"
 show_always = true
 style_user = "bg:color_orange fg:color_fg0"
 style_root = "bg:color_orange fg:color_fg0"
-format = '[🐈$user ]($style)'
+format = '[🐈$user]($style)'
 
 [hostname]
 ssh_only = false
 style = "bg:color_orange fg:color_fg0"
-format = '[@](bg:color_orange fg:color_white)[ $hostname ]($style)'
+format = '[@](bg:color_orange fg:color_white)[$hostname ]($style)'
 
 [battery]
 empty_symbol = '🪫'
