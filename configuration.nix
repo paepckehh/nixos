@@ -96,8 +96,8 @@
       systemd.enable = lib.mkForce false;
       availableKernelModules = ["ahci" "applespi" "applesmc" "dm_mod" "intel_lpss_pci" "nvme" "mmc_block" "spi_pxa2xx_platform" "sd_mod" "sr_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
-    blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "brcmfmac" "brcmsmac" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb"];
-    extraModulePackages = [config.boot.kernelPackages.broadcom_sta config.boot.kernelPackages.zenpower];
+    blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "brcmfmac" "brcmsmac" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb" "wl"];
+    extraModulePackages = [config.boot.kernelPackages.zenpower];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = ["amd_pstate=active" "page_alloc.shuffle=1"];
     kernelModules = ["vfat" "exfat" "uas" "kvm-intel" "kvm-amd" "amd-pstate" "amdgpu" "wl"];
@@ -200,7 +200,6 @@
   #-=# SECURITY #=-#
   ##################
   security = {
-    # lockKernelModules = lib.mkForce true;
     auditd.enable = false;
     allowSimultaneousMultithreading = true;
     protectKernelImage = lib.mkForce true;
