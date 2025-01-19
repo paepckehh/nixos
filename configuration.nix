@@ -100,7 +100,7 @@
     extraModulePackages = [config.boot.kernelPackages.zenpower];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = ["amd_pstate=active" "page_alloc.shuffle=1"];
-    kernelModules = ["vfat" "exfat" "uas" "kvm-intel" "kvm-amd" "amd-pstate" "amdgpu" "wl"];
+    kernelModules = ["vfat" "exfat" "uas" "kvm-intel" "kvm-amd" "amd-pstate" "amdgpu"];
     readOnlyNixStore = lib.mkForce true;
     tmp = {
       cleanOnBoot = true;
