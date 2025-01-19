@@ -88,7 +88,7 @@ empty_symbol = '🪫'
 charging_symbol = '🔌'
 discharging_symbol = '🔋'
 full_symbol = '🔋'
-format = "[$symbol $percentage]($style)"
+format = "[$symbol$percentage]($style)"
 disabled = false
 
 [[battery.display]]
@@ -97,7 +97,7 @@ style = "bg:color_orange fg:color_fg0"
 
 [sudo]
 style = "bg:color_orange fg:color_fg0"
-symbol = '[🤘]($style)'
+format = '[🤘]($style)'
 disabled = false
 
 [directory]
