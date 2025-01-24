@@ -26,6 +26,15 @@
       httpie
       hyperfine
       inetutils
+      parted
+      progress
+      pv
+      paper-age
+      passage
+      pciutils
+      pwgen
+      rage
+      rsync
       shellcheck
       shfmt
       s-tui
@@ -40,10 +49,6 @@
       tree
       trippy
       tz
-      openssl
-      parted
-      progress
-      pv
       kmon
       keepassxc
       keepassxc-go
@@ -63,13 +68,8 @@
       fastfetch
       fd
       jq
-      paper-age
-      passage
-      pciutils
-      pwgen
       onefetch
-      rage
-      rsync
+      openssl
       usbutils
       ugm
       ventoy-full
