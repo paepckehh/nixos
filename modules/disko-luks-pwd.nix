@@ -22,6 +22,12 @@
     };
   };
 
+
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment.etc."luks".text = lib.mkForce ''start'';
+
   ###############
   #-=# DISKO #=-#
   ###############
@@ -35,8 +41,8 @@
             type = "gpt";
             partitions = {
               ESP = {
-                size = "1G";
                 type = "EF00";
+                size = "1G";
                 content = {
                   type = "filesystem";
                   format = "vfat";
@@ -47,10 +53,8 @@
                 size = "8G";
                 content = {
                   type = "swap";
-                  discardPolicy = "both";
-                  priority = 50;
                   randomEncryption = true;
-                  resumeDevice = false;
+                  priority = 50;
                 };
               };
               root = {
@@ -59,7 +63,7 @@
                   initrdUnlock = true;
                   name = "root";
                   type = "luks";
-                  passwordFile = "/etc/nixos/modules/resources/luks";
+                  passwordFile = "/etc/luks";
                   settings.allowDiscards = true;
                   extraFormatArgs = [
                     "--type luks2"
