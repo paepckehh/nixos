@@ -62,7 +62,6 @@
             ...
           }: {nixpkgs.overlays = [overlay-unstable];})
           disko.nixosModules.disko
-          dns.nixosModules.dns.nix
           home-manager.nixosModules.home-manager
           ./hosts/srv-mp.nix
           ./role/client-desktop.nix
