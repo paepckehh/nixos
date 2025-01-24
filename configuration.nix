@@ -177,6 +177,10 @@
   ##################
   hardware = {
     acpilight.enable = true;
+    amdgpu = { 
+      amdvlk.enable = true;
+      opencl.enable = true;
+    }
     enableAllFirmware = lib.mkForce true;
     cpu = {
       amd = {
@@ -192,8 +196,10 @@
     graphics = {
       enable = lib.mkForce true;
       enable32Bit = lib.mkForce false;
-      extraPackages = with pkgs; [amdvlk intel-media-driver intel-compute-runtime rocmPackages.clr.icd vpl-gpu-rt];
+      extraPackages = with pkgs; [intel-media-driver intel-compute-runtime vpl-gpu-rt];
     };
+    intel-gpu-tools.enable = true;
+    kbdlight.enable = true;
   };
 
   ##################

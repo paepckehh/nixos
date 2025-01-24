@@ -3,6 +3,7 @@
   inputs = {
     # ONLINE URLs
     disko.url = "github:nix-community/disko/master";
+    dns.url = "github:nix-community/dns.nix/master";
     home-manager.url = "github:nix-community/home-manager/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -13,6 +14,7 @@
   outputs = {
     self,
     disko,
+    dns,
     home-manager,
     nixpkgs,
     nixpkgs-unstable,
@@ -22,13 +24,9 @@
     overlay-unstable = final: prev: {unstable = nixpkgs-unstable.legacyPackages.${prev.system};};
   in {
     nixosConfigurations = {
-      iso = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs.targetSystem = self.nixosConfigurations.${nix-iso-target-hostname};
-        modules = [
-          ./modules/iso-autoinstaller.nix
-        ];
-      };
+      ###########
+      # GENERIC #
+      ###########
       nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -39,6 +37,9 @@
           {networking.hostName = "nixos";}
         ];
       };
+      ##########
+      # CLIENT #
+      ##########
       client-mp = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -49,6 +50,9 @@
           {networking.hostName = "client-mp";}
         ];
       };
+      ##########
+      # SERVER #
+      ##########
       srv-mp = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -58,6 +62,7 @@
             ...
           }: {nixpkgs.overlays = [overlay-unstable];})
           disko.nixosModules.disko
+          dns.nixosModules.dns.nix
           home-manager.nixosModules.home-manager
           ./hosts/srv-mp.nix
           ./role/client-desktop.nix
@@ -76,6 +81,16 @@
           # ./server/opnborg-complex.nix
           # ./server/opnborg-docker-complex.nix
           # ./server/webserver-nginx.nix
+        ];
+      };
+      #############
+      # ISO IMAGE #
+      #############
+      iso = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs.targetSystem = self.nixosConfigurations.${nix-iso-target-hostname};
+        modules = [
+          ./modules/iso-autoinstaller.nix
         ];
       };
     };

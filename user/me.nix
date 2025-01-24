@@ -5,6 +5,15 @@
   home-manager,
   ...
 }: {
+  #################
+  #-=# IMPORTS #=-#
+  #################
+  imports = [
+    ../alias/nixops.nix
+    ../modules/disko.nix
+    ./packages-all.nix
+  ];
+
   ###############
   #-=# USERS #=-#
   ###############
@@ -68,87 +77,18 @@
             ".npmrc".text = ''prefix=~/.npm-packages'';
             ".config/starship.toml".source = ./resources/starship/gruvbox-rainbow.toml;
           };
-          packages = with pkgs; [
-            asn
-            age
-            bandwhich
-            bmon
-            curlie
-            ddgr
-            dust
-            dmidecode
-            dnstracer
-            dnsutils
-            fastfetch
-            git-crypt
-            git-agecrypt
-            gping
-            httpie
-            hyperfine
-            inetutils
-            shellcheck
-            shfmt
-            s-tui
-            stress
-            sysz
-            tcping-go
-            tldr
-            tlsinfo
-            termshark
-            tshark
-            tig
-            tree
-            trippy
-            tz
-            openssl
-            parted
-            progress
-            pv
-            kmon
-            keepassxc
-            keepassxc-go
-            moreutils
-            ncdu
-            netscanner
-            nix-tree
-            nix-top
-            nix-init
-            nix-search-cli
-            nix-output-monitor
-            nixpkgs-review
-            nix-prefetch-scripts
-            nixfmt-rfc-style
-            nixpkgs-fmt
-            nvme-cli
-            fastfetch
-            fd
-            jq
-            paper-age
-            passage
-            pciutils
-            pwgen
-            rage
-            rsync
-            usbutils
-            ugm
-            ventoy-full
-            xh
-            yamlfmt
-            yubikey-manager
-            yq
-          ];
         };
         fonts.fontconfig.enable = true;
         programs = {
           btop.enable = true;
           direnv.enable = true;
           fzf.enable = true;
-          thefuck.enable = true;
-          starship.enable = true;
           git.enable = true;
           gitui.enable = true;
-          lazygit.enable = true;
           home-manager.enable = true;
+          thefuck.enable = true;
+          starship.enable = true;
+          lazygit.enable = true;
           ripgrep.enable = true;
           skim.enable = true;
           atuin = {
@@ -156,9 +96,9 @@
             flags = ["--disable-up-arrow"];
             settings = {
               auto_sync = false;
-              dialect = "us"; # TODO
+              dialect = "us";
               update_check = false;
-              sync_address = "http://localhost:8888"; # TODO
+              sync_address = "http://localhost:8888";
               sync_frequency = "10min";
             };
           };
