@@ -32,6 +32,7 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
+          ./modules/disko-luks-pwd.nix
           ./role/client-desktop.nix
           ./user/desktop/me.nix
           {networking.hostName = "nixos";}
@@ -45,6 +46,7 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
+          ./modules/disko.nix
           ./role/client-desktop.nix
           ./person/desktop/mpaepcke.nix
           {networking.hostName = "client-mp";}
@@ -63,11 +65,11 @@
           }: {nixpkgs.overlays = [overlay-unstable];})
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
+          ./modules/disko.nix
           ./hosts/srv-mp.nix
           ./role/client-desktop.nix
           ./person/mpaepcke_luks.nix
           ./person/desktop/mpaepcke.nix
-          # ./modules/wg-client-adm.nix
           # ./server/virtual.nix
           # ./server/unifi.nix
           # ./server/opnborg-systemd.nix
@@ -76,10 +78,6 @@
           # ./server/gitea.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
-          # ./server/opnborg.nix
-          # ./server/opnborg-complex.nix
-          # ./server/opnborg-docker-complex.nix
-          # ./server/webserver-nginx.nix
         ];
       };
       #############

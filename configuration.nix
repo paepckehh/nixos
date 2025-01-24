@@ -10,7 +10,6 @@
   #################
   imports = [
     ./alias/nixops.nix
-    ./modules/disko.nix
   ];
 
   #############
