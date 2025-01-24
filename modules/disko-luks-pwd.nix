@@ -1,6 +1,7 @@
 {
   config,
   disko,
+  lib,
   ...
 }: {
   ##############
@@ -36,7 +37,6 @@
               ESP = {
                 size = "1G";
                 type = "EF00";
-                label = "disk-main-ESP";
                 content = {
                   type = "filesystem";
                   format = "vfat";
@@ -45,7 +45,6 @@
               };
               swap = {
                 size = "8G";
-                label = "disk-main-swap";
                 content = {
                   type = "swap";
                   discardPolicy = "both";
@@ -56,7 +55,6 @@
               };
               root = {
                 size = "100%";
-                label = "disk-main-root";
                 content = {
                   initrdUnlock = true;
                   name = "root";
