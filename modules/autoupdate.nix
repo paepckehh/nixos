@@ -4,6 +4,16 @@
   lib,
   ...
 }: {
+  #################
+  #-=# NIXPKGS #=-#
+  #################
+  nixpkgs = {
+    config = {
+      allowBroken = lib.mkDefault true;
+      allowUnfree = lib.mkDefault true;
+    };
+  };
+
   ###############
   #-= SYSTEM #=-#
   ###############
