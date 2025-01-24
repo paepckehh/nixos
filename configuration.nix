@@ -101,6 +101,7 @@
     kernelParams = ["amd_pstate=active" "page_alloc.shuffle=1"];
     kernelModules = ["vfat" "exfat" "uas" "kvm-intel" "kvm-amd" "amd-pstate" "amdgpu"];
     readOnlyNixStore = lib.mkForce true;
+    plymouth.enable = true;
     tmp = {
       cleanOnBoot = true;
       useTmpfs = true;
@@ -178,7 +179,7 @@
     acpilight.enable = true;
     amdgpu = {
       amdvlk.enable = true;
-      opencl.enable = true;
+      opencl.enable = false;
     };
     enableAllFirmware = lib.mkForce true;
     cpu = {
@@ -195,9 +196,8 @@
     graphics = {
       enable = lib.mkForce true;
       enable32Bit = lib.mkForce false;
-      extraPackages = with pkgs; [intel-media-driver intel-compute-runtime vpl-gpu-rt];
+      extraPackages = with pkgs; [intel-media-driver vpl-gpu-rt]; # intel-compute-runtime
     };
-    intel-gpu-tools.enable = true;
   };
 
   ##################

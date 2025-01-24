@@ -22,12 +22,6 @@
     };
   };
 
-
-  #####################
-  #-=# ENVIRONMENT #=-#
-  #####################
-  environment.etc."luks".text = lib.mkForce ''start'';
-
   ###############
   #-=# DISKO #=-#
   ###############
@@ -63,7 +57,7 @@
                   initrdUnlock = true;
                   name = "root";
                   type = "luks";
-                  passwordFile = "/etc/luks";
+                  passwordFile = "/tmp/luks";
                   settings.allowDiscards = true;
                   extraFormatArgs = [
                     "--type luks2"

@@ -15,14 +15,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [gparted mission-center filezilla];
-  };
-
-  ##################
-  #-=# PROGRAMS #=-#
-  ##################
-  programs = {
-    coolercontrol.enable = true;
+    systemPackages = with pkgs; [gparted mission-center];
   };
 
   ######################
@@ -30,17 +23,17 @@
   ######################
   home-manager.users.me = {
     services = {
-      remmina.enable = true;
+      remmina.enable = false;
     };
     programs = {
       librewolf = {
         enable = true;
         settings = {
+          # "identity.fxaccounts" = true;
+          # "identity.fxaccounts.autoconfig.uri" = "https://localhost:5000";
           "browser.cache.disk.enable" = false;
           "browser.compactmode.show" = true;
           "browser.startup.homepage" = "";
-          "identity.fxaccounts" = true;
-          "identity.fxaccounts.autoconfig.uri" = "https://localhost:5000";
           "signon.rememberSignons" = false;
           "privacy.clearOnShutdown.history" = false;
           "privacy.clearOnShutdown.cookies" = false;

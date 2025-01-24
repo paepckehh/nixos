@@ -19,8 +19,10 @@
     nixpkgs,
     nixpkgs-unstable,
   }: let
-    # GLOBAL
-    nix-iso-target-hostname = "nixos";
+    #################
+    # GLOBAL CONFIG #
+    #################
+    build.iso.target.hostname = "nixos";
     overlay-unstable = final: prev: {unstable = nixpkgs-unstable.legacyPackages.${prev.system};};
   in {
     nixosConfigurations = {
@@ -66,7 +68,6 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./modules/disko.nix
-          ./hosts/srv-mp.nix
           ./role/client-desktop.nix
           ./person/mpaepcke_luks.nix
           ./person/desktop/mpaepcke.nix
@@ -78,6 +79,7 @@
           # ./server/gitea.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
+          {networking.hostName = "srv-mp";}
         ];
       };
       #############
@@ -85,7 +87,7 @@
       #############
       iso = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs.targetSystem = self.nixosConfigurations.${nix-iso-target-hostname};
+        specialArgs.targetSystem = self.nixosConfigurations.${build.iso.target.hostname};
         modules = [
           ./modules/iso-autoinstaller.nix
         ];

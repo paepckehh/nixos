@@ -10,7 +10,6 @@
   environment = {
     systemPackages = with pkgs; [
       asn
-      age
       bandwhich
       bmon
       curlie
@@ -20,8 +19,6 @@
       dnstracer
       dnsutils
       fastfetch
-      git-crypt
-      git-agecrypt
       gping
       httpie
       hyperfine
@@ -33,8 +30,6 @@
       passage
       pciutils
       pwgen
-      rage
-      rsync
       shellcheck
       shfmt
       s-tui
@@ -45,7 +40,6 @@
       tlsinfo
       termshark
       tshark
-      tig
       tree
       trippy
       tz
@@ -71,7 +65,6 @@
       onefetch
       openssl
       usbutils
-      ugm
       ventoy-full
       xh
       yamlfmt
