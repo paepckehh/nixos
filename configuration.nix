@@ -199,7 +199,6 @@
       extraPackages = with pkgs; [intel-media-driver intel-compute-runtime vpl-gpu-rt];
     };
     intel-gpu-tools.enable = true;
-    kbdlight.enable = true;
   };
 
   ##################
@@ -273,6 +272,7 @@
     htop.enable = true;
     iftop.enable = true;
     iotop.enable = true;
+    kbdlight.enable = true;
     nano.enable = true;
     mtr.enable = true;
     usbtop.enable = true;
