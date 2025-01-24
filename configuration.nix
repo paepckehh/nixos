@@ -177,10 +177,10 @@
   ##################
   hardware = {
     acpilight.enable = true;
-    amdgpu = { 
+    amdgpu = {
       amdvlk.enable = true;
       opencl.enable = true;
-    }
+    };
     enableAllFirmware = lib.mkForce true;
     cpu = {
       amd = {
