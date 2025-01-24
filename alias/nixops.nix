@@ -113,7 +113,7 @@
         nix.sign'';
       "nix.iso" = ''
         cd /etc/nixos &&\
-        nix build -L .#nixosConfigurations.iso.config.system.build.isoImage &&\
+        NIXPKGS_ALLOW_BROKEN=1 sudo nix build -L .#nixosConfigurations.iso.config.system.build.isoImage &&\
         cd /etc/nixos/result/iso && ls -la'';
     };
   };
