@@ -92,7 +92,7 @@
   ##############
   boot = {
     initrd = {
-      systemd.enable = lib.mkForce false;
+      systemd.enable = false;
       availableKernelModules = ["ahci" "applespi" "applesmc" "dm_mod" "intel_lpss_pci" "nvme" "mmc_block" "spi_pxa2xx_platform" "sd_mod" "sr_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
     blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "brcmfmac" "brcmsmac" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb" "wl"];
@@ -101,7 +101,6 @@
     kernelParams = ["amd_pstate=active" "page_alloc.shuffle=1"];
     kernelModules = ["vfat" "exfat" "uas" "kvm-intel" "kvm-amd" "amd-pstate" "amdgpu"];
     readOnlyNixStore = lib.mkForce true;
-    plymouth.enable = true;
     tmp = {
       cleanOnBoot = true;
       useTmpfs = true;
@@ -141,9 +140,13 @@
     timeZone = null; # UTC, local: "Europe/Berlin";
     hardwareClockInLocalTime = true;
   };
+  # How to get all installed kbd all options? 
+  # cd /nix/store && fd base.lst | xargs cat
+  # see desktop/shared.nix for xserver setup
   console = {
+    enable = true;
     earlySetup = lib.mkForce true;
-    keyMap = "us";
+    keyMap = "us"; 
     font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
     packages = with pkgs; [powerline-fonts];
   };
@@ -403,7 +406,7 @@
         RADEON_DPM_STATE_ON_BAT = "battery";
         RADEON_POWER_PROFILE_ON_AC = "low";
         RADEON_POWER_PROFILE_ON_BAT = "low";
-        PLATFORM_PROFILE_ON_AC = "low-power";
+        PLATFORM_PROFILE_ON_AC = "balanced";
         PLATFORM_PROFILE_ON_BAT = "low-power";
       };
     };

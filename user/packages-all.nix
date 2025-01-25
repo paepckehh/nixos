@@ -29,6 +29,7 @@
       paper-age
       passage
       pciutils
+      p7zip
       pwgen
       shellcheck
       shfmt
