@@ -24,7 +24,7 @@
       #!/bin/sh
 
       # SETUP
-      LUKS_PASSWD="start"
+      LUKS_PASSWORD="start"
 
       info() {
       	echo ""
@@ -161,7 +161,7 @@ in {
     isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
     makeEfiBootable = true;
     makeUsbBootable = true;
-    squashfsCompression = "zstd";
+    squashfsCompression = "zstd -Xcompression-level 22";
   };
   system.stateVersion = "24.11";
   systemd.services."getty@tty1" = {

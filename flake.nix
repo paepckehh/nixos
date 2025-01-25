@@ -34,7 +34,6 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./modules/disko-luks-pwd.nix
           ./role/client-desktop.nix
           ./user/desktop/me.nix
           {networking.hostName = "nixos";}
@@ -90,7 +89,7 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./modules/disko-luks-pwd.nix
+          ./modules/disko.nix
           ./modules/adminpc.nix
           ./role/client-desktop.nix
           ./user/desktop/me.nix

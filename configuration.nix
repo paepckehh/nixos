@@ -140,11 +140,8 @@
     timeZone = null; # UTC, local: "Europe/Berlin";
     hardwareClockInLocalTime = true;
   };
-  # How to get all installed kbd all options? 
-  # cd /nix/store && fd base.lst | xargs cat
-  # see desktop/shared.nix for xserver setup
   console = {
-    enable = true;
+    enable = lib.mkForce true;
     earlySetup = lib.mkForce true;
     keyMap = "us"; 
     font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
