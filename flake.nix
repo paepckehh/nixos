@@ -93,13 +93,15 @@
           ./modules/adminpc.nix
           ./role/client-desktop.nix
           ./user/desktop/me.nix
-          {networking.hostName = "nixos";}
+          {networking.hostName = "installer";}
         ];
       };
       iso = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs.targetSystem = self.nixosConfigurations.${build.iso.target.hostname};
         modules = [
+          disko.nixosModules.disko
+          ./modules/disko-luks.nix
           ./modules/iso-autoinstaller.nix
         ];
       };

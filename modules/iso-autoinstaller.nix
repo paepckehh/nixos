@@ -24,7 +24,7 @@
       #!/bin/sh
 
       # SETUP
-      LUKS_PASSWORD="start"
+      export LUKS_PASSWORD="start"
 
       info() {
       	echo ""
@@ -63,6 +63,7 @@
         echo "[NIX-AUTO] Finish Disk wipe $DEVICE_MAIN."
         echo "[NIX-AUTO] Starting $DEVICE_MAIN partition table create."
         echo "$LUKS_PASSWORD" > /tmp/luks
+        echo "[NIX-AUTO] Setting Luks Password: $LUKS_PASSWORD"
         DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript} 2> /dev/null
         # DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript}
         sync
