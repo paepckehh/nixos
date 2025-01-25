@@ -17,12 +17,11 @@
           "root" = {
             device = "/dev/disk/by-partlabel/disk-main-root";
             allowDiscards = true;
-            };
           };
         };
       };
     };
-
+  };
 
   ###############
   #-=# DISKO #=-#

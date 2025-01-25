@@ -162,7 +162,7 @@ in {
     isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
     makeEfiBootable = true;
     makeUsbBootable = true;
-    squashfsCompression = "zstd -Xcompression-level 22";
+    squashfsCompression = "zstd -Xcompression-level 19";
   };
   system.stateVersion = "24.11";
   systemd.services."getty@tty1" = {

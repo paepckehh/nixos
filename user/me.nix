@@ -9,7 +9,6 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ../alias/nixops.nix
     ./packages-all.nix
   ];
 
