@@ -12,7 +12,7 @@
       systemd.enable = lib.mkForce true;
       availableKernelModules = ["aesni_intel" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "mmc_block" "spi_pxa2xx_platform" "uas" "usbhid" "usb_storage" "xhci_pci"];
       luks = {
-        cryptoModules = ["aes" "xts" "sha256" "sha512" "argon2"];
+        cryptoModules = ["aes" "xts" "sha256" "sha512"];
         yubikeySupport = false;
         mitigateDMAAttacks = lib.mkForce true;
         devices = {
