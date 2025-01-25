@@ -13,7 +13,7 @@
       availableKernelModules = ["aesni_intel" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "mmc_block" "spi_pxa2xx_platform" "uas" "usbhid" "usb_storage" "xhci_pci"];
       luks = {
         cryptoModules = ["aes" "xts" "sha256" "sha512" "argon2"];
-        yubikeySupport = true;
+        yubikeySupport = false;
         mitigateDMAAttacks = lib.mkForce true;
         devices = {
           "root" = {
