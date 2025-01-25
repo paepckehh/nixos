@@ -12,24 +12,23 @@
       systemd.enable = lib.mkForce true;
       availableKernelModules = ["aesni_intel" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "mmc_block" "spi_pxa2xx_platform" "uas" "usbhid" "usb_storage" "xhci_pci"];
       luks = {
-        cryptoModules = [ "aes" "xts" "sha256" "sha512" "argon2" ];
+        cryptoModules = ["aes" "xts" "sha256" "sha512" "argon2"];
         yubikeySupport = true;
         mitigateDMAAttacks = lib.mkForce true;
         devices = {
           "root" = {
             device = "/dev/disk/by-partlabel/disk-main-root";
             allowDiscards = true;
-          yubikey = {
-            slot = 1;
-            twoFactor = false;
-            # storage.device = "/dev/disk/by-partlabel/disk-main-root";
+            yubikey = {
+              slot = 1;
+              twoFactor = false;
+              # storage.device = "/dev/disk/by-partlabel/disk-main-root";
             };
           };
-
+        };
       };
     };
   };
-};
 
   ###############
   #-=# DISKO #=-#

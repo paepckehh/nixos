@@ -44,9 +44,9 @@
       enable = true;
       autoRepeatDelay = 150;
       autoRepeatInterval = 15;
-      # How to get all installed kbd all options? 
+      # How to get all installed kbd all options?
       # cd /nix/store && fd base.lst | xargs cat
-      xkb = {  
+      xkb = {
         layout = "us,de";
         # xkbVariant = "workman,";
         # xkbOptions = "grp:win_space_toggle";

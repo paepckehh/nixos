@@ -143,7 +143,7 @@
   console = {
     enable = lib.mkForce true;
     earlySetup = lib.mkForce true;
-    keyMap = "us"; 
+    keyMap = "us";
     font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
     packages = with pkgs; [powerline-fonts];
   };

@@ -23,13 +23,13 @@
   ###########
   # console #
   ###########
-  # How to get all installed kbd all options? 
+  # How to get all installed kbd all options?
   # cd /nix/store && fd base.lst | xargs cat
   # see desktop/shared.nix for xserver setup
   console = {
     enable = lib.mkForce true;
     earlySetup = lib.mkForce true;
-    keyMap = lib.mkForce "de"; 
+    keyMap = lib.mkForce "de";
     font = lib.mkForce "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
     packages = with pkgs; [powerline-fonts];
   };
