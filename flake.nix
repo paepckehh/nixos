@@ -89,7 +89,7 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./modules/disko.nix
+          ./modules/disko-luks.nix
           ./modules/adminpc.nix
           ./role/client-desktop.nix
           ./user/desktop/me.nix
