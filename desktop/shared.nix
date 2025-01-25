@@ -48,8 +48,8 @@
       # cd /nix/store && fd base.lst | xargs cat
       xkb = {  
         layout = "us,de";
-        xkbVariant = "workman,";
-        xkbOptions = "grp:win_space_toggle";
+        # xkbVariant = "workman,";
+        # xkbOptions = "grp:win_space_toggle";
       };
     };
     pipewire = {
