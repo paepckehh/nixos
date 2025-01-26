@@ -4,6 +4,10 @@
   lib,
   ...
 }: {
+  #######################################################################################
+  # REMINDER: To use this any of this functions, you *MUST* be memeber of group backup. #
+  #######################################################################################
+
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
@@ -23,7 +27,7 @@
         sudo chown -R $REPO_OWNER:$REPO_GROUP $REPO_STORE &&\
         sudo chmod -R g=rwX $REPO_STORE &&\
         echo "[BACKUP.HOME] Performing backup a full backup of $PWD to $REPO_PATH/$FILE" &&\
-        cd && sudo tar -cf - . | sudo zstd --compress -4 --exclude-compressed --auto-threads=physical --threads=0 -o $REPO_PATH/$FILE.tgz &&\
+        cd && tar -cf - . | zstd --compress -4 --exclude-compressed --auto-threads=physical --threads=0 -o $REPO_PATH/$FILE.tgz &&\
         sudo rm -rf $LINK > /dev/null 2>&1 &&\
         sudo ln -fs $FILE $LINK &&\
         sudo chown -R $REPO_OWNER:$REPO_GROUP $REPO_STORE &&\
@@ -52,8 +56,7 @@
       sudo chmod -R g=rwX $REPO_STORE
 
       action() {
-      	echo "### $XCMD"
-      	sudo -u $REPO_OWNER $XCMD
+      	echo "### $XCMD" && $XCMD
       }
 
       ls $REPO_PATH | while read target; do
@@ -64,7 +67,7 @@
       		if [ ! -d $REPO ]; then continue; fi
       		if [ ! -d $REPO/.git ]; then continue; fi
       		echo "############################################################"
-      		echo "$REPO" | sudo -u $REPO_OWNER tee $REPO/.git/description
+      		echo "$REPO" | tee $REPO/.git/description
       		case $1 in
       		fetch) XCMD="git -C $REPO fetch --all --force" && action && XCMD="git gc --auto" && action ;;
       		pull) XCMD="git -C $REPO pull --all --force" && action && XCMD="git gc --auto" && action ;;
