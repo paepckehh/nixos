@@ -51,8 +51,8 @@
       export REPO_STORE="$REPO_ROOT/$REPO_OWNER"
       export REPO_PATH="$REPO_STORE/repos"
       export SUDO_CMD=""
-      if [$(id -u) -ne 0]; then
-      	SUDO_CMD="sudo"
+      if ["$(id -u)" -ne "0"]; then
+      	export SUDO_CMD="sudo"
       	$SUDO_CMD -v
       fi
       $SUDO_CMD mkdir -p $REPO_PATH
