@@ -11,22 +11,23 @@
     shellAliases = {
       "backup.home" = ''
         env sudo -v && cd &&\
-        export DTS=$(date '+%Y-%m-%d-%H-%M') &&\
-        export PATH=/home/backup/home &&\
+        export BPATH=/home/backup/home &&\
         export FILE=$USERNAME-$DTS.tgz &&\
         export LINK=$USERNAME-current.tgz &&\
-        sudo mkdir $PATH &&\
-        echo "[BACKUP.HOME] Performing backup a full backup of $PWD to $PATH/$FILE" &&\
-        cd && sudo tar -cf - . | zstd --compress -4 --exclude-compressed --auto-threads=physical --threads=0 > /home/backup/home/$FILE.tgz &&\
+        export DTS=$(date '+%Y-%m-%d-%H-%M') &&\
+        sudo mkdir $BPATH &&\
+        echo "[BACKUP.HOME] Performing backup a full backup of $PWD to $BPATH/$FILE" &&\
+        cd && sudo tar -cf - . | zstd --compress -4 --exclude-compressed --auto-threads=physical --threads=0 > $BPATH/$FILE.tgz &&\
         sudo rm -rf $LINK > /dev/null 2>&1 &&\
         sudo ln -fs $FILE $LINK &&\
-        sudo chown -R backup:backup /home/backup'';
+        sudo chown -R backup:backup $BPATH'';
       "restore.home" = ''
         env sudo -v &&\
         export LINK=$USERNAME-current.tgz &&\
         export PERM=$(id -u):$(id -g) &&\
+        export BPATH=/home/backup/home &&\
         cd && sudo tar -xvf /home/backup/$LINK . &&\
-        sudo chown -R $PERM'';
+        sudo chown -R $PERM .'';
       "backup.gitupdate" = ''
         env sudo -v &&\
         sudo sh /etc/gitops.sh update'';
