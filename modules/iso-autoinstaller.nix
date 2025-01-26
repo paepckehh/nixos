@@ -65,7 +65,6 @@
         echo "$LUKS_PASSWORD" > /tmp/luks
         echo "[NIX-AUTO] Setting Luks Password: $LUKS_PASSWORD"
         DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript} 2> /dev/null
-        # DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript}
         sync
         echo "[NIX-AUTO] Finish $DEVICE_MAIN partition tables create."
       	echo "[NIX-AUTO] Starting installation NixOS now on $DEVICE_MAIN"
@@ -126,10 +125,6 @@
   };
 in {
   imports = [
-    # (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
-    # (modulesPath + "/installer/cd-dvd/iso-image.nix")
-    # (modulesPath + "/profiles/all-hardware.nix")
-    # (modulesPath + "/profiles/minimal.nix")
     (modulesPath + "/installer/cd-dvd/installation-cd-base.nix")
   ];
   boot = {
@@ -159,7 +154,8 @@ in {
   };
   isoImage = {
     edition = lib.mkForce "minimal";
-    isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
+    # isoName = "${config.isoImage.isoBaseName}-${config.specialArgs.targetSystem}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
+    isoName = "${config.isoImage.isoBaseName}-${build.iso.target.hostname}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
     makeEfiBootable = true;
     makeUsbBootable = true;
     squashfsCompression = "zstd -Xcompression-level 19";
