@@ -11,10 +11,10 @@
     shellAliases = {
       "backup.home" = ''
         env sudo -v && cd &&\
-        export BPATH=/home/backup/home &&\
-        export FILE=$USERNAME-$DTS.tgz &&\
-        export LINK=$USERNAME-current.tgz &&\
         export DTS=$(date '+%Y-%m-%d-%H-%M') &&\
+        export BPATH=/home/backup/home &&\
+        export FILE=$USER-$DTS.tgz &&\
+        export LINK=$USER-current.tgz &&\
         sudo mkdir $BPATH &&\
         echo "[BACKUP.HOME] Performing backup a full backup of $PWD to $BPATH/$FILE" &&\
         cd && sudo tar -cf - . | sudo zstd --compress -4 --exclude-compressed --auto-threads=physical --threads=0 -o $BPATH/$FILE.tgz &&\
@@ -23,7 +23,7 @@
         sudo chown -R backup:backup $BPATH'';
       "restore.home" = ''
         env sudo -v &&\
-        export LINK=$USERNAME-current.tgz &&\
+        export LINK=$USER-current.tgz &&\
         export PERM=$(id -u):$(id -g) &&\
         export BPATH=/home/backup/home &&\
         cd && sudo tar -xvf /home/backup/$LINK . &&\
@@ -32,7 +32,7 @@
         env sudo -v &&\
         sudo sh /etc/gitops.sh update'';
     };
-    etc."etc/gitops.sh".text = lib.mkForce ''
+    etc."gitops.sh".text = lib.mkForce ''
       #!/bin/sh
       REPO_PATH="/home/backup/repo"
       REPO_OWNER="backup"
