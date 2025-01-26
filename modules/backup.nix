@@ -8,9 +8,9 @@
   # REMINDER: To use this any of this functions, you *MUST* be memeber of group backup. #
   #######################################################################################
 
-  #####################
-  #-=# ENVIRONMENT #=-#
-  #####################
+  ###############
+  # ENVIRONMENT #
+  ###############
   environment = {
     shellAliases = {
       "backup.home" = ''
@@ -93,9 +93,9 @@
     '';
   };
 
-  ###############
-  #-=# USERS #=-#
-  ###############
+  #########
+  # USERS #
+  #########
   users = {
     users = {
       "backup" = {
@@ -110,6 +110,27 @@
     };
     groups = {
       backup.gid = 6688;
+    };
+  };
+
+  ###########
+  # SYSTEMD #
+  ###########
+  systemd = {
+    timers."git-update-every-hour" = {
+      wantedBy = ["timers.target"];
+      timerConfig = {
+        OnBootSec = "30m";
+        OnUnitActiveSec = "120m";
+        Unit = "git-update-every-hour.service";
+      };
+    };
+    services."git-update-every-hour" = {
+      script = ''sh /etc/gitops.sh update'';
+      serviceConfig = {
+        Type = "oneshot";
+        User = "root";
+      };
     };
   };
 }
