@@ -70,7 +70,7 @@
           ./modules/disko.nix
           ./person/mpaepcke_luks.nix
           ./person/desktop/mpaepcke.nix
-          ./server/virtual.nix
+          # ./server/virtual.nix
           # ./server/unifi.nix
           # ./server/opnborg-systemd.nix
           # ./server/cgit.nix
