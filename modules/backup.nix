@@ -20,7 +20,8 @@
         cd && sudo tar -cf - . | sudo zstd --compress -4 --exclude-compressed --auto-threads=physical --threads=0 -o $BPATH/$FILE.tgz &&\
         sudo rm -rf $LINK > /dev/null 2>&1 &&\
         sudo ln -fs $FILE $LINK &&\
-        sudo chown -R backup:backup $BPATH'';
+        sudo chown -R backup:backup $BPATH
+        sudo chmod -R g=rwX $BPATH'';
       "restore.home" = ''
         env sudo -v &&\
         export LINK=$USER-current.tgz &&\
@@ -34,7 +35,7 @@
     };
     etc."gitops.sh".text = lib.mkForce ''
       #!/bin/sh
-      REPO_PATH="/home/backup/repo"
+      REPO_PATH="/home/backup/repos"
       REPO_OWNER="backup"
       REPO_GROUP="backup"
 
@@ -46,6 +47,7 @@
       sudo -v
       sudo mkdir -p $REPO_PATH
       sudo chown -R $REPO_OWNER:$REPO_GROUP $REPO_PATH
+      sudo chmod -R g=rwX $REPO_PATH
 
       	ls $REPO_PATH | while read target; do
       		FOLDER=$REPO_PATH/$target
@@ -74,7 +76,8 @@
       					esac
       			done
       	done
-      sudo chown -R $REPO_OWNER:$REPO_GROUP $PATH
+      sudo chown -R $REPO_OWNER:$REPO_GROUP $REPO_PATH
+      sudo chmod -R g=rwX $REPO_PATH
     '';
   };
 
