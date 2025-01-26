@@ -391,18 +391,18 @@
         USB_AUTOSUSPEND = "0"; # disable
         START_CHARGE_THRESH_BAT0 = 40;
         STOP_CHARGE_THRESH_BAT0 = 80;
-        CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-        CPU_ENERGY_PERF_POLICY_ON_AC = "balance_power";
+        CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
         CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
+        PLATFORM_PROFILE_ON_AC = "performance";
+        PLATFORM_PROFILE_ON_BAT = "low-power";
         RADEON_DPM_PERF_LEVEL_ON_AC = "low";
         RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
         RADEON_DPM_STATE_ON_AC = "battery";
         RADEON_DPM_STATE_ON_BAT = "battery";
         RADEON_POWER_PROFILE_ON_AC = "low";
         RADEON_POWER_PROFILE_ON_BAT = "low";
-        PLATFORM_PROFILE_ON_AC = "balanced";
-        PLATFORM_PROFILE_ON_BAT = "low-power";
       };
     };
     usbguard = {
