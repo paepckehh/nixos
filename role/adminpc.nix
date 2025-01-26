@@ -7,7 +7,10 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  # imports = [];
+  imports = [
+    ./client-desktop.nix
+    ../modules/disko-luks.nix
+  ];
 
   ##############
   #-=# BOOT #=-#

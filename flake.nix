@@ -89,9 +89,7 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./role/client-desktop.nix
-          ./modules/disko-luks.nix
-          ./modules/adminpc.nix
+          ./role/adminpc.nix
           ./user/desktop/me.nix
           {networking.hostName = "installer";}
         ];
