@@ -308,7 +308,7 @@
         branch.sort = "-committerdate";
         commit.gpgsign = false;
         init.defaultBranch = "main";
-        safe.directory = "/etc/nixos";
+        safe.directory = "*";
         gpg.format = "ssh";
         user = {
           email = "nix@nixos.local";
