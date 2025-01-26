@@ -2,11 +2,12 @@
 export REPO_ROOT="/home"
 export REPO_OWNER="backup"
 export REPO_GROUP="backup"
-export REPO_PATH="$REPO_ROOT/$REPO_OWNER/repos"
+export REPO_STORE="$REPO_ROOT/$REPO_OWNER"
+export REPO_PATH="$REPO_STORE/repos"
 sudo -v
 sudo mkdir -p $REPO_PATH
-sudo chown -R $REPO_OWNER:$REPO_GROUP $REPO_ROOT
-sudo chmod -R g=rwX $REPO_ROOT
+sudo chown -R $REPO_OWNER:$REPO_GROUP $REPO_STORE
+sudo chmod -R g=rwX $REPO_STORE
 
 action() {
 	echo "### $XCMD"
@@ -32,5 +33,5 @@ ls $REPO_PATH | while read target; do
 		esac
 	done
 done
-sudo chown -R $REPO_OWNER:$REPO_GROUP $REPO_ROOT
-sudo chmod -R g=rwX $REPO_ROOT
+sudo chown -R $REPO_OWNER:$REPO_GROUP $REPO_STORE
+sudo chmod -R g=rwX $REPO_STORE
