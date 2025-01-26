@@ -154,8 +154,7 @@ in {
   };
   isoImage = {
     edition = lib.mkForce "minimal";
-    # isoName = "${config.isoImage.isoBaseName}-${config.specialArgs.targetSystem}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
-    isoName = "${config.isoImage.isoBaseName}-${build.iso.target.hostname}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
+    isoName = "${config.isoImage.isoBaseName}-${config.specialArgs.targetSystem}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
     makeEfiBootable = true;
     makeUsbBootable = true;
     squashfsCompression = "zstd -Xcompression-level 19";
