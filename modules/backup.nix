@@ -17,7 +17,7 @@
         export DTS=$(date '+%Y-%m-%d-%H-%M') &&\
         sudo mkdir $BPATH &&\
         echo "[BACKUP.HOME] Performing backup a full backup of $PWD to $BPATH/$FILE" &&\
-        cd && sudo tar -cf - . | zstd --compress -4 --exclude-compressed --auto-threads=physical --threads=0 > $BPATH/$FILE.tgz &&\
+        cd && sudo tar -cf - . | sudo zstd --compress -4 --exclude-compressed --auto-threads=physical --threads=0 -o $BPATH/$FILE.tgz &&\
         sudo rm -rf $LINK > /dev/null 2>&1 &&\
         sudo ln -fs $FILE $LINK &&\
         sudo chown -R backup:backup $BPATH'';
