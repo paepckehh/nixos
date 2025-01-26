@@ -104,8 +104,7 @@
         echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################" &&\
         sudo nom build .#nixosConfigurations.$HNAME.config.system.build.toplevel ;\
         sudo rm -f result ;\
-        sudo nixos-rebuild boot --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS" 
-        grep --quiet --silent $HNAME-mp /etc/nixos/flake.nix || sudo nixos-rebuild boot --flake "/etc/nixos/.#$HNAME-mp" -p "$HNAME-mp-$DTS"'';
+        sudo nixos-rebuild boot --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS"'';
       "nix.cacheall" = ''
         cd /etc/nixos &&\
         nix.update ;\
