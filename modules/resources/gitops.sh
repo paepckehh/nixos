@@ -28,7 +28,13 @@ ls $REPO_PATH | while read target; do
 		pull) XCMD="git -C $REPO pull --all --force" && action && XCMD="git gc --auto" && action ;;
 		compact) XCMD="git -C $REPO gc --aggressive" && action ;;
 		repair) XCMD="sudo -C $REPO git fsck" && action ;;
-		update) XCMD="sudo git -C $REPO pull --all --force" && action && XCMD="git -C $REPO gc --auto" && action ;;
+		update)
+			case "$(git -C $REPO config get core.bare)" in
+			false) XCMD="git -C $REPO pull --all --force" && action && XCMD="git -C $REPO gc --auto" && action ;;
+			true) XCMD="git -C $REPO fetch --all --force" && action && XCMD="git -C $REPO gc --auto" && action ;;
+			*) continue ;; # not a git repo
+			esac
+			;;
 		*) echo "Please choose one of the following actions: [update|compact|repair|fetch|pull]" ;;
 		esac
 	done
