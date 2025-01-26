@@ -126,7 +126,8 @@
       };
     };
     services."git-update-every-hour" = {
-      script = ''sh /etc/gitops.sh update'';
+      path = [pkgs.git];
+      script = ''${pkgs.bash}/bin/bash --posix /etc/gitops.sh update'';
       serviceConfig = {
         Type = "oneshot";
         User = "root";
