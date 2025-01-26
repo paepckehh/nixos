@@ -16,7 +16,7 @@
     initrd.systemd.enable = lib.mkForce true;
     plymouth = {
       enable = lib.mkForce true;
-      logo = lib.mkForce "${./resources/admpc.png}";
+      logo = lib.mkForce "${./resources/adminpc.png}";
     };
   };
 

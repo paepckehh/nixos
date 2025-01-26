@@ -47,8 +47,8 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./modules/disko.nix
           ./role/client-desktop.nix
+          ./modules/disko.nix
           ./person/desktop/mpaepcke.nix
           {networking.hostName = "client-mp";}
         ];
@@ -66,8 +66,8 @@
           }: {nixpkgs.overlays = [overlay-unstable];})
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./modules/disko.nix
           ./role/client-desktop.nix
+          ./modules/disko.nix
           ./person/mpaepcke_luks.nix
           ./person/desktop/mpaepcke.nix
           ./server/virtual.nix
@@ -89,9 +89,9 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
+          ./role/client-desktop.nix
           ./modules/disko-luks.nix
           ./modules/adminpc.nix
-          ./role/client-desktop.nix
           ./user/desktop/me.nix
           {networking.hostName = "installer";}
         ];
