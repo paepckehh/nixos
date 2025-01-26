@@ -5,7 +5,7 @@ export REPO_GROUP="backup"
 export REPO_STORE="$REPO_ROOT/$REPO_OWNER"
 export REPO_PATH="$REPO_STORE/repos"
 export SUDO_CMD=""
-if [$(id -u) -ne 0]; then
+if [ $(id -u) -ne 0 ]; then
 	SUDO_CMD="sudo"
 	$SUDO_CMD -v
 fi
