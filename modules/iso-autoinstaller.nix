@@ -157,7 +157,7 @@ in {
     isoName = lib.mkForce "${config.isoImage.isoBaseName}-${targetSystem.config.networking.hostName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
     makeEfiBootable = true;
     makeUsbBootable = true;
-    squashfsCompression = "zstd -Xcompression-level 19";
+    squashfsCompression = "zstd -Xcompression-level 18";
   };
   system.stateVersion = "24.11";
   systemd.services."getty@tty1" = {

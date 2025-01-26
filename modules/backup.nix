@@ -17,7 +17,7 @@
         export LINK=$USERNAME-current.tgz &&\
         sudo mkdir $PATH &&\
         echo "[BACKUP.HOME] Performing backup a full backup of $PWD to $PATH/$FILE" &&\
-        cd && sudo tar -cf - . | zstd -22 --compress --ultra --exclude-compressed --auto-threads=physical --threads=0 > /home/backup/home/$FILE.tgz
+        cd && sudo tar -cf - . | zstd --compress -18 --exclude-compressed --auto-threads=physical --threads=0 > /home/backup/home/$FILE.tgz
         sudo rm -rf $LINK > /dev/null 2>&1
         sudo ln -fs $FILE $LINK
         sudo chown -R backup:backup /home/backup'';
