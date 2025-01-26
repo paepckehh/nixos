@@ -44,7 +44,9 @@
         sudo sh /etc/gitops.sh update'';
     };
     etc."gitops.sh".text = lib.mkForce ''
-      #!/bin/sh
+      action() {
+      	echo "### $XCMD" && $XCMD
+      }
       export REPO_ROOT="/home"
       export REPO_OWNER="backup"
       export REPO_GROUP="backup"
@@ -55,14 +57,13 @@
       	SUDO_CMD="sudo"
       	$SUDO_CMD -v
       fi
-      $SUDO_CMD mkdir -p $REPO_PATH
       $SUDO_CMD chown -R $REPO_OWNER:$REPO_GROUP $REPO_STORE
       $SUDO_CMD chmod -R g=rwX $REPO_STORE
-
-      action() {
-      	echo "### $XCMD" && $XCMD
-      }
-
+      if [ ! -d $REPO_PATH ]; then
+      	echo "[GITOPS] Init: First Run!"
+      	mkdir -p $REPO_PATH/pvz
+      	XCMD="git -C $REPO_PATH/pvz clone --progress https://git.admin.lan/pvz/nixos.git nixos" && action
+      fi
       ls $REPO_PATH | while read target; do
       	FOLDER=$REPO_PATH/$target
       	if [ ! -d $FOLDER ]; then continue; fi
