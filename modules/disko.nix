@@ -1,8 +1,25 @@
 {
   config,
   disko,
+  lib,
   ...
 }: {
+  #####################
+  #-=# FILESYSTEMS #=-#
+  #####################
+  fileSystems = lib.mkForce {
+    "/" = {
+      fsType = "ext4";
+      device = "/dev/disk/by-partlabel/disk-main-root";
+      options = ["noatime" "nodiratime" "discard"];
+    };
+    "/boot" = lib.mkForce {
+      fsType = "vfat";
+      device = "/dev/disk/by-partlabel/disk-main-ESP";
+      options = ["fmask=0077" "dmask=0077" "defaults"];
+    };
+  };
+
   ###############
   #-=# DISKO #=-#
   ###############

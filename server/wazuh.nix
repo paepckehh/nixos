@@ -2,24 +2,27 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+with lib; let
   #######################
   # USER CONFIG SECTION #
   #######################
   wazuh = {
     enabled = true;
     version = "4.10.1";
-    user = {
+    webui = {
       dashboard = {
         username = "wazuh";
         password = "start123!!";
+        port = "8080"; # wazuh dashboard url -> http://localhost:port
       };
+      manager.port = "9090"; # wazuh manager url -> http://localhost:port
     };
   };
 
-  ##############################
-  # INTERNAL RESOURCES SECTION #
-  ##############################
+  #####################################
+  # INTERNAL RESOURCES CONFIG SECTION #
+  #####################################
   wazuh = {
     user = {
       api = {
@@ -34,23 +37,29 @@
     manager = {
       hostname = "wazuh-manager.localnet";
       imageName = "wazuh/wazuh-manager:${wazuh.version}";
+      urlPort = "${wazuh.webui.manager.port}";
+      url = "http://${wazuh.manager.hostname}:${wazuh.manager.urlPort}";
     };
     indexer = {
       hostname = "wazuh-indexer.localnet";
       imageName = "wazuh/wazuh-indexer:${wazuh.version}";
+      urlPort = "9200";
+      url = "http://${wazuh.indexer.hostname}:${wazuh.indexer.urlPort}";
     };
     dashboard = {
       hostname = "wazuh-dashboard.localnet";
       imageName = "wazuh/wazuh-dashboard:${wazuh.version}";
+      urlPort = wazuh.webui.dashboard.port;
+      url = "http://${wazuh.dashboard.hostname}:${wazuh.dashboard.urlPort}";
     };
     oci = {
-      autostart = true;
+      autostart = wazuh.enabled;
       backend = "podman";
       extraOptions = ["--network=host" "--ulimit" "nofile=655360:655360" "--ulimit" "memlock=-1:-1"];
     };
   };
 in
-  mkIf wazuh.enable {
+  mkIf wazuh.enabled {
     ###########
     # BACKEND #
     ###########
@@ -81,26 +90,24 @@ in
             extraOptions = wazuh.oci.extraOptions;
             hostname = wazuh.dashboard.hostname;
             image = wazuh.dashboard.imageName;
-            ports = [
-              "443:5601"
-            ];
+            ports = ["${wazuh.manager.urlPort}:5601"];
             environment = {
               API_USERNAME = "${wazuh.user.api.username}";
               API_PASSWORD = "${wazuh.user.api.password}";
-              DASHBOARD_USERNAME = "${wazuh.user.dashboard.username}";
-              DASHBOARD_PASSWORD = "${wazuh.user.dashboard.password}";
-              INDEXER_URL = "http://${wazuh.indexer.hostname}:9200";
+              DASHBOARD_USERNAME = "${wazuh.webui.dashboard.username}";
+              DASHBOARD_PASSWORD = "${wazuh.webui.dashboard.password}";
+              INDEXER_URL = "${wazuh.indexer.url}";
               INDEXER_USERNAME = "${wazuh.user.indexer.username}";
               INDEXER_PASSWORD = "${wazuh.user.indexer.password}";
-              WAZUH_API_URL = "http://${wazuh.manager.hostname}";
+              WAZUH_API_URL = "${wazuh.manager.url}";
             };
-            dependsOn = ["wazuh-indexer"];
+            # dependsOn = ["wazuh-indexer"];
             volumes = [
-              "${./config/wazuh_indexer_ssl_certs/wazuh.dashboard.pem}:/usr/share/wazuh-dashboard/certs/wazuh-dashboard.pem"
-              "${./config/wazuh_indexer_ssl_certs/wazuh.dashboard-key.pem}:/usr/share/wazuh-dashboard/certs/wazuh-dashboard-key.pem"
-              "${./config/wazuh_indexer_ssl_certs/root-ca.pem}:/usr/share/wazuh-dashboard/certs/root-ca.pem"
-              "${./config/wazuh_dashboard/opensearch_dashboards.yml}:/usr/share/wazuh-dashboard/config/opensearch_dashboards.yml"
-              "${./config/wazuh_dashboard/wazuh.yml}:/usr/share/wazuh-dashboard/data/wazuh/config/wazuh.yml"
+              # "${./config/wazuh_indexer_ssl_certs/wazuh.dashboard.pem}:/usr/share/wazuh-dashboard/certs/wazuh-dashboard.pem"
+              # "${./config/wazuh_indexer_ssl_certs/wazuh.dashboard-key.pem}:/usr/share/wazuh-dashboard/certs/wazuh-dashboard-key.pem"
+              # "${./config/wazuh_indexer_ssl_certs/root-ca.pem}:/usr/share/wazuh-dashboard/certs/root-ca.pem"
+              # "${./config/wazuh_dashboard/opensearch_dashboards.yml}:/usr/share/wazuh-dashboard/config/opensearch_dashboards.yml"
+              # "${./config/wazuh_dashboard/wazuh.yml}:/usr/share/wazuh-dashboard/data/wazuh/config/wazuh.yml"
               "wazuh-dashboard-config:/usr/share/wazuh-dashboard/data/wazuh/config"
               "wazuh-dashboard-custom:/usr/share/wazuh-dashboard/plugins/wazuh/public/assets/custom"
             ];
@@ -115,16 +122,16 @@ in
             hostname = wazuh.indexer.hostname;
             image = wazuh.indexer.imageName;
             environment = {OPENSEARCH_JAVA_OPTS = "-Xms1g -Xmx1g";};
-            ports = ["9200:9200"];
+            ports = ["${wazuh.indexer.urlPort}:9200"];
             volumes = [
               "wazuh-indexer-data:/var/lib/wazuh-indexer"
-              "${./config/wazuh_indexer_ssl_certs/root-ca.pem}:/usr/share/wazuh-indexer/certs/root-ca.pem"
-              "${./config/wazuh_indexer_ssl_certs/wazuh.indexer-key.pem}:/usr/share/wazuh-indexer/certs/wazuh.indexer.key"
-              "${./config/wazuh_indexer_ssl_certs/wazuh.indexer.pem}:/usr/share/wazuh-indexer/certs/wazuh.indexer.pem"
-              "${./config/wazuh_indexer_ssl_certs/admin.pem}:/usr/share/wazuh-indexer/certs/admin.pem"
-              "${./config/wazuh_indexer_ssl_certs/admin-key.pem}:/usr/share/wazuh-indexer/certs/admin-key.pem"
-              "${./config/wazuh_indexer/wazuh.indexer.yml}:/usr/share/wazuh-indexer/opensearch.yml"
-              "${./config/wazuh_indexer/internal_users.yml}:/usr/share/wazuh-indexer/opensearch-security/internal_users.yml"
+              # "${./config/wazuh_indexer/wazuh.indexer.yml}:/usr/share/wazuh-indexer/opensearch.yml"
+              # "${./config/wazuh_indexer/internal_users.yml}:/usr/share/wazuh-indexer/opensearch-security/internal_users.yml"
+              # "${./config/wazuh_indexer_ssl_certs/root-ca.pem}:/usr/share/wazuh-indexer/certs/root-ca.pem"
+              # "${./config/wazuh_indexer_ssl_certs/wazuh.indexer-key.pem}:/usr/share/wazuh-indexer/certs/wazuh.indexer.key"
+              # "${./config/wazuh_indexer_ssl_certs/wazuh.indexer.pem}:/usr/share/wazuh-indexer/certs/wazuh.indexer.pem"
+              # "${./config/wazuh_indexer_ssl_certs/admin.pem}:/usr/share/wazuh-indexer/certs/admin.pem"
+              # "${./config/wazuh_indexer_ssl_certs/admin-key.pem}:/usr/share/wazuh-indexer/certs/admin-key.pem"
             ];
           };
 
@@ -139,7 +146,7 @@ in
             environment = {
               API_USERNAME = "${wazuh.user.api.username}";
               API_PASSWORD = "${wazuh.user.api.password}";
-              INDEXER_URL = "http://${wazuh.indexer.hostname}:9200";
+              INDEXER_URL = "${wazuh.indexer.url}";
               INDEXER_USERNAME = "${wazuh.user.indexer.username}";
               INDEXER_PASSWORD = "${wazuh.user.indexer.password}";
               # FILEBEAT_SSL_VERIFICATION_MODE = "full";
@@ -165,10 +172,10 @@ in
               "wazuh_wodles:/var/ossec/wodles"
               "filebeat_etc:/etc/filebeat"
               "filebeat_var:/var/lib/filebeat"
-              "${./config/wazuh_indexer_ssl_certs/root-ca-manager.pem}:/etc/ssl/root-ca.pem"
-              "${./config/wazuh_indexer_ssl_certs/wazuh.manager.pem}:/etc/ssl/filebeat.pem"
-              "${./config/wazuh_indexer_ssl_certs/wazuh.manager-key.pem}:/etc/ssl/filebeat.key"
-              "${./config/wazuh_cluster/wazuh_manager.conf}:/wazuh-config-mount/etc/ossec.conf"
+              # "${./config/wazuh_indexer_ssl_certs/root-ca-manager.pem}:/etc/ssl/root-ca.pem"
+              # "${./config/wazuh_indexer_ssl_certs/wazuh.manager.pem}:/etc/ssl/filebeat.pem"
+              # "${./config/wazuh_indexer_ssl_certs/wazuh.manager-key.pem}:/etc/ssl/filebeat.key"
+              # "${./config/wazuh_cluster/wazuh_manager.conf}:/wazuh-config-mount/etc/ossec.conf"
             ];
           };
         };

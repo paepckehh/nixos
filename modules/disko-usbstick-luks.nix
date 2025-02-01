@@ -9,7 +9,7 @@
   ##############
   boot = {
     initrd = {
-      availableKernelModules = ["aesni_intel" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "mmc_block" "spi_pxa2xx_platform" "uas" "usbhid" "usb_storage" "xhci_pci"];
+      availableKernelModules = ["f2fs" "aesni_intel" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "mmc_block" "spi_pxa2xx_platform" "uas" "usbhid" "usb_storage" "xhci_pci"];
       luks = {
         mitigateDMAAttacks = lib.mkForce true;
         devices = {
@@ -27,7 +27,7 @@
   #####################
   fileSystems = lib.mkForce {
     "/" = {
-      fsType = "ext4";
+      fsType = "f2fs";
       device = "/dev/disk/by-partlabel/disk-main-root";
       options = ["noatime" "nodiratime" "discard"];
     };
@@ -83,7 +83,7 @@
                   ];
                   content = {
                     type = "filesystem";
-                    format = "ext4";
+                    format = "f2fs";
                     mountpoint = "/";
                   };
                 };

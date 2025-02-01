@@ -65,6 +65,7 @@
       jq
       onefetch
       openssl
+      opensc
       usbutils
       ventoy-full
       xh
