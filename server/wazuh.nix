@@ -100,7 +100,7 @@ in
             extraOptions = wazuh.oci.extraOptions;
             hostname = wazuh.dashboard.hostname;
             image = wazuh.dashboard.imageName;
-            ports = ["${wazuh.manager.urlPort}:5601"];
+            ports = ["${wazuh.webui.dashboard.urlPort}:5601"];
             environment = {
               API_USERNAME = "${wazuh.user.api.username}";
               API_PASSWORD = "${wazuh.user.api.password}";
