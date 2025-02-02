@@ -11,6 +11,7 @@ with lib; let
   # nix switch ...
   # TARGET="/var/lib/wazuh" && sudo mkdir -p $TARGET && cd $TARGET
   # sudo curl -OkL https://raw.githubusercontent.com/wazuh/wazuh-docker/refs/heads/master/single-node/generate-certs.yml
+  # sudo sed -i 's/wazuh-cert-tool:5.0.0/wazuh-cert-tool/g' generate-certs.yml # adapt, only needed if manifest is missing on docker hub
   # nix-shell --packages docker docker-compose --run "sudo docker-compose -f ./generate-certs.yml run --rm generator"
   # set wazuh.autostart = true;
   # nix switch ...
