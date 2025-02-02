@@ -4,9 +4,9 @@
   ...
 }:
 with lib; let
-  #########################################
-  # HOW TO SETUP WAZU IN UNDER 20 SECONDS #
-  #########################################
+  ###################################################
+  # HOW TO SETUP WAZUH PAINFREE IN UNDER 20 SECONDS #
+  ###################################################
   # set wazuh.autostart = false;
   # nix switch ...
   # TARGET="/var/lib/wazuh" && sudo mkdir -p $TARGET && cd $TARGET
@@ -18,7 +18,7 @@ with lib; let
   # ... quick, get a coffee & before docker downloads are finished (around 8GB!)
   # ... browser -> http://localhost:5601 (default)
   # ... backup /var/lib/wazuh on a regular basis
-  # ... enjoy painfree wazuh setup
+  # ... enjoy wazuh 
   #
   #######################
   # USER CONFIG SECTION #
