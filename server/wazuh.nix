@@ -16,7 +16,7 @@ with lib; let
   # nix switch ...
   #
   # ... quick, get a coffee & before docker downloads are finished (around 8GB!)
-  # ... browser -> http://localhost:9090
+  # ... browser -> http://localhost:5601 (default)
   # ... backup /var/lib/wazuh on a regular basis
   # ... enjoy painfree wazuh setup
   #
@@ -31,7 +31,7 @@ with lib; let
       dashboard = {
         username = "wazuh";
         password = "start123!!";
-        port = "9090"; # dashboard url -> http://localhost:port
+        port = "5601"; # dashboard url -> http://localhost:port
       };
     };
     user = {
@@ -100,7 +100,7 @@ in
             extraOptions = wazuh.oci.extraOptions;
             hostname = wazuh.dashboard.hostname;
             image = wazuh.dashboard.imageName;
-            ports = ["${wazuh.webui.dashboard.urlPort}:5601"];
+            ports = ["${wazuh.webui.dashboard.port}:5601"];
             environment = {
               API_USERNAME = "${wazuh.user.api.username}";
               API_PASSWORD = "${wazuh.user.api.password}";
