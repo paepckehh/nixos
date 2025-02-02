@@ -14,8 +14,8 @@ with lib; let
   # nix-shell --packages docker docker-compose --run "sudo docker-compose -f ./generate-certs.yml run --rm generator"
   # set wazuh.autostart = true;
   # nix switch ...
-  # 
-  # ... quick, get a coffee & before docker downloads are finished (around 8GB!) 
+  #
+  # ... quick, get a coffee & before docker downloads are finished (around 8GB!)
   # ... browser -> http://localhost:9090
   # ... backup /var/lib/wazuh on a regular basis
   # ... enjoy painfree wazuh setup
@@ -25,7 +25,7 @@ with lib; let
   #######################
   wazuh = {
     enabled = true;
-    autostart = false;
+    autostart = true;
     version = "4.10.1";
     webui = {
       dashboard = {
