@@ -4,34 +4,25 @@
   ...
 }:
 with lib; let
-  #########################################
-  # HOW TO SETUP WAZU IN UNDER 20 SECONDS #
-  #########################################
-  # set wazuh.autostart = false;
-  # nix switch ...
-  # TARGET="/var/lib/wazuh" && sudo mkdir -p $TARGET && cd $TARGET
-  # sudo curl -OkL https://raw.githubusercontent.com/wazuh/wazuh-docker/refs/heads/master/single-node/generate-certs.yml
-  # nix-shell --packages docker docker-compose --run "sudo docker-compose -f ./generate-certs.yml run --rm generator"
-  # set wazuh.autostart = true;
-  # nix switch ...
-  # 
-  # ... quick, get a coffee & before docker downloads are finished (around 8GB!) 
-  # ... browser -> http://localhost:9090
-  # ... backup /var/lib/wazuh on a regular basis
-  # ... enjoy painfree wazuh setup
+  ################
+  # HOW TO SETUP #
+  ################
+  # set: wazuh.setup.enabled = true;
+  # nix switch
+  # ... get a coffee & wait for docker download finished (> 8GB!)
   #
   #######################
   # USER CONFIG SECTION #
   #######################
   wazuh = {
     enabled = true;
-    autostart = false;
+    setup.enabled = true;
     version = "4.10.1";
     webui = {
       dashboard = {
         username = "wazuh";
         password = "start123!!";
-        port = "9090"; # dashboard url -> http://localhost:port
+        port = "8080"; # dashboard url -> http://localhost:port
       };
     };
     user = {
@@ -51,10 +42,14 @@ with lib; let
   #####################################
   wazuh = {
     oci = {
-      autostart = wazuh.autostart;
+      autostart = false;
       confDir = "/var/lib/wazuh/config";
       backend = "docker";
       extraOptions = ["--network=host" "--ulimit" "nofile=655360:655360" "--ulimit" "memlock=-1:-1"];
+    };
+    setup = {
+      hostname = "wazuh-setup.localnet";
+      imageName = "wazuh/wazuh-cert-tool";
     };
     dashboard = {
       hostname = "wazuh-dashboard.localnet";
@@ -64,12 +59,14 @@ with lib; let
     indexer = {
       hostname = "wazuh-indexer.localnet";
       imageName = "wazuh/wazuh-indexer:${wazuh.version}";
-      url = "http://${wazuh.indexer.hostname}:9200";
+      urlPort = "9200";
+      url = "http://${wazuh.indexer.hostname}:${wazuh.indexer.urlPort}";
     };
     manager = {
       hostname = "wazuh-manager.localnet";
       imageName = "wazuh/wazuh-manager:${wazuh.version}";
-      url = "http://${wazuh.manager.hostname}";
+      urlPort = "9210";
+      url = "http://${wazuh.manager.hostname}:${wazuh.manager.urlPort}";
     };
   };
 in
@@ -92,6 +89,18 @@ in
       oci-containers = {
         backend = wazuh.oci.backend;
         containers = {
+          ###############
+          # WAZUH-SETUP #
+          ###############
+          wazuh-setup = {
+            autoStart = wazuh.setup.enabled;
+            hostname = wazuh.setup.hostname;
+            image = wazuh.setup.imageName;
+            volumes = [
+              "${wazuh.oci.confDir}/wazuh_indexer_ssl_certs/:/certificates/"
+              "${wazuh.oci.confDir}/certs.yml:/config/certs.yml"
+            ];
+          };
           ###################
           # WAZUH-DASHBOARD #
           ###################
@@ -131,7 +140,7 @@ in
             hostname = wazuh.indexer.hostname;
             image = wazuh.indexer.imageName;
             environment = {OPENSEARCH_JAVA_OPTS = "-Xms1g -Xmx1g";};
-            ports = ["9200:9200"];
+            ports = ["${wazuh.indexer.urlPort}:9200"];
             volumes = [
               "wazuh-indexer-data:/var/lib/wazuh-indexer"
               "${wazuh.oci.confDir}/wazuh_indexer/wazuh.indexer.yml:/usr/share/wazuh-indexer/opensearch.yml"
@@ -157,7 +166,7 @@ in
               INDEXER_URL = "${wazuh.indexer.url}";
               INDEXER_USERNAME = "${wazuh.user.indexer.username}";
               INDEXER_PASSWORD = "${wazuh.user.indexer.password}";
-              FILEBEAT_SSL_VERIFICATION_MODE = "none"; # full
+              FILEBEAT_SSL_VERIFICATION_MODE = "full";
               SSL_CERTIFICATE_AUTHORITIES = "/etc/ssl/root-ca.pem";
               SSL_CERTIFICATE = "/etc/ssl/filebeat.pem";
               SSL_KEY = "/etc/ssl/filebeat.key";

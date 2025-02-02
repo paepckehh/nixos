@@ -69,7 +69,7 @@
           ./role/client-desktop.nix
           ./person/mpaepcke_luks.nix
           ./person/desktop/mpaepcke.nix
-          # ./server/wazuh.nix
+          ./server/wazuh.nix
           # ./server/virtual.nix
           # ./server/unifi.nix
           # ./server/opnborg-systemd.nix
