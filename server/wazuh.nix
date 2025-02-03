@@ -19,14 +19,14 @@ with lib; let
   # ... quick, get a coffee & before docker downloads are finished (around 8GB!)
   # ... browser -> http://localhost:5601 (default)
   # ... backup /var/lib/wazuh on a regular basis
-  # ... enjoy wazuh 
+  # ... enjoy wazuh
   #
   #######################
   # USER CONFIG SECTION #
   #######################
   wazuh = {
     enabled = true;
-    autostart = true;
+    autostart = false;
     version = "4.10.1";
     webui = {
       dashboard = {
