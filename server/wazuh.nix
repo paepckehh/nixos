@@ -4,29 +4,25 @@
   ...
 }:
 with lib; let
-  ###################################################
-  # HOW TO SETUP WAZUH PAINFREE IN UNDER 20 SECONDS #
-  ###################################################
-  # set wazuh.autostart = false;
-  # nix switch ...
-  # TARGET="/var/lib/wazuh" && sudo mkdir -p $TARGET && cd $TARGET
-  # sudo curl -OkL https://raw.githubusercontent.com/wazuh/wazuh-docker/refs/heads/master/single-node/generate-certs.yml
-  # sudo sed -i 's/wazuh-cert-tool:5.0.0/wazuh-cert-tool/g' generate-certs.yml # adapt, only needed if manifest is missing on docker hub
-  # nix-shell --packages docker docker-compose --run "sudo docker-compose -f ./generate-certs.yml run --rm generator"
-  # set wazuh.autostart = true;
-  # nix switch ...
-  #
+  #######################################
+  # HOW TO SETUP WAZUH PAINFREE 5 STEPS #
+  #######################################
+  # 00 add wazuh.nix via import to your nix config
+  # 01 edit -> wazuh.nix, set: wazuh.autostart = false;    #  should be default, modify all default passwords
+  # 02 sudo nixos-rebuild switch
+  # 03 sh /etc/wazuh-init.sh                               #  run as normal user, but needs sudo creds
+  # 04 edit -> wazuh.nix, set: wazuh.autostart = true;
+  # 05 sudo nixos-rebuild switch
   # ... quick, get a coffee & before docker downloads are finished (around 8GB!)
-  # ... browser -> http://localhost:5601 (default)
-  # ... backup /var/lib/wazuh on a regular basis
+  # ... browser, open -> http://localhost:5601 (default)
+  # ... backup /var/lib/wazuh on a regular basis (config, certs & database)
   # ... enjoy wazuh
-  #
   #######################
   # USER CONFIG SECTION #
   #######################
   wazuh = {
     enabled = true;
-    autostart = false;
+    autostart = true;
     version = "4.10.1";
     webui = {
       dashboard = {
@@ -85,6 +81,24 @@ in
         allowedUDPPorts = [514];
       };
     };
+  
+  #################################
+  # ENVIRONMENT SETUP INIT SCRIPT #
+  #################################
+  environment = {
+    etc."wazuh-init.sh".text = lib.mkForce ''
+      #!/bin/sh
+      set -e
+      export TARGET="/var/lib/wazuh"
+      sudo mkdir -p $TARGET && cd $TARGET
+      sudo curl -OkL https://packages.wazuh.com/4.10/config.yml
+      sudo curl -OkL https://packages.wazuh.com/4.10/wazuh-certs-tool.sh
+      sudo sed -i 's/<wazuh-manager-ip>/127\.0\.0\.1/g' config.yml
+      sudo sed -i 's/<indexer-node-ip>/127\.0\.0\.1/g' config.yml
+      sudo sed -i 's/<dashboard-node-ip>/127\.0\.0\.1/g' config.yml
+      sudo sh wazuh-certs-tool.sh --verbose --all
+    '';
+  };
 
     ##################
     # VIRTUALISATION #
