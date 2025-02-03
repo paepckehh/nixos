@@ -4,16 +4,16 @@
   ...
 }:
 with lib; let
-  #######################################
-  # HOW TO SETUP WAZUH PAINFREE 5 STEPS #
-  #######################################
-  # 00 add wazuh.nix via import to your nix config
+  ##########################################
+  # HOW TO SETUP WAZUH IN PAINFREE 5 STEPS #
+  ##########################################
+  # 00 add wazuh.nix via to your nix config                #  include via import 
   # 01 edit -> wazuh.nix, set: wazuh.autostart = false;    #  should be default, modify all default passwords
-  # 02 sudo nixos-rebuild switch
+  # 02 sudo nixos-rebuild switch                           #   
   # 03 sh /etc/wazuh-init.sh                               #  run as normal user, but needs sudo creds
-  # 04 edit -> wazuh.nix, set: wazuh.autostart = true;
-  # 05 sudo nixos-rebuild switch
-  # ... quick, get a coffee & before docker downloads are finished (around 8GB!)
+  # 04 edit -> wazuh.nix, set: wazuh.autostart = true;     # 
+  # 05 sudo nixos-rebuild switch                           #  
+  # ... quick, get a coffee & before docker downloads are finished (> 8GB)
   # ... browser, open -> http://localhost:5601 (default)
   # ... backup /var/lib/wazuh on a regular basis (config, certs & database)
   # ... enjoy wazuh
@@ -22,7 +22,7 @@ with lib; let
   #######################
   wazuh = {
     enabled = true;
-    autostart = true;
+    autostart = false;
     version = "4.10.1";
     webui = {
       dashboard = {
