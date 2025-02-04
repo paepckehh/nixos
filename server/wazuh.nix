@@ -89,9 +89,11 @@ in
     environment = {
       etc."wazuh-init.sh".text = lib.mkForce ''
         #!/bin/sh
-        set -e
         sudo -v
         echo "[WAZUH.INIT] Trying to terminate docker container, if already running ..."
+        sudo systemctl stop docker-wazuh-indexer.service > /dev/null 2>&1
+        sudo systemctl stop docker-wazuh-manager.service > /dev/null 2>&1
+        sudo systemctl stop docker-wazuh-dashboard.service > /dev/null 2>&1
         sudo systemctl stop docker-wazuh-indexer.service > /dev/null 2>&1
         sudo systemctl stop docker-wazuh-manager.service > /dev/null 2>&1
         sudo systemctl stop docker-wazuh-dashboard.service > /dev/null 2>&1
