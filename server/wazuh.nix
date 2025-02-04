@@ -12,8 +12,8 @@ with lib; let
   # 02 sudo nixos-rebuild switch                             #  ...
   # 03 sh /etc/wazuh-init.sh                                 #  do not run as root! (asks for sudo creds)
   # 04 edit -> wazuh.nix, set: wazuh.autostart = true;       #  activate all 3 docker at next switch/boot
-  # 05 sudo nixos-rebuild switch                             #  go!
-  # ... quick, get a coffee & before docker downloads are finished (> 8GB)
+  # 05 sudo nixos-rebuild switch                             #  go! (restart services or reboot of needed)
+  # ... get a coffee & before docker downloads are finished (> 8GB) [verify that we booted the latest nixos profile!]
   # ... open browser -> https://localhost:5601 (default)
   # ... backup /var/lib/wazuh on a regular basis (config, certs & database)
   # ... enjoy wazuh
@@ -22,7 +22,7 @@ with lib; let
   #######################
   wazuh = {
     enabled = true;
-    autostart = false;
+    autostart = true;
     version = "4.10.1";
     webui = {
       dashboard = {
@@ -89,6 +89,10 @@ in
         #!/bin/sh
         set -e
         sudo -v
+        echo "[WAZUH.INIT] Trying to stock docker container, if already running ..."
+        sudo systemctl stop docker-wazuh-indexer.service > /dev/null 2>&1
+        sudo systemctl stop docker-wazuh-manager.service > /dev/null 2>&1
+        sudo systemctl stop docker-wazuh-dashboard.service > /dev/null 2>&1
         TARGET="/var/lib/wazuh"
         if [ -x $TARGET ]; then
         	DTS="$(date '+%Y%m%d%H%M')"
