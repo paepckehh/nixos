@@ -29,18 +29,18 @@ with lib; let
     webui = {
       dashboard = {
         username = "wazuh";
-        password = "derhundhatkeine22!!22Socken";
+        password = "public";
         port = "5601"; # your dashboard url -> https://localhost:port
       };
     };
     user = {
       api = {
         username = "wazuh-api";
-        password = "theBlack99!!!66CatsarNotEatingThEPantherCar";
+        password = "theBlack!99!66!Cats0arNotEatingThEPantherCar";
       };
       indexer = {
         username = "wazuh-indexer";
-        password = "29!!!99greenFroggiessdoNOTkillyeLLowBirdies";
+        password = "2!9!9!9greenFroggiess0doNOTkillyeLLowBirdies";
       };
     };
   };
