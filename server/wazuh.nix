@@ -15,7 +15,7 @@ with lib; let
   # 05 sudo nixos-rebuild switch                             #  go! (restart services or reboot)
   # ... get a coffee & before docker downloads are finished (> 8GB)
   # ... always verify that we booted the latest correct nixos profile! (nix switch is not always correct)
-  # ... set secure (!) random passwords for manager and api, wazuh checks password entropy and fails silently!
+  # ... do not touch passwords here, they are hardwired into the docker, change them later online
   # ... open browser -> https://localhost:5601 (default)
   # ... backup /var/lib/wazuh on a regular basis (config, certs & database)
   # ... enjoy wazuh
@@ -24,23 +24,23 @@ with lib; let
   #######################
   wazuh = {
     enabled = true;
-    autostart = true;
+    autostart = false;
     version = "4.10.1";
     webui = {
       dashboard = {
-        username = "wazuh";
-        password = "pub-42-99-lic";
+        username = "kibanaserver";
+        password = "kibanaserver";
         port = "5601"; # your dashboard url -> https://localhost:port
       };
     };
     user = {
       api = {
-        username = "wazuh-api";
-        password = "theBlack-9-6-Cats0arNotEating-ThEPantherCar";
+        username = "wazuh-wui";
+        password = "MyS3cr37P450r.*-";
       };
       indexer = {
-        username = "wazuh-indexer";
-        password = "9green-Froggiess11-0doNOT-kill-yeLLowBirdies";
+        username = "admin";
+        password = "SecretPassword";
       };
     };
   };
