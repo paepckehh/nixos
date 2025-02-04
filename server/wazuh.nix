@@ -9,13 +9,12 @@ with lib; let
   ########################################
   # 01 add wazuh.nix (this file) into your nix config        #  include via import [ ./wazuh.nix ];
   # 02 edit -> wazuh.nix, set: wazuh.autostart = false;      #  should be default, verify!
-  # 02 sudo nixos-rebuild switch                             #  ...
-  # 03 sh /etc/wazuh-init.sh init                            #  do not run as root! (asks for sudo creds)
-  # 04 edit -> wazuh.nix, set: wazuh.autostart = true;       #  activate all 3 docker at next switch/boot
-  # 05 sudo nixos-rebuild switch                             #  go! (restart services or reboot)
+  # 03 sudo nixos-rebuild switch                             #  ...
+  # 04 sh /etc/wazuh-init.sh init                            #  do not run as root! (asks for sudo creds)
+  # 05 edit -> wazuh.nix, set: wazuh.autostart = true;       #  activate all 3 docker at next switch/boot
+  # 06 sudo nixos-rebuild switch                             #  go! (restart services or reboot)
   # ... get a coffee & before docker downloads are finished (> 8GB)
   # ... always verify that we booted the latest correct nixos profile! (nix switch is not always correct)
-  # ... do not touch passwords here, they are hardwired into the docker, change them later online
   # ... open browser -> https://localhost:5601 (default)
   # ... backup /var/lib/wazuh on a regular basis (config, certs & database)
   # ... enjoy wazuh
@@ -33,6 +32,7 @@ with lib; let
         port = "5601"; # your dashboard url -> https://localhost:port
       };
     };
+    # do not touch passwords here, they are hardwired into the docker, change them later online
     user = {
       api = {
         username = "wazuh-wui";
