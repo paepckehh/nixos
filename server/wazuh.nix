@@ -92,14 +92,15 @@ in
         sudo -v
         TARGET="/var/lib/wazuh"
         if [ -x $TARGET ]; then
-        	DTS="-$(date '+%Y-%m-%d--%H-%M')"
-        	echo "[WAZUH.INIT] Found pre-existing wazuh $TARGET, moving old config to $TARGET.$DTS"
-        	sudo mv $TARGET $TARGET.$DTS
+        	DTS="$(date '+%Y%m%d-%H%M')"
+        	echo "[WAZUH.INIT] Found pre-existing wazuh $TARGET, moving old config to $TARGET-$DTS"
+        	sudo rm -rf $TARGET-$DTS > /dev/null 2>&1
+        	sudo mv -f $TARGET $TARGET-$DTS
         fi
         sudo mkdir -p $TARGET && cd $TARGET
-        nix-shell --packages git --run "git clone --depth 1 --branch 4.10.2 https://github.com/wazuh/wazuh-docker"
+        nix-shell --packages git --run "sudo git clone --depth 1 --branch 4.10.2 https://github.com/wazuh/wazuh-docker"
         cd wazuh-docker/single-node
-        nix-shell --packkages docker docker-compose --run "docker-compose -f generate-indexer-certs.yml run --rm generator"
+        nix-shell --packkages docker docker-compose --run "sudo docker-compose -f generate-indexer-certs.yml run --rm generator"
         sudo cp -af * ../..
         sudo rm -rf wazuh-docker
       '';
