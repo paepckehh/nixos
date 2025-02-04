@@ -15,16 +15,17 @@ with lib; let
   # 05 sudo nixos-rebuild switch                             #  go! (restart services or reboot)
   # ... get a coffee & before docker downloads are finished (> 8GB)
   # ... always verify that we booted the latest correct nixos profile! (nix switch is not always correct)
-  # ... set secure (!) random passwords for manager and api, wazuh checks it and fails silently!
+  # ... set secure (!) random passwords for manager and api, wazuh checks password entropy and fails silently!
   # ... open browser -> https://localhost:5601 (default)
   # ... backup /var/lib/wazuh on a regular basis (config, certs & database)
   # ... enjoy wazuh
+
   #######################
   # USER CONFIG SECTION #
   #######################
   wazuh = {
     enabled = true;
-    autostart = false;
+    autostart = true;
     version = "4.10.1";
     webui = {
       dashboard = {
@@ -91,7 +92,7 @@ in
         #!/bin/sh
         set -e
         sudo -v
-        echo "[WAZUH.INIT] Trying to stock docker container, if already running ..."
+        echo "[WAZUH.INIT] Trying to terminate docker container, if already running ..."
         sudo systemctl stop docker-wazuh-indexer.service > /dev/null 2>&1
         sudo systemctl stop docker-wazuh-manager.service > /dev/null 2>&1
         sudo systemctl stop docker-wazuh-dashboard.service > /dev/null 2>&1
