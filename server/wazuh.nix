@@ -102,7 +102,7 @@ in
         cd wazuh-docker/single-node
         nix-shell --packages docker docker-compose --run "sudo docker-compose -f generate-indexer-certs.yml run --rm generator"
         sudo cp -af * ../..
-        sudo rm -rf wazuh-docker
+        exit 0
       '';
     };
 
