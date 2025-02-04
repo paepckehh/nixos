@@ -27,12 +27,12 @@ with lib; let
     version = "4.10.1";
     webui = {
       dashboard = {
-        username = "kibanaserver";
-        password = "kibanaserver";
+        username = "admin";
+        password = "start12345678";
         port = "5601"; # your dashboard url -> https://localhost:port
       };
     };
-    # do not touch passwords here, they are hardwired into the docker, change them later online
+    # do not touch the passwords below, they are hardwired into the docker, change them later within the app
     user = {
       api = {
         username = "wazuh-wui";
