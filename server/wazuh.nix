@@ -23,7 +23,7 @@ with lib; let
   #######################
   wazuh = {
     enabled = true;
-    autostart = false;
+    autostart = true;
     version = "4.10.1";
     webui = {
       dashboard = {
