@@ -7,12 +7,12 @@ with lib; let
   ##########################################
   # HOW TO SETUP WAZUH IN PAINFREE 5 STEPS #
   ##########################################
-  # 00 add wazuh.nix via to your nix config                #  include via import 
-  # 01 edit -> wazuh.nix, set: wazuh.autostart = false;    #  should be default, modify all default passwords
-  # 02 sudo nixos-rebuild switch                           #   
+  # 00 add wazuh.nix via to your nix config                #  include via import [ ./wazuh.nix ];
+  # 01 edit -> wazuh.nix, set: wazuh.autostart = false;    #  should be default, verify!
+  # 02 sudo nixos-rebuild switch                           #
   # 03 sh /etc/wazuh-init.sh                               #  run as normal user, but needs sudo creds
-  # 04 edit -> wazuh.nix, set: wazuh.autostart = true;     # 
-  # 05 sudo nixos-rebuild switch                           #  
+  # 04 edit -> wazuh.nix, set: wazuh.autostart = true;     #  activates all 3 docker at switch/boot
+  # 05 sudo nixos-rebuild switch                           #  go!
   # ... quick, get a coffee & before docker downloads are finished (> 8GB)
   # ... browser, open -> http://localhost:5601 (default)
   # ... backup /var/lib/wazuh on a regular basis (config, certs & database)
@@ -54,17 +54,17 @@ with lib; let
       extraOptions = ["--network=host" "--ulimit" "nofile=655360:655360" "--ulimit" "memlock=-1:-1"];
     };
     dashboard = {
-      hostname = "wazuh-dashboard.localnet";
+      hostname = "wazuh.dashboard";
       imageName = "wazuh/wazuh-dashboard:${wazuh.version}";
       url = "http://${wazuh.dashboard.hostname}:${wazuh.webui.dashboard.urlPort}";
     };
     indexer = {
-      hostname = "wazuh-indexer.localnet";
+      hostname = "wazuh.indexer";
       imageName = "wazuh/wazuh-indexer:${wazuh.version}";
       url = "http://${wazuh.indexer.hostname}:9200";
     };
     manager = {
-      hostname = "wazuh-manager.localnet";
+      hostname = "wazuh.manager";
       imageName = "wazuh/wazuh-manager:${wazuh.version}";
       url = "http://${wazuh.manager.hostname}";
     };
@@ -81,24 +81,29 @@ in
         allowedUDPPorts = [514];
       };
     };
-  
-  #################################
-  # ENVIRONMENT SETUP INIT SCRIPT #
-  #################################
-  environment = {
-    etc."wazuh-init.sh".text = lib.mkForce ''
-      #!/bin/sh
-      set -e
-      export TARGET="/var/lib/wazuh"
-      sudo mkdir -p $TARGET && cd $TARGET
-      sudo curl -OkL https://packages.wazuh.com/4.10/config.yml
-      sudo curl -OkL https://packages.wazuh.com/4.10/wazuh-certs-tool.sh
-      sudo sed -i 's/<wazuh-manager-ip>/127\.0\.0\.1/g' config.yml
-      sudo sed -i 's/<indexer-node-ip>/127\.0\.0\.1/g' config.yml
-      sudo sed -i 's/<dashboard-node-ip>/127\.0\.0\.1/g' config.yml
-      sudo sh wazuh-certs-tool.sh --verbose --all
-    '';
-  };
+
+    #################################
+    # ENVIRONMENT SETUP INIT SCRIPT #
+    #################################
+    environment = {
+      etc."wazuh-init.sh".text = lib.mkForce ''
+        #!/bin/sh
+        set -e
+        sudo -v
+        TARGET="/var/lib/wazuh"
+        if [ -x $TARGET ]; then
+        	DTS="-$(date '+%Y-%m-%d--%H-%M')"
+        	echo "[WAZUH.INIT] Found pre-existing wazuh $TARGET, moving old config to $TARGET.$DTS"
+        	sudo mv $TARGET $TARGET.$DTS
+        fi
+        sudo mkdir -p $TARGET && cd $TARGET
+        nix-shell --packages git --run "git clone --depth 1 --branch 4.10.2 https://github.com/wazuh/wazuh-docker"
+        cd wazuh-docker/single-node
+        nix-shell --packkages docker docker-compose --run "docker-compose -f generate-indexer-certs.yml run --rm generator"
+        sudo cp -af * ../..
+        sudo rm -rf wazuh-docker
+      '';
+    };
 
     ##################
     # VIRTUALISATION #
