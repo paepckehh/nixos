@@ -92,7 +92,7 @@ in
         sudo -v
         TARGET="/var/lib/wazuh"
         if [ -x $TARGET ]; then
-        	DTS="$(date '+%Y%m%d-%H%M')"
+        	DTS="$(date '+%Y%m%d%H%M')"
         	echo "[WAZUH.INIT] Found pre-existing wazuh $TARGET, moving old config to $TARGET-$DTS"
         	sudo rm -rf $TARGET-$DTS > /dev/null 2>&1
         	sudo mv -f $TARGET $TARGET-$DTS
