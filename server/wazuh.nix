@@ -12,8 +12,10 @@ with lib; let
   # 02 sudo nixos-rebuild switch                             #  ...
   # 03 sh /etc/wazuh-init.sh                                 #  do not run as root! (asks for sudo creds)
   # 04 edit -> wazuh.nix, set: wazuh.autostart = true;       #  activate all 3 docker at next switch/boot
-  # 05 sudo nixos-rebuild switch                             #  go! (restart services or reboot of needed)
-  # ... get a coffee & before docker downloads are finished (> 8GB) [verify that we booted the latest nixos profile!]
+  # 05 sudo nixos-rebuild switch                             #  go! (restart services or reboot)
+  # ... get a coffee & before docker downloads are finished (> 8GB)
+  # ... always verify that we booted the latest correct nixos profile! (nix switch is not always correct)
+  # ... set secure (!) random passwords for manager and api, wazuh checks it and fails silently!
   # ... open browser -> https://localhost:5601 (default)
   # ... backup /var/lib/wazuh on a regular basis (config, certs & database)
   # ... enjoy wazuh
@@ -22,7 +24,7 @@ with lib; let
   #######################
   wazuh = {
     enabled = true;
-    autostart = true;
+    autostart = false;
     version = "4.10.1";
     webui = {
       dashboard = {
@@ -34,11 +36,11 @@ with lib; let
     user = {
       api = {
         username = "wazuh-api";
-        password = "start123!";
+        password = "theBlack9966CatsarNotEatingThEPantherCar";
       };
       indexer = {
         username = "wazuh-indexer";
-        password = "start123!";
+        password = "299greenFroggiessdoNOTkillyeLLowBirdies";
       };
     };
   };
