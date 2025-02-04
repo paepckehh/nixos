@@ -1,7 +1,4 @@
 "$schema" = 'https://starship.rs/config-schema.json'
-
-# command_timeout = 2000 
-
 format = """
 [](color_orange)\
 $os\
@@ -81,7 +78,7 @@ format = '[ $user]($style)'
 [hostname]
 ssh_only = false
 style = "bg:color_orange fg:color_fg0"
-format = '[@](bg:color_orange fg:color_white)[$hostname ]($style)'
+format = '[ @ ](bg:color_orange fg:color_white)[$hostname ]($style)'
 
 [battery]
 empty_symbol = '🪫'
