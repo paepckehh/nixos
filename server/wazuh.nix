@@ -19,29 +19,28 @@ with lib; let
   # ... open browser -> https://localhost:5601 (default)
   # ... backup /var/lib/wazuh on a regular basis (config, certs & database)
   # ... enjoy wazuh
-
   #######################
   # USER CONFIG SECTION #
   #######################
   wazuh = {
     enabled = true;
-    autostart = true;
+    autostart = false;
     version = "4.10.1";
     webui = {
       dashboard = {
         username = "wazuh";
-        password = "start123!";
+        password = "derhundhatkeine22!!22Socken";
         port = "5601"; # your dashboard url -> https://localhost:port
       };
     };
     user = {
       api = {
         username = "wazuh-api";
-        password = "theBlack9966CatsarNotEatingThEPantherCar";
+        password = "theBlack99!!!66CatsarNotEatingThEPantherCar";
       };
       indexer = {
         username = "wazuh-indexer";
-        password = "299greenFroggiessdoNOTkillyeLLowBirdies";
+        password = "29!!!99greenFroggiessdoNOTkillyeLLowBirdies";
       };
     };
   };
