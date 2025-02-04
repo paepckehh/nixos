@@ -7,15 +7,20 @@ with lib; let
   ########################################
   # HOW TO SETUP WAZUH IN 6 SIMPLE STEPS #
   ########################################
-  # 01 add wazuh.nix (this file) into your nix config        #  include via import [ ./wazuh.nix ];
-  # 02 edit -> wazuh.nix, set: wazuh.autostart = false;      #  should be default, verify!
-  # 03 sudo nixos-rebuild switch                             #  ...
-  # 04 sh /etc/wazuh-init.sh init                            #  do not run as root! (asks for sudo creds)
-  # 05 edit -> wazuh.nix, set: wazuh.autostart = true;       #  activate all 3 docker at next switch/boot
-  # 06 sudo nixos-rebuild switch                             #  go! (restart services or reboot)
-  # ... get a coffee & before docker downloads are finished (> 8GB)
-  # ... always verify that we booted the latest correct nixos profile! (nix switch is not always correct)
+  # [1] add wazuh.nix (this file) into your nix config        #  include via import [ ./wazuh.nix ];
+  # [2] edit -> wazuh.nix, set: wazuh.autostart = false;      #  should be default, verify!
+  # [3] sudo nixos-rebuild switch                             #  ...
+  # [4] sh /etc/wazuh-init.sh init                            #  do not run as root! (asks for sudo creds)
+  # [5] edit -> wazuh.nix, set: wazuh.autostart = true;       #  activate all 3 docker at next switch/boot
+  # [6] sudo nixos-rebuild switch                             #  go, start docker download, >8GB, restart services
+  #
+  # HINTS:
   # ... open browser -> https://localhost:5601 (default)
+  # ... always verify that we booted the latest correct nixos profile! (nix switch is not always correct)
+  # ... username and passwords (initial-only!) are hardwired in several places, change them within the running app, not here!
+  # ... change default passwords before going into prod! [https://documentation.wazuh.com/current/user-manual/user-administration/password-management.html]
+  # ... siem solutions like wazuh are high value and very error prone malware (automatic-scan) targets itself, they add large attac surface!
+  # ... do not expose the sever backend and server(eg. domain controller collectors) to [windows/internet] connected client networks!
   # ... backup /var/lib/wazuh on a regular basis (config, certs & database)
   # ... enjoy wazuh
   #######################
@@ -27,17 +32,19 @@ with lib; let
     version = "4.10.1";
     webui = {
       dashboard = {
+        # do not touch username or passwords here, they are hardwired into the wazuh docker, change them later within the app
         username = "kibanaserver";
         password = "kibanaserver";
         port = "5601"; # your dashboard url -> https://localhost:port
       };
     };
-    # do not touch the passwords below, they are hardwired into the docker, change them later within the app
     user = {
+      # do not touch username or the passwords here, they are hardwired into the wazuh docker, change them later within the app
       api = {
         username = "wazuh-wui";
         password = "MyS3cr37P450r.*-";
       };
+      # do not touch username or passwords here, they are hardwired into the wazuh docker, change them later within the app
       indexer = {
         username = "admin";
         password = "SecretPassword";
