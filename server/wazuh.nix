@@ -91,7 +91,7 @@ in
         #!/bin/sh
         sudo -v
         wazuh_stop() {
-        	echo "[WAZUH.INIT] Trying to terminate docker container, if already running ..."
+        	echo "[WAZUH.INIT] Trying to stop all wazuh docker container ..."
         	sudo systemctl stop docker-wazuh-indexer.service >/dev/null 2>&1
         	sudo systemctl stop docker-wazuh-manager.service >/dev/null 2>&1
                 sudo systemctl stop docker-wazuh-dashboard.service >/dev/null 2>&1
