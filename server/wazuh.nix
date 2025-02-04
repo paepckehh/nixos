@@ -17,6 +17,7 @@ with lib; let
   # ... open browser -> https://localhost:5601 (default)
   # ... backup /var/lib/wazuh on a regular basis (config, certs & database)
   # ... enjoy wazuh
+
   #######################
   # USER CONFIG SECTION #
   #######################
