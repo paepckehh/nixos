@@ -10,7 +10,7 @@ with lib; let
   # 01 add wazuh.nix (this file)  via to your nix config     #  include via import [ ./wazuh.nix ];
   # 02 edit -> wazuh.nix, set: wazuh.autostart = false;      #  should be default, verify!
   # 02 sudo nixos-rebuild switch                             #  ...
-  # 03 sh /etc/wazuh-init.sh                                 #  do not run as root! (asks for sudo creds)
+  # 03 sh /etc/wazuh-init.sh init                            #  do not run as root! (asks for sudo creds)
   # 04 edit -> wazuh.nix, set: wazuh.autostart = true;       #  activate all 3 docker at next switch/boot
   # 05 sudo nixos-rebuild switch                             #  go! (restart services or reboot)
   # ... get a coffee & before docker downloads are finished (> 8GB)
@@ -88,33 +88,36 @@ in
     #################################
     environment = {
       etc."wazuh-init.sh".text = lib.mkForce ''
-         #!/bin/sh
+        #!/bin/sh
         sudo -v
         wazuh_stop() {
         	echo "[WAZUH.INIT] Trying to terminate docker container, if already running ..."
         	sudo systemctl stop docker-wazuh-indexer.service >/dev/null 2>&1
         	sudo systemctl stop docker-wazuh-manager.service >/dev/null 2>&1
         	sudo systemctl stop docker-wazuh-dashboard.service >/dev/null 2>&1
-        	sudo systemctl stop docker-wazuh-indexer.service >/dev/null 2>&1
-        	sudo systemctl stop docker-wazuh-manager.service >/dev/null 2>&1
-        	sudo systemctl stop docker-wazuh-dashboard.service >/dev/null 2>&1
+        }
+        wazuh_init() {
+        	wazuh_stop
+        	wazuh_stop
+        	TARGET="/var/lib/wazuh"
+        	if [ -x $TARGET ]; then
+        		DTS="$(date '+%Y%m%d%H%M')"
+        		echo "[WAZUH.INIT] Found pre-existing wazuh $TARGET, moving old config to $TARGET-$DTS"
+        		sudo rm -rf $TARGET-$DTS >/dev/null 2>&1
+        		sudo mv -f $TARGET $TARGET-$DTS
+        	fi
+        	sudo mkdir -p $TARGET && cd $TARGET
+        	nix-shell --packages git --run "sudo git clone --depth 1 --branch 4.10.2 https://github.com/wazuh/wazuh-docker wazuh-docker"
+        	cd wazuh-docker/single-node
+        	nix-shell --packages docker docker-compose --run "sudo docker-compose -f generate-indexer-certs.yml run --rm generator"
+        	sudo cp -af * ../..
+        	cd $TARGET && sudo rm -rf wazuh-docker
         }
         case $1 in
-        stop) wazuh_stop && exit 0 ;;
+        stop) wazuh_stop ;;
+        init) wazuh_init ;;
+        *) echo "[WAZU.INIT] No action specified, please specify [init|stop]!";;
         esac
-        TARGET="/var/lib/wazuh"
-        if [ -x $TARGET ]; then
-        	DTS="$(date '+%Y%m%d%H%M')"
-        	echo "[WAZUH.INIT] Found pre-existing wazuh $TARGET, moving old config to $TARGET-$DTS"
-        	sudo rm -rf $TARGET-$DTS >/dev/null 2>&1
-        	sudo mv -f $TARGET $TARGET-$DTS
-        fi
-        sudo mkdir -p $TARGET && cd $TARGET
-        nix-shell --packages git --run "sudo git clone --depth 1 --branch 4.10.2 https://github.com/wazuh/wazuh-docker wazuh-docker"
-        cd wazuh-docker/single-node
-        nix-shell --packages docker docker-compose --run "sudo docker-compose -f generate-indexer-certs.yml run --rm generator"
-        sudo cp -af * ../..
-        cd $TARGET && sudo rm -rf wazuh-docker
         exit 0
       '';
     };
