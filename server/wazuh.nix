@@ -7,7 +7,7 @@ with lib; let
   ########################################
   # HOW TO SETUP WAZUH IN 6 SIMPLE STEPS #
   ########################################
-  # 01 add wazuh.nix (this file)  via to your nix config     #  include via import [ ./wazuh.nix ];
+  # 01 add wazuh.nix (this file) into your nix config        #  include via import [ ./wazuh.nix ];
   # 02 edit -> wazuh.nix, set: wazuh.autostart = false;      #  should be default, verify!
   # 02 sudo nixos-rebuild switch                             #  ...
   # 03 sh /etc/wazuh-init.sh init                            #  do not run as root! (asks for sudo creds)
@@ -24,7 +24,7 @@ with lib; let
   #######################
   wazuh = {
     enabled = true;
-    autostart = false;
+    autostart = true;
     version = "4.10.1";
     webui = {
       dashboard = {
