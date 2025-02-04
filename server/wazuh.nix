@@ -29,7 +29,7 @@ with lib; let
     webui = {
       dashboard = {
         username = "wazuh";
-        password = "public-90-91-92";
+        password = "pub-42-99-lic";
         port = "5601"; # your dashboard url -> https://localhost:port
       };
     };
