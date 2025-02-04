@@ -17,29 +17,28 @@ with lib; let
   # ... open browser -> https://localhost:5601 (default)
   # ... backup /var/lib/wazuh on a regular basis (config, certs & database)
   # ... enjoy wazuh
-
   #######################
   # USER CONFIG SECTION #
   #######################
   wazuh = {
     enabled = true;
-    autostart = true;
+    autostart = false;
     version = "4.10.1";
     webui = {
       dashboard = {
         username = "wazuh";
-        password = "start123!!";
+        password = "start123!";
         port = "5601"; # your dashboard url -> https://localhost:port
       };
     };
     user = {
       api = {
         username = "wazuh-api";
-        password = "start123!!";
+        password = "start123!";
       };
       indexer = {
         username = "wazuh-indexer";
-        password = "start123!!";
+        password = "start123!";
       };
     };
   };
@@ -57,17 +56,17 @@ with lib; let
     dashboard = {
       hostname = "wazuh.dashboard";
       imageName = "wazuh/wazuh-dashboard:${wazuh.version}";
-      url = "http://${wazuh.dashboard.hostname}:${wazuh.webui.dashboard.urlPort}";
+      url = "https://${wazuh.dashboard.hostname}:${wazuh.webui.dashboard.urlPort}";
     };
     indexer = {
       hostname = "wazuh.indexer";
       imageName = "wazuh/wazuh-indexer:${wazuh.version}";
-      url = "http://${wazuh.indexer.hostname}:9200";
+      url = "https://${wazuh.indexer.hostname}:9200";
     };
     manager = {
       hostname = "wazuh.manager";
       imageName = "wazuh/wazuh-manager:${wazuh.version}";
-      url = "http://${wazuh.manager.hostname}";
+      url = "https://${wazuh.manager.hostname}";
     };
   };
 in
