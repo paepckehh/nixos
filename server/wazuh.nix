@@ -27,8 +27,8 @@ with lib; let
     version = "4.10.1";
     webui = {
       dashboard = {
-        username = "admin";
-        password = "start12345678";
+        username = "kibanaserver";
+        password = "kibanaserver";
         port = "5601"; # your dashboard url -> https://localhost:port
       };
     };
