@@ -195,7 +195,7 @@ in
               INDEXER_URL = "${wazuh.indexer.url}";
               INDEXER_USERNAME = "${wazuh.user.indexer.username}";
               INDEXER_PASSWORD = "${wazuh.user.indexer.password}";
-              FILEBEAT_SSL_VERIFICATION_MODE = "none"; # full
+              FILEBEAT_SSL_VERIFICATION_MODE = "full"; # full|none
               SSL_CERTIFICATE_AUTHORITIES = "/etc/ssl/root-ca.pem";
               SSL_CERTIFICATE = "/etc/ssl/filebeat.pem";
               SSL_KEY = "/etc/ssl/filebeat.key";
