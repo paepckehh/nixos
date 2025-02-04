@@ -4,14 +4,14 @@
   ...
 }:
 with lib; let
-  ##########################################
-  # HOW TO SETUP WAZUH IN PAINFREE 5 STEPS #
-  ##########################################
+  ########################################
+  # HOW TO SETUP WAZUH IN 5 SIMPLE STEPS #
+  ########################################
   # 00 add wazuh.nix via to your nix config                #  include via import [ ./wazuh.nix ];
   # 01 edit -> wazuh.nix, set: wazuh.autostart = false;    #  should be default, verify!
-  # 02 sudo nixos-rebuild switch                           #
-  # 03 sh /etc/wazuh-init.sh                               #  run as normal user, but needs sudo creds
-  # 04 edit -> wazuh.nix, set: wazuh.autostart = true;     #  activates all 3 docker at switch/boot
+  # 02 sudo nixos-rebuild switch                           #  ...
+  # 03 sh /etc/wazuh-init.sh                               #  do not run as root! (asks for sudo creds)
+  # 04 edit -> wazuh.nix, set: wazuh.autostart = true;     #  activate all 3 docker at next switch/boot
   # 05 sudo nixos-rebuild switch                           #  go!
   # ... quick, get a coffee & before docker downloads are finished (> 8GB)
   # ... browser, open -> http://localhost:5601 (default)
