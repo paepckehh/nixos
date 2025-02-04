@@ -5,16 +5,16 @@
 }:
 with lib; let
   ########################################
-  # HOW TO SETUP WAZUH IN 5 SIMPLE STEPS #
+  # HOW TO SETUP WAZUH IN 6 SIMPLE STEPS #
   ########################################
-  # 00 add wazuh.nix via to your nix config                #  include via import [ ./wazuh.nix ];
-  # 01 edit -> wazuh.nix, set: wazuh.autostart = false;    #  should be default, verify!
-  # 02 sudo nixos-rebuild switch                           #  ...
-  # 03 sh /etc/wazuh-init.sh                               #  do not run as root! (asks for sudo creds)
-  # 04 edit -> wazuh.nix, set: wazuh.autostart = true;     #  activate all 3 docker at next switch/boot
-  # 05 sudo nixos-rebuild switch                           #  go!
+  # 01 add wazuh.nix (this file)  via to your nix config     #  include via import [ ./wazuh.nix ];
+  # 02 edit -> wazuh.nix, set: wazuh.autostart = false;      #  should be default, verify!
+  # 02 sudo nixos-rebuild switch                             #  ...
+  # 03 sh /etc/wazuh-init.sh                                 #  do not run as root! (asks for sudo creds)
+  # 04 edit -> wazuh.nix, set: wazuh.autostart = true;       #  activate all 3 docker at next switch/boot
+  # 05 sudo nixos-rebuild switch                             #  go!
   # ... quick, get a coffee & before docker downloads are finished (> 8GB)
-  # ... browser, open -> http://localhost:5601 (default)
+  # ... open browser -> https://localhost:5601 (default)
   # ... backup /var/lib/wazuh on a regular basis (config, certs & database)
   # ... enjoy wazuh
   #######################
@@ -28,7 +28,7 @@ with lib; let
       dashboard = {
         username = "wazuh";
         password = "start123!!";
-        port = "5601"; # dashboard url -> http://localhost:port
+        port = "5601"; # your dashboard url -> https://localhost:port
       };
     };
     user = {
@@ -81,7 +81,6 @@ in
         allowedUDPPorts = [514];
       };
     };
-
     #################################
     # ENVIRONMENT SETUP INIT SCRIPT #
     #################################
@@ -106,7 +105,6 @@ in
         exit 0
       '';
     };
-
     ##################
     # VIRTUALISATION #
     ##################
