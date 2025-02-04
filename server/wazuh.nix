@@ -100,7 +100,7 @@ in
         sudo mkdir -p $TARGET && cd $TARGET
         nix-shell --packages git --run "sudo git clone --depth 1 --branch 4.10.2 https://github.com/wazuh/wazuh-docker"
         cd wazuh-docker/single-node
-        nix-shell --packkages docker docker-compose --run "sudo docker-compose -f generate-indexer-certs.yml run --rm generator"
+        nix-shell --packages docker docker-compose --run "sudo docker-compose -f generate-indexer-certs.yml run --rm generator"
         sudo cp -af * ../..
         sudo rm -rf wazuh-docker
       '';
