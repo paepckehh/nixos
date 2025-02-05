@@ -61,17 +61,18 @@
       "nix.update" = ''
         cd /etc/nixos &&\
         env sudo -v &&\
-        sudo alejandra --quiet . &&\
+        sudo chown -R me:users * &&\
         sudo chown -R me:users .git &&\
-        sudo mkdir -p .attic/flake.lock &&\
-        sudo cp -f flake.lock .attic/flake.lock/$(date '+%Y-%m-%d--%H-%M').flake.lock ;\
+        alejandra --quiet . &&\
+        mkdir -p .attic/flake.lock &&\
+        cp -f flake.lock .attic/flake.lock/$(date '+%Y-%m-%d--%H-%M').flake.lock ;\
         git reset &&\
         git add . &&\
         git commit -S -m update ;\
         git fsck --full &&\
         git gc --aggressive &&\
-        sudo nix flake update ;\
-        sudo alejandra --quiet .'';
+        nix flake update ;\
+        alejandra --quiet .'';
       "nix.boot" = ''
         nix.build &&\
         sudo nixos-rebuild boot -v --fallback --install-bootloader '';

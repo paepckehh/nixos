@@ -28,7 +28,7 @@
   fileSystems = lib.mkForce {
     "/" = {
       fsType = "ext4";
-      device = "/dev/disk/by-partlabel/disk-main-root";
+      device = "/dev/mapper/root";
       options = ["noatime" "nodiratime" "discard"];
     };
     "/boot" = lib.mkForce {

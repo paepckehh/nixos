@@ -2,11 +2,11 @@
   description = "nixos infra";
   inputs = {
     # ONLINE URLs
+    # dns.url = "github:nix-community/dns.nix/master";
+    # nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     disko.url = "github:nix-community/disko/master";
-    dns.url = "github:nix-community/dns.nix/master";
     home-manager.url = "github:nix-community/home-manager/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     # GLOBAL
     disko.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -14,16 +14,14 @@
   outputs = {
     self,
     disko,
-    dns,
     home-manager,
     nixpkgs,
-    nixpkgs-unstable,
   }: let
     #################
     # GLOBAL CONFIG #
     #################
     build.iso.target.hostname = "installer";
-    overlay-unstable = final: prev: {unstable = nixpkgs-unstable.legacyPackages.${prev.system};};
+    # overlay-unstable = final: prev: {unstable = nixpkgs-unstable.legacyPackages.${prev.system};};
   in {
     nixosConfigurations = {
       ###########
@@ -59,15 +57,11 @@
       srv-mp = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ({
-            config,
-            pkgs,
-            ...
-          }: {nixpkgs.overlays = [overlay-unstable];})
+          # ({ config, pkgs, ... }: {nixpkgs.overlays = [overlay-unstable];})
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./role/client-desktop.nix
-          ./person/mpaepcke_luks.nix
+          ./modules/disko-luks.nix
           ./person/desktop/mpaepcke.nix
           # ./server/wazuh.nix
           # ./server/virtual.nix
