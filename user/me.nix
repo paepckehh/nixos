@@ -59,6 +59,7 @@
             godap = "go run github.com/Macmod/godap@latest $i*";
             ll = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
             la = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
+            lg = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --group";
             lt = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
             lo = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
             li = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";

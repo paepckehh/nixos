@@ -63,6 +63,7 @@
           ./role/client-desktop.nix
           ./modules/disko-luks.nix
           ./person/desktop/mpaepcke.nix
+          ./server/mongodb.nix
           # ./server/wazuh.nix
           # ./server/virtual.nix
           # ./server/unifi.nix
