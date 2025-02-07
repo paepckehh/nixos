@@ -20,6 +20,7 @@
       dnsutils
       fastfetch
       gping
+      gnumake
       httpie
       hyperfine
       inetutils
@@ -67,6 +68,7 @@
       openssl
       opensc
       usbutils
+      unzip
       ventoy-full
       xh
       yamlfmt
