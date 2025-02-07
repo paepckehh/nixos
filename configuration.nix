@@ -232,7 +232,14 @@
   ####################
   networking = {
     enableIPv6 = false;
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      wifi = {
+        scanRandMacAddress = false;
+        macAddress = "stable-ssid";
+        powersave = false;
+      };
+    };
     nftables.enable = true;
     firewall = {
       enable = true;
@@ -404,6 +411,9 @@
         RADEON_DPM_STATE_ON_BAT = "battery";
         RADEON_POWER_PROFILE_ON_AC = "low";
         RADEON_POWER_PROFILE_ON_BAT = "low";
+        WOL_DISABLE = "Y";
+        WIFI_PWR_ON_AC = "on";
+        WIFI_PWR_ON_BAT = "on";
       };
     };
     usbguard = {
