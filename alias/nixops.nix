@@ -69,8 +69,10 @@
         git reset &&\
         git add . &&\
         git commit -S -m update ;\
-        git fsck --full &&\
-        git gc --aggressive &&\
+        git reflog expire --expire-unreachable=now --all ;\
+        git gc --prune=now ;\
+        git fsck --full ;\
+        git gc --aggressive ;\
         nix flake update ;\
         alejandra --quiet .'';
       "nix.boot" = ''

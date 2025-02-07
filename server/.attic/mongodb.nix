@@ -37,36 +37,22 @@
       replSetName = "";
       user = "mongodb";
     };
-    prometheus = {
+    prometheus.exporters.mongodb = {
       enable = false;
-      port = 9191;
-      retentionTime = "60d";
-      alertmanager.port = 9292;
-      scrapeConfigs = [
-        {
-          job_name = "mongodb";
-          static_configs = [{targets = ["${config.services.prometheus.exporterts.mongodb.listenAddress}:${toString config.services.prometheus.exporters.mongodb.port}"];}];
-        }
-      ];
-      exporters = {
-        mongodb = {
-          enable = false;
-          collStats = [];
-          collectAll = true;
-          collector = [];
-          extraFlags = [];
-          firewallFilter = null;
-          firewallRules = null;
-          group = "mongodb-exporter";
-          indexStats = [];
-          listenAddress = "127.0.0.1";
-          openFirewall = false;
-          port = "9216";
-          telemetryPath = "/metrics";
-          uri = "mongodb://127.0.0.1:27017/db";
-          user = "mongodb-exporter";
-        };
-      };
+      collStats = [];
+      collectAll = true;
+      collector = [];
+      extraFlags = [];
+      firewallFilter = null;
+      firewallRules = null;
+      group = "mongodb-exporter";
+      indexStats = [];
+      listenAddress = "127.0.0.1";
+      openFirewall = false;
+      port = "9216";
+      telemetryPath = "/metrics";
+      uri = "mongodb://127.0.0.1:27017/db";
+      user = "mongodb-exporter";
     };
   };
 }

@@ -76,8 +76,7 @@
       		case $1 in
       		fetch) XCMD="git -C $REPO fetch --all --force" && action && XCMD="git gc --auto" && action ;;
       		pull) XCMD="git -C $REPO pull --all --force" && action && XCMD="git gc --auto" && action ;;
-      		compact) XCMD="git -C $REPO gc --aggressive" && action ;;
-      		repair) XCMD="git -C $REPO git fsck" && action ;;
+                compact) XCMD="git -C $REPO reflog expire --expire-unreachable=now --all" && action && XCMD="git -C $REPO gc -prune=now --aggressive" && action ;;
       		update)
       			case "$(git -C $REPO config get core.bare)" in
       			false) XCMD="git -C $REPO pull --all --force" && action && XCMD="git -C $REPO gc --auto" && action ;;
@@ -93,7 +92,6 @@
       $SUDO_CMD chmod -R g=rwX $REPO_STORE
     '';
   };
-
   #########
   # USERS #
   #########

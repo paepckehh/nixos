@@ -7,26 +7,12 @@
   ####################
   #-=# NETWORKING #=-#
   ####################
-  # networking = {
-  #  resolvconf = {
-  #    enable = true;
-  #    useLocalResolver = true;
-  #  };
-  # };
+  networking.nameservers = ["127.0.0.1"];
 
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment = {
-    systemPackages = with pkgs; [adguardian];
-    variables = {
-      # ADGUARD_IP = "127.0.0.1";
-      # ADGUARD_PORT = "3232";
-      # ADGUARD_PROTOCOL = "http";
-      # ADGUARD_USERNAME = "";
-      # ADGUARD_PASSWORD = "";
-    };
-  };
+  environment.systemPackages = with pkgs; [adguardian];
 
   ##################
   #-=# SERVICES #=-#
