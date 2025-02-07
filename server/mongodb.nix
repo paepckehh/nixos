@@ -3,6 +3,11 @@
   pkgs,
   ...
 }: {
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment.systemPackages = with pkgs; [mongosh];
+
   ####################
   #-=# SERVICES #=-#
   ####################
