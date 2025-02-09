@@ -20,7 +20,7 @@
     #################
     # GLOBAL CONFIG #
     #################
-    build.iso.target.hostname = "installer";
+    build.iso.target.hostname = "nix-installer";
     # overlay-unstable = final: prev: {unstable = nixpkgs-unstable.legacyPackages.${prev.system};};
   in {
     nixosConfigurations = {
@@ -32,6 +32,7 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
+          ./modules/disko.nix
           ./role/client-desktop.nix
           ./user/desktop/me.nix
           {networking.hostName = "nixos";}
@@ -45,8 +46,8 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./role/client-desktop.nix
           ./modules/disko.nix
+          ./role/client-desktop.nix
           ./person/desktop/mpaepcke.nix
           {networking.hostName = "client-mp";}
         ];
@@ -79,14 +80,15 @@
       #############
       # ISO IMAGE #
       #############
-      installer = nixpkgs.lib.nixosSystem {
+      nix-installer = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./role/adminpc.nix
+          ./modules/disko.nix
+          ./role/client-desktop.nix
           ./user/desktop/me.nix
-          {networking.hostName = "installer";}
+          {networking.hostName = "nix-installer";}
         ];
       };
       iso = nixpkgs.lib.nixosSystem {

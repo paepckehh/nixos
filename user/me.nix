@@ -80,14 +80,11 @@
         fonts.fontconfig.enable = true;
         programs = {
           btop.enable = true;
-          direnv.enable = true;
           fzf.enable = true;
           git.enable = true;
-          gitui.enable = true;
           home-manager.enable = true;
           thefuck.enable = true;
           starship.enable = true;
-          lazygit.enable = true;
           ripgrep.enable = true;
           skim.enable = true;
           atuin = {
@@ -117,10 +114,6 @@
           };
           go = {
             enable = true;
-          };
-          ghostty = {
-            enable = true;
-            enableZshIntegration = true;
           };
           vim = {
             enable = true;

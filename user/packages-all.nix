@@ -13,67 +13,64 @@
       bandwhich
       bmon
       curlie
-      ddgr
-      dust
       dmidecode
       dnstracer
       dnsutils
+      dust
       fastfetch
-      gping
+      fd
       gnumake
+      gping
       httpie
       hyperfine
       inetutils
-      parted
-      progress
-      pv
-      paper-age
-      passage
-      pciutils
-      p7zip
-      pwgen
-      shellcheck
-      shfmt
-      s-tui
-      stress
-      sysz
-      tcping-go
-      tldr
-      tlsinfo
-      termshark
-      tshark
-      tree
-      trippy
-      tz
-      kmon
+      jq
       keepassxc
       keepassxc-go
+      kmon
       moreutils
       ncdu
       netscanner
-      nix-tree
-      nix-top
+      nixfmt-rfc-style
       nix-init
-      nix-search-cli
       nix-output-monitor
+      nixpkgs-fmt
       nixpkgs-review
       nix-prefetch-scripts
-      nixfmt-rfc-style
-      nixpkgs-fmt
+      nix-search-cli
+      nix-top
+      nix-tree
       nvme-cli
-      fastfetch
-      fd
-      jq
       onefetch
       openssl
-      opensc
-      usbutils
+      p7zip
+      paper-age
+      parted
+      passage
+      pciutils
+      progress
+      pv
+      pwgen
+      shellcheck
+      shfmt
+      stress
+      s-tui
+      sysz
+      tcping-go
+      termshark
+      tldr
+      tlsinfo
+      tree
+      trippy
+      tshark
+      tz
       unzip
+      usbutils
       ventoy-full
       xh
       yamlfmt
-      yubikey-manager
       yq
+      yubikey-manager
     ];
   };
 }

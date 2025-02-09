@@ -234,9 +234,11 @@
     enableIPv6 = false;
     networkmanager = {
       enable = true;
+      logLevel = "INFO";
       wifi = {
+        backend = "wpa_supplicant";
         scanRandMacAddress = false;
-        macAddress = "stable-ssid";
+        macAddress = "permanent";
         powersave = false;
       };
     };

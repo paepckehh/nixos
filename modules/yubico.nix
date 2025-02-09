@@ -77,6 +77,6 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [pam_u2f];
+    systemPackages = with pkgs; [pam_u2f opensc];
   };
 }
