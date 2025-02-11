@@ -2,7 +2,15 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  #################
+  #-=# MONGODB #=-#
+  #################
+  mongodb = {
+    listenAddress = "127.0.0.1";
+    monitoring = false;
+  };
+in {
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
@@ -14,7 +22,7 @@
   services = {
     mongodb = {
       enable = true;
-      bind_ip = "127.0.0.1";
+      bind_ip = mongodb.listenAddress;
       enableAuth = false;
       extraConfig = ''
         net:
