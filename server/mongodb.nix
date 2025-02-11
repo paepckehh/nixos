@@ -4,11 +4,14 @@
   ...
 }: let
   #################
-  #-=# MONGODB #=-#
+  #-=# mongodb #=-#
   #################
   mongodb = {
     listenAddress = "127.0.0.1";
-    monitoring = false;
+    monitoring = {
+      enable = false; # enable prometheus, grafana, exporters, scraper for db profiling
+      listenAddress = global.listenAddress;
+    };
   };
 in {
   #####################
@@ -51,7 +54,8 @@ in {
       user = "mongodb";
     };
     prometheus = {
-      enable = false; # enable everything (grafana, prometheus, exporters, scrapper, ...)
+      enable = mongodb.monitoring.enable;
+      listenAddress = mongodb.monitoring.listenAddress;
       port = 9191;
       retentionTime = "90d";
       alertmanager.port = 9292;
@@ -74,13 +78,13 @@ in {
           enable = config.services.prometheus.enable;
           enabledCollectors = ["logind" "systemd"];
           disabledCollectors = [];
-          listenAddress = "127.0.0.1";
+          listenAddress = mongodb.monitoring.listenAddress;
           port = 9100;
         };
         smartctl = {
           enable = config.services.prometheus.enable;
           devices = ["/dev/sda"]; # /dev/nvme0
-          listenAddress = "127.0.0.1";
+          listenAddress = mongodb.monitoring.listenAddress;
           port = 9633;
         };
         mongodb = {
@@ -95,9 +99,9 @@ in {
           indexStats = [];
           openFirewall = false;
           telemetryPath = "/metrics";
-          uri = "mongodb://127.0.0.1:27017/db";
+          uri = "mongodb://${config.services.prometheus.exporters.listenAddress}:27017/db";
           user = "mongodb-exporter";
-          listenAddress = "127.0.0.1";
+          listenAddress = mongodb.monitoring.listenAddress;
           port = 9216;
         };
       };
@@ -106,7 +110,7 @@ in {
       enable = config.services.prometheus.enable;
       provision.enable = config.services.grafana.enable;
       settings.server = {
-        http_addr = "127.0.0.1";
+        http_addr = mongodb.monitoring.listenAddress;
         http_port = 9090;
         domain = "localhost";
       };
