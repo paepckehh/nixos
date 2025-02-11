@@ -9,7 +9,8 @@
   mongodb = {
     listenAddress = "127.0.0.1";
     monitoring = {
-      enable = false; # enable prometheus, grafana, exporters, scraper for db profiling
+      # enable db profiling via prometheus, grafana, exporters, scraper, ...
+      enable = false;
       listenAddress = mongodb.listenAddress;
     };
   };
