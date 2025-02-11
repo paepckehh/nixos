@@ -3,12 +3,15 @@
   pkgs,
   ...
 }: let
+  # mongodb-express  http://localhost:8081
+  # prometheus       http://localhost:9191/targets
   #################
   #-=# mongodb #=-#
   #################
   mongodb = {
     enable = true;
     listenAddress = "127.0.0.1";
+    port = 27017;
     monitoring = {
       enable = true;
       listenAddress = "127.0.0.1";
@@ -32,9 +35,9 @@ in {
           ports = ["${mongodb.monitoring.listenAddress}:8081:8081"];
           extraOptions = ["--network=host"];
           environment = {
-            "PORT" = "8081";
-            "ME_CONFIG_MONGODB_URL" = "mongodb://${mongodb.listenAddress}:27017";
-            "ME_CONFIG_MONGODB_ENABLE_ADMIN" = "true";
+            "PORT" = 8081;
+            "ME_CONFIG_MONGODB_URL" = "mongodb://${mongodb.listenAddress}:${toString mongodb.port}";
+            "ME_CONFIG_MONGODB_ENABLE_ADMIN" = true;
           };
         };
       };
@@ -51,7 +54,7 @@ in {
       enableAuth = false;
       extraConfig = ''
         net:
-           port: 27017
+           port: ${toString mongodb.port}
            bindIpAll: false
            ipv6: false
            unixDomainSocket:
