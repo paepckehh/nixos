@@ -9,7 +9,7 @@
   mongodb = {
     listenAddress = "127.0.0.1";
     monitoring = {
-      # db profiling via prometheus, grafana
+      # db app profiling
       enable = true;
       listenAddress = mongodb.listenAddress;
     };
@@ -63,15 +63,15 @@ in {
       scrapeConfigs = [
         {
           job_name = "node";
-          static_configs = [{targets = ["${config.services.prometheus.exporterts.node.listenAddress}:${toString config.services.prometheus.exporters.node.port}"];}];
+          static_configs = [{targets = ["${config.services.prometheus.exporters.node.listenAddress}:${toString config.services.prometheus.exporters.node.port}"];}];
         }
         {
           job_name = "smartctl";
-          static_configs = [{targets = ["${config.services.prometheus.exporterts.smartctl.listenAddress}:${toString config.services.prometheus.exporters.smartctl.port}"];}];
+          static_configs = [{targets = ["${config.services.prometheus.exporters.smartctl.listenAddress}:${toString config.services.prometheus.exporters.smartctl.port}"];}];
         }
         {
           job_name = "mongodb";
-          static_configs = [{targets = ["${config.services.prometheus.exporterts.mongodb.listenAddress}:${toString config.services.prometheus.exporters.mongodb.port}"];}];
+          static_configs = [{targets = ["${config.services.prometheus.exporters.mongodb.listenAddress}:${toString config.services.prometheus.exporters.mongodb.port}"];}];
         }
       ];
       exporters = {
