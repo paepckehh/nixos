@@ -55,13 +55,13 @@ in {
            ipv6: false
            unixDomainSocket:
               enabled: true
-              filePermissions: 0700
+              filePermissions: 0770
               pathPrefix: /tmp
         storage:
            engine: wiredTiger
            directoryPerDB: true
            syncPeriodSecs: 120
-           journal.commitIntervalMs: 2000
+           journal.commitIntervalMs: 500
         systemLog:
            timeStampFormat: iso8601-utc
            verbosity: 0
