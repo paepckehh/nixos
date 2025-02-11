@@ -35,9 +35,9 @@ in {
           ports = ["${mongodb.monitoring.listenAddress}:8081:8081"];
           extraOptions = ["--network=host"];
           environment = {
-            "PORT" = 8081;
             "ME_CONFIG_MONGODB_URL" = "mongodb://${mongodb.listenAddress}:${toString mongodb.port}";
             "ME_CONFIG_MONGODB_ENABLE_ADMIN" = "true";
+            "PORT" = "8081";
           };
         };
       };
