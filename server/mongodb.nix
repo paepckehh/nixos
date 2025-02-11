@@ -9,7 +9,6 @@
   mongodb = {
     listenAddress = "127.0.0.1";
     monitoring = {
-      # db app profiling
       enable = true;
       listenAddress = mongodb.listenAddress;
     };
@@ -19,6 +18,22 @@ in {
   #-=# ENVIRONMENT #=-#
   #####################
   environment.systemPackages = with pkgs; [mongosh];
+
+  ########################
+  #-=# VIRTUALISATION #=-#
+  ########################
+  virtualisation = {
+    oci-containers = {
+      backend = "podman";
+      containers = {
+        mongo-express = {
+          image = "mongo-express";
+          ports = ["${mongodb.monitoring.listenAddress}:8081:8081"];
+          extraOptions = ["--network=host"];
+        };
+      };
+    };
+  };
 
   ####################
   #-=# SERVICES #=-#
@@ -41,7 +56,7 @@ in {
            engine: wiredTiger
            directoryPerDB: true
            syncPeriodSecs: 120
-           journal.commitIntervalMs: 2000
+           journal.commitIntervalMs: 2500
         systemLog:
            timeStampFormat: iso8601-utc
            verbosity: 0
