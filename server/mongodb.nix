@@ -7,10 +7,11 @@
   #-=# mongodb #=-#
   #################
   mongodb = {
+    enable = true;
     listenAddress = "127.0.0.1";
     monitoring = {
       enable = true;
-      listenAddress = mongodb.listenAddress;
+      listenAddress = "127.0.0.1";
     };
   };
 in {
@@ -24,12 +25,16 @@ in {
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "docker";
+      backend = "podman";
       containers = {
         mongo-express = {
           image = "mongo-express";
           ports = ["${mongodb.monitoring.listenAddress}:8081:8081"];
           extraOptions = ["--network=host"];
+          environment = {
+            "PORT" = "8081";
+            "ME_CONFIG_MONGODB_URL" = "mongodb://${mongodb.listenAddress}:27017";
+          };
         };
       };
     };
@@ -40,7 +45,7 @@ in {
   ####################
   services = {
     mongodb = {
-      enable = true;
+      enable = mongodb.enable;
       bind_ip = mongodb.listenAddress;
       enableAuth = false;
       extraConfig = ''
