@@ -18,7 +18,7 @@ in {
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.systemPackages = with pkgs; [mongosh];
+  environment.systemPackages = with pkgs; [mongosh mongo-tools mongodb-compass];
 
   ########################
   #-=# VIRTUALISATION #=-#
@@ -55,13 +55,13 @@ in {
            ipv6: false
            unixDomainSocket:
               enabled: true
-              filePermissions: 0770
+              filePermissions: 0700
               pathPrefix: /tmp
         storage:
            engine: wiredTiger
            directoryPerDB: true
            syncPeriodSecs: 120
-           journal.commitIntervalMs: 2500
+           journal.commitIntervalMs: 2000
         systemLog:
            timeStampFormat: iso8601-utc
            verbosity: 0
