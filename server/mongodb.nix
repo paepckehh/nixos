@@ -18,7 +18,7 @@ in {
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.systemPackages = with pkgs; [mongosh mongo-tools mongodb-compass];
+  environment.systemPackages = with pkgs; [mongosh mongodb-tools mongodb-compass];
 
   ########################
   #-=# VIRTUALISATION #=-#
