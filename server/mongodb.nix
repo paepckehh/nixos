@@ -100,7 +100,7 @@ in {
           indexStats = [];
           openFirewall = false;
           telemetryPath = "/metrics";
-          uri = "mongodb://${config.services.prometheus.exporters.listenAddress}:27017/db";
+          uri = "mongodb://${config.services.prometheus.exporters.mongodb.listenAddress}:27017/db";
           user = "mongodb-exporter";
           listenAddress = mongodb.monitoring.listenAddress;
           port = 9216;
