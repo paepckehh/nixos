@@ -3,8 +3,13 @@
   pkgs,
   ...
 }: let
-  # mongodb-express  http://localhost:8081 admin pass
-  # prometheus       http://localhost:9191/targets
+  ##############################################
+  # This flake provides the following services #
+  ##############################################
+  # mongodb-express    http://localhost:8081         || user:admin password:pass
+  # prometheus         http://localhost:9191/targets || exporter-enabled:node,smartctl,mongodb
+  # grafana            http://localhost:9090         || user:admin password:start
+  # add your user to group mongodb to use local unix sockets
   #################
   #-=# mongodb #=-#
   #################
@@ -37,6 +42,8 @@ in {
           environment = {
             "ME_CONFIG_MONGODB_URL" = "mongodb://${mongodb.listenAddress}:${toString mongodb.port}";
             "ME_CONFIG_MONGODB_ENABLE_ADMIN" = "true";
+            "ME_CONFIG_MONGODB_AUTH_USERNAME" = "admin";
+            "ME_CONFIG_MONGODB_AUTH_PASSWORD" = "start";
             "PORT" = "8081";
           };
         };
@@ -44,9 +51,9 @@ in {
     };
   };
 
-  ####################
+  ##################
   #-=# SERVICES #=-#
-  ####################
+  ##################
   services = {
     mongodb = {
       enable = mongodb.enable;
