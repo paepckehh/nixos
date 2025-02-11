@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  # mongodb-express  http://localhost:8081
+  # mongodb-express  http://localhost:8081 admin pass
   # prometheus       http://localhost:9191/targets
   #################
   #-=# mongodb #=-#
@@ -36,7 +36,7 @@ in {
           extraOptions = ["--network=host"];
           environment = {
             "ME_CONFIG_MONGODB_URL" = "mongodb://${mongodb.listenAddress}:${toString mongodb.port}";
-            "ME_CONFIG_MONGODB_ENABLE_ADMIN" = "true";
+            "ME_CONFIG_MONGODB_ENABLE_ADMIN" = "false";
             "PORT" = "8081";
           };
         };
