@@ -36,7 +36,7 @@ in {
           extraOptions = ["--network=host"];
           environment = {
             "ME_CONFIG_MONGODB_URL" = "mongodb://${mongodb.listenAddress}:${toString mongodb.port}";
-            "ME_CONFIG_MONGODB_ENABLE_ADMIN" = "false";
+            "ME_CONFIG_MONGODB_ENABLE_ADMIN" = "true";
             "PORT" = "8081";
           };
         };
@@ -83,7 +83,6 @@ in {
       listenAddress = mongodb.monitoring.listenAddress;
       port = 9191;
       retentionTime = "90d";
-      alertmanager.port = 9292;
       scrapeConfigs = [
         {
           job_name = "node";
