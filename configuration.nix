@@ -90,6 +90,8 @@
   ##############
   boot = {
     initrd = {
+      compressor = "zstd";
+      compressorArgs = ["--ultra" "--long" "-22"];
       systemd.enable = false;
       availableKernelModules = ["ahci" "applespi" "applesmc" "dm_mod" "intel_lpss_pci" "nvme" "mmc_block" "spi_pxa2xx_platform" "sd_mod" "sr_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
