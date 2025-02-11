@@ -34,6 +34,7 @@ in {
           environment = {
             "PORT" = "8081";
             "ME_CONFIG_MONGODB_URL" = "mongodb://${mongodb.listenAddress}:27017";
+            "ME_CONFIG_MONGODB_ENABLE_ADMIN" = "true";
           };
         };
       };
