@@ -5,7 +5,7 @@
   services = {
     gitea = {
       enable = true;
-      appName = "PVZ Internal git service";
+      appName = "Internal git service";
       settings = {
         server = {
           protocol = "http";
@@ -13,9 +13,6 @@
           http_addr = "127.0.0.1";
         };
       };
-    };
-    prometheus.exporters.nginx = {
-      enable = false;
     };
   };
 
