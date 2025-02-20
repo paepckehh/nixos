@@ -59,6 +59,8 @@
               key = lib.mkForce "~/.ssh/id_ed25519_sk.pub";
             };
             extraConfig = {
+              init.defaultBranch = "main";
+              gpg.format = "ssh";
               protocol = {
                 allow = "always";
                 file.allow = "always";

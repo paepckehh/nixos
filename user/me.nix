@@ -9,6 +9,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
+    ./dev-golang.nix
     ./packages-all.nix
   ];
 
@@ -78,6 +79,7 @@
           };
         };
         fonts.fontconfig.enable = true;
+        services.ssh-agent.enable = true;
         programs = {
           btop.enable = true;
           fzf.enable = true;
@@ -112,8 +114,32 @@
             enable = true;
             extraOptions = ["--absolute-path" "--no-ignore" "--hidden" "--ignore-case"];
           };
+          git = {
+            userName = "me";
+            userEmail = "me@intra.lan";
+            signing = {
+              signByDefault = false;
+              key = "~/.ssh/id_ed25519_sk.pub";
+            };
+            extraConfig = {
+              init.defaultBranch = "main";
+              gpg.format = "ssh";
+              protocol = {
+                allow = "always";
+                file.allow = "always";
+                git.allow = "always";
+                ssh.allow = "always";
+                http.allow = "always";
+                https.allow = "always";
+              };
+            };
+          };
           go = {
             enable = true;
+          };
+          ssh = {
+            enable = true;
+            addKeysToAgent = "yes";
           };
           vim = {
             enable = true;

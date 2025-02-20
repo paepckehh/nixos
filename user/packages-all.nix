@@ -10,6 +10,7 @@
   environment = {
     systemPackages = with pkgs; [
       asn
+      aria2
       bandwhich
       bmon
       curlie

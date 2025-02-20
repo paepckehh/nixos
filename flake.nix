@@ -7,7 +7,7 @@
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    # GLOBAL
+    # settings
     disko.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
