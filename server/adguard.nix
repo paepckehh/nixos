@@ -70,7 +70,7 @@
         safesearch_enabled = true;
         safebrowsing_enabled = true;
         ratelimit = 250;
-        ratelimit_whitelist = ["127.0.0.0" "192.168.0.0" "192.168.8.0"];
+        ratelimit_whitelist = ["127.0.0.0/16" "192.168.0.0/8"];
         refuse_any = true;
         user_rules = [
           "@@||nexflix.com^$important"
