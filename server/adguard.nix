@@ -64,12 +64,12 @@
         protection_enabled = true;
         filtering_enabled = true;
         blocking_mode = "nxdomain";
-        blocking_response_ttl = 3600;
+        blocking_response_ttl = "3600";
         parental_enabled = true;
-        filtering_updateinterval = 12;
+        filtering_updateinterval = "12";
         safesearch_enabled = true;
         safebrowsing_enabled = true;
-        ratelimit = 250;
+        ratelimit = "250";
         ratelimit_whitelist = ["127.0.0.0/16" "192.168.0.0/8"];
         refuse_any = true;
         cache_optimisticv = true;
