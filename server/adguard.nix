@@ -55,18 +55,26 @@
         };
         querylog = {
           enabled = true;
-          interval = "2160h";
+          interval = "360h";
         };
         statistics = {
           enabled = true;
-          interval = "2160h";
+          interval = "360h";
         };
-        filtering = {
-          safe_search.enabled = true;
-          filtering_enabled = true;
-          protection_enabled = true;
-          parental_enabled = true;
-        };
+        protection_enabled = true;
+        filtering_enabled = true;
+        blocking_mode = "nxdomain";
+        blocking_response_ttl = 3600;
+        parental_enabled = true;
+        filtering_updateinterval = 12;
+        safesearch_enabled = true;
+        safebrowsing_enabled = true;
+        ratelimit = 250;
+        ratelimit_whitelist = ["127.0.0.0" "192.168.0.0" "192.168.8.0"];
+        refuse_any = true;
+        user_rules = [
+          "@@||nexflix.com^$important"
+        ];
         filters =
           map (url: {
             enabled = true;
