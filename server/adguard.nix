@@ -31,11 +31,11 @@
         dns = {
           anonymize_client_ip = false;
           ratelimit = 500;
-          ratelimit_whitelist = ["127.0.0.1" "192.168.0.0" "192.168.8.0"];
+          ratelimit_whitelist = ["127.0.0.1" "192.168.0.0" "192.168.8.0" "10.0.0.0"]; # they are all /24 networks
           refuse_any = true;
           aaaa_disabled = true;
           enable_dnssec = true;
-          bind_hosts = ["127.0.0.1"];
+          bind_hosts = ["127.0.0.1"]; # add outside interfaces
           bind_port = 53;
           upstream_mode = "parallel";
           upstream_dns = [
@@ -50,7 +50,7 @@
             "1.1.1.1"
             "8.8.8.8"
           ];
-          private_networks = ["192.168.0.0/8" "127.0.0.0/16"];
+          private_networks = ["127.0.0.0/8" "10.0.0.0/8" "192.168.0.0/16"]; #
           use_private_ptr_resolvers = false;
           serve_http3 = false;
           use_http3_upstreams = true;
