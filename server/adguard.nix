@@ -72,6 +72,7 @@
         ratelimit = 250;
         ratelimit_whitelist = ["127.0.0.0/16" "192.168.0.0/8"];
         refuse_any = true;
+        cache_optimisticv = true;
         user_rules = [
           "@@||nexflix.com^$important"
         ];
