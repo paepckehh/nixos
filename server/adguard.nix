@@ -69,7 +69,7 @@
           interval = "360h";
         };
         filtering = {
-          safesearch.enabled = true;
+          safesearch_enabled = true;
           blocking_mode = "nxdomain";
           parental_block_host = "family-block.dns.adguard.com";
           safebrowsing_block_host = "standard-block.dns.adguard.com";
