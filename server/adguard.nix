@@ -69,8 +69,7 @@
         filtering_updateinterval = "12";
         safesearch_enabled = true;
         safebrowsing_enabled = true;
-        ratelimit = 0;
-        ratelimit_whitelist = ["127.0.0.0/16" "192.168.0.0/8"];
+        ratelimit = "0";
         refuse_any = true;
         cache_optimistic = true;
         user_rules = [
