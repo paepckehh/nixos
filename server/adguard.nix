@@ -27,8 +27,12 @@
       settings = {
         dhcp.enabled = false;
         tls.enabled = false;
+        language = "en";
         dns = {
           anonymize_client_ip = false;
+          ratelimit = 250;
+          ratelimit_whitelist = ["127.0.0.1" "192.168.0.0" "192.168.8.0"];
+          refuse_any = true;
           aaaa_disabled = true;
           enable_dnssec = true;
           bind_hosts = ["127.0.0.1"];
@@ -52,6 +56,9 @@
           use_http3_upstreams = true;
           serve_plain_dns = true;
           hostsfile_enabled = false;
+          cache_size = 16777216;
+          cache_ttl_min = 3600;
+          cache_optimistic = true;
         };
         querylog = {
           enabled = true;
@@ -61,17 +68,31 @@
           enabled = true;
           interval = "360h";
         };
-        protection_enabled = true;
-        filtering_enabled = true;
-        blocking_mode = "nxdomain";
-        blocking_response_ttl = "3600";
-        parental_enabled = true;
-        filtering_updateinterval = "12";
-        safesearch_enabled = true;
-        safebrowsing_enabled = true;
-        ratelimit = "0";
-        refuse_any = true;
-        cache_optimistic = true;
+        filtering = {
+          safesearch.enabled = true;
+          blocking_mode = "nxdomain";
+          parental_block_host = "family-block.dns.adguard.com";
+          safebrowsing_block_host = "standard-block.dns.adguard.com";
+          safebrowsing_cache_size = 16777216;
+          safesearch_cache_size = 16777216;
+          parental_cache_size = 16777216;
+          cache_time = 86400;
+          filters_update_interval = 12;
+          blocked_response_ttl = 3600;
+          filtering_enabled = true;
+          parental_enabled = true;
+          safebrowsing_enabled = true;
+          protection_enabled = true;
+        };
+        clients = {
+          runtime_sources = {
+            whois = false;
+            arp = false;
+            rdns = false;
+            dhcp = false;
+            hosts = false;
+          };
+        };
         user_rules = [
           "@@||nexflix.com^$important"
         ];
