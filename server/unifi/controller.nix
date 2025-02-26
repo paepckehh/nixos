@@ -26,6 +26,7 @@
     unifi = {
       enable = true;
       openFirewall = true;
+      unifiPackage = pkgs.unstable.unifi;
     };
     prometheus = {
       exporters = {

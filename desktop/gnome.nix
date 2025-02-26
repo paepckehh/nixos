@@ -64,7 +64,11 @@
   services = {
     gvfs.enable = lib.mkForce false;
     gnome = {
-      core-utilities.enable = true;
+      # core-os-services.enable = lib.mkForce false;
+      # core-shell.enable = lib.mkForce false;
+      # core-utilities.enable = lib.mkForce false;
+      core-developer-tools.enable = lib.mkForce false;
+      evolution-data-server.enable = lib.mkForce false;
       games.enable = lib.mkForce false;
       gnome-browser-connector.enable = lib.mkForce false;
       gnome-initial-setup.enable = lib.mkForce false;
@@ -72,6 +76,8 @@
       gnome-remote-desktop.enable = lib.mkForce false;
       gnome-user-share.enable = lib.mkForce false;
       gnome-keyring.enable = lib.mkForce false;
+      sushi.enable = lib.mkForce false;
+      localsearch.enable = lib.mkForce false;
     };
     xserver = {
       displayManager.gdm = {

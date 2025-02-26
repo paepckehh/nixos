@@ -136,6 +136,7 @@
           };
           go = {
             enable = true;
+            # package = pkgs.unstable.go_1_24;
           };
           ssh = {
             enable = true;

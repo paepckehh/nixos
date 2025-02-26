@@ -3,10 +3,10 @@
   inputs = {
     # ONLINE URLs
     # dns.url = "github:nix-community/dns.nix/master";
-    # nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     # settings
     disko.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -16,12 +16,21 @@
     disko,
     home-manager,
     nixpkgs,
+    nixpkgs-unstable,
   }: let
     #################
     # GLOBAL CONFIG #
     #################
-    build.iso.target.hostname = "nix-installer";
-    # overlay-unstable = final: prev: {unstable = nixpkgs-unstable.legacyPackages.${prev.system};};
+    build.installer.iso.target.hostname = "nix-installer";
+    overlay-unstable = final: prev: {
+      unstable = import nixpkgs-unstable {
+        system = "x86_64-linux";
+        config = {
+          allowUnfreePredicate = pkg: true;
+          allowUnfree = true;
+        };
+      };
+    };
   in {
     nixosConfigurations = {
       ###########
@@ -58,16 +67,23 @@
       srv-mp = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          # ({ config, pkgs, ... }: {nixpkgs.overlays = [overlay-unstable];})
+          ({
+            config,
+            pkgs,
+            ...
+          }: {
+            nixpkgs.config.allowUnfree = true;
+            nixpkgs.overlays = [overlay-unstable];
+          })
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./role/client-desktop.nix
           ./modules/disko-luks.nix
           ./person/desktop/mpaepcke.nix
-          ./server/mongodb.nix
+          # ./server/unifi.nix
+          # ./server/mongodb.nix
           # ./server/wazuh.nix
           # ./server/virtual.nix
-          # ./server/unifi.nix
           # ./server/opnborg-systemd.nix
           # ./server/cgit.nix
           # ./server/firefox-sync-server.nix
@@ -93,7 +109,7 @@
       };
       iso = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs.targetSystem = self.nixosConfigurations.${build.iso.target.hostname};
+        specialArgs.targetSystem = self.nixosConfigurations.${build.installer.iso.target.hostname};
         modules = [
           ./modules/iso-autoinstaller.nix
         ];
