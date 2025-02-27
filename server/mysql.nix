@@ -11,16 +11,10 @@
   ##################
   #-=# SERVICES #=-#
   ##################
+  # prometheus.exporters.mysql.enable = false;
   services = {
     mysql = {
       enable = true;
-    };
-    prometheus = {
-      exporters = {
-        mysql = {
-          enable = false;
-        };
-      };
     };
   };
 }
