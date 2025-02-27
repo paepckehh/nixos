@@ -12,7 +12,16 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.systemPackages = with pkgs; [adguardian];
+  environment = {
+    systemPackages = with pkgs; [adguardian];
+    variables = {
+      ADGUARD_IP = "localhost";
+      ADGUARD_PORT = "3232";
+      ADGUARD_PROTOCOL = "http";
+      ADGUARD_USERNAME = "admin";
+      ADGUARD_PASSWORD = "admin";
+    };
+  };
 
   ##################
   #-=# SERVICES #=-#

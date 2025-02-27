@@ -11,6 +11,7 @@
     systemPackages = with pkgs; [
       gnumake
       go-tools
+      golangci-lint
     ];
   };
 }
