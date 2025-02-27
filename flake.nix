@@ -80,9 +80,9 @@
           ./role/client-desktop.nix
           ./modules/disko-luks.nix
           ./person/desktop/mpaepcke.nix
-          ./server/mysql.nix
-          # ./server/unifi.nix
+          # ./server/mysql.nix
           # ./server/mongodb.nix
+          # ./server/unifi.nix
           # ./server/wazuh.nix
           # ./server/virtual.nix
           # ./server/opnborg-systemd.nix
