@@ -22,6 +22,7 @@
       fd
       gnumake
       gping
+      gh
       httpie
       hyperfine
       inetutils
