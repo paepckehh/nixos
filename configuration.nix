@@ -387,10 +387,12 @@
   #-=# SERVICES #=-#
   ##################
   services = {
+    avahi.enable = lib.mkForce false;
+    geoclue2.enable = lib.mkForce false;
     fwupd.enable = true;
     openssh.enable = false;
     smartd.enable = true;
-    pcscd.enable = true;
+    pcscd.enable = false;
     power-profiles-daemon.enable = lib.mkForce false;
     logind.hibernateKey = "ignore";
     fstrim = {
