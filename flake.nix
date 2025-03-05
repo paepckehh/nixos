@@ -80,6 +80,8 @@
           ./role/client-desktop.nix
           ./modules/disko-luks.nix
           ./person/desktop/mpaepcke.nix
+          ./server/ollama.nix
+          ./server/openweb-ui.nix
           # ./server/mysql.nix
           # ./server/mongodb.nix
           # ./server/unifi.nix
@@ -89,8 +91,6 @@
           # ./server/cgit.nix
           # ./server/firefox-sync-server.nix
           # ./server/gitea.nix
-          # ./server/ollama.nix
-          # ./server/openweb-ui.nix
           {networking.hostName = "srv-mp";}
         ];
       };
