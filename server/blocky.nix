@@ -22,29 +22,37 @@
           http = "127.0.0.1:9610"; # /metrics -> prometheus
         };
         upstreams = {
-          timeout = "5s";
+          timeout = "8s";
           strategy = "strict";
           groups = {
             default = [
               # "tcp+udp:127.0.0.1:5353"
               "tcp+udp:192.168.8.1:53"
+              "tcp-tls:hard.dnsforge.de:853"
+              "tcp-tls:dns3.digitalcourage.de:853"
+              "tcp-tls:fdns1.dismail.de:853"
+              "tcp-tls:dns.quad9.net"
+              "https://dns.digitale-gesellschaft.ch/dns-query"
+              "https://dns.quad9.net/dns-query"
             ];
           };
         };
         bootstrapDns = [
           # "tcp+udp:127.0.0.1:5353"
           "tcp+udp:192.168.8.1:53"
+          "tcp+udp:49.12.222.213"
+          "tcp+udp:88.198.122.154"
+          "tcp+udp:5.9.164.112"
+          "tcp+udp:9.9.9.9"
         ];
         blocking = {
           blockType = "zeroIP";
           blockTTL = "15m";
           denylists = {
             ads = [
+              "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
               "https://blocklistproject.github.io/Lists/ads.txt"
               "https://blocklistproject.github.io/Lists/tracking.txt"
-              "https://easylist.to/easylist/easylist.txt"
-              "https://easylist-downloads.adblockplus.org/antiadblockfilters.txt"
-              "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
             ];
             scam = [
               "https://blocklistproject.github.io/Lists/scam.txt"
