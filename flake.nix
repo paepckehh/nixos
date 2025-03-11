@@ -4,7 +4,8 @@
     # ONLINE URLs
     # dns.url = "github:nix-community/dns.nix/master";
     # nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:paepckehh/nixpkgs/blocky-improve";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
@@ -81,8 +82,8 @@
           ./role/client-desktop.nix
           ./modules/disko-luks.nix
           ./person/desktop/mpaepcke.nix
-          ./server/ollama.nix
-          ./server/openweb-ui.nix
+          # ./server/ollama.nix
+          # ./server/openweb-ui.nix
           # ./server/mysql.nix
           # ./server/mongodb.nix
           # ./server/unifi.nix
