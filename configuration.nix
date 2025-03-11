@@ -84,7 +84,6 @@
       options = ["fmask=0077" "dmask=0077" "defaults"];
     };
   };
-
   ##############
   #-=# BOOT #=-#
   ##############
@@ -120,6 +119,8 @@
     kernel.sysctl = {
       "kernel.kptr_restrict" = lib.mkForce 2;
       "kernel.ftrace_enabled" = lib.mkForce false;
+      "kernel.net.core.rmem_max" = lib.mkForce 7500000;
+      "kernel.net.core.wmem_max" = lib.mkForce 7500000;
       "net.ipv4.icmp_echo_ignore_broadcasts" = lib.mkForce true;
       "net.ipv4.conf.all.accept_redirects" = lib.mkForce false;
       "net.ipv4.conf.all.secure_redirects" = lib.mkForce false;
@@ -369,17 +370,17 @@
   #-=# I18N #=-#
   ##############
   i18n = {
-    defaultLocale = "en_US.UTF-8"; # "de_DE.UTF-8"
+    defaultLocale = "en_US.UTF-8"; # "de_DE.UTF-8";
     extraLocaleSettings = {
       LC_ADDRESS = "de_DE.UTF-8";
-      LC_IDENTIFICATION = "de_DE.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8"; # "de_DE.UTF-8";
       LC_MEASUREMENT = "de_DE.UTF-8";
       LC_MONETARY = "de_DE.UTF-8";
       LC_NAME = "de_DE.UTF-8";
       LC_NUMERIC = "de_DE.UTF-8";
       LC_PAPER = "de_DE.UTF-8";
       LC_TELEPHONE = "de_DE.UTF-8";
-      LC_TIME = "de_DE.UTF-8";
+      LC_TIME = "en_US.UTF-8"; # "de_DE.UTF-8";
     };
   };
 
@@ -414,8 +415,8 @@
         DEVICES_TO_ENABLE_ON_WWAN_DISCONNECT = "bluetooth wifi wwan";
         DEVICES_TO_ENABLE_ON_UNDOCK = "bluetooth wifi wwan";
         DEVICES_TO_DISABLE_ON_UNDOCK = "";
-        START_CHARGE_THRESH_BAT0 = 40;
-        STOP_CHARGE_THRESH_BAT0 = 80;
+        START_CHARGE_THRESH_BAT0 = 45;
+        STOP_CHARGE_THRESH_BAT0 = 85;
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
         CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";

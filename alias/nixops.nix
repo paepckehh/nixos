@@ -91,7 +91,7 @@
         echo "############# ---> NIXOS-REBUILD NixOS [$HNAME-$DTS] <--- ##################" &&\
         sudo nixos-rebuild boot -v --option use-binary-caches false --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS-offline" '';
       "nix.switch" = ''
-        nix.build ;\
+        export HNAME="$(hostname)" ;\
         export DTS="-$(date '+%Y-%m-%d--%H-%M')" ;\
         sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS"'';
       "nix.build" = ''
