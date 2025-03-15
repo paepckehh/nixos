@@ -89,8 +89,9 @@
           ./modules/disko-luks.nix
           ./person/desktop/mpaepcke.nix
           ./user/dev-env-go.nix
-          ./server/ollama.nix
-          ./server/openweb-ui.nix
+          # ./server/ollama.nix
+          # ./server/openweb-ui.nix
+          # ./server/home-assistant.nix
           # ./server/mysql.nix
           # ./server/mongodb.nix
           # ./server/unifi.nix
