@@ -49,6 +49,7 @@
             ".config/Yubico/u2f_keys".text = ''me:sSrgGgPQa/v0aVMtp0xJjBk4MiGQ7J69z+IOyLM6k/fllVmaqMAYepVNYMLNnMgOJI4Fkf3uyjtIJfnd4qFHmw==,lXeZ32meNOQO1xEA70CjCFn/NDl5qL3rXJn/3LY5ayvaLGvyWE6rUaVYnagNhfaoIIeYfEDvKOXvqlgpn3xoMQ==,es256,+presence'';
             ".ssh/id_ed25519_sk.pub".text = ''sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIA44D5TOInaQRb7DrUzMVOciR3kdXhQK9ghkjaZiZJAFAAAABHNzaDo= git@paepcke.de'';
           };
+        };
         programs = {
           git = {
             userName = lib.mkForce "PAEPCKE, Michael";
