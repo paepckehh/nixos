@@ -1,0 +1,1362 @@
+{
+  "BiosSettings" : [
+    {
+      "Name" : "SecureBoot",
+      "Description" : "SecureBoot",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/SecureBoot",
+      "BiosSettingId" : "com.thinklmi.SecureBoot",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "LockBIOSSetting",
+      "Description" : "LockBIOSSetting",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/LockBIOSSetting",
+      "BiosSettingId" : "com.thinklmi.LockBIOSSetting",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "WindowsUEFIFirmwareUpdate",
+      "Description" : "BIOS updates delivered via LVFS or Windows Update",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/WindowsUEFIFirmwareUpdate",
+      "BiosSettingId" : "com.thinklmi.WindowsUEFIFirmwareUpdate",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "AlarmDayofWeek",
+      "Description" : "AlarmDayofWeek",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/AlarmDayofWeek",
+      "BiosSettingId" : "com.thinklmi.AlarmDayofWeek",
+      "BiosSettingCurrentValue" : "Sunday",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ]
+    },
+    {
+      "Name" : "BluetoothAccess",
+      "Description" : "BluetoothAccess",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/BluetoothAccess",
+      "BiosSettingId" : "com.thinklmi.BluetoothAccess",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "FingerprintReaderAccess",
+      "Description" : "FingerprintReaderAccess",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/FingerprintReaderAccess",
+      "BiosSettingId" : "com.thinklmi.FingerprintReaderAccess",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "WakeOnLANDock",
+      "Description" : "WakeOnLANDock",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/WakeOnLANDock",
+      "BiosSettingId" : "com.thinklmi.WakeOnLANDock",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "BIOSPasswordAtUnattendedBoot",
+      "Description" : "BIOSPasswordAtUnattendedBoot",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/BIOSPasswordAtUnattendedBoot",
+      "BiosSettingId" : "com.thinklmi.BIOSPasswordAtUnattendedBoot",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "PasswordBeep",
+      "Description" : "PasswordBeep",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/PasswordBeep",
+      "BiosSettingId" : "com.thinklmi.PasswordBeep",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "PhysicalPresenceForTpmClear",
+      "Description" : "PhysicalPresenceForTpmClear",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/PhysicalPresenceForTpmClear",
+      "BiosSettingId" : "com.thinklmi.PhysicalPresenceForTpmClear",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "BootOrder",
+      "Description" : "BootOrder",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/BootOrder",
+      "BiosSettingId" : "com.thinklmi.BootOrder",
+      "BiosSettingCurrentValue" : "USBHDD:NVMe0:OtherHDD",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "HDD0",
+        "HDD1",
+        "HDD2",
+        "HDD3",
+        "HDD4",
+        "PXEBOOT",
+        "ATAPICD0",
+        "ATAPICD1",
+        "ATAPICD2",
+        "USBFDD",
+        "USBCD",
+        "USBHDD",
+        "OtherHDD",
+        "OtherCD",
+        "NVMe0",
+        "NVMe1",
+        "LENOVOCLOUD",
+        "NODEV"
+      ]
+    },
+    {
+      "Name" : "MemoryCardSlotAccess",
+      "Description" : "MemoryCardSlotAccess",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/MemoryCardSlotAccess",
+      "BiosSettingId" : "com.thinklmi.MemoryCardSlotAccess",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "MACAddressPassThrough",
+      "Description" : "MACAddressPassThrough",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/MACAddressPassThrough",
+      "BiosSettingId" : "com.thinklmi.MACAddressPassThrough",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable",
+        "Second"
+      ]
+    },
+    {
+      "Name" : "ThunderboltAccess",
+      "Description" : "ThunderboltAccess",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/ThunderboltAccess",
+      "BiosSettingId" : "com.thinklmi.ThunderboltAccess",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "MinimumPasswordLength",
+      "Description" : "MinimumPasswordLength",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/MinimumPasswordLength",
+      "BiosSettingId" : "com.thinklmi.MinimumPasswordLength",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    {
+      "Name" : "TouchPad",
+      "Description" : "TouchPad",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/TouchPad",
+      "BiosSettingId" : "com.thinklmi.TouchPad",
+      "BiosSettingCurrentValue" : "Automatic",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Automatic"
+      ]
+    },
+    {
+      "Name" : "AMTControl",
+      "Description" : "AMTControl",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/AMTControl",
+      "BiosSettingId" : "com.thinklmi.AMTControl",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "WakeUponAlarm",
+      "Description" : "WakeUponAlarm",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/WakeUponAlarm",
+      "BiosSettingId" : "com.thinklmi.WakeUponAlarm",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "UserDefined",
+        "WeeklyEvent",
+        "DailyEvent",
+        "SingleEvent"
+      ]
+    },
+    {
+      "Name" : "BootDeviceListF12Option",
+      "Description" : "BootDeviceListF12Option",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/BootDeviceListF12Option",
+      "BiosSettingId" : "com.thinklmi.BootDeviceListF12Option",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "BIOSPasswordAtBootDeviceList",
+      "Description" : "BIOSPasswordAtBootDeviceList",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/BIOSPasswordAtBootDeviceList",
+      "BiosSettingId" : "com.thinklmi.BIOSPasswordAtBootDeviceList",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "EthernetLANAccess",
+      "Description" : "EthernetLANAccess",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/EthernetLANAccess",
+      "BiosSettingId" : "com.thinklmi.EthernetLANAccess",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "BootOrderLock",
+      "Description" : "BootOrderLock",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/BootOrderLock",
+      "BiosSettingId" : "com.thinklmi.BootOrderLock",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "SharedDisplayPriority",
+      "Description" : "SharedDisplayPriority",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/SharedDisplayPriority",
+      "BiosSettingId" : "com.thinklmi.SharedDisplayPriority",
+      "BiosSettingCurrentValue" : "HDMI",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "HDMI",
+        "USBTypeC"
+      ]
+    },
+    {
+      "Name" : "FingerprintSecurityMode",
+      "Description" : "FingerprintSecurityMode",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/FingerprintSecurityMode",
+      "BiosSettingId" : "com.thinklmi.FingerprintSecurityMode",
+      "BiosSettingCurrentValue" : "High",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Normal",
+        "High"
+      ]
+    },
+    {
+      "Name" : "TXTFeature",
+      "Description" : "TXTFeature",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/TXTFeature",
+      "BiosSettingId" : "com.thinklmi.TXTFeature",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "DataExecutionPrevention",
+      "Description" : "DataExecutionPrevention",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/DataExecutionPrevention",
+      "BiosSettingId" : "com.thinklmi.DataExecutionPrevention",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "FnKeyAsPrimary",
+      "Description" : "FnKeyAsPrimary",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/FnKeyAsPrimary",
+      "BiosSettingId" : "com.thinklmi.FnKeyAsPrimary",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "TotalGraphicsMemory",
+      "Description" : "TotalGraphicsMemory",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/TotalGraphicsMemory",
+      "BiosSettingId" : "com.thinklmi.TotalGraphicsMemory",
+      "BiosSettingCurrentValue" : "512MB",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "256MB",
+        "512MB"
+      ]
+    },
+    {
+      "Name" : "FnSticky",
+      "Description" : "FnSticky",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/FnSticky",
+      "BiosSettingId" : "com.thinklmi.FnSticky",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "NfcAccess",
+      "Description" : "NfcAccess",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/NfcAccess",
+      "BiosSettingId" : "com.thinklmi.NfcAccess",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "AlarmTime",
+      "Description" : "AlarmTime",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/AlarmTime",
+      "BiosSettingId" : "com.thinklmi.AlarmTime",
+      "BiosSettingCurrentValue" : "00:00:00",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 0
+    },
+    {
+      "Name" : "ThinkShieldsecurewipe",
+      "Description" : "ThinkShieldsecurewipe",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/ThinkShieldsecurewipe",
+      "BiosSettingId" : "com.thinklmi.ThinkShieldsecurewipe",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "ChargeInBatteryMode",
+      "Description" : "ChargeInBatteryMode",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/ChargeInBatteryMode",
+      "BiosSettingId" : "com.thinklmi.ChargeInBatteryMode",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "BootMode",
+      "Description" : "BootMode",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/BootMode",
+      "BiosSettingId" : "com.thinklmi.BootMode",
+      "BiosSettingCurrentValue" : "Diagnostics",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Quick",
+        "Diagnostics"
+      ]
+    },
+    {
+      "Name" : "I8254ClockGating",
+      "Description" : "I8254ClockGating",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/I8254ClockGating",
+      "BiosSettingId" : "com.thinklmi.I8254ClockGating",
+      "BiosSettingCurrentValue" : "Auto",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Auto"
+      ]
+    },
+    {
+      "Name" : "UserDefinedAlarmFriday",
+      "Description" : "UserDefinedAlarmFriday",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/UserDefinedAlarmFriday",
+      "BiosSettingId" : "com.thinklmi.UserDefinedAlarmFriday",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "AbsolutePersistenceModuleActivation",
+      "Description" : "AbsolutePersistenceModuleActivation",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/AbsolutePersistenceModuleActivation",
+      "BiosSettingId" : "com.thinklmi.AbsolutePersistenceModuleActivation",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "SetupUI",
+      "Description" : "SetupUI",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/SetupUI",
+      "BiosSettingId" : "com.thinklmi.SetupUI",
+      "BiosSettingCurrentValue" : "Graphical",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "SimpleText",
+        "Graphical"
+      ]
+    },
+    {
+      "Name" : "UserDefinedAlarmWednesday",
+      "Description" : "UserDefinedAlarmWednesday",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/UserDefinedAlarmWednesday",
+      "BiosSettingId" : "com.thinklmi.UserDefinedAlarmWednesday",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "StartupOptionKeys",
+      "Description" : "StartupOptionKeys",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/StartupOptionKeys",
+      "BiosSettingId" : "com.thinklmi.StartupOptionKeys",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "WirelessAutoDisconnection",
+      "Description" : "WirelessAutoDisconnection",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/WirelessAutoDisconnection",
+      "BiosSettingId" : "com.thinklmi.WirelessAutoDisconnection",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "UserDefinedAlarmThursday",
+      "Description" : "UserDefinedAlarmThursday",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/UserDefinedAlarmThursday",
+      "BiosSettingId" : "com.thinklmi.UserDefinedAlarmThursday",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "AlwaysOnUSB",
+      "Description" : "AlwaysOnUSB",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/AlwaysOnUSB",
+      "BiosSettingId" : "com.thinklmi.AlwaysOnUSB",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "BootDisplayDevice",
+      "Description" : "BootDisplayDevice",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/BootDisplayDevice",
+      "BiosSettingId" : "com.thinklmi.BootDisplayDevice",
+      "BiosSettingCurrentValue" : "LCD",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "LCD",
+        "ExternalDisplay"
+      ]
+    },
+    {
+      "Name" : "ThunderboltSecurityLevel",
+      "Description" : "ThunderboltSecurityLevel",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/ThunderboltSecurityLevel",
+      "BiosSettingId" : "com.thinklmi.ThunderboltSecurityLevel",
+      "BiosSettingCurrentValue" : "NoSecurity",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "NoSecurity",
+        "UserAuthorization",
+        "SecureConnect",
+        "DisplayPortandUSB"
+      ]
+    },
+    {
+      "Name" : "AdaptiveThermalManagementBattery",
+      "Description" : "AdaptiveThermalManagementBattery",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/AdaptiveThermalManagementBattery",
+      "BiosSettingId" : "com.thinklmi.AdaptiveThermalManagementBattery",
+      "BiosSettingCurrentValue" : "Balanced",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "MaximizePerformance",
+        "Balanced"
+      ]
+    },
+    {
+      "Name" : "FingerprintPasswordAuthentication",
+      "Description" : "FingerprintPasswordAuthentication",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/FingerprintPasswordAuthentication",
+      "BiosSettingId" : "com.thinklmi.FingerprintPasswordAuthentication",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "UserDefinedAlarmTime",
+      "Description" : "UserDefinedAlarmTime",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/UserDefinedAlarmTime",
+      "BiosSettingId" : "com.thinklmi.UserDefinedAlarmTime",
+      "BiosSettingCurrentValue" : "00:00:00",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 0
+    },
+    {
+      "Name" : "KeyboardBeep",
+      "Description" : "KeyboardBeep",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/KeyboardBeep",
+      "BiosSettingId" : "com.thinklmi.KeyboardBeep",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "UserDefinedAlarmTuesday",
+      "Description" : "UserDefinedAlarmTuesday",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/UserDefinedAlarmTuesday",
+      "BiosSettingId" : "com.thinklmi.UserDefinedAlarmTuesday",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "TrackPoint",
+      "Description" : "TrackPoint",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/TrackPoint",
+      "BiosSettingId" : "com.thinklmi.TrackPoint",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Automatic"
+      ]
+    },
+    {
+      "Name" : "OnByAcAttach",
+      "Description" : "OnByAcAttach",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/OnByAcAttach",
+      "BiosSettingId" : "com.thinklmi.OnByAcAttach",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "WirelessWANAccess",
+      "Description" : "WirelessWANAccess",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/WirelessWANAccess",
+      "BiosSettingId" : "com.thinklmi.WirelessWANAccess",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "SecurityChip",
+      "Description" : "SecurityChip",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/SecurityChip",
+      "BiosSettingId" : "com.thinklmi.SecurityChip",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Active",
+        "Inactive",
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "LidSensor",
+      "Description" : "LidSensor",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/LidSensor",
+      "BiosSettingId" : "com.thinklmi.LidSensor",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Enable",
+        "Disable"
+      ]
+    },
+    {
+      "Name" : "DeviceGuard",
+      "Description" : "DeviceGuard",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/DeviceGuard",
+      "BiosSettingId" : "com.thinklmi.DeviceGuard",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "BottomCoverTamperDetected",
+      "Description" : "BottomCoverTamperDetected",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/BottomCoverTamperDetected",
+      "BiosSettingId" : "com.thinklmi.BottomCoverTamperDetected",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "HyperThreadingTechnology",
+      "Description" : "HyperThreadingTechnology",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/HyperThreadingTechnology",
+      "BiosSettingId" : "com.thinklmi.HyperThreadingTechnology",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "AdaptiveThermalManagementAC",
+      "Description" : "AdaptiveThermalManagementAC",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/AdaptiveThermalManagementAC",
+      "BiosSettingId" : "com.thinklmi.AdaptiveThermalManagementAC",
+      "BiosSettingCurrentValue" : "MaximizePerformance",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "MaximizePerformance",
+        "Balanced"
+      ]
+    },
+    {
+      "Name" : "FnCtrlKeySwap",
+      "Description" : "FnCtrlKeySwap",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/FnCtrlKeySwap",
+      "BiosSettingId" : "com.thinklmi.FnCtrlKeySwap",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "UserDefinedAlarmSunday",
+      "Description" : "UserDefinedAlarmSunday",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/UserDefinedAlarmSunday",
+      "BiosSettingId" : "com.thinklmi.UserDefinedAlarmSunday",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "HardDiskPasswordControl",
+      "Description" : "HardDiskPasswordControl",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/HardDiskPasswordControl",
+      "BiosSettingId" : "com.thinklmi.HardDiskPasswordControl",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "VirtualizationTechnology",
+      "Description" : "VirtualizationTechnology",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/VirtualizationTechnology",
+      "BiosSettingId" : "com.thinklmi.VirtualizationTechnology",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "KernelDMAProtection",
+      "Description" : "KernelDMAProtection",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/KernelDMAProtection",
+      "BiosSettingId" : "com.thinklmi.KernelDMAProtection",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "NetworkBoot",
+      "Description" : "NetworkBoot",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/NetworkBoot",
+      "BiosSettingId" : "com.thinklmi.NetworkBoot",
+      "BiosSettingCurrentValue" : "NVMe0",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "HDD0",
+        "HDD1",
+        "HDD2",
+        "HDD3",
+        "HDD4",
+        "PXEBOOT",
+        "ATAPICD0",
+        "ATAPICD1",
+        "ATAPICD2",
+        "USBFDD",
+        "USBCD",
+        "USBHDD",
+        "OtherHDD",
+        "OtherCD",
+        "NVMe0",
+        "NVMe1",
+        "LENOVOCLOUD",
+        "NODEV"
+      ]
+    },
+    {
+      "Name" : "WakeByThunderbolt",
+      "Description" : "WakeByThunderbolt",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/WakeByThunderbolt",
+      "BiosSettingId" : "com.thinklmi.WakeByThunderbolt",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "SystemManagementPasswordControl",
+      "Description" : "SystemManagementPasswordControl",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/SystemManagementPasswordControl",
+      "BiosSettingId" : "com.thinklmi.SystemManagementPasswordControl",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "SecureRollBackPrevention",
+      "Description" : "SecureRollBackPrevention",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/SecureRollBackPrevention",
+      "BiosSettingId" : "com.thinklmi.SecureRollBackPrevention",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "PasswordCountExceededError",
+      "Description" : "PasswordCountExceededError",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/PasswordCountExceededError",
+      "BiosSettingId" : "com.thinklmi.PasswordCountExceededError",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "USBPortAccess",
+      "Description" : "USBPortAccess",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/USBPortAccess",
+      "BiosSettingId" : "com.thinklmi.USBPortAccess",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "MicrophoneAccess",
+      "Description" : "MicrophoneAccess",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/MicrophoneAccess",
+      "BiosSettingId" : "com.thinklmi.MicrophoneAccess",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "UserDefinedAlarmSaturday",
+      "Description" : "UserDefinedAlarmSaturday",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/UserDefinedAlarmSaturday",
+      "BiosSettingId" : "com.thinklmi.UserDefinedAlarmSaturday",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "AlarmDate",
+      "Description" : "AlarmDate",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/AlarmDate",
+      "BiosSettingId" : "com.thinklmi.AlarmDate",
+      "BiosSettingCurrentValue" : "01/01/2021",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 0
+    },
+    {
+      "Name" : "InternalStorageTamper",
+      "Description" : "InternalStorageTamper",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/InternalStorageTamper",
+      "BiosSettingId" : "com.thinklmi.InternalStorageTamper",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "IntegratedAudioAccess",
+      "Description" : "IntegratedAudioAccess",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/IntegratedAudioAccess",
+      "BiosSettingId" : "com.thinklmi.IntegratedAudioAccess",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "pending_reboot",
+      "Description" : "Settings will apply after system reboots",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/pending_reboot",
+      "BiosSettingId" : "com.thinklmi.pending_reboot",
+      "BiosSettingCurrentValue" : "0",
+      "BiosSettingReadOnly" : "true",
+      "BiosSettingType" : 0
+    },
+    {
+      "Name" : "WirelessLANAccess",
+      "Description" : "WirelessLANAccess",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/WirelessLANAccess",
+      "BiosSettingId" : "com.thinklmi.WirelessLANAccess",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "SmartCardSlotAccess",
+      "Description" : "SmartCardSlotAccess",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/SmartCardSlotAccess",
+      "BiosSettingId" : "com.thinklmi.SmartCardSlotAccess",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "PreBootForThunderboltDevice",
+      "Description" : "PreBootForThunderboltDevice",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/PreBootForThunderboltDevice",
+      "BiosSettingId" : "com.thinklmi.PreBootForThunderboltDevice",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable",
+        "Pre-BootACL"
+      ]
+    },
+    {
+      "Name" : "ThunderboltBIOSAssistMode",
+      "Description" : "ThunderboltBIOSAssistMode",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/ThunderboltBIOSAssistMode",
+      "BiosSettingId" : "com.thinklmi.ThunderboltBIOSAssistMode",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Enable",
+        "Disable"
+      ]
+    },
+    {
+      "Name" : "SpeedStep",
+      "Description" : "SpeedStep",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/SpeedStep",
+      "BiosSettingId" : "com.thinklmi.SpeedStep",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "VTdFeature",
+      "Description" : "VTdFeature",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/VTdFeature",
+      "BiosSettingId" : "com.thinklmi.VTdFeature",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "UserDefinedAlarmMonday",
+      "Description" : "UserDefinedAlarmMonday",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/UserDefinedAlarmMonday",
+      "BiosSettingId" : "com.thinklmi.UserDefinedAlarmMonday",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "LenovoCloudServices",
+      "Description" : "LenovoCloudServices",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/LenovoCloudServices",
+      "BiosSettingId" : "com.thinklmi.LenovoCloudServices",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "SGXControl",
+      "Description" : "SGXControl",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/SGXControl",
+      "BiosSettingId" : "com.thinklmi.SGXControl",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable",
+        "SoftwareControl"
+      ]
+    },
+    {
+      "Name" : "WiFiNetworkBoot",
+      "Description" : "WiFiNetworkBoot",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/WiFiNetworkBoot",
+      "BiosSettingId" : "com.thinklmi.WiFiNetworkBoot",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "WakeOnLAN",
+      "Description" : "WakeOnLAN",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/WakeOnLAN",
+      "BiosSettingId" : "com.thinklmi.WakeOnLAN",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "ACOnly",
+        "ACandBattery",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "EthernetLANOptionROM",
+      "Description" : "EthernetLANOptionROM",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/EthernetLANOptionROM",
+      "BiosSettingId" : "com.thinklmi.EthernetLANOptionROM",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "BIOSUpdateByEndUsers",
+      "Description" : "BIOSUpdateByEndUsers",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/BIOSUpdateByEndUsers",
+      "BiosSettingId" : "com.thinklmi.BIOSUpdateByEndUsers",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "BIOSSetupConfigurations",
+      "Description" : "BIOSSetupConfigurations",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/BIOSSetupConfigurations",
+      "BiosSettingId" : "com.thinklmi.BIOSSetupConfigurations",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "FingerprintPredesktopAuthentication",
+      "Description" : "FingerprintPredesktopAuthentication",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/FingerprintPredesktopAuthentication",
+      "BiosSettingId" : "com.thinklmi.FingerprintPredesktopAuthentication",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "IPv6NetworkStack",
+      "Description" : "IPv6NetworkStack",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/IPv6NetworkStack",
+      "BiosSettingId" : "com.thinklmi.IPv6NetworkStack",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "IntegratedCameraAccess",
+      "Description" : "IntegratedCameraAccess",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/IntegratedCameraAccess",
+      "BiosSettingId" : "com.thinklmi.IntegratedCameraAccess",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "UefiPxeBootPriority",
+      "Description" : "UefiPxeBootPriority",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/UefiPxeBootPriority",
+      "BiosSettingId" : "com.thinklmi.UefiPxeBootPriority",
+      "BiosSettingCurrentValue" : "IPv4First",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "IPv6First",
+        "IPv4First"
+      ]
+    },
+    {
+      "Name" : "BIOSPasswordAtReboot",
+      "Description" : "BIOSPasswordAtReboot",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/BIOSPasswordAtReboot",
+      "BiosSettingId" : "com.thinklmi.BIOSPasswordAtReboot",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "IPv4NetworkStack",
+      "Description" : "IPv4NetworkStack",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/IPv4NetworkStack",
+      "BiosSettingId" : "com.thinklmi.IPv4NetworkStack",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "USBKeyProvisioning",
+      "Description" : "USBKeyProvisioning",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/USBKeyProvisioning",
+      "BiosSettingId" : "com.thinklmi.USBKeyProvisioning",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "PowerOnPasswordControl",
+      "Description" : "PowerOnPasswordControl",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/PowerOnPasswordControl",
+      "BiosSettingId" : "com.thinklmi.PowerOnPasswordControl",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "CPUPowerManagement",
+      "Description" : "CPUPowerManagement",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/CPUPowerManagement",
+      "BiosSettingId" : "com.thinklmi.CPUPowerManagement",
+      "BiosSettingCurrentValue" : "Enable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    },
+    {
+      "Name" : "BootTimeExtension",
+      "Description" : "BootTimeExtension",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/BootTimeExtension",
+      "BiosSettingId" : "com.thinklmi.BootTimeExtension",
+      "BiosSettingCurrentValue" : "2",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "1",
+        "2",
+        "3",
+        "5",
+        "10"
+      ]
+    },
+    {
+      "Name" : "EnhancedWindowsBiometricSecurity",
+      "Description" : "EnhancedWindowsBiometricSecurity",
+      "Filename" : "/sys/class/firmware-attributes/thinklmi/attributes/EnhancedWindowsBiometricSecurity",
+      "BiosSettingId" : "com.thinklmi.EnhancedWindowsBiometricSecurity",
+      "BiosSettingCurrentValue" : "Disable",
+      "BiosSettingReadOnly" : "false",
+      "BiosSettingType" : 1,
+      "BiosSettingPossibleValues" : [
+        "Disable",
+        "Enable"
+      ]
+    }
+  ]
+}
