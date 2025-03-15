@@ -52,7 +52,7 @@
           activation.copySshConfig = let
             cfgFile = pkgs.writeText "id_ed25519_sk" ''
                 ${lib.strings.concatStringsSep "\n" (
-                mapAttrsToList (n: v: "${n} ${v}") cfg.extraOptionOverrides
+                lib.mapAttrsToList (n: v: "${n} ${v}") cfg.extraOptionOverrides
               )}
               -----BEGIN OPENSSH PRIVATE KEY-----
               b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAASgAAABpzay1zc2
