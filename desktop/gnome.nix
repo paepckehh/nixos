@@ -16,9 +16,9 @@
   ###############
   fonts = {
     # nixos => 25.05
-    packages = with pkgs; [nerd-fonts.fira-code];
+    # packages = with pkgs; [nerd-fonts.fira-code];
     # nixos <= 24.11:
-    # packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];})];
+    packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];})];
   };
 
   ##################

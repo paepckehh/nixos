@@ -2,23 +2,28 @@
   description = "nixos infra";
   inputs = {
     # ONLINE URLs
-    # dns.url = "github:nix-community/dns.nix/master";
+    # nixpkgs.url = "github:paepckehh/nixpkgs/blocky-improve";
     # nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs.url = "github:paepckehh/nixpkgs/blocky-improve";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    dns.url = "github:nix-community/dns.nix/master";
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixvim.url = "github:nix-community/nixvim";
     # settings
+    # dns.inputs.nixpkgs.follows = "nixpkgs";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
     self,
     disko,
+    dns,
     home-manager,
     nixpkgs,
     nixpkgs-unstable,
+    nixvim,
   }: let
     #################
     # GLOBAL CONFIG #
@@ -77,13 +82,14 @@
             nixpkgs.config.allowUnfree = true;
             nixpkgs.overlays = [overlay-unstable];
           })
+          nixvim.nixosModules.nixvim
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./role/client-desktop.nix
           ./modules/disko-luks.nix
           ./person/desktop/mpaepcke.nix
-          # ./server/ollama.nix
-          # ./server/openweb-ui.nix
+          ./server/ollama.nix
+          ./server/openweb-ui.nix
           # ./server/mysql.nix
           # ./server/mongodb.nix
           # ./server/unifi.nix

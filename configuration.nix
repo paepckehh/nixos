@@ -119,8 +119,8 @@
     kernel.sysctl = {
       "kernel.kptr_restrict" = lib.mkForce 2;
       "kernel.ftrace_enabled" = lib.mkForce false;
-      "kernel.net.core.rmem_max" = lib.mkForce 7500000;
-      "kernel.net.core.wmem_max" = lib.mkForce 7500000;
+      "net.core.rmem_max" = lib.mkForce 7500000;
+      "net.core.wmem_max" = lib.mkForce 7500000;
       "net.ipv4.icmp_echo_ignore_broadcasts" = lib.mkForce true;
       "net.ipv4.conf.all.accept_redirects" = lib.mkForce false;
       "net.ipv4.conf.all.secure_redirects" = lib.mkForce false;
@@ -286,6 +286,7 @@
     mtr.enable = true;
     usbtop.enable = true;
     wireshark.enable = true;
+    vim.enable = true;
     zsh.enable = true;
     ssh = {
       startAgent = lib.mkForce true;
@@ -342,6 +343,11 @@
         };
       };
     };
+    nixvim = {
+      enable = true;
+      colorschemes.catppuccin.enable = true;
+      plugins.lualine.enable = true;
+    };
   };
 
   #####################
@@ -390,6 +396,7 @@
   services = {
     avahi.enable = lib.mkForce false;
     geoclue2.enable = lib.mkForce false;
+    gvfs.enable = lib.mkForce false;
     fwupd.enable = true;
     openssh.enable = false;
     smartd.enable = true;
