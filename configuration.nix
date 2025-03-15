@@ -400,7 +400,8 @@
     };
     tlp = {
       enable = true;
-      settings = { # info => tlp-stat
+      settings = {
+        # info => tlp-stat
         USB_AUTOSUSPEND = "0";
         DEVICES_TO_ENABLE_ON_STARTUP = "bluetooth wifi wwan";
         DEVICES_TO_ENABLE_ON_AC = "bluetooth wifi wwan";
