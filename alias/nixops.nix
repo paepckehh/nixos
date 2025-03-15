@@ -42,7 +42,7 @@
         sudo chmod -R 700 /boot/loader/entries ;\
         sudo mkdir -p /nix/var/nix/profiles/system-profiles ;\
         nix.build'';
-      "nix.hardclean" = ''
+      "nix.clean.hard" = ''
         nix.clean.profiles
         sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 1d ;\
         sudo nix-collect-garbage --delete-older-than 1d ;\
