@@ -385,6 +385,7 @@
   ##################
   services = {
     avahi.enable = lib.mkForce false;
+    acpid.enable = lib.mkForce true;
     geoclue2.enable = lib.mkForce false;
     gvfs.enable = lib.mkForce false;
     fwupd.enable = true;
