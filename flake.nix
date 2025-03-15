@@ -62,8 +62,8 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./modules/disko.nix
           ./role/client-desktop.nix
+          ./modules/disko.nix
           ./person/desktop/mpaepcke.nix
           {networking.hostName = "client-mp";}
         ];
