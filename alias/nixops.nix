@@ -32,14 +32,16 @@
         sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 12d ;\
         sudo nix-collect-garbage --delete-older-than 12d ;\
         sudo nix-store --gc ;\
-        sudo nix-store --optimise '';
-      "nix.hardclean" = ''
+        sudo nix-store --optimise'';
+      "nix.clean.profiles" = ''
         cd /etc/nixos &&\
         sudo -v &&\
         sudo rm /boot/loader/entries/* ;\
         sudo rm -rf /nix/var/nix/profiles/system* ;\
         sudo mkdir -p /nix/var/nix/profiles/system-profiles ;\
-        nix.build &&\
+        nix.build'';
+      "nix.hardclean" = ''
+        nix.clean.profiles
         sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 1d ;\
         sudo nix-collect-garbage --delete-older-than 1d ;\
         sudo nix-store --gc ;\
