@@ -36,8 +36,10 @@
       "nix.clean.profiles" = ''
         cd /etc/nixos &&\
         sudo -v &&\
-        sudo rm /boot/loader/entries/* ;\
+        sudo rm /boot/loader/entries ;\
         sudo rm -rf /nix/var/nix/profiles/system* ;\
+        sudo mkdir -p /boot/loader/entries ;\
+        sudo chmod -R 700 /boot/loader/entries ;\
         sudo mkdir -p /nix/var/nix/profiles/system-profiles ;\
         nix.build'';
       "nix.hardclean" = ''
