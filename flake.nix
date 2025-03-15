@@ -88,7 +88,7 @@
           ./role/client-desktop.nix
           ./modules/disko-luks.nix
           ./person/desktop/mpaepcke.nix
-          ./user/dev-golang.nix
+          ./user/dev-env-go.nix
           ./server/ollama.nix
           ./server/openweb-ui.nix
           # ./server/mysql.nix
