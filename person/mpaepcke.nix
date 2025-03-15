@@ -25,7 +25,6 @@
     };
   };
 
-
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
@@ -48,29 +47,30 @@
           file = {
             ".config/Yubico/u2f_keys".text = ''me:sSrgGgPQa/v0aVMtp0xJjBk4MiGQ7J69z+IOyLM6k/fllVmaqMAYepVNYMLNnMgOJI4Fkf3uyjtIJfnd4qFHmw==,lXeZ32meNOQO1xEA70CjCFn/NDl5qL3rXJn/3LY5ayvaLGvyWE6rUaVYnagNhfaoIIeYfEDvKOXvqlgpn3xoMQ==,es256,+presence'';
             ".ssh/id_ed25519_sk.pub".text = ''sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIA44D5TOInaQRb7DrUzMVOciR3kdXhQK9ghkjaZiZJAFAAAABHNzaDo= git@paepcke.de'';
-            };
-           activation.copySshConfig = {
-      let
-        cfgFile = pkgs.writeText "id_ed25519_sk" ''
-          ${concatStringsSep "\n" (
-            mapAttrsToList (n: v: "${n} ${v}") cfg.extraOptionOverrides)}
------BEGIN OPENSSH PRIVATE KEY-----
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAASgAAABpzay1zc2
-gtZWQyNTUxOUBvcGVuc3NoLmNvbQAAACAOOA+UziJ2kEW+w61MzFTnIkd5HV4UCvYIZI2m
-YmSQBQAAAARzc2g6AAAAoF9xlhJfcZYSAAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY2
-9tAAAAIA44D5TOInaQRb7DrUzMVOciR3kdXhQK9ghkjaZiZJAFAAAABHNzaDohAAAAMA44
-D5TOInaQRb7DrUy5azivvXHtH0+dK4YccfOXQZOanD22dc+coS5cNvLDfdjqqgAAAAAAAA
-AOZ2l0QHBhZXBja2UuZGUBAgM=
------END OPENSSH PRIVATE KEY-----
-          ${concatStringsSep "\n\n" (
-            map matchBlockStr (
-            builtins.attrValues cfg.matchBlocks))}
-            ${replaceStrings ["\n"] ["\n  "] cfg.extraConfig}
-        '';
-      in
-        dagEntryAfter ["writeBoundary"] ''install -m600 -D ${cfgFile} $HOME/.ssh/id_ed25519_sk '';
-      };
-    };
+          };
+          activation.copySshConfig = let
+            cfgFile = pkgs.writeText "id_ed25519_sk" ''
+                        ${concatStringsSep "\n" (
+                mapAttrsToList (n: v: "${n} ${v}") cfg.extraOptionOverrides
+              )}
+              -----BEGIN OPENSSH PRIVATE KEY-----
+              b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAASgAAABpzay1zc2
+              gtZWQyNTUxOUBvcGVuc3NoLmNvbQAAACAOOA+UziJ2kEW+w61MzFTnIkd5HV4UCvYIZI2m
+              YmSQBQAAAARzc2g6AAAAoF9xlhJfcZYSAAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY2
+              9tAAAAIA44D5TOInaQRb7DrUzMVOciR3kdXhQK9ghkjaZiZJAFAAAABHNzaDohAAAAMA44
+              D5TOInaQRb7DrUy5azivvXHtH0+dK4YccfOXQZOanD22dc+coS5cNvLDfdjqqgAAAAAAAA
+              AOZ2l0QHBhZXBja2UuZGUBAgM=
+              -----END OPENSSH PRIVATE KEY-----
+                        ${concatStringsSep "\n\n" (
+                map matchBlockStr (
+                  builtins.attrValues cfg.matchBlocks
+                )
+              )}
+                          ${replaceStrings ["\n"] ["\n  "] cfg.extraConfig}
+            '';
+          in
+            dagEntryAfter ["writeBoundary"] ''install -m600 -D ${cfgFile} $HOME/.ssh/id_ed25519_sk '';
+        };
         programs = {
           git = {
             userName = lib.mkForce "PAEPCKE, Michael";
