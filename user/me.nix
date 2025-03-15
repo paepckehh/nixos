@@ -9,7 +9,6 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./dev-golang.nix
     ./packages-all.nix
   ];
 

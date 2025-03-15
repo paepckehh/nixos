@@ -5,11 +5,6 @@
   home-manager,
   ...
 }: {
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  # imports = [];
-
   #############
   #-=# NIX #=-#
   #############
@@ -342,11 +337,6 @@
           https.allow = "always";
         };
       };
-    };
-    nixvim = {
-      enable = true;
-      colorschemes.catppuccin.enable = true;
-      plugins.lualine.enable = true;
     };
   };
 
