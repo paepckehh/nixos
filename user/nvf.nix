@@ -11,17 +11,17 @@
   programs = {
     nvf = {
       enable = true;
-      comments.comment-nvim = {
-        enable = true;
-        mappings = {
-          toggleCurrentLine = "gcc";
-          toggleCurrentBlock = "gbc";
-          toggleOpLeaderLine = "gc";
-          toggleOpLeaderBlock = "gb";
-          toggleSelectedLine = "gc";
-          toggleSelectedBlock = "gb";
-        };
-        vim = {
+      vim = {
+        comments.comment-nvim = {
+          enable = true;
+          mappings = {
+            toggleCurrentLine = "gcc";
+            toggleCurrentBlock = "gbc";
+            toggleOpLeaderLine = "gc";
+            toggleOpLeaderBlock = "gb";
+            toggleSelectedLine = "gc";
+            toggleSelectedBlock = "gb";
+          };
           viAlias = false;
           vimAlias = false;
           lsp = {
