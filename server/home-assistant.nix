@@ -11,26 +11,26 @@
       };
       extraComponents = [
         # defaults, needed for setup
-          "esphome"
-          "google_translate"
-          "met"
-          "radio_browser"
+        "esphome"
+        "google_translate"
+        "met"
+        "radio_browser"
         # custom
-          "heos"
-          "sun"
-          "apple_tv"
-          "matter"
-          "homekit"
-          "homekit_controller"
-          "bluetooth"
-          "systemmonitor"
-          "mobile_app"
-          "network"
-          "device_tracker"
-          "ollama"
-          "zha"
-          "unifi"
-        ];
+        "heos"
+        "sun"
+        "apple_tv"
+        "matter"
+        "homekit"
+        "homekit_controller"
+        "bluetooth"
+        "systemmonitor"
+        "mobile_app"
+        "network"
+        "device_tracker"
+        "ollama"
+        "zha"
+        "unifi"
+      ];
     };
   };
 }

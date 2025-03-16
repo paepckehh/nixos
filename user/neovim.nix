@@ -12,19 +12,26 @@
     nvf = {
       enable = true;
       settings.vim = {
-        comments.comment-nvim = {
-          enable = true;
-          mappings = {
-            toggleCurrentLine = "gcc";
-            toggleCurrentBlock = "gbc";
-            toggleOpLeaderLine = "gc";
-            toggleOpLeaderBlock = "gb";
-            toggleSelectedLine = "gc";
-            toggleSelectedBlock = "gb";
+        autocomplete = {
+          blink-cmp = {
+            enable = true;
           };
-          setupOpts.mappings = {
-            basic = false;
-            extra = false;
+        };
+        comments = {
+          comment-nvim = {
+            enable = true;
+            mappings = {
+              toggleCurrentLine = "gcc";
+              toggleCurrentBlock = "gbc";
+              toggleOpLeaderLine = "gc";
+              toggleOpLeaderBlock = "gb";
+              toggleSelectedLine = "gc";
+              toggleSelectedBlock = "gb";
+            };
+            setupOpts.mappings = {
+              basic = false;
+              extra = false;
+            };
           };
         };
         dashboard.startify = {
@@ -37,7 +44,7 @@
         };
         statusline.lualine = {
           enable = true;
-          theme = "onedark"; 
+          theme = "onedark";
         };
         languages = {
           enableFormat = true;
@@ -56,6 +63,7 @@
           yaml.enable = true;
           go = {
             enable = true;
+            treesitter.enable = true;
             format = {
               enable = true;
               type = "gofmt"; # gofmt, gofumpt, golines
@@ -64,7 +72,6 @@
               enable = true;
               server = "gopls";
             };
-            treesitter.enable = true;
           };
           nix = {
             enable = true;
@@ -83,7 +90,7 @@
             };
           };
         };
-        lineNumberMode = "none"; # number, relNumber, none
+        lineNumberMode = "relNumber"; # number, relNumber, none
         spellcheck = {
           enable = false;
           languages = ["en" "de"];
@@ -95,10 +102,10 @@
           style = ""; # theme specifig, eg: dark, darker, cool, deep, warm, warmer, day, night, colorblind
           base16-colors = {
             base00 = "#000000"; # Background ----
-            base01 = "#202020"; # Background ---
+            base01 = "#111111"; # Background ---
             base02 = "#D65D0E"; # Background --
             base03 = "#49A4F8"; # Background -
-            base04 = "#E0E0E0"; # Foreground -
+            base04 = "#444444"; # Foreground -
             base05 = "#EC5357"; # Foreground --
             base06 = "#FFFFFF"; # Foreground ---
             base07 = "#FFFFFF"; # Foreground ----

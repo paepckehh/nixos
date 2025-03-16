@@ -43,7 +43,6 @@
           homeDirectory = "/home/me";
           keyboard.layout = "us,de";
           shellAliases = {
-            e = "nvim";
             l = "ls -la";
             h = "htop --tree --highlight-changes";
             b = "btop";
@@ -66,8 +65,6 @@
             keybordlight1 = "echo 1 | sudo tee /sys/class/leds/input1::scrolllock/brightness";
           };
           sessionVariables = {
-            EDITOR = "vim";
-            VISUAL = "vim";
             PAGER = "bat";
             STARSHIP_LOG = "error";
             SHELLCHECK_OPTS = "-e SC2086";

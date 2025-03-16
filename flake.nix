@@ -87,9 +87,9 @@
           ./person/desktop/mpaepcke.nix
           ./user/dev-env-go.nix
           ./user/neovim.nix
+          ./server/home-assistant.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
-          # ./server/home-assistant.nix
           # ./server/mysql.nix
           # ./server/mongodb.nix
           # ./server/unifi.nix

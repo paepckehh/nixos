@@ -346,7 +346,11 @@
   environment = {
     interactiveShellInit = ''uname -a && eval "$(ssh-agent)"'';
     systemPackages = with pkgs; [alejandra amdgpu_top fzf smartmontools libsmbios wireguard-tools];
-    variables = {ROC_ENABLE_PRE_VEGA = "1";};
+    variables = {
+      EDITOR = "vim";
+      VISUAL = "vim";
+      ROC_ENABLE_PRE_VEGA = "1";
+    };
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
       e = "vim";
