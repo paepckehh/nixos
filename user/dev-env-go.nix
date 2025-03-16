@@ -18,18 +18,14 @@
       hyperfine
       shellcheck
       shfmt
+      murex
+      nushell
+      nushellPlugins.net
+      nushellPlugins.query
+      nushellPlugins.gstat
+      nushellPlugins.formats
+      nushellPlugins.highlights
+      nufmt
     ];
-  };
-
-  ##################
-  #-=# PROGRAMS #=-#
-  ##################
-  programs = {
-    nixvim = {
-      # requires nixvim flake
-      enable = true;
-      colorschemes.catppuccin.enable = true;
-      plugins.lualine.enable = true;
-    };
   };
 }

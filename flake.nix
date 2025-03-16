@@ -9,12 +9,12 @@
     home-manager.url = "github:nix-community/home-manager/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixvim.url = "github:nix-community/nixvim";
+    nixvim.url = "github:notashelf/nvf";
     # settings
     # dns.inputs.nixpkgs.follows = "nixpkgs";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    nvf.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
     self,
@@ -82,13 +82,14 @@
             nixpkgs.config.allowUnfree = true;
             nixpkgs.overlays = [overlay-unstable];
           })
-          nixvim.nixosModules.nixvim
+          nixvim.nixosModules.default
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./role/client-desktop.nix
           ./modules/disko-luks.nix
           ./person/desktop/mpaepcke.nix
           ./user/dev-env-go.nix
+          ./user/nixvim.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
           # ./server/home-assistant.nix

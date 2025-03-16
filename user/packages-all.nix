@@ -48,8 +48,9 @@
       pv
       pwgen
       stress
-      s-tui
+      superfile
       sysz
+      s-tui
       tcping-go
       termshark
       tldr
