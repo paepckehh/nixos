@@ -14,7 +14,7 @@
       settings = {
         vim = {
           viAlias = false;
-          vimAlias = true;
+          vimAlias = false;
           lsp = {
             enable = true;
           };
