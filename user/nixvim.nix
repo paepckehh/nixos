@@ -4,13 +4,12 @@
   lib,
   ...
 }: {
-
   ##################
   #-=# PROGRAMS #=-#
   ##################
   # requires nixvim flake
   programs = {
-    nvf = { 
+    nvf = {
       enable = true;
     };
   };
