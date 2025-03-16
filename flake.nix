@@ -9,7 +9,7 @@
     home-manager.url = "github:nix-community/home-manager/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixvim.url = "github:notashelf/nvf";
+    nvf.url = "github:notashelf/nvf";
     # settings
     # dns.inputs.nixpkgs.follows = "nixpkgs";
     disko.inputs.nixpkgs.follows = "nixpkgs";
@@ -23,7 +23,7 @@
     home-manager,
     nixpkgs,
     nixpkgs-unstable,
-    nixvim,
+    nvf,
   }: let
     #################
     # GLOBAL CONFIG #
@@ -82,7 +82,7 @@
             nixpkgs.config.allowUnfree = true;
             nixpkgs.overlays = [overlay-unstable];
           })
-          nixvim.nixosModules.default
+          nvf.nixosModules.default
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./role/client-desktop.nix
