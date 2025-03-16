@@ -22,6 +22,7 @@
             toggleSelectedLine = "gc";
             toggleSelectedBlock = "gb";
           };
+          };
           viAlias = false;
           vimAlias = false;
           lsp = {
