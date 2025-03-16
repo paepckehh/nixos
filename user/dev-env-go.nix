@@ -24,7 +24,6 @@
       nushellPlugins.query
       nushellPlugins.gstat
       nushellPlugins.formats
-      nushellPlugins.highlights
       nufmt
     ];
   };
