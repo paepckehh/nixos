@@ -12,6 +12,17 @@
     nvf = {
       enable = true;
       settings = {
+        comments.comment-nvim = {
+          enable = true;
+          mappings = {
+            toggleCurrentLine = "gcc";
+            toggleCurrentBlock = "gbc";
+            toggleOpLeaderLine = "gc";
+            toggleOpLeaderBlock = "gb";
+            toggleSelectedLine = "gc";
+            toggleSelectedBlock = "gb";
+          };
+        };
         vim = {
           viAlias = false;
           vimAlias = false;

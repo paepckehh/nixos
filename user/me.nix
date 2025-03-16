@@ -44,7 +44,7 @@
           keyboard.layout = "us,de";
           shellAliases = {
             l = "ls -la";
-            e = "vim";
+            e = "nvim";
             h = "htop --tree --highlight-changes";
             b = "btop";
             d = "sudo dmesg --follow --human --kernel --userspace";
