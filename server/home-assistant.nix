@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -12,20 +7,30 @@
       enable = true;
       package = pkgs.unstable.home-assistant;
       config = {
-        homeassistant = {
-          name = "Home";
-          latitude = "!secret latitude";
-          longitude = "!secret longitude";
-          elevation = "!secret elevation";
-          unit_system = "metric";
-          time_zone = "UTC";
-        };
-        frontend = {
-          themes = "!include_dir_merge_named themes";
-        };
-        http = {};
-        feedreader.urls = ["https://nixos.org/blogs.xml"];
+        default_config = {};
       };
+      extraComponents = [
+        # defaults, needed for setup
+          "esphome"
+          "google_translate"
+          "met"
+          "radio_browser"
+        # custom
+          "heos"
+          "sun"
+          "apple_tv"
+          "matter"
+          "homekit"
+          "homekit_controller"
+          "bluetooth"
+          "systemmonitor"
+          "mobile_app"
+          "network"
+          "device_tracker"
+          "ollama"
+          "zha"
+          "unifi"
+        ];
     };
   };
 }

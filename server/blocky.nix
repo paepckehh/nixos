@@ -1,6 +1,4 @@
 {
-  config,
-  lib,
   pkgs,
   ...
 }: {
@@ -15,6 +13,7 @@
   services = {
     blocky = {
       enable = true;
+      package = pkgs.unstable.blocky;
       settings = {
         log.level = "info";
         ports = {
@@ -82,7 +81,7 @@
           maxTime = "24h";
           maxItemsCount = 0; # unlimited
           prefetching = true;
-          prefetchExpires = "24h";
+          prefetchExpires = "72h";
           prefetchThreshold = 1;
           prefetchMaxItemsCount = 0; # unlimited
         };
