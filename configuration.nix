@@ -349,6 +349,7 @@
     variables = {ROC_ENABLE_PRE_VEGA = "1";};
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
+      e = "vim";
       l = "ls -la";
       h = "htop --tree --highlight-changes";
       d = "sudo dmesg --follow --human --kernel --userspace";

@@ -89,7 +89,7 @@
           ./modules/disko-luks.nix
           ./person/desktop/mpaepcke.nix
           ./user/dev-env-go.nix
-          ./user/nvf.nix
+          ./user/neovim.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
           # ./server/home-assistant.nix
