@@ -43,8 +43,8 @@
           homeDirectory = "/home/me";
           keyboard.layout = "us,de";
           shellAliases = {
-            l = "ls -la";
             e = "nvim";
+            l = "ls -la";
             h = "htop --tree --highlight-changes";
             b = "btop";
             d = "sudo dmesg --follow --human --kernel --userspace";
