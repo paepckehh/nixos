@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
@@ -94,9 +89,27 @@
           programmingWordlist.enable = true;
         };
         theme = {
-          enable = true;
-          name = "dracula"; # base16, catppuccin, dracula, github, gruvbox, mini-base16, nord, onedark, oxocarbon, rose-pine, tokyonight
-          style = "darker"; # dark, darker, cool, deep, warm, warmer
+          enable = false;
+          name = "base16"; # base16, catppuccin, dracula, github, gruvbox, mini-base16, nord, onedark, oxocarbon, rose-pine, tokyonight
+          style = ""; # theme specifig, eg: dark, darker, cool, deep, warm, warmer, day, night, colorblind
+          base16-colors = {
+            base00 = "#101600"; # Background ----
+            base01 = "#1A1E01"; # Background ---
+            base02 = "#242604"; # Background --
+            base03 = "#2E2E05"; # Background -
+            base04 = "#FFD129"; # Foreground -
+            base05 = "#FFDA51"; # Foreground --
+            base06 = "#FFE178"; # Foreground ---
+            base07 = "#FFEBA0"; # Foreground ----
+            base08 = "#EE2E00"; # Red
+            base09 = "#EE8800"; # Orange
+            base0A = "#EEBB00"; # Yellow
+            base0B = "#63D932"; # Green
+            base0C = "#3D94A5"; # Cyan
+            base0D = "#5B4A9F"; # Blue
+            base0E = "#883E9F"; # Purple
+            base0F = "#A928B9"; # Magenta
+          };
         };
         viAlias = false;
         vimAlias = false;

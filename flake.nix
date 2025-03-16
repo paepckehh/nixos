@@ -4,7 +4,7 @@
     # ONLINE URLs
     # nixpkgs.url = "github:paepckehh/nixpkgs/blocky-improve";
     # nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
-    dns.url = "github:nix-community/dns.nix/master";
+    # dns.url = "github:nix-community/dns.nix/master";
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
@@ -19,7 +19,6 @@
   outputs = {
     self,
     disko,
-    dns,
     home-manager,
     nixpkgs,
     nixpkgs-unstable,
@@ -29,10 +28,12 @@
     # GLOBAL CONFIG #
     #################
     build.installer.iso.target.hostname = "nix-installer";
-    overlay-unstable = final: prev: {
+    # deadnix: skip
+    overlay-unstable = pre: final: {
       unstable = import nixpkgs-unstable {
         system = "x86_64-linux";
         config = {
+          # deadnix: skip
           allowUnfreePredicate = pkg: true;
           allowUnfree = true;
         };
@@ -74,11 +75,7 @@
       srv-mp = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ({
-            config,
-            pkgs,
-            ...
-          }: {
+          ({config, ...}: {
             nixpkgs.config.allowUnfree = true;
             nixpkgs.overlays = [overlay-unstable];
           })
