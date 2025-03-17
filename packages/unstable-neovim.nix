@@ -15,7 +15,7 @@
   programs = {
     nvf = {
       enable = true;
-      packages = pkgs.unstable.neovim-unwrapped;
+      package = pkgs.unstable.neovim-unwrapped;
       settings.vim = {
         autocomplete = {
           blink-cmp = {
