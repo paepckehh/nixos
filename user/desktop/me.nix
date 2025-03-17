@@ -93,7 +93,7 @@
           enabled-extensions = with pkgs.gnomeExtensions; [
             toggle-alacritty.extensionUuid
           ];
-          favorite-apps = ["Alacritty.desktop" "librewolf.desktop" "keepassxc.desktop"];
+          favorite-apps = ["Alacritty.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop"];
         };
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings = [
