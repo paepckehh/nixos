@@ -15,7 +15,6 @@
   programs = {
     nvf = {
       enable = true;
-      package = pkgs.unstable.neovim-unwrapped;
       settings.vim = {
         autocomplete = {
           blink-cmp = {
@@ -96,6 +95,7 @@
           };
         };
         lineNumberMode = "relNumber"; # number, relNumber, none
+        package = pkgs.unstable.neovim-unwrapped;
         spellcheck = {
           enable = false;
           languages = ["en" "de"];
