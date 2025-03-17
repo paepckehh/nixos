@@ -4,6 +4,7 @@
   #####################
   environment = {
     systemPackages = with pkgs; [
+      arp-scan
       bandwhich
       bmon
       certinfo-go
