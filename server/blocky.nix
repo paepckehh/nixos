@@ -10,7 +10,7 @@
   services = {
     blocky = {
       enable = true;
-      package = pkgs.unstable.blocky;
+      package = pkgs.blocky;
       settings = {
         log.level = "info";
         ports = {
