@@ -7,6 +7,7 @@
       bandwhich
       bmon
       certinfo-go
+      cliqr
       dmidecode
       dnsutils
       dust
