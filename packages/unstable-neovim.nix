@@ -11,6 +11,7 @@
   programs = {
     nvf = {
       enable = true;
+      packages = pkgs.unstable.neovim-unwrapped;
       settings.vim = {
         autocomplete = {
           blink-cmp = {
@@ -106,7 +107,7 @@
             base02 = "#D65D0E"; # Background --
             base03 = "#49A4F8"; # Background -
             base04 = "#444444"; # Foreground -
-            base05 = "#EC5357"; # Foreground --
+            base05 = "#AAAAAA"; # Foreground --
             base06 = "#FFFFFF"; # Foreground ---
             base07 = "#FFFFFF"; # Foreground ----
             base08 = "#EC5357"; # Red

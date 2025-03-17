@@ -85,8 +85,7 @@
           ./role/client-desktop.nix
           ./modules/disko-luks.nix
           ./person/desktop/mpaepcke.nix
-          ./user/dev-env-go.nix
-          ./user/neovim.nix
+          ./packages/unstable-devops.nix
           # ./server/home-assistant.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix

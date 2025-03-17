@@ -1,19 +1,13 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
     systemPackages = with pkgs; [
-      asn
       bandwhich
       bmon
+      certinfo-go
       dmidecode
-      dnstracer
       dnsutils
       dust
       fastfetch
@@ -23,17 +17,10 @@
       gh
       inetutils
       jq
-      keepassxc
       kmon
       moreutils
       ncdu
-      netscanner
-      nixfmt-rfc-style
-      nix-init
       nix-output-monitor
-      nixpkgs-review
-      nix-prefetch-scripts
-      nix-search-cli
       nix-top
       nix-tree
       nvme-cli
@@ -47,22 +34,16 @@
       progress
       pv
       pwgen
-      stress
       superfile
       sysz
       s-tui
-      tcping-go
-      termshark
       tldr
       tlsinfo
       tree
       trippy
-      tshark
       tz
       unzip
       usbutils
-      ventoy-full
-      xh
       yamlfmt
       yq
       yubikey-manager

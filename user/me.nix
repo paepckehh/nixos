@@ -9,7 +9,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./packages-all.nix
+    ../packages/base.nix
   ];
 
   ###############
