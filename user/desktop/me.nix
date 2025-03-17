@@ -93,12 +93,13 @@
           enabled-extensions = with pkgs.gnomeExtensions; [
             toggle-alacritty.extensionUuid
           ];
-          favorite-apps = ["Alacritty.desktop" "librewolf.desktop"];
+          favorite-apps = ["Alacritty.desktop" "librewolf.desktop" "keepassxc.desktop"];
         };
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings = [
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
           ];
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -107,9 +108,14 @@
           binding = "<Super>Return";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-          name = "librewolf @ os-native"; # <windows-key> +  <b> = browser
+          name = "librewolf browser not-sandboxed"; # <windows-key> +  <b> = browser
           command = "librewolf";
           binding = "<Super>b";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+          name = "keepassxc passwordmanager"; # <windows-key> +  <k> = keepassxc
+          command = "keepassxc";
+          binding = "<Super>k";
         };
         "org/gnome/desktop/interface" = {
           clock-show-weekday = true;
