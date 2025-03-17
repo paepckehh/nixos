@@ -5,7 +5,7 @@
   environment = {
     systemPackages = with pkgs.unstable; [
       asn
-      arp-scanner
+      # arp-scanner-rs
       dnstracer
       netscanner
       stress
