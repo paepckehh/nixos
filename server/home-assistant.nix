@@ -10,26 +10,29 @@
         default_config = {};
       };
       extraComponents = [
-        # defaults, needed for setup
+        # defaults (needed for init/setup)
         "esphome"
         "google_translate"
         "met"
         "radio_browser"
         # custom
-        "heos"
-        "sun"
         "apple_tv"
-        "matter"
+        "bluetooth"
+        "device_tracker"
+        "hacs"
+        "heos"
         "homekit"
         "homekit_controller"
-        "bluetooth"
-        "systemmonitor"
+        "matter"
         "mobile_app"
         "network"
-        "device_tracker"
+        "roomba"
+        "sun"
+        "systemmonitor"
+        "tibber"
         "ollama"
-        "zha"
         "unifi"
+        "zha"
       ];
     };
   };

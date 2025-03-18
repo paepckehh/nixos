@@ -3,7 +3,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./unstable-neovim.nix
+    ./neovim.nix
     ./unstable-netops.nix
   ];
 
@@ -14,6 +14,7 @@
     systemPackages = with pkgs.unstable; [
       aria2
       curlie
+      gh
       gnumake
       go-tools
       golangci-lint

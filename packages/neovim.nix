@@ -17,8 +17,23 @@
       enable = true;
       settings.vim = {
         autocomplete = {
+          enableSharedCmpSources = true;
           blink-cmp = {
             enable = true;
+            friendly-snippets.enable = true;
+            fuzzy.prebuild_binaries.download = true;
+            mappings = {
+              complete = "<C-Space>";
+              confirm = "<CR>";
+              next = "<Tab>";
+              previous = "<S-Tab>";
+              close = "<C-e>";
+              scrollDocsUp = "<C-d>";
+              scrollDocsDown = "<C-f>";
+            };
+            sourcePlugins.emoji.enable = true;
+            sourcePlugins.ripgrep.enable = true;
+            sourcePlugins.spell.enable = true;
           };
         };
         comments = {
@@ -95,7 +110,7 @@
           };
         };
         lineNumberMode = "relNumber"; # number, relNumber, none
-        package = pkgs.unstable.neovim-unwrapped;
+        package = pkgs.neovim-unwrapped; # pkgs.unstable.neovim-unwrappped
         spellcheck = {
           enable = false;
           languages = ["en" "de"];
@@ -126,7 +141,6 @@
         };
         viAlias = false;
         vimAlias = false;
-        lsp.enable = true;
       };
     };
   };

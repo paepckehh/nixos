@@ -1,16 +1,8 @@
-{
-  config,
-  pkgs,
-  lib,
-  home-manager,
-  ...
-}: {
+{pkgs, ...}: {
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [
-    ../packages/base.nix
-  ];
+  # imports = [];
 
   ###############
   #-=# USERS #=-#

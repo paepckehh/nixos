@@ -14,4 +14,11 @@
       tshark
     ];
   };
+  ##################
+  #-=# PROGRAMS #=-#
+  ##################
+  programs = {
+    iftop.enable = true;
+    wireshark.enable = true;
+  };
 }
