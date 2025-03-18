@@ -21,7 +21,6 @@
           blink-cmp = {
             enable = true;
             friendly-snippets.enable = true;
-            fuzzy.prebuild_binaries.download = true;
             mappings = {
               complete = "<C-Space>";
               confirm = "<CR>";
@@ -31,9 +30,11 @@
               scrollDocsUp = "<C-d>";
               scrollDocsDown = "<C-f>";
             };
-            sourcePlugins.emoji.enable = true;
-            sourcePlugins.ripgrep.enable = true;
-            sourcePlugins.spell.enable = true;
+            sourcePlugins = { 
+              emoji.enable = true;
+              ripgrep.enable = true;
+              spell.enable = true;
+           };
           };
         };
         comments = {
