@@ -208,7 +208,7 @@
                   enable = true;
                   setupOpts.ring =  {
                         history_length = "100"; # number of clips
-                        storage = "sqlite"; 
+                        # storage = "sqlite";  # XXX debug
                         system_clipboard.sync_with_ring = true;
                   };
                 };
