@@ -30,6 +30,10 @@
               scrollDocsUp = "<C-d>";
               scrollDocsDown = "<C-f>";
             };
+            setupOpts.cmdline = {
+              keymap.preset = "none";
+              completion.menu.auto_show = true;
+            };
             sourcePlugins = {
               emoji.enable = true;
               ripgrep.enable = true;
