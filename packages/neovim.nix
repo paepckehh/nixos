@@ -79,8 +79,6 @@
         diagnostics.nvim-lint = {
           enable = false; # XXX debug config
           linters_by_ft = {
-            markdown = ["vale"];
-            text = ["vale"];
             go = ["gofmt"];
             nix = ["alejandra"];
           };
@@ -103,19 +101,38 @@
           theme = "onedark";
         };
         languages = {
-          bash.enable = true;
+          # defaults, when not specified
+          enableFormat = true;
+          enableLSP = false;
+          enableTreesitter = false; 
+          clang.enable = true;
           css.enable = true;
           html.enable = true;
           lua.enable = true;
           sql.enable = true;
-          yaml.enable = true;
           python.enable = false;
           php.enable = false;
           rust.enable = false;
           java.enable = false;
+          yaml.enable = true;
+          zig.enable = false;
+          bash = { 
+            enable = true;
+            extraDiagnostics = {
+              enable = true;
+              types = ["shellcheck"];
+            };
+            format = {
+                enable = true;
+                type = "shfmt"; # shfmt
+            };
+            lsp = {
+            enable = true;
+            server = "bash-ls"; # bash-ls 
+           };
+          };
           go = {
             enable = true;
-            treesitter.enable = false;
             format = {
               enable = true;
               type = "gofmt"; # gofmt, gofumpt, golines
@@ -134,7 +151,6 @@
           };
           nix = {
             enable = true;
-            treesitter.enable = false;
             extraDiagnostics = {
               enable = true;
               types = ["statix" "deadnix"];
@@ -162,7 +178,7 @@
           style = ""; # theme specifig, eg: dark, darker, cool, deep, warm, warmer, day, night, colorblind
           base16-colors = {
             base00 = "#000000"; # Background ----
-            base01 = "#111111"; # Background ---
+            base01 = "#222222"; # Background ---
             base02 = "#D65D0E"; # Background --
             base03 = "#49A4F8"; # Background -
             base04 = "#444444"; # Foreground -
@@ -178,6 +194,24 @@
             base0E = "#BF40BF"; # Purple
             base0F = "#A47DE9"; # Magenta
           };
+        };
+        ui = { 
+         modes-nvim.enable = true;
+         noice.enable = false;
+         smartcolumn.enable = true;
+        };
+        useSystemClipboard = false;
+        utility = { 
+                icon-picker.enable = true;
+                vim-wakatime.enable = true;
+                yanky-nvim = {
+                  enable = true;
+                  setupOpts.ring =  {
+                        history_length = "100"; # number of clips
+                        storage = "sqlite"; 
+                        system_clipboard.sync_with_ring = true;
+                  };
+                };
         };
         viAlias = false;
         vimAlias = false;
