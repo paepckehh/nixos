@@ -19,7 +19,7 @@
         autocomplete = {
           enableSharedCmpSources = true;
           blink-cmp = {
-            enable = false; # XXX broken 
+            enable = false; # XXX currently broken
             friendly-snippets.enable = true;
             mappings = {
               complete = "<C-Space>";
@@ -40,7 +40,20 @@
               spell.enable = true;
             };
           };
+          nvim-cmp = {
+            enable = true; # XXX fallback for blink-cmp
+            mappings = {
+              complete = "<C-Space>";
+              confirm = "<CR>";
+              next = "<Tab>";
+              previous = "<S-Tab>";
+              close = "<C-e>";
+              scrollDocsUp = "<C-d>";
+              scrollDocsDown = "<C-f>";
+            };
+          };
         };
+        autopairs.nvim-autopairs.enable = true;
         comments = {
           comment-nvim = {
             enable = true;
@@ -52,10 +65,6 @@
               toggleSelectedLine = "gc";
               toggleSelectedBlock = "gb";
             };
-            setupOpts.mappings = {
-              basic = false;
-              extra = false;
-            };
           };
         };
         dashboard.startify = {
@@ -64,30 +73,49 @@
           bookmarks = [
             {"f" = "/etc/nixos/flake.nix";}
             {"c" = "/etc/nixos/configuration.nix";}
+            {"v" = "/etc/nixos/packages/neovim.nix";}
           ];
+        };
+        diagnostics.nvim-lint = {
+          enable = false; # XXX debug config
+          linters_by_ft = {
+            markdown = ["vale"];
+            text = ["vale"];
+            go = ["gofmt"];
+            nix = ["alejandra"];
+          };
+        };
+        enableLuaLoader = true;
+        filetree.neo-tree = {
+          enable = true;
+        };
+        filetree.nvimTree = {
+          enable = false;
+          mappings = {
+            toggle = "<leader>t";
+            refresh = "<leader>tr";
+            findFile = "<leader>tg";
+            focus = "<leader>tf";
+          };
         };
         statusline.lualine = {
           enable = true;
           theme = "onedark";
         };
         languages = {
-          enableFormat = true;
-          enableLSP = false;
-          enableTreesitter = true;
           bash.enable = true;
           css.enable = true;
           html.enable = true;
-          java.enable = true;
           lua.enable = true;
-          markdown.enable = true;
-          php.enable = true;
-          python.enable = true;
-          rust.enable = true;
           sql.enable = true;
           yaml.enable = true;
+          python.enable = false;
+          php.enable = false;
+          rust.enable = false;
+          java.enable = false;
           go = {
             enable = true;
-            treesitter.enable = true;
+            treesitter.enable = false;
             format = {
               enable = true;
               type = "gofmt"; # gofmt, gofumpt, golines
@@ -97,9 +125,16 @@
               server = "gopls";
             };
           };
+          markdown = {
+            enable = true;
+            format = {
+              enable = true;
+              type = "denofmt"; # denofmt, prettierd
+            };
+          };
           nix = {
             enable = true;
-            treesitter.enable = true;
+            treesitter.enable = false;
             extraDiagnostics = {
               enable = true;
               types = ["statix" "deadnix"];

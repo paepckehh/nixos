@@ -34,6 +34,7 @@
       nixpkgs-review
       nix-prefetch-scripts
       nix-search-cli
+      vale
       ventoy-full
     ];
   };
