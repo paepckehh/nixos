@@ -19,7 +19,6 @@
         "apple_tv"
         "bluetooth"
         "device_tracker"
-        "hacs"
         "heos"
         "homekit"
         "homekit_controller"
