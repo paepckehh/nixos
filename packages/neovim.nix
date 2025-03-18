@@ -30,11 +30,11 @@
               scrollDocsUp = "<C-d>";
               scrollDocsDown = "<C-f>";
             };
-            sourcePlugins = { 
+            sourcePlugins = {
               emoji.enable = true;
               ripgrep.enable = true;
               spell.enable = true;
-           };
+            };
           };
         };
         comments = {
