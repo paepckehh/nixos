@@ -19,7 +19,7 @@
         autocomplete = {
           enableSharedCmpSources = true;
           blink-cmp = {
-            enable = true;
+            enable = false; # XXX broken 
             friendly-snippets.enable = true;
             mappings = {
               complete = "<C-Space>";
