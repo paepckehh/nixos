@@ -66,6 +66,7 @@
           ./role/client-desktop.nix
           ./modules/disko.nix
           ./person/desktop/mpaepcke.nix
+          ./packages/base.nix
           {networking.hostName = "client-mp";}
         ];
       };
@@ -85,6 +86,9 @@
           ./role/client-desktop.nix
           ./modules/disko-luks.nix
           ./person/desktop/mpaepcke.nix
+          ./packages/neovim.nix
+          ./packages/unstable-base.nix
+          ./packages/unstable-netops.nix
           ./packages/unstable-devops.nix
           # ./server/home-assistant.nix
           # ./server/ollama.nix
@@ -112,6 +116,7 @@
           ./modules/disko.nix
           ./role/client-desktop.nix
           ./user/desktop/me.nix
+          ./packages/base.nix
           {networking.hostName = "nix-installer";}
         ];
       };

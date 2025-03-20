@@ -4,13 +4,16 @@
   #####################
   environment = {
     systemPackages = with pkgs.unstable; [
+      arp-scan-rs
       asn
-      # arp-scanner-rs
+      bandwhich
       dnstracer
+      gping
       netscanner
       stress
       tcping-go
       termshark
+      trippy
       tshark
     ];
   };

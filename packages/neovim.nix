@@ -104,7 +104,8 @@
           # defaults, when not specified
           enableFormat = true;
           enableLSP = false;
-          enableTreesitter = false; 
+          enableTreesitter = false;
+          # toggle on-demand
           clang.enable = true;
           css.enable = true;
           html.enable = true;
@@ -116,20 +117,20 @@
           java.enable = false;
           yaml.enable = true;
           zig.enable = false;
-          bash = { 
+          bash = {
             enable = true;
             extraDiagnostics = {
               enable = true;
               types = ["shellcheck"];
             };
             format = {
-                enable = true;
-                type = "shfmt"; # shfmt
+              enable = true;
+              type = "shfmt"; # shfmt
             };
             lsp = {
-            enable = true;
-            server = "bash-ls"; # bash-ls 
-           };
+              enable = true;
+              server = "bash-ls"; # bash-ls
+            };
           };
           go = {
             enable = true;
@@ -166,7 +167,7 @@
           };
         };
         lineNumberMode = "relNumber"; # number, relNumber, none
-        package = pkgs.neovim-unwrapped; # pkgs.unstable.neovim-unwrappped
+        package = pkgs.unstable.neovim-unwrapped; # pkgs.unstable.neovim-unwrappped
         spellcheck = {
           enable = false;
           languages = ["en" "de"];
@@ -195,23 +196,23 @@
             base0F = "#A47DE9"; # Magenta
           };
         };
-        ui = { 
-         modes-nvim.enable = true;
-         noice.enable = false;
-         smartcolumn.enable = true;
+        ui = {
+          modes-nvim.enable = true;
+          noice.enable = false;
+          smartcolumn.enable = true;
         };
-        useSystemClipboard = false;
-        utility = { 
-                icon-picker.enable = true;
-                vim-wakatime.enable = true;
-                yanky-nvim = {
-                  enable = true;
-                  setupOpts.ring =  {
-                        history_length = "100"; # number of clips
-                        # storage = "sqlite";  # XXX debug
-                        system_clipboard.sync_with_ring = true;
-                  };
-                };
+        useSystemClipboard = true;
+        utility = {
+          icon-picker.enable = true;
+          vim-wakatime.enable = true;
+          yanky-nvim = {
+            enable = true;
+            setupOpts.false = {
+              history_length = "100"; # number of clips
+              storage = "sqlite"; # XXX debug
+              system_clipboard.sync_with_ring = true;
+            };
+          };
         };
         viAlias = false;
         vimAlias = false;

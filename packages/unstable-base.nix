@@ -99,7 +99,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [
+    systemPackages = with pkgs.unstable; [
       alejandra
       bmon
       cliqr
