@@ -7,7 +7,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment.shellAliases.e = lib.mkForce "nvim";
-
+  
   ##################
   #-=# PROGRAMS #=-#
   ##################
@@ -19,7 +19,7 @@
         autocomplete = {
           enableSharedCmpSources = true;
           blink-cmp = {
-            enable = false; # XXX currently broken
+            enable = true; 
             friendly-snippets.enable = true;
             mappings = {
               complete = "<C-Space>";
@@ -41,7 +41,7 @@
             };
           };
           nvim-cmp = {
-            enable = true; # XXX fallback for blink-cmp
+            enable = false; # XXX fallback for blink-cmp
             mappings = {
               complete = "<C-Space>";
               confirm = "<CR>";
@@ -179,12 +179,12 @@
           style = ""; # theme specifig, eg: dark, darker, cool, deep, warm, warmer, day, night, colorblind
           base16-colors = {
             base00 = "#000000"; # Background ----
-            base01 = "#222222"; # Background ---
+            base01 = "#444444"; # Background ---
             base02 = "#D65D0E"; # Background --
             base03 = "#49A4F8"; # Background -
             base04 = "#444444"; # Foreground -
-            base05 = "#AAAAAA"; # Foreground --
-            base06 = "#FFFFFF"; # Foreground ---
+            base05 = "#888888"; # Foreground --
+            base06 = "#BBBBBB"; # Foreground ---
             base07 = "#FFFFFF"; # Foreground ----
             base08 = "#EC5357"; # Red
             base09 = "#FFA400"; # Orange
@@ -197,17 +197,26 @@
           };
         };
         ui = {
-          modes-nvim.enable = true;
           noice.enable = false;
-          smartcolumn.enable = true;
+          smartcolumn.enable = false;
+          modes-nvim = {
+            enable = true;
+            setupOpts = {
+              line_opacity.visual = 20.0;
+              colors = {
+                delete = "#F5C259";
+                insert = "#78CCC5";
+                visual = "#9745BE";
+              };
+            };
+          };
         };
-        useSystemClipboard = true;
         utility = {
           icon-picker.enable = true;
-          vim-wakatime.enable = true;
+          vim-wakatime.enable = false;
           yanky-nvim = {
             enable = true;
-            setupOpts.false = {
+            setupOpts = {
               history_length = "100"; # number of clips
               storage = "sqlite"; # XXX debug
               system_clipboard.sync_with_ring = true;
