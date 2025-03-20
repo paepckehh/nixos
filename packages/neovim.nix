@@ -7,7 +7,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment.shellAliases.e = lib.mkForce "nvim";
-  
+
   ##################
   #-=# PROGRAMS #=-#
   ##################
@@ -19,7 +19,7 @@
         autocomplete = {
           enableSharedCmpSources = true;
           blink-cmp = {
-            enable = true; 
+            enable = false; # XXX incplace for nvim-cmp
             friendly-snippets.enable = true;
             mappings = {
               complete = "<C-Space>";
@@ -41,7 +41,7 @@
             };
           };
           nvim-cmp = {
-            enable = false; # XXX fallback for blink-cmp
+            enable = true; # XXX fallback for blink-cmp
             mappings = {
               complete = "<C-Space>";
               confirm = "<CR>";
