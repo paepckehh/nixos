@@ -13,7 +13,7 @@
       VISUAL = "vim";
       ROC_ENABLE_PRE_VEGA = "1";
     };
-    shells = [pkgs.bashInteractive pkgs.zsh];
+    shells = [pkgs.unstable.bashInteractive pkgs.unstable.zsh];
     shellAliases = {
       e = "vim";
       l = "ls -la";
@@ -40,6 +40,7 @@
     zsh.enable = true;
     ssh = {
       startAgent = lib.mkForce true;
+      package = pkgs.unstable.openssh;
       extraConfig = "AddKeysToAgent yes";
       hostKeyAlgorithms = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
       pubkeyAcceptedKeyTypes = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
@@ -66,6 +67,7 @@
     };
     git = {
       enable = true;
+      package = pkgs.unstable.git;
       prompt.enable = true;
       config = {
         branch.sort = "-committerdate";
