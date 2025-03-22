@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   ...
@@ -99,7 +100,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [
+    systemPackages = with build.packages-source; [
       alejandra
       bmon
       cliqr

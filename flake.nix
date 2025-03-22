@@ -5,16 +5,18 @@
     # nixpkgs.url = "github:paepckehh/nixpkgs/blocky-improve";
     # nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
     # dns.url = "github:nix-community/dns.nix/master";
+    # nixvim.url = "github:nix-community/nixvim/master";
+    nvf.url = "github:notashelf/nvf";
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nvf.url = "github:notashelf/nvf";
     # settings
     # dns.inputs.nixpkgs.follows = "nixpkgs";
+    # nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    nvf.inputs.nixpkgs.follows = "nixpkgs";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nvf.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
     self,
@@ -27,7 +29,6 @@
     #################
     # GLOBAL CONFIG #
     #################
-    build.installer.iso.target.hostname = "nix-installer";
     # deadnix: skip
     overlay-unstable = pre: final: {
       unstable = import nixpkgs-unstable {
@@ -86,10 +87,11 @@
           ./role/client-desktop.nix
           ./modules/disko-luks.nix
           ./person/desktop/mpaepcke.nix
-          ./packages/neovim.nix
-          ./packages/unstable-base.nix
+          ./packages/neovim-nvf.nix
+          ./packages/base.nix
           ./packages/unstable-netops.nix
           ./packages/unstable-devops.nix
+          # ./packages/neovim-nvf.nix
           # ./server/home-assistant.nix
           # ./server/ollama.nix
           # ./server/openweb-ui.nix
@@ -120,9 +122,9 @@
           {networking.hostName = "nix-installer";}
         ];
       };
-      iso = nixpkgs.lib.nixosSystem {
+      iso-installer = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs.targetSystem = self.nixosConfigurations.${build.installer.iso.target.hostname};
+        specialArgs.targetSystem = self.nixosConfigurations."nix-installer";
         modules = [
           ./modules/iso-autoinstaller.nix
         ];

@@ -3,6 +3,10 @@
   #-=# SERVICES #=-#
   ##################
   services = {
+    music-assistant = {
+      enable = true;
+      package = pkgs.unstable.music-assistant;
+    };
     home-assistant = {
       enable = true;
       package = pkgs.unstable.home-assistant;
@@ -23,7 +27,9 @@
         "homekit"
         "homekit_controller"
         "matter"
+        "music_assistant"
         "mobile_app"
+        "mqtt"
         "network"
         "roomba"
         "sun"

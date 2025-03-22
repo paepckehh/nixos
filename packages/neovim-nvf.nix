@@ -3,6 +3,13 @@
   pkgs,
   ...
 }: {
+  #################
+  #-=# IMPORTS #=-#
+  #################
+  imports = [
+    #  ../server/ollama.nix
+  ];
+
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
@@ -16,10 +23,28 @@
     nvf = {
       enable = true;
       settings.vim = {
+        assistant.codecompanion-nvim = {
+          enable = false;
+          setupOpts = {
+            opts.language = "English";
+            strategies = {
+              chat = {
+                adapter = "ollama";
+              };
+              inline = {
+                adapter = "ollama";
+                kemaps = {
+                  accept_change.n = "ga";
+                  reject_change.n = "gr";
+                };
+              };
+            };
+          };
+        };
         autocomplete = {
           enableSharedCmpSources = true;
           blink-cmp = {
-            enable = false; # XXX incplace for nvim-cmp
+            enable = false;
             friendly-snippets.enable = true;
             mappings = {
               complete = "<C-Space>";
@@ -41,7 +66,7 @@
             };
           };
           nvim-cmp = {
-            enable = true; # XXX fallback for blink-cmp
+            enable = true; #
             mappings = {
               complete = "<C-Space>";
               confirm = "<CR>";
@@ -101,10 +126,6 @@
           theme = "onedark";
         };
         languages = {
-          # defaults, when not specified
-          enableFormat = true;
-          enableLSP = false;
-          enableTreesitter = false;
           # toggle on-demand
           clang.enable = true;
           css.enable = true;
@@ -167,6 +188,12 @@
           };
         };
         lineNumberMode = "relNumber"; # number, relNumber, none
+        lsp = {
+          enable = true;
+          formatOnSave = true;
+          lightbulb.enable = true;
+          lspkind.enable = true;
+        };
         package = pkgs.unstable.neovim-unwrapped; # pkgs.unstable.neovim-unwrappped
         spellcheck = {
           enable = false;
@@ -218,7 +245,7 @@
             enable = true;
             setupOpts = {
               history_length = "100"; # number of clips
-              storage = "sqlite"; # XXX debug
+              # storage = "sqlite"; # XXX debug
               system_clipboard.sync_with_ring = true;
             };
           };
