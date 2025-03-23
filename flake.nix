@@ -88,12 +88,11 @@
           ./modules/disko-luks.nix
           ./person/desktop/mpaepcke.nix
           ./packages/neovim-nvf.nix
-          ./packages/base.nix
+          ./packages/unstable-base.nix
           ./packages/unstable-netops.nix
           ./packages/unstable-devops.nix
-          # ./packages/neovim-nvf.nix
+          ./server/ollama.nix
           # ./server/home-assistant.nix
-          # ./server/ollama.nix
           # ./server/openweb-ui.nix
           # ./server/mysql.nix
           # ./server/mongodb.nix
