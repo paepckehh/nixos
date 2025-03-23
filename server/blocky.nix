@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   #################
   #-=# IMPORTS #=-#
   #################
@@ -11,6 +15,14 @@
   ####################
   networking.nameservers = ["127.0.0.1"];
 
+  ################
+  #-=# SYSTEM #=-#
+  ################
+  system.activationScripts.makeBlockyDir = lib.stringAfter ["var"] ''
+    mkdir -p /var/lib/blocky
+    chown -R blocky /var/lib/blocky
+  '';
+
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -20,10 +32,7 @@
       package = pkgs.blocky;
       settings = {
         log.level = "info";
-        ports = {
-          dns = "127.0.0.1:53";
-          http = "127.0.0.1:9610"; # /metrics -> prometheus
-        };
+        ports.dns = "127.0.0.1:53";
         upstreams = {
           timeout = "8s";
           strategy = "strict";
@@ -88,6 +97,14 @@
           prefetchExpires = "72h";
           prefetchThreshold = 1;
           prefetchMaxItemsCount = 0; # unlimited
+        };
+        queryLog = {
+          # type = "csv";
+          # target = "/var/lib/blocky";
+          # logRetentionDays = 180;
+          # creationAttempts = 25;
+          # creationCooldown = "5s";
+          # flushInterval = "60s";
         };
       };
     };

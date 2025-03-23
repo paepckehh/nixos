@@ -98,6 +98,8 @@
         export HNAME="$(hostname)" ;\
         export DTS="-$(date '+%Y-%m-%d--%H-%M')" ;\
         sudo nixos-rebuild switch --flake "/etc/nixos/.#$HNAME" -p "$HNAME-$DTS"'';
+      "nix.back" = ''
+        sudo nixos-rebuild switch --rollback'';
       "nix.build" = ''
         cd /etc/nixos &&\
         env sudo -v &&\

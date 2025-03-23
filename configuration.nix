@@ -346,9 +346,10 @@
       };
     };
     usbguard = {
-      enable = true;
+      enable = false;
       rules = ''
-        allow with-interface one-of { 02:*:* 08:*:* 09:*:* 11:*:* }
+        allow with-interface all-of { 03:*:* } # HID
+        allow with-interface all-of { 08:*:* } # Storage
         reject with-interface all-of { 08:*:* 03:00:* }
         reject with-interface all-of { 08:*:* 03:01:* }
         reject with-interface all-of { 08:*:* e0:*:* }
