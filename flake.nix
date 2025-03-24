@@ -84,8 +84,13 @@
           nvf.nixosModules.default
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./role/client-desktop.nix
+          ./alias/nixops.nix
+          ./configuration.nix
           ./modules/disko-luks.nix
+          ./desktop/gnome.nix
+          ./server/unbound.nix
+          ./server/blocky.nix
+          ./server/chronyPublic.nix
           ./person/desktop/mpaepcke.nix
           ./packages/neovim-nvf.nix
           ./packages/unstable-base.nix

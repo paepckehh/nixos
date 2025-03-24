@@ -1,29 +1,33 @@
 {config, ...}: {
   # prometheus default web interface http://localhost:9090
   # grafana default web interface http://localhost:3000
-  # grafana dashboards https://github.com/0xERR0R/blocky/tree/main/docs
+  # grafana unbound dashboards https://github.com/ar51an/unbound-dashboard
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
-    blocky = {
+    unbound = {
       enable = true;
+      localControlSocketPath = "/run/unbound/unbound.ctl";
       settings = {
-        ports.http = "127.0.0.1:4000"; # /metrics -> prometheus
-        prometheus = {
-          enable = true;
-          path = "/metrics";
+        server = {
+          extended-statistics = true;
         };
       };
     };
     prometheus = {
       enable = true;
+      exporters.unbound = {
+        enable = true;
+        port = 9167;
+        listenAddress = "127.0.0.1";
+      };
       scrapeConfigs = [
         {
-          job_name = "blocky";
+          job_name = "unbound";
           static_configs = [
             {
-              targets = ["${config.services.blocky.settings.ports.http}"];
+              targets = ["${config.services.prometheus.exporters.unbound.listenAddress}:${toString config.services.prometheus.exporters.unbound.port}"];
             }
           ];
         }

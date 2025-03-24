@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   #################
   #-=# IMPORTS #=-#
   #################
@@ -14,14 +10,6 @@
   #-=# NETWORKING #=-#
   ####################
   networking.nameservers = ["127.0.0.1"];
-
-  ################
-  #-=# SYSTEM #=-#
-  ################
-  system.activationScripts.makeBlockyDir = lib.stringAfter ["var"] ''
-    mkdir -p /var/lib/blocky
-    chown -R blocky /var/lib/blocky
-  '';
 
   ##################
   #-=# SERVICES #=-#
@@ -99,12 +87,12 @@
           prefetchMaxItemsCount = 0; # unlimited
         };
         queryLog = {
-          # type = "csv";
-          # target = "/var/lib/blocky";
-          # logRetentionDays = 180;
-          # creationAttempts = 25;
-          # creationCooldown = "5s";
-          # flushInterval = "60s";
+          type = "csv";
+          target = "/var/lib/blocky";
+          logRetentionDays = 180;
+          creationAttempts = 25;
+          creationCooldown = "5s";
+          flushInterval = "60s";
         };
       };
     };
