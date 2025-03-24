@@ -38,7 +38,6 @@
             name = "Prometheus";
             type = "prometheus";
             access = "proxy";
-            isDefault = true;
             url = "http://${config.services.prometheus.listenAddress}:${toString config.services.prometheus.port}";
           }
         ];

@@ -1,14 +1,13 @@
 {config, ...}: {
   # prometheus default web interface http://localhost:9090
   # grafana default web interface http://localhost:3000
-  # grafana unbound dashboards https://github.com/ar51an/unbound-dashboard
+  # grafana unbound dashboards https://github.com/rfmoz/grafana-dashboards/tree/master/prometheus
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
     unbound = {
       enable = true;
-      localControlSocketPath = "/run/unbound/unbound.ctl";
       settings = {
         server = {
           extended-statistics = true;
@@ -21,6 +20,7 @@
         enable = true;
         port = 9167;
         listenAddress = "127.0.0.1";
+        unbound.host = "unix://${config.services.unbound.localControlSocketPath}";
       };
       scrapeConfigs = [
         {
@@ -42,7 +42,6 @@
             name = "Prometheus";
             type = "prometheus";
             access = "proxy";
-            isDefault = true;
             url = "http://${config.services.prometheus.listenAddress}:${toString config.services.prometheus.port}";
           }
         ];
