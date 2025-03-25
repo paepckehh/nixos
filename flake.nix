@@ -79,7 +79,7 @@
       ##########
       # SERVER #
       ##########
-      srv-mp = nixpkgs.lib.nixosSystem {
+      srv-mp = nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ({config, ...}: {
