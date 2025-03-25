@@ -94,14 +94,15 @@
           prefetchThreshold = 1;
           prefetchMaxItemsCount = 0; # unlimited
         };
-        queryLog = {
-          type = "csv";
-          target = "/var/lib/blocky";
-          logRetentionDays = 180;
-          creationAttempts = 128;
-          creationCooldown = "10s";
-          flushInterval = "60s";
-        };
+        # needs nixos upstream bugfix PR388962
+        # queryLog = {
+        #  type = "csv";
+        #  target = "/var/lib/blocky";
+        #  logRetentionDays = 180;
+        #  creationAttempts = 128;
+        #  creationCooldown = "10s";
+        #  flushInterval = "60s";
+        # };
       };
     };
   };
