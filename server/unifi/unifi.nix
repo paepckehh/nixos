@@ -20,11 +20,11 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./unifi/bind.nix
-    ./unifi/controller.nix
-    ./unifi/prometheus.nix
-    ./unifi/kea.nix
-    ./unifi/vlans.nix
+    ./unifi-bind.nix
+    ./unifi-controller.nix
+    ./unifi-prometheus.nix
+    ./unifi-kea.nix
+    ./unifi-vlans.nix
   ];
   networking = {
     domain = "infra.lan";

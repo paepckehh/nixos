@@ -2,9 +2,10 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [
-    ./blocky-add-local-prometheus.nix
-  ];
+  # imports = [
+  #  ./add-local-prometheus.nix
+  #  ./add-local-redis-cache.nix
+  # ];
 
   ####################
   #-=# NETWORKING #=-#
@@ -23,7 +24,7 @@
         ports.dns = "127.0.0.1:53";
         upstreams = {
           timeout = "8s";
-          strategy = "strict";
+          strategy = "strict"; # strict, random, parallel_best (best two)
           groups = {
             default = [
               # "tcp+udp:127.0.0.1:5353"

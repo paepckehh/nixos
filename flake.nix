@@ -50,9 +50,12 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./modules/disko.nix
-          ./role/client-desktop.nix
+          ./configuration.nix
+          ./alias/nixops.nix
+          ./modules/disko-luks.nix
+          ./desktop/gnome.nix
           ./user/desktop/me.nix
+          ./packages/base.nix
           {networking.hostName = "nixos";}
         ];
       };
@@ -64,8 +67,10 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./role/client-desktop.nix
-          ./modules/disko.nix
+          ./configuration.nix
+          ./alias/nixops.nix
+          ./modules/disko-luks.nix
+          ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix
           {networking.hostName = "client-mp";}
@@ -84,51 +89,40 @@
           nvf.nixosModules.default
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          ./alias/nixops.nix
           ./configuration.nix
+          ./alias/nixops.nix
           ./modules/disko-luks.nix
           ./desktop/gnome.nix
-          ./server/unbound.nix
-          ./server/blocky.nix
-          ./server/chronyPublic.nix
           ./person/desktop/mpaepcke.nix
           ./packages/neovim-nvf.nix
           ./packages/unstable-base.nix
           ./packages/unstable-netops.nix
           ./packages/unstable-devops.nix
-          ./server/ollama.nix
-          # ./server/home-assistant.nix
+          ./server/ai/ollama.nix
+          ./server/dns/blocky.nix
+          ./server/dns/blocky-add-local-prometheus.nix
+          ./server/dns/blocky-add-local-redis-cache.nix
+          ./server/ntp/chronyPublic.nix
           # ./server/openweb-ui.nix
-          # ./server/mysql.nix
-          # ./server/mongodb.nix
-          # ./server/unifi.nix
-          # ./server/wazuh.nix
-          # ./server/virtual.nix
-          # ./server/opnborg-systemd.nix
-          # ./server/cgit.nix
-          # ./server/firefox-sync-server.nix
-          # ./server/gitea.nix
+          # ./server/db/mysql.nix
+          # ./server/db/mongodb.nix
+          # ./server/unifi/unifi.nix
+          # ./server/monitoring/wazuh.nix
+          # ./server/virtual/virtual.nix
+          # ./server/opnborg/opnborg-systemd.nix
+          # ./server/web/cgit.nix
+          # ./server/infra/firefox-sync-server.nix
+          # ./server/infra/gitea.nix
+          # ./server/infra/home-assistant.nix
           {networking.hostName = "srv-mp";}
         ];
       };
       #############
       # ISO IMAGE #
       #############
-      nix-installer = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
-          ./modules/disko.nix
-          ./role/client-desktop.nix
-          ./user/desktop/me.nix
-          ./packages/base.nix
-          {networking.hostName = "nix-installer";}
-        ];
-      };
       iso-installer = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs.targetSystem = self.nixosConfigurations."nix-installer";
+        specialArgs.targetSystem = self.nixosConfigurations."nixos";
         modules = [
           ./modules/iso-autoinstaller.nix
         ];

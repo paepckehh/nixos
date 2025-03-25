@@ -2,9 +2,9 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [
-    ./unbound-add-local-prometheus.nix
-  ];
+  # imports = [
+  #  ./unbound-add-local-prometheus.nix
+  # ];
 
   ####################
   #-=# NETWORKING #=-#
