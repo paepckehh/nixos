@@ -18,7 +18,7 @@
   services = {
     blocky = {
       enable = true;
-      package = pkgs.blocky;
+      package = pkgs.unstable.blocky;
       settings = {
         log.level = "info";
         ports.dns = "127.0.0.1:53";
@@ -91,8 +91,8 @@
           type = "csv";
           target = "/var/lib/blocky";
           logRetentionDays = 180;
-          creationAttempts = 25;
-          creationCooldown = "5s";
+          creationAttempts = 128;
+          creationCooldown = "10s";
           flushInterval = "60s";
         };
       };

@@ -21,13 +21,13 @@
     };
     redis = {
       servers = {
-        "blocky" = {
+        blocky = {
           enable = true;
-          appendFsync = "none"; # none, always, everysec
+          appendFsync = "no"; # no, always, everysec
           appendOnly = true;
           bind = "127.0.0.1";
           databases = 16;
-          extraParams = [""]; # --sentinel
+          # extraParams = ["--sentinel"];
           group = "redis-blocky";
           logLevel = "notice";
           logfile = "/dev/null"; # /var/log/redis.log (see syslog)
@@ -38,11 +38,6 @@
           requirePass = null;
           requirePassFile = null; # /run/keys/redis-password
           save = [[900 1] [360 1000] [120 100000]]; # [];
-          settings = {};
-          slaveOf = {
-            ip = "";
-            port = 0;
-          };
           slowLogLogSlowerThan = 1000;
           slowLogMaxLen = 1000;
           syslog = true;
