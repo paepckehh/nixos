@@ -2,9 +2,9 @@
   description = "nixos infra";
   inputs = {
     # ONLINE URLs
-    nixpkgs.url = "github:paepckehh/nixpkgs/blocky-improve";
+    # nixpkgs.url = "github:paepckehh/nixpkgs/blocky-improve";
     # nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     # dns.url = "github:nix-community/dns.nix/master";
     # nixvim.url = "github:nix-community/nixvim/master";
     nvf.url = "github:notashelf/nvf";
