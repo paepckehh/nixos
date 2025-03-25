@@ -4,31 +4,6 @@
   lib,
   ...
 }: {
-  #####################
-  #-=# ENVIRONMENT #=-#
-  #####################
-  environment = {
-    interactiveShellInit = ''uname -a && eval "$(ssh-agent)"'';
-    variables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
-      ROC_ENABLE_PRE_VEGA = "1";
-    };
-    shells = [pkgs.bashInteractive pkgs.zsh];
-    shellAliases = {
-      e = "vim";
-      l = "ls -la";
-      d = "sudo dmesg --follow --human --kernel --userspace";
-      slog = "journalctl --follow --priority=7 --lines=2500";
-      nvmeinfo = "sudo smartctl --all /dev/sda"; # /dev/nvme0
-      "service.log" = "journalctl --since='30 min ago' -u $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.start" = "sudo systemctl start $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.stop" = "sudo systemctl stop $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.status" = "sudo systemctl status $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.restart" = "sudo systemctl restart $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-    };
-  };
-
   ##################
   #-=# PROGRAMS #=-#
   ##################

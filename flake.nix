@@ -98,12 +98,12 @@
           ./packages/unstable-base.nix
           ./packages/unstable-netops.nix
           ./packages/unstable-devops.nix
-          ./server/ai/ollama.nix
           ./server/ntp/chronyPublic.nix
           ./server/dns/blocky.nix
-          # ./server/dns/blocky-add-local-prometheus.nix
+          ./server/dns/blocky-add-local-prometheus.nix
           # ./server/dns/blocky-add-local-redis-cache.nix
-          # ./server/openweb-ui.nix
+          # ./server/ai/ollama.nix
+          # ./server/ai/openweb-ui.nix
           # ./server/db/mysql.nix
           # ./server/db/mongodb.nix
           # ./server/unifi/unifi.nix

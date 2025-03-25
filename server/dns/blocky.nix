@@ -20,10 +20,17 @@
       enable = true;
       package = pkgs.unstable.blocky;
       settings = {
-        log.level = "info";
+        log.level = "info"; # debug
         ports.dns = "127.0.0.1:53";
+        fqdnOnly.enable = true;
+        filtering.queryTypes = ["AAAA"];
+        specialUseDomains = {
+          enable = true;
+          rfc6762-appendixG = true;
+        };
         upstreams = {
-          timeout = "8s";
+          init.strategy = "fast"; # blocking, failOnError, fast
+          timeout = "4s";
           strategy = "strict"; # strict, random, parallel_best (best two)
           groups = {
             default = [
@@ -73,7 +80,7 @@
           };
           clientGroupsBlock = {
             unblock = [];
-            iot = ["smartTV"];
+            tv = ["smartTV"];
             default = ["ads" "scam" "porn" "malware"];
           };
         };
