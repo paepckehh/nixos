@@ -20,10 +20,12 @@
       enable = true;
       package = pkgs.unstable.blocky;
       settings = {
-        log.level = "info"; # debug
-        ports.dns = "127.0.0.1:53";
+        connectIPVersion = "v4";
         fqdnOnly.enable = true;
         filtering.queryTypes = ["AAAA"];
+        ports.dns = "127.0.0.1:53";
+        log.level = "info"; # debug
+        minTlsServeVersion = "1.3";
         specialUseDomains = {
           enable = true;
           rfc6762-appendixG = true;
@@ -56,6 +58,9 @@
         blocking = {
           blockType = "zeroIP";
           blockTTL = "15m";
+          allowlists = {
+            ads = [""];
+          };
           denylists = {
             ads = [
               "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
@@ -85,7 +90,7 @@
           };
         };
         caching = {
-          cacheTimeNegative = "1m";
+          cacheTimeNegative = "30m";
           minTime = "2h";
           maxTime = "24h";
           maxItemsCount = 0; # unlimited
