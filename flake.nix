@@ -101,7 +101,7 @@
           ./server/ntp/chronyPublic.nix
           ./server/dns/blocky.nix
           ./server/dns/blocky-add-local-prometheus.nix
-          ./server/dns/blocky-add-local-stats-timescaledb.nix
+          ./server/dns/blocky-add-local-stats-postgres.nix
           # ./server/dns/blocky-add-local-redis-cache.nix
           # ./server/ai/ollama.nix
           # ./server/ai/openweb-ui.nix

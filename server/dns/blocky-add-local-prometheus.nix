@@ -2,6 +2,7 @@
   # prometheus default web interface http://localhost:9090
   # grafana default web interface http://localhost:3000
   # grafana dashboards https://github.com/0xERR0R/blocky/tree/main/docs
+
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -37,7 +38,6 @@
           {
             name = "Prometheus";
             type = "prometheus";
-            access = "proxy";
             url = "http://${config.services.prometheus.listenAddress}:${toString config.services.prometheus.port}";
           }
         ];
