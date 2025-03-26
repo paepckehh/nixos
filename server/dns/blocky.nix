@@ -2,7 +2,9 @@
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking.nameservers = ["127.0.0.1" "192.168.8.1"];
+  networking = {
+    nameservers = ["127.0.0.1" "192.168.8.1"];
+  };
 
   ##################
   #-=# SERVICES #=-#
@@ -91,15 +93,14 @@
           prefetchThreshold = 1;
           prefetchMaxItemsCount = 0; # unlimited
         };
-        queryLog = {
-          # type = "csv"; # needs nixos upstream bugfix PR388962
-          type = "console"; # needs nixos upstream bugfix PR388962
-          target = "/var/lib/blocky";
-          logRetentionDays = 180;
-          creationAttempts = 128;
-          creationCooldown = "10s";
-          flushInterval = "60s";
-        };
+        # queryLog = {
+        # type = "csv"; # needs nixos upstream bugfix PR388962
+        # target = "/var/lib/blocky";
+        # logRetentionDays = 180;
+        # creationAttempts = 128;
+        # creationCooldown = "10s";
+        # flushInterval = "60s";
+        # };
       };
     };
   };
