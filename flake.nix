@@ -100,9 +100,8 @@
           ./packages/unstable-devops.nix
           ./server/ntp/chronyPublic.nix
           ./server/dns/blocky.nix
-          ./server/dns/blocky-add-local-prometheus.nix
-          ./server/dns/blocky-add-local-stats-postgresql.nix
-          # ./server/dns/blocky-add-local-redis-cache.nix
+          ./server/dns/blocky-add-prometheus.nix
+          ./server/dns/blocky-add-query-stats.nix
           # ./server/ai/ollama.nix
           # ./server/ai/openweb-ui.nix
           # ./server/db/mysql.nix
