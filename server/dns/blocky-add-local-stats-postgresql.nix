@@ -1,10 +1,6 @@
 {pkgs, ...}: {
   # dashboard grafana https://0xerr0r.github.io/blocky/latest/blocky-query-grafana-postgres.json
-  # logfile analysis via pgweb
-  #####################
-  #-=# ENVIRONMENT #=-#
-  #####################
-  environment.systemPackages = with pkgs; [pgweb];
+  # logfile analysis via pgweb http://localhost:8081
 
   ##################
   #-=# SERVICES #=-#
@@ -42,7 +38,6 @@
           {
             name = "Postgres";
             type = "postgres";
-            # url = "/run/postgresql";
             url = "localhost:5432";
             user = "blocky";
             secureJsonData.password = "start";
@@ -52,6 +47,40 @@
             };
           }
         ];
+      };
+    };
+  };
+
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment.systemPackages = with pkgs; [pgweb];
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd = {
+    services.pgweb = {
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      description = "PGWEB Service";
+      serviceConfig = {
+        ExecStart = "${pkgs.pgweb}/bin/pgweb";
+        KillMode = "process";
+        Restart = "always";
+        DynamicUser = true;
+        MemoryDenyWriteExecute = true;
+        NoNewPrivileges = true;
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
+      };
+      environment = {
+        PGWEB_DATABASE_URL = "postgres://localhost:5432/blocky";
+        PGWEB_AUTH_USER = "blocky";
+        PGWEB_AUTH_PASS = "start";
       };
     };
   };
