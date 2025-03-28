@@ -10,7 +10,7 @@
     nvf.url = "github:notashelf/nvf";
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
     # settings
     # dns.inputs.nixpkgs.follows = "nixpkgs";
     # nixvim.inputs.nixpkgs.follows = "nixpkgs";
