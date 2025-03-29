@@ -32,7 +32,8 @@ in
         settings = {
           queryLog = {
             type = "postgresql";
-            target = "postgres://${blocky.query-stats.user}:${blocky.query-stats.password}@/${blocky.query-stats.db}"; # bind via unix_socket (supress host/port)
+            # target = "postgres://${blocky.query-stats.user}:${blocky.query-stats.password}@/${blocky.query-stats.db}"; # bind via unix_socket (supress host/port)
+            target = "postgres://${blocky.query-stats.user}:${blocky.query-stats.password}@${blocky.query-stats.host}/${blocky.query-stats.db}";
             logRetentionDays = 180;
             creationAttempts = 5;
             creationCooldown = "5s";

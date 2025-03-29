@@ -11,7 +11,8 @@
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
     # nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-unstable.url = "github:paepckehh/nixpkgs/prometheus-exporter";
+    nixpkgs-unstable.url = "github:paepckehh/nixpkgs/nixos-unstable";
+    nixpkgs-dev.url = "github:paepckehh/nixpkgs/prometheus-exporter";
     # settings
     # dns.inputs.nixpkgs.follows = "nixpkgs";
     # nixvim.inputs.nixpkgs.follows = "nixpkgs";
@@ -24,6 +25,7 @@
     disko,
     home-manager,
     nixpkgs,
+    nixpkg-dev,
     nixpkgs-unstable,
     nvf,
   }: let
@@ -80,7 +82,7 @@
       ##########
       # SERVER #
       ##########
-      srv-mp = nixpkgs-unstable.lib.nixosSystem {
+      srv-mp = nixpkgs-dev.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ({config, ...}: {

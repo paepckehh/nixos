@@ -28,6 +28,7 @@
     programs = {
       librewolf = {
         enable = true;
+        package = pkg.unstable.librewolf;
         settings = {
           # "identity.fxaccounts" = true;
           # "identity.fxaccounts.autoconfig.uri" = "https://localhost:5000";
