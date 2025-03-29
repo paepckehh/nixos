@@ -2,17 +2,14 @@
   description = "nixos infra";
   inputs = {
     # ONLINE URLs
-    # nixpkgs.url = "github:paepckehh/nixpkgs/blocky-improve";
-    # nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     # dns.url = "github:nix-community/dns.nix/master";
     # nixvim.url = "github:nix-community/nixvim/master";
     nvf.url = "github:notashelf/nvf";
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
-    # nixpkgs-unstable.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-unstable.url = "github:paepckehh/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-dev.url = "github:paepckehh/nixpkgs/prometheus-exporter";
+    nixpkgs-unstable.url = "github:paepckehh/nixpkgs/nixos-unstable";
     # settings
     # dns.inputs.nixpkgs.follows = "nixpkgs";
     # nixvim.inputs.nixpkgs.follows = "nixpkgs";
@@ -25,7 +22,7 @@
     disko,
     home-manager,
     nixpkgs,
-    nixpkg-dev,
+    nixpkgs-dev,
     nixpkgs-unstable,
     nvf,
   }: let
