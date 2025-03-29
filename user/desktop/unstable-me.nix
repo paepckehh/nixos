@@ -15,7 +15,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [gparted mission-center keepassxc];
+    systemPackages = with pkgs.unstable; [gparted mission-center keepassxc];
   };
 
   ######################
@@ -28,6 +28,7 @@
     programs = {
       librewolf = {
         enable = true;
+        package = pkg.unstable.librewolf;
         settings = {
           # "identity.fxaccounts" = true;
           # "identity.fxaccounts.autoconfig.uri" = "https://localhost:5000";
@@ -43,6 +44,7 @@
       };
       alacritty = {
         enable = true;
+        package = pkg.unstable.alacritty;
         settings = {
           selection = {
             save_to_clipboard = true;
