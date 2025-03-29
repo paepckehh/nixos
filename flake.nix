@@ -103,6 +103,7 @@
           ./server/dns/blocky.nix
           ./server/dns/blocky-add-prometheus.nix
           ./server/dns/blocky-add-query-stats.nix
+          ./server/monitoring/prometheus-exporter.nix
           # ./server/ai/ollama.nix
           # ./server/ai/openweb-ui.nix
           # ./server/db/mysql.nix
