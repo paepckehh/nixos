@@ -135,6 +135,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-dev": {
+      "locked": {
+        "lastModified": 1743241361,
+        "narHash": "sha256-CuFzrpkaicti68sSJEsh1XcjHHLM0JVXX3UVPiu6kHg=",
+        "owner": "paepckehh",
+        "repo": "nixpkgs",
+        "rev": "4395ee2fbaa2707ae27ce0cbfc36b68a2c8414b7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "paepckehh",
+        "ref": "prometheus-exporter",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1740877520,
@@ -152,16 +168,16 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1743241361,
-        "narHash": "sha256-CuFzrpkaicti68sSJEsh1XcjHHLM0JVXX3UVPiu6kHg=",
+        "lastModified": 1730200266,
+        "narHash": "sha256-l253w0XMT8nWHGXuXqyiIC/bMvh1VRszGXgdpQlfhvU=",
         "owner": "paepckehh",
         "repo": "nixpkgs",
-        "rev": "4395ee2fbaa2707ae27ce0cbfc36b68a2c8414b7",
+        "rev": "807e9154dcb16384b1b765ebe9cd2bba2ac287fd",
         "type": "github"
       },
       "original": {
         "owner": "paepckehh",
-        "ref": "prometheus-exporter",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -196,6 +212,7 @@
         "disko": "disko",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-dev": "nixpkgs-dev",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nvf": "nvf"
       }
