@@ -12,7 +12,7 @@
   services = {
     blocky = {
       enable = true;
-      package = pkgs.unstable.blocky;
+      package = pkgs.blocky;
       settings = {
         connectIPVersion = "v4";
         fqdnOnly.enable = true;
