@@ -4,7 +4,7 @@
   #####################
   environment = {
     systemPackages = with pkgs.unstable; [
-      arp-scan-rs
+      # arp-scan-rs
       asn
       bandwhich
       dnstracer
