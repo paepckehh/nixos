@@ -191,7 +191,7 @@
         lsp = {
           enable = true;
           formatOnSave = true;
-          lightbulb.enable = true;
+          lightbulb.enable = false;
           lspkind.enable = true;
         };
         package = pkgs.unstable.neovim-unwrapped; # pkgs.unstable.neovim-unwrappped
