@@ -28,7 +28,7 @@
     programs = {
       librewolf = {
         enable = true;
-        package = pkg.unstable.librewolf;
+        package = pkgs.unstable.librewolf;
         settings = {
           # "identity.fxaccounts" = true;
           # "identity.fxaccounts.autoconfig.uri" = "https://localhost:5000";
@@ -44,7 +44,7 @@
       };
       alacritty = {
         enable = true;
-        package = pkg.unstable.alacritty;
+        package = pkgs.unstable.alacritty;
         settings = {
           selection = {
             save_to_clipboard = true;
