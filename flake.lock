@@ -64,11 +64,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1743295846,
-        "narHash": "sha256-hKKz07d4RV9gzxzE5Qu3RQWX8a7XpzRrP5timoxoGRQ=",
+        "lastModified": 1743360001,
+        "narHash": "sha256-HtpS/ZdgWXw0y+aFdORcX5RuBGTyz3WskThspNR70SM=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "717030011980e9eb31eb8ce011261dd532bce92c",
+        "rev": "b6fd653ef8fbeccfd4958650757e91767a65506d",
         "type": "github"
       },
       "original": {
@@ -137,16 +137,16 @@
     },
     "nixpkgs-dev": {
       "locked": {
-        "lastModified": 1743331573,
-        "narHash": "sha256-WCTXBniFOUxAe5CPFFn7pkd4A43RmZxiJN0sVLW3igo=",
+        "lastModified": 1743364419,
+        "narHash": "sha256-ASZXPtdxMVRomzdum1JckeLC+4xY1Qe99bacrGVTIWk=",
         "owner": "paepckehh",
         "repo": "nixpkgs",
-        "rev": "8462a3647ac070956c137cd16fc66dc0e8ec5b19",
+        "rev": "9046cd379df9f560c4172f80320dbfd441cf614a",
         "type": "github"
       },
       "original": {
         "owner": "paepckehh",
-        "ref": "prometheus-exporter-chrony",
+        "ref": "prometheus-exporter",
         "repo": "nixpkgs",
         "type": "github"
       }
