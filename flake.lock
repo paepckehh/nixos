@@ -137,16 +137,16 @@
     },
     "nixpkgs-dev": {
       "locked": {
-        "lastModified": 1743328687,
-        "narHash": "sha256-QfcfS+wWaSg02qZ5f5zvPix13YrwUSlQtHCJGC1JR5Q=",
+        "lastModified": 1743331573,
+        "narHash": "sha256-WCTXBniFOUxAe5CPFFn7pkd4A43RmZxiJN0sVLW3igo=",
         "owner": "paepckehh",
         "repo": "nixpkgs",
-        "rev": "c426bac3b24b45e2bd3aca74cf640acf661255ed",
+        "rev": "8462a3647ac070956c137cd16fc66dc0e8ec5b19",
         "type": "github"
       },
       "original": {
         "owner": "paepckehh",
-        "ref": "prometheus-exporter",
+        "ref": "prometheus-exporter-chrony",
         "repo": "nixpkgs",
         "type": "github"
       }
