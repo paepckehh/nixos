@@ -15,7 +15,7 @@
         tibber = {
           enable = true;
           apiTokenFile =
-            /etc/nixos/.keys/tibber.txt;
+            ../../etc/.keys/tibber.txt;
         };
       };
     };
