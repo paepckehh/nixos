@@ -15,7 +15,7 @@
         tibber = {
           enable = true;
           apiTokenFile =
-            ../../etc/.keys/tibber.txt;
+            ./keys/tibber.txt;
         };
       };
     };
