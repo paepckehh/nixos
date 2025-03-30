@@ -1,4 +1,4 @@
-{config, ...}: {
+{
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -11,7 +11,6 @@
       enableNTS = true;
       enableMemoryLocking = true;
       extraConfig = ''
-        # cmdport 0
         server ntppool1.time.nl iburst nts
         server ntppool2.time.nl iburst nts
         server nts.netnod.se iburst nts
