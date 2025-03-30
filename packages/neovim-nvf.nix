@@ -104,8 +104,8 @@
         diagnostics.nvim-lint = {
           enable = true; # XXX debug config
           linters_by_ft = {
-            go = ["gofmt"];
-            nix = ["alejandra"];
+            # go = ["gofmt"];
+            # nix = ["alejandra"];
           };
         };
         enableLuaLoader = true;
