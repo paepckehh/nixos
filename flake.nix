@@ -8,7 +8,7 @@
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs-dev.url = "github:paepckehh/nixpkgs/prometheus-exporter";
+    nixpkgs-dev.url = "github:paepckehh/nixpkgs/prometheus-exporter-chrony";
     nixpkgs-unstable.url = "github:paepckehh/nixpkgs/nixos-unstable";
     # settings
     # dns.inputs.nixpkgs.follows = "nixpkgs";

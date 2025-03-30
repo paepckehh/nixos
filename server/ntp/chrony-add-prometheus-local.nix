@@ -9,6 +9,7 @@
   # set chrony.prometheus.local = true to host prometheus and grafana locally
   # => default web interface prometheus  http://localhost:9090
   # => default web interface grafana     http://localhost:3000  (initial user/password = admin/admin)
+  # => import grafana dashboard https://grafana.com/grafana/dashboards/19186-chrony
   ################
   #-=# CONFIG #=-#
   ################
@@ -27,10 +28,7 @@ in
     ##################
     services = {
       timesyncd.enable = false;
-      chrony = {
-        enable = true;
-        extraConfig = ''minsources 3'';
-      };
+      chrony.enable = true;
       prometheus = {
         enable = chrony.prometheus.local;
         exporters.chrony = {
@@ -50,13 +48,7 @@ in
       grafana = {
         enable = chrony.prometheus.local;
         provision = {
-          # enable = chrony.prometheus.local;
-          # dashboards.settings.providers = [
-          #   {
-          #     name = "pre-configured-local-dashboards";
-          #    options.path = "/etc/grafana-dashboards";
-          #   }
-          # ];
+          enable = chrony.prometheus.local;
           datasources.settings.datasources = [
             {
               name = "Prometheus";
@@ -67,14 +59,4 @@ in
         };
       };
     };
-    #####################
-    #-=# ENVIRONMENT #=-#
-    #####################
-    # environment = {
-    #  etc."grafana-dashboards/chrony-grafana.json" = {
-    #    source = "/etc/nixos/server/dns/resources/blocky-grafana.json";
-    #    group = "grafana";
-    #    user = "grafana";
-    #  };
-    # };
   }
