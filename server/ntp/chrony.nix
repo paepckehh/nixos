@@ -6,28 +6,26 @@
     timesyncd.enable = false;
     chrony = {
       enable = true;
-      servers = [""];
-      extraFlags = ["-F 1"];
+      autotrimThreshold = "30";
+      servers = [
+        "0.nixos.pool.ntp.org"
+        "1.nixos.pool.ntp.org"
+        "2.nixos.pool.ntp.org"
+        "3.nixos.pool.ntp.org"
+        "ntppool1.time.nl"
+        "ntppool2.time.nl"
+        "nts.netnod.se"
+        "ptbtime1.ptb.de"
+        "time.dfm.dk"
+        "time.cifelli.xyz"
+        "ntp.3eck.net"
+        "ntp.zeitgitter.net"
+        "paris.time.system76.com"
+      ];
       enableNTS = true;
+      enableRTCTrimming = true;
       enableMemoryLocking = true;
-      extraConfig = ''
-        server ntppool1.time.nl iburst nts
-        server ntppool2.time.nl iburst nts
-        server nts.netnod.se iburst nts
-        server ptbtime1.ptb.de iburst nts
-        server time.dfm.dk iburst nts
-        server time.cifelli.xyz iburst nts
-        server ntp.3eck.net iburst nts
-        server ntp.zeitgitter.net iburst nts
-        server paris.time.system76.com iburst nts 
-        minsources 4
-        authselectmode require
-        dscp 46
-        driftfile /var/lib/chrony/drift
-        ntsdumpdir /var/lib/chrony
-        leapsectz right/UTC
-        makestep 1.0 3
-        rtconutc'';
+      extraConfig = ''minsources 3'';
     };
   };
 }

@@ -6,7 +6,7 @@
   ##############
   #-=# INFO #=-#
   ##############
-  # set blocky.prometheus.local = true to host prometheus and grafana locally
+  # set chrony.prometheus.local = true to host prometheus and grafana locally
   # => default web interface prometheus  http://localhost:9090
   # => default web interface grafana     http://localhost:3000  (initial user/password = admin/admin)
   ################
@@ -15,9 +15,13 @@
   chrony.prometheus = {
     enabled = true;
     local = true;
+    cmd = {
+      host = "127.0.0.1";
+      port = 323;
+    };
     metrics = {
-      host = "localhost";
-      port = "9123";
+      host = "127.0.0.1";
+      port = 9123;
     };
   };
 in
@@ -26,15 +30,34 @@ in
     #-=# SERVICES #=-#
     ##################
     services = {
-      chrony.enable = true;
+      timesyncd.enable = false;
+      chrony = {
+        enable = true;
+        extraConfig = ''
+          bindcmdaddress ${chrony.prometheus.cmd.host}
+          cmdallow ${chrony.prometheus.cmd.host}/32
+          cmdport ${toString chrony.prometheus.cmd.port}
+          minsources 3'';
+      };
       prometheus = {
         enable = chrony.prometheus.local;
+        exporters.chrony = {
+          enable = true;
+          extraFlags = [
+            "--chrony.address=${chrony.prometheus.cmd.host}:${toString chrony.prometheus.cmd.port}"
+            "--collector.tracking"
+            "--collector.sources"
+            "--collector.serverstats"
+            "--collector.dns-lookups"
+            # "--collector.sources.with-ntpdata" # requires socket connection
+          ];
+        };
         scrapeConfigs = [
           {
-            job_name = "blocky";
+            job_name = "chrony";
             static_configs = [
               {
-                targets = ["${chrony.prometheus.metrics.host}:${chrony.promethes.metrics.port}"];
+                targets = ["${chrony.prometheus.metrics.host}:${toString chrony.prometheus.metrics.port}"];
               }
             ];
           }
