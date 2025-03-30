@@ -102,7 +102,7 @@
           ];
         };
         diagnostics.nvim-lint = {
-          enable = false; # XXX debug config
+          enable = true; # XXX debug config
           linters_by_ft = {
             go = ["gofmt"];
             nix = ["alejandra"];
