@@ -10,9 +10,12 @@
     prometheus = {
       enable = true;
       exporters = {
-        chrony.enable = true;
+        # chrony.enable = true;
         ecoflow.enable = true;
-        tibber.enable = true;
+        tibber = { 
+                enable = true;
+                apiTokenFile = /etc/nixos/.keys/tibber.txt
+                ;
       };
     };
   };
