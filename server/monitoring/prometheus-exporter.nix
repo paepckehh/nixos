@@ -12,10 +12,11 @@
       exporters = {
         # chrony.enable = true;
         ecoflow.enable = true;
-        tibber = { 
-                enable = true;
-                apiTokenFile = /etc/nixos/.keys/tibber.txt
-                ;
+        tibber = {
+          enable = true;
+          apiTokenFile =
+            /etc/nixos/.keys/tibber.txt;
+        };
       };
     };
   };
