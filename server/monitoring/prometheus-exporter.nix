@@ -14,8 +14,6 @@
         ecoflow.enable = true;
         tibber = {
           enable = true;
-          apiTokenFile =
-            ./keys/tibber.txt;
         };
       };
     };
