@@ -15,10 +15,6 @@
   chrony.prometheus = {
     enabled = true;
     local = true;
-    cmd = {
-      host = "127.0.0.1";
-      port = 323;
-    };
     metrics = {
       host = "127.0.0.1";
       port = 9123;
@@ -33,24 +29,12 @@ in
       timesyncd.enable = false;
       chrony = {
         enable = true;
-        extraConfig = ''
-          bindcmdaddress ${chrony.prometheus.cmd.host}
-          cmdallow ${chrony.prometheus.cmd.host}/32
-          cmdport ${toString chrony.prometheus.cmd.port}
-          minsources 3'';
+        extraConfig = ''minsources 3'';
       };
       prometheus = {
         enable = chrony.prometheus.local;
         exporters.chrony = {
           enable = true;
-          extraFlags = [
-            "--chrony.address=${chrony.prometheus.cmd.host}:${toString chrony.prometheus.cmd.port}"
-            "--collector.tracking"
-            "--collector.sources"
-            "--collector.serverstats"
-            "--collector.dns-lookups"
-            # "--collector.sources.with-ntpdata" # requires socket connection
-          ];
         };
         scrapeConfigs = [
           {
