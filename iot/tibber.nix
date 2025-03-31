@@ -8,9 +8,10 @@
       exporters.tibber = {
         enable = true;
         apiToken = "5K4MVS-OjfWhK_4yrjOlFe1F6kJXPVf7eQYggo8ebAE";
-        # tibber bearer token
+        # tibber bearer token (working developer example token)
+        # get your personal token here: https://developer.tibber.com
         # replace this generic developer example token with your personal one
-        # keep it safe, do not share (via github) with anyone (agenix, sops, ...)
+        # keep it safe, do not share (via github) with anyone (use agenix, sops, ...)
       };
       scrapeConfigs = [
         {
