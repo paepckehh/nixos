@@ -194,11 +194,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1743390438,
-        "narHash": "sha256-yM8Blvk7mqTEtAwkwzM0aRkhmMYxcYjrvxhlRgSvfmI=",
+        "lastModified": 1743301931,
+        "narHash": "sha256-gex4W+Fyn6RB8x9/y+VWY1EG6RItmlW1HJjAj3mWqKc=",
         "owner": "notashelf",
         "repo": "nvf",
-        "rev": "b92d9e7e2638be558a466c6dfcc2d3e08b82e894",
+        "rev": "05489d95b69b4c81e9b9a66a23f6e0cb1c8edb3d",
         "type": "github"
       },
       "original": {
@@ -214,8 +214,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-dev": "nixpkgs-dev",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nvf": "nvf",
-        "sops": "sops"
+        "nvf": "nvf"
       }
     },
     "rust-overlay": {
@@ -237,26 +236,6 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "sops": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1743305778,
-        "narHash": "sha256-Ux/UohNtnM5mn9SFjaHp6IZe2aAnUCzklMluNtV6zFo=",
-        "owner": "mic92",
-        "repo": "sops-nix",
-        "rev": "8e873886bbfc32163fe027b8676c75637b7da114",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mic92",
-        "repo": "sops-nix",
         "type": "github"
       }
     },

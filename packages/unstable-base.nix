@@ -91,8 +91,6 @@
       kmon
       moreutils
       nix-output-monitor
-      nix-top
-      nix-tree
       nvme-cli
       onefetch
       openssl

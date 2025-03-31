@@ -4,6 +4,7 @@
     # ONLINE URLs
     # dns.url = "github:nix-community/dns.nix/master";
     # nixvim.url = "github:nix-community/nixvim/master";
+    sops.url = "github:mic92/sops-nix";
     nvf.url = "github:notashelf/nvf";
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
@@ -14,11 +15,13 @@
     # dns.inputs.nixpkgs.follows = "nixpkgs";
     # nixvim.inputs.nixpkgs.follows = "nixpkgs";
     nvf.inputs.nixpkgs.follows = "nixpkgs";
+    sops.inputs.nixpkgs.follows = "nixpkgs";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
     self,
+    sops,
     disko,
     home-manager,
     nixpkgs,
@@ -86,11 +89,13 @@
             nixpkgs.config.allowUnfree = true;
             nixpkgs.overlays = [overlay-unstable];
           })
-          nvf.nixosModules.default
+          sops.nixosModules.sops
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
+          nvf.nixosModules.default
           ./configuration.nix
           ./alias/nixops.nix
+          ./modules/sops.nix
           ./modules/disko-luks.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
