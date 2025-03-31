@@ -5,8 +5,10 @@
   services = {
     prometheus = {
       enable = true;
-      tibber = {
-        enable = true;
+      exporters = {
+        tibber = {
+          enable = true;
+        };
       };
     };
   };

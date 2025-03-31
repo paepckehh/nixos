@@ -6,7 +6,7 @@
     timesyncd.enable = false;
     chrony = {
       enable = true;
-      autotrimThreshold = "30";
+      autotrimThreshold = 30;
       servers = [
         "0.nixos.pool.ntp.org"
         "1.nixos.pool.ntp.org"
