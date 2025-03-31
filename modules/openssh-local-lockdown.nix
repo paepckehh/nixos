@@ -1,51 +1,50 @@
-{
+{lib, ...}: {
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
     openssh = {
-      enable = true; # needed to generate uniq hostKeys
-      allowSFTP = false;
+      enable = lib.mkForce true; # needed to generate uniq hostKeys
+      allowSFTP = lib.mkForce false;
       authorizedKeysCommand = "none";
       authorizedKeysCommandUser = "nobody";
-      authorizedKeysFiles = [];
+      authorizedKeysFiles = [""];
       authorizedKeysInHomedir = false;
       banner = null;
       extraConfig = "";
-      hostKeys = {
-        path = "/etc/ssh/ssh_host_ed25519_key";
-        type = "ed25519";
-        rounds = 1000;
-      };
-      knownHosts = [];
-      listenAddresses = {
-        addr = "127.0.0.1";
-        porst = 64022;
-      };
-      moduliFile = null;
+      hostKeys = lib.mkForce [
+        {
+          path = "/etc/ssh/ssh_host_ed25519_key";
+          type = "ed25519";
+          rounds = 1000;
+        }
+      ];
+      listenAddresses = lib.mkForce [
+        {
+          addr = "127.0.0.1";
+          port = 22;
+        }
+      ];
       openFirewall = false;
       settings = {
         AllowGroups = null;
         AllowUsers = null;
-        AuthorizedPrincipalsFile = none;
+        AuthorizedPrincipalsFile = null;
         Ciphers = ["chacha20-poly1305@openssh.com"];
         DenyGroups = null;
         DenyUsers = null;
-        Gatewayports = "no";
+        GatewayPorts = "no";
         KbdInteractiveAuthentication = false;
         KexAlgorithms = ["curve25519-sha256" "curve25519-sha256@libssh.org"];
-        LogLevel = "Info";
+        LogLevel = "VERBOSE"; # INFO, DEBUG
         Macs = null; # chacha20-poly1305 inherent
         PermitRootLogin = "no";
-        PrintMotd = "false";
+        PrintMotd = false;
         StrictModes = true;
-        UseDNS = false;
-        UsePam = false;
+        UseDns = false;
+        UsePAM = false;
         X11Forwarding = false;
-        sftpFlags = [];
-        sftpServerExecuteable = "";
-        startWhenNeeded = true;
-        enableSrunX11 = false;
+        # startWhenNeeded = true;
       };
     };
   };
