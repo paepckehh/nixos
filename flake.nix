@@ -4,24 +4,19 @@
     # ONLINE URLs
     # dns.url = "github:nix-community/dns.nix/master";
     # nixvim.url = "github:nix-community/nixvim/master";
-    sops.url = "github:mic92/sops-nix";
+    # sops.url = "github:mic92/sops-nix";
+    agenix.url = "github:ryantm/agenix";
     nvf.url = "github:notashelf/nvf";
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs-dev.url = "github:paepckehh/nixpkgs/prometheus-exporter";
-    nixpkgs-unstable.url = "github:paepckehh/nixpkgs/nixos-unstable";
-    # settings
-    # dns.inputs.nixpkgs.follows = "nixpkgs";
-    # nixvim.inputs.nixpkgs.follows = "nixpkgs";
-    nvf.inputs.nixpkgs.follows = "nixpkgs";
-    sops.inputs.nixpkgs.follows = "nixpkgs";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-dev.url = "github:paepckehh/nixpkgs/prometheus-tibber-module";
+    nixpkgs-unstable.url = "github:paepckehh/nixpkgs/nixos-unstable";
   };
   outputs = {
     self,
-    sops,
+    agenix,
     disko,
     home-manager,
     nixpkgs,
@@ -89,13 +84,13 @@
             nixpkgs.config.allowUnfree = true;
             nixpkgs.overlays = [overlay-unstable];
           })
-          sops.nixosModules.sops
+          agenix.nixosModules.default
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
           ./configuration.nix
           ./alias/nixops.nix
-          ./modules/sops.nix
+          ./modules/agenix.nix
           ./modules/disko-luks.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
@@ -103,7 +98,7 @@
           ./packages/unstable-base.nix
           ./packages/unstable-netops.nix
           ./packages/unstable-devops.nix
-          ./server/ntp/chrony-add-prometheus-local.nix
+          ./server/ntp/chrony.nix
           ./server/dns/blocky.nix
           ./server/dns/blocky-add-prometheus.nix
           ./server/dns/blocky-add-query-stats.nix

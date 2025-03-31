@@ -327,8 +327,8 @@
     acpid.enable = lib.mkForce true;
     geoclue2.enable = lib.mkForce false;
     gvfs.enable = lib.mkForce false;
-    fwupd.enable = true;
     openssh.enable = false;
+    fwupd.enable = true;
     smartd.enable = true;
     pcscd.enable = false;
     power-profiles-daemon.enable = lib.mkForce false;

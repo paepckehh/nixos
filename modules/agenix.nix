@@ -16,7 +16,7 @@
   #############
   age = {
     secrets = {
-      tibber.file = .resources/tibber.age;
+      tibber.file = ./resources/tibber.age;
     };
   };
 }
