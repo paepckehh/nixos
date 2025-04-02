@@ -7,8 +7,8 @@
       enable = true;
       exporters.ecoflow = {
         enable = true;
-        accessKey = "ABC";
-        secretKey = "ABC";
+        accessKey = "ecoflow@example.net";
+        secretKey = "supersecret";
       };
       scrapeConfigs = [
         {
