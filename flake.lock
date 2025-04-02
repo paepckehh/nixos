@@ -199,16 +199,16 @@
     },
     "nixpkgs-dev": {
       "locked": {
-        "lastModified": 1743334649,
-        "narHash": "sha256-+ILnnNWJU0as4xgteW/oEmNtpFJs3CVcdH5h4v/485w=",
+        "lastModified": 1743576569,
+        "narHash": "sha256-WyKRkzijClz1Gmqw2dxlNyrP+qhes95LFm1CvQgpZa0=",
         "owner": "paepckehh",
         "repo": "nixpkgs",
-        "rev": "e29b8377b82a24e55332a032f9ff978d30fb3f39",
+        "rev": "002f3cefe4522dd8ab49ee01a009e8365c37d8ce",
         "type": "github"
       },
       "original": {
         "owner": "paepckehh",
-        "ref": "prometheus-ecoflow-module",
+        "ref": "ecoflow-module",
         "repo": "nixpkgs",
         "type": "github"
       }
