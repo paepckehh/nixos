@@ -13,7 +13,7 @@
           job_name = "ecoflow";
           static_configs = [
             {
-              targets = ["127.0.0.1:9123"];
+              targets = ["127.0.0.1:2112"];
             }
           ];
         }
