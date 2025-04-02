@@ -12,7 +12,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-dev.url = "github:paepckehh/nixpkgs/ecoflow-module";
-    # nixpkgs-dev.url = "github:paepckehh/nixpkgs/master";
     nixpkgs-unstable.url = "github:paepckehh/nixpkgs/nixos-unstable";
   };
   outputs = {
@@ -103,7 +102,7 @@
           ./server/dns/blocky.nix
           ./server/dns/blocky-add-prometheus.nix
           ./server/dns/blocky-add-query-stats.nix
-          # ./iot/ecoflow.nix
+          ./iot/ecoflow.nix
           # ./server/monitoring/prometheus-exporter.nix
           # ./server/ai/ollama.nix
           # ./server/ai/openweb-ui.nix
