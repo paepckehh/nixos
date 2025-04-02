@@ -11,8 +11,8 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    # nixpkgs-dev.url = "github:paepckehh/nixpkgs/ecoflow-module";
-    nixpkgs-dev.url = "github:paepckehh/nixpkgs/master";
+    nixpkgs-dev.url = "github:paepckehh/nixpkgs/ecoflow-module";
+    # nixpkgs-dev.url = "github:paepckehh/nixpkgs/master";
     nixpkgs-unstable.url = "github:paepckehh/nixpkgs/nixos-unstable";
   };
   outputs = {
