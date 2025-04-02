@@ -7,6 +7,7 @@
       enable = true;
       exporters.ecoflow = {
         enable = true;
+        exporterType = "rest";
         accessKey = "ecoflow@example.net";
         secretKey = "supersecret";
       };
