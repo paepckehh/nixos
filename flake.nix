@@ -99,6 +99,7 @@
           ./packages/unstable-netops.nix
           ./packages/unstable-devops.nix
           ./server/ntp/chrony.nix
+          ./server/ntp/chrony-add-prometheus.nix
           ./server/dns/blocky.nix
           ./server/dns/blocky-add-prometheus.nix
           ./server/dns/blocky-add-query-stats.nix
