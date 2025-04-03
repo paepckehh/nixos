@@ -1,24 +1,25 @@
-{config, ...}: {
-  # => default web interface prometheus  http://localhost:9090
-  # => default web interface grafana     http://localhost:3000  (initial user/password = admin/admin)
+{
+  config,
+  lib,
+  ...
+}: {
   # => import grafana dashboard at your choice:  https://github.com/terjesannum/tibber-exporter/tree/master/grafana
+  environment.etc."tibber.token".text = lib.mkForce ''5K4MVS-OjfWhK_4yrjOlFe1F6kJXPVf7eQYggo8ebAE'';
   services = {
     prometheus = {
       enable = true;
       exporters.tibber = {
         enable = true;
-        apiToken = "5K4MVS-OjfWhK_4yrjOlFe1F6kJXPVf7eQYggo8ebAE";
-        # tibber bearer token (working developer example token)
-        # get your personal token here: https://developer.tibber.com
-        # replace this generic developer example token with your personal one
-        # keep it safe, do not share (via github) with anyone (use agenix, sops, ...)
+        apiToken = /etc/tibber.token;
+        # example agenix
+        # apiToken = config.age.secrets.tibber.path;
       };
       scrapeConfigs = [
         {
           job_name = "tibber";
           static_configs = [
             {
-              targets = ["127.0.0.1:8080"];
+              targets = ["127.0.0.1:${toString config.services.prometheus.exporters.tibber.port}"];
             }
           ];
         }

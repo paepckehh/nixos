@@ -6,5 +6,9 @@ let
   srv-mp = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArbsQC2gdtQ9qCC54Khfei/rVMtVjOTiS0sduAi4jDO root@srv-mp";
   hosts = [srv-mp];
 in {
-  "tibber.age".publicKeys = users ++ hosts;
+  "tibber.age".publicKeys = [age];
+  "ecoflow_email.age".publicKeys = [age];
+  "ecoflow_password.age".publicKeys = [age];
+  "ecoflow_access_key.age".publicKeys = [age];
+  "ecoflow_access_secret.age".publicKeys = [age];
 }
