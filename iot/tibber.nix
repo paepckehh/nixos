@@ -6,7 +6,7 @@
   lib,
   ...
 }: {
-  environment.etc."tibber.token".text = lib.mkForce ''5K4MVS-OjfWhK_4yrjOlFe1F6kJXPVf7eQYggo8ebAE'';
+  environment.etc."tibber.token".text = ''5K4MVS-OjfWhK_4yrjOlFe1F6kJXPVf7eQYggo8ebAE'';
   services = {
     prometheus = {
       enable = true;

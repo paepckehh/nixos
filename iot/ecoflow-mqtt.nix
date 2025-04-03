@@ -2,9 +2,9 @@
 # => default web interface grafana            http://localhost:3000  (initial user/password = admin/admin)
 # => import grafana dashboard at your choice: https://grafana.com/grafana/dashboards/17812-ecoflow
 {config, ...}: {
-  environment.etc."ecoflow-email".text = lib.mkForce ''ecoflow@example.net'';
-  environment.etc."ecoflow-password".text = lib.mkForce ''my-supersecret-ecoflow-password'';
-  environment.etc."ecoflow-devices".text = lib.mkForce ''R330000,R340000,NC420000'';
+  environment.etc."ecoflow-email".text = ''ecoflow@example.net'';
+  environment.etc."ecoflow-password".text = ''my-supersecret-ecoflow-password'';
+  environment.etc."ecoflow-devices".text = ''R330000,R340000,NC420000'';
   services = {
     prometheus = {
       enable = true;
