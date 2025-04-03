@@ -10,7 +10,10 @@
       enable = true;
       exporters.tibber = {
         enable = true;
-        apiTokenPath = /etc/tibber.token; # example agenix config.age.secrets.tibber.path;
+        apiTokenPath = /etc/tibber.token;
+        # example generic public developer tibber token
+        # do not share private token via github, use agenix or soaps
+        # replace with your own tibber bearer api token, see https://developer.tibber.com
       };
       scrapeConfigs = [
         {
