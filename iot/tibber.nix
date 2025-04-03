@@ -10,9 +10,7 @@
       enable = true;
       exporters.tibber = {
         enable = true;
-        apiToken = /etc/tibber.token;
-        # example agenix
-        # apiToken = config.age.secrets.tibber.path;
+        apiTokenPath = /etc/tibber.token; # example agenix config.age.secrets.tibber.path;
       };
       scrapeConfigs = [
         {
