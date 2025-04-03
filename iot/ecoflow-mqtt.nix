@@ -4,16 +4,13 @@
 {config, ...}: {
   environment.etc."ecoflow-email".text = ''ecoflow@example.net'';
   environment.etc."ecoflow-password".text = ''my-supersecret-ecoflow-password'';
-  environment.etc."ecoflow-devices".text = ''R330000,R340000,NC420000'';
+  environment.etc."ecoflow-devices".text = ''R330000,R340000,NC420000,...'';
   services = {
     prometheus = {
       enable = true;
       exporters.ecoflow = {
         enable = true;
         exporterType = "mqtt";
-        ecoflowEmailFile = /etc/ecoflow-email;
-        ecoflowPasswordFile = /etc/ecoflow-password;
-        ecoflowDevicesFile = /etc/ecoflow-devices;
         # config example with agenix secrets:
         # ecoflowEmailFile = config.age.secrets.ecoflow-email.path;
         # ecoflowPasswordFile = config.age.secrets.ecoflow-password.path;

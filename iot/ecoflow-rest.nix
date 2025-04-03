@@ -10,8 +10,6 @@
       exporters.ecoflow = {
         enable = true;
         exporterType = "rest";
-        ecoflowAccessKeyFile = /etc/ecoflow-access-key;
-        ecoflowSecretKeyFile = /etc/ecoflow-secret-key;
         # config example with agenix secrets:
         # ecoflowAccessKeyFile = config.age.secrets.ecoflow-access-key.path;
         # ecoflowSecretKeyFile = config.age.secrets.ecoflow-secret-key.path;
