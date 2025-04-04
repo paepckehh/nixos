@@ -235,6 +235,7 @@
   ####################
   networking = {
     enableIPv6 = false;
+    nameservers = ["127.0.0.53" "127.0.0.1" "192.168.8.1" "192.168.0.1"];
     networkmanager = {
       enable = true;
       logLevel = "INFO";
@@ -336,6 +337,17 @@
     fstrim = {
       enable = true;
       interval = "daily";
+    };
+    resolveconf = {
+      enable = true;
+      dnsExtensionMechanism = true;
+      dnsSingleRequest = true;
+      useLocalResolver = true;
+    };
+    resolved = {
+      enable = true;
+      fallbackDns = ["127.0.0.1" "192.168.8.1" "192.168.0.1" "9.9.9.9" "1.1.1.1"];
+      llmnr = "true";
     };
     tlp = {
       enable = true;
