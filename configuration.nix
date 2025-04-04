@@ -300,15 +300,8 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
+    resolvconf.enable = false;
     enableIPv6 = false;
-    nameservers = ["127.0.0.53" "127.0.0.1" "192.168.8.1" "192.168.0.1"];
-    resolvconf = {
-      enable = true;
-      dnsExtensionMechanism = true;
-      dnsSingleRequest = true;
-      package = lib.mkForce pkgs.openresolv;
-      useLocalResolver = true;
-    };
     networkmanager = {
       enable = true;
       logLevel = "INFO";
@@ -347,7 +340,7 @@
     };
     resolved = {
       enable = true;
-      fallbackDns = ["127.0.0.1" "192.168.8.1" "192.168.0.1" "9.9.9.9" "1.1.1.1"];
+      fallbackDns = ["127.0.0.1:5353" "127.0.0.1" "192.168.8.1" "192.168.0.1" "9.9.9.9" "1.1.1.1"];
       llmnr = "true";
     };
     tlp = {

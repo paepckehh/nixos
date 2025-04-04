@@ -2,9 +2,46 @@
 # => default web interface grafana            http://localhost:3000  (initial user/password = admin/admin)
 # => import grafana dashboard at your choice: https://grafana.com/grafana/dashboards/17812-ecoflow
 {config, ...}: {
-  # environment.etc."ecoflow-email".text = ''ecoflow@example.net'';
-  # environment.etc."ecoflow-password".text = ''my-supersecret-ecoflow-password'';
-  # environment.etc."ecoflow-devices".text = ''R330000,R340000,NC420000,...'';
+  #################
+  #-=# IMPORTS #=-#
+  #################
+  imports = [
+    ../modules/agenix.nix
+  ];
+
+  #############
+  #-=# AGE #=-#
+  #############
+  age = {
+    ecoflow-email = {
+      file = ./resources/ecoflow-email.age;
+      owner = "prometheus";
+      group = "prometheus";
+    };
+    ecoflow-password = {
+      file = ./resources/ecoflow-password.age;
+      owner = "prometheus";
+      group = "prometheus";
+    };
+    ecoflow-devices = {
+      file = ./resources/ecoflow-devices.age;
+      owner = "prometheus";
+      group = "prometheus";
+    };
+  };
+
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment.etc = {
+    "ecoflow-email".text = ''ecoflow@example.net'';
+    "ecoflow-password".text = ''my-supersecret-ecoflow-password'';
+    "ecoflow-devices".text = ''R330000,R340000,NC420000,...'';
+  };
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
   services = {
     prometheus = {
       enable = true;
