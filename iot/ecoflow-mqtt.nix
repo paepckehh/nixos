@@ -2,9 +2,9 @@
 # => default web interface grafana            http://localhost:3000  (initial user/password = admin/admin)
 # => import grafana dashboard at your choice: https://grafana.com/grafana/dashboards/17812-ecoflow
 {config, ...}: {
-  environment.etc."ecoflow-email".text = ''ecoflow@example.net'';
-  environment.etc."ecoflow-password".text = ''my-supersecret-ecoflow-password'';
-  environment.etc."ecoflow-devices".text = ''R330000,R340000,NC420000,...'';
+  # environment.etc."ecoflow-email".text = ''ecoflow@example.net'';
+  # environment.etc."ecoflow-password".text = ''my-supersecret-ecoflow-password'';
+  # environment.etc."ecoflow-devices".text = ''R330000,R340000,NC420000,...'';
   services = {
     prometheus = {
       enable = true;
@@ -12,9 +12,9 @@
         enable = true;
         exporterType = "mqtt";
         # config example with agenix secrets:
-        # ecoflowEmailFile = config.age.secrets.ecoflow-email.path;
-        # ecoflowPasswordFile = config.age.secrets.ecoflow-password.path;
-        # ecoflowDevicesFile = config.age.secrets.ecoflow-devices.path;
+        ecoflowEmailFile = config.age.secrets.ecoflow-email.path;
+        ecoflowPasswordFile = config.age.secrets.ecoflow-password.path;
+        ecoflowDevicesFile = config.age.secrets.ecoflow-devices.path;
       };
       scrapeConfigs = [
         {

@@ -2,8 +2,8 @@
 # => default web interface grafana            http://localhost:3000  (initial user/password = admin/admin)
 # => import grafana dashboard at your choice: https://grafana.com/grafana/dashboards/17812-ecoflow
 {config, ...}: {
-  environment.etc."ecoflow-access-key".text = ''xxxxdxxxxxxxxxxx'';
-  environment.etc."ecoflow-secret-key".text = ''xxxxxxxxxxxxxxxx'';
+  # environment.etc."ecoflow-access-key".text = ''xxxxdxxxxxxxxxxx'';
+  # environment.etc."ecoflow-secret-key".text = ''xxxxxxxxxxxxxxxx'';
   services = {
     prometheus = {
       enable = true;
@@ -11,8 +11,8 @@
         enable = true;
         exporterType = "rest";
         # config example with agenix secrets:
-        # ecoflowAccessKeyFile = config.age.secrets.ecoflow-access-key.path;
-        # ecoflowSecretKeyFile = config.age.secrets.ecoflow-secret-key.path;
+        ecoflowAccessKeyFile = config.age.secrets.ecoflow-access-key.path;
+        ecoflowSecretKeyFile = config.age.secrets.ecoflow-secret-key.path;
       };
       scrapeConfigs = [
         {
