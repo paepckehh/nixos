@@ -230,30 +230,6 @@
     };
   };
 
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking = {
-    enableIPv6 = false;
-    nameservers = ["127.0.0.53" "127.0.0.1" "192.168.8.1" "192.168.0.1"];
-    networkmanager = {
-      enable = true;
-      logLevel = "INFO";
-      wifi = {
-        backend = "wpa_supplicant";
-        scanRandMacAddress = false;
-        macAddress = "permanent";
-        powersave = false;
-      };
-    };
-    nftables.enable = true;
-    firewall = {
-      enable = true;
-      allowPing = true;
-      checkReversePath = true;
-    };
-  };
-
   ###############
   #-=# USERS #=-#
   ###############
@@ -320,6 +296,36 @@
     };
   };
 
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking = {
+    enableIPv6 = false;
+    nameservers = ["127.0.0.53" "127.0.0.1" "192.168.8.1" "192.168.0.1"];
+    resolvconf = {
+      enable = true;
+      dnsExtensionMechanism = true;
+      dnsSingleRequest = true;
+      useLocalResolver = true;
+    };
+    networkmanager = {
+      enable = true;
+      logLevel = "INFO";
+      wifi = {
+        backend = "wpa_supplicant";
+        scanRandMacAddress = false;
+        macAddress = "permanent";
+        powersave = false;
+      };
+    };
+    nftables.enable = true;
+    firewall = {
+      enable = true;
+      allowPing = true;
+      checkReversePath = true;
+    };
+  };
+
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -337,12 +343,6 @@
     fstrim = {
       enable = true;
       interval = "daily";
-    };
-    resolvconf = {
-      enable = true;
-      dnsExtensionMechanism = true;
-      dnsSingleRequest = true;
-      useLocalResolver = true;
     };
     resolved = {
       enable = true;
