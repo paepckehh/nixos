@@ -7,7 +7,7 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    nameservers = lib.mkForce ["127.0.0.1:5353"];
+    nameservers = lib.mkForce ["127.0.0.1"];
   };
   ##################
   #-=# SERVICES #=-#
@@ -20,7 +20,7 @@
         connectIPVersion = "v4";
         fqdnOnly.enable = true;
         filtering.queryTypes = ["AAAA"];
-        ports.dns = "127.0.0.1:5353";
+        ports.dns = "127.0.0.1";
         log.level = "info"; # debug
         minTlsServeVersion = "1.3";
         specialUseDomains = {
