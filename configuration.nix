@@ -95,7 +95,7 @@
       availableKernelModules = ["ahci" "applespi" "applesmc" "dm_mod" "intel_lpss_pci" "nvme" "mmc_block" "spi_pxa2xx_platform" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
     blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "brcmfmac" "brcmsmac" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb" "wl"];
-    # extraModulePackages = [config.boot.kernelPackages.zenpower];
+    extraModulePackages = [config.boot.kernelPackages.zenpower];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = ["amd_pstate=active" "page_alloc.shuffle=1"];
     kernelModules = ["vfat" "exfat" "uas" "kvm-intel" "kvm-amd" "amd-pstate" "amdgpu"];
@@ -338,7 +338,7 @@
       enable = true;
       interval = "daily";
     };
-    resolveconf = {
+    resolvconf = {
       enable = true;
       dnsExtensionMechanism = true;
       dnsSingleRequest = true;
