@@ -99,11 +99,12 @@
           ./packages/unstable-netops.nix
           ./packages/unstable-devops.nix
           ./server/ntp/chrony.nix
-          ./server/ntp/chrony-add-prometheus-local.nix
-          ./server/dns/blocky.nix
-          ./server/dns/blocky-add-prometheus.nix
-          ./server/dns/blocky-add-query-stats.nix
-          ./iot/ecoflow-mqtt.nix
+          # ./server/ntp/chrony-add-prometheus-local.nix
+          ./server/dns/systemd-resolver.nix
+          # ./server/dns/blocky.nix
+          # ./server/dns/blocky-add-prometheus.nix
+          # ./server/dns/blocky-add-query-stats.nix
+          # ./iot/ecoflow-mqtt.nix
           # ./iot/tibber.nix
           # ./server/monitoring/prometheus-exporter.nix
           # ./server/ai/ollama.nix

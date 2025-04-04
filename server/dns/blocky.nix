@@ -3,7 +3,7 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    nameservers = ["127.0.0.1:5353" "192.168.8.1"];
+    nameservers = ["127.0.0.1" "192.168.8.1"];
   };
 
   ##################
@@ -17,7 +17,7 @@
         connectIPVersion = "v4";
         fqdnOnly.enable = true;
         filtering.queryTypes = ["AAAA"];
-        ports.dns = "127.0.0.1:5353";
+        ports.dns = "127.0.0.1";
         log.level = "info"; # debug
         minTlsServeVersion = "1.3";
         specialUseDomains = {
