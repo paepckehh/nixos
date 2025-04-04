@@ -77,7 +77,6 @@
       gnome-user-share.enable = lib.mkForce false;
       gnome-keyring.enable = lib.mkForce false;
       sushi.enable = lib.mkForce false;
-      localsearch.enable = lib.mkForce false;
     };
     xserver = {
       displayManager.gdm = {
