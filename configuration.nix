@@ -306,6 +306,7 @@
       enable = true;
       dnsExtensionMechanism = true;
       dnsSingleRequest = true;
+      package = lib.mkForce pkgs.openresolv;
       useLocalResolver = true;
     };
     networkmanager = {
