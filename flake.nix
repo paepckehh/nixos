@@ -10,8 +10,8 @@
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs-dev.url = "github:paepckehh/nixpkgs/master";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-dev.url = "github:nixos/nixpkgs/master";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
   outputs = {
@@ -100,6 +100,7 @@
           ./packages/unstable-devops.nix
           ./server/ntp/chrony.nix
           ./server/dns/blocky.nix
+          ./server/monitoring/syslog-ng.nix
           # ./server/dns/blocky-add-prometheus.nix
           # ./server/dns/blocky-add-query-stats.nix
           # ./iot/ecoflow-mqtt.nix
