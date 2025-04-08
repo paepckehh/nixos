@@ -76,7 +76,7 @@
             ];
           };
           denylists = {
-            individual = [
+            ilocal = [
               "/etc/dns.blacklist"
             ];
             ads = [
@@ -103,7 +103,7 @@
           clientGroupsBlock = {
             unblock = [];
             tv = ["smartTV"];
-            default = ["ads" "scam" "porn" "malware"];
+            default = ["ads" "scam" "porn" "malware" "local"];
           };
         };
         caching = {
