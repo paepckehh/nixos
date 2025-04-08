@@ -95,9 +95,9 @@
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./packages/neovim-nvf.nix
-          ./packages/unstable-base.nix
-          ./packages/unstable-netops.nix
-          ./packages/unstable-devops.nix
+          ./packages/base.nix
+          ./packages/netops.nix
+          ./packages/devops.nix
           ./server/ntp/chrony.nix
           ./server/dns/blocky.nix
           ./server/monitoring/syslog-ng.nix

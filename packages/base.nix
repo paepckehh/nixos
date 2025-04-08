@@ -84,7 +84,6 @@
       fastfetch
       fd
       fzf
-      gnumake
       inetutils
       jq
       kmon

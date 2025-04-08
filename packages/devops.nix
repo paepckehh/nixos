@@ -47,6 +47,8 @@
       s-tui
       sysz
       tlsinfo
+      lazygit
+      lazyjournal
       usbutils
       vale
       ventoy-full
