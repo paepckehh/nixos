@@ -7,24 +7,17 @@
   ###############
   #-=# FONTS #=-#
   ###############
-  # fonts = {
-  #  packages = with pkgs; [nerd-fonts.fira-code];
-  #  packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];})];
-  # };
-
-  ##################
-  #-=# HARDWARE #=-#
-  ##################
-  hardware = {
-    bluetooth = {
-      enable = true;
-      powerOnBoot = false;
-    };
+  fonts = {
+    # nixos => 25.05
+    packages = with pkgs; [nerd-fonts.fira-code];
+    # nixos <= 24.11:
+    # packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];})];
   };
 
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
+  # add generic terminal pkg for all, configure individually via home-manager profile
   environment = {
     systemPackages = with pkgs; [alacritty];
     variables = {
@@ -33,11 +26,15 @@
   };
 
   ##################
+  #-=# HARDWARE #=-#
+  ##################
+  hardware.bluetooth.enable = false;
+
+  ##################
   #-=# SERVICES #=-#
   ##################
   services = {
     autosuspend.enable = lib.mkForce false;
-    blueman.enable = true;
     speechd.enable = lib.mkForce false;
     printing.enable = lib.mkForce false;
     xserver = {
@@ -53,13 +50,10 @@
       };
     };
     pipewire = {
-      enable = true;
-      pulse.enable = true;
-      wireplumber.enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
+      enable = false;
+      pulse.enable = false;
+      wireplumber.enable = false;
+      alsa.enable = false;
     };
   };
 

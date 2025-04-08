@@ -237,51 +237,6 @@
                 hw-address = "00:ec:4c:36:08:63";
               }
               {
-                hostname = "eco-powerstream";
-                ip-address = "10.0.250.100";
-                hw-address = "40:4c:ca:e9:b6:3c";
-              }
-              {
-                hostname = "eco-delta2";
-                ip-address = "10.0.250.110";
-                hw-address = "dc:54:75:9b:1d:04";
-              }
-              {
-                hostname = "eco-sock-desk";
-                ip-address = "10.0.250.120";
-                hw-address = "40:4C:ca:ba:fc:6c";
-              }
-              {
-                hostname = "eco-sock-desk2";
-                ip-address = "10.0.250.121";
-                hw-address = "40:4C:ca:b9:54:70";
-              }
-              {
-                hostname = "eco-sock-catroaster";
-                ip-address = "10.0.250.122";
-                hw-address = "40:4C:ca:c5:a8:f4";
-              }
-              {
-                hostname = "eco-sock-centralheater";
-                ip-address = "10.0.250.123";
-                hw-address = "40:4c:ca:c4:7a:0c";
-              }
-              {
-                hostname = "eco-sock-windowheater";
-                ip-address = "10.0.250.124";
-                hw-address = "40:4c:ca:aa:42:54";
-              }
-              {
-                hostname = "eco-sock-fridge";
-                ip-address = "10.0.250.125";
-                hw-address = "ec:da:3b:a9:fa:64";
-              }
-              {
-                hostname = "eco-sock-hotplate";
-                ip-address = "10.0.250.126";
-                hw-address = "ec:da:3b:aa:3a:fc";
-              }
-              {
                 hostname = "eco-sock-roomba";
                 ip-address = "10.0.250.127";
                 hw-address = "ec:da:3b:af:12:dc";

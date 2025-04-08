@@ -1,0 +1,1 @@
+openssl req -x509 -newkey ed25519 -sha256 -days 3650 -nodes -keyout syslog.key -out syslog.crt -subj "/CN=home.lan/C=US/O=home.lan" -addext "subjectAltName=DNS:syslog.lan,IP:127.0.0.1,IP:192.168.8.100,IP:192.168.0.100"

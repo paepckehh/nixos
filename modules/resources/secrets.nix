@@ -6,6 +6,7 @@ let
   hosts = [srv-mp];
 in {
   "tibber.age".publicKeys = [age srv-mp];
+  "syslog-ng-key.age".publicKeys = [age srv-mp];
   "ecoflow-access-key.age".publicKeys = [age srv-mp];
   "ecoflow-secret-key.age".publicKeys = [age srv-mp];
   "ecoflow-email.age".publicKeys = [age srv-mp];
