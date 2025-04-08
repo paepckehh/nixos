@@ -16,7 +16,7 @@
       *.github.com
       *.paepcke.de
     '';
-    "dns.blacklist".txt = ''
+    "dns.blacklist".text = ''
       *.akaquill.net
       *.mozgcp.net
       *.mozilla.com
