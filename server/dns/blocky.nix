@@ -6,9 +6,24 @@
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking = {
-    nameservers = lib.mkForce ["127.0.0.1"];
+  networking.nameservers = lib.mkForce ["127.0.0.1"];
+
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment.etc = {
+    "dns.whitlist".text = ''
+      *.github.com
+      *.paepcke.de
+    '';
+    "dns.blacklist".txt = ''
+      *.akaquill.net
+      *.mozgcp.net
+      *.mozilla.com
+      *.mozilla.net
+    '';
   };
+
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -56,9 +71,14 @@
           blockType = "zeroIP";
           blockTTL = "15m";
           allowlists = {
-            ads = [""];
+            individual = [
+              "/etc/dns.whitelist"
+            ];
           };
           denylists = {
+            individual = [
+              "/etc/dns.blacklist"
+            ];
             ads = [
               "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
               "https://blocklistproject.github.io/Lists/ads.txt"
