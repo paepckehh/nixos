@@ -11,6 +11,7 @@
       gping
       netscanner
       stress
+      sniffnet
       tcping-go
       termshark
       trippy
