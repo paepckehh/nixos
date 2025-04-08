@@ -9,6 +9,6 @@
   #################
   imports = [
     ../mpaepcke.nix
-    ../../user/desktop/unstable-me.nix
+    ../../user/desktop/me.nix
   ];
 }
