@@ -47,11 +47,11 @@
       enableTCPIP = true;
       package = pkgs.postgresql_17;
       initialScript = pkgs.writeText "backend-initScript" ''
-        CREATE USER dbadm_zitadel WITH PASSWORD 'zitadel';
-        ALTER USER dbadm_zitadel WITH PASSWORD 'zitadel';
-        ALTER USER dbadm_zitadel WITH CREATEDB;
-        ALTER USER dbadm_zitadel WITH LOGIN;
-        ALTER USER dbadm_zitadel WITH SUPERUSER;
+        CREATE USER zitadel WITH PASSWORD 'zitadel';
+        ALTER USER zitadel WITH PASSWORD 'zitadel';
+        ALTER USER zitadel WITH CREATEDB;
+        ALTER USER zitadel WITH LOGIN;
+        ALTER USER zitadel WITH SUPERUSER;
       '';
     };
     zitadel = {
@@ -70,7 +70,7 @@
           MaxConnLifetime = "1h";
           MaxConnIdleTime = "5m";
           Admin = {
-            Username = "dbadm_zitadel";
+            Username = "zitadel";
             Password = "zitadel";
             SSL.Mode = "disable";
           };
