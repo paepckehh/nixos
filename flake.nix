@@ -101,6 +101,8 @@
           ./server/ntp/chrony.nix
           ./server/dns/blocky.nix
           ./server/monitoring/syslog-ng.nix
+          ./server/iam/zitadel.nix
+          ./server/vpn/netbird.nix
           # ./server/dns/blocky-add-prometheus.nix
           # ./server/dns/blocky-add-query-stats.nix
           # ./iot/ecoflow-mqtt.nix
