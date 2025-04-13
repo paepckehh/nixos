@@ -92,7 +92,7 @@
       compressor = "zstd";
       compressorArgs = ["--ultra" "--long" "-22"];
       systemd.enable = false;
-      availableKernelModules = ["ahci" "applespi" "applesmc" "dm_mod" "intel_lpss_pci" "nvme" "mmc_block" "spi_pxa2xx_platform" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
+      availableKernelModules = ["ahci" "applespi" "applesmc" "dm_mod" "intel_lpss_pci" "nvme" "spi_pxa2xx_platform" "thunderbolt" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
     blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "brcmfmac" "brcmsmac" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb" "wl"];
     extraModulePackages = [config.boot.kernelPackages.zenpower];
@@ -326,14 +326,18 @@
   services = {
     avahi.enable = lib.mkForce false;
     acpid.enable = lib.mkForce true;
+    bluetooth.enable = false;
     geoclue2.enable = lib.mkForce false;
+    devmon.enable = lib.mkForce true;
     gvfs.enable = lib.mkForce false;
     openssh.enable = false;
     fwupd.enable = true;
     smartd.enable = true;
     pcscd.enable = false;
     power-profiles-daemon.enable = lib.mkForce false;
+    udisks2.enable = lib.mkForce false;
     logind.hibernateKey = "ignore";
+    hardware.bolt = true;
     fstrim = {
       enable = true;
       interval = "daily";
