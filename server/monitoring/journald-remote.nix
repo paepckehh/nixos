@@ -12,7 +12,7 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    journald = {
+    journald.remote = {
       enable = true;
       port = 19532;
       listen = "http"; # https
