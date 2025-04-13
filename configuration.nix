@@ -336,7 +336,6 @@
     power-profiles-daemon.enable = lib.mkForce false;
     udisks2.enable = lib.mkForce false;
     logind.hibernateKey = "ignore";
-    hardware.bolt.enable = true;
     fstrim = {
       enable = true;
       interval = "daily";
