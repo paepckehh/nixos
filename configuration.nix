@@ -326,7 +326,6 @@
   services = {
     avahi.enable = lib.mkForce false;
     acpid.enable = lib.mkForce true;
-    bluetooth.enable = false;
     geoclue2.enable = lib.mkForce false;
     devmon.enable = lib.mkForce true;
     gvfs.enable = lib.mkForce false;
@@ -337,7 +336,7 @@
     power-profiles-daemon.enable = lib.mkForce false;
     udisks2.enable = lib.mkForce false;
     logind.hibernateKey = "ignore";
-    hardware.bolt = true;
+    hardware.bolt.enable = true;
     fstrim = {
       enable = true;
       interval = "daily";
