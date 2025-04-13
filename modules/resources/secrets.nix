@@ -4,8 +4,10 @@ let
 in {
   "tibber.age".publicKeys = [age srv-mp];
   "syslog-ng-key.age".publicKeys = [age srv-mp];
+  "openwrt-admin-pwd.age".publicKeys = [age srv-mp];
   "zitadel-key.age".publicKeys = [age srv-mp];
   "zitadel-tls-key.age".publicKeys = [age srv-mp];
+  "zitadel-tls-cert.age".publicKeys = [age srv-mp];
   "ecoflow-access-key.age".publicKeys = [age srv-mp];
   "ecoflow-secret-key.age".publicKeys = [age srv-mp];
   "ecoflow-email.age".publicKeys = [age srv-mp];

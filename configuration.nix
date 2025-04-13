@@ -281,11 +281,11 @@
     };
     shells = [pkgs.bashInteractive pkgs.zsh];
     shellAliases = {
-      e = "vim";
-      l = "ls -la";
-      d = "sudo dmesg --follow --human --kernel --userspace";
-      slog = "journalctl --follow --priority=7 --lines=2500";
-      nvmeinfo = "sudo smartctl --all /dev/sda"; # /dev/nvme0
+      "e" = "vim";
+      "l" = "ls -la";
+      "log.boot" = "sudo dmesg --follow --human --kernel --userspace";
+      "log.system" = "journalctl --follow --priority=7 --lines=2500";
+      "info.nvme" = "sudo smartctl --all /dev/sda"; # /dev/nvme0
       "service.log.clean" = "sudo journalctl --vacuum-time=1d";
       "service.log.follow" = "sudo journalctl --follow -u $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
       "service.log.today" = "sudo journalctl --pager-end --since today -u $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";

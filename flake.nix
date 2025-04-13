@@ -100,11 +100,14 @@
           ./packages/devops.nix
           ./server/ntp/chrony.nix
           ./server/dns/blocky.nix
+          ./server/dns/blocky-add-filter.nix
+          ./server/dns/blocky-add-log-file.nix
+          ./server/dns/blocky-add-resolver-privacy.nix
           ./server/monitoring/syslog-ng.nix
-          ./server/iam/zitadel.nix
-          ./server/vpn/netbird.nix
-          # ./server/dns/blocky-add-prometheus.nix
-          # ./server/dns/blocky-add-query-stats.nix
+          # ./server/iam/zitadel.nix
+          # ./server/vpn/netbird.nix
+          # ./server/dns/blocky-add-monitoring-prometheus.nix
+          # ./server/dns/blocky-add-log-postgres.nix
           # ./iot/ecoflow-mqtt.nix
           # ./iot/tibber.nix
           # ./server/ntp/chrony-add-prometheus-local.nix

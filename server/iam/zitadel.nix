@@ -3,6 +3,13 @@
   config,
   ...
 }: {
+  ##############
+  #-=# INFO #=-#
+  ##############
+  # default webui login    => https://zitadel.lan:8080
+  # default webui console  => https://zitadel.lan:8080/ui/console
+  # default webui debuglog => https://zitadel.lan:8080/debug/healthz
+
   #################
   #-=# IMPORTS #=-#
   #################
@@ -13,6 +20,7 @@
   #############
   #-=# AGE #=-#
   #############
+  # see resources/gencert.sh
   age = {
     secrets = {
       zitadel-key = {
@@ -22,6 +30,11 @@
       };
       zitadel-tls-key = {
         file = ../../modules/resources/zitadel-tls-key.age;
+        owner = "zitadel";
+        group = "zitadel";
+      };
+      zitadel-tls-cert = {
+        file = ../../modules/resources/zitadel-tls-cert.age;
         owner = "zitadel";
         group = "zitadel";
       };
@@ -60,8 +73,16 @@
       openFirewall = true;
       masterKeyFile = config.age.secrets.zitadel-key.path;
       settings = {
-        Port = 8181;
+        Port = 8080;
         ExternalDomain = "zitadel.lan";
+        FirstInstance.Org.Human = {
+          Username = "admin";
+          Password = "start";
+        };
+        TLS = {
+          CertPath = config.age.secrets.zitadel-tls-cert.path;
+          KeyPath = config.age.secrets.zitadel-tls-key.path;
+        };
         Database.postgres = {
           Host = "127.0.0.1";
           Port = "${toString config.services.postgresql.settings.port}";
@@ -74,22 +95,11 @@
             Password = "zitadel";
             SSL.Mode = "disable";
           };
-        };
-        TLS = {
-          KeyPath = config.age.secrets.zitadel-tls-key.path;
-          Cert = ''
-            -----BEGIN CERTIFICATE-----
-            MIIBpTCCAVegAwIBAgIUNUEJKRKIrLl4ngFFVK5G1Dr7u/0wBQYDK2VwMDMxETAP
-            BgNVBAMMCGhvbWUubGFuMQswCQYDVQQGEwJVUzERMA8GA1UECgwIaG9tZS5sYW4w
-            HhcNMjUwNDA5MDYyODQ2WhcNMzUwNDA3MDYyODQ2WjAzMREwDwYDVQQDDAhob21l
-            LmxhbjELMAkGA1UEBhMCVVMxETAPBgNVBAoMCGhvbWUubGFuMCowBQYDK2VwAyEA
-            HGDIyGlNqsHAKuNosA1Lv9ocPmFZ5KTWUGv4lil5xvyjfTB7MB0GA1UdDgQWBBQv
-            W0B6NTMl43GIUCgaFJedYr25mzAfBgNVHSMEGDAWgBQvW0B6NTMl43GIUCgaFJed
-            Yr25mzAPBgNVHRMBAf8EBTADAQH/MCgGA1UdEQQhMB+CC3ppdGFkZWwubGFuhwR/
-            AAABhwTAqAhkhwTAqABkMAUGAytlcANBABlrjM2K3wJq33+6JDP6/Ucd80+i0svt
-            kY1mRELlJdEvsKfUrHIk+z39zltwsyzJj8UEi91iruJj2LxnnqBKfgE=
-            -----END CERTIFICATE-----
-          '';
+          User = {
+            Username = "zitadel";
+            Password = "zitadel";
+            SSL.Mode = "disable";
+          };
         };
       };
     };
