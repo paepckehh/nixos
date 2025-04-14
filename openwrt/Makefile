@@ -3,11 +3,11 @@
 
 all: update build
 
-images: axt dap
+images: axt dap rpi2
 
-update: axt-update dap-update
+update: axt-update dap-update rpi2-update
 
-clean: axt-clean dap-clean
+clean: axt-clean dap-clean rpi2-clean
 
 clone:
 	rm -rf nix-openwrt-imagebuilder
@@ -36,6 +36,16 @@ axt-update:
 axt-clean:
 	make -C glinet/gl-axt1800 clean
 
+# RPI2
+rpi2:
+	make -C rpi/rpi2 image
+	eza --all --long --total-size --group-directories-first --header --tree rpi/rpi2
+
+rpi2-update:
+	make -C rpi/rpi2 update
+
+rpi2-clean:
+	make -C rpi/rpi2 clean
 
 update-hashes-all: update-hashes-release update-hahes-snapshot
 
