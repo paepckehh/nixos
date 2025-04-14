@@ -7,7 +7,7 @@
       storage = "volatile";
       upload = {
         enable = true;
-        URL = "http://192.168.8.100";
+        settings.Upload.URL = "http://192.168.8.100";
       };
     };
   };
