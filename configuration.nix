@@ -96,7 +96,11 @@
     };
     blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "brcmfmac" "brcmsmac" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb" "wl"];
     extraModulePackages = [config.boot.kernelPackages.zenpower];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = (
+      if (config.system.nixos.release == "24.11")
+      then pkgs.linuxPackages
+      else pkgs.linuxPackages_latest
+    );
     kernelParams = ["amd_pstate=active" "page_alloc.shuffle=1"];
     kernelModules = ["vfat" "exfat" "uas" "kvm-intel" "kvm-amd" "amd-pstate" "amdgpu"];
     readOnlyNixStore = lib.mkForce true;
