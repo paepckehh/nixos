@@ -336,6 +336,11 @@
     power-profiles-daemon.enable = lib.mkForce false;
     udisks2.enable = lib.mkForce false;
     logind.hibernateKey = "ignore";
+    journald = {
+      audit = true;
+      storage = "persistent";
+      upload.enable = false;
+    };
     fstrim = {
       enable = true;
       interval = "daily";

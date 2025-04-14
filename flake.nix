@@ -68,6 +68,7 @@
           ./configuration.nix
           ./alias/nixops.nix
           ./modules/disko-luks.nix
+          ./modules/journald-forward.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix
