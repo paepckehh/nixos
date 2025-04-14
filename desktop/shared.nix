@@ -4,16 +4,6 @@
   lib,
   ...
 }: {
-  ###############
-  #-=# FONTS #=-#
-  ###############
-  fonts = {
-    # nixos => 25.05
-    packages = with pkgs; [nerd-fonts.fira-code];
-    # nixos <= 24.11:
-    # packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];})];
-  };
-
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
@@ -24,6 +14,15 @@
       TERMINAL = "alacritty";
     };
   };
+
+  ###############
+  #-=# FONTS #=-#
+  ###############
+  fonts.packages = (
+    if (config.system.nixos.release == "24.11")
+    then [(pkgs.nerdfonts.override {fonts = ["FiraCode"];})]
+    else [pkgs.nerd-fonts.fira-code]
+  );
 
   ##################
   #-=# HARDWARE #=-#
