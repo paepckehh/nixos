@@ -10,7 +10,7 @@ update: axt-update dap-update
 clean: axt-clean dap-clean
 
 clone:
-	rm -rf nix-openwer-imagebuilder
+	rm -rf nix-openwrt-imagebuilder
 	git clone https://github.com/astro/nix-openwrt-imagebuilder
 
 # DLINK DAP-X1860-A1
