@@ -1,8 +1,4 @@
 {
-  config,
-  pkgs,
-  ...
-}: {
   ##############
   # NETWORKING #
   ##############
@@ -18,11 +14,7 @@
       listen = "http"; # https
       output = "/var/log/journal/remote/";
       settings.Remote = {
-        #   https mode:
-        #   ServerKeyFile = "/etc/journal/remote.key";
-        #   ServerCertificateFile = "/etc/journal/remote.pem";
-        #   TrustedCertificateFile = "/etc/ssl/ca/trusted.pem;
-        Seal = false;
+        Seal = true;
         SplitMode = "host";
       };
     };
