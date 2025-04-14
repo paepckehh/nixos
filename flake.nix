@@ -68,7 +68,7 @@
           ./configuration.nix
           ./alias/nixops.nix
           ./modules/disko.nix
-          ./modules/journald-forward.nix
+          ./modules/syslog-ng-forward.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix
@@ -104,7 +104,6 @@
           ./server/dns/blocky-add-filter.nix
           ./server/dns/blocky-add-log-file.nix
           ./server/dns/blocky-add-resolver-privacy.nix
-          ./server/monitoring/journald-remote.nix
           ./server/monitoring/syslog-ng.nix
           # ./server/iam/zitadel.nix
           # ./server/vpn/netbird.nix

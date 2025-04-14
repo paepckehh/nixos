@@ -37,7 +37,8 @@
             sync(0);
         };
         source s_local {
-            system(); internal();
+            system();
+            internal();
         };
         source s_network_rfc3164_tcp {
                 network(
