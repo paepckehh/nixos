@@ -1,13 +1,13 @@
-{...}: {
+{lib, ...}: {
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
     journald = {
-      storage = "volatile";
+      storage = lib.mkForce "volatile";
       upload = {
-        enable = true;
-        settings.Upload.URL = "http://192.168.8.100";
+        enable = lib.mkForce true;
+        settings.Upload.URL = lib.mkForce "http://192.168.8.100";
       };
     };
   };
