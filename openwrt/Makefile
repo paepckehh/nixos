@@ -36,7 +36,7 @@ axt-update:
 axt-clean:
 	make -C glinet/gl-axt1800 clean
 
-# RPI2
+# RASPBERRY-PI RPI2
 rpi2:
 	make -C rpi/rpi2 image
 	eza --all --long --total-size --group-directories-first --header --tree rpi/rpi2
@@ -47,6 +47,8 @@ rpi2-update:
 rpi2-clean:
 	make -C rpi/rpi2 clean
 
+
+# LOCAL HASH UPDATES
 update-hashes-all: update-hashes-release update-hahes-snapshot
 
 hashes-update-release:
