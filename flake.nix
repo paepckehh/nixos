@@ -101,16 +101,18 @@
           ./packages/netops.nix
           ./packages/devops.nix
           ./server/ntp/chrony.nix
+          ./server/monitoring/collect-journald.nix
+          ./server/monitoring/collect-syslog-ng.nix
           ./server/dns/blocky.nix
           ./server/dns/blocky-add-filter.nix
           ./server/dns/blocky-add-log-file.nix
-          ./server/dns/blocky-add-resolver-privacy.nix
-          ./server/monitoring/collect-journald.nix
-          ./server/monitoring/collect-syslog-ng.nix
+          ./server/dns/blocky-add-resolver-privacy-small.nix
+          # ./server/dns/blocky-add-log-postgres.nix
+          # ./server/dns/blocky-add-resolver-dnscrypt.nix
+          # ./server/dns/blocky-add-resolver-unbound.nix
+          # ./server/dns/blocky-add-monitoring-prometheus.nix
           # ./server/iam/zitadel.nix
           # ./server/vpn/netbird.nix
-          # ./server/dns/blocky-add-monitoring-prometheus.nix
-          # ./server/dns/blocky-add-log-postgres.nix
           # ./iot/ecoflow-mqtt.nix
           # ./iot/tibber.nix
           # ./server/ntp/chrony-add-prometheus-local.nix
