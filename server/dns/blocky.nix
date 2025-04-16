@@ -6,8 +6,8 @@
   ##############
   #-=# INFO #=-#
   ##############
-  # provides [default] systemd local resolver localhost ip:127.0.0.53 port:53 [tcp|udp] and provides matching /etc/resolve.conf
-  # uses local upstream blocky, privacy and malware filtering dns proxy localhost ip:127.0.0.54 port:54 [tcp|udp], query logging via syslog
+  # provides [default] systemd local resolver localhost ip:127.0.0.53 port:[53|54] [tcp|udp] and provides matching /etc/resolve.conf
+  # uses local upstream blocky, privacy and malware filtering dns proxy localhost ip:127.0.0.55 port:53 [tcp|udp], query logging via syslog
 
   #####################
   #-=# ENVIRONMENT #=-#
@@ -19,7 +19,7 @@
   ####################
   networking = {
     resolvconf.enable = lib.mkForce false;
-    nameservers = lib.mkForce ["127.0.0.53"];
+    nameservers = lib.mkForce ["127.0.0.53"]; # systemd-resolved binds to 127.0.0.53/54
   };
 
   ##################
@@ -28,7 +28,7 @@
   services = {
     resolved = {
       enable = lib.mkForce true;
-      fallbackDns = lib.mkForce ["127.0.0.54"];
+      fallbackDns = lib.mkForce ["127.0.0.55"]; # blocky bind
       extraConfig = lib.mkForce "MulticastDNS=resolve\nCache=true\nCacheFromLocalhost=true\nDomains=~.";
     };
   };
@@ -44,7 +44,7 @@
         connectIPVersion = "v4";
         fqdnOnly.enable = true;
         filtering.queryTypes = ["AAAA"];
-        ports.dns = "127.0.0.54:53";
+        ports.dns = "127.0.0.55:53";
         log.level = "info";
         minTlsServeVersion = "1.3";
         specialUseDomains = {

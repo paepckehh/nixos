@@ -2,7 +2,7 @@
   ##############
   #-=# INFO #=-#
   ##############
-  # provides recursive (plain-dns via root-dns-server) unbound resolver on localhost ip:127.0.0.53 port:55 [tcp|udp]
+  # provides recursive (plain-dns via root-dns-server) unbound outbound resolver on localhost ip:127.0.0.56 port:53 [tcp|udp]
 
   #####################
   #-=# ENVIRONMENT #=-#
@@ -19,8 +19,8 @@
       localControlSocketPath = "/run/unbound/unbound.ctl";
       settings = {
         server = {
-          interface = ["127.0.0.53"];
-          port = 55;
+          interface = ["127.0.0.56"];
+          port = 53;
           use-syslog = true;
           verbosity = 3;
           access-control = ["127.0.0.1/8 allow"];

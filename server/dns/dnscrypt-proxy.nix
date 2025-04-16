@@ -2,7 +2,7 @@
   ##############
   #-=# INFO #=-#
   ##############
-  # provides anon/privacy dnscrypt resolver on localhost ip:127.0.0.53 port:55 [tcp|udp]
+  # provides anon/privacy dnscrypt outbound resolver on localhost ip:127.0.0.56 port:53 [tcp|udp]
 
   #####################
   #-=# ENVIRONMENT #=-#
@@ -16,7 +16,7 @@
     dnscrypt-proxy2 = {
       enable = true;
       settings = {
-        listen_addresses = ["127.0.0.53:55"];
+        listen_addresses = ["127.0.0.56:55"];
         max_clients = 250;
         ipv4_servers = true;
         ipv6_servers = false;

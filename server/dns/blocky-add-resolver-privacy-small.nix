@@ -11,7 +11,7 @@
       settings = {
         upstreams = {
           init.strategy = lib.mkForce "fast"; # blocking, failOnError, fast
-          timeout = lib.mkForce "4s";
+          timeout = lib.mkForce "8s";
           strategy = lib.mkForce "random"; # strict, random, parallel_best (best two)
           groups = {
             default = lib.mkForce [

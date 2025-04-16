@@ -309,6 +309,7 @@
     enableIPv6 = false;
     networkmanager = {
       enable = true;
+      dns = lib.mkForce "none"; # use local resolver
       logLevel = "INFO";
       wifi = {
         backend = "wpa_supplicant";
