@@ -47,6 +47,7 @@
       # mqtt needs multicastDNS support
       enable = true;
       llmnr = "true"; # string: true, false, resolve
+      extraConfig = "MulticastDNS=true\nCache=true\nCacheFromLocalhost=true\n";
     };
     prometheus = {
       enable = true;
