@@ -304,6 +304,7 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
+    nameservers = ["127.0.0.53"]; # resolved stub
     resolvconf.enable = false;
     enableIPv6 = false;
     networkmanager = {
@@ -351,7 +352,7 @@
     };
     resolved = {
       enable = true;
-      fallbackDns = ["127.0.0.1" "127.0.0.1:653" "192.168.0.1" "192.168.1.1" "192.168.8.1" "9.9.9.9" "9.9.9.10"];
+      fallbackDns = ["127.0.0.1" "192.168.0.1" "192.168.1.1" "192.168.8.1" "9.9.9.9" "9.9.9.10"];
       llmnr = "resolve";
       extraConfig = "MulticastDNS=resolve\nCache=true\nCacheFromLocalhost=true\n";
     };

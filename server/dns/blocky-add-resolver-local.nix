@@ -2,7 +2,7 @@
   ##############
   #-=# INFO #=-#
   ##############
-  # reconfigures blocky to use localhost resolver @ (ip: 127.0.0.53 port:55) as upstream
+  # reconfigures blocky to use localhost resolver @ (ip: 127.0.0.55 port:53) as upstream
 
   ##################
   #-=# SERVICES #=-#
@@ -16,8 +16,8 @@
           strategy = lib.mkForce "strict";
           groups = {
             default = lib.mkForce [
-              "tcp+udp:127.0.0.53:55"
-              "tcp+udp:127.0.0.53:55"
+              "tcp+udp:127.0.0.55"
+              "tcp+udp:127.0.0.55"
             ];
           };
         };

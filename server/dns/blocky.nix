@@ -7,7 +7,7 @@
   #-=# INFO #=-#
   ##############
   # provides [default] systemd local resolver localhost ip:127.0.0.53 port:53 [tcp|udp] and provides matching /etc/resolve.conf
-  # uses local upstream blocky, privacy and malware filtering dns proxy localhost ip:127.0.0.53 port:54 [tcp|udp], query logging via syslog
+  # uses local upstream blocky, privacy and malware filtering dns proxy localhost ip:127.0.0.54 port:54 [tcp|udp], query logging via syslog
 
   #####################
   #-=# ENVIRONMENT #=-#
@@ -19,7 +19,7 @@
   ####################
   networking = {
     resolvconf.enable = lib.mkForce false;
-    nameservers = lib.mkForce ["127.0.0.53:54"];
+    nameservers = lib.mkForce ["127.0.0.53"];
   };
 
   ##################
@@ -28,7 +28,7 @@
   services = {
     resolved = {
       enable = lib.mkForce true;
-      fallbackDns = lib.mkForce ["127.0.0.53:54"];
+      fallbackDns = lib.mkForce ["127.0.0.54"];
       extraConfig = lib.mkForce "MulticastDNS=resolve\nCache=true\nCacheFromLocalhost=true\nDomains=~.";
     };
   };
@@ -44,7 +44,7 @@
         connectIPVersion = "v4";
         fqdnOnly.enable = true;
         filtering.queryTypes = ["AAAA"];
-        ports.dns = "127.0.0.53:54";
+        ports.dns = "127.0.0.54";
         log.level = "info";
         minTlsServeVersion = "1.3";
         specialUseDomains = {
