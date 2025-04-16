@@ -43,6 +43,11 @@
   #-=# SERVICES #=-#
   ##################
   services = {
+    resolved = {
+      # mqtt needs multicastDNS support
+      enable = true;
+      llmnr = "true"; # string: true, false, resolve
+    };
     prometheus = {
       enable = true;
       exporters.ecoflow = {

@@ -11,14 +11,14 @@
           loading = {
             concurrency = 4;
             refreshPeriod = "6h";
-            maxErrorsPerSource = 30;
+            maxErrorsPerSource = 12;
             downloads = {
               attempts = 12;
-              cooldown = "360s";
-              timeout = "120s";
-              readTimeout = "60s";
-              readHeaderTimeout = "20s";
-              writeTimeout = "20s";
+              cooldown = "10s";
+              timeout = "25s";
+              readTimeout = "20s";
+              readHeaderTimeout = "15s";
+              writeTimeout = "10s";
             };
           };
           # allowlists = {};

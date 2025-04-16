@@ -44,7 +44,7 @@
         connectIPVersion = "v4";
         fqdnOnly.enable = true;
         filtering.queryTypes = ["AAAA"];
-        ports.dns = "127.0.0.54";
+        ports.dns = "127.0.0.54:53";
         log.level = "info";
         minTlsServeVersion = "1.3";
         specialUseDomains = {

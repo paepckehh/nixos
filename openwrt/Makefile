@@ -55,10 +55,10 @@ hashes-update-release:
 	cd nix-openwrt-imagebuilder || exit 1
 	nix run .\#generate-hashes 24.10.0
 	git add . 
-	git commit -m 'update release 24.10.0-mitm-ioc-shame-the-idiots'
+	git commit -m 'update release 24.10.0-mitm-ioc-shame-the-clown'
 
 hashes-update-snapshot:
 	cd nix-openwrt-imagebuilder || exit 1
 	nix run .\#generate-hashes snapshot
 	git add . 
-	git commit -m 'update snapshot-mitm-ioc-shame-the-idiots'
+	git commit -m 'update snapshot-mitm-ioc-shame-the-clowns'
