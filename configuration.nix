@@ -291,12 +291,12 @@
       "log.system" = "journalctl --follow --priority=7 --lines=2500";
       "info.nvme" = "sudo smartctl --all /dev/sda"; # /dev/nvme0
       "service.log.clean" = "sudo journalctl --vacuum-time=1d";
-      "service.log.follow" = "sudo journalctl --follow -u $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.log.today" = "sudo journalctl --pager-end --since today -u $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.start" = "sudo systemctl start $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.stop" = "sudo systemctl stop $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.status" = "sudo systemctl status $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.restart" = "sudo systemctl restart $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.log.follow" = "sudo journalctl --follow -u $(systemctl list-units --type=service --all | fzf --query=$* | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.log.today" = "sudo journalctl --pager-end --since today -u $(systemctl list-units --type=service --all | fzf --query=$*| sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.start" = "sudo systemctl start $(systemctl list-units --type=service --all | fzf --query=$* | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.stop" = "sudo systemctl stop $(systemctl list-units --type=service | fzf --query=$*| sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.status" = "sudo systemctl status $(systemctl list-units --type=service | fzf --query=$* | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.restart" = "sudo systemctl restart $(systemctl list-units --type=service --all | fzf --query=$* | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
     };
   };
 
@@ -309,7 +309,6 @@
     enableIPv6 = false;
     networkmanager = {
       enable = true;
-      dns = lib.mkForce "none"; # use local resolver
       logLevel = "INFO";
       wifi = {
         backend = "wpa_supplicant";

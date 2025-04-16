@@ -20,6 +20,7 @@
   networking = {
     resolvconf.enable = lib.mkForce false;
     nameservers = lib.mkForce ["127.0.0.53"]; # systemd-resolved binds to 127.0.0.53/54
+    networkmanager.dns = lib.mkForce "none"; # use local resolver only
   };
 
   ##################
@@ -29,7 +30,7 @@
     resolved = {
       enable = lib.mkForce true;
       fallbackDns = lib.mkForce ["127.0.0.55"]; # blocky bind
-      extraConfig = lib.mkForce "MulticastDNS=resolve\nCache=true\nCacheFromLocalhost=true\nDomains=~.";
+      extraConfig = lib.mkForce "Cache=true\nCacheFromLocalhost=true\nDomains=~.";
     };
   };
 
