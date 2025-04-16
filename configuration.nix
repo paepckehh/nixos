@@ -354,7 +354,7 @@
       enable = true;
       fallbackDns = ["127.0.0.1" "192.168.0.1" "192.168.1.1" "192.168.8.1" "9.9.9.9" "9.9.9.10"];
       llmnr = "false";
-      multicastdns = "false";
+      # multicastdns = "false"; # needs PR399101
       extraConfig = "Cache=true\nCacheFromLocalhost=true\n";
     };
     tlp = {
