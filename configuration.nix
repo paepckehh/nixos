@@ -354,7 +354,8 @@
       enable = true;
       fallbackDns = ["127.0.0.1" "192.168.0.1" "192.168.1.1" "192.168.8.1" "9.9.9.9" "9.9.9.10"];
       llmnr = "false";
-      extraConfig = "MulticastDNS=false\nCache=true\nCacheFromLocalhost=true\n";
+      multicastdns = "false";
+      extraConfig = "Cache=true\nCacheFromLocalhost=true\n";
     };
     tlp = {
       enable = true;
