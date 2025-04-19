@@ -42,7 +42,7 @@ switch: info-profile commit build-log
 
 update: commit 
 	mkdir -p .attic/flake.lock
-	cp -f flake.lock .attic/flake.lock/$(date '+%Y-%m-%d--%H-%M').flake.lock
+	cp -f flake.lock .attic/flake.lock/$(DTS).flake.lock
 	nix flake update
         
 bootloader:
