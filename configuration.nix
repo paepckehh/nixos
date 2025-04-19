@@ -186,6 +186,7 @@
     algorithm = "zstd";
     priority = 100;
   };
+  documentation.doc.enable = lib.mkForce false;
 
   #################
   #-=# SYSTEMD #=-#

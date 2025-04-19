@@ -51,10 +51,24 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./modules/disko-luks.nix
+          ./modules/iso-live.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./packages/base.nix
           {networking.hostName = "nixos";}
+        ];
+      };
+      base = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          disko.nixosModules.disko
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./modules/disko-luks.nix
+          ./desktop/gnome.nix
+          ./user/desktop/me.nix
+          ./packages/base.nix
+          {networking.hostName = "base";}
         ];
       };
       ##########
