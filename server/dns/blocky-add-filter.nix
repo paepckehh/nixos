@@ -6,8 +6,8 @@
     blocky = {
       settings = {
         blocking = {
-          blockType = "zeroIP";
-          blockTTL = "15m";
+          blockType = "nxDomain"; # zeroIP
+          blockTTL = "1h";
           loading = {
             concurrency = 4;
             refreshPeriod = "6h";
@@ -21,7 +21,37 @@
               writeTimeout = "10s";
             };
           };
-          # allowlists = {};
+          allowlists = {
+            smartTV = [
+              "|
+                *.fast.com
+                *.nflxso.com
+                *.nflxext.com
+                *.nflximg.com
+                *.nflxvideo.com
+                *.netflix.com
+                *.netflix.net"
+            ];
+            ios = [
+              "|
+                *.apple.com
+                *.aaplimg.com
+                *.cdn-apple.com
+                *.letsencrypt.org
+                *.xp.itunes-apple.com.akadns.net"
+            ];
+            nixos = [
+              "|
+              *.cache.nixos.org
+              *.cachix.org
+              *.github.com
+              *.github.io
+              *.githubassets.com
+              *.githubusercontent.com
+              *.letsencrypt.org
+              *.nixos.pool.ntp.org"
+            ];
+          };
           denylists = {
             ads = [
               "https://adaway.org/hosts.txt"
@@ -29,8 +59,32 @@
               "https://blocklistproject.github.io/Lists/ads.txt"
               "https://blocklistproject.github.io/Lists/tracking.txt"
             ];
+            bad = [
+              "|
+              *.scw.cloud
+              *.nexx360.io"
+            ];
+            firefox = [
+              "|
+            *.firefox.com
+            *.firefox.org
+            *.firefox.net
+            *.mozilla.com
+            *.mozilla.org
+            *.mozilla.net
+            *.mozillamessaging.com
+            *.thunderbird.net
+            *.mozaws.net
+            *.mozillademos.org
+            *.mozgcp.net
+            *.mozaws.net
+            *.www-mozilla.fastly-edge.com"
+            ];
             gambling = [
               "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/gambling-only/hosts"
+            ];
+            fakenews = [
+              "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-only/hosts"
             ];
             scam = [
               "https://blocklistproject.github.io/Lists/scam.txt"
@@ -42,9 +96,6 @@
             ];
             social = [
               "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/social-only/hosts"
-            ];
-            fakenews = [
-              "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-only/hosts"
             ];
             malware = [
               "https://blocklistproject.github.io/Lists/malware.txt"
@@ -59,16 +110,24 @@
               "https://urlhaus.abuse.ch/downloads/hostfile/"
               "https://blocklistproject.github.io/Lists/alt-version/phishing-nl.txt"
             ];
-            windows = [
-              "https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt"
-            ];
             smartTV = [
               "https://blocklistproject.github.io/Lists/smart-tv.txt"
             ];
+            ios = [
+              "|
+              ios.example.com" # needed to avoid allowlist-only mode
+            ];
+            nixos = [
+              "|
+              nixos.example.com" # needed to avoid allowlist-only mode
+            ];
+            windows = [
+              "https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt"
+            ];
           };
           clientGroupsBlock = {
-            default = ["ads" "gambling" "scam" "porn" "fakenews" "malware" "phishing" "windows"];
-            smartTV = ["smartTV" "ads" "gambling" "scam" "social" "porn" "fakenews" "malware" "phishing" "windows"];
+            default = ["ads" "bad" "firefox" "gambling" "ios" "nixos" "scam" "porn" "fakenews" "malware" "phishing" "windows"];
+            smartTV = ["ads" "bad" "firefox" "gambling" "scam" "smartTV" "social" "porn" "fakenews" "malware" "phishing" "windows"];
           };
         };
       };

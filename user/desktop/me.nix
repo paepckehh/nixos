@@ -15,7 +15,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [gparted mission-center keepassxc];
+    systemPackages = with pkgs; [gparted keepassxc];
   };
 
   ######################
@@ -57,7 +57,7 @@
               foreground = "#fffbf6";
             };
             normal = {
-              black = "#2e2e2e";
+              black = "#000000";
               red = "#eb4129";
               green = "#abe047";
               yellow = "#f6c744";

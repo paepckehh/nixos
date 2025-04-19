@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   #################
   #-=# IMPORTS #=-#
   #################
@@ -30,7 +34,7 @@
     users = {
       me = {
         home = {
-          stateVersion = "24.11";
+          stateVersion = config.system.nixos.release;
           enableNixpkgsReleaseCheck = false;
           homeDirectory = "/home/me";
           keyboard.layout = "us,de";

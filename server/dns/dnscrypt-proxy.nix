@@ -7,7 +7,7 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.shellAliases."log.dns.dnscrypt" = ''sudo tail -n 1500 -f /var/lib/dnscrypt-proxy/query.log) |  bat --force-colorization --language syslog --paging never'';
+  environment.shellAliases."log.dns.dnscrypt" = ''sudo tail -n 1500 -f /var/lib/dnscrypt-proxy/query.log |  bat --force-colorization --language syslog --paging never'';
 
   ##################
   #-=# SERVICES #=-#
@@ -16,7 +16,7 @@
     dnscrypt-proxy2 = {
       enable = true;
       settings = {
-        listen_addresses = ["127.0.0.56:55"];
+        listen_addresses = ["127.0.0.56:53"];
         max_clients = 250;
         ipv4_servers = true;
         ipv6_servers = false;
@@ -30,7 +30,7 @@
         http3 = true;
         timeout = 8000;
         keepalive = 30;
-        blocked_query_response = "refused";
+        # blocked_query_response = "refused";
         lb_strategy = "ph";
         lb_estimator = true;
         log_level = 1;
@@ -44,16 +44,16 @@
         netprobe_timeout = 120;
         netprobe_address = "9.9.9.9:53";
         offline_mode = false;
-        block_ipv6 = true;
-        block_unqualified = true;
-        block_undelegated = true;
-        reject_ttl = 60;
-        cache = true;
-        cache_size = 32768;
-        cache_min_ttl = 3600;
-        cache_max_ttl = 86400;
-        cache_neg_min_ttl = 3600;
-        cache_neg_max_ttl = 3600;
+        # block_ipv6 = true;
+        # block_unqualified = true;
+        # block_undelegated = true;
+        # reject_ttl = 60;
+        cache = false;
+        # cache_size = 32768;
+        # cache_min_ttl = 3600;
+        # cache_max_ttl = 86400;
+        # cache_neg_min_ttl = 3600;
+        # cache_neg_max_ttl = 3600;
         query_log.file = "/var/lib/dnscrypt-proxy/query.log";
         sources = {
           public-resolvers = {

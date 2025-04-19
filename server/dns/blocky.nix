@@ -19,7 +19,7 @@
   ####################
   networking = {
     resolvconf.enable = lib.mkForce false;
-    nameservers = lib.mkForce ["127.0.0.53"]; # systemd-resolved binds to 127.0.0.53/54
+    nameservers = lib.mkForce ["127.0.0.55"]; # use blocky
     networkmanager.dns = lib.mkForce "none"; # use local resolver only
   };
 
@@ -28,9 +28,10 @@
   ##################
   services = {
     resolved = {
-      enable = lib.mkForce true;
-      fallbackDns = lib.mkForce ["127.0.0.55"]; # blocky bind
-      extraConfig = lib.mkForce "Cache=true\nCacheFromLocalhost=true\nDomains=~.";
+      enable = lib.mkForce true; # binds to port dns:127.0.0.53 and dns-proxy:127.0.0.54
+      dnssec = "false"; # XXX disable dnssec for the clowns pointless mitm
+      extraConfig = lib.mkForce "MulticastDNS=false\nCache=true\nCacheFromLocalhost=true\nDomains=~.";
+      fallbackDns = lib.mkForce ["127.0.0.55"]; # use blocky as upstream @ 127.0.0.55
     };
   };
 

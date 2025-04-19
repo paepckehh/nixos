@@ -1,4 +1,4 @@
-#!/usr/bin/make 
+#!/usr/bin/$(MAKE) 
 .ONESHELL:
 
 all: update build
@@ -13,52 +13,71 @@ clone:
 	rm -rf nix-openwrt-imagebuilder
 	git clone https://github.com/astro/nix-openwrt-imagebuilder
 
-# DLINK DAP-X1860-A1
+######################
+# DLINK DAP-X1860-A1 #
+###################### 
 dap:
-	make -C dlink/dap-x1860-a1 image
+	$(MAKE) -C dlink/dap-x1860-a1 image
 	eza --all --long --total-size --group-directories-first --header --tree dlink/dap-x1860-a1
 
 dap-update:
-	make -C dlink/dap-x1860-a1 update
+	$(MAKE) -C dlink/dap-x1860-a1 update
 
 dap-clean:
-	make -C dlink/dap-x1860-a1 clean
+	$(MAKE) -C dlink/dap-x1860-a1 clean
 
-
-# GL-INET-AXT1800
+###################
+# GL-INET-AXT1800 #
+###################
 axt:
-	make -C glinet/gl-axt1800 image
+	$(MAKE) -C glinet/gl-axt1800 image
 	eza --all --long --total-size --group-directories-first --header --tree glinet/gl-axt1800
 
 axt-update:
-	make -C glinet/gl-axt1800 update
+	$(MAKE) -C glinet/gl-axt1800 update
 
 axt-clean:
-	make -C glinet/gl-axt1800 clean
+	$(MAKE) -C glinet/gl-axt1800 clean
 
-# RASPBERRY-PI RPI2
+#################
+# GL-INET-B3000 #
+#################
+b3000:
+	$(MAKE) -C glinet/gl-b3000 image
+	eza --all --long --total-size --group-directories-first --header --tree glinet/gl-b3000
+
+b3000-update:
+	$(MAKE) -C glinet/gl-axt1800 update
+
+b3000-clean:
+	$(MAKE) -C glinet/gl-axt1800 clean
+
+#####################
+# RASPBERRY-PI RPI2 #
+#####################
 rpi2:
-	make -C rpi/rpi2 image
+	$(MAKE) -C rpi/rpi2 image
 	eza --all --long --total-size --group-directories-first --header --tree rpi/rpi2
 
 rpi2-update:
-	make -C rpi/rpi2 update
+	$(MAKE) -C rpi/rpi2 update
 
 rpi2-clean:
-	make -C rpi/rpi2 clean
+	$(MAKE) -C rpi/rpi2 clean
 
-
-# LOCAL HASH UPDATES
+######################
+# LOCAL HASH UPDATES #
+######################
 update-hashes-all: update-hashes-release update-hahes-snapshot
 
 hashes-update-release:
 	cd nix-openwrt-imagebuilder || exit 1
 	nix run .\#generate-hashes 24.10.0
 	git add . 
-	git commit -m 'update release 24.10.0-mitm-ioc-shame-the-clown'
+	git commit -m 'update release 24.10.0-ioc-to-shame-the-clowns-pointless-mitm-theatre'
 
 hashes-update-snapshot:
 	cd nix-openwrt-imagebuilder || exit 1
 	nix run .\#generate-hashes snapshot
 	git add . 
-	git commit -m 'update snapshot-mitm-ioc-shame-the-clowns'
+	git commit -m 'update snapshot-ioc-to-shame-the-clowns-pointless-mitm-theatre'

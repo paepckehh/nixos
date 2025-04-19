@@ -44,10 +44,10 @@
   ##################
   services = {
     resolved = {
-      # mqtt needs multicastDNS support
       enable = true;
       llmnr = "true"; # string: true, false, resolve
-      extraConfig = "MulticastDNS=true\nCache=true\nCacheFromLocalhost=true\n";
+      # multicastdns = "true"; # needs PR399101
+      extraConfig = "MulticastDNS=true\nCache=true\nCacheFromLocalhost=true\nDomains=~.";
     };
     prometheus = {
       enable = true;

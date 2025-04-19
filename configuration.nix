@@ -101,7 +101,7 @@
       then pkgs.linuxPackages
       else pkgs.linuxPackages_latest
     );
-    kernelParams = ["amd_pstate=active" "page_alloc.shuffle=1"];
+    kernelParams = ["amd_pstate=active" "page_alloc.shuffle=1" "copytoram"];
     kernelModules = ["vfat" "exfat" "uas" "kvm-intel" "kvm-amd" "amd-pstate" "amdgpu"];
     readOnlyNixStore = lib.mkForce true;
     tmp = {
@@ -291,12 +291,12 @@
       "log.system" = "journalctl --follow --priority=7 --lines=2500";
       "info.nvme" = "sudo smartctl --all /dev/sda"; # /dev/nvme0
       "service.log.clean" = "sudo journalctl --vacuum-time=1d";
-      "service.log.follow" = "sudo journalctl --follow -u $(systemctl list-units --type=service --all | fzf --query=$* | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.log.today" = "sudo journalctl --pager-end --since today -u $(systemctl list-units --type=service --all | fzf --query=$*| sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.start" = "sudo systemctl start $(systemctl list-units --type=service --all | fzf --query=$* | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.stop" = "sudo systemctl stop $(systemctl list-units --type=service | fzf --query=$*| sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.status" = "sudo systemctl status $(systemctl list-units --type=service | fzf --query=$* | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.restart" = "sudo systemctl restart $(systemctl list-units --type=service --all | fzf --query=$* | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.log.follow" = "sudo journalctl --follow -u $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.log.today" = "sudo journalctl --pager-end --since today -u $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.start" = "sudo systemctl start $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.stop" = "sudo systemctl stop $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.status" = "sudo systemctl status $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.restart" = "sudo systemctl restart $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
     };
   };
 
@@ -305,7 +305,7 @@
   ####################
   networking = {
     nameservers = ["127.0.0.53"]; # resolved stub
-    resolvconf.enable = false;
+    resolvconf.enable = false; # use systemd-resolved
     enableIPv6 = false;
     networkmanager = {
       enable = true;
@@ -352,10 +352,11 @@
     };
     resolved = {
       enable = true;
+      dnssec = "false"; # XXX disable dnssec for the clowns pointless mitm
+      extraConfig = "MulticastDNS=false\nCache=true\nCacheFromLocalhost=true\nDomains=~.\n";
       fallbackDns = ["127.0.0.1" "192.168.0.1" "192.168.1.1" "192.168.8.1" "9.9.9.9" "9.9.9.10"];
       llmnr = "false";
       # multicastdns = "false"; # needs PR399101
-      extraConfig = "Cache=true\nCacheFromLocalhost=true\n";
     };
     tlp = {
       enable = true;

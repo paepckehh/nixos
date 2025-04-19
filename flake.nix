@@ -5,11 +5,12 @@
     # dns.url = "github:nix-community/dns.nix/master";
     # nixvim.url = "github:nix-community/nixvim/master";
     # sops.url = "github:mic92/sops-nix";
+    # nocodb.url = "github:nocodb/nocodb";
     agenix.url = "github:ryantm/agenix";
-    nvf.url = "github:notashelf/nvf";
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nvf.url = "github:notashelf/nvf";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-dev.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -49,7 +50,6 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./alias/nixops.nix
           ./modules/disko-luks.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
@@ -66,7 +66,6 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./alias/nixops.nix
           ./modules/disko.nix
           ./modules/forward-journald.nix
           ./modules/forward-syslog-ng.nix
@@ -91,7 +90,6 @@
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
           ./configuration.nix
-          ./alias/nixops.nix
           ./modules/agenix.nix
           ./modules/disko-luks.nix
           ./desktop/gnome.nix
@@ -107,9 +105,12 @@
           ./server/dns/blocky-add-filter.nix
           ./server/dns/blocky-add-log-file.nix
           ./server/dns/blocky-add-resolver-privacy-small.nix
+          ./server/dns/unbound.nix
+          # ./server/virtual/teable.nix
           # ./server/dns/blocky-add-log-postgres.nix
           # ./server/dns/blocky-add-resolver-dnscrypt.nix
           # ./server/dns/blocky-add-resolver-unbound.nix
+          # ./server/dns/blocky-add-resolver-privact-small.nix
           # ./server/dns/blocky-add-monitoring-prometheus.nix
           # ./server/iam/zitadel.nix
           # ./server/vpn/netbird.nix
