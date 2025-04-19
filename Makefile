@@ -45,18 +45,10 @@ bootloader:
 	sudo nixos-rebuild boot -v --fallback --install-bootloader
 
 iso-live: commit
-	HOST="iso-live"
-	FLAKE="/etc/nixos/.\#$(HOST)"
-	PROFILE="$(HOST)-$(DTS)"
-	TYPE="nixos live image"
 	sudo nixos-rebuild build-image --flake $(FLAKE) --image-variant iso
 	ls -la /etc/nixos/result/iso
 
 iso-install: commit 
-	HOST="iso-install"
-	FLAKE="/etc/nixos/.\#$(HOST)"
-	PROFILE="$(HOST)-$(DTS)"
-	TYPE="nixos (auto-) installer image"
 	NIXPKGS_ALLOW_BROKEN=1 nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
 	ls -la /etc/nixos/result/iso
 
