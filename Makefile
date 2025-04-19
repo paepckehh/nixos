@@ -1,4 +1,5 @@
 #!/usr/bin/make 
+# add pkgs.gnumake to your nix base config!
 .ONESHELL:
 
 # DEFAULTS
