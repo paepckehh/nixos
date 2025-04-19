@@ -114,7 +114,7 @@ clean: build internal-clean-12d build store-gc
 
 clean-hard: build internal-clean-profiles internal-clean-1d build store-gc
 
-clean-profiles: build internal-clean-profiles build store-gc
+clean-profiles: build internal-clean-profiles build
 
 cache: update build-nixos-all sign
 
