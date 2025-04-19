@@ -15,7 +15,7 @@ PROFILE:="$(HOST)-$(DTS)"
 # GENERIC #
 ###########
 
-all: build
+all: update build
 
 info:
 	@echo "STATUS # $(MAKE) # ID: $(ID) # GID: $(GID) # HOST $(HOST) # DTS: $(DTS) # PROFILE: $(PROFILE) # FLAKE: $(FLAKE)"
