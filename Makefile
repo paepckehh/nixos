@@ -22,7 +22,7 @@ all:
 	@echo "Set ISO='image-variant' to build a specific image type. Defaults to iso."
 	sudo nixos-rebuild build-image --flake $(FLAKE)  || true
 
-info:
+inf:
 	@echo "Building for target HOST=$(HOST)"
 	@echo -e "Your new $(TYPE) ==> $(PROFILE) =======> \033[48;5;57m   $(PROFILE)   \033[0m <=========="
 
@@ -49,7 +49,7 @@ iso-live: commit
 	FLAKE:="/etc/nixos/.\#$(HOST)"
 	PROFILE:="$(HOST)-$(DTS)"
 	TYPE:="nixos live image"
-	info
+	inf
 	sudo nixos-rebuild build-image --flake $(FLAKE) --image-variant iso
 	ls -la /etc/nixos/result/iso
 
