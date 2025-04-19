@@ -51,7 +51,6 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./modules/disko-luks.nix
-          ./modules/iso-live.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./packages/base.nix
@@ -150,6 +149,13 @@
       #############
       # ISO IMAGE #
       #############
+      iso-live = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs.targetSystem = self.nixosConfigurations."nixos";
+        modules = [
+          ./modules/iso-live.nix
+        ];
+      };
       iso-installer = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs.targetSystem = self.nixosConfigurations."nixos";

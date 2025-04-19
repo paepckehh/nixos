@@ -10,6 +10,7 @@ HOST?=$(shell hostname)
 DTS:=$(shell date '+%Y-%m-%d-%H-%M')
 FLAKE:="/etc/nixos/.\#$(HOST)"
 PROFILE:="$(HOST)-$(DTS)"
+TYPE:="nixos boot profile"
 
 ###########
 # GENERIC #
@@ -21,23 +22,18 @@ all:
 	@echo "Set ISO='image-variant' to build a specific image type. Defaults to iso."
 	sudo nixos-rebuild build-image --flake $(FLAKE)  || true
 
-info-iso:
+info:
 	@echo "Building for target HOST=$(HOST)"
-	@echo -e "Your new nixos iso image profile ==> $(PROFILE) =======> \033[48;5;57m   $(PROFILE)   \033[0m <=========="
-
-info-profile:
-	@echo "Building for target HOST=$(HOST)"
-	@echo -e "Your new nixos boot profile name ==> $(PROFILE) =======> \033[48;5;57m   $(PROFILE)   \033[0m <=========="
-
+	@echo -e "Your new $(TYPE) ==> $(PROFILE) =======> \033[48;5;57m   $(PROFILE)   \033[0m <=========="
 
 #####################
 # NIX OS OPERATIONS #
 #####################
 
-build: info-profile commit build-log
+build: info commit build-log
 	sudo nixos-rebuild boot --flake $(FLAKE) --profile-name $(PROFILE)
 
-switch: info-profile commit build-log
+switch: info commit build-log
 	sudo nixos-rebuild switch --flake $(FLAKE) --profile-name $(PROFILE)
 
 update: commit 
@@ -48,11 +44,21 @@ update: commit
 bootloader:
 	sudo nixos-rebuild boot -v --fallback --install-bootloader
 
-iso: info-iso commit
+iso-live: commit
+	HOST:="iso-live"
+	FLAKE:="/etc/nixos/.\#$(HOST)"
+	PROFILE:="$(HOST)-$(DTS)"
+	TYPE:="nixos live image"
+	info
 	sudo nixos-rebuild build-image --flake $(FLAKE) --image-variant iso
 	ls -la /etc/nixos/result/iso
 
-iso-install: info-iso commit 
+iso-install: commit 
+	HOST:="iso-install"
+	FLAKE:="/etc/nixos/.\#$(HOST)"
+	PROFILE:="$(HOST)-$(DTS)"
+	TYPE:="nixos (auto-) installer image"
+	info
 	NIXPKGS_ALLOW_BROKEN=1 nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
 	ls -la /etc/nixos/result/iso
 
