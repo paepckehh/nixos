@@ -77,15 +77,19 @@ build-log:
 # NIX REPO OPERATIONS #
 #######################
 
-push: commit 
+push: pre-commit 
+	git add .
+	git commit -S -m update
 	git push --force 
 
-commit:
+commit: pre-commit
+	git add .
+	git commit -m update
+
+pre-commit:
 	@sudo chown -R $(ID):$(GID) *
 	@sudo chown -R $(ID):$(GID) .git 
 	@alejandra --quiet .
-	@git add . 
-	git commit -m update 
 
 followremote: 
 	@git reset --hard
@@ -95,7 +99,7 @@ followremote:
 	git pull --ff --force 
 	@git-gc
 
-git-gc: commit 
+gc: commit 
 	git reflog expire --expire-unreachable=now --all 
 	git gc --aggressive --prune=now 
 	git fsck --full 
