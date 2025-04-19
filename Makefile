@@ -15,9 +15,7 @@ PROFILE:="$(HOST)-$(DTS)"
 # GENERIC #
 ###########
 
-all: update build
-
-info:
+all:
 	@echo "STATUS # $(MAKE) # ID: $(ID) # GID: $(GID) # HOST $(HOST) # DTS: $(DTS) # PROFILE: $(PROFILE) # FLAKE: $(FLAKE)"
 	@echo "Set HOST='hostname' to build for a specific host target. Your current target HOST=$(HOST)."
 	@echo "Set ISO='image-variant' to build a specific image type. Defaults to iso."
