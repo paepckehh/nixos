@@ -4,11 +4,6 @@
   lib,
   ...
 }: {
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  # imports = [];
-
   #############
   #-=# NIX #=-#
   #############
@@ -83,7 +78,6 @@
       options = ["fmask=0077" "dmask=0077" "defaults"];
     };
   };
-
   ##############
   #-=# BOOT #=-#
   ##############
@@ -92,9 +86,43 @@
       compressor = "zstd";
       compressorArgs = ["--ultra" "--long" "-22"];
       systemd.enable = false;
-      availableKernelModules = ["ahci" "applespi" "applesmc" "dm_mod" "intel_lpss_pci" "nvme" "spi_pxa2xx_platform" "thunderbolt" "uas" "usbhid" "usb_storage" "xhci_pci"];
+      luks.mitigateDMAAttacks = lib.mkForce true;
+      availableKernelModules = [
+        "aesni_intel ahci"
+        "applespi"
+        "applesmc"
+        "dm_mod"
+        "cryptd"
+        "intel_lpss_pci"
+        "nvme"
+        "spi_pxa2xx_platform"
+        "thunderbolt"
+        "uas"
+        "usbhid"
+        "usb_storage"
+        "xhci_pci"
+      ];
     };
-    blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "brcmfmac" "brcmsmac" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb" "wl"];
+    blacklistedKernelModules = [
+      "affs"
+      "b43"
+      "befs"
+      "bfs"
+      "brcmfmac"
+      "brcmsmac"
+      "bcma"
+      "freevxfs"
+      "hpfs"
+      "jfs"
+      "minix"
+      "nilfs2"
+      "omfs"
+      "qnx4"
+      "qnx6"
+      "k10temp"
+      "ssb"
+      "wl"
+    ];
     extraModulePackages = [config.boot.kernelPackages.zenpower];
     kernelPackages = (
       if (config.system.nixos.release == "24.11")

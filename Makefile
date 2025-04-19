@@ -108,11 +108,11 @@ gc: commit
 # NIX STORE OPERATIONS #
 ########################
 
-clean: build internal-clean-12d build store-gc
+clean: internal-clean-12d build store-gc 
 
-clean-hard: build internal-clean-profiles internal-clean-1d build store-gc
+clean-hard: internal-clean-profiles internal-clean-1d build store-gc
 
-clean-profiles: build internal-clean-profiles build
+clean-profiles: internal-clean-profiles build
 
 cache: update build-nixos-all sign
 
@@ -129,7 +129,6 @@ store-gc:
 
 repair: store-gc
 	sudo nix-store --verify --check-contents --repair
-
 
 internal-clean-1d:
 	sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 1d

@@ -79,6 +79,7 @@
       alejandra
       bmon
       cliqr
+      cryptsetup
       dnsutils
       dust
       fastfetch
