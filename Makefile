@@ -85,7 +85,7 @@ push: pre-commit
 
 commit: pre-commit
 	git add .
-	git commit -m update
+	git commit --quiet -m update
 
 pre-commit:
 	@sudo chown -R $(ID):$(GID) *
