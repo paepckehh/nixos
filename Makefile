@@ -82,6 +82,7 @@ commit: pre-commit
 	-git commit --quiet -m update > /dev/null 2>&1 || true
 
 pre-commit:
+	@-sudo rm -rf result > /dev/null 2>&1 || true
 	@sudo chown -R $(ID):$(GID) *
 	@sudo chown -R $(ID):$(GID) .git 
 	@alejandra --quiet .
