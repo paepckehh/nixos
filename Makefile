@@ -25,11 +25,11 @@ info:
 
 info-iso:
 	@echo "Building for target HOST=$(HOST)"
-	@echo "Your new nixos iso image ==> $(PROFILE)"
+	@echo -e "Your new nixos iso image profile ==> $(PROFILE) =======> \033[48;5;57m $(PROFILE) \033[0m  <=========="
 
 info-profile:
 	@echo "Building for target HOST=$(HOST)"
-	@echo "Your new nixos boot profile name ==> $(PROFILE)"
+	@echo -e "Your new nixos boot profile name ==> $(PROFILE) =======> \033[48;5;57m $(PROFILE) \033[0m  <=========="
 
 
 #####################
