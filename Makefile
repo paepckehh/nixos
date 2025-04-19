@@ -22,7 +22,7 @@ all:
 	@echo "Set ISO='image-variant' to build a specific image type. Defaults to iso."
 	sudo nixos-rebuild build-image --flake $(FLAKE)  || true
 
-inf:
+info:
 	@echo "Building for target HOST=$(HOST)"
 	@echo -e "Your new $(TYPE) ==> $(PROFILE) =======> \033[48;5;57m   $(PROFILE)   \033[0m <=========="
 
@@ -45,20 +45,18 @@ bootloader:
 	sudo nixos-rebuild boot -v --fallback --install-bootloader
 
 iso-live: commit
-	HOST:="iso-live"
-	FLAKE:="/etc/nixos/.\#$(HOST)"
-	PROFILE:="$(HOST)-$(DTS)"
-	TYPE:="nixos live image"
-	inf
+	HOST="iso-live"
+	FLAKE="/etc/nixos/.\#$(HOST)"
+	PROFILE="$(HOST)-$(DTS)"
+	TYPE="nixos live image"
 	sudo nixos-rebuild build-image --flake $(FLAKE) --image-variant iso
 	ls -la /etc/nixos/result/iso
 
 iso-install: commit 
-	HOST:="iso-install"
-	FLAKE:="/etc/nixos/.\#$(HOST)"
-	PROFILE:="$(HOST)-$(DTS)"
-	TYPE:="nixos (auto-) installer image"
-	info
+	HOST="iso-install"
+	FLAKE="/etc/nixos/.\#$(HOST)"
+	PROFILE="$(HOST)-$(DTS)"
+	TYPE="nixos (auto-) installer image"
 	NIXPKGS_ALLOW_BROKEN=1 nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
 	ls -la /etc/nixos/result/iso
 
