@@ -9,7 +9,7 @@ ISO?=iso
 HOST?=$(shell hostname)
 DTS:=$(shell date '+%Y-%m-%d-%H-%M')
 FLAKE:="/etc/nixos/.\#$(HOST)"
-PROFILE:="[$(HOST)-$(DTS)]"
+PROFILE:="$(HOST)-$(DTS)"
 
 ###########
 # GENERIC #
@@ -25,11 +25,11 @@ info:
 
 info-iso:
 	@echo "Building for target HOST=$(HOST)"
-	@echo -e "Your new nixos iso image profile ==> $(PROFILE) =======> \033[48;5;57m $(PROFILE) \033[0m  <=========="
+	@echo -e "Your new nixos iso image profile ==> $(PROFILE) =======> \033[48;5;57m   $(PROFILE)   \033[0m <=========="
 
 info-profile:
 	@echo "Building for target HOST=$(HOST)"
-	@echo -e "Your new nixos boot profile name ==> $(PROFILE) =======> \033[48;5;57m $(PROFILE) \033[0m  <=========="
+	@echo -e "Your new nixos boot profile name ==> $(PROFILE) =======> \033[48;5;57m   $(PROFILE)   \033[0m <=========="
 
 
 #####################
