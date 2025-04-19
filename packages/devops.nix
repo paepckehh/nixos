@@ -21,6 +21,7 @@
       aria2
       certinfo-go
       curlie
+      cryptsetup
       dmidecode
       gh
       gnumake
@@ -35,12 +36,7 @@
       nixpkgs-review
       nix-prefetch-scripts
       nix-search-cli
-      nufmt
-      nushell
-      nushellPlugins.formats
-      nushellPlugins.gstat
-      nushellPlugins.net
-      nushellPlugins.query
+      parted
       pciutils
       shellcheck
       shfmt
