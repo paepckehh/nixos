@@ -48,11 +48,11 @@ update: commit
 bootloader:
 	sudo nixos-rebuild boot -v --fallback --install-bootloader
 
-iso: info-iso
+iso: info-iso commit
 	sudo nixos-rebuild build-image --flake $(FLAKE) --image-variant iso
 	ls -la /etc/nixos/result/iso
 
-iso-install: info-iso
+iso-install: info-iso commit 
 	NIXPKGS_ALLOW_BROKEN=1 nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
 	ls -la /etc/nixos/result/iso
 
