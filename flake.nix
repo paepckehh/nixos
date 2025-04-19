@@ -57,19 +57,6 @@
           {networking.hostName = "nixos";}
         ];
       };
-      base = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./modules/disko-luks.nix
-          ./desktop/gnome.nix
-          ./user/desktop/me.nix
-          ./packages/base.nix
-          {networking.hostName = "base";}
-        ];
-      };
       ##########
       # CLIENT #
       ##########
@@ -80,8 +67,8 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./modules/disko.nix
-          ./modules/forward-journald.nix
-          ./modules/forward-syslog-ng.nix
+          ./client/forward-journald.nix
+          ./client/forward-syslog-ng.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix
