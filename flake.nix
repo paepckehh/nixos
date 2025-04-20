@@ -50,7 +50,7 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./modules/disko-luks.nix
+          ./storage/disko.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./packages/base.nix
@@ -66,7 +66,7 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./modules/disko.nix
+          ./storage/disko.nix
           ./client/forward-journald.nix
           ./client/forward-syslog-ng.nix
           ./desktop/gnome.nix
@@ -91,7 +91,7 @@
           nvf.nixosModules.default
           ./configuration.nix
           ./modules/agenix.nix
-          ./modules/disko-luks.nix
+          ./storage/disko-luks.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./packages/neovim-nvf.nix
