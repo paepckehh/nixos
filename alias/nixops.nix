@@ -1,4 +1,4 @@
-{...}: {
+{
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
@@ -9,7 +9,7 @@
       "nix.build" = ''cd /etc/nixos && make build'';
       "nix.switch" = ''cd /etc/nixos && make switch'';
       "nix.update" = ''cd /etc/nixos && make update'';
-      "nix.clean-profiles" = ''cd /etc/nixos && make clean-profiles
+      "nix.clean-profiles" = ''cd /etc/nixos && make clean-profiles'';
     };
   };
 }
