@@ -78,6 +78,7 @@
       options = ["fmask=0077" "dmask=0077" "defaults"];
     };
   };
+
   ##############
   #-=# BOOT #=-#
   ##############
@@ -87,50 +88,17 @@
       compressorArgs = ["--ultra" "--long" "-22"];
       systemd.enable = false;
       luks.mitigateDMAAttacks = lib.mkForce true;
-      availableKernelModules = [
-        "aesni_intel ahci"
-        "applespi"
-        "applesmc"
-        "dm_mod"
-        "cryptd"
-        "intel_lpss_pci"
-        "nvme"
-        "spi_pxa2xx_platform"
-        "thunderbolt"
-        "uas"
-        "usbhid"
-        "usb_storage"
-        "xhci_pci"
-      ];
+      availableKernelModules = ["aesni_intel" "ahci" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "thunderbolt" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
-    blacklistedKernelModules = [
-      "affs"
-      "b43"
-      "befs"
-      "bfs"
-      "brcmfmac"
-      "brcmsmac"
-      "bcma"
-      "freevxfs"
-      "hpfs"
-      "jfs"
-      "minix"
-      "nilfs2"
-      "omfs"
-      "qnx4"
-      "qnx6"
-      "k10temp"
-      "ssb"
-      "wl"
-    ];
+    blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "brcmfmac" "brcmsmac" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb" "wl"];
     extraModulePackages = [config.boot.kernelPackages.zenpower];
     kernelPackages = (
       if (config.system.nixos.release == "24.11")
       then pkgs.linuxPackages
       else pkgs.linuxPackages_latest
     );
-    kernelParams = ["amd_pstate=active" "page_alloc.shuffle=1" "copytoram"];
-    kernelModules = ["vfat" "exfat" "uas" "kvm-intel" "kvm-amd" "amd-pstate" "amdgpu"];
+    kernelParams = ["amd_pstate=active" "copytoram" "page_alloc.shuffle=1"];
+    kernelModules = ["amd-pstate" "amdgpu" "exfat" "kvm-amd" "kvm-intel" "uas" "vfat"];
     readOnlyNixStore = lib.mkForce true;
     tmp = {
       cleanOnBoot = true;
@@ -186,7 +154,14 @@
     algorithm = "zstd";
     priority = 100;
   };
-  documentation.doc.enable = lib.mkForce false;
+
+  #######################
+  #-=# DOCUMENTATION #=-#
+  #######################
+  documentation = {
+    doc.enable = lib.mkForce false;
+    man.enable = lib.mkForce true;
+  };
 
   #################
   #-=# SYSTEMD #=-#
@@ -358,18 +333,26 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    avahi.enable = lib.mkForce false;
     acpid.enable = lib.mkForce true;
+    avahi.enable = lib.mkForce false;
+    devmon.enable = lib.mkForce false;
+    fwupd.enable = true;
     geoclue2.enable = lib.mkForce false;
-    devmon.enable = lib.mkForce true;
     gvfs.enable = lib.mkForce false;
     openssh.enable = false;
-    fwupd.enable = true;
     smartd.enable = true;
     pcscd.enable = false;
     power-profiles-daemon.enable = lib.mkForce false;
     udisks2.enable = lib.mkForce false;
     logind.hibernateKey = "ignore";
+    lvm = {
+      enable = true;
+      dmeventd = true;
+      boot = {
+        thin.enable = true;
+        vdo.enable = true;
+      };
+    };
     journald = {
       audit = true;
       storage = "persistent";
