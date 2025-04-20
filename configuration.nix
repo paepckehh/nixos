@@ -347,7 +347,7 @@
     logind.hibernateKey = "ignore";
     lvm = {
       enable = true;
-      dmeventd = true;
+      dmeventd.enable = true;
       boot = {
         thin.enable = true;
         vdo.enable = true;
