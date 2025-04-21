@@ -46,7 +46,7 @@
         };
         programs = {
           ssh = {
-            matchBlocks = {
+            matchBlocks.luci = {
               match = "luci";
               port = 6622;
               user = "root";
