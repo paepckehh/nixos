@@ -29,7 +29,7 @@
           job_name = "openwrt";
           static_configs = [
             {
-              targets = ["http://192.168.8.1:9100/metrics"];
+              targets = ["192.168.8.1:9100"];
             }
           ];
         }
