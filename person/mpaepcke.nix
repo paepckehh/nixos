@@ -57,18 +57,20 @@
                 forwardAgent = false;
                 forwardX11 = false;
                 forwardX11Trusted = false;
-                localForwards = {
-                  luci = {
-                    bind = {
-                      address = "127.0.0.1";
-                      port = 8000;
+                localForwards = [
+                  {
+                    webui = {
+                      bind = {
+                        address = "127.0.0.1";
+                        port = 8000;
+                      };
+                      host = {
+                        address = "192.168.8.1";
+                        port = 80;
+                      };
                     };
-                    host = {
-                      address = "192.168.8.1";
-                      port = 80;
-                    };
-                  };
-                };
+                  }
+                ];
               };
             };
           };
