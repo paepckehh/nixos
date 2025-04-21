@@ -48,7 +48,8 @@
           ssh = {
             matchBlocks = {
               luci = {
-                match = "luci";
+                host = "luci";
+                hostname = "192.168.8.1";
                 port = 6622;
                 user = "root";
                 addressFamily = "inet";
