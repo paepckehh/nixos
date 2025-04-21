@@ -59,22 +59,19 @@
                 forwardX11Trusted = false;
                 localForwards = [
                   {
-                    webui = {
-                      bind = {
-                        address = "127.0.0.1";
-                        port = 8000;
-                      };
-                      host = {
-                        address = "192.168.8.1";
-                        port = 80;
-                      };
+                    bind = {
+                      address = "127.0.0.1";
+                      port = 8000;
+                    };
+                    host = {
+                      address = "192.168.8.1";
+                      port = 80;
                     };
                   }
                 ];
               };
             };
           };
-
           git = {
             userName = lib.mkForce "PAEPCKE, Michael";
             userEmail = lib.mkForce "git@paepcke.de";
