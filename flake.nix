@@ -106,6 +106,7 @@
           ./server/dns/blocky-add-log-file.nix
           ./server/dns/blocky-add-resolver-privacy-small.nix
           ./server/dns/unbound.nix
+          ./openwrt/monitoring.nix
           # ./server/virtual/teable.nix
           # ./server/dns/blocky-add-log-postgres.nix
           # ./server/dns/blocky-add-resolver-dnscrypt.nix
