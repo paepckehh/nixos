@@ -45,6 +45,23 @@
           };
         };
         programs = {
+          ssh = {
+            matchBlocks = {
+              match = "luci";
+              port = 6622;
+              user = "root";
+              localForward = {
+                bind = {
+                  address = "127.0.0.1";
+                  port = 8000;
+                };
+                host = {
+                  address = "192.168.8.1";
+                  port = 80;
+                };
+              };
+            };
+          };
           git = {
             userName = lib.mkForce "PAEPCKE, Michael";
             userEmail = lib.mkForce "git@paepcke.de";
