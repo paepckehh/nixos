@@ -62,7 +62,7 @@
                   {
                     bind = {
                       address = "127.0.0.1";
-                      port = 8000;
+                      port = 8080;
                     };
                     host = {
                       address = "192.168.8.1";
