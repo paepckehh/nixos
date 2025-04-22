@@ -28,7 +28,7 @@
       me = {
         home = {
           shellAliases = {
-            axt = "ssh -p 6623 -i /home/me/.ssh/id_ed25519_sk.pub -L127.0.0.1:8080:127.0.0.1:8080 root@192.168.8.1"; # sk-ed25519 sshd -p 6623
+            axt = "ssh -p 6623 -i /home/me/.ssh/id_ed25519_sk -L127.0.0.1:8080:127.0.0.1:8080 root@192.168.8.1"; # sk-ed25519 sshd -p 6623
             axt-backup = "ssh -p 6622 -L127.0.0.1:8080:127.0.0.1:8080 root@192.168.8.1"; # dropbear -p 6622
             daylight_fxl = "IATA=FXL go run paepcke.de/daylight/cmd/daylight@latest";
             daylight_ham = "IATA=HAM go run paepcke.de/daylight/cmd/daylight@latest";
