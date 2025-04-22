@@ -366,9 +366,8 @@
       enable = true;
       dnssec = "false"; # XXX disable dnssec for the clowns pointless mitm
       extraConfig = "MulticastDNS=false\nCache=true\nCacheFromLocalhost=true\nDomains=~.\n";
-      fallbackDns = ["127.0.0.1" "192.168.0.1" "192.168.1.1" "192.168.8.1" "9.9.9.9" "9.9.9.10"];
+      fallbackDns = ["192.168.8.1" "192.168.0.1" "192.168.1.1" "9.9.9.9" "9.9.9.10"];
       llmnr = "false";
-      # multicastdns = "false"; # needs PR399101
     };
     tlp = {
       enable = true;
