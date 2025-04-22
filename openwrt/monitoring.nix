@@ -3,6 +3,13 @@
   config,
   ...
 }: {
+  #################
+  #-=# IMPORTS #=-#
+  #################
+  imports = [
+    ../server/monitoring/collect-syslog-ng.nix
+  ];
+
   ##############
   #-=# INFO #=-#
   ##############

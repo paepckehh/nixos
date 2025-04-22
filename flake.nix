@@ -99,14 +99,14 @@
           ./packages/netops.nix
           ./packages/devops.nix
           ./server/ntp/chrony.nix
-          ./server/monitoring/collect-journald.nix
-          ./server/monitoring/collect-syslog-ng.nix
-          ./server/dns/blocky.nix
-          ./server/dns/blocky-add-filter.nix
-          ./server/dns/blocky-add-log-file.nix
-          ./server/dns/blocky-add-resolver-privacy-small.nix
           ./server/dns/unbound.nix
           ./openwrt/monitoring.nix
+          # ./server/monitoring/collect-journald.nix
+          # ./server/monitoring/collect-syslog-ng.nix
+          # ./server/dns/blocky.nix
+          # ./server/dns/blocky-add-filter.nix
+          # ./server/dns/blocky-add-log-file.nix
+          # ./server/dns/blocky-add-resolver-privacy-small.nix
           # ./server/virtual/teable.nix
           # ./server/dns/blocky-add-log-postgres.nix
           # ./server/dns/blocky-add-resolver-dnscrypt.nix
