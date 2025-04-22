@@ -28,7 +28,8 @@
       me = {
         home = {
           shellAliases = {
-            luci = "ssh -p 6623 -L127.0.0.1:8080:127.0.0.1:8080 root@192.168.8.1"; # sk-ed25519 sshd -p 6623 # dropbear -p 6622
+            axt = "ssh -p 6623 -L127.0.0.1:8080:127.0.0.1:8080 root@192.168.8.1"; # sk-ed25519 sshd -p 6623
+            axt-backup = "ssh -p 6622 -L127.0.0.1:8080:127.0.0.1:8080 root@192.168.8.1"; # dropbear -p 6622
             daylight_fxl = "IATA=FXL go run paepcke.de/daylight/cmd/daylight@latest";
             daylight_ham = "IATA=HAM go run paepcke.de/daylight/cmd/daylight@latest";
             daylight_lbc = "IATA=LBC go run paepcke.de/daylight/cmd/daylight@latest";
@@ -49,9 +50,9 @@
           ssh = {
             matchBlocks = {
               luci = {
-                host = "luci";
+                host = "axt";
                 hostname = "192.168.8.1";
-                port = 6622;
+                port = 6623; # 6622 dropbear
                 user = "root";
                 addressFamily = "inet";
                 checkHostIP = true;
