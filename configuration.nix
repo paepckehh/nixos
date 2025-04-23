@@ -291,9 +291,10 @@
   ####################
   # networking: ethernet, localhost, virtual: see systemd.networking, wifi: networkmanager
   networking = {
+    enableIPv6 = false;
     nameservers = ["127.0.0.53"]; # resolved stub
     resolvconf.enable = false; # use systemd-resolved
-    enableIPv6 = false;
+    useNetworkd = true;
     usePredictableInterfaceNames = false;
     networkmanager = {
       enable = true;
@@ -301,7 +302,7 @@
       wifi = {
         backend = "wpa_supplicant";
         scanRandMacAddress = false;
-        macAddress = "permanent";
+        macAddress = "permanent"; # allow wifi mac filter
         powersave = false;
       };
     };
