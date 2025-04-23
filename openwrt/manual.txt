@@ -6,6 +6,7 @@ apk add bind-dig
 apk add vim-fuller
 apk add openssh-server
 apk add dnscrypt-proxy2
+apk add dnsmasq-full
 apk add prometheus-node-exporter-lua
 apk add prometheus-node-exporter-lua-nat_traffic
 apk add prometheus-node-exporter-lua-netstat
