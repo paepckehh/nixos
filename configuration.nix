@@ -163,34 +163,6 @@
     man.enable = lib.mkForce true;
   };
 
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd = {
-    services."systemd-networkd".environment.SYSTEMD_LOG_LEVEL = "debug";
-    network = {
-      enable = true;
-      wait-online.enable = false;
-      networks."10-lan" = {
-        matchConfig.Name = "eth0";
-        networkConfig.DHCP = "ipv4";
-        linkConfig.RequiredForOnline = "no";
-      };
-    };
-    targets = {
-      sleep.enable = true;
-      suspend.enable = lib.mkForce false;
-      hybrid-sleep.enable = lib.mkForce false;
-      hibernate.enable = lib.mkForce false;
-    };
-    sleep.extraConfig = ''
-      AllowSuspend=no
-      AllowHibernation=no
-      AllowHybridSleep=no
-      AllowSuspendThenHibernate=no
-    '';
-  };
-
   ##################
   #-=# HARDWARE #=-#
   ##################
@@ -317,6 +289,7 @@
   ####################
   #-=# NETWORKING #=-#
   ####################
+  # networking: ethernet, localhost, virtual: see systemd.networking, wifi: networkmanager
   networking = {
     nameservers = ["127.0.0.53"]; # resolved stub
     resolvconf.enable = false; # use systemd-resolved
@@ -338,6 +311,39 @@
       allowPing = true;
       checkReversePath = true;
     };
+  };
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd = {
+    services."systemd-networkd".environment.SYSTEMD_LOG_LEVEL = "debug";
+    network = {
+      enable = true;
+      wait-online.enable = false;
+      networks."10-lan" = {
+        matchConfig.Name = "eth0";
+        networkConfig.DHCP = "ipv4";
+        linkConfig.RequiredForOnline = "no";
+      };
+      networks."20-lan" = {
+        matchConfig.Name = "eth1";
+        networkConfig.DHCP = "ipv4";
+        linkConfig.RequiredForOnline = "no";
+      };
+    };
+    targets = {
+      sleep.enable = true;
+      suspend.enable = lib.mkForce false;
+      hybrid-sleep.enable = lib.mkForce false;
+      hibernate.enable = lib.mkForce false;
+    };
+    sleep.extraConfig = ''
+      AllowSuspend=no
+      AllowHibernation=no
+      AllowHybridSleep=no
+      AllowSuspendThenHibernate=no
+    '';
   };
 
   ##################
