@@ -323,12 +323,18 @@
       wait-online.enable = false;
       networks."10-lan" = {
         matchConfig.Name = "eth0";
-        networkConfig.DHCP = "ipv4";
+        networkConfig = {
+          DHCP = "ipv4";
+          IPv6AcceptRA = false;
+        };
         linkConfig.RequiredForOnline = "no";
       };
       networks."20-lan" = {
         matchConfig.Name = "eth1";
-        networkConfig.DHCP = "ipv4";
+        networkConfig = {
+          DHCP = "ipv4";
+          IPv6AcceptRA = false;
+        };
         linkConfig.RequiredForOnline = "no";
       };
     };
