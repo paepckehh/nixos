@@ -4,65 +4,6 @@
   lib,
   ...
 }: {
-  #############
-  #-=# NIX #=-#
-  #############
-  nix = {
-    enable = true;
-    daemonCPUSchedPolicy = "idle";
-    extraOptions = ''
-      builders-use-substitutes = false
-      experimental-features = nix-command flakes'';
-    settings = {
-      auto-optimise-store = true;
-      allowed-users = lib.mkForce ["@wheel"];
-      trusted-users = lib.mkForce ["@wheel"];
-      http2 = lib.mkForce false;
-      sandbox = lib.mkForce true;
-      sandbox-build-dir = "/build";
-      sandbox-fallback = lib.mkForce false;
-      trace-verbose = true;
-      restrict-eval = lib.mkForce false;
-      require-sigs = lib.mkForce true;
-      preallocate-contents = true;
-      allowed-uris = [
-        "https://nixpkgs-unfree.cachix.org"
-        "https://nix-community.cachix.org"
-        "https://cache.nixos.org"
-      ];
-      substituters = [
-        "https://nixpkgs-unfree.cachix.org"
-        "https://nix-community.cachix.org"
-        "https://cache.nixos.org"
-      ];
-      trusted-public-keys = [
-        "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      ];
-    };
-    gc = {
-      automatic = true;
-      dates = "daily";
-      persistent = true;
-      options = "--delete-older-than 60d";
-    };
-    optimise = {
-      automatic = true;
-      dates = ["daily"];
-    };
-  };
-
-  #################
-  #-=# NIXPKGS #=-#
-  #################
-  nixpkgs = {
-    config = {
-      allowBroken = lib.mkDefault true;
-      allowUnfree = lib.mkDefault true;
-    };
-  };
-
   #####################
   #-=# FILESYSTEMS #=-#
   #####################
@@ -86,7 +27,7 @@
     initrd = {
       compressor = "zstd";
       compressorArgs = ["--ultra" "--long" "-22"];
-      systemd.enable = false;
+      systemd.enable = true;
       luks.mitigateDMAAttacks = lib.mkForce true;
       availableKernelModules = ["aesni_intel" "ahci" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "thunderbolt" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
@@ -155,6 +96,65 @@
     priority = 100;
   };
 
+  #################
+  #-=# NIXPKGS #=-#
+  #################
+  nixpkgs = {
+    config = {
+      allowBroken = lib.mkDefault true;
+      allowUnfree = lib.mkDefault true;
+    };
+  };
+
+  #############
+  #-=# NIX #=-#
+  #############
+  nix = {
+    enable = true;
+    daemonCPUSchedPolicy = "idle";
+    extraOptions = ''
+      builders-use-substitutes = false
+      experimental-features = nix-command flakes'';
+    settings = {
+      auto-optimise-store = true;
+      allowed-users = lib.mkForce ["@wheel"];
+      trusted-users = lib.mkForce ["@wheel"];
+      http2 = lib.mkForce false;
+      sandbox = lib.mkForce true;
+      sandbox-build-dir = "/build";
+      sandbox-fallback = lib.mkForce false;
+      trace-verbose = true;
+      restrict-eval = lib.mkForce false;
+      require-sigs = lib.mkForce true;
+      preallocate-contents = true;
+      allowed-uris = [
+        "https://nixpkgs-unfree.cachix.org"
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org"
+      ];
+      substituters = [
+        "https://nixpkgs-unfree.cachix.org"
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org"
+      ];
+      trusted-public-keys = [
+        "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      ];
+    };
+    gc = {
+      automatic = true;
+      dates = "daily";
+      persistent = true;
+      options = "--delete-older-than 60d";
+    };
+    optimise = {
+      automatic = true;
+      dates = ["daily"];
+    };
+  };
+
   #######################
   #-=# DOCUMENTATION #=-#
   #######################
@@ -167,6 +167,16 @@
   #-=# SYSTEMD #=-#
   #################
   systemd = {
+    services."systemd-networkd".environment.SYSTEMD_LOG_LEVEL = "debug";
+    network = {
+      enable = true;
+      wait-online.enable = false;
+      networks."10-lan" = {
+        matchConfig.Name = "eth0";
+        networkConfig.DHCP = "ipv4";
+        linkConfig.RequiredForOnline = "no";
+      };
+    };
     targets = {
       sleep.enable = true;
       suspend.enable = lib.mkForce false;
@@ -311,6 +321,7 @@
     nameservers = ["127.0.0.53"]; # resolved stub
     resolvconf.enable = false; # use systemd-resolved
     enableIPv6 = false;
+    usePredictableInterfaceNames = false;
     networkmanager = {
       enable = true;
       logLevel = "INFO";
