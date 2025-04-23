@@ -67,6 +67,7 @@
       "net.ipv4.conf.all.secure_redirects" = lib.mkForce false;
       "net.ipv4.conf.default.accept_redirects" = lib.mkForce false;
       "net.ipv4.conf.default.secure_redirects" = lib.mkForce false;
+      "net.ipv6.conf.all.disable_ipv6" = lib.mkForce true;
       "net.ipv6.conf.all.accept_redirects" = lib.mkForce false;
     };
   };
@@ -324,18 +325,7 @@
       wait-online.enable = false;
       networks."10-lan" = {
         matchConfig.Name = "eth0";
-        networkConfig = {
-          DHCP = "ipv4";
-          IPv6AcceptRA = false;
-        };
-        linkConfig.RequiredForOnline = "no";
-      };
-      networks."20-lan" = {
-        matchConfig.Name = "eth1";
-        networkConfig = {
-          DHCP = "ipv4";
-          IPv6AcceptRA = false;
-        };
+        networkConfig.DHCP = "ipv4";
         linkConfig.RequiredForOnline = "no";
       };
     };

@@ -1,0 +1,40 @@
+# bootsrap
+sed -i 's/127\.0\.0\.1/9\.9\.9\.10/g' /etc/resolve.conf
+apk del luci
+apk add luci-ssl
+apk add bind-dig
+apk add vim-fuller
+apk add openssh-server
+apk add dnscrypt-proxy2
+apk add prometheus-node-exporter-lua
+apk add prometheus-node-exporter-lua-nat_traffic
+apk add prometheus-node-exporter-lua-netstat
+apk add prometheus-node-exporter-lua-openwrt
+apk add prometheus-node-exporter-lua-wifi
+apk add prometheus-node-exporter-lua-wifi_stations
+
+# prep android uplink
+apk add kmod-usb-net-rndis
+
+# prep usbstick uplink
+apk add kmod-usb-net-cdc-eem
+apk add kmod-usb-net-cdc-ether
+apk add kmod-usb-net-cdc-subset
+
+# prep ios uplink
+apk add kmod-usb-net-ipheth
+apk add usbmuxd
+apk add libimobiledevice
+apk add usbutils
+usbmuxd -v
+sed -i -e "\$i usbmuxd" /etc/rc.local
+# iphone: [activate hostspot, stay, connect usb]
+# iphone: Settings > Touch ID/Face ID & Passcode > USB Accessories > ON # disable 1h timeout
+
+# activate android/usbstick/ios uplink
+uci set network.wan.ifname="usb0"
+uci set network.wan.ipv6="0"
+uci set network.wan.delegate="0"
+uci set network.wan.peerdns="0"
+uci commit network
+/etc/init.d/network restart
