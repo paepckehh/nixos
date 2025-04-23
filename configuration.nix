@@ -289,7 +289,7 @@
   ####################
   #-=# NETWORKING #=-#
   ####################
-  # networking: ethernet, localhost, virtual: see systemd.networking, wifi: networkmanager
+  # networking: ethernet, localhost, virtual, container: see systemd.networking, wifi client: networkmanager
   networking = {
     enableIPv6 = false;
     nameservers = ["127.0.0.53"]; # resolved stub
