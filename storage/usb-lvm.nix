@@ -1,13 +1,13 @@
-{lib,...}:{
+{lib, ...}: {
   #####################
   #-=# FILESYSTEMS #=-#
   #####################
   fileSystems = lib.mkForce {
     fileSystems."/" = {
-    device = "none";
-    fsType = "tmpfs";
-    options = [ "defaults" "size=80%" "mode=755" ];
-  };
+      device = "none";
+      fsType = "tmpfs";
+      options = ["defaults" "size=80%" "mode=755"];
+    };
     "/boot" = lib.mkForce {
       fsType = "vfat";
       device = "/dev/disk/by-partlabel/disk-main-ESP";
@@ -23,7 +23,7 @@
       device = "/dev/usbpool/var";
       options = ["noatime" "nodiratime" "discard"];
     };
-    "/home" lib.mkForce = {
+    "/home" = lib.mkForce {
       fsType = "ext4";
       device = "/dev/usbpool/home";
       options = ["noatime" "nodiratime" "discard"];

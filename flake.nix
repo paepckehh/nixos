@@ -57,6 +57,19 @@
           {networking.hostName = "nixos";}
         ];
       };
+      nixusb = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          disko.nixosModules.disko
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./storage/usb-lvm.nix
+          ./desktop/gnome.nix
+          ./user/desktop/me.nix
+          ./packages/base.nix
+          {networking.hostName = "nixusb";}
+        ];
+      };
       ##########
       # CLIENT #
       ##########
