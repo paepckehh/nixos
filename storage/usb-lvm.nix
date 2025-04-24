@@ -3,7 +3,7 @@
   #-=# FILESYSTEMS #=-#
   #####################
   fileSystems = lib.mkForce {
-    fileSystems."/" = {
+    "/" = {
       device = "none";
       fsType = "tmpfs";
       options = ["defaults" "size=80%" "mode=755"];
