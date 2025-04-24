@@ -23,7 +23,7 @@
           port = 53;
           use-syslog = true;
           verbosity = 3;
-          access-control = ["127.0.0.1/8 allow"];
+          access-control = ["0.0.0.0/0 refuse" "127.0.0.1/8 allow"];
           # module-config = "iterator"; # XXX disable dnssec for the clowns pointless mitm
           # val-permissive-mode = true;  # XXX allow pass dnssec failed answers for the idiotic & pointless mitm
           # aggressive-nsec = true;
@@ -68,6 +68,11 @@
           # so-reuseport = true;
           # use-caps-for-id = false;
         };
+        forward-zone = [
+          {
+            name = ".";
+          }
+        ];
       };
     };
   };
