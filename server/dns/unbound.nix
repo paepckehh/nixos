@@ -46,11 +46,11 @@
           # incoming-num-tcp = 50;
           # infra-cache-slabs = 4;
           # key-cache-slabs = 4;
-          log-local-actions = true;
-          log-queries = true;
-          log-replies = true;
-          log-servfail = true;
-          logfile = "/var/lib/unbound/unbound.log";
+          # log-local-actions = true;
+          # log-queries = true;
+          # log-replies = true;
+          # log-servfail = true;
+          # logfile = "/var/lib/unbound/unbound.log";
           # minimal-responses = true;
           # msg-cache-size = 142768128;
           # msg-cache-slabs = 4;
@@ -68,11 +68,6 @@
           # so-reuseport = true;
           # use-caps-for-id = false;
         };
-        forward-zone = [
-          {
-            name = ".";
-          }
-        ];
       };
     };
   };
