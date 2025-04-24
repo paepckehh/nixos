@@ -90,6 +90,7 @@
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
           ./configuration.nix
+          ./alias/nixops.nix
           ./modules/agenix.nix
           ./storage/disko-luks.nix
           ./desktop/gnome.nix
