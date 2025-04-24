@@ -77,6 +77,7 @@
   environment = {
     systemPackages = with pkgs; [
       alejandra
+      bc
       bmon
       cliqr
       cryptsetup
