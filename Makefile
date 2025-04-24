@@ -136,8 +136,10 @@ internal-clean-12d:
 	sudo nix-collect-garbage --delete-older-than 12d 
 
 internal-clean-profiles:
-	sudo rm -rf /boot/loader/entries
-	sudo rm -rf /nix/var/nix/profiles/system*
+	sudo rm -rf /boot/loader/entries || true
+	sudo rm -rf /nix/var/log/nix || true
+	sudo rm -rf /nix/var/nix/profiles/system* || true
 	sudo mkdir -p /boot/loader/entries 
 	sudo chmod -R 700 /boot/loader/entries
+	sudo mkdir -p /nix/var/log/nix/drvs
 	sudo mkdir -p /nix/var/nix/profiles/system-profiles

@@ -24,7 +24,7 @@
                 size = "100%";
                 content = {
                   type = "lvm_pv";
-                  vg = "mainpool";
+                  vg = "usbpool";
                 };
               };
             };
@@ -32,26 +32,15 @@
         };
       };
       lvm_vg = {
-        mainpool = {
+        usbpool = {
           type = "lvm_vg";
           lvs = {
             thinpool = {
               size = "100%";
               lvm_type = "thin-pool";
             };
-            root = {
-              size = "100M";
-              lvm_type = "thinlv";
-              pool = "thinpool";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/";
-                mountOptions = ["noatime" "nodiratime" "discard"];
-              };
-            };
             nix = {
-              size = "100M";
+              size = "256g";
               lvm_type = "thinlv";
               pool = "thinpool";
               content = {
@@ -62,7 +51,7 @@
               };
             };
             home = {
-              size = "100M";
+              size = "256g";
               lvm_type = "thinlv";
               pool = "thinpool";
               content = {
@@ -73,7 +62,7 @@
               };
             };
             var = {
-              size = "100M";
+              size = "256g";
               lvm_type = "thinlv";
               pool = "thinpool";
               content = {
