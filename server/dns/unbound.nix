@@ -47,10 +47,12 @@
           # incoming-num-tcp = 50;
           # infra-cache-slabs = 4;
           # key-cache-slabs = 4;
-          # log-local-actions = true;
-          # log-queries = true;
-          # log-replies = true;
-          # log-servfail = true;
+          log-local-actions = true;
+          log-queries = true;
+          log-replies = true;
+          log-servfail = true;
+          log-time-iso = true;
+          log-time-ascii = true;
           # logfile = "/var/lib/unbound/unbound.log";
           # minimal-responses = true;
           # msg-cache-size = 142768128;
