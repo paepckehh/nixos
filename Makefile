@@ -26,32 +26,9 @@ info:
 	@echo "Building for target HOST=$(HOST)"
 	@echo -e "Your new $(TYPE) ==> $(PROFILE) =======> \033[48;5;57m   $(PROFILE)   \033[0m <=========="
 
-###############
-# NIX INSTALL #
-###############
-
-# install optimized usbstick live nixusb-os on usb /dev/sdb
-sdb: commit 
-	${MAKE} -C storage sdb
-
-# zero flash on /dev/sdb, install optimized usbstick live nixusb-os
-sdb-clean: commit
-	${MAKE} -C storage sdb-clean
-
-# make live iso image from current system, set env HOST for other nix flake targets 
-iso: info commit
-	sudo nixos-rebuild build-image --flake $(FLAKE) --image-variant iso
-	ls -la /etc/nixos/result/iso
-
-# make full automatic bootable iso (offline-) installer for current system, set env HOST for other nix flake targets
-iso-install: info commit 
-	NIXPKGS_ALLOW_BROKEN=1 nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
-	ls -la /etc/nixos/result/iso
-
-
-#####################
-# NIX OS OPERATIONS #
-#####################
+####################
+# NIXOS OPERATIONS #
+####################
 
 build: info commit build-log
 	sudo nixos-rebuild boot --flake $(FLAKE) --profile-name $(PROFILE)
@@ -82,6 +59,27 @@ build-log:
 	sudo nom build ".#nixosConfigurations.$(HOST).config.system.build.toplevel"
 	@sudo rm -rf result
 
+#################
+# NIXOS INSTALL #
+#################
+
+# install optimized usbstick live nixusb-os on usb /dev/sdb
+sdb: commit 
+	${MAKE} -C storage sdb
+
+# zero flash on /dev/sdb, install optimized usbstick live nixusb-os
+sdb-clean: commit
+	${MAKE} -C storage sdb-clean
+
+# make live iso image from current system, set env HOST for other nix flake targets 
+iso: info commit
+	sudo nixos-rebuild build-image --flake $(FLAKE) --image-variant iso
+	ls -la /etc/nixos/result/iso
+
+# make full automatic bootable iso (offline-) installer for current system, set env HOST for other nix flake targets
+iso-install: info commit 
+	NIXPKGS_ALLOW_BROKEN=1 nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
+	ls -la /etc/nixos/result/iso
 
 #######################
 # NIX REPO OPERATIONS #
@@ -110,7 +108,7 @@ followremote:
 	git pull --ff --force 
 	@git-gc
 
-gc: commit 
+git-gc: commit 
 	git reflog expire --expire-unreachable=now --all 
 	git gc --aggressive --prune=now 
 	git fsck --full 
@@ -120,9 +118,9 @@ gc: commit
 # NIX STORE OPERATIONS #
 ########################
 
-clean: internal-clean-12d build store-gc 
+clean: internal-clean-12d build gc 
 
-clean-hard: internal-clean-profiles internal-clean-1d build store-gc
+clean-hard: internal-clean-profiles internal-clean-1d build gc
 
 clean-profiles: internal-clean-profiles build
 
@@ -135,7 +133,7 @@ build-nixos-all:
 sign:
 	sudo nix store sign --all --key-file /var/cache-priv-key.pem
 
-store-gc: 
+gc: git-gc 
 	sudo nix-store --gc
 	sudo nix-store --optimise
 

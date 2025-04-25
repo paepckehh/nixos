@@ -21,8 +21,9 @@ sdb-prep:
 	sudo nix run github:nix-community/disko/latest -- --mode destroy disko-lvm-prep-sdb.nix
 	sudo nix run github:nix-community/disko/latest -- --mode format disko-lvm-prep-sdb.nix
 
-sdb-mount: sdb-umount
+sdb-mount: 
 	sudo mkdir  -p /mnt/boot /mnt/home /mnt/nix /mnt/var
+	sudo umount -f /mnt/boot /mnt/home /mnt/nix /mnt/var > /dev/null 2>&1 || true
 	sudo mount /dev/usbpool/home /mnt/home
 	sudo mount /dev/usbpool/nix  /mnt/nix
 	sudo mount /dev/usbpool/var  /mnt/var
