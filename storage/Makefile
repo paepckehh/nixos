@@ -2,11 +2,11 @@
 # add pkgs.gnumake to your nix base config!
 .ONESHELL:
 
-#########
-# SETUP #
-#########
-REPO:="https://github.com/paepckehh/nixos"
-TARGET:="nixusb" # nixos target host 
+######################
+# SETUP ENV DEFAULTS #
+######################
+REPO?=https://github.com/paepckehh/nixos
+TARGET?=nixusb
 
 all:
 
