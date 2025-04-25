@@ -31,11 +31,11 @@ info:
 ###############
 
 # install optimized usbstick live nixusb-os on usb /dev/sdb
-sdb: info commit 
+sdb: commit 
 	${MAKE} -C storage sdb
 
 # zero flash on /dev/sdb, install optimized usbstick live nixusb-os
-sdb-clean: info commit
+sdb-clean: commit
 	${MAKE} -C storage sdb-clean
 
 # make live iso image from current system, set env HOST for other nix flake targets 
