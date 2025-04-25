@@ -26,6 +26,29 @@ info:
 	@echo "Building for target HOST=$(HOST)"
 	@echo -e "Your new $(TYPE) ==> $(PROFILE) =======> \033[48;5;57m   $(PROFILE)   \033[0m <=========="
 
+###############
+# NIX INSTALL #
+###############
+
+# install optimized usbstick live nixusb-os on usb /dev/sdb
+sdb: info commit 
+	${MAKE} -C storage sdb
+
+# zero flash on /dev/sdb, install optimized usbstick live nixusb-os
+sdb-clean: info commit
+	${MAKE} -C storage sdb-clean
+
+# make live iso image from current system, set env HOST for other nix flake targets 
+iso: info commit
+	sudo nixos-rebuild build-image --flake $(FLAKE) --image-variant iso
+	ls -la /etc/nixos/result/iso
+
+# make full automatic bootable iso (offline-) installer for current system, set env HOST for other nix flake targets
+iso-install: info commit 
+	NIXPKGS_ALLOW_BROKEN=1 nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
+	ls -la /etc/nixos/result/iso
+
+
 #####################
 # NIX OS OPERATIONS #
 #####################
@@ -43,14 +66,6 @@ update: commit
         
 bootloader:
 	sudo nixos-rebuild boot -v --fallback --install-bootloader
-
-iso: info commit
-	sudo nixos-rebuild build-image --flake $(FLAKE) --image-variant iso
-	ls -la /etc/nixos/result/iso
-
-iso-install: info commit 
-	NIXPKGS_ALLOW_BROKEN=1 nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
-	ls -la /etc/nixos/result/iso
 
 test: commit build-log
 	sudo nixos-rebuild dry-activate --flake $(FLAKE)
