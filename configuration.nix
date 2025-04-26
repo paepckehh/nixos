@@ -188,7 +188,7 @@
       };
     };
     i2c.enable = true;
-    intel-gpu-tools = true;
+    intel-gpu-tools.enable = true;
     uinput.enable = true;
     graphics = {
       enable = lib.mkForce true;
