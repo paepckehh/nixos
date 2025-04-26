@@ -71,7 +71,7 @@ usb: commit
 	${MAKE} -C storage ${TARGETDRIVE}
 
 # make full automatic bootable iso (offline-) installer for current system, set env HOST for other nix flake targets
-iso-installer: info commit 
+installer: info commit 
 	NIXPKGS_ALLOW_BROKEN=1 nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
 	ls -la /etc/nixos/result/iso
 
