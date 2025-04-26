@@ -16,7 +16,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs.unstable; [
+    systemPackages = with pkgs; [
       amdgpu_top
       aria2
       certinfo-go

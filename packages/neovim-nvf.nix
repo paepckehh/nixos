@@ -194,7 +194,7 @@
           lightbulb.enable = false;
           lspkind.enable = true;
         };
-        package = pkgs.unstable.neovim-unwrapped; # pkgs.unstable.neovim-unwrappped
+        package = pkgs.neovim-unwrapped; #
         spellcheck = {
           enable = false;
           languages = ["en" "de"];

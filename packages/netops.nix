@@ -3,7 +3,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs.unstable; [
+    systemPackages = with pkgs; [
       arp-scan
       asn
       bandwhich
