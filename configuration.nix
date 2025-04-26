@@ -174,6 +174,8 @@
       opencl.enable = false;
     };
     enableAllFirmware = lib.mkForce true;
+    enableAllHardware = lib.mkForce true;
+    enableRedistributableFirmware = lib.mkForce true;
     cpu = {
       amd = {
         updateMicrocode = true;
@@ -185,6 +187,9 @@
         sgx.provision.enable = lib.mkForce false;
       };
     };
+    i2c.enable = true;
+    intel-gpu-tools = true;
+    uinput.enable = true;
     graphics = {
       enable = lib.mkForce true;
       enable32Bit = lib.mkForce false;
@@ -341,6 +346,15 @@
       AllowHybridSleep=no
       AllowSuspendThenHibernate=no
     '';
+  };
+
+  #########################
+  #-=# POWERMANAGEMENT #=-#
+  #########################
+  powerManagement = {
+    enable = true;
+    powertop.enable = true;
+    cpuFreqGovernor = "ondemand";
   };
 
   ##################
