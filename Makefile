@@ -48,11 +48,11 @@ test: commit build-log
 	sudo nixos-rebuild dry-activate --flake $(FLAKE)
 
 offline:
-	# XXX broken: fixme
+	# XXX broken: fixme 
 	sudo nixos-rebuild boot -v --option use-binary-caches false --flake $(FLAKE) --profile-name $(PROFILE)
       
 rollback: 
-	# XXX broken: fixme
+	# XXX broken: fixme 
 	sudo nixos-rebuild switch --rollback 
 
 build-log:
@@ -63,27 +63,23 @@ build-log:
 # NIXOS INSTALL #
 #################
 
-# install optimized usbstick live nixusb-os on usb /dev/sdb
-sdb: commit 
-	${MAKE} -C storage sdb
+# install optimized usbdrive live os
+# set env HOST for other target-os, default: usbnix
+# set TARGETDRIVE for usb stick, default: sdb [uses: /dev/sdb] [supports: sdb and sdc]
+TARGETDRIVE?=sdb
+usb: commit 
+	${MAKE} -C storage ${TARGETDRIVE}
 
-# zero flash on /dev/sdb, install optimized usbstick live nixusb-os
-sdb-zero: commit
-	${MAKE} -C storage sdb-zero
+# make full automatic bootable iso (offline-) installer for current system, set env HOST for other nix flake targets
+iso-installer: info commit 
+	NIXPKGS_ALLOW_BROKEN=1 nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
+	ls -la /etc/nixos/result/iso
 
+# XXX maybe broken: fixme, needs validation
 # make live iso image from current system, set env HOST for other nix flake targets 
 iso: info commit
 	sudo nixos-rebuild build-image --flake $(FLAKE) --image-variant iso
 	ls -la /etc/nixos/result/iso
-
-# make full automatic bootable iso (offline-) installer for current system, set env HOST for other nix flake targets
-iso-install: info commit 
-	NIXPKGS_ALLOW_BROKEN=1 nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
-	ls -la /etc/nixos/result/iso
-
-# umount a /mnt install structure in a clean/secure way
-umount: 
-	${MAKE} -C storage umount
 
 #######################
 # NIX REPO OPERATIONS #
