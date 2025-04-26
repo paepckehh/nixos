@@ -87,6 +87,7 @@
               update_check = false;
               sync_address = "http://localhost:8888";
               sync_frequency = "10min";
+              theme = "marine";
             };
           };
           bat = {
