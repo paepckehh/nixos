@@ -6,7 +6,7 @@
 # SETUP ENV DEFAULTS #
 ######################
 REPO?=https://github.com/paepckehh/nixos
-TARGET?=nixusb
+TARGET?=nixos
 
 all:
 

@@ -13,7 +13,6 @@
     nvf.url = "github:notashelf/nvf";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-dev.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
   outputs = {
     self,
@@ -22,24 +21,8 @@
     home-manager,
     nixpkgs,
     nixpkgs-dev,
-    nixpkgs-unstable,
     nvf,
-  }: let
-    #################
-    # GLOBAL CONFIG #
-    #################
-    # deadnix: skip
-    overlay-unstable = pre: final: {
-      unstable = import nixpkgs-unstable {
-        system = "x86_64-linux";
-        config = {
-          # deadnix: skip
-          allowUnfreePredicate = pkg: true;
-          allowUnfree = true;
-        };
-      };
-    };
-  in {
+  }: {
     nixosConfigurations = {
       ###########
       # GENERIC #
@@ -55,19 +38,6 @@
           ./user/desktop/me.nix
           ./packages/base.nix
           {networking.hostName = "nixos";}
-        ];
-      };
-      nixusb = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./storage/impermanence.nix
-          ./desktop/gnome.nix
-          ./user/desktop/me.nix
-          ./packages/base.nix
-          {networking.hostName = "nixusb";}
         ];
       };
       ##########
@@ -94,10 +64,6 @@
       srv-mp = nixpkgs-dev.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ({config, ...}: {
-            nixpkgs.config.allowUnfree = true;
-            nixpkgs.overlays = [overlay-unstable];
-          })
           agenix.nixosModules.default
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
