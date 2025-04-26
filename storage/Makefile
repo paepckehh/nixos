@@ -7,6 +7,7 @@
 ######################
 REPO?=https://github.com/paepckehh/nixos
 TARGET?=nixusb
+IMPERMANENCE?=disko-impermanence.nix
 
 all:
 
@@ -14,34 +15,41 @@ all:
 # INSTALL TARGETS #
 ###################
 
-sdb: sdb-prep sdb-mount install sdb-umount
-sdb-clean: sdb-wipe sdb 
-
-sdb-prep:
-	sudo nix run github:nix-community/disko/latest -- --mode destroy disko-lvm-prep-sdb.nix
-	sudo nix run github:nix-community/disko/latest -- --mode format disko-lvm-prep-sdb.nix
-
-sdb-mount: 
-	sudo mkdir  -p /mnt/boot /mnt/home /mnt/nix /mnt/var
-	sudo umount -f /mnt/boot /mnt/home /mnt/nix /mnt/var > /dev/null 2>&1 || true
-	sudo mount /dev/usbpool/home /mnt/home
-	sudo mount /dev/usbpool/nix  /mnt/nix
-	sudo mount /dev/usbpool/var  /mnt/var
-	sudo mount /dev/sdb1  /mnt/boot
-
-sdb-umount:
-	sudo sync && sync && sync
-	sudo umount -f /mnt/boot /mnt/home /mnt/nix /mnt/var > /dev/null 2>&1 || true
-	sudo rm -rf /mnt
+sdb: sdb-wipe sdb-format sdb-mount install umount
+sdb-hardclean: sdb-zero sdb 
 
 sdb-wipe:
+	sudo nvme format /dev/sdb --force || true
+	sudo nix run github:nix-community/disko/latest -- --mode destroy $(IMPERMANENCE)
+
+sdb-format:
+	sudo nix run github:nix-community/disko/latest -- --mode format $(IMPERMANENCE)
+
+sdb-mount: 
+	sudo mkdir  -p /mnt/boot /mnt/nix /mnt/home /mnt/var /mnt/var/log /mnt/nix/var/log
+	sudo umount -f /mnt/boot /mnt/nix /mnt/home /mnt/var /mnt/nix/var/log /mnt/var/log /mnt > /dev/null 2>&1 || true
+	sudo umount -f /mnt/boot /mnt/nix /mnt/home /mnt/var /mnt/nix/var/log /mnt/var/log /mnt > /dev/null 2>&1 || true
+	sudo nix run github:nix-community/disko/latest -- --mode mount $(IMPERMANENCE)
+	sudo mkdir  -p /mnt/boot /mnt/nix /mnt/home /mnt/var /mnt/var/log /mnt/nix/var/log /mnt/nix/persist/home /mnt/nix/persist/var/log
+	sudo mount -o bind /mnt/nix/persist/var /mnt/var
+	sudo mount -o bind /mnt/nix/persist/home /mnt/home
+	sudo mount -t tmpfs tmpfs /mnt/var/log
+	sudo mount -t tmpfs tmpfs /mnt/nix/var/log
+
+sdb-zero:
 	sudo dd if=/dev/zero of=/dev/sdb bs=512k oflag=direct status=progress  || true
 	sudo dd if=/dev/zero of=/dev/sdb bs=512k oflag=direct status=progress  || true
 
-###########
-# GENERIC #
-###########
+######################
+# GENERIC OS INSTALL #
+######################
 
 install:
-	sudo nixos-install --verbose --root /mnt --flake "/etc/nixos/#$(TARGET)"
+	sudo nixos-install --verbose --no-root-password --root /mnt --flake "/etc/nixos/#$(TARGET)"
 	sudo git clone $(REPO) /mnt/etc/nixos
+
+umount:
+	sudo sync && sync && sync
+	sudo umount -f /mnt/boot /mnt/nix /mnt/home /mnt/var /mnt/nix/var/log /mnt/var/log /mnt > /dev/null 2>&1 || true
+	sudo umount -f /mnt/boot /mnt/nix /mnt/home /mnt/var /mnt/nix/var/log /mnt/var/log /mnt > /dev/null 2>&1 || true
+	sudo rm -rf /mnt || true

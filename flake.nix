@@ -63,7 +63,7 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./storage/usb-lvm.nix
+          ./storage/disko-impermanence.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./packages/base.nix
