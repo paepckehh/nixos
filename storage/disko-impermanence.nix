@@ -27,6 +27,11 @@
       fsType = "none";
       options = ["bind"];
     };
+    "/etc/nixos" = lib.mkForce {
+      device = "/nix/persist/etc/nixos";
+      fsType = "none";
+      options = ["bind"];
+    };
     "/var/log" = lib.mkForce {
       device = "tmpfs";
       fsType = "tmpfs";
