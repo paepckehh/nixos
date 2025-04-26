@@ -81,6 +81,10 @@ iso-install: info commit
 	NIXPKGS_ALLOW_BROKEN=1 nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
 	ls -la /etc/nixos/result/iso
 
+# umount a /mnt install structure in a clean/secure way
+umount: 
+	${MAKE} -C storage umount
+
 #######################
 # NIX REPO OPERATIONS #
 #######################
