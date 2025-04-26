@@ -68,8 +68,8 @@ sdb: commit
 	${MAKE} -C storage sdb
 
 # zero flash on /dev/sdb, install optimized usbstick live nixusb-os
-sdb-clean: commit
-	${MAKE} -C storage sdb-clean
+sdb-zero: commit
+	${MAKE} -C storage sdb-zero
 
 # make live iso image from current system, set env HOST for other nix flake targets 
 iso: info commit
