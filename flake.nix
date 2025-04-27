@@ -70,7 +70,6 @@
           nvf.nixosModules.default
           ./configuration.nix
           ./alias/nixops.nix
-          ./hosts/srv.nix
           ./storage/impermanence.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
@@ -93,7 +92,6 @@
           nvf.nixosModules.default
           ./configuration.nix
           ./alias/nixops.nix
-          ./hosts/srv.nix
           ./storage/disko-luks-legacy.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix

@@ -27,6 +27,7 @@ info:
 install:
 	sudo nixos-install --verbose --impure --no-root-password --root /mnt --flake "/etc/nixos/#$(TARGET)" # impure is needed for agenix
 	sudo git clone $(REPO) /mnt/etc/nixos
+	sudo cp -af /etc/ssh/ssh_host_ed25519_key /mnt/etc/ssh/ssh_host_ed25519_key > /dev/null 2>&1 || true # agenix
 
 pre-mount: 
 	sudo mkdir  -p /mnt/boot /mnt/nix /mnt/home /mnt/var /mnt/var/log /mnt/nix/var/log /mnt/etc/nixos
