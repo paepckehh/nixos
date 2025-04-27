@@ -81,6 +81,7 @@ sda: info commit
 
 sdb: info commit
 	export TARGET=$(TARGET)
+	export TARGETDRIVE=sdb
 	${MAKE} -C storage usb
 
 sdc: info commit 
