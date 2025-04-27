@@ -6,6 +6,7 @@
     "/" = lib.mkForce {
       device = "none";
       fsType = "tmpfs";
+      options = ["defaults" "mode=755" "size=80%"];
     };
     "/boot" = lib.mkForce {
       fsType = "vfat";
@@ -35,10 +36,12 @@
     "/var/log" = lib.mkForce {
       device = "tmpfs";
       fsType = "tmpfs";
+      options = ["defaults" "mode=755" "size=80%"];
     };
     "/nix/var/log" = lib.mkForce {
       device = "tmpfs";
       fsType = "tmpfs";
+      options = ["defaults" "mode=755" "size=80%"];
     };
   };
 }

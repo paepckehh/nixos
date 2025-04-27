@@ -7,7 +7,6 @@
 ######################
 REPO?=https://github.com/paepckehh/nixos
 TARGETOS?=${TARGETOS}
-TARGETDRIVE?=${TARGETDRIVE}
 DEVICE_MAIN:=$(TARGETDRIVE)
 
 all:
@@ -16,7 +15,8 @@ all:
 # USBDRIVE TARGETS #
 ####################
 
-usb: info wipe format pre-mount mount post-mount install umount
+usb: info wipe format pre-mount mount post-mount 
+32: install umount
 
 ####################
 # USBDRIVE GENERIC #
