@@ -73,6 +73,21 @@ build-log:
 # set env TARGETOS for other target-os, default: current-system [$hostname]
 # set TARGETDRIVE for usb stick, default: sdb [uses: /dev/sdb] [supports: sda, sdb and sdc]
 TARGETDRIVE?=sdb
+
+sda: info commit
+	export TARGET=$(TARGET)
+	export TARGETDRIVE=sda
+	${MAKE} -C storage usb
+
+sdb: info commit
+	export TARGET=$(TARGET)
+	${MAKE} -C storage usb
+
+sdc: info commit 
+	export TARGET=$(TARGET)
+	export TARGETDRIVE=sdc
+	${MAKE} -C storage usb
+
 usb: info commit
 	export TARGET=$(TARGET)
 	export TARGETDRIVE=$(TARGETDRIVE)
