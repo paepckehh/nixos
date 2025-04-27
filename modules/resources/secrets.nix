@@ -3,6 +3,7 @@ let
   srv-mp = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArbsQC2gdtQ9qCC54Khfei/rVMtVjOTiS0sduAi4jDO root@srv-mp";
 in {
   "ssh_host_ed25519_key_srv.age".publicKeys = [age srv-mp];
+  "ssh_yubikey_mp.age".publicKeys = [age srv-mp];
   "tibber.age".publicKeys = [age srv-mp];
   "syslog-ng-key.age".publicKeys = [age srv-mp];
   "openwrt-admin-pwd.age".publicKeys = [age srv-mp];

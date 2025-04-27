@@ -47,6 +47,7 @@
       useTmpfs = true;
       tmpfsSize = "85%";
     };
+    runSize = "85%";
     loader = {
       efi = {
         canTouchEfiVariables = false;
