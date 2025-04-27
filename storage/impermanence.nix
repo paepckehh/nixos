@@ -6,7 +6,7 @@
     "/" = lib.mkForce {
       device = "none";
       fsType = "tmpfs";
-      options = ["defaults" "mode=755" "size=80%"];
+      options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
     };
     "/boot" = lib.mkForce {
       fsType = "vfat";
@@ -33,15 +33,20 @@
       fsType = "none";
       options = ["bind"];
     };
+    "/etc/ssh" = lib.mkForce {
+      device = "/nix/persist/etc/ssh";
+      fsType = "none";
+      options = ["bind"];
+    };
     "/var/log" = lib.mkForce {
       device = "tmpfs";
       fsType = "tmpfs";
-      options = ["defaults" "mode=755" "size=80%"];
+      options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
     };
     "/nix/var/log" = lib.mkForce {
       device = "tmpfs";
       fsType = "tmpfs";
-      options = ["defaults" "mode=755" "size=80%"];
+      options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
     };
   };
 }

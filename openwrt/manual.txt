@@ -42,4 +42,13 @@ uci set network.wan.ipv6="0"
 uci set network.wan.delegate="0"
 uci set network.wan.peerdns="0"
 uci commit network
-/etc/init.d/network restart
+service network restart
+
+# add gps ntpd vk-172 (ublox7)
+apk add kmod-usb-acm
+apk add gpsd gpsd-clients
+apk add ntpd ntp-utils
+service sysntpd stop
+service sysntpd disable
+# replace port /etc/config/gpsd
+# ntpd add device, https://openwrt.org/docs/guide-user/services/ntp/gps

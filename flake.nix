@@ -78,7 +78,6 @@
           ./packages/devops.nix
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
-          ./server/ntp/chrony.nix
           ./openwrt/monitoring.nix
           {networking.hostName = "srv";}
         ];
@@ -100,7 +99,6 @@
           ./packages/devops.nix
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
-          ./server/ntp/chrony.nix
           ./openwrt/monitoring.nix
           # ./server/monitoring/collect-journald.nix
           # ./server/monitoring/collect-syslog-ng.nix

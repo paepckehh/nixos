@@ -47,15 +47,14 @@
             "b" = "btop";
             "man" = "batman";
             "cat" = "bat --paging=never";
-            "ollama-commit" = "/home/me/.npm-packages/bin/ollama-commit -v -s --language en --api http://localhost:11434 --model mistral";
-            "gollama" = "go run github.com/sammcj/gollama@latest $*";
+            "time.status" = "timedatectl timesync-status";
+            "keybordlight" = "echo 1 | sudo tee /sys/class/leds/input1::scrolllock/brightness";
             "ll" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
             "la" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
             "lg" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --group";
             "lt" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
             "lo" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
             "li" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
-            "keybordlight" = "echo 1 | sudo tee /sys/class/leds/input1::scrolllock/brightness";
           };
           sessionVariables = {
             PAGER = "bat";

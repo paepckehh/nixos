@@ -107,10 +107,6 @@ commit: pre-commit
 	git add .
 	-git commit --quiet -m 'update' > /dev/null 2>&1 || true
 
-scommit: pre-commit
-	git add .
-	git commit -S -m 'update'
-
 pre-commit:
 	@-sudo rm -rf result > /dev/null 2>&1 || true
 	@sudo chown -R $(ID):$(GID) *
