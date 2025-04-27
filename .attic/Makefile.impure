@@ -31,16 +31,17 @@ info-image:
 ####################
 # NIXOS OPERATIONS #
 ####################
+# impure mode needed for agenix protected secrets absolute path
 
 build:  info commit build-log
-	sudo nixos-rebuild boot --flake $(FLAKE) --profile-name $(PROFILE)
+	sudo nixos-rebuild boot --impure --flake $(FLAKE) --profile-name $(PROFILE)
 
 check: info
-	sudo nix flake check 
+	sudo nix flake check --impure 
 	sudo alejandra --quiet .
 
 switch: info commit build-log
-	sudo nixos-rebuild switch --flake $(FLAKE) --profile-name $(PROFILE)
+	sudo nixos-rebuild switch --impure --flake $(FLAKE) --profile-name $(PROFILE)
 
 update: info commit  
 	mkdir -p .attic/flake.lock
@@ -48,21 +49,21 @@ update: info commit
 	nix flake update
         
 bootloader: info commit 
-	sudo nixos-rebuild boot -v --fallback --install-bootloader
+	sudo nixos-rebuild boot -v --impure --fallback --install-bootloader
 
 test: info commit build-log
-	sudo nixos-rebuild dry-activate --flake $(FLAKE)
+	sudo nixos-rebuild dry-activate --impure --flake $(FLAKE)
 
 offline: info commit 
 	# XXX broken: fixme 
-	sudo nixos-rebuild boot -v --option use-binary-caches false --flake $(FLAKE) --profile-name $(PROFILE)
+	sudo nixos-rebuild boot -v --impure --option use-binary-caches false --flake $(FLAKE) --profile-name $(PROFILE)
       
 rollback: info commit
 	# XXX broken: fixme 
-	sudo nixos-rebuild switch --rollback 
+	sudo nixos-rebuild switch --impure --rollback 
 
 build-log:
-	sudo nom build ".#nixosConfigurations.$(HOST).config.system.build.toplevel"
+	sudo nom build --impure ".#nixosConfigurations.$(HOST).config.system.build.toplevel"
 	@sudo rm -rf result
 
 #################
@@ -82,7 +83,7 @@ usb: info commit
 # make full automatic bootable iso (offline-) installer for current system,
 # set env HOST for other nix flake targets
 installer: info commit 
-	NIXPKGS_ALLOW_BROKEN=1 nix build -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
+	NIXPKGS_ALLOW_BROKEN=1 nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
 	ls -la /etc/nixos/result/iso
 
 # XXX maybe broken: fixme, needs validation
@@ -106,11 +107,7 @@ push: pre-commit
 
 commit: pre-commit
 	git add .
-	-git commit --quiet -m 'update' > /dev/null 2>&1 || true
-
-scommit: pre-commit
-	git add .
-	git commit -S -m 'update'
+	-git commit --quiet -m update > /dev/null 2>&1 || true
 
 pre-commit:
 	@-sudo rm -rf result > /dev/null 2>&1 || true

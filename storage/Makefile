@@ -6,7 +6,9 @@
 # SETUP ENV DEFAULTS #
 ######################
 REPO?=https://github.com/paepckehh/nixos
-TARGET?=nixos
+TARGETOS?=${TARGETOS}
+TARGETDRIVE?=${TARGETDRIVE}
+DEVICE_MAIN:=$(TARGETDRIVE)
 
 all:
 
@@ -14,15 +16,17 @@ all:
 # USBDRIVE TARGETS #
 ####################
 
-sdb: sdb-wipe sdb-format pre-mount sdb-mount post-mount install umount
-sdc: sdc-wipe sdc-format pre-mount sdc-mount post-mount install umount
+usb: info wipe format pre-mount mount post-mount install umount
 
 ####################
 # USBDRIVE GENERIC #
 ####################
 
+info:
+	echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGETOS), build repo: $(REPO)
+
 install:
-	sudo nixos-install --verbose --no-root-password --root /mnt --flake "/etc/nixos/#$(TARGET)"
+	sudo nixos-install --verbose --impure --no-root-password --root /mnt --flake "/etc/nixos/#$(TARGETOS)" # impure is needed for agenix
 	sudo git clone $(REPO) /mnt/etc/nixos
 
 pre-mount: 
@@ -45,26 +49,12 @@ umount:
 	sudo umount -f /mnt/boot /mnt/nix /mnt/home /mnt/var /mnt/etc/nixos /mnt/nix/var/log /mnt/var/log /mnt > /dev/null 2>&1 || true
 	sudo rm -rf /mnt || true
 
-###############################
-# USBDRIVE LAZY MATRIX HELPER #
-###############################
+format:
+	sudo nix run github:nix-community/disko/latest -- --mode format flakes/disko-impermanence-$(TARGETDRIVE).nix
 
-sdb-wipe:
-	sudo nvme format /dev/sdb --force || true
-	sudo nix run github:nix-community/disko/latest -- --mode destroy disko-impermanence-sdb.nix
+mount:
+	sudo nix run github:nix-community/disko/latest -- --mode mount flakes/disko-impermanence-$(TARGETDRIVE).nix
 
-sdb-format:
-	sudo nix run github:nix-community/disko/latest -- --mode format disko-impermanence-sdb.nix
-
-sdb-mount:
-	sudo nix run github:nix-community/disko/latest -- --mode mount disko-impermanence-sdb.nix
-
-sdc-wipe:
-	sudo nvme format /dev/sdc --force || true
-	sudo nix run github:nix-community/disko/latest -- --mode destroy disko-impermanence-sdc.nix
-
-sdc-format:
-	sudo nix run github:nix-community/disko/latest -- --mode format disko-impermanence-sdc.nix
-
-sdc-mount:
-	sudo nix run github:nix-community/disko/latest -- --mode mount disko-impermanence-sdc.nix
+wipe:
+	sudo nix run github:nix-community/disko/latest -- --mode destroy flakes/disko-impermanence-$(TARGETDRIVE).nix
+	sudo nvme format --verbose /dev/$(TARGETDRIVE) --force || true

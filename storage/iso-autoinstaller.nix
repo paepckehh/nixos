@@ -159,7 +159,7 @@ in {
     makeUsbBootable = true;
     squashfsCompression = "zstd -Xcompression-level 19";
   };
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
   systemd.services."getty@tty1" = {
     overrideStrategy = "asDropin";
     serviceConfig = {

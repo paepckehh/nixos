@@ -7,6 +7,7 @@
   #####################
   #-=# FILESYSTEMS #=-#
   #####################
+  # some minimum sane fallback defaults, details: see storage folder
   fileSystems = lib.mkDefault {
     "/" = {
       fsType = "ext4";
@@ -76,8 +77,8 @@
   #-= SYSTEM #=-#
   ###############
   system = {
-    stateVersion = "24.11"; # dummy target, do not modify
-    switch.enable = true; # allow updates
+    stateVersion = "25.05"; # dummy target, do not modify
+    switch.enable = true; # allow nix store updates
   };
   time = {
     timeZone = null; # UTC, local: "Europe/Berlin";

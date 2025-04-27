@@ -89,6 +89,7 @@
       gnumake
       inetutils
       jq
+      lsof
       kmon
       moreutils
       nix-output-monitor

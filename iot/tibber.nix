@@ -2,23 +2,14 @@
 # => default web interface grafana             http://localhost:3000  (initial user/password = admin/admin)
 # => import grafana dashboard at your choice:  https://github.com/terjesannum/tibber-exporter/tree/master/grafana
 {config, ...}: {
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  imports = [
-    ../modules/agenix.nix
-  ];
-
   #############
   #-=# AGE #=-#
   #############
-  age = {
-    secrets = {
-      tibber = {
-        file = ./resources/tibber.age;
-        owner = "prometheus";
-        group = "prometheus";
-      };
+  age.secrets = {
+    tibber = {
+      file = ../modules/resources/tibber.age;
+      owner = "prometheus";
+      group = "prometheus";
     };
   };
 

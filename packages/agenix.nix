@@ -2,9 +2,7 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [
-    ./openssh-local-lockdown.nix
-  ];
+  imports = [./openssh-local-lockdown.nix];
 
   #####################
   #-=# ENVIRONMENT #=-#

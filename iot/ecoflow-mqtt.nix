@@ -2,29 +2,22 @@
 # => default web interface grafana            http://localhost:3000  (initial user/password = admin/admin)
 # => import grafana dashboard at your choice: https://grafana.com/grafana/dashboards/17812-ecoflow
 {config, ...}: {
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  imports = [
-    ../modules/agenix.nix
-  ];
-
   #############
   #-=# AGE #=-#
   #############
-  age = {
+  age.secrets = {
     ecoflow-email = {
-      file = ./resources/ecoflow-email.age;
+      file = ../modules/resources/ecoflow-email.age;
       owner = "prometheus";
       group = "prometheus";
     };
     ecoflow-password = {
-      file = ./resources/ecoflow-password.age;
+      file = ../modules/resources/ecoflow-password.age;
       owner = "prometheus";
       group = "prometheus";
     };
     ecoflow-devices = {
-      file = ./resources/ecoflow-devices.age;
+      file = ./modules/resources/ecoflow-devices.age;
       owner = "prometheus";
       group = "prometheus";
     };

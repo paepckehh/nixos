@@ -43,24 +43,47 @@
       ##########
       # CLIENT #
       ##########
-      client-mp = nixpkgs.lib.nixosSystem {
+      mp = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./storage/disko.nix
+          ./storage/impermanence.nix
           ./client/forward-journald.nix
           ./client/forward-syslog-ng.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix
-          {networking.hostName = "client-mp";}
+          {networking.hostName = "mp";}
         ];
       };
       ##########
       # SERVER #
       ##########
+      srv = nixpkgs-dev.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          agenix.nixosModules.default
+          disko.nixosModules.disko
+          home-manager.nixosModules.home-manager
+          nvf.nixosModules.default
+          ./configuration.nix
+          ./alias/nixops.nix
+          ./maschine/srv.nix
+          ./storage/impermanence.nix
+          ./desktop/gnome.nix
+          ./person/desktop/mpaepcke.nix
+          ./packages/agenix.nix
+          ./packages/base.nix
+          ./packages/devops.nix
+          ./packages/neovim-nvf.nix
+          ./packages/netops.nix
+          ./server/ntp/chrony.nix
+          ./openwrt/monitoring.nix
+          {networking.hostName = "srv";}
+        ];
+      };
       srv-mp = nixpkgs-dev.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -70,14 +93,15 @@
           nvf.nixosModules.default
           ./configuration.nix
           ./alias/nixops.nix
-          ./modules/agenix.nix
-          ./storage/disko-luks.nix
+          ./maschine/srv.nix
+          ./storage/disko-luks-legacy.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
-          ./packages/neovim-nvf.nix
+          ./packages/agenix.nix
           ./packages/base.nix
-          ./packages/netops.nix
           ./packages/devops.nix
+          ./packages/neovim-nvf.nix
+          ./packages/netops.nix
           ./server/ntp/chrony.nix
           ./openwrt/monitoring.nix
           # ./server/monitoring/collect-journald.nix
@@ -129,6 +153,13 @@
         specialArgs.targetSystem = self.nixosConfigurations."nixos";
         modules = [
           ./modules/iso-autoinstaller.nix
+        ];
+      };
+      iso-legacy-installer = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs.targetSystem = self.nixosConfigurations."nixos-legacy";
+        modules = [
+          ./modules/iso-legacy-autoinstaller.nix
         ];
       };
     };
