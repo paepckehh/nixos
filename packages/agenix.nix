@@ -4,17 +4,6 @@
   #################
   imports = [./openssh-local-lockdown.nix];
 
-  #############
-  #-=# AGE #=-#
-  #############
-  age.secrets = {
-    ssh_host_ed25519_key_srv = {
-      file = ../modules/resources/ssh_host_ed25519_key_srv.age;
-      owner = "root";
-      group = "wheel";
-    };
-  };
-
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
