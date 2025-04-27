@@ -6,10 +6,10 @@
 ID:=$(shell id -u)
 GID:=$(shell id -g)
 ISO?=iso
-HOST?=$(shell hostname)
+TARGET?=$(shell hostname)
 DTS:=$(shell date '+%Y-%m-%d-%H-%M')
-FLAKE:="/etc/nixos/.\#$(HOST)"
-PROFILE:="$(HOST)-$(DTS)"
+FLAKE:="/etc/nixos/.\#$(TARGET)"
+PROFILE:="$(TARGET)-$(DTS)"
 TYPE:="nixos boot profile"
 
 ###########
@@ -17,12 +17,12 @@ TYPE:="nixos boot profile"
 ###########
 
 all:
-	@echo "STATUS # $(MAKE) # ID: $(ID) # GID: $(GID) # HOST $(HOST) # DTS: $(DTS) # PROFILE: $(PROFILE) # FLAKE: $(FLAKE)"
-	@echo "Set HOST='hostname' to build for a specific host target. Your current target HOST=$(HOST)."
-	@echo "Set ISO='image-variant' to build a specific image type. Defaults to iso. Run: make info-image to see all formats."
+	@echo "STATUS # $(MAKE) # ID: $(ID) # GID: $(GID) # TARGET: $(TARGET) # DTS: $(DTS) # PROFILE: $(PROFILE) # FLAKE: $(FLAKE)"
+	@echo "Set TARGET='hostname' to build for a specific host target. Your current target TARGET=$(TARGET)."
+	@echo "Set ISO='<image-variant>' to build a specific image type. Defaults to 'iso'. Run: make info-image to see all formats."
 
 info:
-	@echo "Building for target HOST=$(HOST)"
+	@echo "Building for target TARGET=$(TARGET)"
 	@echo -e "Your new $(TYPE) ==> $(PROFILE) =======> \033[48;5;57m   $(PROFILE)   \033[0m <=========="
 	
 info-image:
@@ -62,7 +62,7 @@ rollback: info commit
 	sudo nixos-rebuild switch --rollback 
 
 build-log:
-	sudo nom build ".#nixosConfigurations.$(HOST).config.system.build.toplevel"
+	sudo nom build ".#nixosConfigurations.$(TARGET).config.system.build.toplevel"
 	@sudo rm -rf result
 
 #################
@@ -72,21 +72,20 @@ build-log:
 # install optimized usbdrive live os
 # set env TARGETOS for other target-os, default: current-system [$hostname]
 # set TARGETDRIVE for usb stick, default: sdb [uses: /dev/sdb] [supports: sda, sdb and sdc]
-TARGETOS?=$(HOST)
 TARGETDRIVE?=sdb
 usb: info commit
-	export TARGETOS=$(TARGETOS)
+	export TARGET=$(TARGET)
 	export TARGETDRIVE=$(TARGETDRIVE)
 	${MAKE} -C storage usb
 
 # make full automatic bootable iso (offline-) installer for current system,
-# set env HOST for other nix flake targets
+# set env TARGET for other nix flake target systems
 installer: info commit 
 	NIXPKGS_ALLOW_BROKEN=1 nix build -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
 	ls -la /etc/nixos/result/iso
 
 # XXX maybe broken: fixme, needs validation
-# make live iso image from current system, set env HOST for other nix flake targets 
+# make live iso image from current system, set env TARGET for other nix flake target systems
 iso: info commit
 	sudo nixos-rebuild build-image --flake $(FLAKE) --image-variant iso
 	ls -la /etc/nixos/result/iso

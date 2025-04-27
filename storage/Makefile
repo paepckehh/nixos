@@ -6,7 +6,7 @@
 # SETUP ENV DEFAULTS #
 ######################
 REPO?=https://github.com/paepckehh/nixos
-TARGETOS?=${TARGETOS}
+TARGET?=${TARGET}
 DEVICE_MAIN:=$(TARGETDRIVE)
 
 all:
@@ -22,10 +22,10 @@ usb: info wipe format pre-mount mount post-mount install umount
 ####################
 
 info:
-	echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGETOS), build repo: $(REPO)
+	echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGET), build repo: $(REPO)
 
 install:
-	sudo nixos-install --verbose --impure --no-root-password --root /mnt --flake "/etc/nixos/#$(TARGETOS)" # impure is needed for agenix
+	sudo nixos-install --verbose --impure --no-root-password --root /mnt --flake "/etc/nixos/#$(TARGET)" # impure is needed for agenix
 	sudo git clone $(REPO) /mnt/etc/nixos
 
 pre-mount: 
