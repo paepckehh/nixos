@@ -16,7 +16,7 @@
         mitigateDMAAttacks = lib.mkForce true;
         devices = {
           "nix" = {
-            device = "/dev/mapper/nix";
+            device = "/dev/disk/by-partlabel/disk-main-nix";
             allowDiscards = true;
           };
         };
