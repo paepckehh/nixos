@@ -17,6 +17,7 @@ ifeq ($(origin LUKS),undefined)
       USELUKS:=NO
       FLAKE:=flakes/disko-impermanence-$(TARGETDRIVE).nix
 endif
+WIPEDRIVE?=/dev/null
 
 all:
 
@@ -69,3 +70,19 @@ mount:
 wipe:
 	sudo nix run github:nix-community/disko/latest -- --mode destroy flakes/disko-impermanence-$(TARGETDRIVE).nix || exit 1
 	sudo nvme format --verbose /dev/$(TARGETDRIVE) --force || true
+
+
+##################
+# GENERIC HELPER #
+##################
+
+sda-zero: 
+	ZERODRIVE=/dev/sda $(MAKE) zero
+sdb-zero: 
+	ZERODRIVE=/dev/sdb $(MAKE) zero
+sdc-zero: 
+	ZERODRIVE=/dev/sdc $(MAKE) zero
+
+zero: 
+	sudo dd if=/dev/zero of=$(ZERODRIVE) oflag=direct bs=512k status=progress
+	sudo dd if=/dev/zero of=$(ZERODRIVE) oflag=direct bs=512k status=progress

@@ -87,13 +87,22 @@ sda: info-cleaninstall commit
 	export TARGETDRIVE=sda
 	${MAKE} -C storage usb
 
+sda-zero:
+	${MAKE} -C storage sda-zero
+
 sdb: info-cleaninstall commit
 	export TARGETDRIVE=sdb
 	${MAKE} -C storage usb
 
+sdb-zero:
+	${MAKE} -C storage sdb-zero
+
 sdc: info-cleaninstall commit 
 	export TARGETDRIVE=sdc
 	${MAKE} -C storage usb
+
+sdc-zero:
+	${MAKE} -C storage sdc-zero
 
 usb: info-cleaninstall commit
 	export TARGETDRIVE=$(TARGETDRIVE)
