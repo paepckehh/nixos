@@ -3,7 +3,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./flakes/impermanence-luks.nix
+    ./flakes/disko-impermanence-luks.nix
   ];
 
   ##############
