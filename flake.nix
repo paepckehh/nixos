@@ -141,21 +141,21 @@
         system = "x86_64-linux";
         specialArgs.targetSystem = self.nixosConfigurations."nixos";
         modules = [
-          ./modules/iso-live.nix
+          ./storage/iso-live.nix
         ];
       };
       iso-installer = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs.targetSystem = self.nixosConfigurations."nixos";
         modules = [
-          ./modules/iso-autoinstaller.nix
+          ./storage/iso-autoinstaller.nix
         ];
       };
       iso-legacy-installer = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs.targetSystem = self.nixosConfigurations."nixos-legacy";
         modules = [
-          ./modules/iso-legacy-autoinstaller.nix
+          ./storage/iso-legacy-autoinstaller.nix
         ];
       };
     };
