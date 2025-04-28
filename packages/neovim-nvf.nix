@@ -126,6 +126,8 @@
           theme = "onedark";
         };
         languages = {
+          enableLSP = lib.mkForce true;
+          enableFormat = lib.mkForce true;
           clang.enable = true;
           css.enable = true;
           html.enable = true;
@@ -186,14 +188,13 @@
             };
           };
         };
-        lineNumberMode = "relNumber"; # number, relNumber, none
         lsp = {
           enable = lib.mkForce true;
-          enableLSP = lib.mkForce true;
           formatOnSave = true;
           lightbulb.enable = false;
           lspkind.enable = true;
         };
+        lineNumberMode = "relNumber"; # number, relNumber, none
         package = pkgs.neovim-unwrapped; #
         spellcheck = {
           enable = false;
