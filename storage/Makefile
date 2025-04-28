@@ -25,7 +25,7 @@ all:
 # USBDRIVE TARGETS #
 ####################
 
-usb: info wipe format pre-mount mount post-mount # install umount
+usb: info wipe format pre-mount mount post-mount install umount
 
 ####################
 # USBDRIVE GENERIC #
@@ -45,8 +45,11 @@ pre-mount:
 	sudo mkdir  -p $(STRUCT)
 	sudo umount -f $(STRUCT) > /dev/null 2>&1 || true
 	sudo umount -f $(STRUCT) > /dev/null 2>&1 || true
+	echo ${LUKS} | sudo tee /tmp/luks > /dev/null
+	chmod 600 /tmp/luks
 
 post-mount:
+	sudo rm -rf /tmp/luks > /dev/null 2>&1 || true
 	sudo mkdir -p $(STRUCT) $(PERSIST)
 	sudo mount -o bind /mnt/nix/persist/var /mnt/var
 	sudo mount -o bind /mnt/nix/persist/home /mnt/home
