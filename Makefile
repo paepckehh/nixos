@@ -102,6 +102,7 @@ usb: info-cleaninstall commit
 # make full automatic bootable iso (offline-) installer for current system,
 # set env TARGET for other nix flake target systems
 installer: info-cleaninstall commit 
+	[[ !  -z  $(LUKS)  ]] && echo "LUKS Passwords for target installer-iso must explicitly set in autoinstall script." ; exit 1
 	NIXPKGS_ALLOW_BROKEN=1 nix build -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
 	ls -la /etc/nixos/result/iso
 
