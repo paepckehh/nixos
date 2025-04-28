@@ -48,6 +48,7 @@
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
+          nvf.nixosModules.default
           ./configuration.nix
           ./storage/impermanence-luks.nix
           ./client/forward-journald.nix
