@@ -176,6 +176,8 @@
             interactiveShellInit = ''
               set fish_greeting # Disable greeting
               set fish_history "" # Disable history
+              uname -a
+              eval "$(ssh-agent)"
             '';
           };
           zsh = {
