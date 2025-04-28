@@ -23,7 +23,7 @@ endif
 all:
 	@echo "STATUS # $(MAKE) # ID: $(ID) # GID: $(GID) # TARGET: $(TARGET) # LUKS: $(USELUKS) # DTS: $(DTS) # PROFILE: $(PROFILE) # FLAKE: $(FLAKE)"
 	@echo "Set TARGET='hostname' to build for a specific host target. Your current target TARGET=$(TARGET)."
-	@echo "Set ISO='<image-variant>' to build a specific image type. Defaults to 'iso'. Run: make info-all-image to see all formats."
+	@echo "Set ISO='<image-variant>' to build a specific image type. Defaults to 'iso'. Run: make info-image to see all formats."
 	@echo "Set TARGETDISK='sdb' to build live-os on a specific target disk." 
 	@echo "Set LUKS='<secret>' to enable hardened luks fde during new disk build."
 
@@ -31,10 +31,10 @@ info:
 	@echo "Building for target TARGET=$(TARGET)"
 	@echo -e "Your new $(TYPE) ==> $(PROFILE) =======> \033[48;5;57m   $(PROFILE)   \033[0m <=========="
 
-info-image:
+info-cleaninstall:
 	@echo "Building for target TARGET=$(TARGET) # Building on TARGETDRIVE=$(TARGETDRIVE) # Using LUKS: $(USELUKS) # FLAKE: $(FLAKE)"
 	
-info-all-image:
+info-image:
 	sudo nixos-rebuild build-image --flake $(FLAKE)  || true
 
 ####################
@@ -83,31 +83,31 @@ build-log:
 # set TARGETDRIVE for usb stick, default: sdb [uses: /dev/sdb] [supports: sda, sdb and sdc]
 TARGETDRIVE?=sdb
 
-sda: info commit
+sda: info-cleaninstall commit
 	export TARGETDRIVE=sda
 	${MAKE} -C storage usb
 
-sdb: info commit
+sdb: info-cleaninstall commit
 	export TARGETDRIVE=sdb
 	${MAKE} -C storage usb
 
-sdc: info commit 
+sdc: info-cleaninstall commit 
 	export TARGETDRIVE=sdc
 	${MAKE} -C storage usb
 
-usb: info commit
+usb: info-cleaninstall commit
 	export TARGETDRIVE=$(TARGETDRIVE)
 	${MAKE} -C storage usb
 
 # make full automatic bootable iso (offline-) installer for current system,
 # set env TARGET for other nix flake target systems
-installer: info commit 
+installer: info-cleaninstall commit 
 	NIXPKGS_ALLOW_BROKEN=1 nix build -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
 	ls -la /etc/nixos/result/iso
 
 # XXX maybe broken: fixme, needs validation
 # make live iso image from current system, set env TARGET for other nix flake target systems
-iso: info commit
+iso: info-cleaninstall commit
 	sudo nixos-rebuild build-image --flake $(FLAKE) --image-variant iso
 	ls -la /etc/nixos/result/iso
 
