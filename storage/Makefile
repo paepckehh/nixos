@@ -66,7 +66,7 @@ format:
 	sudo nix run github:nix-community/disko/latest -- --mode format $(FLAKE) || exit 1
 
 mount:
-	sudo nix run github:nix-community/disko/latest -- --mode mount $(FLAKE).nix 
+	sudo nix run github:nix-community/disko/latest -- --mode mount $(FLAKE) || exit 1 
 
 wipe:
 	sudo nix run github:nix-community/disko/latest -- --mode destroy $(FLAKE) || exit 1
