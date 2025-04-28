@@ -45,7 +45,6 @@ pre-mount:
 	sudo mkdir  -p $(STRUCT)
 	sudo umount -f $(STRUCT) > /dev/null 2>&1 || true
 	sudo umount -f $(STRUCT) > /dev/null 2>&1 || true
-	echo ${LUKS} > /tmp/luks 
 
 post-mount:
 	sudo mkdir -p $(STRUCT) $(PERSIST)
@@ -55,14 +54,15 @@ post-mount:
 	sudo mount -o bind /mnt/nix/persist/etc/ssh /mnt/etc/ssh
 	sudo mount -t tmpfs tmpfs /mnt/var/log
 	sudo mount -t tmpfs tmpfs /mnt/nix/var/log
+	sudo rm -rf /mnt /tmp/luks > /dev/null 2>&1 || true
 
 umount:
 	sudo sync && sync && sync
 	sudo umount -f $(STRUCT) > /dev/null 2>&1 || true
 	sudo umount -f $(STRUCT) > /dev/null 2>&1 || true
-	sudo rm -rf /mnt /tmp/luks > /dev/null 2>&1 || true
 
 format:
+	echo ${LUKS} > /tmp/luks 
 	sudo nix run github:nix-community/disko/latest -- --mode format $(FLAKE) || exit 1
 
 mount:
