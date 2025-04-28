@@ -11,15 +11,21 @@ DTS:=$(shell date '+%Y-%m-%d-%H-%M')
 FLAKE:="/etc/nixos/.\#$(TARGET)"
 PROFILE:="$(TARGET)-$(DTS)"
 TYPE:="nixos boot profile"
+USELUKS:=YES
+ifeq ($(origin LUKS),undefined)
+      USELUKS:=NO
+endif
 
 ###########
 # GENERIC #
 ###########
 
 all:
-	@echo "STATUS # $(MAKE) # ID: $(ID) # GID: $(GID) # TARGET: $(TARGET) # DTS: $(DTS) # PROFILE: $(PROFILE) # FLAKE: $(FLAKE)"
+	@echo "STATUS # $(MAKE) # ID: $(ID) # GID: $(GID) # TARGET: $(TARGET) # LUKS: $(USELUKS) # DTS: $(DTS) # PROFILE: $(PROFILE) # FLAKE: $(FLAKE)"
 	@echo "Set TARGET='hostname' to build for a specific host target. Your current target TARGET=$(TARGET)."
 	@echo "Set ISO='<image-variant>' to build a specific image type. Defaults to 'iso'. Run: make info-image to see all formats."
+	@echo "Set TARGETDISK='sdb' to build live-os on a specific target disk." 
+	@echo "Set LUKS='<secret>' to enable hardened luks fde during new disk build."
 
 info:
 	@echo "Building for target TARGET=$(TARGET)"
@@ -75,22 +81,18 @@ build-log:
 TARGETDRIVE?=sdb
 
 sda: info commit
-	export TARGET=$(TARGET)
 	export TARGETDRIVE=sda
 	${MAKE} -C storage usb
 
 sdb: info commit
-	export TARGET=$(TARGET)
 	export TARGETDRIVE=sdb
 	${MAKE} -C storage usb
 
 sdc: info commit 
-	export TARGET=$(TARGET)
 	export TARGETDRIVE=sdc
 	${MAKE} -C storage usb
 
 usb: info commit
-	export TARGET=$(TARGET)
 	export TARGETDRIVE=$(TARGETDRIVE)
 	${MAKE} -C storage usb
 

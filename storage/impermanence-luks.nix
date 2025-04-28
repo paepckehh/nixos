@@ -1,4 +1,22 @@
 {lib, ...}: {
+  ##############
+  #-=# BOOT #=-#
+  ##############
+  boot = {
+    initrd = {
+      availableKernelModules = ["aesni_intel" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "mmc_block" "spi_pxa2xx_platform" "uas" "usbhid" "usb_storage" "xhci_pci"];
+      luks = {
+        mitigateDMAAttacks = lib.mkForce true;
+        devices = {
+          "nix" = {
+            device = "/dev/mapper/nix";
+            allowDiscards = true;
+          };
+        };
+      };
+    };
+  };
+
   #####################
   #-=# FILESYSTEMS #=-#
   #####################
@@ -14,7 +32,7 @@
       options = ["fmask=0077" "dmask=0077" "defaults"];
     };
     "/nix" = lib.mkForce {
-      device = "/dev/disk/by-partlabel/disk-main-nix";
+      device = "/dev/mapper/nix";
       fsType = "ext4";
       options = ["noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit"];
     };

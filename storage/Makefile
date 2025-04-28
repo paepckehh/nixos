@@ -6,10 +6,17 @@
 # SETUP ENV DEFAULTS #
 ######################
 REPO?=https://github.com/paepckehh/nixos
-TARGET?=${TARGET}
+TARGET?=$(shell hostname)
+TARGETDRIVE?=sdb
 DEVICE_MAIN:=$(TARGETDRIVE)
 STRUCT:=/mnt/boot /mnt/nix /mnt/home /mnt/var /mnt/etc/nixos /mnt/etc/ssh /mnt/nix/var/log /mnt/var/log /mnt
 PERSIST:=/mnt/nix/persist/home /mnt/nix/persist/var/log /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh
+USELUKS:=YES
+FLAKE:=flakes/disko-impermanence-luks-$(TARGETDRIVE).nix
+ifeq ($(origin LUKS),undefined)
+      USELUKS:=NO
+      FLAKE:=flakes/disko-impermanence-$(TARGETDRIVE).nix
+endif
 
 all:
 
@@ -17,14 +24,14 @@ all:
 # USBDRIVE TARGETS #
 ####################
 
-usb: info wipe format pre-mount mount post-mount install umount
+usb: info wipe format pre-mount mount post-mount # install umount
 
 ####################
 # USBDRIVE GENERIC #
 ####################
 
 info:
-	echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGET), build repo: $(REPO)
+	@echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGET), luks: $(USELUKS), build repo: $(REPO), flake: $(FLAKE)
 
 install:
 	sudo nixos-install --verbose --impure --no-root-password --root /mnt --flake "/etc/nixos/#$(TARGET)" # impure is needed for agenix
