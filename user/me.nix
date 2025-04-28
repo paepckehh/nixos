@@ -20,7 +20,7 @@
         group = "users";
         createHome = true;
         isNormalUser = true;
-        shell = pkgs.zsh;
+        shell = pkgs.fish;
         extraGroups = ["wheel" "mongodb" "backup" "networkmanager" "audio" "input" "video" "docker" "libvirtd" "qemu-libvirtd" "rsync"];
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
@@ -70,7 +70,6 @@
         services.ssh-agent.enable = true;
         programs = {
           btop.enable = true;
-          fzf.enable = true;
           git.enable = true;
           home-manager.enable = true;
           thefuck.enable = true;
@@ -79,6 +78,9 @@
           skim.enable = true;
           atuin = {
             enable = true;
+            enableBashIntegration = false;
+            enableFishIntegration = true;
+            enableZshIntegration = true;
             flags = ["--disable-up-arrow"];
             settings = {
               auto_sync = false;
@@ -98,10 +100,19 @@
             git = true;
             icons = "auto";
             extraOptions = ["--group-directories-first" "--header"];
+            enableBashIntegration = false;
+            enableFishIntegration = true;
+            enableZshIntegration = true;
           };
           fd = {
             enable = true;
             extraOptions = ["--absolute-path" "--no-ignore" "--hidden" "--ignore-case"];
+          };
+          fzf = {
+            enable = true;
+            enableBashIntegration = false;
+            enableFishIntegration = true;
+            enableZshIntegration = true;
           };
           git = {
             userName = "me";
@@ -160,6 +171,9 @@
               noremap <silent> <expr> <F12> ((synIDattr(synID(line("."), col("."), 0), "name") =~ 'comment\c') ? ':<S-Right>:s/^\([ \t]*\)' . get(commentTextMap, &filetype, '#') . '/\1/<CR>' : ':<S-Right>:s/^/' . get(commentTextMap, &filetype, '#') . '/<CR>:nohl<CR>') . ':nohl<CR>:call histdel("/", -1)<CR>'
             '';
           };
+          fish = {
+            enable = true;
+          };
           zsh = {
             enable = true;
             autocd = true;
@@ -168,9 +182,13 @@
             syntaxHighlighting.enable = true;
             historySubstringSearch.enable = true;
             history = {
+              size = 0;
+              save = 0;
+              saveNoDups = true;
+              path = "/dev/null";
+              share = false;
               extended = true;
               ignoreSpace = true;
-              share = true;
             };
           };
         };
