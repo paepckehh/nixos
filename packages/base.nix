@@ -90,6 +90,8 @@
       dust
       fastfetch
       fd
+      fishPlugins.autopair
+      fishPlugins.fish-you-should-use
       fzf
       gnumake
       inetutils
