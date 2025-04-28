@@ -148,10 +148,7 @@
               enable = true;
               type = "shfmt"; # shfmt
             };
-            lsp = {
-              enable = true;
-              server = "bash-ls"; # bash-ls
-            };
+            lsp.server = "bash-ls"; # bash-ls
           };
           go = {
             enable = true;
@@ -159,10 +156,7 @@
               enable = true;
               type = "gofmt"; # gofmt, gofumpt, golines
             };
-            lsp = {
-              enable = true;
-              server = "gopls";
-            };
+            lsp.server = "gopls";
           };
           markdown = {
             enable = true;
@@ -181,15 +175,11 @@
               enable = true;
               type = "alejandra"; # alejandra, nixfmt
             };
-            lsp = {
-              enable = true;
-              server = "nil"; # nil, nixd
-            };
+            lsp.server = "nil"; # nil, nixd
           };
         };
         lineNumberMode = "relNumber"; # number, relNumber, none
         lsp = {
-          enable = true;
           formatOnSave = true;
           lightbulb.enable = false;
           lspkind.enable = true;
