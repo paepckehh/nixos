@@ -51,7 +51,7 @@ check: info
 switch: info commit build-log
 	sudo nixos-rebuild switch --flake $(FLAKE) --profile-name $(PROFILE)
 
-update: info commit  
+update: commit  
 	mkdir -p .attic/flake.lock
 	cp -f flake.lock .attic/flake.lock/$(DTS).flake.lock
 	nix flake update
@@ -59,14 +59,14 @@ update: info commit
 bootloader: info commit 
 	sudo nixos-rebuild boot -v --fallback --install-bootloader
 
-test: info commit build-log
+test: commit build-log
 	sudo nixos-rebuild dry-activate --flake $(FLAKE)
 
 offline: info commit 
 	# XXX broken: fixme 
 	sudo nixos-rebuild boot -v --option use-binary-caches false --flake $(FLAKE) --profile-name $(PROFILE)
       
-rollback: info commit
+rollback: commit
 	# XXX broken: fixme 
 	sudo nixos-rebuild switch --rollback 
 
