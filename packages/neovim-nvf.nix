@@ -126,7 +126,6 @@
           theme = "onedark";
         };
         languages = {
-          toggle on-demand
           clang.enable = true;
           css.enable = true;
           html.enable = true;
@@ -148,7 +147,7 @@
               enable = true;
               type = "shfmt"; # shfmt
             };
-            lsp = { 
+            lsp = {
               enable = true;
               server = "bash-ls"; # bash-ls
             };
@@ -159,7 +158,7 @@
               enable = true;
               type = "gofmt"; # gofmt, gofumpt, golines
             };
-            lsp = { 
+            lsp = {
               enable = true;
               server = "gopls";
             };
@@ -181,7 +180,7 @@
               enable = true;
               type = "alejandra"; # alejandra, nixfmt
             };
-            lsp = { 
+            lsp = {
               enable = true;
               server = "nil"; # nil, nixd
             };
