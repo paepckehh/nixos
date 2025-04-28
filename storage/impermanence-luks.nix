@@ -39,9 +39,9 @@
       options = ["fmask=0077" "dmask=0077" "defaults"];
     };
     "/nix" = lib.mkForce {
-      device = "/dev/mapper/nix";
-      fsType = "ext4";
-      options = ["noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit"];
+      device = lib.mkForce "/dev/mapper/nix";
+      fsType = lib.mkForce "ext4";
+      options = lib.mkForce ["noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit"];
     };
     "/var" = lib.mkForce {
       device = "/nix/persist/var";
