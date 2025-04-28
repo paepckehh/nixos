@@ -61,11 +61,11 @@ umount:
 	sudo rm -rf /mnt || true
 
 format:
-	sudo nix run github:nix-community/disko/latest -- --mode format flakes/disko-impermanence-$(TARGETDRIVE).nix
+	sudo nix run github:nix-community/disko/latest -- --mode format flakes/disko-impermanence-$(TARGETDRIVE).nix || exit 1
 
 mount:
-	sudo nix run github:nix-community/disko/latest -- --mode mount flakes/disko-impermanence-$(TARGETDRIVE).nix
+	sudo nix run github:nix-community/disko/latest -- --mode mount flakes/disko-impermanence-$(TARGETDRIVE).nix 
 
 wipe:
-	sudo nix run github:nix-community/disko/latest -- --mode destroy flakes/disko-impermanence-$(TARGETDRIVE).nix
+	sudo nix run github:nix-community/disko/latest -- --mode destroy flakes/disko-impermanence-$(TARGETDRIVE).nix || exit 1
 	sudo nvme format --verbose /dev/$(TARGETDRIVE) --force || true
