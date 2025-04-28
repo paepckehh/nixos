@@ -16,7 +16,7 @@
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/mnt/boot";
+                mountpoint = "/boot";
                 mountOptions = ["umask=0077"];
               };
             };
@@ -33,7 +33,7 @@
               content = {
                 type = "filesystem";
                 format = "ext4";
-                mountpoint = "/mnt/nix";
+                mountpoint = "/nix";
                 mountOptions = ["noatime" "nodiratime" "discard" "commit=30" "nobarrier" "data=writeback" "journal_async_commit"];
               };
             };
@@ -43,7 +43,7 @@
     };
     nodev = {
       "tmpfs" = {
-        mountpoint = "/mnt";
+        mountpoint = "/";
         fsType = "tmpfs";
         mountOptions = [
           "size=80%"
