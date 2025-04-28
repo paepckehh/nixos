@@ -127,17 +127,17 @@
         };
         languages = {
           # toggle on-demand
-          clang.enable = true;
-          css.enable = true;
-          html.enable = true;
-          lua.enable = true;
-          sql.enable = true;
-          python.enable = false;
-          php.enable = false;
-          rust.enable = false;
-          java.enable = false;
-          yaml.enable = true;
-          zig.enable = false;
+          # clang.enable = true;
+          # css.enable = true;
+          # html.enable = true;
+          # lua.enable = true;
+          # sql.enable = true;
+          # python.enable = false;
+          # php.enable = false;
+          # rust.enable = false;
+          # java.enable = false;
+          # yaml.enable = true;
+          # zig.enable = false;
           bash = {
             enable = true;
             extraDiagnostics = {
