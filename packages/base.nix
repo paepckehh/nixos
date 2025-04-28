@@ -10,10 +10,15 @@
   programs = {
     htop.enable = true;
     kbdlight.enable = true;
+    fish.enable = true;
     nano.enable = true;
     mtr.enable = true;
     vim.enable = true;
-    zsh.enable = true;
+    zsh = {
+      enable = true;
+      histFile = "/dev/null";
+      histSize = 0;
+    };
     ssh = {
       startAgent = lib.mkForce true;
       extraConfig = "AddKeysToAgent yes";
