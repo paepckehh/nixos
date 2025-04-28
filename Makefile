@@ -106,7 +106,8 @@ installer: info-cleaninstall commit
 	 echo "LUKS Passwords for target installer-iso must explicitly set in autoinstall script."
 	 exit 1
 	fi
-	NIXPKGS_ALLOW_BROKEN=1 nix build -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
+	export NIXPKGS_ALLOW_BROKEN=1 
+	nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
 	ls -la /etc/nixos/result/iso
 
 # XXX maybe broken: fixme, needs validation
