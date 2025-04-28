@@ -49,12 +49,15 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./storage/impermanence.nix
+          ./storage/impermanence-luks.nix
           ./client/forward-journald.nix
           ./client/forward-syslog-ng.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix
+          ./packages/devops.nix
+          ./packages/neovim-nvf.nix
+          ./packages/netops.nix
           {networking.hostName = "mp";}
         ];
       };
@@ -69,7 +72,6 @@
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
           ./configuration.nix
-          ./alias/nixops.nix
           ./storage/impermanence.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
@@ -90,7 +92,6 @@
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
           ./configuration.nix
-          ./alias/nixops.nix
           ./storage/disko-luks-legacy.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
