@@ -126,18 +126,18 @@
           theme = "onedark";
         };
         languages = {
-          # toggle on-demand
-          # clang.enable = true;
-          # css.enable = true;
-          # html.enable = true;
-          # lua.enable = true;
-          # sql.enable = true;
-          # python.enable = false;
-          # php.enable = false;
-          # rust.enable = false;
-          # java.enable = false;
-          # yaml.enable = true;
-          # zig.enable = false;
+          toggle on-demand
+          clang.enable = true;
+          css.enable = true;
+          html.enable = true;
+          lua.enable = true;
+          sql.enable = true;
+          python.enable = false;
+          php.enable = false;
+          rust.enable = false;
+          java.enable = false;
+          yaml.enable = true;
+          zig.enable = false;
           bash = {
             enable = true;
             extraDiagnostics = {
@@ -148,7 +148,10 @@
               enable = true;
               type = "shfmt"; # shfmt
             };
-            lsp.server = "bash-ls"; # bash-ls
+            lsp = { 
+              enable = true;
+              server = "bash-ls"; # bash-ls
+            };
           };
           go = {
             enable = true;
@@ -156,7 +159,10 @@
               enable = true;
               type = "gofmt"; # gofmt, gofumpt, golines
             };
-            lsp.server = "gopls";
+            lsp = { 
+              enable = true;
+              server = "gopls";
+            };
           };
           markdown = {
             enable = true;
@@ -175,11 +181,16 @@
               enable = true;
               type = "alejandra"; # alejandra, nixfmt
             };
-            lsp.server = "nil"; # nil, nixd
+            lsp = { 
+              enable = true;
+              server = "nil"; # nil, nixd
+            };
           };
         };
         lineNumberMode = "relNumber"; # number, relNumber, none
         lsp = {
+          enable = lib.mkForce true;
+          enableLSP = lib.mkForce true;
           formatOnSave = true;
           lightbulb.enable = false;
           lspkind.enable = true;
