@@ -76,7 +76,7 @@
           ./packages/agenix.nix
           ./packages/base.nix
           ./packages/devops.nix
-          ./packages/neovim-nvf.nix
+          # ./packages/neovim-nvf.nix
           ./packages/netops.nix
           ./openwrt/monitoring.nix
           {networking.hostName = "srv";}
@@ -97,7 +97,7 @@
           ./packages/agenix.nix
           ./packages/base.nix
           ./packages/devops.nix
-          ./packages/neovim-nvf.nix
+          # ./packages/neovim-nvf.nix
           ./packages/netops.nix
           ./openwrt/monitoring.nix
           # ./server/monitoring/collect-journald.nix
