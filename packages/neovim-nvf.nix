@@ -189,7 +189,7 @@
         };
         lineNumberMode = "relNumber"; # number, relNumber, none
         lsp = {
-          enable = true;
+          # enable = true;
           formatOnSave = true;
           lightbulb.enable = false;
           lspkind.enable = true;
