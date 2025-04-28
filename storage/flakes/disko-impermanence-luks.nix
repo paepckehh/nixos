@@ -32,7 +32,7 @@
               size = "100%";
               content = {
                 initrdUnlock = true;
-                name = "root";
+                name = "nix";
                 type = "luks";
                 passwordFile = "/tmp/luks";
                 settings.allowDiscards = true;
