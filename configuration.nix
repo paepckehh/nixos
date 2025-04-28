@@ -277,7 +277,7 @@
       VISUAL = "vim";
       ROC_ENABLE_PRE_VEGA = "1";
     };
-    shells = [pkgs.bashInteractive pkgs.zsh];
+    shells = [pkgs.bashInteractive pkgs.zsh pkgs.fish];
     shellAliases = {
       "e" = "vim";
       "l" = "ls -la";
