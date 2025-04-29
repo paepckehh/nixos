@@ -11,7 +11,7 @@
   # options = lib.mkForce ["mode=755" "noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit"];
   fileSystems = lib.mkForce {
     "/" = lib.mkForce {
-      device = "tmpfs";
+      device = "none";
       fsType = "tmpfs";
       options = ["defaults" "mode=755" "size=80%"];
     };
@@ -25,13 +25,13 @@
       fsType = lib.mkForce "ext4";
       options = lib.mkForce ["noatime" "nodiratime" "discard"];
     };
-    "/var/lib" = lib.mkForce {
-      device = "/nix/persist/var/lib";
+    "/home" = lib.mkForce {
+      device = "/nix/persist/home";
       fsType = "none";
       options = ["bind"];
     };
-    "/home" = lib.mkForce {
-      device = "/nix/persist/home";
+    "/var/lib" = lib.mkForce {
+      device = "/nix/persist/var/lib";
       fsType = "none";
       options = ["bind"];
     };
@@ -45,10 +45,10 @@
       fsType = "none";
       options = ["bind"];
     };
-    "/nix/var/log" = lib.mkForce {
-      device = "tmpfs";
-      fsType = "tmpfs";
-      options = ["defaults" "mode=755" "size=80%"];
-    };
+    #"/nix/var/log" = lib.mkForce {
+    #  device = "none";
+    #  fsType = "tmpfs";
+    #  options = ["defaults" "mode=755" "size=80%"];
+    #};
   };
 }
