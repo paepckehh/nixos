@@ -25,7 +25,7 @@ all:
 # USBDRIVE TARGETS #
 ####################
 
-usb: info wipe format pre-mount mount post-mount install # umount
+usb: info wipe format pre-mount mount post-mount # install # umount
 
 ####################
 # USBDRIVE GENERIC #
@@ -49,7 +49,8 @@ pre-mount:
 	sudo mount -t tmpfs tmpfs /mnt
 
 post-mount:
-	sudo mkdir -p $(STRUCT) $(PERSIST)
+	sudo mkdir -p $(STRUCT) 
+	sudo mkdir -p $(PERSIST)
 	sudo mount -o bind /mnt/nix/persist/var/lib /mnt/var/lib
 	sudo mount -o bind /mnt/nix/persist/home /mnt/home
 	sudo mount -o bind /mnt/nix/persist/etc/nixos /mnt/etc/nixos
