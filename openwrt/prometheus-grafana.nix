@@ -35,42 +35,42 @@
       group = "grafana";
       user = "grafana";
     };
+  };
 
-    ##################
-    #-=# SERVICES #=-#
-    ##################
-    services = {
-      prometheus = {
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+  services = {
+    prometheus = {
+      enable = true;
+      scrapeConfigs = [
+        {
+          job_name = "openwrt";
+          static_configs = [
+            {
+              targets = ["192.168.8.1:9100"];
+            }
+          ];
+        }
+      ];
+    };
+    grafana = {
+      enable = true;
+      provision = {
         enable = true;
-        scrapeConfigs = [
+        dashboards.settings.providers = [
           {
-            job_name = "openwrt";
-            static_configs = [
-              {
-                targets = ["192.168.8.1:9100"];
-              }
-            ];
+            name = "pre-configured-local-dashboards";
+            options.path = "/etc/grafana-dashboards";
           }
         ];
-      };
-      grafana = {
-        enable = true;
-        provision = {
-          enable = true;
-          dashboards.settings.providers = [
-            {
-              name = "pre-configured-local-dashboards";
-              options.path = "/etc/grafana-dashboards";
-            }
-          ];
-          datasources.settings.datasources = [
-            {
-              name = "Prometheus";
-              type = "prometheus";
-              url = "http://${config.services.prometheus.listenAddress}:${toString config.services.prometheus.port}";
-            }
-          ];
-        };
+        datasources.settings.datasources = [
+          {
+            name = "Prometheus";
+            type = "prometheus";
+            url = "http://${config.services.prometheus.listenAddress}:${toString config.services.prometheus.port}";
+          }
+        ];
       };
     };
   };
