@@ -25,11 +25,16 @@
   #-=# BOOT #=-#
   ##############
   boot = {
+    consoleLogLevel = 9;
     initrd = {
       compressor = "zstd";
       compressorArgs = ["--ultra" "--long" "-22"];
-      systemd.enable = true;
+      systemd = {
+        enable = true;
+        emergencyAccess = true;
+      };
       luks.mitigateDMAAttacks = lib.mkForce true;
+      supportedFilesystems = ["tmpfs"];
       availableKernelModules = ["aesni_intel" "ahci" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "thunderbolt" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
     blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "brcmfmac" "brcmsmac" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb" "wl"];
@@ -39,7 +44,7 @@
       then pkgs.linuxPackages
       else pkgs.linuxPackages_latest
     );
-    kernelParams = ["amd_pstate=active" "copytoram" "page_alloc.shuffle=1"];
+    kernelParams = ["amd_pstate=active" "copytoram" "page_alloc.shuffle=1" "verbose"];
     kernelModules = ["amd-pstate" "amdgpu" "exfat" "kvm-amd" "kvm-intel" "uas" "vfat"];
     readOnlyNixStore = lib.mkForce true;
     tmp = {
