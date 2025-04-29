@@ -8,7 +8,7 @@
   #-=# BOOT #=-#
   ##############
   boot = {
-    consoleLogLevel = 9;
+    consoleLogLevel = 4;
     initrd = {
       compressor = "zstd";
       compressorArgs = ["--ultra" "--long" "-22"];
@@ -27,7 +27,7 @@
       then pkgs.linuxPackages
       else pkgs.linuxPackages_latest
     );
-    kernelParams = ["amd_pstate=active" "copytoram" "page_alloc.shuffle=1" "verbose"];
+    kernelParams = ["amd_pstate=active" "copytoram" "page_alloc.shuffle=1"];
     kernelModules = ["amd-pstate" "amdgpu" "exfat" "kvm-amd" "kvm-intel" "uas" "vfat"];
     readOnlyNixStore = lib.mkForce true;
     tmp = {

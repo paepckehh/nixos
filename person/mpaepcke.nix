@@ -19,7 +19,7 @@
       me = {
         initialHashedPassword = lib.mkForce "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7";
         description = lib.mkForce "PAEPCKE Michael";
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
+        openssh.authorizedKeys.keys = lib.mkForce ["ssh-ed25519 AAA-#locked#-"];
       };
     };
   };

@@ -6,15 +6,13 @@
   };
 
   fileSystems."/boot" = {
-    # device = "/dev/sda1";
-    device = "/dev/disk/by-partlabel/disk-main-ESP";
+    device = "/dev/sda1";
     fsType = "vfat";
     options = ["fmask=0077" "dmask=0077"];
   };
 
   fileSystems."/nix" = {
-    # device = "/dev/sda3";
-    device = "/dev/disk/by-partlabel/disk-main-nix";
+    device = "/dev/sda3";
     fsType = "ext4";
   };
 
