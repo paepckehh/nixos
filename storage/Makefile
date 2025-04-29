@@ -25,7 +25,7 @@ all:
 # USBDRIVE TARGETS #
 ####################
 
-usb: info wipe format pre-mount mount post-mount # install # umount
+usb: info wipe format pre-mount mount post-mount install umount
 
 ####################
 # USBDRIVE GENERIC #
@@ -56,12 +56,13 @@ post-mount:
 	sudo mount -o bind /mnt/nix/persist/etc/nixos /mnt/etc/nixos
 	sudo mount -o bind /mnt/nix/persist/etc/ssh /mnt/etc/ssh
 	sudo mount -t tmpfs tmpfs /mnt/nix/var/log
-	sudo rm -rf /mnt /tmp/luks > /dev/null 2>&1 || true
 
 umount:
 	sudo sync && sync && sync
 	sudo umount -f $(STRUCT) > /dev/null 2>&1 || true
 	sudo umount -f $(STRUCT) > /dev/null 2>&1 || true
+	sudo umount -f /mnt > /dev/null 2>&1 || true
+	sudo rm -rf /mnt /tmp/luks > /dev/null 2>&1 || true
 
 format:
 	echo ${LUKS} > /tmp/luks 
