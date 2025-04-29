@@ -7,4 +7,4 @@
     ./prometheus-grafana.nix
     ../server/monitoring/collect-syslog-ng.nix
   ];
-};
+}
