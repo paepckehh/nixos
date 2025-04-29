@@ -38,6 +38,7 @@
           ./user/desktop/me.nix
           ./packages/base.nix
           {networking.hostName = "nixos";}
+          {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
         ];
       };
       ##########
@@ -60,6 +61,7 @@
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
           {networking.hostName = "mp";}
+          {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
         ];
       };
       ##########
@@ -81,8 +83,9 @@
           ./packages/devops.nix
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
-          ./openwrt/monitoring.nix
+          ./openwrt/openwrt.nix
           {networking.hostName = "srv";}
+          {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
         ];
       };
       srv-mp = nixpkgs-dev.lib.nixosSystem {
@@ -101,7 +104,7 @@
           ./packages/devops.nix
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
-          ./openwrt/monitoring.nix
+          ./openwrt/openwrt.nix
           # ./server/monitoring/collect-journald.nix
           # ./server/monitoring/collect-syslog-ng.nix
           # ./server/dns/unbound.nix
@@ -134,6 +137,7 @@
           # ./server/infra/gitea.nix
           # ./server/infra/home-assistant.nix
           {networking.hostName = "srv-mp";}
+          {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
         ];
       };
       #############

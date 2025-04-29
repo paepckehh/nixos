@@ -32,8 +32,9 @@
       me = {
         home = {
           shellAliases = {
-            axt = "ssh -p 6623 -L127.0.0.1:8080:127.0.0.1:8080 root@192.168.8.1"; # sk-ed25519 sshd -p 6623
-            axt-backup = "ssh -p 6622 -L127.0.0.1:8080:127.0.0.1:8080 root@192.168.8.1"; # dropbear -p 6622
+            axt = "ssh -p 6623 -L127.0.0.1:8080:127.0.0.1:8080 root@192.168.8.1 service uhttpd start";
+            rpi2 = "ssh -p 6623 -L127.0.0.1:8081:127.0.0.1:8080 root@192.168.8.251 service uhttpd start";
+            b3000 = "ssh -p 6623 -L127.0.0.1:8082:127.0.0.1:8080 root@192.168.8.250 service uhttpd start";
             daylight_fxl = "IATA=FXL go run paepcke.de/daylight/cmd/daylight@latest";
             daylight_ham = "IATA=HAM go run paepcke.de/daylight/cmd/daylight@latest";
             daylight_lbc = "IATA=LBC go run paepcke.de/daylight/cmd/daylight@latest";

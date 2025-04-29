@@ -9,11 +9,13 @@
   #####################
   #-=# FILESYSTEMS #=-#
   #####################
+  # options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
+  # options = lib.mkForce ["mode=755" "noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit"];
   fileSystems = lib.mkForce {
     "/" = lib.mkForce {
       device = "none";
       fsType = "tmpfs";
-      options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
+      options = ["defaults" "mode=755" "size=80%"];
     };
     "/boot" = lib.mkForce {
       device = "/dev/disk/by-partlabel/disk-main-ESP";
@@ -23,7 +25,7 @@
     "/nix" = lib.mkForce {
       device = lib.mkForce "/dev/disk/by-partlabel/disk-main-nix";
       fsType = lib.mkForce "ext4";
-      options = lib.mkForce ["noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit"];
+      options = lib.mkForce ["mode=755" "noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit"];
     };
     "/var" = lib.mkForce {
       device = "/nix/persist/var";
@@ -48,12 +50,12 @@
     "/var/log" = lib.mkForce {
       device = "none";
       fsType = "tmpfs";
-      options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
+      options = ["defaults" "mode=755" "size=80%"];
     };
     "/nix/var/log" = lib.mkForce {
       device = "none";
       fsType = "tmpfs";
-      options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
+      options = ["defaults" "mode=755" "size=80%"];
     };
   };
 }
