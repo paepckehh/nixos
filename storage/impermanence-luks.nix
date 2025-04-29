@@ -29,7 +29,7 @@
   #####################
   fileSystems = lib.mkForce {
     "/" = lib.mkForce {
-      device = "tmpfs";
+      device = "none";
       fsType = "tmpfs";
       options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
     };
@@ -64,12 +64,12 @@
       options = ["bind"];
     };
     "/var/log" = lib.mkForce {
-      device = "tmpfs";
+      device = "none";
       fsType = "tmpfs";
       options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
     };
     "/nix/var/log" = lib.mkForce {
-      device = "tmpfs";
+      device = "none";
       fsType = "tmpfs";
       options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
     };

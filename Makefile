@@ -87,19 +87,21 @@ sda: info-cleaninstall commit
 	export TARGETDRIVE=sda
 	${MAKE} -C storage usb
 
-sda-zero:
-	${MAKE} -C storage sda-zero
 
 sdb: info-cleaninstall commit
 	export TARGETDRIVE=sdb
 	${MAKE} -C storage usb
 
-sdb-zero:
-	${MAKE} -C storage sdb-zero
 
 sdc: info-cleaninstall commit 
 	export TARGETDRIVE=sdc
 	${MAKE} -C storage usb
+
+sda-zero:
+	${MAKE} -C storage sda-zero
+
+sdb-zero:
+	${MAKE} -C storage sdb-zero
 
 sdc-zero:
 	${MAKE} -C storage sdc-zero
@@ -112,7 +114,7 @@ usb: info-cleaninstall commit
 # set env TARGET for other nix flake target systems
 installer: info-cleaninstall commit 
 	if [ !  -z  $(LUKS) ]; then 
-	 echo "LUKS Passwords for target installer-iso must explicitly set in autoinstall script."
+	 echo "LUKS Passwords for target installer-iso must explicitly set in autoinstall script, not in env."
 	 exit 1
 	fi
 	export NIXPKGS_ALLOW_BROKEN=1 
