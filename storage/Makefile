@@ -25,7 +25,7 @@ all:
 # USBDRIVE TARGETS #
 ####################
 
-usb: info wipe format pre-mount mount post-mount install umount
+usb: info wipe format pre-mount mount post-mount install # umount
 
 ####################
 # USBDRIVE GENERIC #
