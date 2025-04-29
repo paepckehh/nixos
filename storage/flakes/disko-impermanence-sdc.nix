@@ -42,15 +42,5 @@
         };
       };
     };
-    nodev = {
-      "/" = {
-        fsType = "tmpfs";
-        mountOptions = [
-          "defaults"
-          "size=80%"
-          "mode=755"
-        ];
-      };
-    };
   };
 }

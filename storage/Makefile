@@ -45,6 +45,8 @@ pre-mount:
 	sudo mkdir  -p $(STRUCT)
 	sudo umount -f $(STRUCT) > /dev/null 2>&1 || true
 	sudo umount -f $(STRUCT) > /dev/null 2>&1 || true
+	sudo mkdir -p /mnt
+	sudo mount -t tmpfs tmpfs /mnt
 
 post-mount:
 	sudo mkdir -p $(STRUCT) $(PERSIST)
