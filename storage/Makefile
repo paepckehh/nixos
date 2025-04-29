@@ -58,7 +58,7 @@ post-mount:
 	sudo mount -o bind /mnt/nix/persist/home /mnt/home
 	sudo mount -o bind /mnt/nix/persist/etc/nixos /mnt/etc/nixos
 	sudo mount -o bind /mnt/nix/persist/etc/ssh /mnt/etc/ssh
-	sudo mount -t tmpfs tmpfs /mnt/nix/var/log
+	# sudo mount -t tmpfs tmpfs /mnt/nix/var/log
 
 umount:
 	sudo sync && sync && sync
