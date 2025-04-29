@@ -3,7 +3,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./flakes/disko-impermanence.nix
+    #  ./flakes/disko-impermanence.nix
   ];
 
   #####################
@@ -25,7 +25,7 @@
     "/nix" = lib.mkForce {
       device = lib.mkForce "/dev/disk/by-partlabel/disk-main-nix";
       fsType = lib.mkForce "ext4";
-      options = lib.mkForce ["mode=755" "noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit"];
+      options = lib.mkForce ["mode=755" "noatime" "nodiratime" "discard"];
     };
     "/var" = lib.mkForce {
       device = "/nix/persist/var";
