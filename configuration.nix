@@ -13,12 +13,12 @@
       compressor = "zstd";
       compressorArgs = ["--ultra" "--long" "-22"];
       systemd = {
-        enable = true;
-        emergencyAccess = true;
+        enable = lib.mkForce true;
+        emergencyAccess = lib.mkForce true;
       };
       luks.mitigateDMAAttacks = lib.mkForce true;
-      supportedFilesystems = ["tmpfs"];
-      availableKernelModules = ["aesni_intel" "ahci" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "thunderbolt" "uas" "usbhid" "usb_storage" "xhci_pci"];
+      supportedFilesystems = ["ext4" "tmpfs"];
+      availableKernelModules = ["aesni_intel" "ahci" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
     blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "brcmfmac" "brcmsmac" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb" "wl"];
     extraModulePackages = [config.boot.kernelPackages.zenpower];
