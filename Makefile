@@ -8,7 +8,8 @@ GID:=$(shell id -g)
 ISO?=iso
 TARGET?=$(shell hostname)
 DTS:=$(shell date '+%Y-%m-%d-%H-%M')
-FLAKE:="/etc/nixos/.\#$(TARGET)"
+OSFLAKE:=/etc/nixos/.\#$(TARGET)
+ALLFLAKE:=/etc/nixos/.\#nixos-all
 PROFILE:="$(TARGET)-$(DTS)"
 TYPE:="nixos boot profile"
 USELUKS:=YES
@@ -21,7 +22,7 @@ endif
 ###########
 
 all:
-	@echo "STATUS # $(MAKE) # ID: $(ID) # GID: $(GID) # TARGET: $(TARGET) # LUKS: $(USELUKS) # DTS: $(DTS) # PROFILE: $(PROFILE) # FLAKE: $(FLAKE)"
+	@echo "STATUS # $(MAKE) # ID: $(ID) # GID: $(GID) # TARGET: $(TARGET) # LUKS: $(USELUKS) # DTS: $(DTS) # PROFILE: $(PROFILE) # OSFLAKE: $(OSFLAKE)"
 	@echo "Set TARGET='hostname' to build for a specific host target. Your current target TARGET=$(TARGET)."
 	@echo "Set ISO='<image-variant>' to build a specific image type. Defaults to 'iso'. Run: make info-image to see all formats."
 	@echo "Set TARGETDISK='sdb' to build live-os on a specific target disk." 
@@ -32,24 +33,24 @@ info:
 	@echo -e "Your new $(TYPE) ==> $(PROFILE) =======> \033[48;5;57m   $(PROFILE)   \033[0m <=========="
 
 info-cleaninstall:
-	@echo "Building for target TARGET=$(TARGET) # Building on TARGETDRIVE=$(TARGETDRIVE) # Using LUKS: $(USELUKS) # FLAKE: $(FLAKE)"
+	@echo "Building for target TARGET=$(TARGET) # Building on TARGETDRIVE=$(TARGETDRIVE) # Using LUKS: $(USELUKS) # OSFLAKE: $(OSFLAKE)"
 	
 info-image:
-	sudo nixos-rebuild build-image --flake $(FLAKE)  || true
+	sudo nixos-rebuild build-image --flake $(OSFLAKE)  || true
 
 ####################
 # NIXOS OPERATIONS #
 ####################
 
 build:  info commit build-log
-	sudo nixos-rebuild boot --flake $(FLAKE) --profile-name $(PROFILE)
+	sudo nixos-rebuild boot --flake $(OSFLAKE) --profile-name $(PROFILE)
 
 check: info
 	sudo nix flake check 
 	sudo alejandra --quiet .
 
 switch: info commit build-log
-	sudo nixos-rebuild switch --flake $(FLAKE) --profile-name $(PROFILE)
+	sudo nixos-rebuild switch --flake $(OSFLAKE) --profile-name $(PROFILE)
 
 update: commit  
 	mkdir -p .attic/flake.lock
@@ -60,11 +61,11 @@ bootloader: info commit
 	sudo nixos-rebuild boot -v --fallback --install-bootloader
 
 test: commit build-log
-	sudo nixos-rebuild dry-activate --flake $(FLAKE)
+	sudo nixos-rebuild dry-activate --flake $(OSFLAKE)
 
 offline: info commit 
 	# XXX broken: fixme 
-	sudo nixos-rebuild boot -v --option use-binary-caches false --flake $(FLAKE) --profile-name $(PROFILE)
+	sudo nixos-rebuild boot -v --option use-binary-caches false --flake $(OSFLAKE) --profile-name $(PROFILE)
       
 rollback: commit
 	# XXX broken: fixme 
@@ -124,7 +125,7 @@ installer: info-cleaninstall commit
 # XXX maybe broken: fixme, needs validation
 # make live iso image from current system, set env TARGET for other nix flake target systems
 iso: info-cleaninstall commit
-	sudo nixos-rebuild build-image --flake $(FLAKE) --image-variant iso
+	sudo nixos-rebuild build-image --flake $(OSFLAKE) --image-variant iso
 	ls -la /etc/nixos/result/iso
 
 # umount /mnt build struct
@@ -177,7 +178,7 @@ clean-profiles: internal-clean-profiles build
 cache: update build-nixos-all sign
 
 build-nixos-all:
-	nixos-rebuild build -v --fallback --flake "/etc/nixos/#nixos-all"
+	nixos-rebuild build -v --fallback --flake $(ALLFLAKE)
 	rm -rf result
 
 sign:

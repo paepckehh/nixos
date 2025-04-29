@@ -12,11 +12,12 @@ DEVICE_MAIN:=$(TARGETDRIVE)
 STRUCT:=/mnt/boot /mnt/nix /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/nix/var/log /mnt
 PERSIST:=/mnt/nix/persist/home /mnt/nix/persist/var/lib /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh
 USELUKS:=YES
-FLAKE:=flakes/disko-impermanence-luks-$(TARGETDRIVE).nix
+DISKOFLAKE:=flakes/disko-impermanence-luks-$(TARGETDRIVE).nix
 ifeq ($(origin LUKS),undefined)
       USELUKS:=NO
-      FLAKE:=flakes/disko-impermanence-$(TARGETDRIVE).nix
+      DISKOFLAKE:=flakes/disko-impermanence-$(TARGETDRIVE).nix
 endif
+OSFLAKE:=/etc/nixos/\#$(TARGET)
 WIPEDRIVE?=/dev/null
 
 all:
@@ -32,13 +33,13 @@ usb: info check wipe format pre-mount mount post-mount install # umount
 ####################
 
 info: 
-	@echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGET), luks: $(USELUKS), build repo: $(REPO), flake: $(FLAKE)
+	@echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGET), os-flake: $(OSFLAKE),luks: $(USELUKS), build repo: $(REPO), disko-flake: $(DISKOFLAKE)
 
 check: 
 	@if [ ! -e /dev/$(TARGETDRIVE) ]; then (echo "TARGETDRIVE: /dev/$(TARGETDRIVE) does not exists, exit" ; exit 1); fi  
 
 install:
-	sudo nixos-install --verbose --impure --no-root-password --root /mnt --flake "/etc/nixos/#$(TARGET)" # impure is needed for agenix
+	sudo nixos-install --verbose --impure --no-root-password --root /mnt --flake $(OSFLAKE)
 	sudo git clone $(REPO) /mnt/etc/nixos
 	sudo mkdir -p /mnt/home/me/.ssh /mnt/etc/ssh
 	sudo cp -af /home/me/.ssh/id_ed22519* /mnt/home/me/.ssh/ > /dev/null 2>&1 || true # yubikey glue records
@@ -69,13 +70,13 @@ umount:
 
 format:
 	echo ${LUKS} > /tmp/luks 
-	sudo nix run github:nix-community/disko/latest -- --mode format $(FLAKE) || exit 1
+	sudo nix run github:nix-community/disko/latest -- --mode format $(DISKOFLAKE) || exit 1
 
 mount:
-	sudo nix run github:nix-community/disko/latest -- --mode mount $(FLAKE) || exit 1 
+	sudo nix run github:nix-community/disko/latest -- --mode mount $(DISKOFLAKE) || exit 1 
 
 wipe:
-	sudo nix run github:nix-community/disko/latest -- --mode destroy $(FLAKE) || exit 1
+	sudo nix run github:nix-community/disko/latest -- --mode destroy $(DISKOFLAKE) || exit 1
 	sudo nvme format --verbose /dev/$(TARGETDRIVE) --force || true
 
 
