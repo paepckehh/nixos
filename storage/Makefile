@@ -54,8 +54,8 @@ pre-mount:
 post-mount:
 	sudo mkdir -p $(STRUCT) 
 	sudo mkdir -p $(PERSIST)
-	sudo mount -o bind /mnt/nix/persist/var/lib /mnt/var/lib
 	sudo mount -o bind /mnt/nix/persist/home /mnt/home
+	sudo mount -o bind /mnt/nix/persist/var/lib /mnt/var/lib
 	sudo mount -o bind /mnt/nix/persist/etc/nixos /mnt/etc/nixos
 	sudo mount -o bind /mnt/nix/persist/etc/ssh /mnt/etc/ssh
 	# sudo mount -t tmpfs tmpfs /mnt/nix/var/log
