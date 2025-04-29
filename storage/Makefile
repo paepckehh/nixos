@@ -9,7 +9,7 @@ REPO?=https://github.com/paepckehh/nixos
 TARGET?=$(shell hostname)
 TARGETDRIVE?=sdb
 DEVICE_MAIN:=$(TARGETDRIVE)
-STRUCT:=/mnt/boot /mnt/nix /mnt/home /mnt/var /mnt/etc/nixos /mnt/etc/ssh /mnt/nix/var/log /mnt/var/log /mnt
+STRUCT:=/mnt/boot /mnt/nix /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/nix/var/log /mnt
 PERSIST:=/mnt/nix/persist/home /mnt/nix/persist/var/log /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh
 USELUKS:=YES
 FLAKE:=flakes/disko-impermanence-luks-$(TARGETDRIVE).nix
@@ -48,11 +48,10 @@ pre-mount:
 
 post-mount:
 	sudo mkdir -p $(STRUCT) $(PERSIST)
-	sudo mount -o bind /mnt/nix/persist/var /mnt/var
+	sudo mount -o bind /mnt/nix/persist/var/lib /mnt/var/lib
 	sudo mount -o bind /mnt/nix/persist/home /mnt/home
 	sudo mount -o bind /mnt/nix/persist/etc/nixos /mnt/etc/nixos
 	sudo mount -o bind /mnt/nix/persist/etc/ssh /mnt/etc/ssh
-	sudo mount -t tmpfs tmpfs /mnt/var/log
 	sudo mount -t tmpfs tmpfs /mnt/nix/var/log
 	sudo rm -rf /mnt /tmp/luks > /dev/null 2>&1 || true
 

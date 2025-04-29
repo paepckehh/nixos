@@ -5,7 +5,7 @@
   disko.devices = {
     disk = {
       main = {
-        device = "/dev/sda";
+        device = "/dev/sda"; # autoinstaller dummy target
         type = "disk";
         content = {
           type = "gpt";
@@ -34,7 +34,8 @@
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/nix";
-                mountOptions = ["noatime" "nodiratime" "discard" "commit=30" "nobarrier" "data=writeback" "journal_async_commit"];
+                # mountOptions = ["mode=755" "noatime" "nodiratime" "discard" "commit=30" "nobarrier" "data=writeback" "journal_async_commit"];
+                mountOptions = ["mode=755" "noatime" "nodiratime" "discard"];
               };
             };
           };
@@ -42,11 +43,12 @@
       };
     };
     nodev = {
-      "tmpfs" = {
-        mountpoint = "/";
+      "/" = {
         fsType = "tmpfs";
         mountOptions = [
+          "defaults"
           "size=80%"
+          "mode=755"
         ];
       };
     };

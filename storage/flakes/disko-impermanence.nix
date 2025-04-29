@@ -34,7 +34,8 @@
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/nix";
-                mountOptions = ["noatime" "nodiratime" "discard" "commit=30" "nobarrier" "data=writeback" "journal_async_commit"];
+                # mountOptions = ["mode=755" "noatime" "nodiratime" "discard" "commit=30" "nobarrier" "data=writeback" "journal_async_commit"];
+                mountOptions = ["mode=755" "noatime" "nodiratime" "discard"];
               };
             };
           };

@@ -2,9 +2,7 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [
-    # ./flakes/disko-impermanence-luks.nix
-  ];
+  # imports = [./flakes/disko-impermanence-luks.nix];
 
   ##############
   #-=# BOOT #=-#
@@ -45,8 +43,8 @@
       fsType = lib.mkForce "ext4";
       options = lib.mkForce ["mode=755" "noatime" "nodiratime" "discard"];
     };
-    "/var" = lib.mkForce {
-      device = "/nix/persist/var";
+    "/var/lib" = lib.mkForce {
+      device = "/nix/persist/var/lib";
       fsType = "none";
       options = ["bind"];
     };
@@ -64,11 +62,6 @@
       device = "/nix/persist/etc/ssh";
       fsType = "none";
       options = ["bind"];
-    };
-    "/var/log" = lib.mkForce {
-      device = "none";
-      fsType = "tmpfs";
-      options = ["defaults" "mode=755" "size=80%"];
     };
     "/nix/var/log" = lib.mkForce {
       device = "none";
