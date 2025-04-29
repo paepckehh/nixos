@@ -35,7 +35,7 @@ info:
 	@echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGET), luks: $(USELUKS), build repo: $(REPO), flake: $(FLAKE)
 
 check: 
-	@if [ -r /dev/$(TARGETDRIVE)]; then 
+	if [ -r /dev/$(TARGETDRIVE)]; then 
 		echo "TARGETDRIVE: /dev/$(TARGETDRIVE) found."
 	else 
 		echo "TARGETDRIVE: /dev/$(TARGETDRIVE) does not exists, exit"
