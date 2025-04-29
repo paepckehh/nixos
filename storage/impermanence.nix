@@ -23,7 +23,7 @@
     "/nix" = lib.mkForce {
       device = lib.mkForce "/dev/disk/by-partlabel/disk-main-nix";
       fsType = lib.mkForce "ext4";
-      options = lib.mkForce ["mode=755" "noatime" "nodiratime" "discard"];
+      options = lib.mkForce ["noatime" "nodiratime" "discard"];
     };
     "/var/lib" = lib.mkForce {
       device = "/nix/persist/var/lib";

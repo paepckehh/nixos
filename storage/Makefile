@@ -10,7 +10,7 @@ TARGET?=$(shell hostname)
 TARGETDRIVE?=sdb
 DEVICE_MAIN:=$(TARGETDRIVE)
 STRUCT:=/mnt/boot /mnt/nix /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/nix/var/log /mnt
-PERSIST:=/mnt/nix/persist/home /mnt/nix/persist/var/log /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh
+PERSIST:=/mnt/nix/persist/home /mnt/nix/persist/var/lib /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh
 USELUKS:=YES
 FLAKE:=flakes/disko-impermanence-luks-$(TARGETDRIVE).nix
 ifeq ($(origin LUKS),undefined)
