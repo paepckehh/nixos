@@ -28,16 +28,32 @@
     programs = {
       librewolf = {
         enable = true;
+        policies = {
+          SanitizeOnShutdown = {
+            Cache = true;
+            Cookies = true;
+            Downloads = true;
+            FormData = true;
+            History = true;
+            Sessions = true;
+            SiteSettings = true;
+            OfflineApps = true;
+          };
+        };
         settings = {
           # "identity.fxaccounts" = true;
           # "identity.fxaccounts.autoconfig.uri" = "https://localhost:5000";
           "browser.cache.disk.enable" = false;
           "browser.compactmode.show" = true;
           "browser.startup.homepage" = "";
+          "dom.webnotifications.enabled" = false;
           "signon.rememberSignons" = false;
           "privacy.clearOnShutdown.history" = false;
           "privacy.clearOnShutdown.cookies" = false;
+          "privacy.firstparty.isolate" = true;
+          "privacy.resistFingerprinting" = true;
           "media.ffmpeg.vaapi.enabled" = true;
+          "network.trr.mode" = 0;
           "webgl.disabled" = false;
         };
       };
