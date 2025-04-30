@@ -21,8 +21,8 @@
         WASTEBIN_HTTP_TIMEOUT = 5;
         WASTEBIN_BASEURL = "http://192.168.8.100:6680";
         WASTEBIN_ADDRESS_PORT = "192.168.8.100:6680";
-        WASTEBIN_RUST_LOG = "debug";
         WASTEBIN_THEME = "coldark";
+        RUST_LOG = "debug";
       };
     };
   };
