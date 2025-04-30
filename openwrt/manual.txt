@@ -11,12 +11,7 @@ apk add dnscrypt-proxy2
 apk add dnsmasq-full
 apk add banip
 apk add luci-app-banip
-apk add prometheus-node-exporter-lua
-apk add prometheus-node-exporter-lua-nat_traffic
-apk add prometheus-node-exporter-lua-netstat
-apk add prometheus-node-exporter-lua-openwrt
-apk add prometheus-node-exporter-lua-wifi
-apk add prometheus-node-exporter-lua-wifi_stations
+apk add prometheus-node-exporter-* [ports: lua 9100, ucode 9101]
 
 # prep android uplink
 apk add kmod-usb-net-rndis

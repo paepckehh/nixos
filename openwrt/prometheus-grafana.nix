@@ -48,6 +48,14 @@
           job_name = "openwrt-ucode";
           static_configs = [
             {
+              targets = ["192.168.8.1:9101"];
+            }
+          ];
+        }
+        {
+          job_name = "openwrt-lua";
+          static_configs = [
+            {
               targets = ["192.168.8.1:9100"];
             }
           ];
