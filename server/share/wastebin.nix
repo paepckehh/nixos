@@ -5,9 +5,9 @@
   services = {
     wastebin = {
       enable = true;
-      stateDir = "/var/stateless/wastebin";
+      # stateDir = "/var/stateless/wastebin";
       settings = {
-        WASTEBIN_TITLE = "wastbin.lan (stateless)";
+        WASTEBIN_TITLE = "wastbin.lan:6680";
         WASTEBIN_MAX_BODY_SIZE = 1024;
         WASTEBIN_HTTP_TIMEOUT = 5;
         WASTEBIN_BASEURL = "http://wastebin.lan";
