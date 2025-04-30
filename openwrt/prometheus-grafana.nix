@@ -45,7 +45,7 @@
       enable = true;
       scrapeConfigs = [
         {
-          job_name = "openwrt";
+          job_name = "openwrt-ucode";
           static_configs = [
             {
               targets = ["192.168.8.1:9100"];
