@@ -7,7 +7,6 @@
       enable = true;
       stateDir = "/var/stateless/wastebin";
       settings = {
-        WASTEBIN_DATABASE_PATH = "/var/stateless/wastebin/sqlite3.db";
         WASTEBIN_TITLE = "wastbin.lan (stateless)";
         WASTEBIN_MAX_BODY_SIZE = 1024;
         WASTEBIN_HTTP_TIMEOUT = 5;
