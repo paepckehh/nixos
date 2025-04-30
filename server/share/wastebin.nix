@@ -16,12 +16,12 @@
       enable = true;
       # stateDir = "/var/stateless/wastebin";
       settings = {
-        WASTEBIN_TITLE = "wastbin.lan:6680";
+        WASTEBIN_TITLE = "wastbin.lan 192.168.8.100:6680";
         WASTEBIN_MAX_BODY_SIZE = 1024;
         WASTEBIN_HTTP_TIMEOUT = 5;
-        WASTEBIN_BASEURL = "http://wastebin.lan";
+        WASTEBIN_BASEURL = "http://192.168.8.100:6680";
         WASTEBIN_ADDRESS_PORT = "192.168.8.100:6680";
-        WASTEBIN_RUST_LOG = "info";
+        WASTEBIN_RUST_LOG = "debug";
         WASTEBIN_THEME = "coldark";
       };
     };
