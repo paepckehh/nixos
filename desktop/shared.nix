@@ -9,7 +9,7 @@
   #####################
   # add generic terminal pkg for all, configure individually via home-manager profile
   environment = {
-    systemPackages = with pkgs; [alacritty];
+    systemPackages = with pkgs; [alacritty librewolf gparted keepassxc];
     variables = {
       TERMINAL = "alacritty";
     };
@@ -18,7 +18,7 @@
   ###############
   #-=# FONTS #=-#
   ###############
-  fonts.packages = (
+  fonts.packages = ( # no support for pre24.11
     if (config.system.nixos.release == "24.11")
     then [(pkgs.nerdfonts.override {fonts = ["FiraCode"];})]
     else [pkgs.nerd-fonts.fira-code]

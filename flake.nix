@@ -97,7 +97,7 @@
           nvf.nixosModules.default
           ./configuration.nix
           ./storage/disko-luks-legacy.nix
-          ./desktop/gnome.nix
+          ./desktop/cosmic.nix
           ./person/desktop/mpaepcke.nix
           ./packages/agenix.nix
           ./packages/base.nix

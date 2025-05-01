@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   #################
   #-=# IMPORTS #=-#
   #################
@@ -11,19 +6,46 @@
     ../me.nix
   ];
 
-  #####################
-  #-=# ENVIRONMENT #=-#
-  #####################
-  environment = {
-    systemPackages = with pkgs; [gparted keepassxc];
-  };
-
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager.users.me = {
-    services = {
-      remmina.enable = false;
+    dconf = {
+      enable = true;
+      settings = {
+        "org/gnome/shell" = {
+          disable-user-extensions = false;
+          enabled-extensions = with pkgs.gnomeExtensions; [
+            toggle-alacritty.extensionUuid
+          ];
+          favorite-apps = ["Alacritty.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop"];
+        };
+        "org/gnome/settings-daemon/plugins/media-keys" = {
+          custom-keybindings = [
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
+          ];
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+          name = "alacritty terminal"; # <windows-key> + <return> = terminal
+          command = "alacritty";
+          binding = "<Super>Return";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+          name = "librewolf browser not-sandboxed"; # <windows-key> +  <b> = browser
+          command = "librewolf";
+          binding = "<Super>b";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+          name = "keepassxc passwordmanager"; # <windows-key> +  <k> = keepassxc
+          command = "keepassxc";
+          binding = "<Super>k";
+        };
+        "org/gnome/desktop/interface" = {
+          clock-show-weekday = true;
+        };
+      };
     };
     programs = {
       librewolf = {
@@ -41,12 +63,9 @@
           };
         };
         settings = {
-          # "identity.fxaccounts" = true;
-          # "identity.fxaccounts.autoconfig.uri" = "https://localhost:5000";
           "browser.cache.disk.enable" = false;
           "browser.compactmode.show" = true;
           "browser.startup.homepage" = "";
-          "dom.webnotifications.enabled" = false;
           "signon.rememberSignons" = false;
           "privacy.clearOnShutdown.history" = false;
           "privacy.clearOnShutdown.cookies" = false;
@@ -101,42 +120,8 @@
         };
       };
     };
-    dconf = {
-      enable = true;
-      settings = {
-        "org/gnome/shell" = {
-          disable-user-extensions = false;
-          enabled-extensions = with pkgs.gnomeExtensions; [
-            toggle-alacritty.extensionUuid
-          ];
-          favorite-apps = ["Alacritty.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop"];
-        };
-        "org/gnome/settings-daemon/plugins/media-keys" = {
-          custom-keybindings = [
-            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
-            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
-          ];
-        };
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-          name = "alacritty terminal"; # <windows-key> + <return> = terminal
-          command = "alacritty";
-          binding = "<Super>Return";
-        };
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-          name = "librewolf browser not-sandboxed"; # <windows-key> +  <b> = browser
-          command = "librewolf";
-          binding = "<Super>b";
-        };
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
-          name = "keepassxc passwordmanager"; # <windows-key> +  <k> = keepassxc
-          command = "keepassxc";
-          binding = "<Super>k";
-        };
-        "org/gnome/desktop/interface" = {
-          clock-show-weekday = true;
-        };
-      };
+    services = {
+      remmina.enable = false;
     };
   };
 }

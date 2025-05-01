@@ -111,8 +111,8 @@
           fzf = {
             enable = true;
             enableBashIntegration = false;
-            enableFishIntegration = true;
-            enableZshIntegration = true;
+            enableFishIntegration = false;
+            enableZshIntegration = false;
           };
           git = {
             userName = "me";
@@ -187,7 +187,6 @@
             syntaxHighlighting.enable = true;
             historySubstringSearch.enable = true;
             history = {
-              size = 0;
               save = 0;
               saveNoDups = true;
               path = "/dev/null";

@@ -42,6 +42,8 @@ info-image:
 # NIXOS OPERATIONS #
 ####################
 
+boot:   build 
+
 build:  info commit build-log
 	sudo nixos-rebuild boot --flake $(OSFLAKE) --profile-name $(PROFILE)
 
