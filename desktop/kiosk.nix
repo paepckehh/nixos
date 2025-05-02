@@ -30,7 +30,7 @@
     home = {
       stateVersion = config.system.nixos.release;
       enableNixpkgsReleaseCheck = false;
-      homeDirectory = "/home/kiosk";
+      # homeDirectory = "/home/kiosk";
       keyboard.layout = "us,de";
     };
     programs = {
