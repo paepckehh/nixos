@@ -29,7 +29,7 @@
   {
     "url": "http://localhost:9090/",
     "name": "local: prometheus"
-  }
+  },
   {
     "url": "http://localhost:6688/",
     "name": "local: wastebin"
