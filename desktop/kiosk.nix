@@ -11,7 +11,7 @@
     cage = {
       enable = true;
       user = "kiosk";
-      program = "${pkgs.librewolf}/bin/librewolf -kiosk -private-window http://www.heise.de";
+      program = lib.mkDefault "${pkgs.librewolf}/bin/librewolf -kiosk -private-window http://start.lan";
     };
     autosuspend.enable = lib.mkForce false;
     printing.enable = lib.mkForce false;
