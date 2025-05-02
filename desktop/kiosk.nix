@@ -28,15 +28,17 @@
   ###############
   users = {
     users = {
-      me = {
+      kiosk = {
         initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
         description = "kiosk";
         uid = 65501;
         createHome = true;
         isNormalUser = true;
+        group = "kiosk";
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
     };
+    groups.kiosk = {};
   };
 
   ######################
