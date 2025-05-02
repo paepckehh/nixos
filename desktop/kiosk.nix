@@ -30,7 +30,7 @@
     home = {
       stateVersion = config.system.nixos.release;
       enableNixpkgsReleaseCheck = false;
-      # homeDirectory = "/home/kiosk";
+      # homeDirectory = lib.mkForce "/home/kiosk";
       keyboard.layout = "us,de";
     };
     programs = {
@@ -79,7 +79,7 @@
         initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
         description = "kiosk";
         uid = 65501;
-        group = "nogroup";
+        group = {};
         createHome = true;
         isNormalUser = true;
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
