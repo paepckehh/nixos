@@ -18,10 +18,18 @@
       };
       luks.mitigateDMAAttacks = lib.mkForce true;
       supportedFilesystems = ["ext4" "tmpfs"];
-      availableKernelModules = ["aesni_intel" "ahci" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
+      availableKernelModules = (
+        if (config.nixpkgs.system == "x86_64-linux")
+        then ["aesni_intel" "ahci" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"]
+        else ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"]
+      );
     };
     blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "brcmfmac" "brcmsmac" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb" "wl"];
-    extraModulePackages = [config.boot.kernelPackages.zenpower];
+    extraModulePackages = (
+      if (config.nixpkgs.system == "x86_64-linux")
+      then [config.boot.kernelPackages.zenpower]
+      else []
+    );
     kernelPackages = (
       if (config.system.nixos.release == "24.11")
       then pkgs.linuxPackages
@@ -32,7 +40,11 @@
       then ["amd_pstate=active" "copytoram" "page_alloc.shuffle=1"]
       else ["page_alloc.shuffle=1"]
     );
-    kernelModules = ["amd-pstate" "amdgpu" "exfat" "kvm-amd" "kvm-intel" "uas" "vfat"];
+    kernelModules = (
+      if (config.nixpkgs.system == "x86_64-linux")
+      then ["amd-pstate" "amdgpu" "exfat" "kvm-amd" "kvm-intel" "uas" "vfat"]
+      else ["exfat" "uas" "vfat"]
+    );
     readOnlyNixStore = lib.mkForce true;
     tmp = {
       cleanOnBoot = true;
@@ -96,7 +108,7 @@
   #################
   nixpkgs = {
     config = {
-      allowBroken = lib.mkDefault true;
+      allowBroken = lib.mkDefault true; # XXX dev mode
       allowUnfree = lib.mkDefault true;
     };
   };
@@ -142,7 +154,7 @@
       automatic = true;
       dates = "daily";
       persistent = true;
-      options = "--delete-older-than 60d";
+      options = "--delete-older-than 42d";
     };
     optimise = {
       automatic = true;
@@ -182,6 +194,7 @@
       };
     };
     i2c.enable = true;
+    iio.enable = true;
     intel-gpu-tools.enable = true;
     uinput.enable = true;
     graphics = {
