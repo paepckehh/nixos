@@ -2,7 +2,7 @@
   {
     "toplevel_name": "Global Corp Managed Bookmarks"
   },
-
+  {
     "name": "corp",
     "children": [
   {
@@ -42,7 +42,7 @@
     "name": "local: pgweb"
   }
     ]
-
+  },
   {
     "name": "nix",
     "children": [
