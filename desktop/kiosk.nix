@@ -11,7 +11,7 @@
     cage = {
       enable = true;
       user = "kiosk";
-      program = "${pkgs.librefox}/bin/librefox -kiosk -private-window http://www.heise.de";
+      program = "${pkgs.firefox}/bin/firefox -kiosk -private-window http://www.heise.de";
     };
     autosuspend.enable = lib.mkForce false;
     printing.enable = lib.mkForce false;
@@ -44,7 +44,7 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.systemPackages = with pkgs; [librefox];
+  # environment.systemPackages = with pkgs; [librefox];
 
   ######################
   #-=# HOME-MANAGER #=-#
