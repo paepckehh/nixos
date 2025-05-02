@@ -55,7 +55,14 @@
       librewolf = {
         enable = true;
         policies = {
+          NoDefaultBookmarks = true;
           ManagedBookmarks = lib.importJSON ./resources/bookmarks-corp.json;
+          ExtensionSettings = {
+            "*".installation_mode = "blocked";
+            "uBlock0@raymondhill.net" = {
+              install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+              installation_mode = "force_installed";
+          };
           SanitizeOnShutdown = {
             Cache = true;
             Cookies = true;
@@ -70,7 +77,7 @@
         profiles = {
           default = {
             id = 0;
-            name = "DefaultLibrewolfProfile";
+            name = "DefaultProfile";
             isDefault = true;
           };
         };
@@ -85,6 +92,7 @@
           "privacy.resistFingerprinting" = true;
           "media.ffmpeg.vaapi.enabled" = true;
           "network.trr.mode" = 0;
+          "network.proxy.type" = 0;
           "webgl.disabled" = false;
         };
       };
