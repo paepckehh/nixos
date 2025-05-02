@@ -74,9 +74,7 @@
         autoSuspend = false;
         banner = ''hardened nixos gnome desktop '';
       };
-      desktopManager = {
-        gnome = {
-          enable = true;
+      desktopManager.gnome.enable = true;
         };
       };
     };
