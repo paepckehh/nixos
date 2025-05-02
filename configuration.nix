@@ -28,7 +28,7 @@
       else pkgs.linuxPackages_latest
     );
     kernelParams = (
-      if (config.lib.nixosSystem.system == "x86_64-linux")
+      if (config.nixpkgs.system == "x86_64-linux")
       then ["amd_pstate=active" "copytoram" "page_alloc.shuffle=1"]
       else ["page_alloc.shuffle=1"]
     );
