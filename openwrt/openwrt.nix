@@ -3,7 +3,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./access.nix
+    ./alias.nix
     ./prometheus-grafana.nix
     ../server/monitoring/collect-syslog-ng.nix
   ];
