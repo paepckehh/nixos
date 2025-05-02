@@ -194,7 +194,6 @@
       };
     };
     i2c.enable = true;
-    iio.enable = true;
     intel-gpu-tools.enable = true;
     uinput.enable = true;
     graphics = {
