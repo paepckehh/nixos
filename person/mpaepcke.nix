@@ -49,7 +49,6 @@
           };
         };
         programs = {
-          librewolf.profiles.default.bookmarks = lib.importJSON ./resources/bookmarks-personal.json;
           git = {
             userName = lib.mkForce "PAEPCKE, Michael";
             userEmail = lib.mkForce "git@paepcke.de";
