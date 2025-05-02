@@ -14,6 +14,8 @@ clone:
 	rm -rf nix-openwrt-imagebuilder
 	git clone https://github.com/astro/nix-openwrt-imagebuilder
 
+backup: axt-backup dap-backup rpi-backup b3000-backup
+
 ######################
 # DLINK DAP-X1860-A1 #
 ###################### 
@@ -31,7 +33,7 @@ dap-config:
 	ssh -p 6623 root@dap.lan uci show | sed '/.key=/d'
 
 dap-luci:
-	ssh -p 6623 root@dap.lan service uhttpd start
+	ssh -p 6623 root@dap.lan "service uhttpd start"
 	ssh -p 6623 -L127.0.0.1:8080:127.0.0.1:8080 root@dap.lan
 
 dap-backup:
@@ -52,14 +54,14 @@ axt-clean:
 	$(MAKE) -C glinet/gl-axt1800 clean
 
 axt-config:
-	ssh -p 6623 root@192.168.8.1 uci show | sed '/.key=/d'
+	ssh -p 6623 root@192.168.8.1 "uci show | sed '/.key=/d'"
 
 axt-backup:
 	mkdir -p /etc/nixos/openwrt/config/axt
 	ssh -p 6623 root@192.168.8.1 "uci show | sed '/.key=/d'" > /etc/nixos/openwrt/config/axt/$(DTS).uci-config
 
 axt-luci:
-	ssh -p 6623 root@192.168.8.1 service uhttpd start
+	ssh -p 6623 root@192.168.8.1 "service uhttpd start"
 	ssh -p 6623 -L127.0.0.1:8080:127.0.0.1:8080 root@192.168.8.1
 
 #################
@@ -76,10 +78,10 @@ b3000-clean:
 	$(MAKE) -C glinet/gl-axt1800 clean
 
 b3000-config:
-	ssh -p 6623 root@192.168.8.250 uci show | sed '/.key=/d'
+	ssh -p 6623 root@192.168.8.250 "uci show | sed '/.key=/d'"
 
 b3000-luci:
-	ssh -p 6623 root@192.168.8.250 service uhttpd start
+	ssh -p 6623 root@192.168.8.250 "service uhttpd start"
 	ssh -p 6623 -L127.0.0.1:8080:127.0.0.1:8080 root@192.168.8.250
 
 b3000-backup:
@@ -103,7 +105,7 @@ rpi2-config:
 	ssh -p 6623 root@rpi2.lan uci show | sed '/.key=/d'
 
 rpi2-luci:
-	ssh -p 6623 root@rpi2.lan service uhttpd start
+	ssh -p 6623 root@rpi2.lan "service uhttpd start"
 	ssh -p 6623 -L127.0.0.1:8080:127.0.0.1:8080 root@rpi2.lan
 
 rpi2-backup:
