@@ -41,6 +41,11 @@
     groups.kiosk = {};
   };
 
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment.systemPackages = with pkgs; [librefox];
+
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
@@ -48,7 +53,6 @@
     home = {
       stateVersion = config.system.nixos.release;
       enableNixpkgsReleaseCheck = false;
-      # homeDirectory = lib.mkForce "/home/kiosk";
       keyboard.layout = "us,de";
     };
     programs = {
