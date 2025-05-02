@@ -26,6 +26,12 @@
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager.users.kiosk = {
+    home = {
+      stateVersion = config.system.nixos.release;
+      enableNixpkgsReleaseCheck = false;
+      homeDirectory = "/home/kiosk";
+      keyboard.layout = "us,de";
+    };
     programs = {
       librewolf = {
         enable = true;
