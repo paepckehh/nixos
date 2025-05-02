@@ -3,9 +3,7 @@
   inputs = {
     # ONLINE URLs
     # dns.url = "github:nix-community/dns.nix/master";
-    # nixvim.url = "github:nix-community/nixvim/master";
     # sops.url = "github:mic92/sops-nix";
-    # nocodb.url = "github:nocodb/nocodb";
     agenix.url = "github:ryantm/agenix";
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
