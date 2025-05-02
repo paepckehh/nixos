@@ -48,7 +48,7 @@
     home = {
       stateVersion = config.system.nixos.release;
       enableNixpkgsReleaseCheck = false;
-      keyboard.layout = "us,de";
+      keyboard.layout = "de,us";
     };
     programs = {
       librewolf = {
