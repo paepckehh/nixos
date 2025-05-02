@@ -1,0 +1,64 @@
+// bookmarks-cor.json
+[
+  {
+    "toplevel_name": "Global Corp Managed Bookmarks"
+  },
+
+    "name": "corp",
+    "children": [
+  {
+    "url": "http://start.lan",
+    "name": "start"
+  },
+  {
+    "url": "https://127.0.0.1:8080/cgi-bin/luci",
+    "name": "axt luci"
+  },
+  {
+    "url": "http://192.168.1.1/",
+    "name": "factory fw I"
+  },
+  {
+    "url": "http://192.168.0.1/",
+    "name": "factory fw II"
+  }.
+  {
+    "url": "http://localhost:3000/",
+    "name": "local: grafana"
+  },
+  {
+    "url": "http://localhost:9090/",
+    "name": "local: prometheus"
+  }
+  {
+    "url": "http://localhost:6688/",
+    "name": "local: wastebin"
+  },
+  {
+    "url": "http://localhost:4000/",
+    "name": "local: blocky"
+  },
+  {
+    "url": "http://localhost:8081/",
+    "name": "local: pgweb"
+  }
+    ]
+
+  {
+    "name": "nix",
+    "children": [
+      {
+        "url": "https://search.nixos.org/packages",
+        "name": "Nix Packages Search"
+      },
+      {
+        "url": "https://nixos.wiki/wiki/Main_Page",
+        "name": "NixOS Wiki"
+      },
+      {
+        "url": "https://nix.dev/index.html",
+        "name": "Nix Dev"
+      }
+    ]
+  }
+]

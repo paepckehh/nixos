@@ -49,34 +49,7 @@
           };
         };
         programs = {
-          ssh = {
-            matchBlocks = {
-              luci = {
-                host = "axt";
-                hostname = "192.168.8.1";
-                port = 6623; # 6622 dropbear
-                user = "root";
-                addressFamily = "inet";
-                checkHostIP = true;
-                compression = false;
-                forwardAgent = false;
-                forwardX11 = false;
-                forwardX11Trusted = false;
-                localForwards = [
-                  {
-                    bind = {
-                      address = "127.0.0.1";
-                      port = 8080;
-                    };
-                    host = {
-                      address = "127.0.0.1";
-                      port = 8080;
-                    };
-                  }
-                ];
-              };
-            };
-          };
+          librewolf.profiles.default.bookmarks = lib.importJSON ./resources/bookmarks-personal.json;
           git = {
             userName = lib.mkForce "PAEPCKE, Michael";
             userEmail = lib.mkForce "git@paepcke.de";

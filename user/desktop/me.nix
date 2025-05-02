@@ -51,6 +51,7 @@
       librewolf = {
         enable = true;
         policies = {
+          ManagedBookmarks = lib.importJSON ./resources/bookmarks-corp.json;
           SanitizeOnShutdown = {
             Cache = true;
             Cookies = true;
@@ -60,6 +61,13 @@
             Sessions = true;
             SiteSettings = true;
             OfflineApps = true;
+          };
+        };
+        profiles = {
+          default = {
+            id = 0;
+            name = "DefaultLibrewolfProfile";
+            isDefault = true;
           };
         };
         settings = {
