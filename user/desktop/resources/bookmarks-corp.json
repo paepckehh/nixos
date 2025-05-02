@@ -20,7 +20,7 @@
   {
     "url": "http://192.168.0.1/",
     "name": "factory fw II"
-  }.
+  },
   {
     "url": "http://localhost:3000/",
     "name": "local: grafana"
