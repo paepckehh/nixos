@@ -42,7 +42,7 @@
       #########
       # KIOSK #
       #########
-      kios = nixpkgs.lib.nixosSystem {
+      kiosk = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
