@@ -41,11 +41,6 @@
     groups.kiosk = {};
   };
 
-  #####################
-  #-=# ENVIRONMENT #=-#
-  #####################
-  # environment.systemPackages = with pkgs; [librewolf];
-
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
@@ -57,7 +52,7 @@
     };
     programs = {
       librewolf = {
-        enable = false;
+        enable = true;
         policies = {
           SanitizeOnShutdown = {
             Cache = true;
