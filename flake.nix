@@ -100,6 +100,7 @@
           ./packages/agenix.nix
           ./packages/base.nix
           ./packages/devops.nix
+          ./packages/devops-iot.nix
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
           ./openwrt/openwrt.nix
