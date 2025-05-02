@@ -48,7 +48,8 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./storage/impermanence.nix
+          # ./storage/impermanence.nix
+          ./storage/disko-luks-legacy.nix
           ./desktop/kiosk.nix
           {networking.hostName = "kiosk";}
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
