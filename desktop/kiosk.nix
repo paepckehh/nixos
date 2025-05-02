@@ -11,7 +11,7 @@
     cage = {
       enable = true;
       user = "kiosk";
-      program = "${pkgs.firefox}/bin/firefox -kiosk -private-window http://www.heise.de";
+      program = "${pkgs.librewolf}/bin/librewolf -kiosk -private-window http://www.heise.de";
     };
     autosuspend.enable = lib.mkForce false;
     printing.enable = lib.mkForce false;
@@ -44,7 +44,7 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  # environment.systemPackages = with pkgs; [librefox];
+  # environment.systemPackages = with pkgs; [librewolf];
 
   ######################
   #-=# HOME-MANAGER #=-#
@@ -57,7 +57,7 @@
     };
     programs = {
       librewolf = {
-        enable = true;
+        enable = false;
         policies = {
           SanitizeOnShutdown = {
             Cache = true;
