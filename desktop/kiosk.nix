@@ -23,6 +23,22 @@
     };
   };
 
+  ###############
+  #-=# USERS #=-#
+  ###############
+  users = {
+    users = {
+      me = {
+        initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
+        description = "kiosk";
+        uid = 65501;
+        createHome = true;
+        isNormalUser = true;
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
+      };
+    };
+  };
+
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
@@ -69,21 +85,4 @@
   #-=# SECURITY #=-#
   ##################
   security.rtkit.enable = lib.mkForce false;
-
-  ###############
-  #-=# USERS #=-#
-  ###############
-  users = {
-    users = {
-      me = {
-        initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
-        description = "kiosk";
-        uid = 65501;
-        group = {};
-        createHome = true;
-        isNormalUser = true;
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
-      };
-    };
-  };
 }
