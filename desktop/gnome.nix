@@ -75,8 +75,6 @@
         banner = ''hardened nixos gnome desktop '';
       };
       desktopManager.gnome.enable = true;
-        };
-      };
     };
   };
 }
