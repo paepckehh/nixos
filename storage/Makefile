@@ -89,8 +89,8 @@ sdb-zero:
 sdc-zero: 
 	ZERODRIVE=/dev/sdc $(MAKE) zero trim 
 trim:
-	sudo blkdiscard -f $(ZERODRIVE) || true
-	sudo nvme format --verbose /dev/$(ZERODRIVE) --force || true
+	sudo blkdiscard -f $(ZERODRIVE) > /dev/null 2> &1 || true
+	sudo nvme format /dev/$(ZERODRIVE) --force > /dev/null 2>&1 || true
 zero: 
 	sudo dd if=/dev/zero of=$(ZERODRIVE) oflag=direct bs=512k status=progress
 	sudo dd if=/dev/zero of=$(ZERODRIVE) oflag=direct bs=512k status=progress
