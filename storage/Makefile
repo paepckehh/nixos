@@ -76,7 +76,7 @@ mount:
 
 wipe:
 	sudo nix run github:nix-community/disko/latest -- --mode destroy --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
-	ZERODRIVE=/dev/$(TARGETDRIVE) $(MAKE) trim 
+	ZERODRIVE=$(TARGETDRIVE) $(MAKE) trim 
 
 
 #################
