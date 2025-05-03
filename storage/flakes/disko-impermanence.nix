@@ -5,7 +5,7 @@
   disko.devices = {
     disk = {
       main = {
-        device = "/dev/$DISKO_DEVICE_MAIN"; # autoinstaller dummy target
+        device = "/dev/$diskDevice"; # autoinstaller dummy target
         type = "disk";
         content = {
           type = "gpt";
