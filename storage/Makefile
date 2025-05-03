@@ -37,7 +37,6 @@ info:
 
 check: 
 	@if [ ! -e /dev/$(TARGETDRIVE) ]; then (echo "TARGETDRIVE: /dev/$(TARGETDRIVE) does not exists, exit" ; exit 1); fi  
-	export DISKO_DEVICE_MAIN=$(TARGETDRIVE)
 
 install:
 	sudo nixos-install --verbose --impure --no-root-password --root /mnt --flake $(OSFLAKE)
@@ -70,13 +69,13 @@ umount:
 
 format:
 	echo ${LUKS} > /tmp/luks 
-	sudo nix run github:nix-community/disko/latest -- --mode format --argstr diskDevice $(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+	sudo nix run github:nix-community/disko/latest -- --mode format --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
 
 mount:
-	sudo nix run github:nix-community/disko/latest -- --mode mount --argstr diskDevice $(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+	sudo nix run github:nix-community/disko/latest -- --mode mount --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
 
 wipe:
-	sudo nix run github:nix-community/disko/latest -- --mode destroy --argstr diskDevice $(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+	sudo nix run github:nix-community/disko/latest -- --mode destroy --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
 	ZERODRIVE=/dev/$(TARGETDRIVE) $(MAKE) trim 
 
 
@@ -85,14 +84,14 @@ wipe:
 #################
 
 sda-zero: 
-	ZERODRIVE=/dev/sda $(MAKE) zero trim
+	ZERODRIVE=sda $(MAKE) zero trim
 sdb-zero: 
-	ZERODRIVE=/dev/sdb $(MAKE) zero trim
+	ZERODRIVE=sdb $(MAKE) zero trim
 sdc-zero: 
-	ZERODRIVE=/dev/sdc $(MAKE) zero trim 
+	ZERODRIVE=sdc $(MAKE) zero trim 
 trim:
-	sudo blkdiscard -f $(ZERODRIVE) > /dev/null || true
-	sudo nvme format $(ZERODRIVE) --force > /dev/null || true
+	sudo blkdiscard -f /dev/$(ZERODRIVE) > /dev/null || true
+	sudo nvme format /dev/$(ZERODRIVE) --force > /dev/null || true
 zero: 
-	sudo dd if=/dev/zero of=$(ZERODRIVE) oflag=direct bs=512k status=progress
-	sudo dd if=/dev/zero of=$(ZERODRIVE) oflag=direct bs=512k status=progress
+	sudo dd if=/dev/zero of=/dev/$(ZERODRIVE) oflag=direct bs=512k status=progress
+	sudo dd if=/dev/zero of=/dev/$(ZERODRIVE) oflag=direct bs=512k status=progress
