@@ -37,6 +37,7 @@ info:
 
 check: 
 	@if [ ! -e /dev/$(TARGETDRIVE) ]; then (echo "TARGETDRIVE: /dev/$(TARGETDRIVE) does not exists, exit" ; exit 1); fi  
+	export DISKO_DEVICE_MAIN=$(TARGETDRIVE)
 
 install:
 	sudo nixos-install --verbose --impure --no-root-password --root /mnt --flake $(OSFLAKE)
