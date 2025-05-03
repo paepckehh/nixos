@@ -10,6 +10,7 @@
   environment = {
     systemPackages = with pkgs; [
       mqtt-explorer
+      rpi-imager
     ];
   };
 }
