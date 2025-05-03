@@ -70,12 +70,12 @@ umount:
 
 format:
 	echo ${LUKS} > /tmp/luks 
-	sudo nix run github:nix-community/disko/latest -- --mode format $(DISKOFLAKE) --arg disk '[ "/dev/$(TARGETDRIVE)" ]' || exit 1
+	sudo nix run github:nix-community/disko/latest -- --mode format --argstr "diskDevice" "$(TARGETDRIVE)" $(DISKOFLAKE) || exit 1
 mount:
-	sudo nix run github:nix-community/disko/latest -- --mode mount $(DISKOFLAKE) --arg disk '[ "/dev/$(TARGETDRIVE)" ]' || exit 1
+	sudo nix run github:nix-community/disko/latest -- --mode mount --argstr "diskDevice" "$(TARGETDRIVE)" $(DISKOFLAKE) || exit 1
 
 wipe:
-	sudo nix run github:nix-community/disko/latest -- --mode destroy $(DISKOFLAKE) --arg disk '[ "/dev/$(TARGETDRIVE)" ]' || exit 1
+	sudo nix run github:nix-community/disko/latest -- --mode destroy --argstr "diskDevice" "$(TARGETDRIVE)" $(DISKOFLAKE) || exit 1
 	ZERODRIVE=/dev/$(TARGETDRIVE) $(MAKE) trim 
 
 
