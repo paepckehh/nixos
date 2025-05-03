@@ -63,10 +63,5 @@
       fsType = "none";
       options = ["bind"];
     };
-    #"/nix/var/log" = lib.mkForce {
-    #  device = "none";
-    #  fsType = "tmpfs";
-    #  options = ["defaults" "mode=755" "size=80%"];
-    #};
   };
 }

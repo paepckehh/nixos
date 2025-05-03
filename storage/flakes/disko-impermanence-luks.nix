@@ -1,11 +1,15 @@
-{lib, ...}: {
+{
+  lib,
+  diskDevice,
+  ...
+}: {
   ###############
   #-=# DISKO #=-#
   ###############
   disko.devices = {
     disk = {
       main = {
-        device = "/dev/$DISKO_DEVICE_MAIN"; # autoinstaller dummy target
+        device = diskDevice;
         type = "disk";
         content = {
           type = "gpt";
