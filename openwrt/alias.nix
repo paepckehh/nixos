@@ -16,6 +16,7 @@
       "dap.config" = "cd /etc/nixos/openwrt && make dap-config";
       "rpi2.config" = "cd /etc/nixos/openwrt && make rpi2-config";
       "b3000.config" = "cd /etc/nixos/openwrt && make b3000-config";
+      "moode" = "ssh -p 6623 me@moode.lan";
     };
   };
 }

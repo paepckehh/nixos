@@ -12,10 +12,10 @@ DEVICE_MAIN:=$(TARGETDRIVE)
 STRUCT:=/mnt/boot /mnt/nix /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/nix/var/log /mnt
 PERSIST:=/mnt/nix/persist/home /mnt/nix/persist/var/lib /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh
 USELUKS:=YES
-DISKOFLAKE:=flakes/disko-impermanence-luks-$(TARGETDRIVE).nix
+DISKOFLAKE:=flakes/disko-impermanence-luks.nix
 ifeq ($(origin LUKS),undefined)
       USELUKS:=NO
-      DISKOFLAKE:=flakes/disko-impermanence-$(TARGETDRIVE).nix
+      DISKOFLAKE:=flakes/disko-impermanence.nix
 endif
 OSFLAKE:=/etc/nixos/\#$(TARGET)
 WIPEDRIVE?=/dev/null
@@ -59,7 +59,6 @@ post-mount:
 	sudo mount -o bind /mnt/nix/persist/var/lib /mnt/var/lib
 	sudo mount -o bind /mnt/nix/persist/etc/nixos /mnt/etc/nixos
 	sudo mount -o bind /mnt/nix/persist/etc/ssh /mnt/etc/ssh
-	# sudo mount -t tmpfs tmpfs /mnt/nix/var/log
 
 umount:
 	sudo sync && sync && sync
@@ -70,27 +69,28 @@ umount:
 
 format:
 	echo ${LUKS} > /tmp/luks 
-	sudo nix run github:nix-community/disko/latest -- --mode format $(DISKOFLAKE) || exit 1
-
+	sudo nix run github:nix-community/disko/latest -- --mode format $(DISKOFLAKE) --arg disk '[ "/dev/$(TARGETDRIVE)" ]' || exit 1
 mount:
-	sudo nix run github:nix-community/disko/latest -- --mode mount $(DISKOFLAKE) || exit 1 
+	sudo nix run github:nix-community/disko/latest -- --mode mount $(DISKOFLAKE) --arg disk '[ "/dev/$(TARGETDRIVE)" ]' || exit 1
 
 wipe:
-	sudo nix run github:nix-community/disko/latest -- --mode destroy $(DISKOFLAKE) || exit 1
-	sudo nvme format --verbose /dev/$(TARGETDRIVE) --force || true
+	sudo nix run github:nix-community/disko/latest -- --mode destroy $(DISKOFLAKE) --arg disk '[ "/dev/$(TARGETDRIVE)" ]' || exit 1
+	ZERODRIVE=/dev/$(TARGETDRIVE) $(MAKE) zero trim 
 
 
-##################
-# GENERIC HELPER #
-##################
+#################
+# LITTLE HELPER #
+#################
 
 sda-zero: 
-	ZERODRIVE=/dev/sda $(MAKE) zero
+	ZERODRIVE=/dev/sda $(MAKE) zero trim
 sdb-zero: 
-	ZERODRIVE=/dev/sdb $(MAKE) zero
+	ZERODRIVE=/dev/sdb $(MAKE) zero trim
 sdc-zero: 
-	ZERODRIVE=/dev/sdc $(MAKE) zero
-
+	ZERODRIVE=/dev/sdc $(MAKE) zero trim 
+trim:
+	sudo blkdiscard -f $(ZERODRIVE) || true
+	sudo nvme format --verbose /dev/$(ZERODRIVE) --force || true
 zero: 
 	sudo dd if=/dev/zero of=$(ZERODRIVE) oflag=direct bs=512k status=progress
 	sudo dd if=/dev/zero of=$(ZERODRIVE) oflag=direct bs=512k status=progress
