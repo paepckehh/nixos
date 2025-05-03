@@ -12,8 +12,8 @@
 - make clean-profiles              # removes ALL boot profiles, build a new clean one for current host/profile
 - make iso-install                 # builds a new iso file with an auto-installer for the current system
 - make iso                         # builds a new live-iso for current system (wip)
-- HOST=client make build           # builds a new boot profile for client within the current env
-- HOST=client make sdb             # builds a new bootable disk for profile client on disk sdb
-- HOST=client LUKS=start make sdb  # builds a new bootable disk for profile client on disk sdb with fulldisk encryption (LUKS)
+- TARGET=nixos make build           # builds a new boot profile for client within the current env
+- TARGET=kios make sdb             # builds a new bootable disk for profile client on disk sdb
+- TARGET=srv-mp LUKS=start make sdb  # builds a new bootable disk for profile client on disk sdb with fulldisk encryption (LUKS)
 ...
 
