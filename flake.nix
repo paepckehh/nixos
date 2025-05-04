@@ -53,6 +53,21 @@
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
         ];
       };
+      ###########
+      # BROWSER #
+      ###########
+      browser = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          disko.nixosModules.disko
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./storage/impermanence-stateless.nix
+          ./desktop/browser.nix
+          {networking.hostName = "browser";}
+          {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
+        ];
+      };
       ##########
       # CLIENT #
       ##########
