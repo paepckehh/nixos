@@ -27,9 +27,8 @@
       # moode
       "moode" = "ssh -p 6623 me@moode.lan";
       "moode.btop" = "ssh -t -p 6623 me@moode.lan 'atop'";
-      "moode.ro" = "ssh -p 6623 me@moode.lan 'sh /home/me/ro.sh'";
-      "moode.rw" = "ssh -p 6623 me@moode.lan 'sh /home/me/rw.sh'";
-      "moode.check" = "ssh -p 6623 me@moode.lan 'sh /home/me/check.sh'";
+      "moode.ro" = "ssh -p 6623 me@moode.lan 'sh /home/me/ro.sh && sudo reboot'";
+      "moode.rw" = "ssh -p 6623 me@moode.lan 'sh /home/me/rw.sh && sudo reboot'";
     };
   };
 }
