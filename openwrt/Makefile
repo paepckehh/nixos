@@ -36,9 +36,13 @@ dap-luci:
 	ssh -p 6623 root@dap.lan "service uhttpd start"
 	ssh -p 6623 -L127.0.0.1:8080:127.0.0.1:8080 root@dap.lan
 
+dap-btop:
+	ssh -t -p 6623 root@dap.lan "LANG=en_US.UTF-8 btop"
+
 dap-backup:
 	mkdir -p /etc/nixos/openwrt/config/dap
 	ssh -p 6623 root@dap.lan "uci show | sed '/.key=/d'" > /etc/nixos/openwrt/config/dap/$(DTS).uci-config
+
 
 ###################
 # GL-INET-AXT1800 #
@@ -60,9 +64,13 @@ axt-backup:
 	mkdir -p /etc/nixos/openwrt/config/axt
 	ssh -p 6623 root@192.168.8.1 "uci show | sed '/.key=/d'" > /etc/nixos/openwrt/config/axt/$(DTS).uci-config
 
+axt-btop:
+	ssh -t -p 6623 root@192.168.8.1 "LANG=en_US.UTF-8 btop"
+
 axt-luci:
 	ssh -p 6623 root@192.168.8.1 "service uhttpd start"
 	ssh -p 6623 -L127.0.0.1:8080:127.0.0.1:8080 root@192.168.8.1
+
 
 #################
 # GL-INET-B3000 #
@@ -84,9 +92,13 @@ b3000-luci:
 	ssh -p 6623 root@192.168.8.250 "service uhttpd start"
 	ssh -p 6623 -L127.0.0.1:8080:127.0.0.1:8080 root@192.168.8.250
 
+b3000-btop:
+	ssh -t -p 6623 root@192.168.8.250 "LANG=en_US.UTF-8 btop"
+
 b3000-backup:
 	mkdir -p /etc/nixos/openwrt/config/b3000
 	ssh -p 6623 root@192.168.8.250 "uci show | sed '/.key=/d'" > /etc/nixos/openwrt/config/b3000/$(DTS).uci-config
+
 
 #####################
 # RASPBERRY-PI RPI2 #
@@ -108,9 +120,13 @@ rpi2-luci:
 	ssh -p 6623 root@rpi2.lan "service uhttpd start"
 	ssh -p 6623 -L127.0.0.1:8080:127.0.0.1:8080 root@rpi2.lan
 
+rpi2-btop:
+	ssh -t -p 6623 root@rpi2.lan "LANG=en_US.UTF-8 btop"
+
 rpi2-backup:
 	mkdir -p /etc/nixos/openwrt/config/rpi2
 	ssh -p 6623 root@rpi2.lan "uci show | sed '/.key=/d'" > /etc/nixos/openwrt/config/rpi2/$(DTS).uci-config
+
 
 ######################
 # LOCAL HASH UPDATES #
