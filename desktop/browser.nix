@@ -49,7 +49,7 @@
       stateVersion = config.system.nixos.release;
       enableNixpkgsReleaseCheck = false;
       keyboard.layout = "de,us";
-      };
+    };
     programs = {
       librewolf = {
         enable = true;
@@ -112,6 +112,7 @@
           "webgl.disabled" = false;
           "widget.disable-workspace-management" = true;
         };
+      };
     };
   };
 
