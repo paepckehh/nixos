@@ -11,7 +11,7 @@
     cage = {
       enable = true;
       user = "kiosk";
-      program = lib.mkDefault "${pkgs.librewolf}/bin/librewolf -kiosk";
+      program = lib.mkDefault "${pkgs.librewolf}/bin/librewolf";
     };
     autosuspend.enable = lib.mkForce false;
     printing.enable = lib.mkForce false;
@@ -49,11 +49,29 @@
       stateVersion = config.system.nixos.release;
       enableNixpkgsReleaseCheck = false;
       keyboard.layout = "de,us";
-    };
     programs = {
       librewolf = {
         enable = true;
         policies = {
+          DontCheckDefaultBrowser = true;
+          DisableTelemetry = true;
+          DisableFirefoxStudies = true;
+          DisablePocket = true;
+          DisableFirefoxScreenshots = true;
+          HardwareAcceleration = true;
+          PictureInPicture.Enabled = false;
+          PromptForDownloadLocation = false;
+          TranslateEnabled = false;
+          OverrideFirstRunPage = "";
+          NoDefaultBookmarks = true;
+          ManagedBookmarks = lib.importJSON ../resources/bookmarks-corp.json;
+          ExtensionSettings = {
+            "*".installation_mode = "blocked";
+            "uBlock0@raymondhill.net" = {
+              install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+              installation_mode = "force_installed";
+            };
+          };
           SanitizeOnShutdown = {
             Cache = true;
             Cookies = true;
@@ -65,10 +83,23 @@
             OfflineApps = true;
           };
         };
+        profiles = {
+          default = {
+            id = 0;
+            name = "DefaultProfile";
+            isDefault = true;
+          };
+        };
         settings = {
+          "browser.aboutConfig.showWarning" = false;
           "browser.cache.disk.enable" = false;
           "browser.compactmode.show" = true;
           "browser.startup.homepage" = "";
+          "browser.search.defaultenginename" = "DuckDuckGo";
+          "browser.search.order.1" = "DuckDuckGo";
+          "gfx.webrender.all" = true;
+          "reader.parse-on-load.force-enabled" = true;
+          "layers.acceleration.force-enabled" = true;
           "signon.rememberSignons" = false;
           "privacy.clearOnShutdown.history" = false;
           "privacy.clearOnShutdown.cookies" = false;
@@ -76,9 +107,10 @@
           "privacy.resistFingerprinting" = true;
           "media.ffmpeg.vaapi.enabled" = true;
           "network.trr.mode" = 0;
+          "network.proxy.type" = 0;
           "webgl.disabled" = false;
+          "widget.disable-workspace-management" = true;
         };
-      };
     };
   };
 

@@ -113,6 +113,11 @@ usb: info-cleaninstall commit
 	export TARGETDRIVE=$(TARGETDRIVE)
 	${MAKE} -C storage usb
 
+# umount /mnt build struct
+umount: commit 
+	${MAKE} -C storage umount
+
+# XXX WIP: maybe currently broken
 # make full automatic bootable iso (offline-) installer for current system,
 # set env TARGET for other nix flake target systems
 installer: info-cleaninstall commit 
@@ -124,15 +129,12 @@ installer: info-cleaninstall commit
 	nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
 	ls -la /etc/nixos/result/iso
 
-# XXX maybe broken: fixme, needs validation
+# XXX WIP: maybe currently broken
 # make live iso image from current system, set env TARGET for other nix flake target systems
 iso: info-cleaninstall commit
 	sudo nixos-rebuild build-image --flake $(OSFLAKE) --image-variant iso
 	ls -la /etc/nixos/result/iso
 
-# umount /mnt build struct
-umount: commit 
-	${MAKE} -C storage umount
 
 #######################
 # NIX REPO OPERATIONS #
