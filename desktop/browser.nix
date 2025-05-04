@@ -65,7 +65,7 @@
           TranslateEnabled = false;
           OverrideFirstRunPage = "";
           NoDefaultBookmarks = true;
-          ManagedBookmarks = lib.importJSON ../resources/bookmarks-corp.json;
+          ManagedBookmarks = lib.importJSON ./resources/bookmarks-corp.json;
           ExtensionSettings = {
             "*".installation_mode = "blocked";
             "uBlock0@raymondhill.net" = {
