@@ -52,7 +52,7 @@
           ./storage/impermanence-stateless.nix
           {networking.hostName = "kiosk";}
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
-          {services.cage.program = nixpkgs.lib.mkForce "${nixpkgs.pkgs.librewolf}/bin/librewolf -kiosk -private-window https://start.lan";}
+          {services.cage.program = nixpkgs.lib.mkForce "${nixpkgs.librewolf}/bin/librewolf -kiosk -private-window https://start.lan";}
         ];
       };
       ##########
