@@ -12,10 +12,10 @@ DEVICE_MAIN:=$(TARGETDRIVE)
 STRUCT:=/mnt/boot /mnt/nix /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/nix/var/log /mnt
 PERSIST:=/mnt/nix/persist/home /mnt/nix/persist/var/lib /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh
 USELUKS:=YES
-DISKOFLAKE:=flakes/disko-impermanence-luks.nix
+DISKOFLAKE:=disko/impermanence-luks.nix
 ifeq ($(origin LUKS),undefined)
       USELUKS:=NO
-      DISKOFLAKE:=flakes/disko-impermanence.nix
+      DISKOFLAKE:=disko/impermanence.nix
 endif
 OSFLAKE:=/etc/nixos/\#$(TARGET)
 WIPEDRIVE?=/dev/null

@@ -1,7 +1,6 @@
 {
   description = "nixos infra";
   inputs = {
-    # ONLINE URLs
     # dns.url = "github:nix-community/dns.nix/master";
     # sops.url = "github:mic92/sops-nix";
     agenix.url = "github:ryantm/agenix";
@@ -48,11 +47,10 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./desktop/kiosk.nix
           ./storage/impermanence-stateless.nix
+          ./desktop/kiosk.nix # see services.cage.program, url => https://start.lan
           {networking.hostName = "kiosk";}
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
-          {services.cage.program = nixpkgs.lib.mkForce "${nixpkgs.librewolf}/bin/librewolf -kiosk -private-window https://start.lan";}
         ];
       };
       ##########
