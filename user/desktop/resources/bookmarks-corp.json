@@ -1,9 +1,9 @@
 [
   {
-    "toplevel_name": "global"
+    "toplevel_name": "start"
   },
   {
-    "name": "corp",
+    "name": "local",
     "children": [
   {
     "url": "http://start.lan",

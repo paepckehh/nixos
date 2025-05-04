@@ -120,6 +120,7 @@
       wireguard-tools
       yq
       yubikey-manager
+      zip
     ];
   };
 }

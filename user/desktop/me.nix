@@ -55,6 +55,16 @@
       librewolf = {
         enable = true;
         policies = {
+          DontCheckDefaultBrowser = true;
+          DisableTelemetry = true;
+          DisableFirefoxStudies = true;
+          DisablePocket = true;
+          DisableFirefoxScreenshots = true;
+          HardwareAcceleration = true;
+          PictureInPicture.Enabled = false;
+          PromptForDownloadLocation = false;
+          TranslateEnabled = false;
+          OverrideFirstRunPage = "";
           NoDefaultBookmarks = true;
           ManagedBookmarks = lib.importJSON ./resources/bookmarks-corp.json;
           ExtensionSettings = {
@@ -83,9 +93,15 @@
           };
         };
         settings = {
+          "browser.aboutConfig.showWarning" = false;
           "browser.cache.disk.enable" = false;
           "browser.compactmode.show" = true;
           "browser.startup.homepage" = "";
+          "browser.search.defaultenginename" = "DuckDuckGo";
+          "browser.search.order.1" = "DuckDuckGo";
+          "gfx.webrender.all" = true;
+          "reader.parse-on-load.force-enabled" = true;
+          "layers.acceleration.force-enabled" = true;
           "signon.rememberSignons" = false;
           "privacy.clearOnShutdown.history" = false;
           "privacy.clearOnShutdown.cookies" = false;
@@ -95,6 +111,12 @@
           "network.trr.mode" = 0;
           "network.proxy.type" = 0;
           "webgl.disabled" = false;
+          "widget.disable-workspace-management" = true;
+        };
+        search = {
+          force = true;
+          default = "DuckDuckGo";
+          order = ["DuckDuckGo" "Google"];
         };
       };
       alacritty = {
