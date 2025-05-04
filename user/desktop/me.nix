@@ -113,11 +113,6 @@
           "webgl.disabled" = false;
           "widget.disable-workspace-management" = true;
         };
-        search = {
-          force = true;
-          default = "DuckDuckGo";
-          order = ["DuckDuckGo" "Google"];
-        };
       };
       alacritty = {
         enable = true;
