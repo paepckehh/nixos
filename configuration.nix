@@ -383,11 +383,11 @@
     udisks2.enable = lib.mkForce false;
     logind.hibernateKey = "ignore";
     lvm = {
-      enable = false;
-      dmeventd.enable = false;
+      enable = lib.mkDefault false;
+      dmeventd.enable = lib.mkDefault false;
       boot = {
-        thin.enable = false;
-        vdo.enable = false;
+        thin.enable = lib.mkDefault false;
+        vdo.enable = lib.mkDefault false;
       };
     };
     journald = {
