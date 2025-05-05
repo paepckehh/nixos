@@ -167,6 +167,7 @@
         system = "x86_64-linux";
         specialArgs.targetSystem = self.nixosConfigurations."nixos";
         modules = [
+          disko.nixosModules.disko
           ./storage/basic.nix
           ./storage/disko/basic.nix
           ./storage/iso-autoinstaller-impermanence.nix
