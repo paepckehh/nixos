@@ -168,6 +168,7 @@
         specialArgs.targetSystem = self.nixosConfigurations."nixos";
         modules = [
           ./storage/basic.nix
+          ./storage/disko/basic.nix
           ./storage/iso-autoinstaller-impermanence.nix
         ];
       };
