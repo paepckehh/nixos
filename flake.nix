@@ -9,7 +9,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nvf.url = "github:notashelf/nvf";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-dev.url = "github:paepckehh/nixpkgs/tmpfs";
+    nixpkgs-dev.url = "github:paepckehh/nixpkgs/tmpfs-huge";
   };
   outputs = {
     self,
