@@ -31,7 +31,7 @@
     "/" = lib.mkForce {
       device = "none";
       fsType = "tmpfs";
-      options = ["defaults" "mode=755" "size=80%"];
+      options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
     };
     "/boot" = lib.mkForce {
       device = "/dev/disk/by-partlabel/disk-main-ESP";
@@ -41,25 +41,25 @@
     "/nix" = lib.mkForce {
       device = lib.mkForce "/dev/mapper/nix";
       fsType = lib.mkForce "ext4";
-      options = lib.mkForce ["noatime" "nodiratime" "discard"];
+      options = ["noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit"];
+    };
+    "/var/lib" = lib.mkForce {
+      device = "/nix/persist/var/lib";
+      fsType = "none";
+      options = ["bind" "x-initrd.mount"];
+    };
+    "/etc/ssh" = lib.mkForce {
+      device = "/nix/persist/etc/ssh";
+      fsType = "none";
+      options = ["bind" "x-initrd.mount"];
     };
     "/home" = lib.mkForce {
       device = "/nix/persist/home";
       fsType = "none";
       options = ["bind"];
     };
-    "/var/lib" = lib.mkForce {
-      device = "/nix/persist/var/lib";
-      fsType = "none";
-      options = ["bind"];
-    };
     "/etc/nixos" = lib.mkForce {
       device = "/nix/persist/etc/nixos";
-      fsType = "none";
-      options = ["bind"];
-    };
-    "/etc/ssh" = lib.mkForce {
-      device = "/nix/persist/etc/ssh";
       fsType = "none";
       options = ["bind"];
     };
