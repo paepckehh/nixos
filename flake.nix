@@ -55,14 +55,14 @@
       ##########
       # CLIENT #
       ##########
-      mp = nixpkgs.lib.nixosSystem {
+      client = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
           ./configuration.nix
-          ./storage/impermanence-luks.nix
+          ./storage/impermanence.nix
           ./client/forward-journald.nix
           ./client/forward-syslog-ng.nix
           ./desktop/gnome.nix
@@ -71,7 +71,7 @@
           ./packages/devops.nix
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
-          {networking.hostName = "mp";}
+          {networking.hostName = "client";}
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
         ];
       };

@@ -14,7 +14,7 @@
       compressorArgs = ["--ultra" "--long" "-22"];
       systemd = {
         enable = lib.mkForce true;
-        emergencyAccess = lib.mkForce true;
+        emergencyAccess = lib.mkForce false; # XXX debug only!
       };
       luks.mitigateDMAAttacks = lib.mkForce true;
       supportedFilesystems = ["ext4" "tmpfs"];
@@ -68,20 +68,20 @@
       "kernel.ftrace_enabled" = lib.mkForce false;
       "net.core.rmem_max" = lib.mkForce 7500000;
       "net.core.wmem_max" = lib.mkForce 7500000;
-      "net.ipv4.icmp_echo_ignore_broadcasts" = lib.mkForce true;
       "net.ipv4.conf.all.accept_redirects" = lib.mkForce false;
       "net.ipv4.conf.all.secure_redirects" = lib.mkForce false;
-      "net.ipv4.conf.default.accept_redirects" = lib.mkForce false;
-      "net.ipv4.conf.default.secure_redirects" = lib.mkForce false;
-      "net.ipv4.conf.default.rp_filter" = 1;
       "net.ipv4.conf.all.rp_filter" = 1;
       "net.ipv4.conf.all.accept_source_route" = 0;
       "net.ipv4.conf.all.send_redirects" = 0;
       "net.ipv4.conf.default.send_redirects" = 0;
-      "net.ipv4.tcp_fastopen" = 0;
+      "net.ipv4.conf.default.accept_redirects" = lib.mkForce false;
+      "net.ipv4.conf.default.secure_redirects" = lib.mkForce false;
+      "net.ipv4.conf.default.rp_filter" = 1;
+      "net.ipv4.icmp_echo_ignore_broadcasts" = lib.mkForce true;
+      "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
+      "net.ipv4.tcp_fastopen" = lib.mkDefault 0; # leak
       "net.ipv4.tcp_rfc1337" = 1;
       "net.ipv4.tcp_syncookies" = 1;
-      "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
       "net.ipv6.conf.all.disable_ipv6" = lib.mkForce true;
       "net.ipv6.conf.all.accept_source_route" = 0;
       "net.ipv6.conf.all.accept_redirects" = lib.mkForce false;
