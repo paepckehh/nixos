@@ -2,7 +2,7 @@
   fileSystems."/" = {
     device = "tmpfs";
     fsType = "tmpfs";
-    options = ["mode=755" "size=80%"];
+    options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
   };
 
   fileSystems."/boot" = {
@@ -14,5 +14,6 @@
   fileSystems."/nix" = {
     device = "/dev/disk/by-partlabel/disk-main-nix";
     fsType = "ext4";
+    options = ["noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit"];
   };
 }

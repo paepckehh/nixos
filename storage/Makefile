@@ -41,7 +41,7 @@ check:
 install: install-os install-me
 
 install-os:
-	sudo nixos-install --verbose --impure --no-root-password --root /mnt --flake $(OSFLAKE)
+	sudo nixos-install --verbose --keep-going --impure --no-root-password --option substituters "" --root /mnt --flake $(OSFLAKE)
 	sudo git clone $(REPO) /mnt/etc/nixos
 	sudo cp -af /etc/ssh/ssh_host_ed25519_key /mnt/etc/ssh/ssh_host_ed25519_key > /dev/null 2>&1 || true # keep generic agenix os keys
 

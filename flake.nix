@@ -167,14 +167,7 @@
         system = "x86_64-linux";
         specialArgs.targetSystem = self.nixosConfigurations."nixos";
         modules = [
-          ./storage/iso-autoinstaller.nix
-        ];
-      };
-      iso-legacy-installer = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs.targetSystem = self.nixosConfigurations."nixos-legacy";
-        modules = [
-          ./storage/iso-legacy-autoinstaller.nix
+          ./storage/iso-autoinstaller-impermanence.nix
         ];
       };
     };

@@ -67,7 +67,7 @@ test: commit build-log
 
 offline: info commit 
 	# XXX broken: fixme 
-	sudo nixos-rebuild boot -v --option use-binary-caches false --flake $(OSFLAKE) --profile-name $(PROFILE)
+	sudo nixos-rebuild boot -v --option substituters "" false --flake $(OSFLAKE) --profile-name $(PROFILE)
       
 rollback: commit
 	# XXX broken: fixme 
@@ -114,6 +114,7 @@ installer: info-cleaninstall commit
 	 exit 1
 	fi
 	export NIXPKGS_ALLOW_BROKEN=1 
+	export TARGET="iso-installer"
 	nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
 	ls -la /etc/nixos/result/iso
 
