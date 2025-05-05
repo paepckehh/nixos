@@ -9,7 +9,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nvf.url = "github:notashelf/nvf";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-dev.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-dev.url = "github:paepckehh/nixpkgs/tmpfs";
   };
   outputs = {
     self,
@@ -117,6 +117,7 @@
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
           ./openwrt/openwrt.nix
+          {tmp.tmpfsHugeMemoryPages="never"}
           # ./server/share/wastebin.nix
           # ./server/monitoring/collect-journald.nix
           # ./server/monitoring/collect-syslog-ng.nix
