@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }: {
   #################
@@ -32,6 +31,8 @@
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager = {
+    backupFileExtension = "backup";
+    useUserPackages = true;
     users = {
       me = {
         home = {

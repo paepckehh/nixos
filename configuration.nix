@@ -256,14 +256,6 @@
     };
   };
 
-  ######################
-  #-=# HOME-MANAGER #=-#
-  ######################
-  home-manager = {
-    backupFileExtension = "backup";
-    useUserPackages = true;
-  };
-
   ##############
   #-=# I18N #=-#
   ##############
