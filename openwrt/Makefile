@@ -58,7 +58,7 @@ axt-clean:
 	$(MAKE) -C glinet/gl-axt1800 clean
 
 axt-config:
-	ssh -p 6623 root@192.168.8.1 "uci show | sed '/.key=/d'"
+	ssh -p 6623 root@192.168.8.1 uci show | sed '/.key=/d'
 
 axt-backup:
 	mkdir -p /etc/nixos/openwrt/config/axt

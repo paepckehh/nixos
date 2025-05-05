@@ -41,47 +41,6 @@
     groups.kiosk = {};
   };
 
-  ######################
-  #-=# HOME-MANAGER #=-#
-  ######################
-  home-manager.users.kiosk = {
-    home = {
-      stateVersion = config.system.nixos.release;
-      enableNixpkgsReleaseCheck = false;
-      keyboard.layout = "de,us";
-    };
-    programs = {
-      librewolf = {
-        enable = true;
-        policies = {
-          SanitizeOnShutdown = {
-            Cache = true;
-            Cookies = true;
-            Downloads = true;
-            FormData = true;
-            History = true;
-            Sessions = true;
-            SiteSettings = true;
-            OfflineApps = true;
-          };
-        };
-        settings = {
-          "browser.cache.disk.enable" = false;
-          "browser.compactmode.show" = true;
-          "browser.startup.homepage" = "";
-          "signon.rememberSignons" = false;
-          "privacy.clearOnShutdown.history" = false;
-          "privacy.clearOnShutdown.cookies" = false;
-          "privacy.firstparty.isolate" = true;
-          "privacy.resistFingerprinting" = true;
-          "media.ffmpeg.vaapi.enabled" = true;
-          "network.trr.mode" = 0;
-          "webgl.disabled" = false;
-        };
-      };
-    };
-  };
-
   ##################
   #-=# SECURITY #=-#
   ##################
