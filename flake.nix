@@ -117,7 +117,7 @@
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
           ./openwrt/openwrt.nix
-          {tmp.tmpfsHugeMemoryPages = "never";}
+          {boot.tmp.tmpfsHugeMemoryPages = "never";}
           # ./server/share/wastebin.nix
           # ./server/monitoring/collect-journald.nix
           # ./server/monitoring/collect-syslog-ng.nix
