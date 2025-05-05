@@ -34,6 +34,9 @@ info:
 
 info-cleaninstall:
 	@echo "Building for target TARGET=$(TARGET) # Building on TARGETDRIVE=$(TARGETDRIVE) # Using LUKS: $(USELUKS) # OSFLAKE: $(OSFLAKE)"
+
+info-iso-installer:
+	@echo "Building iso-auto-installer # Building on TARGETDRIVE=$(TARGETDRIVE) # Using LUKS: $(USELUKS) # OSFLAKE: $(OSFLAKE)"
 	
 info-image:
 	sudo nixos-rebuild build-image --flake $(OSFLAKE)  || true
@@ -108,13 +111,12 @@ usb: info-cleaninstall commit
 # XXX WIP: maybe currently broken
 # make full automatic bootable iso (offline-) installer for current system,
 # set env TARGET for other nix flake target systems
-installer: info-cleaninstall commit 
+installer: info-iso-installer commit 
 	if [ !  -z  $(LUKS) ]; then 
 	 echo "LUKS Passwords for target installer-iso must explicitly set in autoinstall script, not in env."
 	 exit 1
 	fi
 	export NIXPKGS_ALLOW_BROKEN=1 
-	export TARGET="iso-installer"
 	nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
 	ls -la /etc/nixos/result/iso
 
