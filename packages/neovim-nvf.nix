@@ -126,7 +126,7 @@
           theme = "onedark";
         };
         languages = {
-          enableLSP = lib.mkForce true;
+          # enableLSP = lib.mkForce true;
           enableFormat = lib.mkForce true;
           clang.enable = true;
           css.enable = true;

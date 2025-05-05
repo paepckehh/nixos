@@ -38,12 +38,17 @@ info:
 check: 
 	@if [ ! -e /dev/$(TARGETDRIVE) ]; then (echo "TARGETDRIVE: /dev/$(TARGETDRIVE) does not exists, exit" ; exit 1); fi  
 
-install:
+install: install-os install-me
+
+install-os:
 	sudo nixos-install --verbose --impure --no-root-password --root /mnt --flake $(OSFLAKE)
 	sudo git clone $(REPO) /mnt/etc/nixos
+	sudo cp -af /etc/ssh/ssh_host_ed25519_key /mnt/etc/ssh/ssh_host_ed25519_key > /dev/null 2>&1 || true # keep generic agenix os keys
+
+install-me:
 	sudo mkdir -p /mnt/home/me/.ssh /mnt/etc/ssh
-	sudo cp -af /home/me/.ssh/id_ed22519* /mnt/home/me/.ssh/ > /dev/null 2>&1 || true # yubikey glue records
-	sudo cp -af /etc/ssh/ssh_host_ed25519_key /mnt/etc/ssh/ssh_host_ed25519_key > /dev/null 2>&1 || true # agenix
+	sudo cp -af /home/me/.ssh/id_ed22519* /mnt/home/me/.ssh/ > /dev/null 2>&1 || true # default user yubikey glue records only
+	sudo chown -R me:me /mnt/home/me
 
 pre-mount: 
 	sudo mkdir  -p $(STRUCT)

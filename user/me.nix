@@ -17,13 +17,17 @@
         initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
         description = "me";
         uid = 1000;
-        group = "users";
+        group = "me";
         createHome = true;
         isNormalUser = true;
         shell = pkgs.fish;
         extraGroups = ["wheel" "mongodb" "backup" "networkmanager" "audio" "input" "video" "docker" "libvirtd" "qemu-libvirtd" "rsync"];
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
+    };
+    groups.me = {
+      gid = 1000;
+      members = "me";
     };
   };
 

@@ -65,8 +65,8 @@
           ./storage/impermanence.nix
           ./client/forward-journald.nix
           ./client/forward-syslog-ng.nix
-          ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
+          ./desktop/gnome.nix
           ./packages/base.nix
           ./packages/devops.nix
           ./packages/neovim-nvf.nix
@@ -87,8 +87,8 @@
           nvf.nixosModules.default
           ./configuration.nix
           ./storage/impermanence.nix
-          ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
+          ./desktop/gnome.nix
           ./packages/agenix.nix
           ./packages/base.nix
           ./packages/devops.nix
@@ -117,7 +117,7 @@
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
           ./openwrt/openwrt.nix
-          ./server/share/wastebin.nix
+          # ./server/share/wastebin.nix
           # ./server/monitoring/collect-journald.nix
           # ./server/monitoring/collect-syslog-ng.nix
           # ./server/dns/unbound.nix

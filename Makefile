@@ -100,22 +100,10 @@ sdc: info-cleaninstall commit
 	export TARGETDRIVE=sdc
 	${MAKE} -C storage usb
 
-sda-zero:
-	${MAKE} -C storage sda-zero
-
-sdb-zero:
-	${MAKE} -C storage sdb-zero
-
-sdc-zero:
-	${MAKE} -C storage sdc-zero
-
 usb: info-cleaninstall commit
 	export TARGETDRIVE=$(TARGETDRIVE)
 	${MAKE} -C storage usb
 
-# umount /mnt build struct
-umount: commit 
-	${MAKE} -C storage umount
 
 # XXX WIP: maybe currently broken
 # make full automatic bootable iso (offline-) installer for current system,
@@ -211,3 +199,25 @@ internal-clean-profiles:
 	sudo chmod -R 700 /boot/loader/entries
 	sudo mkdir -p /nix/var/log/nix/drvs
 	sudo mkdir -p /nix/var/nix/profiles/system-profiles
+
+
+#################
+# LITTLE HELPER #
+#################
+
+sda-zero:
+	${MAKE} -C storage sda-zero
+
+sdb-zero:
+	${MAKE} -C storage sdb-zero
+
+sdc-zero:
+	${MAKE} -C storage sdc-zero
+
+trim:
+	${MAKE} -C storage trim
+zero: 
+	${MAKE} -C storage zero
+
+umount:  
+	${MAKE} -C storage umount
