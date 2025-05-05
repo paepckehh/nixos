@@ -36,7 +36,7 @@ info-cleaninstall:
 	@echo "Building for target TARGET=$(TARGET) # Building on TARGETDRIVE=$(TARGETDRIVE) # Using LUKS: $(USELUKS) # OSFLAKE: $(OSFLAKE)"
 
 info-iso-installer:
-	@echo "Building iso-auto-installer # Building on TARGETDRIVE=$(TARGETDRIVE) # Using LUKS: $(USELUKS) # OSFLAKE: $(OSFLAKE)"
+	@echo "Building iso-auto-installer ..."
 	
 info-image:
 	sudo nixos-rebuild build-image --flake $(OSFLAKE)  || true
