@@ -27,7 +27,7 @@
     };
     groups.me = {
       gid = 1000;
-      members = "me";
+      members = ["me"];
     };
   };
 
