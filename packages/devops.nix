@@ -38,6 +38,7 @@
       nix-search-cli
       parted
       pciutils
+      powertop
       shellcheck
       shfmt
       s-tui

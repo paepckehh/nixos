@@ -146,8 +146,8 @@
       require-sigs = lib.mkForce true;
       preallocate-contents = true;
       allowed-uris = [
-        "https://nixpkgs-unfree.cachix.org"
-        "https://nix-community.cachix.org"
+        # "https://nixpkgs-unfree.cachix.org"
+        # "https://nix-community.cachix.org"
         "https://cache.nixos.org"
       ];
       substituters = [
@@ -178,7 +178,13 @@
   #######################
   documentation = {
     doc.enable = lib.mkForce false;
-    man.enable = lib.mkForce true;
+    dev.enable = lib.mkForce false;
+    info.enable = lib.mkForce false;
+    nixos.enable = lib.mkForce false;
+    man = {
+      enable = lib.mkForce true;
+      generateCaches = lib.mkForce false;
+    };
   };
 
   ##################
@@ -278,7 +284,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    interactiveShellInit = ''uname -a && eval "$(ssh-agent)"'';
+    interactiveShellInit = ''uname -a'';
     variables = {
       EDITOR = "vim";
       VISUAL = "vim";
@@ -333,7 +339,6 @@
   #-=# SYSTEMD #=-#
   #################
   systemd = {
-    services."systemd-networkd".environment.SYSTEMD_LOG_LEVEL = "debug";
     network = {
       enable = true;
       wait-online.enable = false;
@@ -355,6 +360,7 @@
       AllowHybridSleep=no
       AllowSuspendThenHibernate=no
     '';
+    services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
   };
 
   #########################
@@ -378,7 +384,6 @@
     gvfs.enable = lib.mkForce false;
     openssh.enable = false;
     smartd.enable = true;
-    pcscd.enable = false;
     power-profiles-daemon.enable = lib.mkForce false;
     udisks2.enable = lib.mkForce false;
     logind.hibernateKey = "ignore";

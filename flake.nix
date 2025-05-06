@@ -9,7 +9,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nvf.url = "github:notashelf/nvf";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-dev.url = "github:paepckehh/nixpkgs/tmpfs-huge";
+    nixpkgs-dev.url = "github:nixos/nixpkgs/nixos-unstable";
   };
   outputs = {
     self,
@@ -106,19 +106,19 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
-          # {boot.tmp.tmpfsHugeMemoryPages = "never";}
-          {boot.tmp.tmpfsHugeMemoryPages = "never";}
           ./configuration.nix
           ./storage/disko-luks-legacy.nix
           ./desktop/gnome.nix
           ./person/desktop/mpaepcke.nix
           ./packages/agenix.nix
           ./packages/base.nix
-          # ./packages/devops.nix
-          # ./packages/devops-iot.nix
-          # ./packages/neovim-nvf.nix
-          # ./packages/netops.nix
-          # ./openwrt/openwrt.nix
+          ./packages/devops.nix
+          ./packages/devops-iot.nix
+          ./packages/neovim-nvf.nix
+          ./packages/netops.nix
+          ./openwrt/openwrt.nix
+          # {boot.tmp.tmpfsHugeMemoryPages = "never";}
+          # {boot.tmp.tmpfsHugeMemoryPages = "within_size";}
           # ./server/share/wastebin.nix
           # ./server/monitoring/collect-journald.nix
           # ./server/monitoring/collect-syslog-ng.nix

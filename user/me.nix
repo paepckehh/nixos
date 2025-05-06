@@ -46,6 +46,7 @@
           keyboard.layout = "us,de";
           shellAliases = {
             "l" = "ls -la";
+            "n" = "cd /etc/nixos && ls -la";
             "h" = "htop --tree --highlight-changes";
             "log.boot" = "sudo dmesg --follow --human --kernel --userspace";
             "log.system" = "sudo journalctl --follow --priority=7 --lines=2500";
@@ -150,7 +151,7 @@
           vim = {
             enable = true;
             defaultEditor = true;
-            plugins = with pkgs.vimPlugins; [SudoEdit-vim vim-airline vim-shellcheck vim-go vim-git vim-nix];
+            plugins = with pkgs.vimPlugins; [SudoEdit-vim vim-airline vim-shellcheck vim-git vim-nix];
             settings = {
               history = 10000;
               expandtab = true;

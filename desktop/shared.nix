@@ -9,7 +9,7 @@
   #####################
   # add generic terminal pkg for all, configure individually via home-manager profile
   environment = {
-    systemPackages = with pkgs; [alacritty librewolf gparted keepassxc];
+    systemPackages = with pkgs; [alacritty gparted keepassxc];
     variables = {
       TERMINAL = "alacritty";
     };
