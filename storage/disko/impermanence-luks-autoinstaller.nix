@@ -1,11 +1,11 @@
-{diskDevice, ...}: {
+{
   ###############
   #-=# DISKO #=-#
   ###############
   disko.devices = {
     disk = {
       main = {
-        device = diskDevice;
+        device = "/dev/$DISKO_DEVICE_MAIN";
         type = "disk";
         content = {
           type = "gpt";

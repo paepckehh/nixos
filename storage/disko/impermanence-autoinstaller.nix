@@ -1,11 +1,11 @@
-{diskDevice, ...}: {
+{
   ###############
   #-=# DISKO #=-#
   ###############
   disko.devices = {
     disk = {
       main = {
-        device = diskDevice;
+        device = "/dev/$DISKO_DEVICE_MAIN";
         type = "disk";
         content = {
           type = "gpt";
@@ -31,23 +31,10 @@
             nix = {
               size = "100%";
               content = {
-                initrdUnlock = true;
-                name = "nix";
-                type = "luks";
-                passwordFile = "/tmp/luks";
-                settings.allowDiscards = true;
-                extraFormatArgs = [
-                  "--type luks2"
-                  "--cipher aes-xts-plain64"
-                  "--pbkdf argon2id"
-                  "--iter-time 5000"
-                ];
-                content = {
-                  type = "filesystem";
-                  format = "ext4";
-                  mountpoint = "/nix";
-                  mountOptions = ["noatime" "nodiratime" "discard" "commit=30" "nobarrier" "data=writeback" "journal_async_commit"];
-                };
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/nix";
+                mountOptions = ["noatime" "nodiratime" "discard" "commit=30" "nobarrier" "data=writeback" "journal_async_commit"];
               };
             };
           };

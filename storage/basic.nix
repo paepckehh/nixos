@@ -2,7 +2,7 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [./disko/basic.nix];
+  # imports = [./disko/basic.nix];
 
   #####################
   #-=# FILESYSTEMS #=-#

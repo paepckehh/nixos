@@ -31,6 +31,7 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./storage/impermanence-luks.nix
+          ./storage/disko/impermanence-luks-autoinstaller.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./packages/base.nix

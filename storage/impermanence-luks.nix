@@ -2,7 +2,7 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [./disko/impermanence-luks.nix];
+  # imports = [./disko/impermanence-luks.nix];
 
   ##############
   #-=# BOOT #=-#

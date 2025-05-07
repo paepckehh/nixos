@@ -2,7 +2,7 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [./disko/impermanence.nix];
+  # imports = [./disko/impermanence.nix];
 
   fileSystems."/" = {
     device = "tmpfs";
