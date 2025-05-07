@@ -108,7 +108,6 @@ usb: info-cleaninstall commit
 	${MAKE} -C storage usb
 
 
-# XXX WIP: maybe currently broken
 # make full automatic bootable iso (offline-) installer for current system,
 # set env TARGET for other nix flake target systems
 installer: info-iso-installer commit 
