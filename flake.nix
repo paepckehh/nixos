@@ -30,7 +30,7 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./storage/impermanence.nix
+          ./storage/impermanence-luks.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./packages/base.nix
@@ -172,7 +172,7 @@
           disko.nixosModules.disko
           ./storage/basic.nix
           ./storage/disko/basic.nix
-          ./storage/iso-autoinstaller-impermanence.nix
+          ./storage/iso-autoinstaller.nix
         ];
       };
     };
