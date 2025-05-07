@@ -64,11 +64,8 @@
         echo "[NIX-AUTO] Starting $DEVICE_MAIN partition table create."
         echo "$LUKS_PASSWORD" > /tmp/luks
         echo "[NIX-AUTO] Setting Luks Password: $LUKS_PASSWORD"
-        df -h
-        #
         echo "[NIX-AUTO] create target system disk layout"
         DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"} ${targetSystem.config.system.build.diskoScript} 2> /dev/null
-        #
         echo "[NIX-AUTO] create impermanence structure"
         mkdir -p /mnt/boot /mnt/nix /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/nix/var/log /mnt
         mkdir -p /mnt/nix/persist/home /mnt/nix/persist/var/lib /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh
@@ -76,9 +73,6 @@
         mount -o bind /mnt/nix/persist/var/lib /mnt/var/lib
         mount -o bind /mnt/nix/persist/etc/nixos /mnt/etc/nixos
         mount -o bind /mnt/nix/persist/etc/ssh /mnt/etc/ssh
-        #
-        df -h
-        exit 1
         echo "[NIX-AUTO] Finish $DEVICE_MAIN partition tables create."
       	echo "[NIX-AUTO] Starting installation NixOS now on $DEVICE_MAIN"
         nixos-install --keep-going --no-root-password --max-jobs 0 --cores 0 --option substituters "" --system ${targetSystem.config.system.build.toplevel}
