@@ -31,7 +31,6 @@
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./storage/impermanence-luks.nix
-          ./storage/disko/impermanence-luks-installer.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./packages/base.nix
@@ -87,7 +86,7 @@
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
           ./configuration.nix
-          ./storage/impermanence.nix
+          ./storage/impermanence-luks.nix
           ./person/desktop/mpaepcke.nix
           ./desktop/gnome.nix
           ./packages/agenix.nix

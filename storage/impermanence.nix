@@ -1,8 +1,8 @@
-{...}: {
+{
   #################
   #-=# IMPORTS #=-#
   #################
-  # imports = [./disko/impermanence.nix];
+  imports = [./disko/impermanence-autoinstaller.nix];
 
   fileSystems."/" = {
     device = "tmpfs";
