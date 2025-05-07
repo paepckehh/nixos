@@ -171,7 +171,6 @@
         modules = [
           disko.nixosModules.disko
           ./storage/basic.nix
-          ./storage/disko/basic.nix
           ./storage/iso-autoinstaller.nix
         ];
       };

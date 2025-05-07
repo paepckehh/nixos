@@ -1,4 +1,9 @@
-{
+{...}: {
+  #################
+  #-=# IMPORTS #=-#
+  #################
+  imports = [./disko/impermanence.nix];
+
   fileSystems."/" = {
     device = "tmpfs";
     fsType = "tmpfs";
