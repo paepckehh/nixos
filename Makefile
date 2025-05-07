@@ -70,7 +70,7 @@ test: commit build-log
 
 offline: info commit 
 	# XXX broken: fixme 
-	sudo nixos-rebuild boot -v --option substituters "" false --flake $(OSFLAKE) --profile-name $(PROFILE)
+	sudo nixos-rebuild boot -v --flake $(OSFLAKE) --profile-name $(PROFILE)
       
 rollback: commit
 	# XXX broken: fixme 

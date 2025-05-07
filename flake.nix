@@ -62,7 +62,7 @@
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
           ./configuration.nix
-          ./storage/impermanence.nix
+          ./storage/impermanence-luks.nix
           ./client/forward-journald.nix
           ./client/forward-syslog-ng.nix
           ./person/desktop/mpaepcke.nix

@@ -8,10 +8,10 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    acpid.enable = lib.mkForce true;
     pcscd.enable = true;
     yubikey-agent.enable = true;
   };
+
   ##################
   #-=# PROGRAMS #=-#
   ##################
@@ -22,6 +22,11 @@
     nano.enable = true;
     mtr.enable = true;
     vim.enable = true;
+    command-not-found.enable = lib.mkForce false;
+    nix-index = {
+      enable = true;
+      enableFishIntegration = true;
+    };
     zsh = {
       enable = true;
       histFile = "/dev/null";

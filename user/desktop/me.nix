@@ -97,7 +97,7 @@
           SSLVersionMin = "tls1.2";
           StartDownloadsInTempDirectory = true;
           TranslateEnabled = false;
-          ManagedBookmarks = lib.importJSON ./resources/bookmarks-corp.json;
+          ManagedBookmarks = lib.importJSON ../../shared/bookmarks-global.json;
           ExtensionSettings = {
             "*".installation_mode = "blocked";
             "uBlock0@raymondhill.net" = {

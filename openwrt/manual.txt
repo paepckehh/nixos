@@ -2,6 +2,7 @@
 sed -i 's/127\.0\.0\.1/9\.9\.9\.10/g' /etc/resolve.conf
 apk del luci
 apk add luci-ssl
+apk add luci-mod-dashboard
 apk add bind-dig
 apk add vim-fuller
 apk add ca-root
@@ -38,6 +39,19 @@ uci set network.wan.delegate="0"
 uci set network.wan.peerdns="0"
 uci commit network
 service network restart
+
+# luci uplink support 
+apk add luci-proto-3g
+apk add luci-proto-ncm
+apk add luci-proto-modemmanager
+
+# batman-adv
+apk add luci-proto-batman-adv
+
+# airplay2 (via usb dac)
+apk add kmod-sound-core
+apk add kmod-usb-audio
+apk add shairport-sync-openssl
 
 # add gps ntpd vk-172 (ublox7)
 apk add kmod-usb-acm

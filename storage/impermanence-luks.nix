@@ -29,7 +29,7 @@
   # options = lib.mkForce ["mode=755" "noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit"];
   fileSystems = lib.mkForce {
     "/" = lib.mkForce {
-      device = "none";
+      device = "tmpfs";
       fsType = "tmpfs";
       options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
     };
