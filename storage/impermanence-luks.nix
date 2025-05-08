@@ -14,7 +14,7 @@
         mitigateDMAAttacks = lib.mkForce true;
         devices = {
           "nix" = {
-            device = "/dev/disk/by-partlabel/disk-main-nix";
+            device = "/dev/disk/disk/by-diskseq/1-part3";
             allowDiscards = true;
           };
         };
@@ -32,7 +32,7 @@
       options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
     };
     "/boot" = lib.mkForce {
-      device = "/dev/disk/by-partlabel/disk-main-ESP";
+      device = "/dev/disk/disk/by-diskseq/1-part1";
       fsType = "vfat";
       options = ["fmask=0077" "dmask=0077" "defaults"];
     };
