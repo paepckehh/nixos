@@ -2,7 +2,7 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [./disko/impermanence-luks-autoinstaller.nix];
+  # imports = [./disko/impermanence-luks-autoinstaller.nix];
 
   ##############
   #-=# BOOT #=-#
