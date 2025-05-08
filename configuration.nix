@@ -14,7 +14,7 @@
       compressorArgs = ["--ultra" "--long" "-22"];
       systemd = {
         enable = lib.mkForce true;
-        emergencyAccess = lib.mkForce false; # XXX debug only!
+        emergencyAccess = lib.mkForce true; # XXX
       };
       luks.mitigateDMAAttacks = lib.mkForce true;
       supportedFilesystems = ["ext4" "tmpfs"];
