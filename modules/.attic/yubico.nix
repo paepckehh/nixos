@@ -26,7 +26,7 @@
     pam = {
       u2f = {
         enable = true;
-        control = "sufficient"; # required
+        control = "sufficient";
         settings = {
           cue = true;
           debug = false;
@@ -37,7 +37,7 @@
           allowNullPassword = lib.mkForce false;
           failDelay = {
             enable = true;
-            delay = 10000000;
+            delay = 5000000;
           };
           logFailures = true;
           u2fAuth = true;
@@ -47,7 +47,7 @@
           allowNullPassword = lib.mkForce false;
           failDelay = {
             enable = true;
-            delay = 10000000;
+            delay = 5000000;
           };
           u2fAuth = true;
           unixAuth = true;

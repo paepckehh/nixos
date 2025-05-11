@@ -2,7 +2,7 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  # imports = [./disko/impermanence-luks-autoinstaller.nix];
+  imports = [./disko/impermanence-luks-autoinstaller.nix];
 
   ##############
   #-=# BOOT #=-#
@@ -14,7 +14,7 @@
         mitigateDMAAttacks = lib.mkForce true;
         devices = {
           "nix" = {
-            device = "/dev/disk/disk/by-diskseq/1-part3";
+            device = lib.mkForce "/dev/disk/by-diskseq/1-part3";
             allowDiscards = true;
           };
         };
@@ -32,13 +32,13 @@
       options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
     };
     "/boot" = lib.mkForce {
-      device = "/dev/disk/disk/by-diskseq/1-part1";
+      device = "/dev/disk/by-diskseq/1-part1";
       fsType = "vfat";
       options = ["fmask=0077" "dmask=0077" "defaults"];
     };
     "/nix" = lib.mkForce {
-      device = lib.mkForce "/dev/mapper/nix";
-      fsType = lib.mkForce "ext4";
+      device = "/dev/mapper/nix";
+      fsType = "ext4";
       options = ["noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit"];
     };
     "/var/lib" = lib.mkForce {

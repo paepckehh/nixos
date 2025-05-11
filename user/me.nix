@@ -83,6 +83,7 @@
           starship.enable = true;
           ripgrep.enable = true;
           skim.enable = true;
+          nushell.enable = true;
           atuin = {
             enable = true;
             enableBashIntegration = false;

@@ -3,7 +3,7 @@
     "toplevel_name": "start"
   },
   {
-    "name": "local",
+    "name": "local services",
     "children": [
   {
     "url": "http://start.lan",
@@ -12,14 +12,6 @@
   {
     "url": "https://127.0.0.1:8080/cgi-bin/luci",
     "name": "axt luci"
-  },
-  {
-    "url": "http://192.168.1.1/",
-    "name": "factory fw I"
-  },
-  {
-    "url": "http://192.168.0.1/",
-    "name": "factory fw II"
   },
   {
     "url": "http://localhost:3000/",
@@ -44,11 +36,36 @@
     ]
   },
   {
+    "name": "firmware default webui",
+    "children": [
+  {
+    "url": "http://192.168.1.1/",
+    "name": "firmware 192.168.1.1"
+  },
+  {
+    "url": "http://192.168.0.1/",
+    "name": "fimware 192.168.0.1"
+  },
+  {
+    "url": "http://192.168.8.1/",
+    "name": "fimware 192.168.8.1"
+  },
+  {
+    "url": "http://192.168.0.50/",
+    "name": "fimware 192.168.0.50"
+  },
+  {
+    "url": "http://192.168.178.1/",
+    "name": "fimware 192.168.178.1"
+  }
+    ]
+  },
+  {
     "name": "nixos",
     "children": [
       {
         "url": "https://wiki.nixos.org/",
-        "name": "Wiki"
+        "name": "Wiki (Official)"
       },
       {
         "url": "https://discourse.nixos.org/",
@@ -56,11 +73,11 @@
       },
       {
         "url": "https://github.com/nixos",
-        "name": "Github Repo"
+        "name": "Github Main Repo (Org)"
       },
       {
         "url": "https://search.nixos.org/packages",
-        "name": "Packages Search"
+        "name": "Nixos Packages and Options Search"
       },
       {
         "url": "https://home-manager-options.extranix.com/",
@@ -72,7 +89,7 @@
       },
       {
         "url": "https://nixos.wiki/wiki/Main_Page",
-        "name": "3rd Party Wiki"
+        "name": "Wiki (Unofficial)"
       }
     ]
   },
@@ -81,7 +98,7 @@
     "children": [
       {
         "url": "https://openwrt.org",
-        "name": "Wiki"
+        "name": "Wiki (Official)"
       },
       {
         "url": "https://forum.openwrt.org/",
@@ -89,11 +106,15 @@
       },
       {
         "url": "https://github.com/openwrt",
-        "name": "Github Repo"
+        "name": "Github Main Repo (Org)"
       },
       {
         "url": "https://toh.openwrt.org/",
-        "name": "Table of Supported Hardware | Download"
+        "name": "Table of Supported Hardware | Download Images"
+      },
+      {
+        "url": "https://firmware-selector.openwrt.org/",
+        "name": "Firmware Builder | Build and Download Images"
       }
     ]
   }

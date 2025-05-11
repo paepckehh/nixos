@@ -30,7 +30,7 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./storage/impermanence-luks.nix
+          ./storage/impermanence.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./packages/base.nix
@@ -38,14 +38,13 @@
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
         ];
       };
-      nixos-installer-target = nixpkgs.lib.nixosSystem {
+      nixos-luks = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
           ./storage/impermanence-luks.nix
-          ./storage/disko/impermanence-luks-autoinstaller.nix
           ./desktop/gnome.nix
           ./user/desktop/me.nix
           ./packages/base.nix
@@ -132,9 +131,9 @@
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
           ./openwrt/openwrt.nix
+          ./server/share/wastebin.nix
           # {boot.tmp.tmpfsHugeMemoryPages = "never";}
           # {boot.tmp.tmpfsHugeMemoryPages = "within_size";}
-          # ./server/share/wastebin.nix
           # ./server/monitoring/collect-journald.nix
           # ./server/monitoring/collect-syslog-ng.nix
           # ./server/dns/unbound.nix
@@ -182,7 +181,7 @@
       };
       iso-installer = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs.targetSystem = self.nixosConfigurations."nixos-installer-target";
+        specialArgs.targetSystem = self.nixosConfigurations."nixos-luks";
         modules = [
           disko.nixosModules.disko
           ./storage/basic.nix

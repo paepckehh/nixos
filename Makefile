@@ -122,6 +122,12 @@ iso: info-cleaninstall commit
 	sudo nixos-rebuild build-image --flake $(OSFLAKE) --image-variant iso
 	ls -la /etc/nixos/result/iso
 
+# XXX WIP: maybe currently broken
+# make live iso image from current system, set env TARGET for other nix flake target systems
+qemu: info-cleaninstall commit
+	sudo nixos-rebuild build-image --flake $(OSFLAKE) --image-variant qemu-efi
+	ls -la /etc/nixos/result/iso
+
 
 #######################
 # NIX REPO OPERATIONS #
@@ -220,3 +226,11 @@ zero:
 
 umount:  
 	${MAKE} -C storage umount
+
+wipe-home:
+	cd || exit 1
+	rm -rf .mozilla .cache/mozilla
+	rm -rf .librewolf .cache/librewolf
+	sudo -v || exit 1
+	sudo systemctl stop home-manager-me.service
+	sudo systemctl start home-manager-me.service

@@ -11,6 +11,7 @@
     systemPackages = with pkgs; [
       mqtt-explorer
       rpi-imager
+      linuxPackages.usbip
     ];
   };
 }

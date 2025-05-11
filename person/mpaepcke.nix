@@ -8,7 +8,6 @@
   #################
   imports = [
     ../user/me.nix
-    ../modules/yubico.nix
   ];
 
   ###############
@@ -17,7 +16,7 @@
   users = {
     users = {
       me = {
-        initialHashedPassword = lib.mkForce "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7";
+        hashedPassword = lib.mkForce "$y$j9T$Iy95xl/8Bp1QIgxedGD4./$mnrwPShtcuWfGXV1wBmikrK4O0KupHkp1hxjrnJ9KDB";
         description = lib.mkForce "PAEPCKE Michael";
         openssh.authorizedKeys.keys = lib.mkForce ["ssh-ed25519 AAA-#locked#-"];
       };

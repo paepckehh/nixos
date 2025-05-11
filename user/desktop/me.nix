@@ -120,6 +120,11 @@
             SiteSettings = true;
             OfflineApps = true;
           };
+          SearchEngines = {
+            Default = "DuckDuckGo";
+            PreventInstalls = true;
+            Remove = ["Google"];
+          };
         };
         profiles = {
           default = {

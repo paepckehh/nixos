@@ -34,6 +34,7 @@ usb: info check wipe format pre-mount mount post-mount install umount
 
 info: 
 	@echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGET), os-flake: $(OSFLAKE), luks: $(USELUKS), build repo: $(REPO), disko-flake: $(DISKOFLAKE)
+	@if [ $(USELUKS) = "YES" ]; then (echo "### LUKS MODE ENABLED, PLEASE ENSURE PROPER DISK/STORAGE LAYOUT IN TARGETOS FLAKE CONFIG!" && sleep 3) ; fi  
 
 check: 
 	@if [ ! -e /dev/$(TARGETDRIVE) ]; then (echo "TARGETDRIVE: /dev/$(TARGETDRIVE) does not exists, exit" ; exit 1); fi  

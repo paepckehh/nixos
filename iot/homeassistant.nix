@@ -33,6 +33,7 @@
         "network"
         "roomba"
         "sun"
+        "solar_optimizer"
         "systemmonitor"
         "tibber"
         "ollama"

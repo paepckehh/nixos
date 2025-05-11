@@ -111,7 +111,7 @@
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    priority = 100;
+    priority = 5;
   };
 
   #################
@@ -247,6 +247,39 @@
       execWheelOnly = lib.mkForce true;
       wheelNeedsPassword = lib.mkForce true;
     };
+    pam = {
+      u2f = {
+        enable = true;
+        control = "sufficient";
+        settings = {
+          cue = true;
+          debug = false;
+        };
+      };
+      services = {
+        login = {
+          allowNullPassword = lib.mkForce false;
+          failDelay = {
+            enable = true;
+            delay = 5000000;
+          };
+          logFailures = true;
+          u2fAuth = true;
+          unixAuth = true;
+        };
+        sudo = {
+          allowNullPassword = lib.mkForce false;
+          failDelay = {
+            enable = true;
+            delay = 5000000;
+          };
+          u2fAuth = true;
+          unixAuth = true;
+          logFailures = true;
+          requireWheel = true;
+        };
+      };
+    };
   };
 
   ###############
@@ -266,17 +299,18 @@
   #-=# I18N #=-#
   ##############
   i18n = {
-    defaultLocale = "en_US.UTF-8"; # "de_DE.UTF-8";
+    defaultLocale = "en_US.UTF-8";
+    extraLocales = ["C.UTF-8" "en_US.UTF-8" "de_DE.UTF-8"];
     extraLocaleSettings = {
       LC_ADDRESS = "de_DE.UTF-8";
-      LC_IDENTIFICATION = "en_US.UTF-8"; # "de_DE.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
       LC_MEASUREMENT = "de_DE.UTF-8";
       LC_MONETARY = "de_DE.UTF-8";
       LC_NAME = "de_DE.UTF-8";
       LC_NUMERIC = "de_DE.UTF-8";
       LC_PAPER = "de_DE.UTF-8";
       LC_TELEPHONE = "de_DE.UTF-8";
-      LC_TIME = "en_US.UTF-8"; # "de_DE.UTF-8";
+      LC_TIME = "de_DE.UTF-8";
     };
   };
 
@@ -284,6 +318,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
+    systemPackages = with pkgs; [bc cryptsetup fd fzf gnumake libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f pv smartmontools];
     interactiveShellInit = ''uname -a'';
     variables = {
       EDITOR = "vim";

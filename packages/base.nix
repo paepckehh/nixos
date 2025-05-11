@@ -95,40 +95,29 @@
   environment = {
     systemPackages = with pkgs; [
       alejandra
-      bc
       bmon
       cliqr
-      cryptsetup
       dnsutils
       dust
       fastfetch
-      fd
+      grc
       fishPlugins.autopair
       fishPlugins.fish-you-should-use
-      fzf
-      gnumake
+      fishPlugins.grc
       inetutils
       jq
-      lsof
       kmon
-      moreutils
-      nix-output-monitor
-      nvme-cli
       onefetch
-      openssl
       p7zip
       paper-age
       parted
       passage
       progress
-      pv
       pwgen
       rage
-      smartmontools
       tldr
       tree
       tz
-      libsmbios
       unzip
       wireguard-tools
       yq
