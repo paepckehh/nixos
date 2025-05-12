@@ -77,7 +77,6 @@
         services.ssh-agent.enable = true;
         programs = {
           btop.enable = true;
-          command-not-found.enable = true;
           home-manager.enable = true;
           git.enable = true;
           thefuck.enable = true;
