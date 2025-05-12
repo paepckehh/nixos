@@ -1,210 +1,206 @@
 {
-  config,
   pkgs,
+  lib,
   ...
 }: {
   #################
   #-=# IMPORTS #=-#
   #################
-  # imports = [];
-
-  ###############
-  #-=# USERS #=-#
-  ###############
-  users = {
-    users = {
-      me = {
-        initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
-        description = "me";
-        uid = 1000;
-        group = "me";
-        createHome = true;
-        isNormalUser = true;
-        shell = pkgs.fish;
-        extraGroups = ["wheel" "mongodb" "backup" "networkmanager" "audio" "input" "video" "docker" "libvirtd" "qemu-libvirtd" "rsync"];
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
-      };
-    };
-    groups.me = {
-      gid = 1000;
-      members = ["me"];
-    };
-  };
+  imports = [
+    ../me.nix
+  ];
 
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
-  home-manager = {
-    backupFileExtension = "backup";
-    useUserPackages = true;
-    users = {
-      me = {
-        home = {
-          stateVersion = config.system.nixos.release;
-          enableNixpkgsReleaseCheck = false;
-          homeDirectory = "/home/me";
-          keyboard.layout = "us,de";
-          shellAliases = {
-            "l" = "ls -la";
-            "n" = "cd /etc/nixos && ls -la";
-            "h" = "htop --tree --highlight-changes";
-            "log.boot" = "sudo dmesg --follow --human --kernel --userspace";
-            "log.system" = "sudo journalctl --follow --priority=7 --lines=2500";
-            "log.time" = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
-            "b" = "btop";
-            "man" = "batman";
-            "cat" = "bat --paging=never";
-            "time.status" = "timedatectl timesync-status";
-            "keybordlight" = "echo 1 | sudo tee /sys/class/leds/input1::scrolllock/brightness";
-            "ll" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
-            "la" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
-            "lg" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --group";
-            "lt" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
-            "lo" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
-            "li" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
+  home-manager.users.me = {
+    dconf = {
+      enable = true;
+      settings = {
+        "org/gnome/shell" = {
+          disable-user-extensions = false;
+          enabled-extensions = with pkgs.gnomeExtensions; [
+            toggle-alacritty.extensionUuid
+          ];
+          favorite-apps = ["Alacritty.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop"];
+        };
+        "org/gnome/settings-daemon/plugins/media-keys" = {
+          custom-keybindings = [
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
+          ];
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+          name = "alacritty terminal"; # <windows-key> + <return> = terminal
+          command = "alacritty";
+          binding = "<Super>Return";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+          name = "librewolf browser not-sandboxed"; # <windows-key> +  <b> = browser
+          command = "librewolf";
+          binding = "<Super>b";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+          name = "keepassxc passwordmanager"; # <windows-key> +  <k> = keepassxc
+          command = "keepassxc";
+          binding = "<Super>k";
+        };
+        "org/gnome/desktop/interface" = {
+          clock-show-weekday = true;
+        };
+      };
+    };
+    programs = {
+      librewolf = {
+        enable = true;
+        policies = {
+          BackgroundAppUpdate = false;
+          CaptivePortal = false;
+          DisableBuiltinPDFViewer = false;
+          DisableTelemetry = true;
+          DisableDeveloperTools = false;
+          DisableEncryptedClientHello = false;
+          DisableFeedbackCommands = true;
+          DisableFirefoxAccounts = true;
+          DisableFirefoxScreenshots = true;
+          DisableFirefoxStudies = true;
+          DisableForgetButton = false;
+          DisableFormHistory = false;
+          DisableMasterPasswordCreation = false;
+          DisablePasswordReveal = false;
+          DisablePocket = true;
+          DisablePrivateBrowsing = false;
+          DisableProfileImport = true;
+          DisableProfileRefresh = true;
+          DisableSafeMode = false;
+          DisableSecurityBypass.InvalidCertificate = false;
+          DisplayBookmarksToolbar = "always";
+          DNSOverHTTPS.Enabled = false;
+          DontCheckDefaultBrowser = true;
+          HttpAllowlist = ["http://start.lan" "http://localhost" "http://127.0.0.1" "http://192.168.0.1" "http://192.186.1.1" "http://192.168.8.1"];
+          HttpsOnlyMode = "force_enabled"; # "force_enabled"
+          HardwareAcceleration = true;
+          NetworkPrediction = false;
+          NewTabPage = true;
+          NoDefaultBookmarks = true;
+          OfferToSaveLogins = false;
+          OfferToSaveLoginsDefault = false;
+          OverrideFirstRunPage = "";
+          OverridePostUpdatePage = "";
+          PasswordManagerEnabled = false;
+          PostQuantumKeyAgreementEnabled = true;
+          SearchSuggestEnabled = true;
+          ShowHomeButton = true;
+          SkipTermsOfUse = true;
+          SSLVersionMax = "tls1.3";
+          SSLVersionMin = "tls1.2";
+          StartDownloadsInTempDirectory = true;
+          TranslateEnabled = false;
+          ManagedBookmarks = lib.importJSON ../../shared/bookmarks-global.json;
+          ExtensionSettings = {
+            "*".installation_mode = "blocked";
+            "uBlock0@raymondhill.net" = {
+              install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+              installation_mode = "force_installed";
+            };
           };
-          sessionVariables = {
-            PAGER = "bat";
-            STARSHIP_LOG = "error";
-            SHELLCHECK_OPTS = "-e SC2086";
+          PrintingEnabled = true;
+          PrivateBrowsingModeAvailability = 2;
+          PromptForDownloadLocation = true;
+          Proxy.Mode = "none";
+          RequestedLocales = "en-US,en,de";
+          SanitizeOnShutdown = {
+            Cache = true;
+            Cookies = true;
+            Downloads = true;
+            FormData = true;
+            History = true;
+            Sessions = true;
+            SiteSettings = true;
+            OfflineApps = true;
           };
-          file = {
-            ".npmrc".text = ''prefix=~/.npm-packages'';
-            ".config/starship.toml".source = ./resources/starship/gruvbox-rainbow.toml;
+          SearchEngines = {
+            Default = "DuckDuckGo";
+            PreventInstalls = true;
+            Remove = ["Google"];
           };
         };
-        fonts.fontconfig.enable = true;
-        services.ssh-agent.enable = true;
-        programs = {
-          btop.enable = true;
-          git.enable = true;
-          home-manager.enable = true;
-          thefuck.enable = true;
-          starship.enable = true;
-          ripgrep.enable = true;
-          skim.enable = true;
-          nushell.enable = true;
-          atuin = {
-            enable = true;
-            enableBashIntegration = false;
-            enableFishIntegration = true;
-            enableZshIntegration = true;
-            flags = ["--disable-up-arrow"];
-            settings = {
-              auto_sync = false;
-              dialect = "us";
-              update_check = false;
-              sync_address = "http://localhost:8888";
-              sync_frequency = "10min";
-              theme.name = "";
+        profiles = {
+          default = {
+            id = 0;
+            name = "DefaultProfile";
+            isDefault = true;
+          };
+        };
+        settings = {
+          "browser.aboutConfig.showWarning" = false;
+          "browser.cache.disk.enable" = false;
+          "browser.compactmode.show" = true;
+          "browser.startup.homepage" = "";
+          "browser.search.defaultenginename" = "DuckDuckGo";
+          "browser.search.order.1" = "DuckDuckGo";
+          "gfx.webrender.all" = true;
+          "reader.parse-on-load.force-enabled" = true;
+          "layers.acceleration.force-enabled" = true;
+          "signon.rememberSignons" = false;
+          "privacy.clearOnShutdown.history" = false;
+          "privacy.clearOnShutdown.cookies" = false;
+          "privacy.firstparty.isolate" = true;
+          "privacy.resistFingerprinting" = true;
+          "media.ffmpeg.vaapi.enabled" = true;
+          "network.trr.mode" = 0;
+          "network.proxy.type" = 0;
+          "webgl.disabled" = false;
+          "widget.disable-workspace-management" = true;
+        };
+      };
+      alacritty = {
+        enable = true;
+        settings = {
+          selection = {
+            save_to_clipboard = true;
+          };
+          scrolling = {
+            history = 100000;
+          };
+          font.size = 13;
+          colors = {
+            primary = {
+              background = "#000000";
+              foreground = "#fffbf6";
             };
-          };
-          bat = {
-            enable = true;
-            extraPackages = with pkgs.bat-extras; [batman batgrep batwatch];
-          };
-          eza = {
-            enable = true;
-            git = true;
-            icons = "auto";
-            extraOptions = ["--group-directories-first" "--header"];
-            enableBashIntegration = false;
-            enableFishIntegration = true;
-            enableZshIntegration = true;
-          };
-          fd = {
-            enable = true;
-            extraOptions = ["--absolute-path" "--no-ignore" "--hidden" "--ignore-case"];
-          };
-          fzf = {
-            enable = true;
-            enableBashIntegration = false;
-            enableFishIntegration = false;
-            enableZshIntegration = false;
-          };
-          git = {
-            userName = "me";
-            userEmail = "me@intra.lan";
-            signing = {
-              signByDefault = false;
-              key = "~/.ssh/id_ed25519_sk.pub";
+            normal = {
+              black = "#000000";
+              red = "#eb4129";
+              green = "#abe047";
+              yellow = "#f6c744";
+              blue = "#47a0f3";
+              magenta = "#7b5cb0";
+              cyan = "#64dbed";
+              white = "#e5e9f0";
             };
-            extraConfig = {
-              init.defaultBranch = "main";
-              gpg.format = "ssh";
-              protocol = {
-                allow = "always";
-                file.allow = "always";
-                git.allow = "always";
-                ssh.allow = "always";
-                http.allow = "always";
-                https.allow = "always";
-              };
+            bright = {
+              black = "#565656";
+              red = "#ec5357";
+              green = "#c0e17d";
+              yellow = "#f9da6a";
+              blue = "#49a4f8";
+              magenta = "#a47de9";
+              cyan = "#99faf2";
+              white = "#ffffff";
             };
+            draw_bold_text_with_bright_colors = true;
           };
-          go = {
-            enable = true;
-          };
-          ssh = {
-            enable = true;
-            addKeysToAgent = "yes";
-          };
-          vim = {
-            enable = true;
-            defaultEditor = true;
-            plugins = with pkgs.vimPlugins; [SudoEdit-vim vim-airline vim-shellcheck vim-git vim-nix];
-            settings = {
-              history = 10000;
-              expandtab = true;
-            };
-            extraConfig = ''
-               set hlsearch
-               set nocompatible
-               set nobackup
-               let commentTextMap = {
-                   \'c': '\/\/',
-                   \'h': '\/\/',
-                   \'cpp': '\/\/',
-                   \'java': '\/\/',
-                   \'php': '\/\/',
-                   \'javascript': '\/\/',
-                   \'go': '\/\/',
-                   \'python': '#',
-                   \'sh': '#',
-                   \'vim': '"',
-                   \'make': '#',
-                   \'conf': '#',
-                   \'nix': ' #',
-              \}
-              noremap <silent> <expr> <F12> ((synIDattr(synID(line("."), col("."), 0), "name") =~ 'comment\c') ? ':<S-Right>:s/^\([ \t]*\)' . get(commentTextMap, &filetype, '#') . '/\1/<CR>' : ':<S-Right>:s/^/' . get(commentTextMap, &filetype, '#') . '/<CR>:nohl<CR>') . ':nohl<CR>:call histdel("/", -1)<CR>'
-            '';
-          };
-          fish = {
-            enable = true;
-            interactiveShellInit = ''
-              set fish_greeting # Disable greeting
-              set fish_history "" # Disable history
-              uname -a
-            '';
-          };
-          zsh = {
-            enable = true;
-            autocd = true;
-            autosuggestion.enable = true;
-            defaultKeymap = "viins";
-            syntaxHighlighting.enable = true;
-            historySubstringSearch.enable = true;
-            history = {
-              save = 0;
-              saveNoDups = true;
-              path = "/dev/null";
-              share = false;
-              extended = true;
-              ignoreSpace = true;
-            };
+          window = {
+            decorations = "none";
+            startup_mode = "Fullscreen";
           };
         };
       };
+    };
+    services = {
+      remmina.enable = false;
     };
   };
 }
