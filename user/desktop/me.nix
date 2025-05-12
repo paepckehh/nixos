@@ -59,7 +59,7 @@
     programs = {
       librewolf = {
         enable = true;
-        nativeMessagingHosts = [pkgs.keepassxc];
+        # nativeMessagingHosts = [pkgs.keepassxc];
         policies = {
           BackgroundAppUpdate = false;
           CaptivePortal = false;
