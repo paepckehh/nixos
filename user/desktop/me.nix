@@ -54,10 +54,14 @@
         };
       };
     };
+    # nativeMessagingHosts = [pkgs.keepassxc];
+    # "keepassxc@keepass-team" = {
+    #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
+    #   installation_mode = "force_installed";
+    # };
     programs = {
       librewolf = {
         enable = true;
-        # nativeMessagingHosts = [pkgs.keepassxc];
         policies = {
           BackgroundAppUpdate = false;
           CaptivePortal = false;
@@ -108,10 +112,6 @@
               install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
               installation_mode = "force_installed";
             };
-            # "keepassxc@keepass-team" = {
-            #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
-            #   installation_mode = "force_installed";
-            # };
           };
           PrintingEnabled = true;
           PrivateBrowsingModeAvailability = 2;
