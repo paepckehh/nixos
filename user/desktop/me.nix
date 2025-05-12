@@ -14,6 +14,11 @@
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager.users.me = {
+    home = {
+      sessionVariables = {
+        MOZ_USE_XINPUT2 = "1";
+      };
+    };
     dconf = {
       enable = true;
       settings = {

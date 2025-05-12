@@ -44,6 +44,12 @@
           enableNixpkgsReleaseCheck = false;
           homeDirectory = "/home/me";
           keyboard.layout = "us,de";
+          sessionVariables = {
+            PAGER = "bat";
+            STARSHIP_LOG = "error";
+            SHELLCHECK_OPTS = "-e SC2086";
+            EDITOR = "vim";
+          };
           shellAliases = {
             "l" = "ls -la";
             "n" = "cd /etc/nixos && ls -la";
@@ -62,11 +68,6 @@
             "lt" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
             "lo" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
             "li" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
-          };
-          sessionVariables = {
-            PAGER = "bat";
-            STARSHIP_LOG = "error";
-            SHELLCHECK_OPTS = "-e SC2086";
           };
           file = {
             ".npmrc".text = ''prefix=~/.npm-packages'';
