@@ -17,6 +17,7 @@
   #####################
   environment = {
     systemPackages = with pkgs; [
+      # ventoy-full
       amdgpu_top
       aria2
       certinfo-go
@@ -48,7 +49,6 @@
       lazyjournal
       usbutils
       vale
-      ventoy-full
       yamlfmt
     ];
   };
