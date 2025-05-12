@@ -16,7 +16,7 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    command-not-found = true;
+    command-not-found.enable = true;
     htop.enable = true;
     kbdlight.enable = true;
     fish.enable = true;
