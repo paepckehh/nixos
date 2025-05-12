@@ -78,6 +78,7 @@
         programs = {
           btop.enable = true;
           command-not-found.enable = true;
+          home-manager.enable = true;
           git.enable = true;
           thefuck.enable = true;
           starship.enable = true;
@@ -121,17 +122,6 @@
             enableBashIntegration = false;
             enableFishIntegration = false;
             enableZshIntegration = false;
-          };
-          home-manager = {
-            enable = true;
-            autoExpire = {
-              enable = true;
-              frequency = "daily";
-              store = {
-                cleanup = true;
-                options = "--delete-older-than 30d";
-              };
-            };
           };
           git = {
             userName = "me";
