@@ -201,13 +201,15 @@
       };
       keepassxc = {
         enable = true;
-        Browser.Enabled = true;
-        SSHAgent.Enabled = false;
-        GUI = {
-          AdvancedSettings = true;
-          ApplicationTheme = "dark";
-          CompactMode = true;
-          HidePasswords = true;
+        settings = {
+          Browser.Enabled = true;
+          SSHAgent.Enabled = false;
+          GUI = {
+            AdvancedSettings = true;
+            ApplicationTheme = "dark";
+            CompactMode = true;
+            HidePasswords = true;
+          };
         };
       };
     };
