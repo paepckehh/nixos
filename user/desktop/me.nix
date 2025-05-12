@@ -20,7 +20,7 @@
         "org/gnome/shell" = {
           disable-user-extensions = false;
           enabled-extensions = with pkgs.gnomeExtensions; [
-            toggle-alacritty.extensionUuid
+            # toggle-alacritty.extensionUuid
           ];
           favorite-apps = ["Alacritty.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop"];
         };
@@ -54,6 +54,7 @@
     programs = {
       librewolf = {
         enable = true;
+        nativeMessagingHosts = [pkgs.keepassxc];
         policies = {
           BackgroundAppUpdate = false;
           CaptivePortal = false;
@@ -109,7 +110,7 @@
           PrivateBrowsingModeAvailability = 2;
           PromptForDownloadLocation = true;
           Proxy.Mode = "none";
-          RequestedLocales = "en-US,en,de";
+          RequestedLocales = "en-US,en-GB,en,de";
           SanitizeOnShutdown = {
             Cache = true;
             Cookies = true;
@@ -198,9 +199,21 @@
           };
         };
       };
+      keepassxc = {
+        enable = true;
+        Browser.Enabled = true;
+        SSHAgent.Enabled = false;
+        GUI = {
+          AdvancedSettings = true;
+          ApplicationTheme = "dark";
+          CompactMode = true;
+          HidePasswords = true;
+        };
+      };
     };
     services = {
       remmina.enable = false;
+      network-manager-applet.enable = true;
     };
   };
 }
