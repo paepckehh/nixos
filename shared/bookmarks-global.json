@@ -138,4 +138,18 @@
       }
     ]
   }
+  {
+    "name": "awesome online troubleshooter",
+    "children": [
+      {
+        "url": "https://html5test.com/",
+        "name": "browser: analyse current browser and hw supported web features (video, audio, conference, ...)"
+      },
+      {
+        "url": "https://dnschecker.org/",
+        "name": "infra: dns (replication, keys, dmarc, ...)"
+      }
+    ]
+  }
+
 ]
