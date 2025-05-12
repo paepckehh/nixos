@@ -16,17 +16,16 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    command-not-found.enable = true;
     htop.enable = true;
     kbdlight.enable = true;
     fish.enable = true;
     nano.enable = true;
     mtr.enable = true;
     vim.enable = true;
-    nix-index = {
-      enable = true;
-      enableFishIntegration = true;
-    };
+    # nix-index = {
+    #  enable = true;
+    #  enableFishIntegration = true;
+    # };
     zsh = {
       enable = true;
       histFile = "/dev/null";
