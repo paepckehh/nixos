@@ -23,7 +23,7 @@
         "org/gnome/shell" = {
           disable-user-extensions = false;
           enabled-extensions = with pkgs.gnomeExtensions; [
-            # toggle-alacritty.extensionUuid
+            toggle-alacritty.extensionUuid
           ];
           favorite-apps = ["Alacritty.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop"];
         };
