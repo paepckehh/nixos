@@ -14,11 +14,9 @@
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager.users.me = {
-    home = {
-      sessionVariables = {
-        MOZ_USE_XINPUT2 = "1";
-      };
-    };
+    # home.sessionVariables = {
+    #    MOZ_USE_XINPUT2 = "1";
+    #  };
     dconf = {
       enable = true;
       settings = {
@@ -110,10 +108,10 @@
               install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
               installation_mode = "force_installed";
             };
-            "keepassxc@keepass-team" = {
-              install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
-              installation_mode = "force_installed";
-            };
+            # "keepassxc@keepass-team" = {
+            #   install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
+            #   installation_mode = "force_installed";
+            # };
           };
           PrintingEnabled = true;
           PrivateBrowsingModeAvailability = 2;
