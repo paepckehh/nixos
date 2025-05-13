@@ -14,6 +14,10 @@
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager.users.me = {
+    home.sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+      MOZ_USE_XINPUT2 = "1";
+    };
     dconf = {
       enable = true;
       settings = {
@@ -54,6 +58,7 @@
     programs = {
       librewolf = {
         enable = true;
+        nativeMessagingHosts = [pkgs.keepassxc];
         policies = {
           BackgroundAppUpdate = false;
           CaptivePortal = false;
@@ -102,6 +107,10 @@
             "*".installation_mode = "blocked";
             "uBlock0@raymondhill.net" = {
               install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+              installation_mode = "force_installed";
+            };
+            "keepassxc-browser@keepass.org" = {
+              install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
               installation_mode = "force_installed";
             };
           };
@@ -198,9 +207,23 @@
           };
         };
       };
+      keepassxc = {
+        enable = true;
+        settings = {
+          Browser.Enabled = true;
+          SSHAgent.Enabled = false;
+          GUI = {
+            AdvancedSettings = true;
+            ApplicationTheme = "dark";
+            CompactMode = true;
+            HidePasswords = true;
+          };
+        };
+      };
     };
     services = {
       remmina.enable = false;
+      network-manager-applet.enable = true;
     };
   };
 }

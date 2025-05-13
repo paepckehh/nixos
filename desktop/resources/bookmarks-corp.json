@@ -36,51 +36,6 @@
     ]
   },
   {
-    "name": "firmware webui",
-    "children": [
-  {
-    "url": "http://192.168.0.1/",
-    "name": "http://192.168.0.1/"
-  },
-  {
-    "url": "http://192.168.1.1/",
-    "name": "http://192.168.1.1/"
-  },
-  {
-    "url": "http://192.168.8.1/",
-    "name": "http://192.168.8.1/"
-  },
-  {
-    "url": "http://192.168.178.1/",
-    "name": "http://192.168.178.1/"
-  },
-  {
-    "url": "http://192.168.0.50/",
-    "name": "http://192.168.0.50/"
-  },
-  {
-    "url": "https://192.168.0.1/",
-    "name": "https://192.168.0.1/"
-  },
-  {
-    "url": "https://192.168.1.1/",
-    "name": "https://192.168.1.1/"
-  },
-  {
-    "url": "https://192.168.8.1/",
-    "name": "https://192.168.8.1/"
-  },
-  {
-    "url": "https://192.168.178.1/",
-    "name": "https://192.168.178.1/"
-  },
-  {
-    "url": "https://192.168.0.50/",
-    "name": "https://192.168.0.50/"
-  }
-    ]
-  },
-  {
     "name": "nixos",
     "children": [
       {
@@ -137,19 +92,63 @@
         "name": "Firmware Builder | Build and Download Images"
       }
     ]
-  }
+  },
   {
-    "name": "awesome online troubleshooter",
+    "name": "awesome troubleshooter",
     "children": [
       {
-        "url": "https://html5test.com/",
-        "name": "browser: analyse current browser and hw supported web features (video, audio, conference, ...)"
+        "url": "https://html5test.co/",
+        "name": "browser: analyse: supported web sw/hw features, video, audio, conference, ..."
       },
       {
         "url": "https://dnschecker.org/",
-        "name": "infra: dns (replication, keys, dmarc, ...)"
+        "name": "dns: replication, keys, dmarc, ..."
       }
     ]
+  },
+  {
+    "name": "local firmware webui",
+    "children": [
+  {
+    "url": "http://192.168.0.1/",
+    "name": "http://192.168.0.1/"
+  },
+  {
+    "url": "http://192.168.1.1/",
+    "name": "http://192.168.1.1/"
+  },
+  {
+    "url": "http://192.168.8.1/",
+    "name": "http://192.168.8.1/"
+  },
+  {
+    "url": "http://192.168.178.1/",
+    "name": "http://192.168.178.1/"
+  },
+  {
+    "url": "http://192.168.0.50/",
+    "name": "http://192.168.0.50/"
+  },
+  {
+    "url": "https://192.168.0.1/",
+    "name": "https://192.168.0.1/"
+  },
+  {
+    "url": "https://192.168.1.1/",
+    "name": "https://192.168.1.1/"
+  },
+  {
+    "url": "https://192.168.8.1/",
+    "name": "https://192.168.8.1/"
+  },
+  {
+    "url": "https://192.168.178.1/",
+    "name": "https://192.168.178.1/"
+  },
+  {
+    "url": "https://192.168.0.50/",
+    "name": "https://192.168.0.50/"
   }
-
+    ]
+  }
 ]

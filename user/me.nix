@@ -97,7 +97,10 @@
               update_check = false;
               sync_address = "http://localhost:8888";
               sync_frequency = "10min";
-              theme.name = "";
+              sync.records = true;
+              style = "full";
+              secrets_filter = true;
+              history_filter = ["LUKS"];
             };
           };
           bat = {

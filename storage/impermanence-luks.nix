@@ -29,7 +29,7 @@
     "/" = lib.mkForce {
       device = "tmpfs";
       fsType = "tmpfs";
-      options = ["defaults" "mode=755" "size=80%" "huge=within_size"];
+      options = ["mode=755" "size=80%" "huge=within_size"];
     };
     "/boot" = lib.mkForce {
       device = "/dev/disk/by-diskseq/1-part1";
@@ -51,13 +51,13 @@
       fsType = "none";
       options = ["bind" "x-initrd.mount"];
     };
-    "/home" = lib.mkForce {
-      device = "/nix/persist/home";
+    "/etc/nixos" = lib.mkForce {
+      device = "/nix/persist/etc/nixos";
       fsType = "none";
       options = ["bind"];
     };
-    "/etc/nixos" = lib.mkForce {
-      device = "/nix/persist/etc/nixos";
+    "/home" = lib.mkForce {
+      device = "/nix/persist/home";
       fsType = "none";
       options = ["bind"];
     };

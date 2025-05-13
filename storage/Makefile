@@ -26,7 +26,7 @@ all:
 # USBDRIVE TARGETS #
 ####################
 
-usb: info check wipe format pre-mount mount post-mount install umount
+usb: info check wipe format pre-mount mount post-mount install # umount
 
 ####################
 # USBDRIVE GENERIC #
@@ -44,11 +44,13 @@ install: install-os install-me
 install-os:
 	sudo nixos-install --verbose --keep-going --impure --no-root-password --root /mnt --flake $(OSFLAKE)
 	sudo git clone $(REPO) /mnt/etc/nixos
-	sudo cp -af /etc/ssh/ssh_host_ed25519_key /mnt/etc/ssh/ssh_host_ed25519_key > /dev/null 2>&1 || true # keep generic agenix os keys
+	sudo mkdir -p /mnt/etc/ssh
+	sudo cp -af /etc/ssh/ssh_host_ed25519_key /mnt/etc/ssh/ssh_host_ed25519_key # preserve generic agenix keys
 
 install-me:
-	sudo mkdir -p /mnt/home/me/.ssh /mnt/etc/ssh
-	sudo cp -af /home/me/.ssh/id_ed22519* /mnt/home/me/.ssh/ > /dev/null 2>&1 || true # default user yubikey glue records only
+	sudo mkdir -p /mnt/home/me/.ssh /mnt/home/me/.local/share
+	sudo cp -af /home/me/.ssh/* /mnt/home/me/.ssh/ # yubikey glue records only
+	sudo cp -af /home/me/.local/share/atuin /mnt/home/me/.local/share/
 	sudo chown -R me:me /mnt/home/me
 
 pre-mount: 

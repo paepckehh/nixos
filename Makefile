@@ -229,8 +229,10 @@ umount:
 
 wipe-home:
 	cd || exit 1
-	rm -rf .mozilla .cache/mozilla
-	rm -rf .librewolf .cache/librewolf
+	mv .local/share/atuin .
+	rm -rf .local .cache .mozilla .librewolf
+	mkdir -p .local/share
+	mv atuin .local/share/
 	sudo -v || exit 1
 	sudo systemctl stop home-manager-me.service
 	sudo systemctl start home-manager-me.service
