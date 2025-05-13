@@ -24,7 +24,7 @@ all:
 # USBDRIVE TARGETS #
 ####################
 
-usb: info check wipe format pre-mount mount post-mount # install # umount
+usb: info check wipe format pre-mount mount post-mount install migrate-me #umount
 
 ####################
 # USBDRIVE GENERIC #
@@ -37,15 +37,13 @@ info:
 check: 
 	@if [ ! -e /dev/$(TARGETDRIVE) ]; then (echo "TARGETDRIVE: /dev/$(TARGETDRIVE) does not exists, exit" ; exit 1); fi  
 
-install: install-os install-me
-
-install-os:
+install:
 	sudo nixos-install --verbose --keep-going --impure --no-root-password --root /mnt --flake $(OSFLAKE)
 	sudo git clone $(REPO) /mnt/etc/nixos
 	sudo mkdir -p /mnt/etc/ssh
 	sudo cp -af /etc/ssh/ssh_host_ed25519_key /mnt/etc/ssh/ssh_host_ed25519_key # preserve generic agenix keys
 
-install-me:
+migrate-me:
 	sudo mkdir -p /mnt/home/me/.local/share
 	sudo cp -af /home/me/.ssh /mnt/home/me/ # yubikey glue records only
 	sudo cp -af /home/me/.local/share/atuin /mnt/home/me/.local/share/
@@ -59,8 +57,8 @@ pre-mount:
 	sudo mount -t tmpfs tmpfs /mnt
 
 post-mount:
-	sudo mkdir -p /mnt/boot /mnt/nix /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh 
 	sudo mkdir -p /mnt/nix/persist/home /mnt/nix/persist/var/lib /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh
+	sudo mkdir -p /mnt/boot /mnt/nix /mnt/home/me /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh 
 	sudo mount -o bind /mnt/nix/persist/home /mnt/home
 	sudo mount -o bind /mnt/nix/persist/var/lib /mnt/var/lib
 	sudo mount -o bind /mnt/nix/persist/etc/nixos /mnt/etc/nixos
