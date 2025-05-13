@@ -24,7 +24,7 @@ all:
 # USBDRIVE TARGETS #
 ####################
 
-usb: info check wipe format pre-mount mount post-mount install migrate-me #umount
+usb: info check wipe format pre-mount mount post-mount install migrate-me umount
 
 ####################
 # USBDRIVE GENERIC #
