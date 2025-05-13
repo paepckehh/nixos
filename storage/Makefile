@@ -9,8 +9,6 @@ REPO?=https://github.com/paepckehh/nixos
 TARGET?=$(shell hostname)
 TARGETDRIVE?=sdb
 DEVICE_MAIN:=$(TARGETDRIVE)
-STRUCT:=/mnt/boot /mnt/nix /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/nix/var/log /mnt
-PERSIST:=/mnt/nix/persist/home /mnt/nix/persist/var/lib /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh
 USELUKS:=YES
 DISKOFLAKE:=disko/impermanence-luks.nix
 ifeq ($(origin LUKS),undefined)
@@ -48,21 +46,21 @@ install-os:
 	sudo cp -af /etc/ssh/ssh_host_ed25519_key /mnt/etc/ssh/ssh_host_ed25519_key # preserve generic agenix keys
 
 install-me:
-	sudo mkdir -p /mnt/home/me/.ssh /mnt/home/me/.local/share
-	sudo cp -af /home/me/.ssh/* /mnt/home/me/.ssh/ # yubikey glue records only
+	sudo mkdir -p /mnt/home/me/.local/share
+	sudo cp -af /home/me/.ssh /mnt/home/me/ # yubikey glue records only
 	sudo cp -af /home/me/.local/share/atuin /mnt/home/me/.local/share/
 	sudo chown -R me:me /mnt/home/me
 
 pre-mount: 
-	sudo mkdir  -p $(STRUCT)
-	sudo umount -f $(STRUCT) > /dev/null 2>&1 || true
-	sudo umount -f $(STRUCT) > /dev/null 2>&1 || true
+	sudo umount -f /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh  || true
+	sudo umount -f /mnt/boot /mnt/nix || true
+	sudo umount -f /mnt || true
 	sudo mkdir -p /mnt
 	sudo mount -t tmpfs tmpfs /mnt
 
 post-mount:
-	sudo mkdir -p $(STRUCT) 
-	sudo mkdir -p $(PERSIST)
+	sudo mkdir -p /mnt/boot /mnt/nix /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh 
+	sudo mkdir -p /mnt/nix/persist/home /mnt/nix/persist/var/lib /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh
 	sudo mount -o bind /mnt/nix/persist/home /mnt/home
 	sudo mount -o bind /mnt/nix/persist/var/lib /mnt/var/lib
 	sudo mount -o bind /mnt/nix/persist/etc/nixos /mnt/etc/nixos
@@ -70,10 +68,10 @@ post-mount:
 
 umount:
 	sudo sync && sync && sync
-	sudo umount -f $(STRUCT) > /dev/null 2>&1 || true
-	sudo umount -f $(STRUCT) > /dev/null 2>&1 || true
-	sudo umount -f /mnt > /dev/null 2>&1 || true
-	sudo rm -rf /mnt /tmp/luks > /dev/null 2>&1 || true
+	sudo umount -f /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh  || true
+	sudo umount -f /mnt/boot /mnt/nix || true
+	sudo umount -f /mnt || true
+	sudo rm -rf /mnt /tmp/luks || true
 
 format:
 	echo ${LUKS} > /tmp/luks 
