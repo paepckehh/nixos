@@ -7,8 +7,8 @@
     syslog-ng = {
       enable = true;
       extraConfig = ''
-        source s_local { system(); internal(); unix-stream("/dev/log"); };
-        destination d_syslog_tcp { syslog("192.168.8.100" ip-protocol(4) transport(tcp) port(514)); };
+        source s_local { system(); internal(); };
+        destination d_syslog_tcp { syslog("192.168.80.100" ip-protocol(4) transport(tcp) port(514)); };
         log{ source(s_local); destination(d_syslog_tcp); };
       '';
     };

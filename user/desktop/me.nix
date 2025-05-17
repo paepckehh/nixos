@@ -83,7 +83,7 @@
           DisplayBookmarksToolbar = "always";
           DNSOverHTTPS.Enabled = false;
           DontCheckDefaultBrowser = true;
-          HttpAllowlist = ["http://start.lan" "http://localhost" "http://127.0.0.1" "http://192.168.0.1" "http://192.186.1.1" "http://192.168.8.1"];
+          HttpAllowlist = ["http://start.lan" "http://localhost" "http://127.0.0.1" "http://192.168.0.1" "http://192.186.1.1" "http://192.168.8.1" "http://192.168.80.1"];
           HttpsOnlyMode = "force_enabled"; # "force_enabled"
           HardwareAcceleration = true;
           NetworkPrediction = false;
@@ -210,7 +210,7 @@
       keepassxc = {
         enable = true;
         settings = {
-          Browser.Enabled = true;
+          Browser.Enabled = false;
           SSHAgent.Enabled = false;
           GUI = {
             AdvancedSettings = true;

@@ -10,6 +10,10 @@
     "name": "start"
   },
   {
+    "url": "http://moode.lan",
+    "name": "moode"
+  },
+  {
     "url": "https://127.0.0.1:8080/cgi-bin/luci",
     "name": "axt luci"
   },
@@ -94,24 +98,40 @@
     ]
   },
   {
-    "name": "awesome troubleshooter",
+    "name": "awesome online toolbox",
     "children": [
       {
         "url": "https://html5test.co/",
-        "name": "browser: analyse: supported web sw/hw features, video, audio, conference, ..."
+        "name": "browser: analyse: supported web sw/hw features, video, audio, conference"
       },
       {
         "url": "https://dnschecker.org/",
-        "name": "dns: replication, keys, dmarc, ..."
+        "name": "dns: dnschecker.org [replication, keys, latency, cache]"
+      },
+      {
+        "url": "https://mxtoolbox.org/",
+        "name": "dns, email: mxtoolbox.com [dns, mx, blacklists, dmarc, spf]"
+      },
+      {
+        "url": "https://speed.cloudflare.com/",
+        "name": "speedtest: speed.cloudflare.com [latency, packetloss, details]"
+      },
+      {
+        "url": "https://fast.com/",
+        "name": "speedtest: fast.com [bigscreen, demo[]"
       }
     ]
   },
   {
-    "name": "local firmware webui",
+    "name": "web-ui http",
     "children": [
-  {
-    "url": "http://192.168.0.1/",
-    "name": "http://192.168.0.1/"
+      {
+       "url": "http://192.168.0.1/",
+       "name": "http://192.168.0.1/"
+      },
+  {  
+    "url": "http://192.168.0.50/",
+    "name": "http://192.168.0.50/"
   },
   {
     "url": "http://192.168.1.1/",
@@ -124,14 +144,19 @@
   {
     "url": "http://192.168.178.1/",
     "name": "http://192.168.178.1/"
+  }
+    ]
   },
   {
-    "url": "http://192.168.0.50/",
-    "name": "http://192.168.0.50/"
-  },
+    "name": "web-ui https",
+    "children": [
   {
     "url": "https://192.168.0.1/",
     "name": "https://192.168.0.1/"
+  },
+  {
+    "url": "https://192.168.0.50/",
+    "name": "https://192.168.0.50/"
   },
   {
     "url": "https://192.168.1.1/",
@@ -144,10 +169,6 @@
   {
     "url": "https://192.168.178.1/",
     "name": "https://192.168.178.1/"
-  },
-  {
-    "url": "https://192.168.0.50/",
-    "name": "https://192.168.0.50/"
   }
     ]
   }

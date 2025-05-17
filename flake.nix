@@ -101,15 +101,18 @@
           nvf.nixosModules.default
           ./configuration.nix
           ./storage/impermanence-luks.nix
+          # ./client/wireguard.nix
+          ./client/nixops.nix
           ./person/desktop/mpaepcke.nix
           ./desktop/gnome.nix
           ./packages/agenix.nix
           ./packages/base.nix
           ./packages/devops.nix
+          ./packages/devops-iot.nix
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
           ./openwrt/openwrt.nix
-          # {boot.tmp.tmpfsHugeMemoryPages = "within_size";}
+          {boot.tmp.tmpfsHugeMemoryPages = "within_size";}
           {networking.hostName = "srv";}
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
         ];

@@ -39,7 +39,7 @@
         cert_ignore_timestamp = true;
         dnscrypt_ephemeral_keys = true;
         tls_disable_session_tickets = true;
-        bootstrap_resolvers = ["192.168.0.1:53" "192.168.1.1:53" "192.168.8.1:53" "9.9.9.9:53" "9.9.9.10:53"];
+        bootstrap_resolvers = ["192.168.0.1:53" "192.168.1.1:53" "192.168.80.1:53" "9.9.9.9:53" "9.9.9.10:53"];
         ignore_system_dns = true;
         netprobe_timeout = 120;
         netprobe_address = "9.9.9.9:53";

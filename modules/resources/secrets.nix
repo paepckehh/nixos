@@ -2,6 +2,8 @@ let
   age = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPvG7XOtIqjA+zibUaFj9gz/zOKYkZ9gAuYmkHjbseCk age@paepcke.de";
   srv-mp = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArbsQC2gdtQ9qCC54Khfei/rVMtVjOTiS0sduAi4jDO root@srv-mp";
 in {
+  "wg-nix-pk.age".publicKeys = [age srv-mp];
+  "wg-nix-psk.age".publicKeys = [age srv-mp];
   "tibber.age".publicKeys = [age srv-mp];
   "syslog-ng-key.age".publicKeys = [age srv-mp];
   "openwrt-admin-pwd.age".publicKeys = [age srv-mp];

@@ -9,15 +9,15 @@
   networking = {
     domain = "admin.lan";
     search = ["admin.lan" "intranet.lan" "iot.lan" "infra.lan" "lan"]; # modify-here
-    nameservers = ["192.168.8.3" "192.168.8.2"]; # modify-here
-    timeServers = ["192.168.8.3" "192.168.8.2"]; # modify-here
+    nameservers = ["192.168.80.3" "192.168.80.2"]; # modify-here
+    timeServers = ["192.168.80.3" "192.168.80.2"]; # modify-here
     enableIPv6 = lib.mkForce false;
     useDHCP = lib.mkForce false;
     usePredictableInterfaceNames = lib.mkForce false;
     networkmanager.enable = lib.mkForce false;
     wireless.enable = lib.mkForce false;
     defaultGateway = {
-      address = "192.168.8.1"; # modify-here
+      address = "192.168.80.1"; # modify-here
       interface = "intranet";
     };
     proxy = {

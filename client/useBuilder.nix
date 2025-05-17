@@ -47,6 +47,6 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    hosts = {"192.168.8.99" = ["nixbuilder" "nixbuilder.lan" "nixbuiler.admin.lan" "nixbuilder.pvz.lan"];};
+    hosts = {"192.168.80.99" = ["nixbuilder" "nixbuilder.lan" "nixbuiler.admin.lan" "nixbuilder.pvz.lan"];};
   };
 }

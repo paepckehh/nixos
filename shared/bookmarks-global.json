@@ -10,8 +10,28 @@
     "name": "start"
   },
   {
-    "url": "https://127.0.0.1:8080/cgi-bin/luci",
-    "name": "axt luci"
+    "url": "http://moode.lan",
+    "name": "moode"
+  },
+  {
+    "url": "https://127.0.0.1:8091/cgi-bin/luci",
+    "name": "luci: axt"
+  },
+  {
+    "url": "https://127.0.0.1:8092/cgi-bin/luci",
+    "name": "luci: rpi2"
+  },
+  {
+    "url": "https://127.0.0.1:8093/cgi-bin/luci",
+    "name": "luci: b3000"
+  },
+  {
+    "url": "https://127.0.0.1:8094/cgi-bin/luci",
+    "name": "luci: dap"
+  },
+  {
+    "url": "http://localhost:9292/",
+    "name": "local: nixops"
   },
   {
     "url": "http://localhost:3000/",
@@ -118,8 +138,8 @@
     "name": "http://192.168.1.1/"
   },
   {
-    "url": "http://192.168.8.1/",
-    "name": "http://192.168.8.1/"
+    "url": "http://192.168.80.1/",
+    "name": "http://192.168.80.1/"
   },
   {
     "url": "http://192.168.178.1/",
@@ -138,8 +158,8 @@
     "name": "https://192.168.1.1/"
   },
   {
-    "url": "https://192.168.8.1/",
-    "name": "https://192.168.8.1/"
+    "url": "https://192.168.80.1/",
+    "name": "https://192.168.80.1/"
   },
   {
     "url": "https://192.168.178.1/",

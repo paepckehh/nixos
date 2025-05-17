@@ -48,7 +48,7 @@
           # .1 [zyxel] setup
         }
         #        {
-        #          address = "192.168.8.250";
+        #          address = "192.168.80.250";
         #          prefixLength = 24; # fixme
         #          # .1 [gl-inet] setup
         #        }
