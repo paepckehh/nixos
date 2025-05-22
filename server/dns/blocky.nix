@@ -61,7 +61,7 @@
             default = [
               "tcp+udp:192.168.0.1"
               "tcp+udp:192.168.1.1"
-              "tcp+udp:192.168.8.1"
+              "tcp+udp:192.168.80.1"
               "tcp+udp:9.9.9.9"
               "tcp+udp:9.9.9.10"
             ];
@@ -70,7 +70,7 @@
         bootstrapDns = [
           "tcp+udp:192.168.0.1"
           "tcp+udp:192.168.1.1"
-          "tcp+udp:192.168.8.1"
+          "tcp+udp:192.168.80.1"
           "tcp+udp:9.9.9.9"
           "tcp+udp:9.9.9.10"
         ];

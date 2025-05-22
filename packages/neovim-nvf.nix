@@ -13,7 +13,12 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.shellAliases.e = lib.mkForce "nvim";
+  environment = {
+    shellAliases = {
+      "e" = lib.mkForce "nvim";
+    };
+    systemPackages = with pkgs; [xclip];
+  };
 
   ##################
   #-=# PROGRAMS #=-#
@@ -66,7 +71,7 @@
             };
           };
           nvim-cmp = {
-            enable = true; #
+            enable = true;
             mappings = {
               complete = "<C-Space>";
               confirm = "<CR>";
@@ -126,7 +131,6 @@
           theme = "onedark";
         };
         languages = {
-          # enableLSP = lib.mkForce true;
           enableFormat = lib.mkForce true;
           clang.enable = true;
           css.enable = true;

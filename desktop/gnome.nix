@@ -54,9 +54,9 @@
   services = {
     gvfs.enable = lib.mkForce false;
     gnome = {
-      # core-os-services.enable = lib.mkForce false;
-      # core-shell.enable = lib.mkForce false;
-      core-utilities.enable = lib.mkForce false;
+      core-os-services.enable = true;
+      core-shell.enable = true;
+      core-utilities.enable = lib.mkForce false; # core-apps > 25.05
       core-developer-tools.enable = lib.mkForce false;
       evolution-data-server.enable = lib.mkForce false;
       games.enable = lib.mkForce false;

@@ -1,0 +1,61 @@
+Port 6623 
+AddressFamily inet
+ListenAddress 0.0.0.0
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+RekeyLimit 1G 30m
+
+SyslogFacility AUTH
+LogLevel INFO
+
+AllowUsers none
+PermitRootLogin prohibit-password
+LoginGraceTime 2m
+StrictModes yes
+MaxAuthTries 3
+MaxSessions 6
+
+PubkeyAuthentication no
+PubkeyAcceptedAlgorithms sk-ssh-ed25519@openssh.com
+KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org
+
+PerSourceMaxStartups 12
+PerSourceNetBlockSize 32:128
+
+AuthorizedKeysFile .ssh/authorized_keys
+AuthorizedPrincipalsFile none
+AuthorizedKeysCommand none
+AuthorizedKeysCommandUser nobody
+HostbasedAuthentication no
+IgnoreUserKnownHosts no
+IgnoreRhosts yes
+
+ChallengeResponseAuthentication no
+KbdInteractiveAuthentication no
+PasswordAuthentication no
+PermitEmptyPasswords no
+
+AllowAgentForwarding no
+AllowTcpForwarding yes
+Banner none
+GatewayPorts no
+X11Forwarding no
+PermitTTY yes
+PrintMotd yes
+PrintLastLog yes
+TCPKeepAlive no
+PermitUserEnvironment no
+Compression no
+ClientAliveInterval 30
+ClientAliveCountMax 3
+UseDNS no
+PidFile /var/run/sshd.pid
+MaxStartups 10:30:100
+PermitTunnel no
+ChrootDirectory none
+VersionAddendum none
+
+Match Address 192.168.0.0/24
+  AllowUsers me
+  PubkeyAuthentication yes
+  PubkeyAuthOptions touch-required

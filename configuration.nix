@@ -14,7 +14,7 @@
       compressorArgs = ["--ultra" "--long" "-22"];
       systemd = {
         enable = lib.mkForce true;
-        emergencyAccess = lib.mkForce true; # XXX
+        emergencyAccess = lib.mkForce true;
       };
       luks.mitigateDMAAttacks = lib.mkForce true;
       supportedFilesystems = ["ext4" "tmpfs"];
@@ -37,8 +37,8 @@
     );
     kernelParams = (
       if (config.nixpkgs.system == "x86_64-linux")
-      then ["amd_pstate=active" "copytoram" "page_alloc.shuffle=1"]
-      else ["page_alloc.shuffle=1"]
+      then ["amd_pstate=active" "copytoram" "page_alloc.shuffle=1" "ipv6.disable=1"]
+      else ["page_alloc.shuffle=1" "ipv6.disable=1"]
     );
     kernelModules = (
       if (config.nixpkgs.system == "x86_64-linux")
@@ -49,6 +49,7 @@
     tmp = {
       cleanOnBoot = true;
       useTmpfs = true;
+      tmpfsHugeMemoryPages = "within_size";
       tmpfsSize = "85%";
     };
     runSize = "85%";
@@ -64,27 +65,29 @@
       };
     };
     kernel.sysctl = {
-      "kernel.kptr_restrict" = lib.mkForce 2;
-      "kernel.ftrace_enabled" = lib.mkForce false;
+      "kernel.kptr_restrict" = 2;
+      "kernel.ftrace_enabled" = 0;
       "net.core.rmem_max" = lib.mkForce 7500000;
       "net.core.wmem_max" = lib.mkForce 7500000;
-      "net.ipv4.conf.all.accept_redirects" = lib.mkForce false;
-      "net.ipv4.conf.all.secure_redirects" = lib.mkForce false;
+      "net.ipv4.conf.all.accept_redirects" = 0;
+      "net.ipv4.conf.all.secure_redirects" = 0;
       "net.ipv4.conf.all.rp_filter" = 1;
       "net.ipv4.conf.all.accept_source_route" = 0;
       "net.ipv4.conf.all.send_redirects" = 0;
       "net.ipv4.conf.default.send_redirects" = 0;
-      "net.ipv4.conf.default.accept_redirects" = lib.mkForce false;
-      "net.ipv4.conf.default.secure_redirects" = lib.mkForce false;
+      "net.ipv4.conf.default.accept_redirects" = 0;
+      "net.ipv4.conf.default.secure_redirects" = 0;
       "net.ipv4.conf.default.rp_filter" = 1;
-      "net.ipv4.icmp_echo_ignore_broadcasts" = lib.mkForce true;
+      "net.ipv4.icmp_echo_ignore_broadcasts" = 1;
       "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
-      "net.ipv4.tcp_fastopen" = lib.mkDefault 0; # leak
+      "net.ipv4.tcp_fastopen" = 0;
       "net.ipv4.tcp_rfc1337" = 1;
       "net.ipv4.tcp_syncookies" = 1;
-      "net.ipv6.conf.all.disable_ipv6" = lib.mkForce true;
+      "net.ipv6.conf.all.disable_ipv6" = 1;
+      "net.ipv6.conf.eth0.disable_ipv6" = 1;
       "net.ipv6.conf.all.accept_source_route" = 0;
-      "net.ipv6.conf.all.accept_redirects" = lib.mkForce false;
+      "net.ipv6.conf.all.accept_redirects" = 0;
+      "net.ipv6.conf.default.disable_ipv6" = 1;
       "net.ipv6.conf.default.accept_redirects" = 0;
     };
   };
@@ -148,16 +151,19 @@
       allowed-uris = [
         # "https://nixpkgs-unfree.cachix.org"
         # "https://nix-community.cachix.org"
+        # "https://cache.saumon.network/proxmox-nixos"
         "https://cache.nixos.org"
       ];
       substituters = [
         # "https://nixpkgs-unfree.cachix.org"
         # "https://nix-community.cachix.org"
+        # "https://cache.saumon.network/proxmox-nixos"
         "https://cache.nixos.org"
       ];
       trusted-public-keys = [
         # "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
         # "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        # "proxmox-nixos:nveXDuVVhFDRFx8Dn19f1WDEaNRJjPrF2CPD2D+m1ys="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
     };
@@ -300,46 +306,26 @@
   ##############
   i18n = {
     defaultLocale = "en_US.UTF-8";
-    extraLocales = ["C.UTF-8" "en_US.UTF-8" "de_DE.UTF-8"];
-    extraLocaleSettings = {
-      LC_ADDRESS = "de_DE.UTF-8";
-      LC_IDENTIFICATION = "en_US.UTF-8";
-      LC_MEASUREMENT = "de_DE.UTF-8";
-      LC_MONETARY = "de_DE.UTF-8";
-      LC_NAME = "de_DE.UTF-8";
-      LC_NUMERIC = "de_DE.UTF-8";
-      LC_PAPER = "de_DE.UTF-8";
-      LC_TELEPHONE = "de_DE.UTF-8";
-      LC_TIME = "de_DE.UTF-8";
-    };
+    # extraLocales = ["C.UTF-8" "de_DE.UTF-8"];
+    # extraLocaleSettings = {
+    #  LC_ADDRESS = "de_DE.UTF-8";
+    #  LC_IDENTIFICATION = "en_US.UTF-8";
+    #  LC_MEASUREMENT = "de_DE.UTF-8";
+    #  LC_MONETARY = "de_DE.UTF-8";
+    #  LC_NAME = "de_DE.UTF-8";
+    #  LC_NUMERIC = "C.UTF-8";
+    #  LC_PAPER = "de_DE.UTF-8";
+    #  LC_TELEPHONE = "de_DE.UTF-8";
+    #  LC_TIME = "de_DE.UTF-8";
+    # };
   };
 
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [bc cryptsetup fd fzf gnumake libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f pv smartmontools];
-    interactiveShellInit = ''uname -a'';
-    variables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
-      ROC_ENABLE_PRE_VEGA = "1";
-    };
-    shells = [pkgs.bashInteractive pkgs.zsh pkgs.fish];
-    shellAliases = {
-      "e" = "vim";
-      "l" = "ls -la";
-      "log.boot" = "sudo dmesg --follow --human --kernel --userspace";
-      "log.system" = "journalctl --follow --priority=7 --lines=2500";
-      "info.nvme" = "sudo smartctl --all /dev/sda"; # /dev/nvme0
-      "service.log.clean" = "sudo journalctl --vacuum-time=1d";
-      "service.log.follow" = "sudo journalctl --follow -u $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.log.today" = "sudo journalctl --pager-end --since today -u $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.start" = "sudo systemctl start $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.stop" = "sudo systemctl stop $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.status" = "sudo systemctl status $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-      "service.restart" = "sudo systemctl restart $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
-    };
+    shells = [pkgs.bashInteractive];
+    systemPackages = with pkgs; [age cryptsetup libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl rage pam_u2f smartmontools];
   };
 
   ####################
@@ -366,7 +352,7 @@
     firewall = {
       enable = true;
       allowPing = true;
-      checkReversePath = true;
+      checkReversePath = lib.mkDefault true;
     };
   };
 
@@ -378,6 +364,7 @@
       enable = true;
       wait-online.enable = false;
       networks."10-lan" = {
+        ipv6Prefixes = [{AddressAutoconfiguration = false;}];
         matchConfig.Name = "eth0";
         networkConfig.DHCP = "ipv4";
         linkConfig.RequiredForOnline = "no";
@@ -443,7 +430,7 @@
       enable = true;
       dnssec = "false"; # XXX disable dnssec for the clowns pointless mitm
       extraConfig = "MulticastDNS=false\nCache=true\nCacheFromLocalhost=true\nDomains=~.\n";
-      fallbackDns = ["192.168.8.1" "192.168.0.1" "192.168.1.1"];
+      fallbackDns = ["192.168.80.1" "192.168.0.1" "192.168.1.1"];
       llmnr = "false";
     };
     tlp = {

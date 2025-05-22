@@ -9,7 +9,7 @@
   #####################
   # add generic terminal pkg for all, configure individually via home-manager profile
   environment = {
-    systemPackages = with pkgs; [alacritty gparted keepassxc];
+    systemPackages = with pkgs; [alacritty gparted keepassxc xclip];
     variables = {
       TERMINAL = "alacritty";
     };
@@ -50,9 +50,9 @@
     };
     pipewire = {
       enable = false;
-      pulse.enable = false;
-      wireplumber.enable = false;
-      alsa.enable = false;
+      alsa.enable = lib.mkDefault false;
+      pulse.enable = lib.mkDefault false;
+      wireplumber.enable = lib.mkDefault false;
     };
   };
 

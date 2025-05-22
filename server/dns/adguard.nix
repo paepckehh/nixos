@@ -35,7 +35,7 @@
         dns = {
           anonymize_client_ip = false;
           ratelimit = 500;
-          ratelimit_whitelist = ["127.0.0.1" "192.168.0.0" "192.168.8.0" "10.0.0.0"]; # they are all /24 networks
+          ratelimit_whitelist = ["127.0.0.1" "192.168.0.0" "192.168.80.0" "10.0.0.0"]; # they are all /24 networks
           refuse_any = true;
           aaaa_disabled = true;
           enable_dnssec = true;

@@ -5,34 +5,50 @@
   {
     "name": "local services",
     "children": [
-  {
-    "url": "http://start.lan",
-    "name": "start"
-  },
-  {
-    "url": "https://127.0.0.1:8080/cgi-bin/luci",
-    "name": "axt luci"
-  },
-  {
-    "url": "http://localhost:3000/",
-    "name": "local: grafana"
-  },
-  {
-    "url": "http://localhost:9090/targets",
-    "name": "local: prometheus"
-  },
-  {
-    "url": "http://localhost:6688/",
-    "name": "local: wastebin"
-  },
-  {
-    "url": "http://localhost:4000/",
-    "name": "local: blocky"
-  },
-  {
-    "url": "http://localhost:8081/",
-    "name": "local: pgweb"
-  }
+      {
+        "url": "http://start.lan",
+        "name": "start"
+      },
+      {
+        "url": "http://moode.lan",
+        "name": "moode"
+      },
+      {
+        "url": "https://127.0.0.1:8091/cgi-bin/luci",
+        "name": "axt luci"
+      },
+      {
+        "url": "https://127.0.0.1:8092/cgi-bin/luci",
+        "name": "rpi2 luci"
+      },
+      {
+        "url": "https://127.0.0.1:8093/cgi-bin/luci",
+        "name": "b3000 luci"
+      },
+      {
+        "url": "http://localhost:9292/",
+        "name": "local: olivetin"
+      },
+      {
+        "url": "http://localhost:3000/",
+        "name": "local: grafana"
+      },
+      {
+        "url": "http://localhost:9090/targets",
+        "name": "local: prometheus"
+      },
+      {
+        "url": "http://localhost:6688/",
+        "name": "local: wastebin"
+      },
+      {
+        "url": "http://localhost:4000/",
+        "name": "local: blocky"
+      },
+      {
+        "url": "http://localhost:8081/",
+        "name": "local: pgweb"
+      }
     ]
   },
   {
@@ -48,23 +64,27 @@
       },
       {
         "url": "https://github.com/nixos",
-        "name": "Github Main Repo (Org)"
+        "name": "Github main repo (Org)"
       },
       {
         "url": "https://search.nixos.org/packages",
-        "name": "Nixos Packages and Options Search"
+        "name": "Nixos packages and options search"
       },
       {
         "url": "https://home-manager-options.extranix.com/",
-        "name": "Home-Manager Packages Search"
+        "name": "Home-Manager packages and options search"
+      },
+      {
+        "url": "https://notashelf.github.io/nvf/options.html",
+        "name": "Neovim packages and options search (NVF)"
       },
       {
         "url": "https://nix.dev/index.html",
-        "name": "Dev Developer Info"
+        "name": "developer info"
       },
       {
         "url": "https://nixos.wiki/wiki/Main_Page",
-        "name": "Wiki (Unofficial)"
+        "name": "Wiki (Unofficial, Legacy)"
       }
     ]
   },
@@ -94,61 +114,113 @@
     ]
   },
   {
-    "name": "awesome troubleshooter",
+    "name": "awesome online toolbox",
     "children": [
       {
         "url": "https://html5test.co/",
-        "name": "browser: analyse: supported web sw/hw features, video, audio, conference, ..."
+        "name": "browser: analyse: supported web sw/hw features, video, audio, conference"
       },
       {
         "url": "https://dnschecker.org/",
-        "name": "dns: replication, keys, dmarc, ..."
+        "name": "dns: dnschecker.org [replication, keys, latency, cache]"
+      },
+      {
+        "url": "https://mxtoolbox.org/",
+        "name": "dns, email: mxtoolbox.com [dns, mx, blacklists, dmarc, spf]"
+      },
+      {
+        "url": "https://speed.cloudflare.com/",
+        "name": "speedtest: speed.cloudflare.com [latency, packetloss, details]"
+      },
+      {
+        "url": "https://fast.com/",
+        "name": "speedtest: fast.com [bigscreen, demo[]"
       }
     ]
   },
   {
-    "name": "local firmware webui",
+    "name": "awesome selfhost and iot",
     "children": [
-  {
-    "url": "http://192.168.0.1/",
-    "name": "http://192.168.0.1/"
+      {
+        "name": "home assistant",
+        "children": [
+          {
+            "url": "https://www.home-assistant.io/integrations/?brands=featured",
+            "name": "home assistant integrations"
+          },
+          {
+            "url": "https://community.home-assistant.io/",
+            "name": "home assistant forum"
+          },
+          {
+            "url": "https://www.home-assistant.io/docs/",
+            "name": "home assitant docs"
+          }
+        ]
+      },
+      {
+        "name": "moode audio",
+        "children": [
+          {
+            "url": "https://moodeaudio.org/",
+            "name": "moode audio download"
+          },
+          {
+            "url": "https://moodeaudio.org/forum/",
+            "name": "moode audio forum"
+          }
+        ]
+      }
+    ]
   },
   {
-    "url": "http://192.168.1.1/",
-    "name": "http://192.168.1.1/"
+    "name": "firmware web-ui http",
+    "children": [
+      {
+        "url": "http://192.168.0.1/",
+        "name": "http://192.168.0.1/"
+      },
+      {
+        "url": "http://192.168.0.50/",
+        "name": "http://192.168.0.50/"
+      },
+      {
+        "url": "http://192.168.1.1/",
+        "name": "http://192.168.1.1/"
+      },
+      {
+        "url": "http://192.168.8.1/",
+        "name": "http://192.168.8.1/"
+      },
+      {
+        "url": "http://192.168.178.1/",
+        "name": "http://192.168.178.1/"
+      }
+    ]
   },
   {
-    "url": "http://192.168.8.1/",
-    "name": "http://192.168.8.1/"
-  },
-  {
-    "url": "http://192.168.178.1/",
-    "name": "http://192.168.178.1/"
-  },
-  {
-    "url": "http://192.168.0.50/",
-    "name": "http://192.168.0.50/"
-  },
-  {
-    "url": "https://192.168.0.1/",
-    "name": "https://192.168.0.1/"
-  },
-  {
-    "url": "https://192.168.1.1/",
-    "name": "https://192.168.1.1/"
-  },
-  {
-    "url": "https://192.168.8.1/",
-    "name": "https://192.168.8.1/"
-  },
-  {
-    "url": "https://192.168.178.1/",
-    "name": "https://192.168.178.1/"
-  },
-  {
-    "url": "https://192.168.0.50/",
-    "name": "https://192.168.0.50/"
-  }
+    "name": "firmware web-ui https",
+    "children": [
+      {
+        "url": "https://192.168.0.1/",
+        "name": "https://192.168.0.1/"
+      },
+      {
+        "url": "https://192.168.0.50/",
+        "name": "https://192.168.0.50/"
+      },
+      {
+        "url": "https://192.168.1.1/",
+        "name": "https://192.168.1.1/"
+      },
+      {
+        "url": "https://192.168.8.1/",
+        "name": "https://192.168.8.1/"
+      },
+      {
+        "url": "https://192.168.178.1/",
+        "name": "https://192.168.178.1/"
+      }
     ]
   }
 ]

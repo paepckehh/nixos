@@ -37,7 +37,7 @@
     networkmanager.enable = lib.mkForce false;
     wireless.enable = false;
     defaultGateway = {
-      address = "192.168.8.1"; # legacy
+      address = "192.168.80.1"; # legacy
       interface = "setup";
     };
     resolvconf = {
@@ -65,7 +65,7 @@
       ];
       "setup".ipv4.addresses = [
         {
-          address = "192.168.8.2"; # legacy
+          address = "192.168.80.2"; # legacy
           prefixLength = 24;
         }
       ];

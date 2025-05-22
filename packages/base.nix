@@ -16,7 +16,7 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    command-not-found.enable = true;
+    command-not-found.enable = lib.mkForce false;
     htop.enable = true;
     kbdlight.enable = true;
     fish.enable = true;
@@ -89,28 +89,64 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
+    interactiveShellInit = ''uname -a'';
+    shells = [pkgs.bashInteractive pkgs.zsh pkgs.fish];
+    shellAliases = {
+      "e" = "vim";
+      "l" = "ls -la";
+      "log.boot" = "sudo dmesg --follow --human --kernel --userspace";
+      "log.system" = "journalctl --follow --priority=7 --lines=2500";
+      "info.nvme.extern" = "sudo smartctl --all /dev/sda";
+      "info.nvme.intern" = "sudo smartctl --all /dev/nvme0";
+      "service.log.clean" = "sudo journalctl --vacuum-time=1d";
+      "service.log.follow" = "sudo journalctl --follow -u $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.log.today" = "sudo journalctl --pager-end --since today -u $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.start" = "sudo systemctl start $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.stop" = "sudo systemctl stop $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.status" = "sudo systemctl status $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.restart" = "sudo systemctl restart $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+    };
+    variables = {
+      EDITOR = "vim";
+      VISUAL = "vim";
+      ROC_ENABLE_PRE_VEGA = "1";
+    };
     systemPackages = with pkgs; [
       alejandra
       bmon
+      bc
       cliqr
+      cryptsetup
       dnsutils
       dust
       fastfetch
+      fd
+      fzf
       grc
+      gnumake
       fishPlugins.autopair
       fishPlugins.fish-you-should-use
       fishPlugins.grc
       inetutils
       jq
       kmon
+      libsmbios
+      lsof
+      moreutils
+      nix-output-monitor
+      nvme-cli
       onefetch
+      openssl
       p7zip
       paper-age
+      pam_u2f
       parted
       passage
       progress
       pwgen
+      pv
       rage
+      smartmontools
       tldr
       tree
       tz

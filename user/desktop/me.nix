@@ -26,7 +26,7 @@
           enabled-extensions = with pkgs.gnomeExtensions; [
             toggle-alacritty.extensionUuid
           ];
-          favorite-apps = ["Alacritty.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop"];
+          favorite-apps = ["Alacritty.desktop" "firefox.desktop" "org.keepassxc.KeePassXC.desktop"];
         };
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings = [
@@ -41,8 +41,8 @@
           binding = "<Super>Return";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-          name = "librewolf browser not-sandboxed"; # <windows-key> +  <b> = browser
-          command = "librewolf";
+          name = "firefox browser not-sandboxed"; # <windows-key> +  <b> = browser
+          command = "firefox";
           binding = "<Super>b";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
@@ -56,114 +56,6 @@
       };
     };
     programs = {
-      librewolf = {
-        enable = true;
-        nativeMessagingHosts = [pkgs.keepassxc];
-        policies = {
-          BackgroundAppUpdate = false;
-          CaptivePortal = false;
-          DisableBuiltinPDFViewer = false;
-          DisableTelemetry = true;
-          DisableDeveloperTools = false;
-          DisableEncryptedClientHello = false;
-          DisableFeedbackCommands = true;
-          DisableFirefoxAccounts = true;
-          DisableFirefoxScreenshots = true;
-          DisableFirefoxStudies = true;
-          DisableForgetButton = false;
-          DisableFormHistory = false;
-          DisableMasterPasswordCreation = false;
-          DisablePasswordReveal = false;
-          DisablePocket = true;
-          DisablePrivateBrowsing = false;
-          DisableProfileImport = true;
-          DisableProfileRefresh = true;
-          DisableSafeMode = false;
-          DisableSecurityBypass.InvalidCertificate = false;
-          DisplayBookmarksToolbar = "always";
-          DNSOverHTTPS.Enabled = false;
-          DontCheckDefaultBrowser = true;
-          HttpAllowlist = ["http://start.lan" "http://localhost" "http://127.0.0.1" "http://192.168.0.1" "http://192.186.1.1" "http://192.168.8.1"];
-          HttpsOnlyMode = "force_enabled"; # "force_enabled"
-          HardwareAcceleration = true;
-          NetworkPrediction = false;
-          NewTabPage = true;
-          NoDefaultBookmarks = true;
-          OfferToSaveLogins = false;
-          OfferToSaveLoginsDefault = false;
-          OverrideFirstRunPage = "";
-          OverridePostUpdatePage = "";
-          PasswordManagerEnabled = false;
-          PostQuantumKeyAgreementEnabled = true;
-          SearchSuggestEnabled = true;
-          ShowHomeButton = true;
-          SkipTermsOfUse = true;
-          SSLVersionMax = "tls1.3";
-          SSLVersionMin = "tls1.2";
-          StartDownloadsInTempDirectory = true;
-          TranslateEnabled = false;
-          ManagedBookmarks = lib.importJSON ../../shared/bookmarks-global.json;
-          ExtensionSettings = {
-            "*".installation_mode = "blocked";
-            "uBlock0@raymondhill.net" = {
-              install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-              installation_mode = "force_installed";
-            };
-            "keepassxc-browser@keepass.org" = {
-              install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
-              installation_mode = "force_installed";
-            };
-          };
-          PrintingEnabled = true;
-          PrivateBrowsingModeAvailability = 2;
-          PromptForDownloadLocation = true;
-          Proxy.Mode = "none";
-          RequestedLocales = "en-US,en,de";
-          SanitizeOnShutdown = {
-            Cache = true;
-            Cookies = true;
-            Downloads = true;
-            FormData = true;
-            History = true;
-            Sessions = true;
-            SiteSettings = true;
-            OfflineApps = true;
-          };
-          SearchEngines = {
-            Default = "DuckDuckGo";
-            PreventInstalls = true;
-            Remove = ["Google"];
-          };
-        };
-        profiles = {
-          default = {
-            id = 0;
-            name = "DefaultProfile";
-            isDefault = true;
-          };
-        };
-        settings = {
-          "browser.aboutConfig.showWarning" = false;
-          "browser.cache.disk.enable" = false;
-          "browser.compactmode.show" = true;
-          "browser.startup.homepage" = "";
-          "browser.search.defaultenginename" = "DuckDuckGo";
-          "browser.search.order.1" = "DuckDuckGo";
-          "gfx.webrender.all" = true;
-          "reader.parse-on-load.force-enabled" = true;
-          "layers.acceleration.force-enabled" = true;
-          "signon.rememberSignons" = false;
-          "privacy.clearOnShutdown.history" = false;
-          "privacy.clearOnShutdown.cookies" = false;
-          "privacy.firstparty.isolate" = true;
-          "privacy.resistFingerprinting" = true;
-          "media.ffmpeg.vaapi.enabled" = true;
-          "network.trr.mode" = 0;
-          "network.proxy.type" = 0;
-          "webgl.disabled" = false;
-          "widget.disable-workspace-management" = true;
-        };
-      };
       alacritty = {
         enable = true;
         settings = {

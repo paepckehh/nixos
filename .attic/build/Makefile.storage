@@ -1,0 +1,136 @@
+#!/usr/bin/make 
+# add pkgs.gnumake to your nix base config!
+.ONESHELL:
+
+# TOOLCHAIN 
+BINPATH:=/run/current-system/sw/bin
+BLKDISCARD:=$(BINPATH)/blkdiscard
+CHOWN:=$(BINPATH)/chown
+DATE:=$(BINPATH)/date
+DD:=$(BINPATH)/dd
+ECHO:=$(BINPATH)/echo
+GIT:=$(BINPATH)/git
+HOSTNAME:=$(BINPATH)/hostname
+ID:=$(BINPATH)/id
+LS:=$(BINPATH)/ls
+MAKE=$(BINPATH)/make
+MKDIR:=$(BINPATH)/mkdir
+MOUNT:=$(BINPATH)/mount
+MV:=$(BINPATH)/mv
+NIX:=$(BINPATH)/nix
+NIX-COLLECT-GARBAGE:=$(BINPATH)/nix-collect-garbage
+NIX-ENV:=$(BINPATH)/nix-env
+NIXFMT:=$(BINPATH)/alejandra
+NIXOS-INSTALL:=$(BINPATH)/nixos-install
+NIXOS-REBUILD:=$(BINPATH)/nixos-rebuild
+NIX-STORE:=$(BINPATH)/nix-store
+NOM:=$(BINPATH)/nom
+NVME:=$(BINPATH)/nvme
+RM:=$(BINPATH)/rm
+SUDO:=$(BINPATH)/sudo 
+SYSTEMCTL:=$(BINPATH)/systemctl
+UMOUNT:=$(BINPATH)/umount
+
+######################
+# SETUP ENV DEFAULTS #
+######################
+REPO?=https://github.com/paepckehh/nixos
+TARGET?=$(shell $(HOSTNAME))
+TARGETDRIVE?=sdb
+DEVICE_MAIN:=$(TARGETDRIVE)
+USELUKS:=YES
+DISKOFLAKE:=disko/impermanence-luks.nix
+ifeq ($(origin LUKS),undefined)
+      USELUKS:=NO
+      DISKOFLAKE:=disko/impermanence.nix
+endif
+OSFLAKE:=/etc/nixos/\#$(TARGET)
+WIPEDRIVE?=/dev/null
+
+# CMD
+GIT:=/run/current-system/sw/bin/git
+SUDO:=/run/current-system/sw/bin/sudo 
+CHOWN:=/run/current-system/sw/bin/chown
+NIXFMT:=/run/current-system/sw/bin/alejandra
+
+all:
+
+####################
+# USBDRIVE TARGETS #
+####################
+
+usb: info check wipe format pre-$(MOUNT) $(MOUNT) post-$(MOUNT) install migrate-me $(UMOUNT)
+
+####################
+# USBDRIVE GENERIC #
+####################
+
+info: 
+	@$(ECHO) build target drive: /dev/$(TARGETDRIVE), target os: $(TARGET), os-flake: $(OSFLAKE), luks: $(USELUKS), build repo: $(REPO), disko-flake: $(DISKOFLAKE)
+	@if [ $(USELUKS) = "YES" ]; then ($(ECHO) "### LUKS MODE ENABLED, PLEASE ENSURE PROPER DISK/STORAGE LAYOUT IN TARGETOS FLAKE CONFIG!" && sleep 3) ; fi  
+
+check: 
+	@if [ ! -e /dev/$(TARGETDRIVE) ]; then ($(ECHO) "TARGETDRIVE: /dev/$(TARGETDRIVE) does not exists, exit" ; exit 1); fi  
+
+install:
+	$(SUDO) $(NIXOS-INSTALL) --verbose --keep-going --impure --no-root-password --root /mnt --flake $(OSFLAKE)
+	$(SUDO) $(GIT) clone $(REPO) /mnt/etc/nixos
+	$(SUDO) $(MKDIR) -p /mnt/etc/ssh
+	$(SUDO) $(CP) -af /etc/ssh/ssh_host_ed25519_key /mnt/etc/ssh/ssh_host_ed25519_key # preserve generic agenix keys
+
+migrate-me:
+	$(SUDO) $(MKDIR) -p /mnt/home/me/.local/share
+	$(SUDO) $(CP) -af /home/me/.ssh /mnt/home/me/ # yubikey glue records only
+	$(SUDO) $(CP) -af /home/me/.local/share/atuin /mnt/home/me/.local/share/
+	$(SUDO) $(CHOWN) -R me:me /mnt/home/me
+
+pre-$(MOUNT): 
+	$(SUDO) $(UMOUNT) -f /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh  || true
+	$(SUDO) $(UMOUNT) -f /mnt/boot /mnt/nix || true
+	$(SUDO) $(UMOUNT) -f /mnt || true
+	$(SUDO) $(MKDIR) -p /mnt
+	$(SUDO) $(MOUNT) -t tmpfs tmpfs /mnt
+
+post-$(MOUNT):
+	$(SUDO) $(MKDIR) -p /mnt/nix/persist/home /mnt/nix/persist/var/lib /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh
+	$(SUDO) $(MKDIR) -p /mnt/boot /mnt/nix /mnt/home/me /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh 
+	$(SUDO) $(MOUNT) -o bind /mnt/nix/persist/home /mnt/home
+	$(SUDO) $(MOUNT) -o bind /mnt/nix/persist/var/lib /mnt/var/lib
+	$(SUDO) $(MOUNT) -o bind /mnt/nix/persist/etc/nixos /mnt/etc/nixos
+	$(SUDO) $(MOUNT) -o bind /mnt/nix/persist/etc/ssh /mnt/etc/ssh
+
+$(UMOUNT):
+	$(SUDO) sync && sync && sync
+	$(SUDO) $(UMOUNT) -f /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh  || true
+	$(SUDO) $(UMOUNT) -f /mnt/boot /mnt/nix || true
+	$(SUDO) $(UMOUNT) -f /mnt || true
+	$(SUDO) rm -rf /mnt /tmp/luks || true
+
+format:
+	$(ECHO) ${LUKS} > /tmp/luks 
+	$(SUDO) $(NIX) run github:nix-community/disko/latest -- --mode format --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+
+$(MOUNT):
+	$(SUDO) $(NIX) run github:nix-community/disko/latest -- --mode $(MOUNT) --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+
+wipe:
+	$(SUDO) $(NIX) run github:nix-community/disko/latest -- --mode destroy --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+	ZERODRIVE=$(TARGETDRIVE) $(MAKE) trim 
+
+
+#################
+# LITTLE HELPER #
+#################
+
+sda-zero: 
+	ZERODRIVE=sda $(MAKE) zero trim
+sdb-zero: 
+	ZERODRIVE=sdb $(MAKE) zero trim
+sdc-zero: 
+	ZERODRIVE=sdc $(MAKE) zero trim 
+trim:
+	$(SUDO) $(BLKDISCARD) -f /dev/$(ZERODRIVE) > /dev/null || true
+	$(SUDO) $(NVME) format /dev/$(ZERODRIVE) --force > /dev/null || true
+zero: 
+	$(SUDO) $(DD) if=/dev/zero of=/dev/$(ZERODRIVE) oflag=direct bs=512k status=progress
+	$(SUDO) $(DD) if=/dev/zero of=/dev/$(ZERODRIVE) oflag=direct bs=512k status=progress

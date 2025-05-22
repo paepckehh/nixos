@@ -16,8 +16,10 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
+    sessionVariables = {
+      NIX_PACKAGE_SEARCH_EXPERIMENTAL = "true";
+    };
     systemPackages = with pkgs; [
-      # ventoy-full
       amdgpu_top
       aria2
       certinfo-go
@@ -37,6 +39,7 @@
       nixpkgs-review
       nix-prefetch-scripts
       nix-search-cli
+      nps
       parted
       pciutils
       powertop
@@ -50,6 +53,7 @@
       usbutils
       vale
       yamlfmt
+      # ventoy-full
     ];
   };
 }

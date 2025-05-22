@@ -1,1 +1,1 @@
-openssl req -x509 -newkey ec -pkeyopt ec_paramgen_curve:prime256v1 -sha256 -days 3650 -nodes -keyout zitadel.key -out zitadel.pem -subj "/CN=zitadel.lan/C=US/O=zitadel.lan" -addext "subjectAltName=DNS:zitadel.lan,IP:127.0.0.1,IP:192.168.8.100,IP:192.168.0.100"
+openssl req -x509 -newkey ec -pkeyopt ec_paramgen_curve:prime256v1 -sha256 -days 3650 -nodes -keyout zitadel.key -out zitadel.pem -subj "/CN=zitadel.lan/C=US/O=zitadel.lan" -addext "subjectAltName=DNS:zitadel.lan,IP:127.0.0.1,IP:192.168.80.100,IP:192.168.0.100"
