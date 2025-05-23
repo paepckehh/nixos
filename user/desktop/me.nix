@@ -8,6 +8,7 @@
   #################
   imports = [
     ../me.nix
+    ./firefox-wolf.nix
   ];
 
   ######################
@@ -26,27 +27,39 @@
           enabled-extensions = with pkgs.gnomeExtensions; [
             toggle-alacritty.extensionUuid
           ];
-          favorite-apps = ["Alacritty.desktop" "firefox.desktop" "org.keepassxc.KeePassXC.desktop"];
+          favorite-apps = ["Alacritty.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop"];
         };
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings = [
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/"
           ];
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-          name = "alacritty terminal"; # <windows-key> + <return> = terminal
+          name = "alacritty terminal";
           command = "alacritty";
           binding = "<Super>Return";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-          name = "firefox browser not-sandboxed"; # <windows-key> +  <b> = browser
+          name = "firefox browser not-sandboxed";
           command = "firefox";
           binding = "<Super>b";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
-          name = "keepassxc passwordmanager"; # <windows-key> +  <k> = keepassxc
+          name = "firefox browser not-sandboxed";
+          command = "firefox";
+          binding = "<Super>f";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
+          name = "librefox browser within firejail";
+          command = "librefox";
+          binding = "<Super>l";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4" = {
+          name = "keepassxc passwordmanager";
           command = "keepassxc";
           binding = "<Super>k";
         };

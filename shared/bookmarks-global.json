@@ -79,10 +79,6 @@
         "name": "Neovim packages and options search (NVF)"
       },
       {
-        "url": "https://nix.dev/index.html",
-        "name": "developer info"
-      },
-      {
         "url": "https://nixos.wiki/wiki/Main_Page",
         "name": "Wiki (Unofficial, Legacy)"
       }

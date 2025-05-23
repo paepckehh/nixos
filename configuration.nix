@@ -24,7 +24,8 @@
         else ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"]
       );
     };
-    blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "brcmfmac" "brcmsmac" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb" "wl"];
+    # blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "brcmfmac" "brcmsmac" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb" "wl"];
+    blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb" "wl"];
     extraModulePackages = (
       if (config.nixpkgs.system == "x86_64-linux")
       then [config.boot.kernelPackages.zenpower]
@@ -42,7 +43,7 @@
     );
     kernelModules = (
       if (config.nixpkgs.system == "x86_64-linux")
-      then ["amd-pstate" "amdgpu" "exfat" "kvm-amd" "kvm-intel" "uas" "vfat"]
+      then ["amd-pstate" "amdgpu" "exfat" "<yypkvm-amd" "kvm-intel" "uas" "vfat"]
       else ["exfat" "uas" "vfat"]
     );
     readOnlyNixStore = lib.mkForce true;

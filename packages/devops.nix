@@ -40,6 +40,7 @@
       nix-prefetch-scripts
       nix-search-cli
       nps
+      marmite
       parted
       pciutils
       powertop

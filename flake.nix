@@ -112,7 +112,6 @@
           ./packages/devops-iot.nix
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
-          ./packages/firefox-wolf.nix
           ./openwrt/openwrt.nix
           ./server/devops/olivetin.nix
           # ./client/wireguard.nix
