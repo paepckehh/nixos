@@ -80,6 +80,7 @@
           btop.enable = true;
           home-manager.enable = true;
           git.enable = true;
+          go.enable = true;
           thefuck.enable = true;
           starship.enable = true;
           ripgrep.enable = true;
@@ -92,10 +93,10 @@
             enableZshIntegration = true;
             flags = ["--disable-up-arrow"];
             settings = {
-              auto_sync = false;
+              auto_sync = true;
               dialect = "us";
               update_check = false;
-              sync_address = "http://localhost:8888";
+              sync_address = "http://atuin.lan:8888";
               sync_frequency = "10min";
               sync.records = true;
               style = "full";
@@ -145,9 +146,6 @@
                 https.allow = "always";
               };
             };
-          };
-          go = {
-            enable = true;
           };
           ssh = {
             enable = true;

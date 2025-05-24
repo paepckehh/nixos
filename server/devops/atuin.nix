@@ -1,11 +1,16 @@
 {config, ...}: {
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks."10-lan".addresses = ["192.168.80.250"];
+
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
     atuin = {
       enable = true;
-      host = "127.0.0.1";
+      host = "192.168.80.250";
       port = 8888;
       maxHistoryLength = 65536;
       openFirewall = true;

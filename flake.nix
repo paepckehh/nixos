@@ -113,6 +113,7 @@
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
           ./openwrt/openwrt.nix
+          ./server/devops/atuin.nix
           ./server/devops/olivetin.nix
           # ./client/wireguard.nix
           # ./server/bookmarks/readeck.nix
