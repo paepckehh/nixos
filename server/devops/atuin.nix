@@ -2,7 +2,7 @@
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks."10-lan".addresses = [{Addresss = "192.168.80.250/32";}];
+  systemd.network.networks."10-lan".addresses = [{Address = "192.168.80.250/32";}];
 
   ##################
   #-=# SERVICES #=-#
