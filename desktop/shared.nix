@@ -9,7 +9,7 @@
   #####################
   # add generic terminal pkg for all, configure individually via home-manager profile
   environment = {
-    systemPackages = with pkgs; [alacritty gparted keepassxc xclip];
+    systemPackages = with pkgs; [alacritty gparted keepassxc wl-clipboard];
     variables = {
       TERMINAL = "alacritty";
     };

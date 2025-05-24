@@ -56,6 +56,11 @@
           "browser.search.region" = "DE";
           "browser.search.update" = false;
           "browser.startup.homepage" = "about:blank";
+          "browser.sessionstore.restore_on_demand" = false;
+          "browser.sessionstore.resume_from_crash" = false;
+          "browser.sessionstore.resuming_after_os_restart" = false;
+          "browser.sessionstore.privacy_level" = 2;
+          "browser.fullscreen.autohide" = false;
           "browser.urlbar.quicksuggest.enabled" = false;
           "browser.urlbar.shortcuts.bookmarks" = true;
           "browser.urlbar.shortcuts.history" = true;
@@ -81,6 +86,7 @@
           "browser.urlbar.unifiedSearchButton.always" = true;
           "browser.urlbar.unitConversion.enabled" = true;
           "distribution.searchplugins.defaultLocale" = "en-US";
+          "dom.security.sanitizer.enabled" = true;
           "general.useragent.locale" = "en-US";
           "geo.enabled" = false;
           "geo.provider.geoclue.always_high_accuracy" = false;
@@ -89,10 +95,13 @@
           "geo.provider.use_geoclue" = false;
           "geo.provider.use_gpsd" = false;
           "gfx.webrender.all" = true;
+          "security.tls.grease_http3_enable" = true;
           "layers.acceleration.force-enabled" = true;
           "media.ffmpeg.vaapi.enabled" = true;
           "network.proxy.type" = 0;
           "network.trr.mode" = 0;
+          "network.dns.echconfig.enabled" = true;
+          "network.dns.http3.echconfig.enabled" = true;
           "privacy.clearOnShutdown.cookies" = false;
           "privacy.clearOnShutdown.history" = false;
           "privacy.firstparty.isolate" = true;

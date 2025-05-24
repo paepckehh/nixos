@@ -117,6 +117,10 @@
         "name": "browser: analyse: supported web sw/hw features, video, audio, conference"
       },
       {
+        "url": "https://www.cloudflare.com/ssl/encrypted-sni/",
+        "name": "browser: analyse: check for encrypted sni (requires dns support)"
+      },
+      {
         "url": "https://dnschecker.org/",
         "name": "dns: dnschecker.org [replication, keys, latency, cache]"
       },

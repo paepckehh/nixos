@@ -8,7 +8,8 @@
   #################
   imports = [
     ../me.nix
-    ./firefox-wolf.nix
+    ./firefox.nix
+    ./librewolf-firejail.nix
   ];
 
   ######################
@@ -55,8 +56,8 @@
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
           name = "librefox browser within firejail";
-          command = "librefox";
-          binding = "<Super>l";
+          command = "librewolf-firejail";
+          binding = "<Super>w";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4" = {
           name = "keepassxc passwordmanager";

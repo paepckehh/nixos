@@ -231,8 +231,7 @@ wipe-home:
 	cd || exit 1
 	mv .local/share/atuin .
 	rm -rf .local .cache .mozilla .librewolf
-	mkdir -p .local .cache .mozilla 
-	ln -fs .mozilla .librewolf
+	mkdir -p .local .cache .mozilla .librewolf
 	mkdir -p .local/share
 	mv atuin .local/share/
 	sudo -v || exit 1
