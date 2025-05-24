@@ -57,7 +57,7 @@
             "log.boot" = "sudo dmesg --follow --human --kernel --userspace";
             "log.system" = "sudo journalctl --follow --priority=7 --lines=2500";
             "log.time" = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
-            "b" = "btop";
+            "b" = "sudo btop";
             "man" = "batman";
             "cat" = "bat --paging=never";
             "time.status" = "timedatectl timesync-status";

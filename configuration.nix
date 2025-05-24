@@ -24,8 +24,7 @@
         else ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"]
       );
     };
-    # blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "brcmfmac" "brcmsmac" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb" "wl"];
-    blacklistedKernelModules = ["affs" "b43" "befs" "bfs" "bcma" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb" "wl"];
+    blacklistedKernelModules = ["affs" "befs" "bfs" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb"];
     extraModulePackages = (
       if (config.nixpkgs.system == "x86_64-linux")
       then [config.boot.kernelPackages.zenpower]
@@ -97,7 +96,7 @@
   #-= SYSTEM #=-#
   ###############
   system = {
-    stateVersion = "25.05"; # dummy target, do not modify
+    stateVersion = "25.11"; # dummy target, do not modify
     switch.enable = true; # allow nix store updates
   };
   time = {
@@ -368,7 +367,7 @@
         ipv6Prefixes = [{AddressAutoconfiguration = false;}];
         matchConfig.Name = "eth0";
         networkConfig.DHCP = "ipv4";
-        linkConfig.RequiredForOnline = "no";
+        linkConfig.RequiredForOnline = "yes";
       };
     };
     targets = {
