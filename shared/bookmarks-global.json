@@ -6,15 +6,15 @@
     "name": "local services",
     "children": [
       {
-        "url": "http://start.lan",
+        "url": "http://start.lan:80",
         "name": "start.lan"
       },
       {
-        "url": "http://read.lan",
+        "url": "http://read.lan:8080",
         "name": "read.lan"
       },
       {
-        "url": "http://moode.lan",
+        "url": "http://moode.lan:80",
         "name": "moode.lan"
       },
       {

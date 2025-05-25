@@ -9,7 +9,7 @@
   services = {
     atuin = {
       enable = true;
-      host = "192.168.80.240";
+      host = "192.168.80.201";
       port = 8888;
       maxHistoryLength = 65536;
       openFirewall = true;

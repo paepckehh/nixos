@@ -18,7 +18,7 @@
         };
         server = {
           host = "192.168.80.200";
-          port = 80;
+          port = 8080;
         };
         database = {
           source = "sqlite3:/var/lib/readeck/db.sqlite";
