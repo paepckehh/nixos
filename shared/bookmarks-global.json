@@ -7,11 +7,15 @@
     "children": [
       {
         "url": "http://start.lan",
-        "name": "start"
+        "name": "start.lan"
+      },
+      {
+        "url": "http://read.lan",
+        "name": "read.lan"
       },
       {
         "url": "http://moode.lan",
-        "name": "moode"
+        "name": "moode.lan"
       },
       {
         "url": "https://127.0.0.1:8091/cgi-bin/luci",

@@ -1,23 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  # ensure dns server record 192.168.80.200 -> readeck.lan
-  systemd.network.networks."10-lan".addresses = [{Address = "192.168.80.200/32";}];
-
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking = {
-    firewall = {
-      allowedTCPPorts = [80];
-    };
-  };
-
+{config}: {
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -40,5 +21,18 @@
         };
       };
     };
+  };
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks."10-lan".addresses = [{Address = "${config.services.readeck.server.host}/32";}];
+
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking = {
+    extraHosts = "${config.services.readeck.server.host} read read.lan"; # ensure corresponding dns records
+    firewall.allowedTCPPorts = [config.services.readeck.settings.server.port];
   };
 }

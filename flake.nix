@@ -117,7 +117,7 @@
           ./openwrt/openwrt.nix
           ./server/bookmarks/readeck.nix
           ./server/devops/olivetin.nix
-          # ./server/devops/atuin.nix
+          ./server/devops/atuin.nix
           # ./client/wireguard.nix
           # ./server/virtual/proxmox.nix
           {networking.hostName = "srv";}
