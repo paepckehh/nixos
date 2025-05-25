@@ -59,12 +59,14 @@
             title = "Update Local System [switch]";
             shell = "/run/current-system/sw/bin/make -C /etc/nixos update switch";
             icon = "&#x2699;";
+            timeout = 720;
             acls = ["admins"];
           }
           {
             title = "Update Local System [reboot]";
             shell = "/run/current-system/sw/bin/make -C /etc/nixos update boot && reboot";
             icon = "&#x2699;";
+            timeout = 720;
             acls = ["admins"];
           }
           {

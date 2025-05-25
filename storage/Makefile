@@ -17,6 +17,7 @@ ifeq ($(origin LUKS),undefined)
 endif
 OSFLAKE:=/etc/nixos/\#$(TARGET)
 WIPEDRIVE?=/dev/null
+PATH:=${PATH}:/run/current-system/sw/bin
 
 all:
 

@@ -145,8 +145,8 @@ commit: pre-commit
 
 pre-commit:
 	@-sudo rm -rf result > /dev/null 2>&1 || true
-	@sudo chown -R $(ID):$(GID) *
-	@sudo chown -R $(ID):$(GID) .git 
+	@sudo chown -R me:me *
+	@sudo chown -R me:me .git 
 	@alejandra --quiet .
 
 followremote: 
