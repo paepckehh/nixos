@@ -52,7 +52,11 @@
       {
         "url": "http://localhost:8081/",
         "name": "local: pgweb"
-      }
+      },
+      {
+        "url": "http://atuin.lan:8888",
+        "name": "atuin.lan"
+      },
     ]
   },
   {
