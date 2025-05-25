@@ -27,6 +27,6 @@
   ####################
   networking = {
     extraHosts = "${config.services.atuin.host} atuin atuin.lan"; # ensure corresponding dns records
-    firewall.allowedTCPPorts = [config.serices.atuin.port];
+    firewall.allowedTCPPorts = [config.services.atuin.port];
   };
 }
