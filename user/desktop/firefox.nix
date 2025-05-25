@@ -168,7 +168,7 @@
           };
         };
         ExtensionSettings = {
-          "*".installation_mode = "blocked";
+          # "*".installation_mode = "blocked";
           "uBlock0@raymondhill.net" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
             installation_mode = "force_installed";
@@ -180,6 +180,10 @@
                 cloudStorageEnabled = false;
               };
             };
+          };
+          "readeck@readeck.com" = {
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/readeck/latest.xpi";
+            installation_mode = "force_installed";
           };
           "keepassxc-browser@keepass.org" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
