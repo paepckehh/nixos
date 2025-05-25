@@ -16,6 +16,7 @@ USELUKS:=YES
 ifeq ($(origin LUKS),undefined)
       USELUKS:=NO
 endif
+PATH:=${PATH}:/run/current-system/sw/bin
 
 ###########
 # GENERIC #
