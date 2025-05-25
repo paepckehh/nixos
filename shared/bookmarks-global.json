@@ -10,8 +10,12 @@
         "name": "start.lan"
       },
       {
-        "url": "http://read.lan:8080",
+        "url": "https://read.lan",
         "name": "read.lan"
+      },
+      {
+        "url": "http://127.0.0.1:8686",
+        "name": "read.lan (localhost, http)"
       },
       {
         "url": "http://moode.lan:80",

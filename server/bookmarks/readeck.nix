@@ -8,10 +8,11 @@
   ##################
   services = {
     caddy = {
-     enable = true;
-     virtualHosts."read.lan" = {
+      enable = true;
+      virtualHosts."read.lan" = {
         listenAddresses = ["192.168.80.200"];
         extraConfig = ''reverse_proxy http://127.0.0.1:8686'';
+      };
     };
     readeck = {
       enable = true;
