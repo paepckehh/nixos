@@ -30,7 +30,7 @@
           port = 8000;
         };
         database = {
-          source = "sqlite3:/var/lib/readeck.sqlite";
+          source = "sqlite3:/var/lib/readeck/db.sqlite";
         };
       };
     };
