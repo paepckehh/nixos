@@ -115,10 +115,10 @@
           ./packages/netops.nix
           ./packages/librewolf.nix
           ./openwrt/openwrt.nix
+          ./server/bookmarks/readeck.nix
           ./server/devops/olivetin.nix
           # ./server/devops/atuin.nix
           # ./client/wireguard.nix
-          # ./server/bookmarks/readeck.nix
           # ./server/virtual/proxmox.nix
           {networking.hostName = "srv";}
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}

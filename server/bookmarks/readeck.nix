@@ -21,7 +21,7 @@
       environmentFile = null;
       settings = {
         main.log_level = "debug";
-        server.port = 9000;
+        server.port = 9696;
       };
     };
   };
