@@ -9,6 +9,13 @@
   ##############
   boot = {
     consoleLogLevel = 4;
+    blacklistedKernelModules = ["affs" "befs" "bfs" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb"];
+    extraModulePackages = (
+      if (config.nixpkgs.system == "x86_64-linux")
+      then [config.boot.kernelPackages.zenpower]
+      else []
+    );
+    hardwareScan = true;
     initrd = {
       compressor = "zstd";
       compressorArgs = ["--ultra" "--long" "-22"];
@@ -24,12 +31,6 @@
         else ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"]
       );
     };
-    blacklistedKernelModules = ["affs" "befs" "bfs" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb"];
-    extraModulePackages = (
-      if (config.nixpkgs.system == "x86_64-linux")
-      then [config.boot.kernelPackages.zenpower]
-      else []
-    );
     kernelPackages = (
       if (config.system.nixos.release == "24.11")
       then pkgs.linuxPackages
@@ -97,7 +98,9 @@
   ###############
   system = {
     stateVersion = "25.11"; # dummy target, do not modify
-    switch.enable = true; # allow nix store updates
+    switch.enable = true;
+    rebuild.enableNg = true;
+    includeBuildDependencies = false; # needed for full-offline (re-)build from source, its huge!
   };
   time = {
     timeZone = null; # UTC, local: "Europe/Berlin";
