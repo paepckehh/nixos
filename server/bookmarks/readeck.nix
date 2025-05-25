@@ -30,13 +30,13 @@
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks."10-lan".addresses = [{Address = "${config.services.readeck.server.host}/32";}];
+  systemd.network.networks."10-lan".addresses = [{Address = "${config.services.readeck.settings.server.host}/32";}];
 
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = "${config.services.readeck.server.host} read read.lan"; # ensure corresponding dns records
+    extraHosts = "${config.services.readeck.settings.server.host} read read.lan"; # ensure corresponding dns records
     firewall.allowedTCPPorts = [config.services.readeck.settings.server.port];
   };
 }
