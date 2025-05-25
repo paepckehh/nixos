@@ -13,7 +13,7 @@
       settings = {
         main = {
           log_level = "debug";
-          secret_key = "start";
+          secret_key = "u2iZ9jsvJlHa7ADMebw6CnTpZKDn9J0g";
           data_directory = "/var/lib/readeck";
         };
         server = {
