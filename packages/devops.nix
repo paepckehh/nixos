@@ -54,6 +54,7 @@
       usbutils
       vale
       yamlfmt
+      # nvme-rs
       # ventoy-full
     ];
   };
