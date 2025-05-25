@@ -113,9 +113,10 @@
           ./packages/devops-iot.nix
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
+          ./packages/librewolf.nix
           ./openwrt/openwrt.nix
-          ./server/devops/atuin.nix
           ./server/devops/olivetin.nix
+          # ./server/devops/atuin.nix
           # ./client/wireguard.nix
           # ./server/bookmarks/readeck.nix
           # ./server/virtual/proxmox.nix

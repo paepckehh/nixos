@@ -9,7 +9,6 @@
   imports = [
     ../me.nix
     ./firefox.nix
-    ./librewolf-firejail.nix
   ];
 
   ######################
