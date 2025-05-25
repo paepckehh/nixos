@@ -3,12 +3,18 @@
   pkgs,
   ...
 }: {
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  # ensure dns server record 192.168.80.200 -> readeck.lan
+  systemd.network.networks."10-lan".addresses = [{Address = "192.168.80.200/32";}];
+
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking = {
     firewall = {
-      allowedTCPPorts = [];
+      allowedTCPPorts = [80];
     };
   };
 
@@ -26,8 +32,8 @@
           data_directory = "/var/lib/readeck";
         };
         server = {
-          host = "127.0.0.1";
-          port = 8000;
+          host = "192.168.80.200";
+          port = 80;
         };
         database = {
           source = "sqlite3:/var/lib/readeck/db.sqlite";
