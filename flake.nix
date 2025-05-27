@@ -10,7 +10,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nvf.url = "github:notashelf/nvf";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
-    nixpkgs-dev.url = "github:paepckehh/nixpkgs/encrypted-dns-server";
+    nixpkgs-dev.url = "github:paepckehh/nixpkgs/encrypted-dns-server-service";
   };
   outputs = {
     self,
