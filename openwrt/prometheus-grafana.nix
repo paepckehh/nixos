@@ -56,7 +56,7 @@
           job_name = "openwrt-lua";
           static_configs = [
             {
-              targets = ["192.168.8.1:9100"];
+              targets = ["192.168.80.1:9100"];
             }
           ];
         }
