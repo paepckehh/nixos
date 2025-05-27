@@ -93,6 +93,10 @@
           "cookiebanners.service.mode" = 2; # Block cookie banners
           "distribution.searchplugins.defaultLocale" = "en-US";
           "dom.security.sanitizer.enabled" = true;
+          "dom.push.enabled" = false;
+          "dom.push.connection.enabled" = false;
+          "dom.push.serverURL" = "";
+          "dom.push.indicate_aesgcm_support.enabled" = true;
           "general.useragent.locale" = "en-US";
           "geo.enabled" = false;
           "geo.provider.geoclue.always_high_accuracy" = false;
