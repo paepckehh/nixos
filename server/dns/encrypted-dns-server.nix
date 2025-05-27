@@ -6,6 +6,7 @@
     encrypted-dns-server = {
       enable = true;
       settings = {
+        state_file = "${stateDir}/encrypted-dns.state";
         listen_addrs = [
           {
             local = "127.0.0.1:5443";
