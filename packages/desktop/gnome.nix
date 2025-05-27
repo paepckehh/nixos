@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   lib,
   ...
@@ -17,10 +16,6 @@
   programs = {
     geary.enable = lib.mkForce false;
     seahorse.enable = lib.mkForce false;
-    dconf = {
-      enable = true;
-      profiles.gdm.databases = [{settings."org/gnome/settings-daemon/plugins/power" = {power-button-action = "poweroff";};}];
-    };
   };
 
   #####################
@@ -28,7 +23,7 @@
   #####################
   environment = {
     systemPackages = with pkgs.gnomeExtensions; [
-      toggle-alacritty
+      # network-stats
     ];
     gnome.excludePackages = with pkgs; [
       gnome-calendar
@@ -56,16 +51,16 @@
     gnome = {
       core-os-services.enable = true;
       core-shell.enable = true;
-      core-utilities.enable = lib.mkForce false; # core-apps > 25.05
+      core-apps.enable = lib.mkForce false;
       core-developer-tools.enable = lib.mkForce false;
       evolution-data-server.enable = lib.mkForce false;
       games.enable = lib.mkForce false;
       gnome-browser-connector.enable = lib.mkForce false;
       gnome-initial-setup.enable = lib.mkForce false;
       gnome-online-accounts.enable = lib.mkForce false;
+      gnome-keyring.enable = lib.mkForce false;
       gnome-remote-desktop.enable = lib.mkForce false;
       gnome-user-share.enable = lib.mkForce false;
-      gnome-keyring.enable = lib.mkForce false;
       sushi.enable = lib.mkForce false;
     };
     xserver = {

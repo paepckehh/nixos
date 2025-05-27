@@ -145,7 +145,6 @@
       progress
       pwgen
       pv
-      rage
       smartmontools
       tldr
       tree

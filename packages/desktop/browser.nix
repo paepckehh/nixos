@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   lib,
   ...
@@ -40,9 +39,4 @@
     };
     groups.kiosk = {};
   };
-
-  ##################
-  #-=# SECURITY #=-#
-  ##################
-  security.rtkit.enable = lib.mkForce false;
 }

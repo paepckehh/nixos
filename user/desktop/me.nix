@@ -8,7 +8,16 @@
   #################
   imports = [
     ../me.nix
-    ./firefox.nix
+    ./librewolf.nix
+  ];
+
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment.systemPackages = with pkgs; [
+    adwaita-icon-theme
+    gnomeExtensions.ollama-indicator
+    gnomeExtensions.network-stats
   ];
 
   ######################
@@ -25,7 +34,8 @@
         "org/gnome/shell" = {
           disable-user-extensions = false;
           enabled-extensions = with pkgs.gnomeExtensions; [
-            toggle-alacritty.extensionUuid
+            ollama-indicator.extensionUuid
+            network-stats.extensionUuid
           ];
           favorite-apps = ["Alacritty.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop"];
         };
@@ -35,7 +45,6 @@
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
-            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/"
           ];
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -44,21 +53,16 @@
           binding = "<Super>Return";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-          name = "firefox browser not-sandboxed";
-          command = "firefox";
+          name = "default [b]rowser = librewolf, not-sandboxed";
+          command = "librewolf";
           binding = "<Super>b";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
-          name = "firefox browser not-sandboxed";
-          command = "firefox";
-          binding = "<Super>f";
-        };
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
-          name = "librefox browser within firejail";
-          command = "librewolf-firejail";
+          name = "[w]olf = librewolf firejail";
+          command = "jailwolf";
           binding = "<Super>w";
         };
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4" = {
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
           name = "keepassxc passwordmanager";
           command = "keepassxc";
           binding = "<Super>k";

@@ -5,13 +5,13 @@
   age.secrets = {
     wg-nix-pk = {
       file = ../modules/resources/wg-nix-pk.age;
-      owner = "root";
-      group = "wheel";
+      owner = "systemd-network";
+      group = "systemd-network";
     };
     wg-nix-psk = {
       file = ../modules/resources/wg-nix-psk.age;
-      owner = "root";
-      group = "wheel";
+      owner = "systemd-network";
+      group = "systemd-network";
     };
   };
 
@@ -30,17 +30,23 @@
     enable = true;
     networks.wg0 = {
       matchConfig.Name = "wg0";
-      address = ["10.10.10.100/32"];
-      DHCP = "no"; # XXX TODO check
+      address = ["10.10.10.100/24"];
       dns = ["10.10.10.1"];
+      gateway = ["10.10.10.1"];
+      ntp = ["10.10.10.1"];
+      DHCP = "no";
       linkConfig.RequiredForOnline = "no";
-      networkConfig.IPv4Forwarding = "yes"; # XXX TODO check
+      networkConfig = {
+        # IPv4Forwarding = "yes";
+        IPv6AcceptRA = false;
+      };
     };
     netdevs = {
       "20-wg0" = {
         netdevConfig = {
           Kind = "wireguard";
           Name = "wg0";
+          MTUBytes = "1300";
         };
         wireguardConfig = {
           PrivateKeyFile = config.age.secrets.wg-nix-pk.path;
@@ -48,7 +54,7 @@
         };
         wireguardPeers = [
           {
-            PublicKey = "ADNsRa4aKJQKo6fYm9MnK2ORot5L6YMDTdd3iGgQp28=";
+            PublicKey = "zB1su3YD/zVbKH8TcI15TUAhdR0vlL3pI8UGlKAkAzM=";
             PresharedKeyFile = config.age.secrets.wg-nix-psk.path;
             AllowedIPs = ["0.0.0.0/0"];
             Endpoint = "192.168.80.1:51820";

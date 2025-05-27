@@ -6,7 +6,7 @@
 ID:=$(shell id -u)
 GID:=$(shell id -g)
 ISO?=iso
-TARGET?=$(shell hostname)
+TARGET?=$(shell /run/current-system/sw/bin/hostname)
 DTS:=$(shell date '+%Y-%m-%d-%H-%M')
 OSFLAKE:=/etc/nixos/\#$(TARGET)
 ALLFLAKE:=/etc/nixos/.\#nixos-all
@@ -16,7 +16,8 @@ USELUKS:=YES
 ifeq ($(origin LUKS),undefined)
       USELUKS:=NO
 endif
-PATH:=${PATH}:/run/current-system/sw/bin
+PATH:=/run/current-system/sw/bin
+SUDO:=/run/wrappers/bin/sudo
 
 ###########
 # GENERIC #
@@ -40,7 +41,7 @@ info-iso-installer:
 	@echo "Building iso-auto-installer ..."
 	
 info-image:
-	sudo nixos-rebuild build-image --flake $(OSFLAKE)  || true
+	$(SUDO) nixos-rebuild build-image --flake $(OSFLAKE)  || true
 
 ####################
 # NIXOS OPERATIONS #
@@ -49,14 +50,14 @@ info-image:
 boot:   build 
 
 build:  info commit build-log
-	sudo nixos-rebuild boot --flake $(OSFLAKE) --profile-name $(PROFILE)
+	$(SUDO) nixos-rebuild boot --flake $(OSFLAKE) --profile-name $(PROFILE)
 
 check: info
-	sudo nix flake check 
-	sudo alejandra --quiet .
+	nix flake check 
+	alejandra --quiet .
 
 switch: info commit build-log
-	sudo nixos-rebuild switch --flake $(OSFLAKE) --profile-name $(PROFILE)
+	$(SUDO) nixos-rebuild switch --flake $(OSFLAKE) --profile-name $(PROFILE)
 
 update: commit  
 	mkdir -p .attic/flake.lock
@@ -64,22 +65,22 @@ update: commit
 	nix flake update
         
 bootloader: info commit 
-	sudo nixos-rebuild boot -v --fallback --install-bootloader
+	$(SUDO) nixos-rebuild boot -v --fallback --install-bootloader
 
 test: commit build-log
-	sudo nixos-rebuild dry-activate --flake $(OSFLAKE)
+	nixos-rebuild dry-activate --flake $(OSFLAKE)
 
 offline: info commit 
 	# XXX broken: fixme 
-	sudo nixos-rebuild boot -v --flake $(OSFLAKE) --profile-name $(PROFILE)
+	$(SUDO) nixos-rebuild boot -v --flake $(OSFLAKE) --profile-name $(PROFILE)
       
 rollback: commit
 	# XXX broken: fixme 
-	sudo nixos-rebuild switch --rollback 
+	$(SUDO) nixos-rebuild switch --rollback 
 
 build-log:
-	sudo nom build ".#nixosConfigurations.$(TARGET).config.system.build.toplevel"
-	@sudo rm -rf result
+	nom build ".#nixosConfigurations.$(TARGET).config.system.build.toplevel"
+	@$(SUDO) rm -rf result
 
 #################
 # NIXOS INSTALL #
@@ -120,13 +121,13 @@ installer: info-iso-installer commit
 # XXX WIP: maybe currently broken
 # make live iso image from current system, set env TARGET for other nix flake target systems
 iso: info-cleaninstall commit
-	sudo nixos-rebuild build-image --flake $(OSFLAKE) --image-variant iso
+	nixos-rebuild build-image --flake $(OSFLAKE) --image-variant iso
 	ls -la /etc/nixos/result/iso
 
 # XXX WIP: maybe currently broken
 # make live iso image from current system, set env TARGET for other nix flake target systems
 qemu: info-cleaninstall commit
-	sudo nixos-rebuild build-image --flake $(OSFLAKE) --image-variant qemu-efi
+	nixos-rebuild build-image --flake $(OSFLAKE) --image-variant qemu-efi
 	ls -la /etc/nixos/result/iso
 
 
@@ -144,9 +145,9 @@ commit: pre-commit
 	-git commit --quiet -m 'update' > /dev/null 2>&1 || true
 
 pre-commit:
-	@-sudo rm -rf result > /dev/null 2>&1 || true
-	@sudo chown -R me:me *
-	@sudo chown -R me:me .git 
+	@-$(SUDO) rm -rf result > /dev/null 2>&1 || true
+	@$(SUDO) chown -R me:me *
+	@$(SUDO) chown -R me:me .git 
 	@alejandra --quiet .
 
 followremote: 
@@ -180,31 +181,32 @@ build-nixos-all:
 	rm -rf result
 
 sign:
-	sudo nix store sign --all --key-file /var/cache-priv-key.pem
+	nix store sign --all --key-file /var/cache-priv-key.pem
 
 gc: git-gc 
-	sudo nix-store --gc
-	sudo nix-store --optimise
+	nix-store --gc
+	nix-store --optimise
 
 repair: store-gc
-	sudo nix-store --verify --check-contents --repair
+	nix-store --verify --check-contents --repair
 
 internal-clean-1d:
-	sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 1d
-	sudo nix-collect-garbage --delete-older-than 1d
+	nix-env --delete-generations --profile /nix/var/nix/profiles/system 1d
+	nix-collect-garbage --delete-older-than 1d
 
 internal-clean-12d: 
-	sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system 12d
-	sudo nix-collect-garbage --delete-older-than 12d 
+	nix-env --delete-generations --profile /nix/var/nix/profiles/system 12d
+	nix-collect-garbage --delete-older-than 12d 
 
 internal-clean-profiles:
-	sudo rm -rf /boot/loader/entries || true
-	sudo rm -rf /nix/var/log/nix || true
-	sudo rm -rf /nix/var/nix/profiles/system* || true
-	sudo mkdir -p /boot/loader/entries 
-	sudo chmod -R 700 /boot/loader/entries
-	sudo mkdir -p /nix/var/log/nix/drvs
-	sudo mkdir -p /nix/var/nix/profiles/system-profiles
+	$(SUDO) -v || exit 1
+	$(SUDO) rm -rf /boot/loader/entries || true
+	$(SUDO) rm -rf /nix/var/log/nix || true
+	$(SUDO) rm -rf /nix/var/nix/profiles/system* || true
+	$(SUDO) mkdir -p /boot/loader/entries 
+	$(SUDO) chmod -R 700 /boot/loader/entries
+	$(SUDO) mkdir -p /nix/var/log/nix/drvs
+	$(SUDO) mkdir -p /nix/var/nix/profiles/system-profiles
 
 
 #################
@@ -229,12 +231,12 @@ umount:
 	${MAKE} -C storage umount
 
 wipe-home:
+	$(SUDO) -v || exit 1
 	cd || exit 1
 	mv .local/share/atuin .
-	rm -rf .local .cache .mozilla .librewolf
-	mkdir -p .local .cache .mozilla .librewolf
-	mkdir -p .local/share
+	rm -rf .cache .local .mozilla .librewolf
+	mkdir -p .cache .local/share .mozilla .librewolf 
+	( cd .mozilla && ln -fs ../.librewolf firefox )
 	mv atuin .local/share/
-	sudo -v || exit 1
-	sudo systemctl stop home-manager-me.service
-	sudo systemctl start home-manager-me.service
+	$(SUDO) systemctl stop home-manager-me.service
+	$(SUDO) systemctl start home-manager-me.service

@@ -1,26 +1,30 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }: {
+  #############
+  #-=# AGE #=-#
+  #############
+  age.secrets = {
+    readeck = {
+      file = ../../modules/resources/readeck.age;
+      owner = "root";
+      group = "wheel";
+    };
+  };
+
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
-    caddy = {
-      enable = true;
-      virtualHosts."read.lan" = {
-        listenAddresses = ["192.168.80.200"];
-        extraConfig = ''reverse_proxy http://127.0.0.1:8686'';
-      };
-    };
     readeck = {
       enable = true;
-      environmentFile = null;
+      environmentFile = config.age.secrets.readeck.path;
       settings = {
         main = {
-          log_level = "debug";
-          secret_key = "u2iZ9jsvJlHa7ADMebw6CnTpZKDn9J0g";
+          log_level = "info";
           data_directory = "/var/lib/readeck";
         };
         server = {
@@ -31,6 +35,18 @@
           source = "sqlite3:/var/lib/readeck/db.sqlite";
         };
       };
+    };
+    caddy = {
+      enable = true;
+      configFile = pkgs.writeText "CaddyfileReadeck" ''
+        read.${config.networking.domain} {
+          tls internal 
+          reverse_proxy ${config.services.readeck.settings.server.host}:${toString config.services.readeck.settings.server.port}
+          @not_intranet {
+            not remote_ip 192.168.80.0/24
+          }
+          respond @not_intranet 403
+        }'';
     };
   };
 
@@ -43,7 +59,7 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = "192.168.80.200 read read.lan"; # ensure corresponding dns records
+    extraHosts = "192.168.80.200 read read.${config.networking.domain}";
     firewall.allowedTCPPorts = [443];
   };
 }

@@ -52,6 +52,12 @@
       useTmpfs = true;
       tmpfsHugeMemoryPages = "within_size";
       tmpfsSize = "85%";
+      useZram = false; # toggle only on memory constrained systems
+      zramSettings = {
+        compression-algorithm = "zstd";
+        fs-type = "ext4";
+        zram-size = "ram * 0.85";
+      };
     };
     runSize = "85%";
     loader = {
@@ -328,7 +334,7 @@
   #####################
   environment = {
     shells = [pkgs.bashInteractive];
-    systemPackages = with pkgs; [age cryptsetup libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl rage pam_u2f smartmontools];
+    systemPackages = with pkgs; [cryptsetup libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools];
   };
 
   ####################
@@ -336,8 +342,9 @@
   ####################
   # networking: ethernet, localhost, virtual, container: see systemd.networking, wifi client: networkmanager
   networking = {
+    domain = "lan";
     enableIPv6 = false;
-    nameservers = ["127.0.0.53"]; # resolved stub
+    nameservers = ["127.0.0.53"]; # systemd-resolved bind
     resolvconf.enable = false; # use systemd-resolved
     useNetworkd = true;
     usePredictableInterfaceNames = false;
@@ -385,7 +392,7 @@
       AllowHybridSleep=no
       AllowSuspendThenHibernate=no
     '';
-    services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
+    services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "info";
   };
 
   #########################

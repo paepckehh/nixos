@@ -125,28 +125,43 @@
     "name": "awesome online toolbox",
     "children": [
       {
-        "url": "https://html5test.co/",
-        "name": "browser: analyse: supported web sw/hw features, video, audio, conference"
+        "name": "browser analysis",
+        "children": [
+          {
+            "url": "https://html5test.co/",
+            "name": "html5test.co [sw/hw features, video, audio, conference,...]"
+          },
+          {
+            "url": "https://www.cloudflare.com/ssl/encrypted-sni/",
+            "name": "cloudflare.com/ssl/encrypted-sni [encrypted sni, dnssec,...]"
+          }
+        ]
       },
       {
-        "url": "https://www.cloudflare.com/ssl/encrypted-sni/",
-        "name": "browser: analyse: check for encrypted sni (requires dns support)"
+        "name": "dns, email",
+        "children": [
+          {
+            "url": "https://dnschecker.org/",
+            "name": "dnschecker.org [replication, keys, latency, cache]"
+          },
+          {
+            "url": "https://mxtoolbox.org/",
+            "name": "mxtoolbox.com [dns, mx, blacklists, dmarc, spf, header]"
+          }
+        ]
       },
       {
-        "url": "https://dnschecker.org/",
-        "name": "dns: dnschecker.org [replication, keys, latency, cache]"
-      },
-      {
-        "url": "https://mxtoolbox.org/",
-        "name": "dns, email: mxtoolbox.com [dns, mx, blacklists, dmarc, spf]"
-      },
-      {
-        "url": "https://speed.cloudflare.com/",
-        "name": "speedtest: speed.cloudflare.com [latency, packetloss, details]"
-      },
-      {
-        "url": "https://fast.com/",
-        "name": "speedtest: fast.com [bigscreen, demo[]"
+        "name": "connectivity",
+        "children": [
+          {
+            "url": "https://speed.cloudflare.com/",
+            "name": "speed.cloudflare.com [latency, packetloss, details]"
+          },
+          {
+            "url": "https://fast.com/",
+            "name": "fast.com [bigscreen, demo]"
+          }
+        ]
       }
     ]
   },
