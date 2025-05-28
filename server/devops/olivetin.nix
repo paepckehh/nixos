@@ -60,7 +60,7 @@
             acls = ["admins"];
           }
           {
-            title = "Update Local System [nixos-rebuild switch]";
+            title = "Update Local System";
             shell = "/run/current-system/sw/bin/make -C /etc/nixos update switch";
             icon = "&#x2699;";
             timeout = 720;
@@ -69,7 +69,7 @@
             acls = ["admins"];
           }
           {
-            title = "Update Local System and Reboot [nixos-rebuild && reboot]";
+            title = "Update Local System and Reboot";
             shell = "/run/current-system/sw/bin/make -C /etc/nixos update boot && reboot";
             icon = "&#x2699;";
             timeout = 720;
