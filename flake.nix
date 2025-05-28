@@ -10,7 +10,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nvf.url = "github:notashelf/nvf";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
-    nixpkgs-dev.url = "github:paepckehh/nixpkgs/encrypted-dns-server-service";
+    nixpkgs-dev.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    # nixpkgs-dev.url = "github:paepckehh/nixpkgs/encrypted-dns-server-service";
   };
   outputs = {
     self,
@@ -132,7 +133,7 @@
           ./server/bookmarks/readeck.nix
           ./server/devops/atuin.nix
           ./server/devops/olivetin.nix
-          ./server/dns/encrypted-dns-server.nix
+          # ./server/dns/encrypted-dns-server.nix
           {networking.hostName = "srv";}
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
         ];
