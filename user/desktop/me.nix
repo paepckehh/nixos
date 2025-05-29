@@ -73,6 +73,7 @@
       };
     };
     programs = {
+      tmux.enable = true;
       alacritty = {
         enable = true;
         settings = {
@@ -132,8 +133,8 @@
       zellij = {
         enable = true;
         enableBashIntegration = false;
-        enableFishIntegration = true;
-        enableZshIntegration = true;
+        enableFishIntegration = false;
+        enableZshIntegration = false;
       };
     };
     services = {
