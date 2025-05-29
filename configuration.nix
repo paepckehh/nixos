@@ -272,12 +272,17 @@
           debug = false;
         };
       };
+      yubico = {
+        enable = true;
+        debug = true;
+        mode = "challenge-response";
+      };
       services = {
         login = {
           allowNullPassword = lib.mkForce false;
           failDelay = {
             enable = true;
-            delay = 5000000;
+            delay = 500000;
           };
           logFailures = true;
           u2fAuth = true;
@@ -287,7 +292,7 @@
           allowNullPassword = lib.mkForce false;
           failDelay = {
             enable = true;
-            delay = 5000000;
+            delay = 500000;
           };
           u2fAuth = true;
           unixAuth = true;
@@ -491,5 +496,6 @@
         allow with-interface one-of { 03:00:01 03:01:01 } if !allowed-matches(with-interface one-of { 03:00:01 03:01:01 })
       '';
     };
+    udev.packages = [pkgs.yubikey-personalization];
   };
 }

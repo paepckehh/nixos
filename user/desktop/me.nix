@@ -134,7 +134,6 @@
         enableBashIntegration = false;
         enableFishIntegration = true;
         enableZshIntegration = true;
-        themes = "dracula";
       };
     };
     services = {
