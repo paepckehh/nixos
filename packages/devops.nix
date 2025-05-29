@@ -29,7 +29,7 @@
       certinfo-go
       curlie
       cryptsetup
-      delta
+      doggo
       dmidecode
       file
       gh

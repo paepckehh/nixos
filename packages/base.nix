@@ -118,7 +118,9 @@
       bc
       cliqr
       cryptsetup
+      delta
       dnsutils
+      duf
       dust
       fastfetch
       fd
