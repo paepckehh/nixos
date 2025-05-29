@@ -41,7 +41,7 @@
           infra-cache-slabs = 4;
           interface = ["127.0.0.56"]; # 127.0.0.53/54 is taken by systemd-resolverd
           key-cache-slabs = 4;
-          logfile = "/var/lib/unbound/unbound.log";
+          # logfile = "/var/lib/unbound/unbound.log";
           log-local-actions = true;
           log-queries = true;
           log-replies = true;
