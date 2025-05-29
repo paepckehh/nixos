@@ -199,16 +199,16 @@
     },
     "nixpkgs-dev": {
       "locked": {
-        "lastModified": 1748456040,
-        "narHash": "sha256-UfPOWPs5lA3DEO6/OtzNiUc7+JZFeeysr3rSZqO6tsQ=",
-        "owner": "nixos",
+        "lastModified": 1748501574,
+        "narHash": "sha256-lexNHmMAfI9k+G/NoCXIew92IkifDF1lViQ6xbkNZAc=",
+        "owner": "paepckehh",
         "repo": "nixpkgs",
-        "rev": "7b3486bdc39d5b70e59215c7a0b23e5ff75101f3",
+        "rev": "e1e28289f21845bfda09e4bc102ac239627d60da",
         "type": "github"
       },
       "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable-small",
+        "owner": "paepckehh",
+        "ref": "encrypted-dns-server-service",
         "repo": "nixpkgs",
         "type": "github"
       }
