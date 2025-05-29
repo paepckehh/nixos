@@ -363,10 +363,11 @@
         macAddress = "permanent"; # allow wifi mac filter
         powersave = false;
       };
+    };
     wireless = {
-        enable = true;
-        iwd.enable = true;
-        iwd.settings.Network.EnableIPv6 = false;
+      enable = true;
+      iwd.enable = true;
+      iwd.settings.Network.EnableIPv6 = false;
     };
     nftables.enable = true;
     firewall = {
