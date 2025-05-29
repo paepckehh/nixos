@@ -358,17 +358,22 @@
       enable = true;
       logLevel = "INFO";
       wifi = {
-        backend = "wpa_supplicant";
+        backend = "iwd"; # wpa_supplicant
         scanRandMacAddress = false;
         macAddress = "permanent"; # allow wifi mac filter
         powersave = false;
       };
+    wireless = {
+        enable = true;
+        iwd.enable = true;
+        iwd.settings.Network.EnableIPv6 = false;
     };
     nftables.enable = true;
     firewall = {
       enable = true;
       allowPing = true;
       checkReversePath = lib.mkDefault true;
+      trustedInterfaces = [];
     };
   };
 
