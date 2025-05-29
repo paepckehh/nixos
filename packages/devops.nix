@@ -29,7 +29,9 @@
       certinfo-go
       curlie
       cryptsetup
+      delta
       dmidecode
+      file
       gh
       gnumake
       golangci-lint

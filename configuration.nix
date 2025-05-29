@@ -32,9 +32,9 @@
       );
     };
     kernelPackages = (
-      if (config.system.nixos.release == "24.11")
-      then pkgs.linuxPackages
-      else pkgs.linuxPackages_latest
+      if (config.system.nixos.release == "25.11")
+      then pkgs.linuxPackages_latest
+      else pkgs.linuxPackages
     );
     kernelParams = (
       if (config.nixpkgs.system == "x86_64-linux")

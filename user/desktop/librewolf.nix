@@ -169,7 +169,7 @@
         HardwareAcceleration = true;
         NetworkPrediction = false;
         NewTabPage = false;
-        NoDefaultBookmarks = true;
+        NoDefaultBookmarks = false;
         OfferToSaveLogins = false;
         OfferToSaveLoginsDefault = false;
         OverrideFirstRunPage = "";

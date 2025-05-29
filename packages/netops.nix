@@ -16,6 +16,7 @@
       termshark
       trippy
       tshark
+      wireguard-tools
     ];
   };
   ##################

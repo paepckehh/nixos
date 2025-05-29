@@ -128,6 +128,7 @@
             enableZshIntegration = false;
           };
           git = {
+            delta.enable = true;
             userName = "me";
             userEmail = "me@intra.lan";
             signing = {

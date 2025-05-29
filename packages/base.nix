@@ -113,6 +113,7 @@
     };
     systemPackages = with pkgs; [
       alejandra
+      bashmount
       bmon
       bc
       cliqr
@@ -150,7 +151,6 @@
       tree
       tz
       unzip
-      wireguard-tools
       yq
       yubikey-manager
       zip
