@@ -133,6 +133,7 @@
           ./server/bookmarks/readeck.nix
           ./server/devops/atuin.nix
           ./server/devops/olivetin.nix
+          ./server/dns/unbound.nix
           {networking.hostName = "srv";}
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
         ];
