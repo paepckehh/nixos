@@ -364,10 +364,9 @@
         powersave = false;
       };
     };
-    wireless = {
+    wireless.iwd = {
       enable = true;
-      iwd.enable = true;
-      iwd.settings.Network.EnableIPv6 = false;
+      settings.Network.EnableIPv6 = false;
     };
     nftables.enable = true;
     firewall = {
