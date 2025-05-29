@@ -130,7 +130,7 @@
         };
       };
       zellij = {
-        enabled = true;
+        enable = true;
         enableBashIntegration = false;
         enableFishIntegration = true;
         enableZshIntegration = true;
