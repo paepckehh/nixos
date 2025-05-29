@@ -129,6 +129,13 @@
           };
         };
       };
+      zellij = {
+        enabled = true;
+        enableBashIntegration = false;
+        enableFishIntegration = true;
+        enableZshIntegration = true;
+        themes = "dracula";
+      };
     };
     services = {
       remmina.enable = false;
