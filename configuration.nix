@@ -274,7 +274,7 @@
       };
       yubico = {
         enable = true;
-        debug = true;
+        debug = false;
         mode = "challenge-response";
       };
       services = {
@@ -287,6 +287,7 @@
           logFailures = true;
           u2fAuth = true;
           unixAuth = true;
+          yubicoAuth = true;
         };
         sudo = {
           allowNullPassword = lib.mkForce false;
@@ -294,10 +295,11 @@
             enable = true;
             delay = 500000;
           };
-          u2fAuth = true;
-          unixAuth = true;
           logFailures = true;
           requireWheel = true;
+          u2fAuth = true;
+          unixAuth = true;
+          yubicoAuth = true;
         };
       };
     };
