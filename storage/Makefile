@@ -47,16 +47,23 @@ pre-mount:
 	$(SUDO) umount -f /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/root/.ssh || true
 	$(SUDO) umount -f /mnt/boot /mnt/nix || true
 	$(SUDO) umount -f /mnt || true
-	$(SUDO) mkdir -p /mnt
-	$(SUDO) mount -t tmpfs tmpfs /mnt
+	$(SUDO) cryptsetup close mnt-nix || true
 
 mount:
-	# XXX TODO
-	# $(SUDO) nix run github:nix-community/disko/latest -- --mode mount --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+	$(SUDO) mkdir -p /mnt
+	$(SUDO) mount -t tmpfs tmpfs /mnt
+	$(SUDO) mkdir -p /mnt/boot /mnt/nix
+	$(SUDO) mount /dev/$(TARGETDRIVE)1 /mnt/boot || exit 1
+	if [ $(USELUKS) = "NO" ]; then ( $(SUDO) mount /dev/$(TARGETDRIVE)3 /mnt/nix || exit 1 ); fi 
+	if [ $(USELUKS) = "YES" ]; then 
+	  $(SUDO) cryptsetup open /dev/$(TARGETDRIVE)1 mnt-nix --key-file /tmp/luks || exit 1
+	  $(SUDO) mount /dev/mapper/mnt-nix /mnt/nix || exit 1
+	  $(SUDO) rm -rf /tmp/luks
+	fi
 
 post-mount:
 	$(SUDO) mkdir -p /mnt/nix/persist/home /mnt/nix/persist/var/lib /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh /mnt/nix/persist/root/.ssh
-	$(SUDO) mkdir -p /mnt/boot /mnt/nix /mnt/home/me /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/root/.ssh 
+	$(SUDO) mkdir -p /mnt/home/me /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/root/.ssh 
 	$(SUDO) mount -o bind /mnt/nix/persist/home /mnt/home
 	$(SUDO) mount -o bind /mnt/nix/persist/var/lib /mnt/var/lib
 	$(SUDO) mount -o bind /mnt/nix/persist/etc/nixos /mnt/etc/nixos
@@ -69,9 +76,10 @@ umount:
 	$(SUDO) umount -f /mnt/boot /mnt/nix || true
 	$(SUDO) umount -f /mnt || true
 	$(SUDO) rm -rf /mnt /tmp/luks || true
+	$(SUDO) cryptsetup close mnt-nix || true
 
 format:
-	echo ${LUKS} > /tmp/luks 
+	echo ${LUKS} > /tmp/luks
 	$(SUDO) nix run github:nix-community/disko/latest -- --mode format --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
 
 wipe:
