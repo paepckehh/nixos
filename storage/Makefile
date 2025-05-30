@@ -19,6 +19,8 @@ OSFLAKE:=/etc/nixos/\#$(TARGET)
 WIPEDRIVE?=/dev/null
 PATH:=/run/current-system/sw/bin
 SUDO:=/run/wrappers/bin/sudo
+EXT4MOPT:=-o noatime,nodiratime,discard,commit=10,nobarrier,data=writeback,journal_async_commit
+EXT4FOPT:=-E packed_meta_blocks=1
 
 all:
 
@@ -54,11 +56,15 @@ mount:
 	$(SUDO) mount -t tmpfs tmpfs /mnt
 	$(SUDO) mkdir -p /mnt/boot /mnt/nix
 	$(SUDO) mount /dev/$(TARGETDRIVE)1 /mnt/boot || exit 1
-	if [ $(USELUKS) = "NO" ]; then ( $(SUDO) mount /dev/$(TARGETDRIVE)3 /mnt/nix || exit 1 ); fi 
+	if [ $(USELUKS) = "NO" ]; then
+	   $(SUDO) mkfs.ext4 $(EXT4FOPT) /dev/$(TARGETDRIVE)3 || exit 1
+	   $(SUDO) mount $(EXT4MOPT) /dev/$(TARGETDRIVE)3 /mnt/nix 
+	fi
 	if [ $(USELUKS) = "YES" ]; then 
-	  $(SUDO) cryptsetup open /dev/$(TARGETDRIVE)1 mnt-nix --key-file /tmp/luks || exit 1
-	  $(SUDO) mount /dev/mapper/mnt-nix /mnt/nix || exit 1
+	  $(SUDO) cryptsetup open /dev/$(TARGETDRIVE)3 mnt-nix < /tmp/luks || exit 1
 	  $(SUDO) rm -rf /tmp/luks
+	  $(SUDO) mkfs.ext4 $(EXT4FOPT) /dev/mapper/mnt-nix || exit 1
+	  $(SUDO) mount $(EXT4MOPT) /dev/mapper/mnt-nix /mnt/nix || exit 1
 	fi
 
 post-mount:

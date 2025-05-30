@@ -87,6 +87,7 @@
       client = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          agenix.nixosModules.default
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
@@ -94,12 +95,17 @@
           ./storage/impermanence-luks.nix
           ./client/forward-journald.nix
           ./client/forward-syslog-ng.nix
+          ./client/wireguard.nix
           ./person/desktop/mpaepcke.nix
+          ./packages/agenix.nix
           ./packages/base.nix
           ./packages/devops.nix
+          ./packages/devops-iot.nix
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
+          ./packages/firejail.nix
           ./packages/desktop/gnome.nix
+          ./openwrt/openwrt.nix
           {networking.hostName = "client";}
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
         ];
@@ -119,7 +125,6 @@
           ./configuration.nix
           ./client/wireguard.nix
           ./storage/impermanence-luks.nix
-          ./openwrt/openwrt.nix
           ./person/desktop/mpaepcke.nix
           ./packages/agenix.nix
           ./packages/base.nix
@@ -129,10 +134,12 @@
           ./packages/netops.nix
           ./packages/firejail.nix
           ./packages/desktop/gnome.nix
-          ./server/bookmarks/readeck.nix
-          ./server/devops/atuin.nix
-          ./server/devops/olivetin.nix
-          ./server/dns/unbound.nix
+          ./openwrt/openwrt.nix
+          ./server/soc/netalertx.nix
+          # ./server/bookmarks/readeck.nix
+          # ./server/devops/olivetin.nix
+          # ./server/devops/atuin.nix
+          # ./server/dns/unbound.nix
           {networking.hostName = "srv";}
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
         ];

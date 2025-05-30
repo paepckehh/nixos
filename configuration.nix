@@ -360,15 +360,11 @@
       enable = true;
       logLevel = "INFO";
       wifi = {
-        backend = "iwd"; # wpa_supplicant
+        backend = "wpa_supplicant"; # wpa_supplicant
         scanRandMacAddress = false;
         macAddress = "permanent"; # allow wifi mac filter
         powersave = false;
       };
-    };
-    wireless.iwd = {
-      enable = true;
-      settings.Network.EnableIPv6 = false;
     };
     nftables.enable = true;
     firewall = {

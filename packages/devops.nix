@@ -36,6 +36,7 @@
       gnumake
       golangci-lint
       go-tools
+      grafana-reporter
       httpie
       hyperfine
       murex
