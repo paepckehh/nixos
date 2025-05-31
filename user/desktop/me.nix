@@ -8,7 +8,7 @@
   #################
   imports = [
     ../me.nix
-    ./librewolf.nix
+    ./ff.nix
   ];
 
   #####################
