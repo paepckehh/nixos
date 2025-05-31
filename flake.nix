@@ -136,8 +136,8 @@
           ./openwrt/openwrt.nix
           ./server/soc/netalertx.nix
           ./server/monitoring/collect-syslog-ng.nix
-          # ./server/bookmarks/readeck.nix
-          # ./server/devops/olivetin.nix
+          ./server/bookmarks/readeck.nix
+          ./server/devops/olivetin.nix
           # ./server/devops/atuin.nix
           # ./server/dns/unbound.nix
           {networking.hostName = "srv";}
