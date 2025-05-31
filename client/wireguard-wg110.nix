@@ -4,7 +4,7 @@
   #############
   age.secrets = {
     wg-nix-pk-wg110 = {
-      file = ../modules/resources/wg-nix-pk.age;
+      file = ../modules/resources/wg-nix-pk-wg110.age;
       owner = "systemd-network";
       group = "systemd-network";
     };
