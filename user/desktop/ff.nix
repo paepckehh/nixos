@@ -47,9 +47,11 @@
           };
         };
         settings = {
-          "general.useragent.override" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0";
           # "general.useragent.override" = "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0";
           # "general.useragent.override" = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:139.0) Gecko/20100101 Firefox/139.0";
+          "general.useragent.override" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0";
+          "general.useragent.compatMode.firefox" = true;
+          "general.useragent.locale" = "en-US";
           "browser.aboutConfig.showWarning" = false;
           "browser.bookmarks.showMobileBookmarks" = true;
           "browser.bookmarks.restore_default_bookmarks" = true;
@@ -100,7 +102,6 @@
           "dom.push.connection.enabled" = false;
           "dom.push.serverURL" = "";
           "dom.push.indicate_aesgcm_support.enabled" = true;
-          "general.useragent.locale" = "en-US";
           "geo.enabled" = false;
           "geo.provider.geoclue.always_high_accuracy" = false;
           "geo.provider.network.url" = ""; # https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%
