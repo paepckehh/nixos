@@ -9,7 +9,7 @@
   home-manager.users.me.programs = {
     firefox = {
       enable = true;
-      package = pkgs.firefox-bin;
+      package = pkgs.firefox-beta-bin;
       nativeMessagingHosts = [pkgs.keepassxc];
       profiles."0" = {
         id = 0;
