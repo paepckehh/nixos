@@ -101,7 +101,7 @@
               sync.records = true;
               style = "full";
               secrets_filter = true;
-              history_filter = ["LUKS"];
+              history_filter = ["LUKS" "genkey" "keygen" "private"];
             };
           };
           bat = {

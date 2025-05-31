@@ -94,7 +94,7 @@
           ./configuration.nix
           ./storage/impermanence-luks.nix
           ./client/forward-syslog-ng.nix
-          ./client/wireguard.nix
+          ./client/wireguard-wg110.nix
           ./person/desktop/mpaepcke.nix
           ./packages/agenix.nix
           ./packages/base.nix
@@ -122,7 +122,7 @@
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
           ./configuration.nix
-          ./client/wireguard.nix
+          ./client/wireguard-wg100.nix
           ./storage/impermanence-luks.nix
           ./person/desktop/mpaepcke.nix
           ./packages/agenix.nix
