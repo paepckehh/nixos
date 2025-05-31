@@ -18,6 +18,10 @@
         "name": "read.lan (localhost, http)"
       },
       {
+        "url": "http://127.0.0.1:20211",
+        "name": "netalertx.lan (localhost, http)"
+      },
+      {
         "url": "http://moode.lan:80",
         "name": "moode.lan"
       },
