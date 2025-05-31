@@ -9,7 +9,7 @@
   home-manager.users.me.programs = {
     firefox = {
       enable = true;
-      # package = pkgs.librewolf;
+      package = pkgs.firefox-bin;
       nativeMessagingHosts = [pkgs.keepassxc];
       profiles."0" = {
         id = 0;
