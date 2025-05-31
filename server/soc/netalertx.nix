@@ -7,7 +7,7 @@
       backend = "podman";
       containers = {
         netalertx = {
-          autoStart = false;
+          autoStart = true;
           image = "ghcr.io/jokob-sk/netalertx:latest";
           extraOptions = ["--network=host"];
           environment = {

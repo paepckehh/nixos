@@ -93,7 +93,6 @@
           nvf.nixosModules.default
           ./configuration.nix
           ./storage/impermanence-luks.nix
-          ./client/forward-journald.nix
           ./client/forward-syslog-ng.nix
           ./client/wireguard.nix
           ./person/desktop/mpaepcke.nix
@@ -136,6 +135,7 @@
           ./packages/desktop/gnome.nix
           ./openwrt/openwrt.nix
           ./server/soc/netalertx.nix
+          ./server/monitoring/collect-syslog-ng.nix
           # ./server/bookmarks/readeck.nix
           # ./server/devops/olivetin.nix
           # ./server/devops/atuin.nix
