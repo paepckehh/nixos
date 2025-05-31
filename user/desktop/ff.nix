@@ -225,7 +225,7 @@
         PrivateBrowsingModeAvailability = 1;
         PromptForDownloadLocation = true;
         Proxy.Mode = "none";
-        RequestedLocales = "en-US,en,de";
+        RequestedLocales = "en-US";
         SanitizeOnShutdown = {
           Cache = true;
           Cookies = true;
