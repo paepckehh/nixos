@@ -39,7 +39,7 @@
           hide-version = true;
           incoming-num-tcp = 250;
           infra-cache-slabs = 4;
-          interface = ["127.0.0.56"];
+          interface = ["127.0.0.56"]; # 127.0.0.53/54 is taken by systemd-resolverd
           key-cache-slabs = 4;
           # logfile = "/var/lib/unbound/unbound.log";
           log-local-actions = true;
@@ -49,7 +49,7 @@
           log-time-ascii = true;
           log-time-iso = true;
           minimal-responses = true;
-          # module-config = "iterator"; # XXX disable dnssec for the clowns pointless mitm
+          module-config = "iterator"; # XXX disable dnssec for the clowns pointless mitm
           msg-cache-size = 142768128;
           msg-cache-slabs = 4;
           num-queries-per-thread = 4096;

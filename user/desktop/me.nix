@@ -8,7 +8,7 @@
   #################
   imports = [
     ../me.nix
-    ./librewolf.nix
+    ./ff.nix
   ];
 
   #####################
@@ -45,6 +45,7 @@
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/"
           ];
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -54,15 +55,20 @@
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
           name = "default [b]rowser = librewolf, not-sandboxed";
-          command = "librewolf";
-          binding = "<Super>b";
+          command = "firefox";
+          binding = "<Super>f";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+          name = "default [b]rowser = librewolf, not-sandboxed";
+          command = "firefox";
+          binding = "<Super>b";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
           name = "[w]olf = librewolf firejail";
           command = "jailwolf";
           binding = "<Super>w";
         };
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4" = {
           name = "keepassxc passwordmanager";
           command = "keepassxc";
           binding = "<Super>k";
@@ -73,6 +79,7 @@
       };
     };
     programs = {
+      tmux.enable = true;
       alacritty = {
         enable = true;
         settings = {
@@ -128,6 +135,12 @@
             HidePasswords = true;
           };
         };
+      };
+      zellij = {
+        enable = true;
+        enableBashIntegration = false;
+        enableFishIntegration = false;
+        enableZshIntegration = false;
       };
     };
     services = {

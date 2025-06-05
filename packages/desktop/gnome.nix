@@ -63,14 +63,12 @@
       gnome-user-share.enable = lib.mkForce false;
       sushi.enable = lib.mkForce false;
     };
-    xserver = {
-      displayManager.gdm = {
-        enable = true;
-        autoSuspend = false;
-        banner = ''hardened nixos gnome desktop '';
-        wayland = true;
-      };
-      desktopManager.gnome.enable = true;
+    desktopManager.gnome.enable = true;
+    displayManager.gdm = {
+      enable = true;
+      autoSuspend = false;
+      banner = ''hardened nixos gnome desktop '';
+      wayland = true;
     };
   };
 }

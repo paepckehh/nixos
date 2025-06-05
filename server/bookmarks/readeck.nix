@@ -38,14 +38,19 @@
     };
     caddy = {
       enable = true;
+      logDir = lib.mkForce "/var/log/caddy";
+      logFormat = lib.mkForce "level INFO";
       configFile = pkgs.writeText "CaddyfileReadeck" ''
         read.${config.networking.domain} {
-          tls internal 
+          tls internal
           reverse_proxy ${config.services.readeck.settings.server.host}:${toString config.services.readeck.settings.server.port}
           @not_intranet {
             not remote_ip 192.168.80.0/24
           }
           respond @not_intranet 403
+          log {
+           output file ${config.services.caddy.logDir}/access/proxy-read.log
+          }
         }'';
     };
   };

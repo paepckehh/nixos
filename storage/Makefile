@@ -8,6 +8,7 @@
 REPO?=https://github.com/paepckehh/nixos
 TARGET?=$(shell hostname)
 TARGETDRIVE?=sdb
+PARALLEL?=0
 DEVICE_MAIN:=$(TARGETDRIVE)
 USELUKS:=YES
 DISKOFLAKE:=disko/impermanence-luks.nix
@@ -19,6 +20,8 @@ OSFLAKE:=/etc/nixos/\#$(TARGET)
 WIPEDRIVE?=/dev/null
 PATH:=/run/current-system/sw/bin
 SUDO:=/run/wrappers/bin/sudo
+EXT4MOPT:=-o noatime,nodiratime,discard,commit=10,nobarrier,data=writeback,journal_async_commit
+EXT4FOPT:=-E packed_meta_blocks=1
 
 all:
 
@@ -33,30 +36,41 @@ usb: info check wipe format pre-mount mount post-mount install migrate umount
 ####################
 
 info: 
-	@echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGET), os-flake: $(OSFLAKE), luks: $(USELUKS), build repo: $(REPO), disko-flake: $(DISKOFLAKE)
+	@echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGET), os-flake: $(OSFLAKE), luks: $(USELUKS), build repo: $(REPO), disko-flake: $(DISKOFLAKE), jobs: $(PARALLEL)
 	@if [ $(USELUKS) = "YES" ]; then (echo "### LUKS MODE ENABLED, PLEASE ENSURE PROPER DISK/STORAGE LAYOUT IN TARGETOS FLAKE CONFIG!" && sleep 3) ; fi  
 
 check: 
 	@if [ ! -e /dev/$(TARGETDRIVE) ]; then (echo "TARGETDRIVE: /dev/$(TARGETDRIVE) does not exists, exit" ; exit 1); fi  
 
 install:
-	$(SUDO) nixos-install --verbose --keep-going --impure --no-root-password --root /mnt --flake $(OSFLAKE)
+	$(SUDO) nixos-install --verbose --max-jobs $(PARALLEL) --cores $(PARALLEL) --keep-going --impure --no-root-password --root /mnt --flake $(OSFLAKE)
 	$(SUDO) git clone $(REPO) /mnt/nix/persist/etc/nixos
 
 pre-mount: 
 	$(SUDO) umount -f /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/root/.ssh || true
 	$(SUDO) umount -f /mnt/boot /mnt/nix || true
 	$(SUDO) umount -f /mnt || true
-	$(SUDO) mkdir -p /mnt
-	$(SUDO) mount -t tmpfs tmpfs /mnt
+	$(SUDO) cryptsetup close mnt-nix || true
 
 mount:
-	# XXX TODO
-	# $(SUDO) nix run github:nix-community/disko/latest -- --mode mount --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+	$(SUDO) mkdir -p /mnt
+	$(SUDO) mount -t tmpfs tmpfs /mnt
+	$(SUDO) mkdir -p /mnt/boot /mnt/nix
+	$(SUDO) mount /dev/$(TARGETDRIVE)1 /mnt/boot || exit 1
+	if [ $(USELUKS) = "NO" ]; then
+	   $(SUDO) mkfs.ext4 $(EXT4FOPT) /dev/$(TARGETDRIVE)3 || exit 1
+	   $(SUDO) mount $(EXT4MOPT) /dev/$(TARGETDRIVE)3 /mnt/nix 
+	fi
+	if [ $(USELUKS) = "YES" ]; then 
+	  $(SUDO) cryptsetup open /dev/$(TARGETDRIVE)3 mnt-nix < /tmp/luks || exit 1
+	  $(SUDO) rm -rf /tmp/luks
+	  $(SUDO) mkfs.ext4 $(EXT4FOPT) /dev/mapper/mnt-nix || exit 1
+	  $(SUDO) mount $(EXT4MOPT) /dev/mapper/mnt-nix /mnt/nix || exit 1
+	fi
 
 post-mount:
 	$(SUDO) mkdir -p /mnt/nix/persist/home /mnt/nix/persist/var/lib /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh /mnt/nix/persist/root/.ssh
-	$(SUDO) mkdir -p /mnt/boot /mnt/nix /mnt/home/me /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/root/.ssh 
+	$(SUDO) mkdir -p /mnt/home/me /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/root/.ssh 
 	$(SUDO) mount -o bind /mnt/nix/persist/home /mnt/home
 	$(SUDO) mount -o bind /mnt/nix/persist/var/lib /mnt/var/lib
 	$(SUDO) mount -o bind /mnt/nix/persist/etc/nixos /mnt/etc/nixos
@@ -69,9 +83,10 @@ umount:
 	$(SUDO) umount -f /mnt/boot /mnt/nix || true
 	$(SUDO) umount -f /mnt || true
 	$(SUDO) rm -rf /mnt /tmp/luks || true
+	$(SUDO) cryptsetup close mnt-nix || true
 
 format:
-	echo ${LUKS} > /tmp/luks 
+	echo ${LUKS} > /tmp/luks
 	$(SUDO) nix run github:nix-community/disko/latest -- --mode format --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
 
 wipe:

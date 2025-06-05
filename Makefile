@@ -6,6 +6,7 @@
 ID:=$(shell id -u)
 GID:=$(shell id -g)
 ISO?=iso
+PARALLEL?=0
 TARGET?=$(shell /run/current-system/sw/bin/hostname)
 DTS:=$(shell date '+%Y-%m-%d-%H-%M')
 OSFLAKE:=/etc/nixos/\#$(TARGET)
@@ -81,54 +82,6 @@ rollback: commit
 build-log:
 	nom build ".#nixosConfigurations.$(TARGET).config.system.build.toplevel"
 	@$(SUDO) rm -rf result
-
-#################
-# NIXOS INSTALL #
-#################
-
-# install optimized usbdrive live os
-# set env TARGETOS for other target-os, default: current-system [$hostname]
-# set TARGETDRIVE for usb stick, default: sdb [uses: /dev/sdb] [supports: sda, sdb and sdc]
-TARGETDRIVE?=sdb
-
-sda: info-cleaninstall commit
-	export TARGETDRIVE=sda
-	${MAKE} -C storage usb
-
-
-sdb: info-cleaninstall commit
-	export TARGETDRIVE=sdb
-	${MAKE} -C storage usb
-
-
-sdc: info-cleaninstall commit 
-	export TARGETDRIVE=sdc
-	${MAKE} -C storage usb
-
-usb: info-cleaninstall commit
-	export TARGETDRIVE=$(TARGETDRIVE)
-	${MAKE} -C storage usb
-
-
-# make full automatic bootable iso (offline-) installer for current system,
-# set env TARGET for other nix flake target systems
-installer: info-iso-installer commit 
-	@if [ !  -z  $(LUKS) ]; then (echo "LUKS Passwords for target installer-iso must explicitly set in autoinstall script, not in env." && exit 1);fi
-	@export NIXPKGS_ALLOW_BROKEN=1 
-	nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
-	ls -la /etc/nixos/result/iso
-
-# XXX WIP: maybe currently broken
-# make live iso image from current system, set env TARGET for other nix flake target systems
-iso: info-cleaninstall commit
-	nixos-rebuild build-image --flake $(OSFLAKE) --image-variant iso
-	ls -la /etc/nixos/result/iso
-
-# XXX WIP: maybe currently broken
-# make live iso image from current system, set env TARGET for other nix flake target systems
-qemu: info-cleaninstall commit
-	nixos-rebuild build-image --flake $(OSFLAKE) --image-variant qemu-efi
-	ls -la /etc/nixos/result/iso
 
 
 #######################
@@ -207,6 +160,59 @@ internal-clean-profiles:
 	$(SUDO) chmod -R 700 /boot/loader/entries
 	$(SUDO) mkdir -p /nix/var/log/nix/drvs
 	$(SUDO) mkdir -p /nix/var/nix/profiles/system-profiles
+
+#################
+# NIXOS INSTALL #
+#################
+
+# install optimized usbdrive live os
+# set env TARGETOS for other target-os, default: current-system [$hostname]
+# set TARGETDRIVE for usb stick, default: sdb [uses: /dev/sdb] [supports: sda, sdb and sdc]
+TARGETDRIVE?=sdb
+
+sda: info-cleaninstall commit
+	export PARALLEL=1
+	export TARGETDRIVE=sda
+	${MAKE} -C storage usb
+
+
+sdb: info-cleaninstall commit
+	export PARALLEL=1
+	export TARGETDRIVE=sdb
+	${MAKE} -C storage usb
+
+
+sdc: info-cleaninstall commit 
+	export PARALLEL=1
+	export TARGETDRIVE=sdc
+	${MAKE} -C storage usb
+
+usb: info-cleaninstall commit
+	export PARALLEL=1
+	export TARGETDRIVE=$(TARGETDRIVE)
+	${MAKE} -C storage usb
+
+
+# make full automatic bootable iso (offline-) installer for current system,
+# set env TARGET for other nix flake target systems
+installer: info-iso-installer commit 
+	@if [ !  -z  $(LUKS) ]; then (echo "LUKS Passwords for target installer-iso must explicitly set in autoinstall script, not in env." && exit 1);fi
+	@export NIXPKGS_ALLOW_BROKEN=1 
+	nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
+	ls -la /etc/nixos/result/iso
+
+# XXX WIP: maybe currently broken
+# make live iso image from current system, set env TARGET for other nix flake target systems
+iso: info-cleaninstall commit
+	nixos-rebuild build-image --flake $(OSFLAKE) --image-variant iso
+	ls -la /etc/nixos/result/iso
+
+# XXX WIP: maybe currently broken
+# make live iso image from current system, set env TARGET for other nix flake target systems
+qemu: info-cleaninstall commit
+	nixos-rebuild build-image --flake $(OSFLAKE) --image-variant qemu-efi
+	ls -la /etc/nixos/result/iso
+
 
 
 #################

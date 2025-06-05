@@ -9,8 +9,8 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nvf.url = "github:notashelf/nvf";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
-    nixpkgs-dev.url = "github:paepckehh/nixpkgs/encrypted-dns-server-service";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-dev.url = "github:nixos/nixpkgs/nixos-unstable";
   };
   outputs = {
     self,
@@ -87,18 +87,23 @@
       client = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          agenix.nixosModules.default
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
           ./configuration.nix
           ./storage/impermanence-luks.nix
-          ./client/forward-journald.nix
           ./client/forward-syslog-ng.nix
+          ./client/wifi-duck.nix
+          ./client/wireguard-wg110.nix
           ./person/desktop/mpaepcke.nix
+          ./packages/agenix.nix
           ./packages/base.nix
           ./packages/devops.nix
+          ./packages/devops-iot.nix
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
+          ./packages/firejail.nix
           ./packages/desktop/gnome.nix
           {networking.hostName = "client";}
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
@@ -117,9 +122,8 @@
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
           ./configuration.nix
-          ./client/wireguard.nix
+          ./client/wireguard-wg100.nix
           ./storage/impermanence-luks.nix
-          ./openwrt/openwrt.nix
           ./person/desktop/mpaepcke.nix
           ./packages/agenix.nix
           ./packages/base.nix
@@ -129,20 +133,25 @@
           ./packages/netops.nix
           ./packages/firejail.nix
           ./packages/desktop/gnome.nix
+          ./openwrt/openwrt.nix
           ./server/bookmarks/readeck.nix
-          ./server/devops/atuin.nix
+          ./server/bookmarks/webdav.nix
           ./server/devops/olivetin.nix
-          ./server/dns/encrypted-dns-server.nix
+          ./server/monitoring/collect-syslog-ng.nix
+          ./server/soc/wazuh.nix
+          # ./server/devops/atuin.nix
+          # ./server/dns/unbound.nix
+          # ./server/soc/netalertx.nix
           {networking.hostName = "srv";}
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
         ];
       };
-      #############
-      # ISO IMAGE #
-      #############
-      iso-live = nixpkgs.lib.nixosSystem {
+      ##################
+      # ISO LIVE IMAGE #
+      ##################
+      isonix = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs.targetSystem = self.nixosConfigurations."nixos";
+        specialArgs.targetSystem = self.nixosConfigurations."isonix";
         modules = [
           ./storage/iso-live.nix
         ];

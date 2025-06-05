@@ -4,6 +4,8 @@
 - nixos env config files
 - nixos home-manager files
 
+# see flake.nix for individual hosts / server 
+
 # Manage Nixos via make (requires pkgs.gnumake)
 ## => manage and update current boot profiles <=
 - make switch                       # switches to a new boot profile for current host/profile

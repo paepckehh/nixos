@@ -29,11 +29,14 @@
       certinfo-go
       curlie
       cryptsetup
+      doggo
       dmidecode
+      file
       gh
       gnumake
       golangci-lint
       go-tools
+      grafana-reporter
       httpie
       hyperfine
       murex

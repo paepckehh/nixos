@@ -5,13 +5,16 @@ apk add luci-ssl
 apk add luci-mod-dashboard
 apk add bind-dig
 apk add vim-fuller
+apk add fish
+apk add whereis
 apk add ca-root
 apk add curl
+apk add mtr 
 apk add openssh-server
 apk add dnscrypt-proxy2
 apk add dnsmasq-full
 apk add btoo coreutils-shuf coreutils-sleep
-apk add kmod-lib-zstd kmod-zram ram-swap-32
+apk add kmod-lib-zstd kmod-zram
 
 # prep android uplink
 apk add kmod-usb-net-rndis
@@ -65,9 +68,13 @@ apk add kmod-batman-adv luci-proto-batman-adv
 # home-assistant 
 apk add wifi-presence mosquitto-ssl luci-app-mosquitto
 
-# updates ui
+# update ui
 apk add luci-compat luci-lib-ipkg
 curl https://github.com/jerrykuku/luci-theme-argon/...
+
+# prep fish
+alias --save l="ls -la"
+alias --save e="vim"
 
 # airplay2 (via external usb dac)
 apk add usbutils kmod-usb-[xhci|ohci|3|2]
@@ -91,7 +98,7 @@ apk-mbedtls ath11k-firmware-ipq6018 base-files ca-bundle dropbear e2fsprogs fire
 apk-mbedtls ath11k-firmware-ipq5018 base-files ca-bundle dnsmasq dropbear e2fsprogs firewall4 fstools kmod-ath11k-ahb kmod-fs-ext4 kmod-gpio-button-hotplug kmod-leds-gpio kmod-nft-offload kmod-qca-nss-dp kmod-usb-dwc3 kmod-usb-dwc3-qcom kmod-usb3 libc libgcc libustream-mbedtls logd losetup mtd netifd nftables procd-ujail uboot-envtools uci uclient-fetch urandom-seed urngd wpad-basic-mbedtls ath11k-firmware-qcn6122 ipq-wifi-glinet_gl-b3000 dumpimage luci
 
 # add custom 
-btop luci-ssl luci-mod-dashboard vim-fuller curl openssh-server dnsmasq-full dnscrypt-proxy2 banip luci-app-banip bind-dig kmod-wireguard luci-proto-wireguard wireguard-tools adblock luci-app-adblock kmod-usb-net-rndis kmod-lib-zstd kmod-zram zram-swap-32 btop coreutils-shuf coreutils-sleep kmod-usb-net-huawei-cdc-ncm luci-proto-ncm usb-modeswitch
+btop luci-ssl luci-mod-dashboard vim-fuller fish whereis mtr curl openssh-server dnsmasq-full dnscrypt-proxy2 banip luci-app-banip bind-dig kmod-wireguard luci-proto-wireguard wireguard-tools adblock luci-app-adblock kmod-usb-net-rndis kmod-lib-zstd kmod-zram btop coreutils-shuf coreutils-sleep kmod-usb-net-huawei-cdc-ncm luci-proto-ncm usb-modeswitch
 
 # add prometheus
 prometheus-node-exporter-lua prometheus-node-exporter-lua-hostapd_stations prometheus-node-exporter-lua-hwmon prometheus-node-exporter-lua-nat_traffic prometheus-node-exporter-lua-netstat prometheus-node-exporter-lua-openwrt prometheus-node-exporter-lua-thermal prometheus-node-exporter-lua-uci_dhcp_host prometheus-node-exporter-lua-wifi prometheus-node-exporter-lua-wifi_stations

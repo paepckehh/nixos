@@ -18,6 +18,10 @@
         "name": "read.lan (localhost, http)"
       },
       {
+        "url": "http://127.0.0.1:20211",
+        "name": "netalertx.lan (localhost, http)"
+      },
+      {
         "url": "http://moode.lan:80",
         "name": "moode.lan"
       },
@@ -60,6 +64,10 @@
       {
         "url": "http://atuin.lan:8888",
         "name": "atuin.lan"
+      },
+      {
+        "url": "https://localhost:5601",
+        "name": "local: wazuh"
       }
     ]
   },
@@ -134,6 +142,22 @@
           {
             "url": "https://www.cloudflare.com/ssl/encrypted-sni/",
             "name": "cloudflare.com/ssl/encrypted-sni [encrypted sni, dnssec,...]"
+          },
+          {
+            "url": "https://browserleaks.com/ip/",
+            "name": "browserleaks.com/ip [ip, asn, user-agent, http-header, fingerpriny, JA3, JA4, ... ]"
+          },
+          {
+            "url": "https://browserleaks.com/js/",
+            "name": "browserleaks.com/js [js, javascript, engine, leaks, ...]"
+          },
+          {
+            "url": "https://browserleaks.com/tls",
+            "name": "browserleaks.com/tls [tls13, tls12, cipher, fingerprint, ...]"
+          },
+          {
+            "url": "https://www.amiunique.org/fingerprint",
+            "name": "amiunique.org/fingerprint [uniq browser hash test]"
           }
         ]
       },

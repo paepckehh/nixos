@@ -9,7 +9,7 @@
   home-manager.users.me.programs = {
     firefox = {
       enable = true;
-      package = pkgs.librewolf;
+      # package = pkgs.librewolf-beta;
       nativeMessagingHosts = [pkgs.keepassxc];
       profiles."0" = {
         id = 0;
@@ -47,6 +47,11 @@
           };
         };
         settings = {
+          # "general.useragent.override" = "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0";
+          # "general.useragent.override" = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:139.0) Gecko/20100101 Firefox/139.0";
+          "general.useragent.override" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0";
+          "general.useragent.compatMode.firefox" = true;
+          "general.useragent.locale" = "en-US";
           "browser.aboutConfig.showWarning" = false;
           "browser.bookmarks.showMobileBookmarks" = true;
           "browser.bookmarks.restore_default_bookmarks" = true;
@@ -97,7 +102,6 @@
           "dom.push.connection.enabled" = false;
           "dom.push.serverURL" = "";
           "dom.push.indicate_aesgcm_support.enabled" = true;
-          "general.useragent.locale" = "en-US";
           "geo.enabled" = false;
           "geo.provider.geoclue.always_high_accuracy" = false;
           "geo.provider.network.url" = ""; # https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%
@@ -169,7 +173,7 @@
         HardwareAcceleration = true;
         NetworkPrediction = false;
         NewTabPage = false;
-        NoDefaultBookmarks = true;
+        NoDefaultBookmarks = false;
         OfferToSaveLogins = false;
         OfferToSaveLoginsDefault = false;
         OverrideFirstRunPage = "";
@@ -212,6 +216,10 @@
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/readeck/latest.xpi";
             installation_mode = "force_installed";
           };
+          "floccus@floccus.org" = {
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/floccus/latest.xpi";
+            installation_mode = "force_installed";
+          };
           "keepassxc-browser@keepass.org" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
             installation_mode = "force_installed";
@@ -221,7 +229,7 @@
         PrivateBrowsingModeAvailability = 1;
         PromptForDownloadLocation = true;
         Proxy.Mode = "none";
-        RequestedLocales = "en-US,en,de";
+        RequestedLocales = "en-US";
         SanitizeOnShutdown = {
           Cache = true;
           Cookies = true;

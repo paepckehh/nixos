@@ -32,13 +32,13 @@
       );
     };
     kernelPackages = (
-      if (config.system.nixos.release == "24.11")
-      then pkgs.linuxPackages
-      else pkgs.linuxPackages_latest
+      if (config.system.nixos.release == "25.11")
+      then pkgs.linuxPackages_latest
+      else pkgs.linuxPackages
     );
     kernelParams = (
       if (config.nixpkgs.system == "x86_64-linux")
-      then ["amd_pstate=active" "copytoram" "page_alloc.shuffle=1" "ipv6.disable=1"]
+      then ["amd_pstate=active" "page_alloc.shuffle=1" "ipv6.disable=1"] # "copytoram"
       else ["page_alloc.shuffle=1" "ipv6.disable=1"]
     );
     kernelModules = (
@@ -87,7 +87,7 @@
       "net.ipv4.conf.default.rp_filter" = 1;
       "net.ipv4.icmp_echo_ignore_broadcasts" = 1;
       "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
-      "net.ipv4.tcp_fastopen" = 0;
+      "net.ipv4.tcp_fastopen" = 3;
       "net.ipv4.tcp_rfc1337" = 1;
       "net.ipv4.tcp_syncookies" = 1;
       "net.ipv6.conf.all.disable_ipv6" = 1;
@@ -96,6 +96,7 @@
       "net.ipv6.conf.all.accept_redirects" = 0;
       "net.ipv6.conf.default.disable_ipv6" = 1;
       "net.ipv6.conf.default.accept_redirects" = 0;
+      "vm.overcommit_memory" = 1;
     };
   };
 
@@ -271,27 +272,34 @@
           debug = false;
         };
       };
+      yubico = {
+        enable = true;
+        debug = false;
+        mode = "challenge-response";
+      };
       services = {
         login = {
           allowNullPassword = lib.mkForce false;
           failDelay = {
             enable = true;
-            delay = 5000000;
+            delay = 500000;
           };
           logFailures = true;
           u2fAuth = true;
           unixAuth = true;
+          yubicoAuth = true;
         };
         sudo = {
           allowNullPassword = lib.mkForce false;
           failDelay = {
             enable = true;
-            delay = 5000000;
+            delay = 500000;
           };
-          u2fAuth = true;
-          unixAuth = true;
           logFailures = true;
           requireWheel = true;
+          u2fAuth = true;
+          unixAuth = true;
+          yubicoAuth = true;
         };
       };
     };
@@ -352,7 +360,7 @@
       enable = true;
       logLevel = "INFO";
       wifi = {
-        backend = "wpa_supplicant";
+        backend = "wpa_supplicant"; # wpa_supplicant
         scanRandMacAddress = false;
         macAddress = "permanent"; # allow wifi mac filter
         powersave = false;
@@ -363,6 +371,7 @@
       enable = true;
       allowPing = true;
       checkReversePath = lib.mkDefault true;
+      trustedInterfaces = [];
     };
   };
 
@@ -490,5 +499,6 @@
         allow with-interface one-of { 03:00:01 03:01:01 } if !allowed-matches(with-interface one-of { 03:00:01 03:01:01 })
       '';
     };
+    udev.packages = [pkgs.yubikey-personalization];
   };
 }
