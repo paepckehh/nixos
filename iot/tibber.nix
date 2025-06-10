@@ -16,7 +16,7 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.etc."tibber.token".text = ''5K4MVS-OjfWhK_4yrjOlFe1F6kJXPVf7eQYggo8ebAE'';
+  # environment.etc."tibber.token".text = ''5K4MVS-OjfWhK_4yrjOlFe1F6kJXPVf7eQYggo8ebAE'';
 
   ##################
   #-=# SERVICES #=-#

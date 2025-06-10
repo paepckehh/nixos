@@ -8,6 +8,7 @@
 REPO?=https://github.com/paepckehh/nixos
 TARGET?=$(shell hostname)
 TARGETDRIVE?=sdb
+PARALLEL?=0
 DEVICE_MAIN:=$(TARGETDRIVE)
 USELUKS:=YES
 DISKOFLAKE:=disko/impermanence-luks.nix
@@ -17,6 +18,10 @@ ifeq ($(origin LUKS),undefined)
 endif
 OSFLAKE:=/etc/nixos/\#$(TARGET)
 WIPEDRIVE?=/dev/null
+PATH:=/run/current-system/sw/bin
+SUDO:=/run/wrappers/bin/sudo
+EXT4MOPT:=-o noatime,nodiratime,discard,commit=10,nobarrier,data=writeback,journal_async_commit
+EXT4FOPT:=-E packed_meta_blocks=1
 
 all:
 
@@ -24,64 +29,101 @@ all:
 # USBDRIVE TARGETS #
 ####################
 
-usb: info check wipe format pre-mount mount post-mount install migrate-me umount
+usb: info check wipe format pre-mount mount post-mount install migrate umount
 
 ####################
 # USBDRIVE GENERIC #
 ####################
 
 info: 
-	@echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGET), os-flake: $(OSFLAKE), luks: $(USELUKS), build repo: $(REPO), disko-flake: $(DISKOFLAKE)
+	@echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGET), os-flake: $(OSFLAKE), luks: $(USELUKS), build repo: $(REPO), disko-flake: $(DISKOFLAKE), jobs: $(PARALLEL)
 	@if [ $(USELUKS) = "YES" ]; then (echo "### LUKS MODE ENABLED, PLEASE ENSURE PROPER DISK/STORAGE LAYOUT IN TARGETOS FLAKE CONFIG!" && sleep 3) ; fi  
 
 check: 
 	@if [ ! -e /dev/$(TARGETDRIVE) ]; then (echo "TARGETDRIVE: /dev/$(TARGETDRIVE) does not exists, exit" ; exit 1); fi  
 
 install:
-	sudo nixos-install --verbose --keep-going --impure --no-root-password --root /mnt --flake $(OSFLAKE)
-	sudo git clone $(REPO) /mnt/etc/nixos
-	sudo mkdir -p /mnt/etc/ssh
-	sudo cp -af /etc/ssh/ssh_host_ed25519_key /mnt/etc/ssh/ssh_host_ed25519_key # preserve generic agenix keys
-
-migrate-me:
-	sudo mkdir -p /mnt/home/me/.local/share
-	sudo cp -af /home/me/.ssh /mnt/home/me/ # yubikey glue records only
-	sudo cp -af /home/me/.local/share/atuin /mnt/home/me/.local/share/
-	sudo chown -R me:me /mnt/home/me
+	$(SUDO) nixos-install --verbose --max-jobs $(PARALLEL) --cores $(PARALLEL) --keep-going --impure --no-root-password --root /mnt --flake $(OSFLAKE)
+	$(SUDO) git clone $(REPO) /mnt/nix/persist/etc/nixos
 
 pre-mount: 
-	sudo umount -f /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh  || true
-	sudo umount -f /mnt/boot /mnt/nix || true
-	sudo umount -f /mnt || true
-	sudo mkdir -p /mnt
-	sudo mount -t tmpfs tmpfs /mnt
-
-post-mount:
-	sudo mkdir -p /mnt/nix/persist/home /mnt/nix/persist/var/lib /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh
-	sudo mkdir -p /mnt/boot /mnt/nix /mnt/home/me /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh 
-	sudo mount -o bind /mnt/nix/persist/home /mnt/home
-	sudo mount -o bind /mnt/nix/persist/var/lib /mnt/var/lib
-	sudo mount -o bind /mnt/nix/persist/etc/nixos /mnt/etc/nixos
-	sudo mount -o bind /mnt/nix/persist/etc/ssh /mnt/etc/ssh
-
-umount:
-	sudo sync && sync && sync
-	sudo umount -f /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh  || true
-	sudo umount -f /mnt/boot /mnt/nix || true
-	sudo umount -f /mnt || true
-	sudo rm -rf /mnt /tmp/luks || true
-
-format:
-	echo ${LUKS} > /tmp/luks 
-	sudo nix run github:nix-community/disko/latest -- --mode format --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+	$(SUDO) umount -f /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/root/.ssh || true
+	$(SUDO) umount -f /mnt/boot /mnt/nix || true
+	$(SUDO) umount -f /mnt || true
+	$(SUDO) cryptsetup close mnt-nix || true
 
 mount:
-	sudo nix run github:nix-community/disko/latest -- --mode mount --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+	$(SUDO) mkdir -p /mnt
+	$(SUDO) mount -t tmpfs tmpfs /mnt
+	$(SUDO) mkdir -p /mnt/boot /mnt/nix
+	$(SUDO) mount /dev/$(TARGETDRIVE)1 /mnt/boot || exit 1
+	if [ $(USELUKS) = "NO" ]; then
+	   $(SUDO) mkfs.ext4 $(EXT4FOPT) /dev/$(TARGETDRIVE)3 || exit 1
+	   $(SUDO) mount $(EXT4MOPT) /dev/$(TARGETDRIVE)3 /mnt/nix 
+	fi
+	if [ $(USELUKS) = "YES" ]; then 
+	  $(SUDO) cryptsetup open /dev/$(TARGETDRIVE)3 mnt-nix < /tmp/luks || exit 1
+	  $(SUDO) rm -rf /tmp/luks
+	  $(SUDO) mkfs.ext4 $(EXT4FOPT) /dev/mapper/mnt-nix || exit 1
+	  $(SUDO) mount $(EXT4MOPT) /dev/mapper/mnt-nix /mnt/nix || exit 1
+	fi
+
+post-mount:
+	$(SUDO) mkdir -p /mnt/nix/persist/home /mnt/nix/persist/var/lib /mnt/nix/persist/etc/nixos /mnt/nix/persist/etc/ssh /mnt/nix/persist/root/.ssh
+	$(SUDO) mkdir -p /mnt/home/me /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/root/.ssh 
+	$(SUDO) mount -o bind /mnt/nix/persist/home /mnt/home
+	$(SUDO) mount -o bind /mnt/nix/persist/var/lib /mnt/var/lib
+	$(SUDO) mount -o bind /mnt/nix/persist/etc/nixos /mnt/etc/nixos
+	$(SUDO) mount -o bind /mnt/nix/persist/etc/ssh /mnt/etc/ssh
+	$(SUDO) mount -o bind /mnt/nix/persist/root/.ssh /mnt/root/.ssh
+
+umount:
+	$(SUDO) sync && sync && sync
+	$(SUDO) umount -f /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/root/.ssh  || true
+	$(SUDO) umount -f /mnt/boot /mnt/nix || true
+	$(SUDO) umount -f /mnt || true
+	$(SUDO) rm -rf /mnt /tmp/luks || true
+	$(SUDO) cryptsetup close mnt-nix || true
+
+format:
+	echo ${LUKS} > /tmp/luks
+	$(SUDO) nix run github:nix-community/disko/latest -- --mode format --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
 
 wipe:
-	sudo nix run github:nix-community/disko/latest -- --mode destroy --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+	$(SUDO) nix run github:nix-community/disko/latest -- --mode destroy --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
 	ZERODRIVE=$(TARGETDRIVE) $(MAKE) trim 
 
+###################
+# MIGRATE SECRETS #
+###################
+
+migrate: migrate-etcssh migrate-root migrate-me 
+
+migrate-etcssh:
+	$(SUDO) mkdir -p /mnt/nix/persist/etc/ssh
+	$(SUDO) cp -af /etc/ssh/ssh_host_ed25519* /mnt/nix/persist/etc/ssh/ 
+	$(SUDO) chmod 700 /mnt/nix/persist/etc/ssh/ssh_host_ed25519_key
+	$(SUDO) chmod 644 /mnt/nix/persist/etc/ssh/ssh_host_ed25519_key.pub
+	$(SUDO) chown -R 0:0 /mnt/nix/persist/etc/ssh
+
+migrate-root:
+	$(SUDO) cp -rf /root/.ssh /mnt/nix/persist/root/ 
+	$(SUDO) chmod 700 /mnt/nix/persist/root/.ssh
+	$(SUDO) chmod 600 /mnt/nix/persist/root/.ssh/id_ed25519
+	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/id_ed25519.pub
+	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/known_hosts
+	$(SUDO) chown -R 0:0 /mnt/nix/persist/root
+
+migrate-me:
+	$(SUDO) mkdir -p /mnt/nix/persist/home/me/.local/share
+	$(SUDO) cp -rf /home/me/.ssh /mnt/nix/persist/home/me/ 
+	$(SUDO) cp -rf /home/me/.local/share/atuin /mnt/nix/persist/home/me/.local/share/
+	$(SUDO) chmod 700 /mnt/nix/persist/home/me/.ssh
+	$(SUDO) chmod 600 /mnt/nix/persist/home/me/.ssh/pwd.kdbx
+	$(SUDO) chmod 600 /mnt/nix/persist/home/me/.ssh/id_ed25519
+	$(SUDO) chmod 644 /mnt/nix/persist/home/me/.ssh/id_ed25519.pub
+	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/known_hosts
+	$(SUDO) chown -R me:me /mnt/nix/persist/home/me
 
 #################
 # LITTLE HELPER #
@@ -94,8 +136,8 @@ sdb-zero:
 sdc-zero: 
 	ZERODRIVE=sdc $(MAKE) zero trim 
 trim:
-	sudo blkdiscard -f /dev/$(ZERODRIVE) > /dev/null || true
-	sudo nvme format /dev/$(ZERODRIVE) --force > /dev/null || true
+	$(SUDO) blkdiscard -f /dev/$(ZERODRIVE) > /dev/null || true
+	$(SUDO) nvme format /dev/$(ZERODRIVE) --force > /dev/null || true
 zero: 
-	sudo dd if=/dev/zero of=/dev/$(ZERODRIVE) oflag=direct bs=512k status=progress
-	sudo dd if=/dev/zero of=/dev/$(ZERODRIVE) oflag=direct bs=512k status=progress
+	$(SUDO) dd if=/dev/zero of=/dev/$(ZERODRIVE) oflag=direct bs=512k status=progress
+	$(SUDO) dd if=/dev/zero of=/dev/$(ZERODRIVE) oflag=direct bs=512k status=progress

@@ -12,6 +12,11 @@
     usbtop.enable = true;
   };
 
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+  services.sysprof.enable = true;
+
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
@@ -20,16 +25,18 @@
       NIX_PACKAGE_SEARCH_EXPERIMENTAL = "true";
     };
     systemPackages = with pkgs; [
-      amdgpu_top
       aria2
       certinfo-go
       curlie
       cryptsetup
+      doggo
       dmidecode
+      file
       gh
       gnumake
       golangci-lint
       go-tools
+      grafana-reporter
       httpie
       hyperfine
       murex
@@ -54,6 +61,7 @@
       usbutils
       vale
       yamlfmt
+      # amdgpu_top
       # nvme-rs
       # ventoy-full
     ];

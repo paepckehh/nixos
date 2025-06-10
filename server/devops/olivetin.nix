@@ -53,18 +53,28 @@
             title = "Poweroff Local System";
             shell = "poweroff";
             icon = "&#128064;";
+            arguments = {
+              title = "Are you sure?! To Restart you will need local assistance!";
+              type = "confirmation";
+            };
             acls = ["admins"];
           }
           {
-            title = "Update Local System [switch]";
+            title = "Update Local System";
             shell = "/run/current-system/sw/bin/make -C /etc/nixos update switch";
             icon = "&#x2699;";
+            timeout = 720;
+            popupOnStart = "execution-dialog";
+            maxConcurrent = 1;
             acls = ["admins"];
           }
           {
-            title = "Update Local System [reboot]";
+            title = "Update Local System and Reboot";
             shell = "/run/current-system/sw/bin/make -C /etc/nixos update boot && reboot";
             icon = "&#x2699;";
+            timeout = 720;
+            popupOnStart = "execution-dialog";
+            maxConcurrent = 1;
             acls = ["admins"];
           }
           {

@@ -113,11 +113,15 @@
     };
     systemPackages = with pkgs; [
       alejandra
+      bashmount
       bmon
       bc
       cliqr
       cryptsetup
+      delta
+      disko
       dnsutils
+      duf
       dust
       fastfetch
       fd
@@ -145,13 +149,11 @@
       progress
       pwgen
       pv
-      rage
       smartmontools
       tldr
       tree
       tz
       unzip
-      wireguard-tools
       yq
       yubikey-manager
       zip

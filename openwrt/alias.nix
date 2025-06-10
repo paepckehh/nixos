@@ -24,12 +24,6 @@
       "dap.config" = "cd /etc/nixos/openwrt && make dap-config";
       "rpi2.config" = "cd /etc/nixos/openwrt && make rpi2-config";
       "b3000.config" = "cd /etc/nixos/openwrt && make b3000-config";
-      # moode
-      "moode" = "ssh -p 6623 me@moode.lan";
-      "moode.btop" = "ssh -t -p 6623 me@moode.lan 'btop --utf-force'";
-      "moode.ro" = "ssh -p 6623 me@moode.lan 'sh /home/me/ro.sh && sudo reboot'";
-      "moode.rw" = "ssh -p 6623 me@moode.lan 'sh /home/me/rw.sh && sudo reboot'";
-      "moode.reboot" = "ssh -p 6623 me@moode.lan 'sudo reboot'";
     };
   };
 }

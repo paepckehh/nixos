@@ -14,8 +14,20 @@
         "name": "read.lan (https)"
       },
       {
+        "url": "http://pki.lan",
+        "name": "pki.lan (https)"
+      },
+      {
+        "url": "http://pki.lan/roots.pem",
+        "name": "pki.lan - rootCA PEM Bundle"
+      },
+      {
         "url": "http://127.0.0.1:8686",
         "name": "read.lan (localhost, http)"
+      },
+      {
+        "url": "http://127.0.0.1:20211",
+        "name": "netalertx.lan (localhost, http)"
       },
       {
         "url": "http://moode.lan:80",
@@ -60,6 +72,10 @@
       {
         "url": "http://atuin.lan:8888",
         "name": "atuin.lan"
+      },
+      {
+        "url": "https://localhost:5601",
+        "name": "local: wazuh"
       }
     ]
   },
@@ -125,28 +141,59 @@
     "name": "awesome online toolbox",
     "children": [
       {
-        "url": "https://html5test.co/",
-        "name": "browser: analyse: supported web sw/hw features, video, audio, conference"
+        "name": "browser analysis",
+        "children": [
+          {
+            "url": "https://html5test.co/",
+            "name": "html5test.co [sw/hw features, video, audio, conference,...]"
+          },
+          {
+            "url": "https://www.cloudflare.com/ssl/encrypted-sni/",
+            "name": "cloudflare.com/ssl/encrypted-sni [encrypted sni, dnssec,...]"
+          },
+          {
+            "url": "https://browserleaks.com/ip/",
+            "name": "browserleaks.com/ip [ip, asn, user-agent, http-header, fingerpriny, JA3, JA4, ... ]"
+          },
+          {
+            "url": "https://browserleaks.com/js/",
+            "name": "browserleaks.com/js [js, javascript, engine, leaks, ...]"
+          },
+          {
+            "url": "https://browserleaks.com/tls",
+            "name": "browserleaks.com/tls [tls13, tls12, cipher, fingerprint, ...]"
+          },
+          {
+            "url": "https://www.amiunique.org/fingerprint",
+            "name": "amiunique.org/fingerprint [uniq browser hash test]"
+          }
+        ]
       },
       {
-        "url": "https://www.cloudflare.com/ssl/encrypted-sni/",
-        "name": "browser: analyse: check for encrypted sni (requires dns support)"
+        "name": "dns, email",
+        "children": [
+          {
+            "url": "https://dnschecker.org/",
+            "name": "dnschecker.org [replication, keys, latency, cache]"
+          },
+          {
+            "url": "https://mxtoolbox.org/",
+            "name": "mxtoolbox.com [dns, mx, blacklists, dmarc, spf, header]"
+          }
+        ]
       },
       {
-        "url": "https://dnschecker.org/",
-        "name": "dns: dnschecker.org [replication, keys, latency, cache]"
-      },
-      {
-        "url": "https://mxtoolbox.org/",
-        "name": "dns, email: mxtoolbox.com [dns, mx, blacklists, dmarc, spf]"
-      },
-      {
-        "url": "https://speed.cloudflare.com/",
-        "name": "speedtest: speed.cloudflare.com [latency, packetloss, details]"
-      },
-      {
-        "url": "https://fast.com/",
-        "name": "speedtest: fast.com [bigscreen, demo[]"
+        "name": "connectivity",
+        "children": [
+          {
+            "url": "https://speed.cloudflare.com/",
+            "name": "speed.cloudflare.com [latency, packetloss, details]"
+          },
+          {
+            "url": "https://fast.com/",
+            "name": "fast.com [bigscreen, demo]"
+          }
+        ]
       }
     ]
   },

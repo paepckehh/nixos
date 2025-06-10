@@ -11,11 +11,12 @@
       gping
       netscanner
       stress
-      sniffnet
       tcping-go
       termshark
       trippy
       tshark
+      wireguard-tools
+      # sniffnet
     ];
   };
   ##################

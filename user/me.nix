@@ -16,17 +16,17 @@
       me = {
         initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
         description = "me";
-        uid = 1000;
+        uid = 60100;
         group = "me";
         createHome = true;
         isNormalUser = true;
         shell = pkgs.fish;
-        extraGroups = ["wheel" "mongodb" "backup" "networkmanager" "audio" "input" "video" "docker" "libvirtd" "qemu-libvirtd" "rsync"];
+        extraGroups = ["users" "wheel" "mongodb" "backup" "networkmanager" "audio" "input" "video" "docker" "libvirtd" "qemu-libvirtd" "rsync"];
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
     };
     groups.me = {
-      gid = 1000;
+      gid = 60100;
       members = ["me"];
     };
   };
@@ -81,7 +81,6 @@
           home-manager.enable = true;
           git.enable = true;
           go.enable = true;
-          thefuck.enable = true;
           starship.enable = true;
           ripgrep.enable = true;
           skim.enable = true;
@@ -101,7 +100,7 @@
               sync.records = true;
               style = "full";
               secrets_filter = true;
-              history_filter = ["LUKS"];
+              history_filter = ["LUKS" "genkey" "keygen" "private"];
             };
           };
           bat = {
@@ -128,6 +127,7 @@
             enableZshIntegration = false;
           };
           git = {
+            delta.enable = true;
             userName = "me";
             userEmail = "me@intra.lan";
             signing = {
@@ -146,6 +146,12 @@
                 https.allow = "always";
               };
             };
+          };
+          pay-respects = {
+            enable = true;
+            enableBashIntegration = false;
+            enableFishIntegration = true;
+            enableZshIntegration = true;
           };
           ssh = {
             enable = true;

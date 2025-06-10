@@ -1,0 +1,18 @@
+sudo apt install rtl-sdr welle.io
+sudo vim /etc/systemd/system/rtl_dab.service
+''
+[Unit]
+Description=welle.io server, turns local broadcast DAB stations into online radio
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/welle-cli -T -w 7979
+
+[Install]
+WantedBy=default.target
+''
+sudo systemctl daemon-reload
+sudo systemctl enable rtl_dab.service
+sudo systemctl start rtl_dab.service
+
