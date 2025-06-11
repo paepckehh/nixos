@@ -58,7 +58,7 @@ in {
     shellAliases = {};
     variables = {
       STEPPATH = "/var/lib/step-ca";
-      CA_FINGERPRINT = "45139eac168debba0ec6987968733add2452c13b5beb0ea477c859228b7d06f1";
+      CA_FINGERPRINT = "b1671ec40f0ec0eb1db5720179f23890e6408bb1f6b5029fe2062eea3641ebff";
     };
   };
 

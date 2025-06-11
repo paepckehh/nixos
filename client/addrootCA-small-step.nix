@@ -1,4 +1,4 @@
-{config, ...}: {
+{
   ##################
   #-=# SECURITY #=-#
   ##################
@@ -6,18 +6,18 @@
     pki = {
       certificates = [
         ''
-          pki.lan 2025-06-08
+          pki.lan 2025-06-11
           =========
           -----BEGIN CERTIFICATE-----
-          MIIBjDCCATGgAwIBAgIQNj7mKyVrh4rLuGw5lLN0+jAKBggqhkjOPQQDAjAkMQww
-          CgYDVQQKEwNwa2kxFDASBgNVBAMTC3BraSBSb290IENBMB4XDTI1MDYwODA5NDcw
-          MFoXDTM1MDYwNjA5NDcwMFowJDEMMAoGA1UEChMDcGtpMRQwEgYDVQQDEwtwa2kg
-          Um9vdCBDQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABD92N08xb93+ZrDmNeOd
-          2I+liCIyZ+nkKSwEPFRsekePbNdMdkhMvSTA5OCFrcS7fd4j8XvoD9zTQ2yU6bux
-          AemjRTBDMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEBMB0GA1Ud
-          DgQWBBQy9W7Gjy4/8gIYC5Eo/kstbeyYpDAKBggqhkjOPQQDAgNJADBGAiEAmlIW
-          ICKWaXYlNaedHf5pxD7c8nApPHVZdyzrSHOU0oACIQDQ5AHlIa0je8XE1eUmo2ST
-          pJoQJ7cIFTey4XKTT0+IBA==
+          MIIBnDCCAUKgAwIBAgIRAMJGaTzjSgIP8Ov8As+DqwgwCgYIKoZIzj0EAwIwLDEQ
+          MA4GA1UEChMHSG9tZUxhYjEYMBYGA1UEAxMPSG9tZUxhYiBSb290IENBMB4XDTI1
+          MDYxMTA3MjcxM1oXDTM1MDYwOTA3MjcxM1owLDEQMA4GA1UEChMHSG9tZUxhYjEY
+          MBYGA1UEAxMPSG9tZUxhYiBSb290IENBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcD
+          QgAEFCBnzt2cXZT6viv0n8ogDlAEDUWaMlQRgUMFr8bpynymAGoSvyNaFaMoiZ5k
+          CX3HG6CtKFEjHT2dlx+zc+8MgqNFMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB
+          /wQIMAYBAf8CAQEwHQYDVR0OBBYEFA9PXQ/2QftBUo/FEjlnvUsBGSonMAoGCCqG
+          SM49BAMCA0gAMEUCIQCz0tT2LC6KeipyWxovfBwJxoZ9YOg84hw47bFhMZmsDgIg
+          M6HVneM2BZMED3tnhdaULweWYb2fRPOUS68EtIn11+0=
           -----END CERTIFICATE-----
         ''
       ];
