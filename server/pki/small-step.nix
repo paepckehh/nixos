@@ -57,6 +57,7 @@ in {
     systemPackages = with pkgs; [step-kms-plugin step-cli];
     shellAliases = {};
     variables = {
+      STEPPATH = "/var/lib/step-ca";
       CA_FINGERPRINT = "45139eac168debba0ec6987968733add2452c13b5beb0ea477c859228b7d06f1";
     };
   };
@@ -109,11 +110,16 @@ in {
       port = infra.lan.services.pki.ports.tcp;
       intermediatePasswordFile = config.age.secrets.pki-pwd.path;
       settings = {
-        federatedRoots = null;
-        root = "/var/lib/step-ca/certs/root_ca.crt";
+        # settings below are generated via cmd, any parameter change needs a re-regnerate and import here
+        # step ca init --name="HomeLab" --dns="pki,pki.lan,192.168.80.204" --address="192.168.80.204:443" --provisioner="me@paepcke.de" --deployment-type standalone --remote-management
+        commonName = "HomeLab";
         crt = "/var/lib/step-ca/certs/intermediate_ca.crt";
-        key = "/var/lib/step-ca/secrets/intermediate_ca_key";
+        backdate = "1m0s";
         dnsNames = ["${infra.lan.services.pki.hostname}.${infra.lan.domain}" "${infra.lan.services.pki.hostname}" "${infra.lan.services.pki.ip}"];
+        federatedRoots = null;
+        key = "/var/lib/step-ca/secrets/intermediate_ca_key";
+        root = "/var/lib/step-ca/certs/root_ca.crt";
+        template = {};
         logger.format = "text";
         db = {
           type = "badgerv2";
@@ -127,6 +133,7 @@ in {
           renegotiation = false;
         };
         authority = {
+          enableAdmin = true;
           provisioners = [
             {
               name = "me@paepcke.de";
@@ -141,6 +148,20 @@ in {
                 y = "qdvoGNkiSd22uBf2KDWy60VS85XjTDNeJCO1pcpYwmI";
               };
               encryptedKey = "eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJjdHkiOiJqd2sranNvbiIsImVuYyI6IkEyNTZHQ00iLCJwMmMiOjYwMDAwMCwicDJzIjoiTFdsQV9DR2lyZFlsczJuaFJCNDRxQSJ9.WaeLOtH9uuCRdgKDdBNZbOwB0pq0qXfDVW2mYOngvy5VFqT81hqU_w.lJNmnCx7XoHGKCNO.nJTWkGWvGMxtqHx_MWfO0Ta6_ZUAExb4vT6790-qBagBSn2WeNB2gXthXfUJ7Rpur0La3r-v7_NIKQuPN6bGfjIQUhnHX7XkEZcWRFg2dcizWr0MDBmwDH33l7ZoIY2Vjf9k5S5hUW3ZmOz9uzU5YGNqvxhWPV42y_hdQnRczmkCD_EwUtysuERMYGagosXuLOfZ6Dfr20kje_277fpUjFe6EYrCQrc4QonZKVKxzmrNJBxt7pEAUGEN5e8nxqNknV8FE3CGjcEmKlhqukphmT9PPuPhl2FtNwL63QNibDs6jm6ktpdl7YNs3ek3LwMoTElq_ERr3WyGN38h9AE.sNGfQBQ4hf3oNfpp0j0BNA";
+            }
+            {
+              name = "acme";
+              type = "ACME";
+              claims = {
+                allowRenewalAfterExpiry = false;
+                disableSmallstepExtensions = false;
+                enableSSHCA = true;
+                disableRenewal = false;
+                options = {
+                  x509 = {};
+                  ssh = {};
+                };
+              };
             }
           ];
         };
