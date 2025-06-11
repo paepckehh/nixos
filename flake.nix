@@ -141,6 +141,7 @@
           ./server/monitoring/grafana.nix
           ./server/monitoring/prometheus.nix
           ./server/pki/small-step.nix
+          ./virtual/distrobox.nix
           # ./server/devops/atuin.nix
           # ./server/devops/olivetin.nix
           # ./server/bookmarks/webdav.nix
