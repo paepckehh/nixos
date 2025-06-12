@@ -1,4 +1,4 @@
-{pkgs}: let
+{...}: let
   infra = {
     lan = {
       domain = "lan";
@@ -36,7 +36,7 @@ in {
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [];
+    # systemPackages = with pkgs; [];
     shellAliases = {};
     variables = {};
   };

@@ -51,7 +51,7 @@ in {
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [];
+    # systemPackages = with pkgs; [];
     shellAliases = {};
     variables = {};
   };
