@@ -138,6 +138,7 @@
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
           ./server/monitoring/collect-syslog-ng.nix
+          ./server/pki/small-step.nix
           ./server/share/opencloud.nix
           ./server/share/wastebin.nix
           ./virtual/distrobox.nix
