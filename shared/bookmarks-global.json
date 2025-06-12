@@ -14,6 +14,22 @@
         "name": "read.lan (https)"
       },
       {
+        "url": "http://wastebin.lan",
+        "name": "wastebin.lan (http)"
+      },
+      {
+        "url": "https://wastebin.lan",
+        "name": "wastebin.lan (https)"
+      },
+      {
+        "url": "http://opencloud.lan",
+        "name": "wastebin.lan (http)"
+      },
+      {
+        "url": "https://opencloud.lan",
+        "name": "wastebin.lan (https)"
+      },
+      {
         "url": "http://pki.lan",
         "name": "pki.lan (https)"
       },
