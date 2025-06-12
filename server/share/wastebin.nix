@@ -52,7 +52,7 @@ in {
         WASTEBIN_MAX_BODY_SIZE = 1024;
         WASTEBIN_HTTP_TIMEOUT = 5;
         WASTEBIN_BASEURL = "http://${infra.lan.services.wastebin.hostname}.${infra.lan.domain}";
-        WASTEBIN_ADDRESS_PORT = "${infra.lan.services.wastebin.ip}:${infra.lan.services.wastebin.ports.tcp}";
+        WASTEBIN_ADDRESS_PORT = "${infra.lan.services.wastebin.ip}:${toString infra.lan.services.wastebin.ports.tcp}";
         WASTEBIN_THEME = "coldark";
         RUST_LOG = "debug";
       };
