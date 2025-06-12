@@ -5,6 +5,7 @@
 # DEFAULTS
 ID:=$(shell id -u)
 GID:=$(shell id -g)
+NAME:=$(shell id -nu)
 ISO?=iso
 PARALLEL?=0
 TARGET?=$(shell /run/current-system/sw/bin/hostname)
@@ -238,11 +239,13 @@ umount:
 
 wipe-home:
 	$(SUDO) -v || exit 1
+	$(SUDO) chown -R $(ID):$(GID) /home/$(NAME)
 	cd || exit 1
 	mv .local/share/atuin .
+	mv .local/share/containers .
 	rm -rf .cache .local .mozilla .librewolf
 	mkdir -p .cache .local/share .mozilla .librewolf 
 	( cd .mozilla && ln -fs ../.librewolf firefox )
-	mv atuin .local/share/
+	mv atuin containers .local/share/
 	$(SUDO) systemctl stop home-manager-me.service
 	$(SUDO) systemctl start home-manager-me.service
