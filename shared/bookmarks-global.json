@@ -14,11 +14,11 @@
         "name": "read.lan (https)"
       },
       {
-        "url": "http://wastebin.lan",
+        "url": "http://wastebin.lan:8080",
         "name": "wastebin.lan (http)"
       },
       {
-        "url": "https://wastebin.lan",
+        "url": "https://wastebin.lan:8080",
         "name": "wastebin.lan (https)"
       },
       {
