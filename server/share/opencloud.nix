@@ -54,7 +54,7 @@ in {
       address = "${infra.lan.services.opencloud.ip}";
       port = infra.lan.services.opencloud.ports.tcp;
       environment = {
-        OC_INSECURE = true;
+        OC_INSECURE = "true";
         OC_LOG_LEVEL = "info";
       };
     };
