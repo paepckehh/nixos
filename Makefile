@@ -243,7 +243,7 @@ wipe-home:
 	cd || exit 1
 	mv .local/share/atuin .
 	mv .local/share/containers .
-	rm -rf .cache .local .mozilla .librewolf
+	rm -rf .cache .config .local .mozilla .librewolf .bash* .profile .sudo* .vim* .step .pki
 	mkdir -p .cache .local/share .mozilla .librewolf 
 	( cd .mozilla && ln -fs ../.librewolf firefox )
 	mv atuin containers .local/share/
