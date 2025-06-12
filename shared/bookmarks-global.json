@@ -23,11 +23,11 @@
       },
       {
         "url": "http://opencloud.lan",
-        "name": "wastebin.lan (http)"
+        "name": "opencloud.lan (http)"
       },
       {
         "url": "https://opencloud.lan",
-        "name": "wastebin.lan (https)"
+        "name": "opencloud.lan (https)"
       },
       {
         "url": "http://pki.lan",
