@@ -9,7 +9,7 @@
       network = "192.168.80.0/24";
       namespace = "10-${infra.lan.domain}";
       services = {
-        pki = {
+        opencloud = {
           ip = "192.168.80.206";
           hostname = "opencloud";
           ports.tcp = 443;
@@ -36,17 +36,6 @@ in {
   #################
   # imports = [];
 
-  #############
-  #-=# AGE #=-#
-  #############
-  age.secrets = {
-    opencloud = {
-      file = ../../modules/resources/pki-pwd.age;
-      owner = "step";
-      group = "step";
-    };
-  };
-
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
@@ -62,7 +51,7 @@ in {
   services = {
     opencloud = {
       enable = true;
-      address = "${infra.lan.services.pki.ip}";
+      address = "${infra.lan.services.opencloud.ip}";
       port = infra.lan.services.opencloud.ports.tcp;
       environment = {
         OC_INSECURE = true;
