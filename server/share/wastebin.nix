@@ -8,7 +8,7 @@
         wastebin = {
           ip = "192.168.80.207";
           hostname = "wastebin";
-          ports.tcp = 443;
+          ports.tcp = 80;
         };
       };
     };
