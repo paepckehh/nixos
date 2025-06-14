@@ -54,8 +54,18 @@ in {
       address = "${infra.lan.services.opencloud.ip}";
       port = infra.lan.services.opencloud.ports.tcp;
       environment = {
-        OC_INSECURE = "true";
+        INSECURE = "true";
+        LOG_DRIVER = "local";
+        LOG_PRETTY = "true";
+        TRAEFIK_DASHBOARD = "false";
+        TRAEFIK_DOMAIN = "traefik.opencloud.lan";
+        TRAEFIK_BASIC_AUTH_USERS = "admin:$2y$05$KDHu3xq92SPaO3G8Ybkc7edd51pPLJcG1nWk3lmlrIdANQ/B6r5pq";
+        TRAEFIK_ACME_MAIL = "acme@pki.lan";
+        TRAEFIK_ACME_CASERVER = "https://pki.lan/acme/acme/directory";
         OC_LOG_LEVEL = "info";
+        OC_DOMAIN = "${infra.lan.services.opencloud.hostname}";
+        OC_CONFIG_DIR = "/var/lib/opencloud/config";
+        OC_DATA_DIR = "/var/lib/opencloud/data";
       };
     };
   };
