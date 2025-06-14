@@ -71,10 +71,10 @@ in {
           log {
             output file ${config.services.caddy.logDir}/access/proxy-read.log
           }
+        }
         status.${infra.lan.domain} {
           tls internal
           redir https://kuma.lan/info/status
-        }
           @not_intranet {
             not remote_ip ${infra.lan.network}
           }
