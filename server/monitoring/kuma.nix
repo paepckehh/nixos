@@ -31,14 +31,16 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks.${infra.lan.namespace}.addresses = [{Address = "${infra.lan.services.status.ip}/32";}];
+  systemd.network.networks.${infra.lan.namespace}.addresses = [{Address = "${infra.lan.services.kuma.ip}/32" ++ "${infra.lan.services.status.ip}/32";}];
 
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = "${infra.lan.services.status.ip} ${infra.lan.services.status.hostname} ${infra.lan.services.status.hostname}.${infra.lan.domain}";
-    firewall.allowedTCPPorts = [infra.lan.services.status.ports.tcp];
+    extraHosts =
+      "${infra.lan.services.kuma.ip} ${infra.lan.services.kuma.hostname} ${infra.lan.services.kuma.hostname}.${infra.lan.domain}\n"
+      ++ "${infra.lan.services.status.ip} ${infra.lan.services.status.hostname} ${infra.lan.services.status.hostname}.${infra.lan.domain}";
+    firewall.allowedTCPPorts = [infra.lan.services.status.ports.tcp infra.lan.services.kuma.ports.tcp];
   };
 
   ##################
