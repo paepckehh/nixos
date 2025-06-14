@@ -31,7 +31,7 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks.${infra.lan.namespace}.addresses = [{Address = "${infra.lan.services.kuma.ip}/32\n${infra.lan.services.status.ip}/32";}];
+  systemd.network.networks.${infra.lan.namespace}.addresses = [{Address = "${infra.lan.services.kuma.ip}/32 ${infra.lan.services.status.ip}/32";}];
 
   ####################
   #-=# NETWORKING #=-#
