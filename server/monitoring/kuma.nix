@@ -67,9 +67,9 @@ in {
         kuma.${infra.lan.domain} {
           bind ${infra.lan.services.kuma.ip}
           reverse_proxy ${infra.lan.services.kuma.localbind.ip}:${toString infra.lan.services.kuma.localbind.ports.tcp}
-          tls me@paepcke.de {
+          tls acme {
+                ca_root /etc/ca.crt
                 ca https://pki.lan/acme/acme/directory
-                ca_root /var/lib/step-ca/certs/root_ca.crt
           }
           @not_intranet {
             not remote_ip ${infra.lan.network}
@@ -82,9 +82,9 @@ in {
         status.${infra.lan.domain} {
           bind ${infra.lan.services.status.ip}
           redir https://kuma.lan/status/info
-          tls me@paepcke.de {
+          tls acme {
+                ca_root /etc/ca.crt
                 ca https://pki.lan/acme/acme/directory
-                ca_root /var/lib/step-ca/certs/root_ca.crt
           }
           @not_intranet {
             not remote_ip ${infra.lan.network}
