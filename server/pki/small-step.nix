@@ -152,14 +152,13 @@ in {
               name = "acme";
               type = "ACME";
               claims = {
-                allowRenewalAfterExpiry = false;
-                disableSmallstepExtensions = false;
-                enableSSHCA = true;
+                allowRenewalAfterExpiry = true;
+                defaultTLSCertDuration = "8766h0m0s";
+                disableSmallstepExtensions = true;
                 disableRenewal = false;
-                options = {
-                  x509 = {};
-                  ssh = {};
-                };
+                enableSSHCA = false;
+                minTLSCertDuration = "4834h0m0s";
+                maxTLSCertDuration = "43830h0m0s";
               };
             }
           ];
