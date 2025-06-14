@@ -66,6 +66,7 @@ in {
       configFile = pkgs.writeText "Caddyfile.Kuma" ''
         kuma.${infra.lan.domain} {
           acme_ca https://pki.lan/acme/acme/directory
+          bind ${infra.lan.services.kuma.ip}
           reverse_proxy ${infra.lan.services.kuma.localbind.ip}:${toString infra.lan.services.kuma.localbind.ports.tcp}
           @not_intranet {
             not remote_ip ${infra.lan.network}
@@ -77,6 +78,7 @@ in {
         }
         status.${infra.lan.domain} {
           acme_ca https://pki.lan/acme/acme/directory
+          bind ${infra.lan.services.status.ip}
           redir https://kuma.lan/status/info
           @not_intranet {
             not remote_ip ${infra.lan.network}

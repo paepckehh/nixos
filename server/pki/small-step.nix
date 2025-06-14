@@ -10,7 +10,6 @@
       namespace = "10-${infra.lan.domain}";
       services = {
         pki = {
-          # change needs root-ca rebuild/init
           ip = "192.168.80.204";
           hostname = "pki";
           ports.tcp = 443;
