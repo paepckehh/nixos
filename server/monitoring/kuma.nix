@@ -15,7 +15,7 @@
           hostname = "kuma";
           ports.tcp = 443;
           localbind = {
-            ip = "127.0.0.0.1";
+            ip = "127.0.0.1";
             ports.tcp = 9494;
           };
         };
