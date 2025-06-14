@@ -62,7 +62,7 @@ in {
       configFile = pkgs.writeText "Caddyfile.Kuma" ''
         kuma.${infra.lan.domain} {
           tls internal
-          reverse_proxy ${infra.lan.services.kuma.localbind.host}:${toString infra.lan.services.kuma.localbind.port.tcp}
+          reverse_proxy ${infra.lan.services.kuma.localbind.ip}:${toString infra.lan.services.kuma.localbind.ports.tcp}
           @not_intranet {
             not remote_ip ${infra.lan.network}
           }
@@ -73,7 +73,7 @@ in {
         }
         status.${infra.lan.domain} {
           tls internal
-          reverse_proxy ${infra.lan.services.status.localbind.host}:${toString infra.lan.services.kuma.localbind.port.tcp}/status/info
+          reverse_proxy ${infra.lan.services.status.localbind.ip}:${toString infra.lan.services.kuma.localbind.ports.tcp}/status/info
           @not_intranet {
             not remote_ip ${infra.lan.network}
           }
