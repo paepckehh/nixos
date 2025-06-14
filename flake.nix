@@ -139,7 +139,7 @@
           ./iot/moode/alias.nix
           ./server/monitoring/collect-syslog-ng.nix
           ./server/pki/small-step.nix
-          ./server/monitoring/uptime.nix
+          ./server/monitoring/kuma.nix
           ./server/share/opencloud.nix
           ./server/share/wastebin.nix
           ./virtual/distrobox.nix
