@@ -157,10 +157,9 @@ in {
           renegotiation = false;
         };
         authority = {
-          enableAdmin = true;
           provisioners = [
             {
-              name = "me@paepcke.de";
+              name = "pki@pki.lan";
               type = "JWK";
               key = {
                 use = "sig";
