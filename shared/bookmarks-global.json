@@ -70,11 +70,11 @@
         "name": "wastebin.lan (https)"
       },
       {
-        "url": "http://status.lan",
+        "url": "http://status.lan:8443",
         "name": "status.lan (http)"
       },
       {
-        "url": "https://status.lan",
+        "url": "https://status.lan:8443",
         "name": "status.lan (https)"
       },
       {

@@ -8,7 +8,7 @@
         status = {
           ip = "192.168.80.208";
           hostname = "status";
-          ports.tcp = 443;
+          ports.tcp = 8443;
         };
       };
     };
