@@ -74,7 +74,7 @@ in {
         }
         status.${infra.lan.domain} {
           tls internal
-          redir https://kuma.lan/info/status
+          redir https://kuma.lan/status/info
           @not_intranet {
             not remote_ip ${infra.lan.network}
           }
