@@ -62,7 +62,7 @@ in {
       configFile = pkgs.writeText "Caddyfile.Kuma" ''
         kuma.${infra.lan.domain} {
           tls internal
-          reverse_proxy ${config.services.kuma.localbind.host}:${toString config.services.kuma.localbind.port.tcp}
+          reverse_proxy ${infra.lan.services.kuma.localbind.host}:${toString infra.lan.services.kuma.localbind.port.tcp}
           @not_intranet {
             not remote_ip ${infra.lan.network}
           }
@@ -70,7 +70,19 @@ in {
           log {
             output file ${config.services.caddy.logDir}/access/proxy-read.log
           }
-        }'';
+        }
+        status.${infra.lan.domain} {
+          tls internal
+          reverse_proxy ${infra.lan.services.status.localbind.host}:${toString infra.lan.services.kuma.localbind.port.tcp}/status/info
+          @not_intranet {
+            not remote_ip ${infra.lan.network}
+          }
+          respond @not_intranet 403
+          log {
+            output file ${config.services.caddy.logDir}/access/proxy-read.log
+          }
+        }
+      '';
     };
   };
 }
