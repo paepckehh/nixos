@@ -19,11 +19,11 @@
             ports.tcp = 9494;
           };
         };
-      };
-      status = {
-        ip = "192.168.80.209";
-        hostname = "status";
-        ports.tcp = 443;
+        status = {
+          ip = "192.168.80.209";
+          hostname = "status";
+          ports.tcp = 443;
+        };
       };
     };
   };
