@@ -37,9 +37,7 @@ in {
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts =
-      "${infra.lan.services.kuma.ip} ${infra.lan.services.kuma.hostname} ${infra.lan.services.kuma.hostname}.${infra.lan.domain}\n"
-      ++ "${infra.lan.services.status.ip} ${infra.lan.services.status.hostname} ${infra.lan.services.status.hostname}.${infra.lan.domain}";
+    extraHosts = "${infra.lan.services.kuma.ip} ${infra.lan.services.kuma.hostname} ${infra.lan.services.kuma.hostname}.${infra.lan.domain}"
     firewall.allowedTCPPorts = [infra.lan.services.status.ports.tcp infra.lan.services.kuma.ports.tcp];
   };
 
