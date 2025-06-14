@@ -36,7 +36,7 @@ in {
       appriseSupport = false;
       settings = {
         UPTIME_KUMA_HOST = infra.lan.services.status.ip;
-        UPTIME_KUMA_PORT = infra.lan.services.status.ports.tcp;
+        UPTIME_KUMA_PORT = ${toString infra.lan.services.status.ports.tcp};
       };
     };
   };
