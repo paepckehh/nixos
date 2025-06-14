@@ -73,16 +73,7 @@ in {
           }
         }
         status.${infra.lan.domain} {
-          tls internal
-          rewrite * /status/info
-          reverse_proxy ${infra.lan.services.kuma.localbind.ip}:${toString infra.lan.services.kuma.localbind.ports.tcp}
-          @not_intranet {
-            not remote_ip ${infra.lan.network}
-          }
-          respond @not_intranet 403
-          log {
-            output file ${config.services.caddy.logDir}/access/proxy-read.log
-          }
+          redir https://kuma.lan/info/status
         }
       '';
     };
