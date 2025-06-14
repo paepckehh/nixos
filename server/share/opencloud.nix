@@ -64,8 +64,6 @@ in {
         TRAEFIK_ACME_CASERVER = "https://pki.lan/acme/acme/directory";
         OC_LOG_LEVEL = "info";
         OC_DOMAIN = "${infra.lan.services.opencloud.hostname}";
-        OC_CONFIG_DIR = "/var/lib/opencloud/config";
-        OC_DATA_DIR = "/var/lib/opencloud/data";
       };
     };
   };
