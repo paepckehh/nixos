@@ -10,42 +10,6 @@
         "name": "start.lan"
       },
       {
-        "url": "https://read.lan",
-        "name": "read.lan (https)"
-      },
-      {
-        "url": "http://wastebin.lan:8080",
-        "name": "wastebin.lan (http)"
-      },
-      {
-        "url": "https://wastebin.lan:8080",
-        "name": "wastebin.lan (https)"
-      },
-      {
-        "url": "http://opencloud.lan",
-        "name": "opencloud.lan (http)"
-      },
-      {
-        "url": "https://opencloud.lan",
-        "name": "opencloud.lan (https)"
-      },
-      {
-        "url": "http://pki.lan",
-        "name": "pki.lan (https)"
-      },
-      {
-        "url": "http://pki.lan/roots.pem",
-        "name": "pki.lan - rootCA PEM Bundle"
-      },
-      {
-        "url": "http://127.0.0.1:8686",
-        "name": "read.lan (localhost, http)"
-      },
-      {
-        "url": "http://127.0.0.1:20211",
-        "name": "netalertx.lan (localhost, http)"
-      },
-      {
         "url": "http://moode.lan:80",
         "name": "moode.lan"
       },
@@ -88,6 +52,50 @@
       {
         "url": "http://atuin.lan:8888",
         "name": "atuin.lan"
+      },
+      {
+        "url": "https://read.lan",
+        "name": "read.lan (https)"
+      },
+      {
+        "url": "http://127.0.0.1:8686",
+        "name": "read.lan (localhost, http)"
+      },
+      {
+        "url": "http://wastebin.lan:8080",
+        "name": "wastebin.lan (http)"
+      },
+      {
+        "url": "https://wastebin.lan:8080",
+        "name": "wastebin.lan (https)"
+      },
+      {
+        "url": "http://status.lan",
+        "name": "status.lan (http)"
+      },
+      {
+        "url": "https://status.lan",
+        "name": "status.lan (https)"
+      },
+      {
+        "url": "http://opencloud.lan",
+        "name": "opencloud.lan (http)"
+      },
+      {
+        "url": "https://opencloud.lan",
+        "name": "opencloud.lan (https)"
+      },
+      {
+        "url": "http://pki.lan",
+        "name": "pki.lan (https)"
+      },
+      {
+        "url": "http://pki.lan/roots.pem",
+        "name": "pki.lan - rootCA PEM Bundle"
+      },
+      {
+        "url": "http://127.0.0.1:20211",
+        "name": "netalertx.lan (localhost, http)"
       },
       {
         "url": "https://localhost:5601",
