@@ -64,8 +64,8 @@ in {
       logDir = lib.mkForce "/var/log/caddy";
       logFormat = lib.mkForce "level INFO";
       configFile = pkgs.writeText "Caddyfile.Kuma" ''
+        acme_ca https://pki.lan/acme/acme/directory
         kuma.${infra.lan.domain} {
-          acme_ca https://pki.lan/acme/acme/directory
           bind ${infra.lan.services.kuma.ip}
           reverse_proxy ${infra.lan.services.kuma.localbind.ip}:${toString infra.lan.services.kuma.localbind.ports.tcp}
           @not_intranet {
@@ -77,7 +77,6 @@ in {
           }
         }
         status.${infra.lan.domain} {
-          acme_ca https://pki.lan/acme/acme/directory
           bind ${infra.lan.services.status.ip}
           redir https://kuma.lan/status/info
           @not_intranet {
