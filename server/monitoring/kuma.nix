@@ -74,10 +74,8 @@ in {
         }
         status.${infra.lan.domain} {
           tls internal
-          api.example.com {
-         rewrite * /status/info
-                reverse_proxy ${infra.lan.services.kuma.localbind.ip}:${toString infra.lan.services.kuma.localbind.ports.tcp}
-          }
+          rewrite * /status/info
+          reverse_proxy ${infra.lan.services.kuma.localbind.ip}:${toString infra.lan.services.kuma.localbind.ports.tcp}
           @not_intranet {
             not remote_ip ${infra.lan.network}
           }
