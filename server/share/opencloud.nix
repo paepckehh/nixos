@@ -12,7 +12,7 @@
         opencloud = {
           ip = "192.168.80.206";
           hostname = "opencloud";
-          ports.tcp = 80;
+          ports.tcp = 443;
         };
       };
     };
