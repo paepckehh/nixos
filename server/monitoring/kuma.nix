@@ -69,7 +69,7 @@ in {
           reverse_proxy ${infra.lan.services.kuma.localbind.ip}:${toString infra.lan.services.kuma.localbind.ports.tcp}
           tls me@paepcke.de {
                 ca https://pki.lan/acme/acme/directory
-                ca_root https://pki.lan/roots.pem
+                ca_root http://pki.lan/roots.pem
           }
           @not_intranet {
             not remote_ip ${infra.lan.network}
@@ -84,7 +84,7 @@ in {
           redir https://kuma.lan/status/info
           tls me@paepcke.de {
                 ca https://pki.lan/acme/acme/directory
-                ca_root https://pki.lan/roots.pem
+                ca_root http://pki.lan/roots.pem
           }
           @not_intranet {
             not remote_ip ${infra.lan.network}
