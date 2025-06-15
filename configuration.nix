@@ -71,7 +71,7 @@
         configurationLimit = 4;
       };
     };
-    kernel.sysctl = {
+    kernel.sysctl = lib.mkDefault {
       "kernel.kptr_restrict" = 2;
       "kernel.ftrace_enabled" = 0;
       "net.core.rmem_max" = lib.mkForce 7500000;

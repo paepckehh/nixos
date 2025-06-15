@@ -11,8 +11,8 @@
       services = {
         opencloud = {
           ip = "192.168.80.206";
-          hostname = "opencloud";
-          ports.tcp = 8443;
+          hostname = "cloud";
+          ports.tcp = 443;
         };
       };
     };
@@ -29,20 +29,6 @@ in {
   networking = {
     extraHosts = "${infra.lan.services.opencloud.ip} ${infra.lan.services.opencloud.hostname} ${infra.lan.services.opencloud.hostname}.${infra.lan.domain}";
     firewall.allowedTCPPorts = [infra.lan.services.opencloud.ports.tcp];
-  };
-
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  # imports = [];
-
-  #####################
-  #-=# ENVIRONMENT #=-#
-  #####################
-  environment = {
-    # systemPackages = with pkgs; [];
-    shellAliases = {};
-    variables = {};
   };
 
   ##################
@@ -65,6 +51,29 @@ in {
         OC_INSECURE = "true";
         OC_LOG_LEVEL = "info";
         OC_DOMAIN = "${infra.lan.services.opencloud.hostname}";
+      };
+      settings = {
+        proxy = {
+          auto_provision_accounts = true;
+          oidc = {
+            rewrite_well_known = true;
+          };
+          role_assignment = {
+            driver = "oidc";
+            oidc_role_mapper = {
+              role_claim = "opencloud_roles";
+            };
+          };
+        };
+        web = {
+          web = {
+            config = {
+              oidc = {
+                scope = "openid profile email opencloud_roles";
+              };
+            };
+          };
+        };
       };
     };
   };

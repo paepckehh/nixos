@@ -57,31 +57,31 @@ in {
     shellAliases = {};
     variables = {
       STEPPATH = "/var/lib/step-ca";
-      CA_FINGERPRINT = "b1671ec40f0ec0eb1db5720179f23890e6408bb1f6b5029fe2062eea3641ebff";
+      CA_FINGERPRINT = "4491d25c90d38427597b154164de4952a9fa248143684f8b559448f9efd61e13";
     };
     etc."ca.crt".text = ''
       -----BEGIN CERTIFICATE-----
-      MIIBnDCCAUKgAwIBAgIRAMJGaTzjSgIP8Ov8As+DqwgwCgYIKoZIzj0EAwIwLDEQ
-      MA4GA1UEChMHSG9tZUxhYjEYMBYGA1UEAxMPSG9tZUxhYiBSb290IENBMB4XDTI1
-      MDYxMTA3MjcxM1oXDTM1MDYwOTA3MjcxM1owLDEQMA4GA1UEChMHSG9tZUxhYjEY
-      MBYGA1UEAxMPSG9tZUxhYiBSb290IENBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcD
-      QgAEFCBnzt2cXZT6viv0n8ogDlAEDUWaMlQRgUMFr8bpynymAGoSvyNaFaMoiZ5k
-      CX3HG6CtKFEjHT2dlx+zc+8MgqNFMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB
-      /wQIMAYBAf8CAQEwHQYDVR0OBBYEFA9PXQ/2QftBUo/FEjlnvUsBGSonMAoGCCqG
-      SM49BAMCA0gAMEUCIQCz0tT2LC6KeipyWxovfBwJxoZ9YOg84hw47bFhMZmsDgIg
-      M6HVneM2BZMED3tnhdaULweWYb2fRPOUS68EtIn11+0=
+      MIIBlDCCATqgAwIBAgIRAP/nRtFYTkwwhPMA68Kfx2gwCgYIKoZIzj0EAwIwKDEO
+      MAwGA1UEChMFbGFuQ0ExFjAUBgNVBAMTDWxhbkNBIFJvb3QgQ0EwHhcNMjUwNjE1
+      MDUxNTAwWhcNMzUwNjEzMDUxNTAwWjAoMQ4wDAYDVQQKEwVsYW5DQTEWMBQGA1UE
+      AxMNbGFuQ0EgUm9vdCBDQTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABOE65Y9t
+      m4J3qX3igSH67wehIUAxSCRkunooZ4xqkm49/rAzgNQFGxOnrMMxndeN1INaeY+7
+      WsR0QNUekckc4jmjRTBDMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/
+      AgEBMB0GA1UdDgQWBBTD95MPyexPUCxaG3De27ApOjuprjAKBggqhkjOPQQDAgNI
+      ADBFAiA5QC8zU6/VU/axGbSbxe7TdTuI0LgX2gMpSkH7HVZLBgIhAOQw/BgrOOZS
+      Wb1brPD68ypgeGU9NrA4SemVi+XsN+e5
       -----END CERTIFICATE-----
       -----BEGIN CERTIFICATE-----
-      MIIBwzCCAWqgAwIBAgIQQVZJGPTZ0Bo0uzJTq0OunzAKBggqhkjOPQQDAjAsMRAw
-      DgYDVQQKEwdIb21lTGFiMRgwFgYDVQQDEw9Ib21lTGFiIFJvb3QgQ0EwHhcNMjUw
-      NjExMDcyNzE0WhcNMzUwNjA5MDcyNzE0WjA0MRAwDgYDVQQKEwdIb21lTGFiMSAw
-      HgYDVQQDExdIb21lTGFiIEludGVybWVkaWF0ZSBDQTBZMBMGByqGSM49AgEGCCqG
-      SM49AwEHA0IABJ7ABXjjn06dvPbfNpILpmiInjzaSMpAUquabKGu9H2CPIOUel96
-      mWs4WPtavMdfn6he+zK48VME2s7D5GyhTIyjZjBkMA4GA1UdDwEB/wQEAwIBBjAS
-      BgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdDgQWBBRkt2TesCr6B5tn8Y/zgWh/G/8E
-      YzAfBgNVHSMEGDAWgBQPT10P9kH7QVKPxRI5Z71LARkqJzAKBggqhkjOPQQDAgNH
-      ADBEAiBgqTrphdO06kEoubRYDldbO0pYlgZbMhIrS4xiDEAPLgIgWEPKvxlGGJAu
-      KX1mt7XC8eFpNEHbC4FNHDqCJUzw6rw=
+      MIIBvTCCAWOgAwIBAgIRAJ47hVlrFzycM6gedFlQUbIwCgYIKoZIzj0EAwIwKDEO
+      MAwGA1UEChMFbGFuQ0ExFjAUBgNVBAMTDWxhbkNBIFJvb3QgQ0EwHhcNMjUwNjE1
+      MDUxNTAxWhcNMzUwNjEzMDUxNTAxWjAwMQ4wDAYDVQQKEwVsYW5DQTEeMBwGA1UE
+      AxMVbGFuQ0EgSW50ZXJtZWRpYXRlIENBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcD
+      QgAEEnMyS1oivljTdBPxbjAVDlJD4fY0pEBACdBTiuY2/VUeHPEwSMT2sG+CO3RN
+      9KOZ4ApH5l2T3/UHN8r5+ws+r6NmMGQwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB
+      /wQIMAYBAf8CAQAwHQYDVR0OBBYEFDSMIKNjoZjMu5HxCayoS1ua8No+MB8GA1Ud
+      IwQYMBaAFMP3kw/J7E9QLFobcN7bsCk6O6muMAoGCCqGSM49BAMCA0gAMEUCIQDO
+      WH+hD0Nc1es6mHkCi+I0asel9MfbcPpjRa7et+wNdAIgX4c84BmqicG0W1R61oYh
+      hYfBxMqBowvjt5rSB5yiJQ0=
       -----END CERTIFICATE-----
     '';
   };
@@ -101,25 +101,11 @@ in {
         isSystemUser = true;
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
-      step-acme = {
-        initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
-        description = "step ca acme provision account";
-        uid = 32101;
-        group = "step-acme";
-        createHome = false;
-        isNormalUser = false;
-        isSystemUser = true;
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
-      };
     };
     groups = {
       step = {
         gid = 32100;
         members = ["step"];
-      };
-      step-acme = {
-        gid = 32101;
-        members = ["step-acme"];
       };
     };
   };
@@ -135,14 +121,14 @@ in {
       intermediatePasswordFile = config.age.secrets.pki-pwd.path;
       settings = {
         # settings below are generated via cmd, any parameter change needs a re-regnerate and import here
-        # step ca init --name="HomeLab" --dns="pki,pki.lan,192.168.80.204" --address="192.168.80.204:443" --provisioner="me@paepcke.de" --deployment-type standalone --remote-management
-        commonName = "HomeLab";
+        # step ca init --name="lanCA" --dns="pki,pki.lan,192.168.80.204" --address="192.168.80.204:443" --provisioner="pki@pki.lan" --deployment-type standalone --remote-management
+        commonName = "lanCA";
         crt = "/var/lib/step-ca/certs/intermediate_ca.crt";
         backdate = "1m0s";
         dnsNames = ["${infra.lan.services.pki.hostname}.${infra.lan.domain}" "${infra.lan.services.pki.hostname}" "${infra.lan.services.pki.ip}"];
         federatedRoots = null;
         key = "/var/lib/step-ca/secrets/intermediate_ca_key";
-        root = "/var/lib/step-ca/certs/root_ca.crt";
+        root = "/var/lib//step-ca/certs/root_ca.crt";
         template = {};
         logger.format = "text";
         db = {

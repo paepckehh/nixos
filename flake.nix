@@ -104,6 +104,7 @@
           ./packages/devops-iot.nix
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
+          ./packages/secops.nix
           ./packages/firejail.nix
           ./packages/desktop/gnome.nix
           {networking.hostName = "client";}
@@ -133,21 +134,26 @@
           ./packages/devops-iot.nix
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
+          ./packages/secops.nix
           ./packages/firejail.nix
           ./packages/desktop/gnome.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
-          ./server/monitoring/collect-syslog-ng.nix
+          ./server/devops/olivetin.nix
+          ./server/dns/adguard.nix
+          ./server/soc/chef.nix
+          ./server/soc/proxy.nix
+          ./server/share/paperless.nix
+          ./server/share/nextcloud.nix
+          ./server/share/wastebin.nix
           ./server/pki/small-step.nix
+          ./server/monitoring/collect-syslog-ng.nix
           ./server/monitoring/kuma.nix
-          ./server/share/opencloud.nix
-          # ./server/share/opencloud.nix
-          # ./server/share/wastebin.nix
+          ./server/monitoring/speed.nix
           # ./virtual/distrobox.nix
           # ./server/monitoring/grafana.nix
           # ./server/monitoring/prometheus.nix
           # ./server/devops/atuin.nix
-          # ./server/devops/olivetin.nix
           # ./server/bookmarks/webdav.nix
           # ./server/bookmarks/readeck.nix
           # ./server/dns/unbound.nix
