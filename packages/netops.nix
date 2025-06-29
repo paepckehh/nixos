@@ -10,13 +10,14 @@
       dnstracer
       gping
       netscanner
+      nmap
       stress
       tcping-go
       termshark
       trippy
       tshark
       wireguard-tools
-      # sniffnet
+      zmap
     ];
   };
   ##################

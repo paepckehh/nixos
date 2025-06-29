@@ -104,6 +104,7 @@
           ./packages/devops-iot.nix
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
+          ./packages/secops.nix
           ./packages/firejail.nix
           ./packages/desktop/gnome.nix
           {networking.hostName = "client";}
@@ -126,35 +127,41 @@
           ./client/addrootCA.nix
           ./client/wireguard-wg100.nix
           ./storage/impermanence-luks.nix
+          ./server/monitoring/collect-syslog-ng.nix
           ./person/desktop/mpaepcke.nix
           ./packages/agenix.nix
           ./packages/base.nix
+          ./packages/desktop/gnome.nix
+          ./packages/desktop/dss-portal.nix
+          ./packages/desktop/firejail.nix
           ./packages/devops.nix
           ./packages/devops-iot.nix
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
-          ./packages/firejail.nix
-          ./packages/desktop/gnome.nix
+          ./packages/secops.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
-          ./server/monitoring/collect-syslog-ng.nix
-          ./server/pki/small-step.nix
-          ./server/monitoring/kuma.nix
-          ./server/share/opencloud.nix
-          # ./server/share/opencloud.nix
+          # ./server/dns/adguard.nix
+          # ./server/pki/small-step.nix
           # ./server/share/wastebin.nix
+          # ./server/mail/roundcube.nix
+          # ./server/devops/olivetin.nix
+          # ./server/soc/chef.nix
+          # ./server/soc/proxy.nix
+          # ./server/share/paperless.nix
+          # ./server/share/nextcloud.nix
+          # ./server/monitoring/kuma.nix
+          # ./server/monitoring/speed.nix
           # ./virtual/distrobox.nix
           # ./server/monitoring/grafana.nix
           # ./server/monitoring/prometheus.nix
           # ./server/devops/atuin.nix
-          # ./server/devops/olivetin.nix
           # ./server/bookmarks/webdav.nix
           # ./server/bookmarks/readeck.nix
           # ./server/dns/unbound.nix
           # ./server/soc/netalertx.nix
           # ./server/soc/wazuh.nix
-          {networking.hostName = "srv";}
-          {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
+          ./hosts/ops.nix
         ];
       };
       ##################

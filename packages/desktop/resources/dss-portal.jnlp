@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- JNLP File for DSS Portal for internet user -->
+<!-- JNLP BUILD 1229 -->
+<!-- JNLP TIMESTAMP 20250522.104551 -->
+<jnlp spec="7.0+" codebase="http://portal.incore.de"
+      href="dss-portal.jnlp">
+  <information>
+    <title>DSS-Portal (Internet)</title>
+    <vendor>DSS Incore-Service GmbH</vendor>
+    <homepage href="index.html"/>
+    <description>DSS-Portal Internet-Edition (nur fuer Internet-Verbindungen)
+    </description>
+    <icon href="images/dss-icon-64x64.gif" width="64" height="64" depth="8"/>
+    <shortcut online="true">
+      <desktop/>
+    </shortcut>
+  </information>
+  <security>
+    <all-permissions/>
+  </security>
+  <update check="always" policy="always"/>
+
+  <resources>
+    <j2se version="1.8+"
+          initial-heap-size="64m" max-heap-size="1024m"
+          java-vm-args="-XX:+IgnoreUnrecognizedVMOptions
+                        --add-exports=java.desktop/com.sun.java.swing.plaf.motif=ALL-UNNAMED
+                        --add-exports=java.desktop/com.sun.java.swing.plaf.windows=ALL-UNNAMED"/>
+
+    <jar href="portal/Portal-Framework-internet-2023.jar"
+         version="3.1.build623" main="true"/>
+
+    <jar href="portal/Portal-Application-2023.jar"
+         version="3.1.build331"/>
+
+    <jar href="portal/Portal-Executor-2023.jar"
+         version="3.1.build45"/>
+
+    <jar href="portal/Portal-Applet-2023.jar"
+         version="3.1.build23"/>
+
+    <jar href="portal/Portal-Utilities-2023.jar"
+         version="3.1.build867"/>
+
+    <jar href="portal/Portal-Applets-2023.jar"
+         version="3.1.build70"/>
+
+    <jar href="portal/Portal-Trigger-2023.jar"
+         version="3.1.build21"/>
+
+    <jar href="portal/TiffViewer-2023.jar"
+         version="1.6.build74"/>
+
+    <jar href="portal/Contrib-jdom-2023.jar"
+         version="2.0.6"/>
+
+    <jar href="portal/Contrib-concurrent-2023.jar"
+         version="1.3.4"/>
+
+    <extension name="Bouncycastle" href="Contrib-Bouncycastle.jnlp"/>
+
+    <jar href="portal/Contrib-jai_codec-2023.jar"
+         version="1.1.3"/>
+
+    <jar href="portal/Contrib-jai_core-2023.jar"
+         version="1.1.3"/>
+
+    <jar href="portal/Contrib-jcommon-2023.jar"
+         version="1.0.18"/>
+
+    <jar href="portal/Contrib-jfreechart-2023.jar"
+         version="1.0.14"/>
+
+    <jar href="portal/Contrib-iText-2023.jar"
+         version="4.2.0"/>
+
+    <jar href="portal/Contrib-PDFrenderer-2023.jar"
+         version="2022-02-01"/>
+
+    <jar href="portal/Contrib-jbig2-2023.jar"
+         version="2010-02-12"/>
+
+    <property name="preferences" value="8"/>
+    <property name="logger.host" value="portal.incore.de"/>
+    <property name="online.proxy" value="portal.incore.de:3281"/>
+    <property name="session.dialog.extended" value="false"/>
+    <property name="session.proxy.editable" value="false"/>
+    <property name="session.menu.debug" value="false"/>
+    <property name="useOwnFonts" value="false"/>
+    <property name="uis.trace" value="false"/>
+    <property name="com.sun.media.jai.disableMediaLib" value="true"/>
+    <property name="jnlp.packEnabled" value="false"/>
+    <property name="jnlp.versionEnabled" value="true"/>
+    <property name="jws.jnlp.codebase" value="http://portal.incore.de"/>
+    <property name="jws.jnlp.href" value="internet/dss-portal.jnlp"/>
+    <property name="jws.jnlp.edition" value="internet"/>
+    <property name="jws.jnlp.version" value="3.1"/>
+    <property name="jws.jnlp.build" value="1229"/>
+    <property name="jws.jnlp.timestamp" value="20250522.104551"/>
+  </resources>
+
+  <application-desc main-class="incore.online.portal.framework.TopLevelAgent"/>
+</jnlp>

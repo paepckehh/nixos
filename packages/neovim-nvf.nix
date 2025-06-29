@@ -107,11 +107,7 @@
           ];
         };
         diagnostics.nvim-lint = {
-          enable = true; # XXX debug config
-          linters_by_ft = {
-            # go = ["gofmt"];
-            # nix = ["alejandra"];
-          };
+          enable = true;
         };
         enableLuaLoader = true;
         filetree.neo-tree = {
@@ -247,10 +243,10 @@
           icon-picker.enable = true;
           vim-wakatime.enable = false;
           yanky-nvim = {
-            enable = true;
+            enable = false;
             setupOpts = {
               history_length = "100"; # number of clips
-              # storage = "sqlite"; # XXX debug
+              storage = "sqlite"; # XXX debug
               system_clipboard.sync_with_ring = true;
             };
           };
