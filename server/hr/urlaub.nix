@@ -21,7 +21,7 @@
             UV_MAIL_REPLYTODISPLAYNAME = "urlaubsverwaltung";
             UV_MAIL_APPLICATIONURL = "http://localhost:8080";
             SPRING_MAIL_HOST = "localhost";
-            SPRING_MAIL_PORT = 1025;
+            SPRING_MAIL_PORT = "1025";
             # Calendar
             UV_CALENDAR_ORGANIZER = "organizer@example.org";
             # OpenID Connect identity provider
