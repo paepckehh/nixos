@@ -128,6 +128,7 @@
           ./client/wireguard-wg100.nix
           ./storage/impermanence-luks.nix
           ./server/monitoring/collect-syslog-ng.nix
+          ./server/hr/urlaub.nix
           ./person/desktop/mpaepcke.nix
           ./packages/agenix.nix
           ./packages/base.nix
