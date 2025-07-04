@@ -67,7 +67,6 @@
         urlaub-keycloak = {
           image = "quay.io/keycloak/keycloak:26.2.5";
           ports = ["127.0.0.1:8090:8090"];
-          command = ["start-dev" "--import-realm"];
           environment = {
             KEYCLOAK_ADMIN = "admin";
             KEYCLOAK_ADMIN_PASSWORD = "admin";
@@ -78,6 +77,7 @@
             KC_CACHE = "local";
             KC_HOSTNAME = "localhost";
           };
+          # command = ["start-dev" "--import-realm"];
           # volumes:
           # - ./keycloak/import:/opt/keycloak/data/import
           # healthcheck:
