@@ -48,14 +48,16 @@
           image = "postgres:15-alpine";
           ports = ["5432:5432"];
           hostname = "postgres";
-          environment = { 
+          environment = {
             POSTGRES_DB = "timeoff-db";
             POSTGRES_USER = "timeoff-user";
             POSTGRES_PASSWORD = "timeoff-pass";
-         };
-         volumes = [
+          };
+          volumes = [
             "postgres_data:/var/lib/postgresql/data"
-         ];
+          ];
+        };
+      };
     };
-  }; };
+  };
 }
