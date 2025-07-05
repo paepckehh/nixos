@@ -6,9 +6,7 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment = {
-    systemPackages = with pkgs; [podman-tui podman-compose docker docker-compose compose2nix];
-  };
+  environment.systemPackages = with pkgs; [podman-tui podman-compose docker docker-compose compose2nix];
 
   ########################
   #-=# VIRTUALISATION #=-#
@@ -21,10 +19,6 @@
         #  image = "nocdb/nocdb";
         #  ports = ["0.0.0.0:8484:80"];
         # };
-        # spot = {
-        #  image = "yooooomi/your_spotify_server";
-        #  ports = ["0.0.0.0:8585:8080"];
-        #};
       };
     };
   };

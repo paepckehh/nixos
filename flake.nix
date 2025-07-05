@@ -141,6 +141,7 @@
           ./packages/secops.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
+          ./virtual/docker.nix
           # ./server/hr/urlaub.nix
           # ./server/dns/adguard.nix
           # ./server/pki/small-step.nix
