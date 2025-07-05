@@ -57,5 +57,5 @@
             "postgres_data:/var/lib/postgresql/data"
          ];
     };
-  };
+  }; };
 }
