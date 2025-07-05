@@ -24,6 +24,7 @@
           image = "ashless/timeoff-alien";
           ports = ["3000:3000"];
           hostname = "timeoff";
+          extraOptions = ["--network=host"];
           environment = {
             APP_PORT = "3000";
             BRANDING_URL = "http://localhost:3000";
@@ -48,6 +49,7 @@
           image = "postgres:15-alpine";
           ports = ["5432:5432"];
           hostname = "postgres";
+          extraOptions = ["--network=host"];
           environment = {
             POSTGRES_DB = "timeoff-db";
             POSTGRES_USER = "timeoff-user";
