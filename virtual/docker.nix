@@ -15,10 +15,12 @@
     oci-containers = {
       backend = "docker";
       containers = {
-        # nocdb = {
-        #  image = "nocdb/nocdb";
-        #  ports = ["0.0.0.0:8484:80"];
-        # };
+        teable = {
+          image = "ghcr.io/teableio/teable:latest";
+          ports = ["0.0.0.0:8080:8080"];
+          environment = {
+          };
+        };
       };
     };
   };
