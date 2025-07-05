@@ -141,7 +141,7 @@
           ./packages/secops.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
-          ./virtualistation/docker.nix
+          ./virtual/docker.nix
           # ./server/hr/timeoff.nix
           # ./server/dns/adguard.nix
           # ./server/pki/small-step.nix
