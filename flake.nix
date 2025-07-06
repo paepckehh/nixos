@@ -141,7 +141,7 @@
           ./packages/secops.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
-          ./server/hr/timeoff.nix
+          # ./server/hr/timeoff.nix
           # ./server/dns/adguard.nix
           # ./server/pki/small-step.nix
           # ./server/share/wastebin.nix
