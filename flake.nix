@@ -132,8 +132,6 @@
           ./packages/agenix.nix
           ./packages/base.nix
           ./packages/desktop/gnome.nix
-          ./packages/desktop/dss-portal.nix
-          ./packages/desktop/firejail.nix
           ./packages/devops.nix
           ./packages/devops-iot.nix
           ./packages/neovim-nvf.nix
@@ -141,6 +139,8 @@
           ./packages/secops.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
+          # ./packages/desktop/dss-portal.nix
+          # ./packages/desktop/firejail.nix
           # ./server/hr/timeoff.nix
           # ./server/dns/adguard.nix
           # ./server/pki/small-step.nix
@@ -181,8 +181,6 @@
           ./packages/agenix.nix
           ./packages/base.nix
           ./packages/desktop/gnome.nix
-          ./packages/desktop/dss-portal.nix
-          ./packages/desktop/firejail.nix
           ./packages/devops.nix
           ./packages/devops-iot.nix
           ./packages/neovim-nvf.nix
