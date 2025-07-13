@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   #################
   #-=# IMPORTS #=-#
   #################
@@ -16,7 +12,6 @@
   #####################
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
-    gnomeExtensions.ollama-indicator
     gnomeExtensions.network-stats
   ];
 
@@ -28,16 +23,18 @@
       NIXOS_OZONE_WL = "1";
       MOZ_USE_XINPUT2 = "1";
     };
+    home.packages = with pkgs; [
+      gnomeExtensions.dash-to-panel
+    ];
     dconf = {
       enable = true;
       settings = {
         "org/gnome/shell" = {
           disable-user-extensions = false;
           enabled-extensions = with pkgs.gnomeExtensions; [
-            ollama-indicator.extensionUuid
-            network-stats.extensionUuid
+            dash-to-panel.extensionUuid
           ];
-          favorite-apps = ["Alacritty.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop"];
+          favorite-apps = ["Alacritty.desktop" "dss.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop" "org.gnome.Nautilus.desktop"];
         };
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings = [
@@ -54,8 +51,8 @@
           binding = "<Super>Return";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-          name = "default [b]rowser = librewolf, not-sandboxed";
-          command = "firefox";
+          name = "default [f]ile browser - nautilus";
+          command = "nautilus";
           binding = "<Super>f";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
@@ -76,6 +73,15 @@
         "org/gnome/desktop/interface" = {
           clock-show-weekday = true;
         };
+        # "org/gnome/desktop/background" = {
+        #   picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/vnc-l.png";
+        #   picture-uri-dark = "file:///run/current-system/sw/share/backgrounds/gnome/vnc-d.png";
+        # };
+        # "org/gnome/desktop/screensaver" = {
+        #   picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/vnc-d.png";
+        #   primary-color = "#3465a4";
+        #  secondary-color = "#000000";
+        # };
       };
     };
     programs = {

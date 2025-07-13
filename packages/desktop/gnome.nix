@@ -16,6 +16,7 @@
   programs = {
     geary.enable = lib.mkForce false;
     seahorse.enable = lib.mkForce false;
+    ssh.startAgent = lib.mkForce false;
   };
 
   #####################
@@ -37,7 +38,6 @@
       epiphany
       iagno
       totem
-      evince
       hitori
       tali
     ];
@@ -51,7 +51,7 @@
     gnome = {
       core-os-services.enable = true;
       core-shell.enable = true;
-      core-apps.enable = lib.mkForce false;
+      core-apps.enable = lib.mkForce true;
       core-developer-tools.enable = lib.mkForce false;
       evolution-data-server.enable = lib.mkForce false;
       games.enable = lib.mkForce false;

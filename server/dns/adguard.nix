@@ -1,8 +1,56 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  infra = {
+    lan = {
+      domain = "corp";
+      namespace = "00-${infra.lan.domain}";
+      services = {
+        pki = {
+          ip = "10.20.0.20";
+          hostname = "pki";
+          ports.tcp = 443;
+          domain = "adm.${infra.lan.domain}";
+          network = "10.20.0.0/24";
+        };
+        adguard = {
+          ip = "10.20.0.53";
+          hostname = "adguard";
+          domain = "adm.${infra.lan.domain}";
+          network = "10.20.0.0/24";
+          ports = {
+            dns = 53;
+            tcp = 443;
+          };
+          localbind = {
+            ip = "127.0.0.1";
+            ports.tcp = 7053;
+          };
+        };
+      };
+    };
+  };
+in {
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks.${infra.lan.namespace}.addresses = [
+    {Address = "${infra.lan.services.adguard.ip}/32";}
+  ];
+
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking.nameservers = ["127.0.0.1"];
+  networking = {
+    extraHosts = "${infra.lan.services.adguard.ip} ${infra.lan.services.adguard.hostname} ${infra.lan.services.adguard.hostname}.${infra.lan.services.adguard.domain}";
+    firewall = {
+      allowedTCPPorts = [infra.lan.services.adguard.ports.dns infra.lan.services.adguard.ports.tcp];
+      allowedUDPPorts = [infra.lan.services.adguard.ports.dns];
+    };
+  };
 
   #####################
   #-=# ENVIRONMENT #=-#
@@ -10,8 +58,8 @@
   environment = {
     systemPackages = with pkgs; [adguardian];
     variables = {
-      ADGUARD_IP = "localhost";
-      ADGUARD_PORT = "3232";
+      ADGUARD_IP = "${infra.lan.services.adguard.localbind.ip}";
+      ADGUARD_PORT = "${toString infra.lan.services.adguard.localbind.ports.tcp}";
       ADGUARD_PROTOCOL = "http";
       ADGUARD_USERNAME = "admin";
       ADGUARD_PASSWORD = "admin";
@@ -25,8 +73,8 @@
     adguardhome = {
       enable = true;
       mutableSettings = false;
-      host = "127.0.0.1";
-      port = 3232;
+      host = "${infra.lan.services.adguard.localbind.ip}";
+      port = infra.lan.services.adguard.localbind.ports.tcp;
       openFirewall = false;
       settings = {
         dhcp.enabled = false;
@@ -34,13 +82,13 @@
         language = "en";
         dns = {
           anonymize_client_ip = false;
-          ratelimit = 500;
-          ratelimit_whitelist = ["127.0.0.1" "192.168.0.0" "192.168.80.0" "10.0.0.0"]; # they are all /24 networks
+          ratelimit = 1024;
+          ratelimit_whitelist = ["127.0.0.1" "10.20.0.0"]; # they are all /24 networks
           refuse_any = true;
           aaaa_disabled = true;
           enable_dnssec = true;
-          bind_hosts = ["127.0.0.1"]; # add outside interfaces
-          bind_port = 53;
+          bind_hosts = ["${infra.lan.services.adguard.ip}"]; # bind only to outside interface
+          bind_port = infra.lan.services.adguard.ports.dns;
           upstream_mode = "parallel";
           upstream_dns = [
             "sdns://AQcAAAAAAAAADjIzLjE0MC4yNDguMTAwIFa3zBQNs5jjEISHskpY7WSNK4sLj_qrbFiLk5tSBN1uGTIuZG5zY3J5cHQtY2VydC5kbnNjcnkucHQ"
@@ -98,7 +146,7 @@
           };
         };
         user_rules = [
-          "@@||nexflix.com^$important"
+          "@@||bahn.de^$important"
         ];
         filters =
           map (url: {
@@ -112,6 +160,26 @@
             "https://secure.fanboy.co.nz/fanboy-annoyance.txt"
           ];
       };
+    };
+    caddy = {
+      enable = true;
+      logDir = lib.mkForce "/var/log/caddy";
+      logFormat = lib.mkForce "level INFO";
+      virtualHosts."${infra.lan.services.adguard.hostname}.${infra.lan.services.adguard.domain}".extraConfig = ''
+        bind ${infra.lan.services.adguard.ip}
+        reverse_proxy ${infra.lan.services.adguard.localbind.ip}:${toString infra.lan.services.adguard.localbind.ports.tcp}
+        tls acme@${infra.lan.services.pki.hostname}.${infra.lan.services.pki.domain} {
+              ca_root /etc/ca.crt
+              ca https://${infra.lan.services.pki.hostname}.${infra.lan.services.pki.domain}/acme/acme/directory
+        }
+        @not_intranet {
+          not remote_ip ${infra.lan.services.adguard.network}
+        }
+        basic_auth {
+          admin $2a$14$GrYizTUqc495HtJI3I2/FuIQv22w1FArhkzGBsmqTIRJlTMdQjAEC
+        }
+        respond @not_intranet 403
+      '';
     };
   };
 }

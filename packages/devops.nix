@@ -61,7 +61,6 @@
       usbutils
       vale
       yamlfmt
-      # amdgpu_top
       # nvme-rs
       # ventoy-full
     ];

@@ -26,20 +26,12 @@
         "name": "b3000 luci"
       },
       {
-        "url": "http://localhost:9292/",
-        "name": "local: olivetin"
-      },
-      {
         "url": "http://localhost:3000/",
         "name": "local: grafana"
       },
       {
         "url": "http://localhost:9090/targets",
         "name": "local: prometheus"
-      },
-      {
-        "url": "http://localhost:6688/",
-        "name": "local: wastebin"
       },
       {
         "url": "http://localhost:4000/",
@@ -50,6 +42,14 @@
         "name": "local: pgweb"
       },
       {
+        "url": "http://127.0.0.1:20211",
+        "name": "netalertx.lan (localhost, http)"
+      },
+      {
+        "url": "https://localhost:5601",
+        "name": "local: wazuh"
+      },
+      {
         "url": "http://atuin.lan:8888",
         "name": "atuin.lan"
       },
@@ -58,48 +58,60 @@
         "name": "read.lan (https)"
       },
       {
-        "url": "http://127.0.0.1:8686",
-        "name": "read.lan (localhost, http)"
-      },
-      {
-        "url": "http://wastebin.lan:8080",
-        "name": "wastebin.lan (http)"
-      },
-      {
-        "url": "https://wastebin.lan:8080",
-        "name": "wastebin.lan (https)"
-      },
-      {
-        "url": "https://kuma.lan:443",
+        "url": "https://kuma.lan",
         "name": "kuma.lan (https)"
+      },
+      {
+        "url": "https://paste.lan",
+        "name": "paste.lan (https)"
       },
       {
         "url": "https://status.lan:443",
         "name": "status.lan (https)"
       },
       {
-        "url": "http://opencloud.lan",
-        "name": "opencloud.lan (http)"
+        "url": "https://cloud.lan",
+        "name": "cloud.lan (https)"
       },
       {
-        "url": "https://opencloud.lan",
-        "name": "opencloud.lan (https)"
+        "url": "https://chef.lan",
+        "name": "chef.lan (https)"
       },
       {
-        "url": "http://pki.lan",
-        "name": "pki.lan (https)"
+        "url": "https://paperless.lan",
+        "name": "paperless.lan (https)"
       },
       {
-        "url": "http://pki.lan/roots.pem",
-        "name": "pki.lan - rootCA PEM Bundle"
+        "url": "https://wiki.lan",
+        "name": "wiki.lan (https)"
       },
       {
-        "url": "http://127.0.0.1:20211",
-        "name": "netalertx.lan (localhost, http)"
+        "url": "https://devops.lan",
+        "name": "devops.lan (https)"
       },
       {
-        "url": "https://localhost:5601",
-        "name": "local: wazuh"
+        "url": "https://speed.lan",
+        "name": "speed.lan (https)"
+      },
+      {
+        "url": "https://mail.adm.corp",
+        "name": "mail.adm.corp (https)"
+      },
+      {
+        "url": "https://paste.adm.corp",
+        "name": "paste.adm.corp (https)"
+      },
+      {
+        "url": "https://adguard.adm.corp",
+        "name": "adguard.adm.corp (https)"
+      },
+      {
+        "url": "https://pki.adm.corp",
+        "name": "pki.adm.corp (https)"
+      },
+      {
+        "url": "https://pki.adm.corp/roots.pem",
+        "name": "pki.adm.corp - rootCA PEM Bundle"
       }
     ]
   },
