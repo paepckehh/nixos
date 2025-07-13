@@ -31,7 +31,7 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./storage/impermanence.nix
+          ./storage/stateless.nix
           ./user/desktop/me.nix
           ./packages/base.nix
           ./packages/desktop/gnome.nix
@@ -45,7 +45,7 @@
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./storage/impermanence-luks.nix
+          ./storage/stateless-luks.nix
           ./user/desktop/me.nix
           ./packages/base.nix
           ./packages/desktop/gnome.nix
@@ -61,7 +61,7 @@
         modules = [
           disko.nixosModules.disko
           ./configuration.nix
-          ./storage/impermanence-stateless.nix
+          ./storage/stateless.nix
           ./packages/desktop/kiosk.nix # see services.cage.program, url => https://start.lan
           {networking.hostName = "kiosk";}
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
@@ -75,7 +75,7 @@
         modules = [
           disko.nixosModules.disko
           ./configuration.nix
-          ./storage/impermanence-stateless-luks.nix
+          ./storage/stateless-luks.nix
           ./packages/desktop/browser.nix
           {networking.hostName = "internet";}
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
@@ -92,7 +92,7 @@
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
           ./configuration.nix
-          ./storage/impermanence-luks.nix
+          ./storage/stateless-luks.nix
           ./client/addrootCA.nix
           ./client/forward-syslog-ng.nix
           ./client/wifi-base.nix
@@ -126,7 +126,7 @@
           ./configuration.nix
           ./client/addrootCA.nix
           ./client/wireguard-wg100.nix
-          ./storage/impermanence-luks.nix
+          ./storage/stateless-luks.nix
           ./server/monitoring/collect-syslog-ng.nix
           ./person/desktop/mpaepcke.nix
           ./packages/agenix.nix

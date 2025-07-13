@@ -11,10 +11,10 @@ TARGETDRIVE?=sdb
 PARALLEL?=0
 DEVICE_MAIN:=$(TARGETDRIVE)
 USELUKS:=YES
-DISKOFLAKE:=disko/impermanence-luks.nix
+DISKOFLAKE:=disko/stateless-luks.nix
 ifeq ($(origin LUKS),undefined)
       USELUKS:=NO
-      DISKOFLAKE:=disko/impermanence.nix
+      DISKOFLAKE:=disko/stateless.nix
 endif
 OSFLAKE:=/etc/nixos/\#$(TARGET)
 WIPEDRIVE?=/dev/null
