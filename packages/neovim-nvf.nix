@@ -107,11 +107,7 @@
           ];
         };
         diagnostics.nvim-lint = {
-          enable = true; # XXX debug config
-          linters_by_ft = {
-            # go = ["gofmt"];
-            # nix = ["alejandra"];
-          };
+          enable = true;
         };
         enableLuaLoader = true;
         filetree.neo-tree = {
@@ -200,11 +196,11 @@
         };
         lineNumberMode = "relNumber"; # number, relNumber, none
         package = pkgs.neovim-unwrapped; #
-        spellcheck = {
-          enable = false;
-          languages = ["en" "de"];
-          programmingWordlist.enable = true;
-        };
+        # spellcheck = {
+        # enable = false;
+        # languages = ["en" "de"];
+        # programmingWordlist.enable = true;
+        # };
         theme = {
           enable = true;
           name = "base16"; # base16, catppuccin, dracula, github, gruvbox, mini-base16, nord, onedark, oxocarbon, rose-pine, tokyonight
@@ -247,10 +243,10 @@
           icon-picker.enable = true;
           vim-wakatime.enable = false;
           yanky-nvim = {
-            enable = true;
+            enable = false;
             setupOpts = {
               history_length = "100"; # number of clips
-              # storage = "sqlite"; # XXX debug
+              storage = "sqlite"; # XXX debug
               system_clipboard.sync_with_ring = true;
             };
           };

@@ -2,7 +2,7 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [./disko/impermanence-autoinstaller.nix];
+  imports = [./disko/stateless.nix];
 
   fileSystems = lib.mkForce {
     "/" = lib.mkForce {

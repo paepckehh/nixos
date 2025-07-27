@@ -42,8 +42,7 @@ in {
   networking = {
     extraHosts = "\n
     ${infra.lan.services.kuma.ip} ${infra.lan.services.kuma.hostname} ${infra.lan.services.kuma.hostname}.${infra.lan.domain}\n
-    ${infra.lan.services.status.ip} ${infra.lan.services.status.hostname} ${infra.lan.services.status.hostname}.${infra.lan.domain}\n
-    ";
+    ${infra.lan.services.status.ip} ${infra.lan.services.status.hostname} ${infra.lan.services.status.hostname}.${infra.lan.domain}\n";
     firewall.allowedTCPPorts = [infra.lan.services.status.ports.tcp infra.lan.services.kuma.ports.tcp];
   };
 
@@ -63,33 +62,34 @@ in {
       enable = true;
       logDir = lib.mkForce "/var/log/caddy";
       logFormat = lib.mkForce "level INFO";
-      configFile = pkgs.writeText "Caddyfile.Kuma" ''
-        {
-          acme_ca https://pki.lan/acme/acme/directory
+      virtualHosts."kuma.${infra.lan.domain}".extraConfig = ''
+        bind ${infra.lan.services.kuma.ip}
+        reverse_proxy ${infra.lan.services.kuma.localbind.ip}:${toString infra.lan.services.kuma.localbind.ports.tcp}
+        tls acme@pki.lan {
+              ca_root /etc/ca.crt
+              ca https://pki.lan/acme/acme/directory
         }
-        kuma.${infra.lan.domain} {
-          bind ${infra.lan.services.kuma.ip}
-          reverse_proxy ${infra.lan.services.kuma.localbind.ip}:${toString infra.lan.services.kuma.localbind.ports.tcp}
-          @not_intranet {
-            not remote_ip ${infra.lan.network}
-          }
-          respond @not_intranet 403
-          log {
-            output file ${config.services.caddy.logDir}/access/proxy-read.log
-          }
+        @not_intranet {
+          not remote_ip ${infra.lan.network}
         }
-        status.${infra.lan.domain} {
-          bind ${infra.lan.services.status.ip}
-          redir https://kuma.lan/status/info
-          @not_intranet {
-            not remote_ip ${infra.lan.network}
-          }
-          respond @not_intranet 403
-          log {
-            output file ${config.services.caddy.logDir}/access/proxy-read.log
-          }
+        respond @not_intranet 403
+        log {
+          output file ${config.services.caddy.logDir}/access/proxy-read.log
+        }'';
+      virtualHosts."status.${infra.lan.domain}".extraConfig = ''
+        bind ${infra.lan.services.status.ip}
+        redir https://kuma.lan/status/info
+        tls acme@pki.lan {
+              ca_root /etc/ca.crt
+              ca https://pki.lan/acme/acme/directory
         }
-      '';
+        @not_intranet {
+          not remote_ip ${infra.lan.network}
+        }
+        respond @not_intranet 403
+        log {
+          output file ${config.services.caddy.logDir}/access/proxy-read.log
+        }'';
     };
   };
 }

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=DSS PORTAL
+Comment=Start DSS Online Portal here!
+Exec=javaws /etc/dss-portal.jnlp
+Icon=/etc/dss.png
+Terminal=false

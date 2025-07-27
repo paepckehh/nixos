@@ -32,6 +32,7 @@
       doggo
       dmidecode
       file
+      jqfmt
       gh
       gnumake
       golangci-lint
@@ -61,7 +62,6 @@
       usbutils
       vale
       yamlfmt
-      # amdgpu_top
       # nvme-rs
       # ventoy-full
     ];

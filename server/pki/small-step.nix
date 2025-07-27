@@ -5,14 +5,16 @@
 }: let
   infra = {
     lan = {
-      domain = "lan";
-      network = "192.168.80.0/24";
-      namespace = "10-${infra.lan.domain}";
+      domain = "corp";
+      namespace = "00-${infra.lan.domain}";
       services = {
         pki = {
-          ip = "192.168.80.204";
+          ip = "10.20.0.20";
           hostname = "pki";
           ports.tcp = 443;
+          domain = "adm.${infra.lan.domain}";
+          network = "10.20.0.0/24";
+          defaultTLSCertDuration = "1440h0m0s";
         };
       };
     };
@@ -27,7 +29,7 @@ in {
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = "${infra.lan.services.pki.ip} ${infra.lan.services.pki.hostname} ${infra.lan.services.pki.hostname}.${infra.lan.domain}";
+    extraHosts = "${infra.lan.services.pki.ip} ${infra.lan.services.pki.hostname} ${infra.lan.services.pki.hostname}.${infra.lan.services.pki.domain}";
     firewall.allowedTCPPorts = [infra.lan.services.pki.ports.tcp];
   };
 
@@ -57,7 +59,7 @@ in {
     shellAliases = {};
     variables = {
       STEPPATH = "/var/lib/step-ca";
-      CA_FINGERPRINT = "b1671ec40f0ec0eb1db5720179f23890e6408bb1f6b5029fe2062eea3641ebff";
+      CA_FINGERPRINT = "4491d25c90d38427597b154164de4952a9fa248143684f8b559448f9efd61e13";
     };
   };
 
@@ -76,25 +78,11 @@ in {
         isSystemUser = true;
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
-      step-acme = {
-        initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
-        description = "step ca acme provision account";
-        uid = 32101;
-        group = "step-acme";
-        createHome = false;
-        isNormalUser = false;
-        isSystemUser = true;
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
-      };
     };
     groups = {
       step = {
         gid = 32100;
         members = ["step"];
-      };
-      step-acme = {
-        gid = 32101;
-        members = ["step-acme"];
       };
     };
   };
@@ -109,15 +97,20 @@ in {
       port = infra.lan.services.pki.ports.tcp;
       intermediatePasswordFile = config.age.secrets.pki-pwd.path;
       settings = {
-        # settings below are generated via cmd, any parameter change needs a re-regnerate and import here
-        # step ca init --name="HomeLab" --dns="pki,pki.lan,192.168.80.204" --address="192.168.80.204:443" --provisioner="me@paepcke.de" --deployment-type standalone --remote-management
-        commonName = "HomeLab";
+        # regenerateCA:
+        # sudo rm -rf /var/lib/private/step-ca/*
+        # step ca init
+        # --name="corpCA" --dns="pki,pki.corp,pki.adm.corp,10.20.0.20" --address="10.20.0.20:443" --provisioner="pki@adm.corp" --deployment-type standalone --remote-management
+        # sudo mv /root/.step-ca/* /var/lib/private/step-ca/
+        # sudo sh sync.sh
+        # renew rootCA anchor trust everywhere (see above, clientAddRoot, ...)
+        commonName = "corpCA";
         crt = "/var/lib/step-ca/certs/intermediate_ca.crt";
         backdate = "1m0s";
-        dnsNames = ["${infra.lan.services.pki.hostname}.${infra.lan.domain}" "${infra.lan.services.pki.hostname}" "${infra.lan.services.pki.ip}"];
+        dnsNames = ["${infra.lan.services.pki.hostname}.${infra.lan.services.pki.domain}" "${infra.lan.services.pki.hostname}" "${infra.lan.services.pki.ip}"];
         federatedRoots = null;
         key = "/var/lib/step-ca/secrets/intermediate_ca_key";
-        root = "/var/lib/step-ca/certs/root_ca.crt";
+        root = "/var/lib//step-ca/certs/root_ca.crt";
         template = {};
         logger.format = "text";
         db = {
@@ -132,34 +125,18 @@ in {
           renegotiation = false;
         };
         authority = {
-          enableAdmin = true;
           provisioners = [
-            {
-              name = "me@paepcke.de";
-              type = "JWK";
-              key = {
-                use = "sig";
-                kty = "EC";
-                kid = "qItXvQihvW5IfTYCCDZLom2RetSAi7Vnvry40kHBWew";
-                crv = "P-256";
-                alg = "ES256";
-                x = "dbvNKr4d4TQ8h4ANwEQLJF7XG9R24rBWYmGUMe-g-c4";
-                y = "qdvoGNkiSd22uBf2KDWy60VS85XjTDNeJCO1pcpYwmI";
-              };
-              encryptedKey = "eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJjdHkiOiJqd2sranNvbiIsImVuYyI6IkEyNTZHQ00iLCJwMmMiOjYwMDAwMCwicDJzIjoiTFdsQV9DR2lyZFlsczJuaFJCNDRxQSJ9.WaeLOtH9uuCRdgKDdBNZbOwB0pq0qXfDVW2mYOngvy5VFqT81hqU_w.lJNmnCx7XoHGKCNO.nJTWkGWvGMxtqHx_MWfO0Ta6_ZUAExb4vT6790-qBagBSn2WeNB2gXthXfUJ7Rpur0La3r-v7_NIKQuPN6bGfjIQUhnHX7XkEZcWRFg2dcizWr0MDBmwDH33l7ZoIY2Vjf9k5S5hUW3ZmOz9uzU5YGNqvxhWPV42y_hdQnRczmkCD_EwUtysuERMYGagosXuLOfZ6Dfr20kje_277fpUjFe6EYrCQrc4QonZKVKxzmrNJBxt7pEAUGEN5e8nxqNknV8FE3CGjcEmKlhqukphmT9PPuPhl2FtNwL63QNibDs6jm6ktpdl7YNs3ek3LwMoTElq_ERr3WyGN38h9AE.sNGfQBQ4hf3oNfpp0j0BNA";
-            }
             {
               name = "acme";
               type = "ACME";
               claims = {
-                allowRenewalAfterExpiry = false;
-                disableSmallstepExtensions = false;
-                enableSSHCA = true;
+                allowRenewalAfterExpiry = true;
+                defaultTLSCertDuration = "${infra.lan.services.pki.defaultTLSCertDuration}";
+                disableSmallstepExtensions = true;
                 disableRenewal = false;
-                options = {
-                  x509 = {};
-                  ssh = {};
-                };
+                enableSSHCA = false;
+                minTLSCertDuration = "720h0m0s";
+                maxTLSCertDuration = "3072h0m0s";
               };
             }
           ];

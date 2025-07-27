@@ -10,12 +10,13 @@
   boot = {
     consoleLogLevel = 4;
     blacklistedKernelModules = ["affs" "befs" "bfs" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb"];
+    nixStoreMountOpts = lib.mkForce ["ro"];
+    hardwareScan = true;
     extraModulePackages = (
       if (config.nixpkgs.system == "x86_64-linux")
       then [config.boot.kernelPackages.zenpower]
       else []
     );
-    hardwareScan = true;
     initrd = {
       compressor = "zstd";
       compressorArgs = ["--ultra" "--long" "-22"];
@@ -43,10 +44,9 @@
     );
     kernelModules = (
       if (config.nixpkgs.system == "x86_64-linux")
-      then ["amd-pstate" "amdgpu" "exfat" "<yypkvm-amd" "kvm-intel" "uas" "vfat"]
+      then ["amd-pstate" "amdgpu" "exfat" "kvm-amd" "kvm-intel" "uas" "vfat"]
       else ["exfat" "uas" "vfat"]
     );
-    readOnlyNixStore = lib.mkForce true;
     tmp = {
       cleanOnBoot = true;
       useTmpfs = true;
@@ -71,7 +71,7 @@
         configurationLimit = 4;
       };
     };
-    kernel.sysctl = {
+    kernel.sysctl = lib.mkDefault {
       "kernel.kptr_restrict" = 2;
       "kernel.ftrace_enabled" = 0;
       "net.core.rmem_max" = lib.mkForce 7500000;
@@ -355,7 +355,7 @@
     nameservers = ["127.0.0.53"]; # systemd-resolved bind
     resolvconf.enable = false; # use systemd-resolved
     useNetworkd = true;
-    usePredictableInterfaceNames = false;
+    usePredictableInterfaceNames = lib.mkDefault false;
     networkmanager = {
       enable = true;
       logLevel = "INFO";
@@ -409,8 +409,8 @@
   #########################
   powerManagement = {
     enable = true;
-    powertop.enable = true;
-    cpuFreqGovernor = "ondemand";
+    powertop.enable = false;
+    # cpuFreqGovernor = "ondemand";
   };
 
   ##################
