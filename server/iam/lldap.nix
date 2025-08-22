@@ -25,11 +25,12 @@
   users = {
     users = {
       lldap = {
+        group = "lldap";
         hashedPassword = null; # disable ldap account
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # disable pubkey auth
       };
     };
-    groups.lldap.members = ["lldap"];
+    groups.lldap = {};
   };
 
   ##################
