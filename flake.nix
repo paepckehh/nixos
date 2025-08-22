@@ -125,7 +125,6 @@
           nvf.nixosModules.default
           ./configuration.nix
           ./client/addrootCA.nix
-          ./client/wireguard-wg100.nix
           ./storage/stateless-luks.nix
           ./server/iam/lldap.nix
           ./server/monitoring/collect-syslog-ng.nix
@@ -140,6 +139,7 @@
           ./packages/secops.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
+          # ./client/wireguard-wg100.nix
           # ./packages/desktop/dss-portal.nix
           # ./packages/desktop/firejail.nix
           # ./server/hr/timeoff.nix
