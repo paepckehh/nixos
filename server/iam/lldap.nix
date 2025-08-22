@@ -26,6 +26,7 @@
     users = {
       lldap = {
         group = "lldap";
+        isSystemUser = true;
         hashedPassword = null; # disable ldap account
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # disable pubkey auth
       };
