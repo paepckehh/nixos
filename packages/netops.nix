@@ -25,6 +25,7 @@
   ##################
   programs = {
     iftop.enable = true;
+    nexttrace.enable = true;
     wireshark.enable = true;
   };
 }
