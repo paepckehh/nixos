@@ -3,7 +3,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ../../modules/agenix.nix
+    ../../packages/agenix.nix
   ];
 
   #############
