@@ -11,8 +11,8 @@
   #############
   age = {
     secrets = {
-      lldapadmin = {
-        file = ../../modules/resources/lldapadmin.age;
+      lldap-admin = {
+        file = ../../modules/resources/lldap-admin.age;
         owner = "lldap";
         group = "lldap";
       };
@@ -37,7 +37,7 @@
         ldap_base_dn = "dc=debitor,dc=corp";
         ldap_user_dn = "admin";
         ldap_user_email = "it@debitor.de";
-        ldap_user_pass_file = config.age.secrets.lladpadmin.path;
+        ldap_user_pass_file = config.age.secrets.lldap-admin.path;
         ldap_host = "127.0.0.1";
         ldap_port = "3890";
       };
