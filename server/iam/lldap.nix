@@ -13,10 +13,23 @@
     secrets = {
       lldap-admin = {
         file = ../../modules/resources/lldap-admin.age;
-        owner = "root";
-        group = "root";
+        owner = "lldap";
+        group = "lldap";
       };
     };
+  };
+
+  ###############
+  #-=# USERS #=-#
+  ###############
+  users = {
+    users = {
+      lldap = {
+        hashedPassword = null; # disable ldap account
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # disable pubkey auth
+      };
+    };
+    groups.lldap.members = ["lldap"];
   };
 
   ##################
