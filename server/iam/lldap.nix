@@ -13,8 +13,8 @@
     secrets = {
       lldap-admin = {
         file = ../../modules/resources/lldap-admin.age;
-        # owner = "lldap";
-        # group = "lldap";
+        owner = "root";
+        group = "root";
       };
     };
   };
