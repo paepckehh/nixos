@@ -127,6 +127,7 @@
           ./client/addrootCA.nix
           ./client/wireguard-wg100.nix
           ./storage/stateless-luks.nix
+          ./server/iam/lldap.nix
           ./server/monitoring/collect-syslog-ng.nix
           ./person/desktop/mpaepcke.nix
           ./packages/agenix.nix
