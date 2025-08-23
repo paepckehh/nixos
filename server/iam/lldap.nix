@@ -41,14 +41,14 @@ in {
   imports = [
     ../../packages/agenix.nix
   ];
-  
+
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks = { 
-        ${infra.lan.services.ldap.namespace}.addresses = [{Address = "${infra.lan.services.ldap.ip}/32";}];
-        ${infra.lan.services.ldap-gui.namespace}.addresses = [{Address = "${infra.lan.services.ldap-gui.ip}/32";}];
-};
+  systemd.network.networks = {
+    ${infra.lan.services.ldap.namespace}.addresses = [{Address = "${infra.lan.services.ldap.ip}/32";}];
+    ${infra.lan.services.ldap-gui.namespace}.addresses = [{Address = "${infra.lan.services.ldap-gui.ip}/32";}];
+  };
 
   ####################
   #-=# NETWORKING #=-#
@@ -122,9 +122,9 @@ in {
         # db
         database_url = "sqlite://./users.db?mode=rwc";
         # http web gui
-        http_url = "https://${infra.lan.services.ldap-gui.hostname.ip}.${infra.lan.services.ldap-gui.domain}";
+        http_url = "https://${infra.lan.services.ldap-gui.hostname.ip}.${toString infra.lan.services.ldap-gui.domain}";
         http_host = "${infra.lan.services.ldap-gui.localbind.ip}";
-        http_port = ${infra.lan.services.ldap-gui.localbind.port;
+        http_port = infra.lan.services.ldap-gui.localbind.port;
         # ldap interface
         ldap_jwt_secret = config.age.secrets.lldap-jwt.path;
         ldap_key_seed = config.age.secrets.lldap-seed.path;
@@ -133,7 +133,7 @@ in {
         ldap_user_email = "${infra.lan.services.ldap.admin.email}";
         ldap_user_pass_file = config.age.secrets.lldap-admin.path;
         ldap_port = "${infra.lan.services.ldap.ip}";
-        ldap_port = ${infra.lan.services.ldap.ports.tcp};
+        ldap_port = infra.lan.services.ldap.ports.tcp;
         # ldaps
         ldaps_options_enabled = false;
         ldaps_options_cert_file = "/etc/ssl/ldaps.crt";
@@ -147,5 +147,4 @@ in {
       };
     };
   };
-
 }
