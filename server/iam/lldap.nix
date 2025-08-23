@@ -13,7 +13,7 @@
           domain = "adm.corp";
           namespace = "00-${infra.lan.services.ldap.domain}";
           network = "10.20.0.0/24";
-          ports.tcp = 389;
+          ports.tcp = 3890;
           base-dn = "dc=debitor,dc=corp";
           admin = {
             user = "admin";
