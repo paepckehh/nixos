@@ -122,7 +122,7 @@ in {
         # db
         database_url = "sqlite://./users.db?mode=rwc";
         # http web gui
-        http_url = "https://${infra.lan.services.ldap-gui.hostname.ip}.${toString infra.lan.services.ldap-gui.domain}";
+        http_url = "https://${infra.lan.services.ldap-gui.hostname}.${toString infra.lan.services.ldap-gui.domain}";
         http_host = "${infra.lan.services.ldap-gui.localbind.ip}";
         http_port = infra.lan.services.ldap-gui.localbind.port;
         # ldap interface
