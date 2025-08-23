@@ -420,7 +420,7 @@
     acpid.enable = lib.mkForce true;
     avahi.enable = lib.mkForce false;
     devmon.enable = lib.mkForce false;
-    fwupd.enable = false; # enable manually
+    fwupd.enable = true; # enable manually
     geoclue2.enable = lib.mkForce false;
     gvfs.enable = lib.mkForce false;
     openssh.enable = false;
