@@ -54,10 +54,10 @@ in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking = {
-    extraHosts = "${infra.lan.services.ldap.ip} ${infra.lan.services.ldap.hostname} ${infra.lan.services.ldap.hostname}.${infra.lan.services.ldap.domain}";
-    firewall.allowedTCPPorts = [infra.lan.services.ldap.ports.tcp infra.lan.services.ldap-gui.ports.tcp];
-  };
+  # networking = {
+  #   extraHosts = "${infra.lan.services.ldap.ip} ${infra.lan.services.ldap.hostname} ${infra.lan.services.ldap.hostname}.${infra.lan.services.ldap.domain}";
+  #  firewall.allowedTCPPorts = [infra.lan.services.ldap.ports.tcp infra.lan.services.ldap-gui.ports.tcp];
+  # };
 
   #############
   #-=# AGE #=-#
