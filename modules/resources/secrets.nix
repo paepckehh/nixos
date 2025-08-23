@@ -3,6 +3,9 @@ let
   srv-mp = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArbsQC2gdtQ9qCC54Khfei/rVMtVjOTiS0sduAi4jDO root@srv-mp";
 in {
   "lldap-admin.age".publicKeys = [age srv-mp];
+  "lldap-jwt.age".publicKeys = [age srv-mp];
+  "lldap-seed.age".publicKeys = [age srv-mp];
+  "lldap-key.age".publicKeys = [age srv-mp];
   "pki-pwd.age".publicKeys = [age srv-mp];
   "nextcloud-admin.age".publicKeys = [age srv-mp];
   "readeck.age".publicKeys = [age srv-mp];

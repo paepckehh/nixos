@@ -6,12 +6,12 @@
     "name": "local services",
     "children": [
       {
-        "url": "http://start.lan:80",
-        "name": "start.lan"
+        "url": "http://start.corp:80",
+        "name": "start.corp"
       },
       {
-        "url": "http://moode.lan:80",
-        "name": "moode.lan"
+        "url": "http://moode.corp:80",
+        "name": "moode.corp"
       },
       {
         "url": "https://127.0.0.1:8091/cgi-bin/luci",
