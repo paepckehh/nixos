@@ -80,8 +80,8 @@ in {
         owner = "lldap";
         group = "lldap";
       };
-      lldap-ldaps-key = {
-        file = ../../modules/resources/lldap-ldaps-key.age;
+      lldap-key = {
+        file = ../../modules/resources/lldap-key.age;
         owner = "lldap";
         group = "lldap";
       };
