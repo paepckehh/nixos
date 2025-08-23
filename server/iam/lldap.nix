@@ -132,7 +132,7 @@ in {
         ldap_user_dn = "${infra.lan.services.ldap.admin.user}";
         ldap_user_email = "${infra.lan.services.ldap.admin.email}";
         ldap_user_pass_file = config.age.secrets.lldap-admin.path;
-        ldap_port = "${infra.lan.services.ldap.ip}";
+        ldap_host = "${infra.lan.services.ldap.ip}";
         ldap_port = infra.lan.services.ldap.ports.tcp;
         # ldaps
         ldaps_options_enabled = false;
