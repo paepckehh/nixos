@@ -126,7 +126,7 @@
           ./configuration.nix
           ./client/addrootCA.nix
           ./storage/stateless-luks.nix
-          ./server/directory/lldap.nix
+          ./server/iam/lldap.nix
           ./server/monitoring/collect-syslog-ng.nix
           ./person/desktop/mpaepcke.nix
           ./packages/agenix.nix
