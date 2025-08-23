@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   #################
   #-=# IMPORTS #=-#
   #################
@@ -27,12 +31,17 @@
       lldap = {
         group = "lldap";
         isSystemUser = true;
-        hashedPassword = null; # disable ldap account
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # disable pubkey auth
+        hashedPassword = null; # disable ldap service account interactive logon
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
       };
     };
     groups.lldap = {};
   };
+
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment.systemPackages = with pkgs; [lldap-cli sqlitebrowser];
 
   ##################
   #-=# SERVICES #=-#
@@ -40,10 +49,6 @@
   services = {
     lldap = {
       enable = true;
-      environment = {
-        # LLDAP_JWT_SECRET_FILE = "/run/lldap/jwt_secret";
-        # LLDAP_LDAP_USER_PASS_FILE = "/run/lldap/user_password";
-      };
       settings = {
         database_url = "sqlite://./users.db?mode=rwc";
         http_url = "http://localhost:9090/";
