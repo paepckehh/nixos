@@ -8,7 +8,7 @@
     lan = {
       services = {
         ldap = {
-          ip = "10.20.0.125";
+          ip = "10.20.0.126";
           hostname = "ldap";
           domain = "adm.corp";
           namespace = "00-${infra.lan.services.ldap.domain}";
@@ -21,7 +21,7 @@
           };
         };
         ldap-gui = {
-          ip = "10.20.6.125";
+          ip = "10.20.6.126";
           hostname = "iam";
           domain = "dbt.corp";
           namespace = "06-${infra.lan.services.ldap-gui.domain}";
@@ -29,7 +29,7 @@
           ports.tcp = 443;
           localbind = {
             ip = "127.0.0.1";
-            port = 7125;
+            port = 7126;
           };
         };
       };

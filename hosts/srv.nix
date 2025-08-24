@@ -22,8 +22,10 @@
         {Address = "192.168.80.100/24";}
         {Address = "10.20.0.100/24";}
         {Address = "10.20.0.125/32";}
+        {Address = "10.20.0.126/32";}
         {Address = "10.20.6.100/23";}
         {Address = "10.20.6.125/32";}
+        {Address = "10.20.6.126/32";}
       ];
       domains = ["corp" "adm.corp" "sec.corp" "srv.corp" "dbt.corp"];
       dns = ["192.168.80.1"];
