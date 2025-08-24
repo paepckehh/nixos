@@ -120,7 +120,7 @@ in {
       enable = true;
       settings = {
         # log
-        verbos = true;
+        verbose = true;
         # db
         database_url = "sqlite://./users.db?mode=rwc";
         # http web gui
