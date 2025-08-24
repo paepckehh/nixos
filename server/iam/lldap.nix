@@ -14,7 +14,7 @@
           namespace = "00-${infra.lan.services.ldap.domain}";
           network = "10.20.0.0/24";
           ports.tcp = 3890;
-          base-dn = "dc=debitor,dc=corp";
+          base-dn = "dc=dbt,dc=corp";
           admin = {
             user = "admin";
             email = "it@debitor.de";
@@ -54,10 +54,10 @@ in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  # networking = {
-  #   extraHosts = "${infra.lan.services.ldap.ip} ${infra.lan.services.ldap.hostname} ${infra.lan.services.ldap.hostname}.${infra.lan.services.ldap.domain}";
-  #  firewall.allowedTCPPorts = [infra.lan.services.ldap.ports.tcp infra.lan.services.ldap-gui.ports.tcp];
-  # };
+  networking = {
+    extraHosts = "${infra.lan.services.ldap.ip} ${infra.lan.services.ldap.hostname} ${infra.lan.services.ldap.hostname}.${infra.lan.services.ldap.domain}";
+    firewall.allowedTCPPorts = [infra.lan.services.ldap.ports.tcp infra.lan.services.ldap-gui.ports.tcp];
+  };
 
   #############
   #-=# AGE #=-#
@@ -91,6 +91,7 @@ in {
   #-=# USERS #=-#
   ###############
   users = {
+    groups.lldap = {};
     users = {
       lldap = {
         group = "lldap";
@@ -99,7 +100,6 @@ in {
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
       };
     };
-    groups.lldap = {};
   };
 
   #####################
@@ -139,7 +139,7 @@ in {
         ldaps_options_cert_file = "/etc/ssl/ldaps.crt";
         ldaps_options_key_file = config.age.secrets.lldap-key.path;
         # smtp
-        smtp_options_enable_password_reset = false;
+        smtp_options_enable_password_reset = true;
         smtp_options_server = "smtp.${infra.lan.services.ldap.domain}";
         smtp_options_port = 25;
         smtp_options_smtp_encryption = "NONE";
