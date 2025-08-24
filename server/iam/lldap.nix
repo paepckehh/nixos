@@ -119,8 +119,6 @@ in {
     lldap = {
       enable = true;
       settings = {
-        # log
-        verbose = true;
         # db
         database_url = "sqlite://./users.db?mode=rwc";
         # http web gui
@@ -142,6 +140,8 @@ in {
         # compatiblity (AD)
         ignored_user_attributes = ["sAMAccountName"];
         ignored_group_attributes = ["mail" "userPrincipalName"];
+        # log
+        verbose = false;
         # smtp
         smtp_options = {
           enable_password_reset = true;
