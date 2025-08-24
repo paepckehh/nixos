@@ -119,6 +119,8 @@ in {
     lldap = {
       enable = true;
       settings = {
+        # log
+        verbos = true;
         # db
         database_url = "sqlite://./users.db?mode=rwc";
         # http web gui
