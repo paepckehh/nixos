@@ -30,25 +30,51 @@
         mechanisms = "[plain]";
         directory = "'in-memory'";
       };
-      storage.directory = "in-memory";
       session.rcpt.directory = "'in-memory'";
-      # queue.outbound.next-hop = "'local'";
       queue.strategy.route = "'local'";
       directory."imap".lookup.domains = ["dbt.corp"];
-      directory."in-memory" = {
-        type = "memory";
-        principals = [
-          {
-            class = "individual";
-            name = "postmaster";
-            secret = "%{file:/etc/stalwart/pw}%";
-            email = ["postmaster@example.org"];
-          }
-        ];
-      };
       authentication.fallback-admin = {
         user = "admin";
         secret = "%{file:/etc/stalwart/pw}%";
+      };
+      storage.directory = "ldap";
+      directory = {
+        ldap = {
+          base-dn = "dc=debitor,dc=corp";
+          timeout = "30s";
+          type = "ldap";
+          url = "ldap://127.0.0.1:3890";
+          cache.entries = 500;
+          attributes = {
+            class = "objectClass";
+            email = "mail";
+            groups = "member";
+            name = "uid";
+            secret = "dummyStalwartSecret";
+            description."0" = "displayName";
+          };
+          bind = {
+            dn = "uid=bind,ou=people,dc=dbt,dc=corp";
+            secret = "bind-start-bind";
+            auth = {
+              enable = true;
+              search = true;
+              dn = "uid=?,ou=people,dc=dbt,dc=corp";
+            };
+            filter = {
+              email = "(&(|(objectClass=person)(member=cn=mail,ou=groups,dc=dbt,dc=org))(mail=?))";
+              name = "(&(|(objectClass=person)(member=cn=mail,ou=groups,dc=dbt,dc=org))(uid=?))";
+            };
+          };
+          filter = {
+            email = "(&(objectclass=person)(mail=?))";
+            name = "(&(objectclass=person)(uid=?))";
+          };
+          tls = {
+            enable = false;
+            allow-invalid-certs = true;
+          };
+        };
       };
     };
   };
