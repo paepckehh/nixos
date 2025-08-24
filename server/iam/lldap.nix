@@ -129,10 +129,6 @@ in {
         ldap_host = "${infra.lan.services.ldap.ip}";
         ldap_port = infra.lan.services.ldap.ports.tcp;
         ldap_base_dn = "${infra.lan.services.ldap.base-dn}";
-        # ldaps
-        ldaps_options_enabled = false;
-        ldaps_options_cert_file = "/etc/ssl/ldaps.crt";
-        ldaps_options_key_file = config.age.secrets.lldap-key.path;
         # ldap secrets
         ldap_jwt_secret = config.age.secrets.lldap-jwt.path;
         ldap_key_seed = config.age.secrets.lldap-seed.path;
@@ -151,6 +147,13 @@ in {
           port = 25;
           smtp_encryption = "NONE";
           from = "${infra.lan.services.ldap.admin.email}";
+          reply_to = "${infra.lan.services.ldap.admin.email}";
+        };
+        # ldaps
+        ldaps_options = {
+          enabled = false;
+          cert_file = "/etc/ssl/ldaps.crt";
+          key_file = config.age.secrets.lldap-key.path;
         };
       };
     };
