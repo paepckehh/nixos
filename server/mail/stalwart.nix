@@ -32,7 +32,8 @@
       };
       storage.directory = "in-memory";
       session.rcpt.directory = "'in-memory'";
-      queue.outbound.next-hop = "'local'";
+      # queue.outbound.next-hop = "'local'";
+      queue.strategy.route = "'local'";
       directory."imap".lookup.domains = ["dbt.corp"];
       directory."in-memory" = {
         type = "memory";
