@@ -141,7 +141,7 @@ in {
         ignored_user_attributes = ["sAMAccountName"];
         ignored_group_attributes = ["mail" "userPrincipalName"];
         # log
-        verbose = false;
+        verbose = true;
         # smtp
         smtp_options = {
           enable_password_reset = true;
