@@ -55,7 +55,7 @@
           };
           bind = {
             dn = "uid=bind,ou=people,dc=dbt,dc=corp";
-            secret = "bind-start-bind";
+            secret = "startstart";
             auth = {
               enable = true;
               search = true;
