@@ -36,7 +36,7 @@
         user = "admin";
         secret = "%{file:/etc/stalwart/pw}%";
       };
-      storage.directory = "ldap";
+      # storage.directory = "ldap";
       directory = {
         # imap.lookup.domains = ["dbt.corp"];
         default = {
