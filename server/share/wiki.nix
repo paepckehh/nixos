@@ -62,12 +62,11 @@ in {
       '';
       extensions = {
         # null -> enable extention (default bundled only)
-        SyntaxHighlight = null;
         VisualEditor = null;
       };
     };
     caddy = {
-      enable = true;
+      enable = false;
       logDir = lib.mkForce "/var/log/caddy";
       logFormat = lib.mkForce "level INFO";
       virtualHosts."${infra.lan.services.wiki.hostname}.${infra.lan.services.wiki.domain}".extraConfig = ''
