@@ -77,7 +77,7 @@ in {
                 ca https://pki.adm.corp/acme/acme/directory
           }
           @not_intranet {
-            not remote_ip ${infra.lan.services.paste.network}
+            not remote_ip ${infra.lan.services.wiki.network}
           }
           respond @not_intranet 403
         '';
