@@ -50,8 +50,8 @@
             email = "mail";
             groups = "member";
             name = "uid";
-            secret = "dummyStalwartSecret";
-            description."0" = "displayName";
+            secret = "userPassword";
+            description."0" = "cn";
           };
           bind = {
             dn = "uid=bind,ou=people,dc=dbt,dc=corp";
@@ -59,6 +59,7 @@
             auth = {
               enable = true;
               search = true;
+              method = "lookup";
               dn = "uid=?,ou=people,dc=dbt,dc=corp";
             };
             filter = {
