@@ -59,9 +59,36 @@ in {
       extraConfig = ''
         # Disable anonymous editing
         $wgGroupPermissions['*']['edit'] = false;
+        # Make VisualEditor default
         $wgDefaultUserOptions['visualeditor-editor'] = "visualeditor";
         $wgDefaultUserOptions['visualeditor-enable-experimental'] = 1;
-
+        $wgAuth = new LdapAuthenticationPlugin();
+        # LDAP Debug
+        #$wgLDAPDebug = 10;
+        #$wgDebugLogGroups["ldap"] = "/tmp/ldap.log" ;
+        # LDAP
+        $wgLDAPDomainNames = array('dbt.corp' );
+        $wgLDAPServerNames = array('dbt.corp' => '10.20.0.126:3890' );
+        $wgLDAPEncryptionType = array('dbt.corp' => 'ssl' );
+        $wgLDAPUseSSL = array('dbt.corp' => false );
+        $wgLDAPBaseDNs = array('dbt.corp' => 'dc=dbt,dc=corp' );
+        $wgLDAPSearchAttributes = array('dbt.corp' => 'uid' );
+        $wgLDAPUseLocal = true;
+        $wgMinimalPasswordLength = 8;
+        $wgLDAPProxyAgent = array("dbt.corp" => "UID=bind,CN=persons,DC=dbt,DC=corp" );
+        $wgLDAPProxyAgentPassword = array("dbt.corp" => "startstart" );
+        $wgLDAPUpdateLDAP = array("dbt.corp" => false );
+        $wgLDAPAddLDAPUsers = array("dbt.corp" => false );
+        #$wgLDAPRetrievePrefs = array("dbt.corp" => true );
+        $wgLDAPPPreferences = array("dbt.corp" => true );
+        $wgLDAPGroupUseFullDN = array("dbt.corp" => true );
+        $wgLDAPGroupObjectclass = array( "dbt.corp" => "group" );
+        $wgLDAPGroupAttribute = array( "dbt.corp" => "member" );
+        $wgLDAPGroupMemberOfAttribute = array( "dbt.corp" => "memberof" );
+        $wgLDAPGroupSearchNestedGroups = array( "dbt.corp" => true );
+        $wgLDAPGroupNameAttribute = array( "dbt.corp" => "cn" );
+        $wgLDAPUseLDAPGroups = array( "dbt.corp" => true );
+        #$wgLDAPGroupsUseMemberOf = array( "dbt.corp" => true );
       '';
       extensions = {
         # null -> enable extention (default bundled only)
