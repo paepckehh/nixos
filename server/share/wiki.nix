@@ -53,35 +53,35 @@ in {
           }
         ];
       };
-    };
-    passwordFile = pkgs.writeText "password" "cardbotnine";
-    extraConfig = ''
-      # Disable anonymous editing
-      $wgGroupPermissions['*']['edit'] = false;
-      $wgDefaultUserOptions['visualeditor-editor'] = "visualeditor";
-      $wgDefaultUserOptions['visualeditor-enable-experimental'] = 1;
-    '';
-    extensions = {
-      # null -> enable extention (default bundled only)
-      SyntaxHighlight = null;
-      VisualEditor = null;
-    };
-    caddy = {
-      enable = true;
-      logDir = lib.mkForce "/var/log/caddy";
-      logFormat = lib.mkForce "level INFO";
-      virtualHosts."${infra.lan.services.wiki.hostname}.${infra.lan.services.wiki.domain}".extraConfig = ''
-        bind ${infra.lan.services.wiki.ip}
-        reverse_proxy ${infra.lan.services.wiki.localbind.ip}:${toString infra.lan.services.wiki.localbind.ports.tcp}
-        tls pki@adm.corp {
-              ca_root /etc/ca.crt
-              ca https://pki.adm.corp/acme/acme/directory
-        }
-        @not_intranet {
-          not remote_ip ${infra.lan.services.wiki.network}
-        }
-        respond @not_intranet 403
+      passwordFile = pkgs.writeText "password" "cardbotnine";
+      extraConfig = ''
+        # Disable anonymous editing
+        $wgGroupPermissions['*']['edit'] = false;
+        $wgDefaultUserOptions['visualeditor-editor'] = "visualeditor";
+        $wgDefaultUserOptions['visualeditor-enable-experimental'] = 1;
       '';
+      extensions = {
+        # null -> enable extention (default bundled only)
+        SyntaxHighlight = null;
+        VisualEditor = null;
+      };
+      caddy = {
+        enable = true;
+        logDir = lib.mkForce "/var/log/caddy";
+        logFormat = lib.mkForce "level INFO";
+        virtualHosts."${infra.lan.services.wiki.hostname}.${infra.lan.services.wiki.domain}".extraConfig = ''
+          bind ${infra.lan.services.wiki.ip}
+          reverse_proxy ${infra.lan.services.wiki.localbind.ip}:${toString infra.lan.services.wiki.localbind.ports.tcp}
+          tls pki@adm.corp {
+                ca_root /etc/ca.crt
+                ca https://pki.adm.corp/acme/acme/directory
+          }
+          @not_intranet {
+            not remote_ip ${infra.lan.services.wiki.network}
+          }
+          respond @not_intranet 403
+        '';
+      };
     };
   };
 }
