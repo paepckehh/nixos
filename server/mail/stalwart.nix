@@ -40,7 +40,7 @@
       storage.directory = "ldap";
       directory = {
         ldap = {
-          base-dn = "dc=debitor,dc=corp";
+          base-dn = "dc=dbt,dc=corp";
           timeout = "30s";
           type = "ldap";
           url = "ldap://127.0.0.1:3890";
@@ -62,8 +62,8 @@
               dn = "uid=?,ou=people,dc=dbt,dc=corp";
             };
             filter = {
-              email = "(&(|(objectClass=person)(member=cn=mail,ou=groups,dc=dbt,dc=org))(mail=?))";
-              name = "(&(|(objectClass=person)(member=cn=mail,ou=groups,dc=dbt,dc=org))(uid=?))";
+              email = "(&(|(objectClass=person)(member=cn=mail,ou=groups,dc=dbt,dc=corp))(mail=?))";
+              name = "(&(|(objectClass=person)(member=cn=mail,ou=groups,dc=dbt,dc=corp))(uid=?))";
             };
           };
           filter = {
