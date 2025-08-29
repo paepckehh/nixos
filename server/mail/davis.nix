@@ -9,8 +9,8 @@
         caldav = {
           ip = "10.20.6.127";
           hostname = "cal";
-          domain = "dbt.corp"
-          email = "it@debitor.de";
+          domain = "dbt.corp";
+          mail = "it@debitor.de";
           namespace = "06-dbt";
           network = "10.20.6.0/23";
           ports.tcp = 443;
