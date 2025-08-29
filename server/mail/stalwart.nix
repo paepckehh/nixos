@@ -38,12 +38,11 @@
       };
       storage.directory = "ldap";
       directory = {
-        default.type = "ldap";
-        imap.lookup.domains = ["dbt.corp"];
-        ldap = {
+        # imap.lookup.domains = ["dbt.corp"];
+        default = {
+          type = "ldap";
           base-dn = "dc=dbt,dc=corp";
           timeout = "30s";
-          type = "ldap";
           url = "ldap://127.0.0.1:3890";
           cache.entries = 500;
           attributes = {
