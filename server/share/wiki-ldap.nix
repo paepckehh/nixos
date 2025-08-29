@@ -62,11 +62,11 @@ in {
         # Make VisualEditor default
         $wgDefaultUserOptions['visualeditor-editor'] = "visualeditor";
         $wgDefaultUserOptions['visualeditor-enable-experimental'] = 1;
-        $wgAuth = new LdapAuthenticationPlugin();
         # LDAP Debug
-        #$wgLDAPDebug = 10;
-        #$wgDebugLogGroups["ldap"] = "/tmp/ldap.log" ;
+        $wgLDAPDebug = 10;
+        $wgDebugLogGroups["ldap"] = "/tmp/ldap.log" ;
         # LDAP
+        $wgAuth = new LdapAuthenticationPlugin();
         $wgLDAPDomainNames = array('dbt.corp' );
         $wgLDAPServerNames = array('dbt.corp' => '10.20.0.126:3890' );
         $wgLDAPEncryptionType = array('dbt.corp' => 'ssl' );
