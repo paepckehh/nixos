@@ -45,7 +45,7 @@ in {
       name = "MediaWiki";
       httpd.virtualHost = {
         # hostName = "${infra.lan.services.wiki.hostname}.${infra.lan.services.wiki.domain}";
-        hostName = "localhost";
+        hostName = "localhost:7123";
         adminAddr = "${infra.lan.services.wiki.mail}";
         listen = [
           {
