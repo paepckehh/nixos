@@ -9,7 +9,7 @@
         caldav = {
           ip = "10.20.6.127";
           hostname = "cal";
-          domain = "dbt.corp";
+          domain = "dbt.corp"
           email = "it@debitor.de";
           namespace = "06-dbt";
           network = "10.20.6.0/23";
@@ -47,7 +47,7 @@ in {
       enable = false;
       logDir = lib.mkForce "/var/log/caddy";
       logFormat = lib.mkForce "level INFO";
-      virtualHosts."${infra.lan.services.caldav.hostname}.${infra.lan.services.caldac.domain}".extraConfig = ''
+      virtualHosts."${infra.lan.services.caldav.hostname}.${infra.lan.services.caldav.domain}".extraConfig = ''
         bind ${infra.lan.services.caldav.ip}
         reverse_proxy ${infra.lan.services.caldav.localbind.ip}:${toString infra.lan.services.caldav.localbind.ports.tcp}
         tls pki@adm.corp {
