@@ -41,7 +41,7 @@ in {
   ##################
   services = {
     davis = {
-      enable = true;
+      enable = false;
       # hostname = "${infra.lan.services.caldav.hostname}.${infra.lan.services.caldav.domain}";
       hostname = "localhost";
     };
