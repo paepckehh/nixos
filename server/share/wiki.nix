@@ -45,7 +45,7 @@ in {
       httpd.virtualHost = {
         hostName = "wiki.dbt.corp";
         adminAddr = "it@debitor.de";
-        services.mediawiki.httpd.virtualHost.listen = [
+        listen = [
           {
             ip = "${infra.lan.services.wiki.localbind.ip}";
             port = infra.lan.services.wiki.localbind.ports.tcp;
