@@ -106,7 +106,7 @@ in {
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [lldap-cli sqlitebrowser];
+    systemPackages = with pkgs; [lldap-cli sqlitebrowser jxplorer];
     etc."ssl/ldaps.crt".text = lib.mkForce ''
       ### LDAPS PEM CERT GOES HERE ###
     '';
