@@ -126,8 +126,6 @@
           ./configuration.nix
           ./client/addrootCA.nix
           ./storage/stateless-luks.nix
-          ./server/iam/lldap.nix
-          ./server/mail/stalwart.nix
           ./server/monitoring/collect-syslog-ng.nix
           ./person/desktop/mpaepcke.nix
           ./packages/agenix.nix
@@ -140,6 +138,9 @@
           ./packages/secops.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
+          ./server/iam/lldap.nix
+          ./server/mail/stalwart.nix
+          ./server/share/wiki.nix
           # ./client/wireguard-wg100.nix
           # ./packages/desktop/dss-portal.nix
           # ./packages/desktop/firejail.nix

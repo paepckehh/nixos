@@ -1,18 +1,54 @@
 {
+  lib,
+  pkgs,
+  ...
+}: let
+  infra = {
+    lan = {
+      services = {
+        wiki = {
+          ip = "10.20.6.123";
+          hostname = "wiki";
+          domain = "dbt.corp";
+          namespace = "06-dbt";
+          network = "10.20.6.0/23";
+          ports.tcp = 443;
+          localbind = {
+            ip = "127.0.0.1";
+            ports.tcp = 7123;
+          };
+        };
+      };
+    };
+  };
+in {
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks.${infra.lan.services.wiki.namespace}.addresses = [{Address = "${infra.lan.services.wiki.ip}/32";}];
+
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking = {
+    extraHosts = "${infra.lan.services.wiki.ip} ${infra.lan.services.wiki.hostname} ${infra.lan.services.wiki.hostname}.${infra.lan.services.wiki.domain}";
+    firewall.allowedTCPPorts = [infra.lan.services.wiki.ports.tcp];
+  };
+
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
     mediawiki = {
       enable = true;
-      name = "PVZ IT MediaWiki";
+      name = "MediaWiki";
       httpd.virtualHost = {
-        hostName = "wiki.pvz.lan";
-        adminAddr = "it@pvz.digital";
+        hostName = "wiki.dbt.corp";
+        adminAddr = "it@debitor.de";
         services.mediawiki.httpd.virtualHost.listen = [
           {
-            ip = "127.0.0.1";
-            port = 8989;
+            ip = "${infra.lan.services.wiki.localbind.ip}";
+            port = infra.lan.services.wiki.localbind.ports.tcp;
             ssl = false;
           }
         ];
@@ -21,36 +57,31 @@
       extraConfig = ''
         # Disable anonymous editing
         $wgGroupPermissions['*']['edit'] = false;
+        $wgDefaultUserOptions['visualeditor-editor'] = "visualeditor";
+        $wgDefaultUserOptions['visualeditor-enable-experimental'] = 1;
       '';
       extensions = {
+        # null -> enable extention (default bundled only)
+        SyntaxHighlight = null;
         VisualEditor = null;
-        TemplateStyles = pkgs.fetchzip {
-          # https://www.mediawiki.org/wiki/Extension:TemplateStyles
-          url = "https://extdist.wmflabs.org/dist/extensions/TemplateStyles-REL1_40-c639c7a.tar.gz";
-          hash = "sha256-YBL0Cs4hDSNnoutNJSJBdLsv9zFWVkzo7m5osph8QiY=";
-        };
       };
-      nginx = {
+      caddy = {
         enable = true;
-        recommendedProxySettings = true;
-        virtualHosts = {
-          "wiki.pvz.lan" = {
-            locations."/".proxyPass = "http://127.0.0.1:8989";
-          };
-        };
+        logDir = lib.mkForce "/var/log/caddy";
+        logFormat = lib.mkForce "level INFO";
+        virtualHosts."${infra.lan.services.wiki.hostname}.${infra.lan.services.wiki.domain}".extraConfig = ''
+          bind ${infra.lan.services.wiki.ip}
+          reverse_proxy ${infra.lan.services.wiki.localbind.ip}:${toString infra.lan.services.wiki.localbind.ports.tcp}
+          tls pki@adm.corp {
+                ca_root /etc/ca.crt
+                ca https://pki.adm.corp/acme/acme/directory
+          }
+          @not_intranet {
+            not remote_ip ${infra.lan.services.paste.network}
+          }
+          respond @not_intranet 403
+        '';
       };
-      prometheus.exporters.nginx = {
-        enable = false;
-      };
-    };
-  };
-
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking = {
-    firewall = {
-      allowedTCPPorts = [80 443];
     };
   };
 }
