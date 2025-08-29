@@ -155,7 +155,7 @@
           };
           ssh = {
             enable = true;
-            addKeysToAgent = "yes";
+            matchBlocks."*".addKeysToAgent = "yes";
           };
           vim = {
             enable = true;
