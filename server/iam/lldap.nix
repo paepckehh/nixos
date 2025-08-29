@@ -135,8 +135,6 @@ in {
         # ldap admin
         ldap_user_dn = "${infra.lan.services.ldap.admin.user}";
         ldap_user_email = "${infra.lan.services.ldap.admin.email}";
-        ldap_user_pass_file = config.age.secrets.lldap-admin.path;
-        force_ldap_user_pass_reset = false; # true for enforced reset to default above
         # compatiblity (AD)
         ignored_user_attributes = ["sAMAccountName"];
         ignored_group_attributes = ["mail" "userPrincipalName"];
@@ -157,6 +155,9 @@ in {
           cert_file = "/etc/ssl/ldaps.crt";
           key_file = config.age.secrets.lldap-key.path;
         };
+        # enable only for admin password reset
+        # force_ldap_user_pass_reset = true;
+        # ldap_user_pass_file = config.age.secrets.lldap-admin.path;
       };
     };
   };
