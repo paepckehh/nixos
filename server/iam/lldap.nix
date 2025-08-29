@@ -156,8 +156,8 @@ in {
           key_file = config.age.secrets.lldap-key.path;
         };
         # enable only for admin password reset
-        # force_ldap_user_pass_reset = true;
-        # ldap_user_pass_file = config.age.secrets.lldap-admin.path;
+        force_ldap_user_pass_reset = false;
+        ldap_user_pass_file = config.age.secrets.lldap-admin.path;
       };
     };
   };
