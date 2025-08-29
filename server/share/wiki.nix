@@ -59,9 +59,12 @@ in {
       extraConfig = ''
         # Disable anonymous editing
         $wgGroupPermissions['*']['edit'] = false;
+        # Make VisualEditor default
         $wgDefaultUserOptions['visualeditor-editor'] = "visualeditor";
         $wgDefaultUserOptions['visualeditor-enable-experimental'] = 1;
-
+        # Local
+        $wgLocaltimezone = "Europe/Berlin";
+        $wgLanguageCode = 'de';
       '';
       extensions = {
         # null -> enable extention (default bundled only)

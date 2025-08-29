@@ -62,6 +62,9 @@ in {
         # Make VisualEditor default
         $wgDefaultUserOptions['visualeditor-editor'] = "visualeditor";
         $wgDefaultUserOptions['visualeditor-enable-experimental'] = 1;
+        # Local
+        $wgLocaltimezone = "Europe/Berlin";
+        $wgLanguageCode = 'de';
         # LDAP Debug
         $wgLDAPDebug = 10;
         $wgDebugLogGroups["ldap"] = "/tmp/ldap.log" ;
