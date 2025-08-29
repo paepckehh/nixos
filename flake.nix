@@ -139,7 +139,7 @@
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
           ./server/iam/lldap.nix
-          ./server/mail/stalwart.nix
+          ./server/mail/davis.nix
           ./server/share/wiki.nix
           # ./client/wireguard-wg100.nix
           # ./packages/desktop/dss-portal.nix

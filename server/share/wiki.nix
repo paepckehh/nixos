@@ -10,6 +10,7 @@
           ip = "10.20.6.123";
           hostname = "wiki";
           domain = "dbt.corp";
+          email = "it@debitor.de";
           namespace = "06-dbt";
           network = "10.20.6.0/23";
           ports.tcp = 443;
@@ -43,8 +44,9 @@ in {
       enable = true;
       name = "MediaWiki";
       httpd.virtualHost = {
-        hostName = "wiki.dbt.corp";
-        adminAddr = "it@debitor.de";
+        # hostName = "${infra.lan.services.wiki.hostname}.${infra.lan.services.wiki.domain}";
+        hostName = "localhost";
+        adminAddr = "${infra.lan.services.wiki.email";
         listen = [
           {
             ip = "${infra.lan.services.wiki.localbind.ip}";
