@@ -32,13 +32,14 @@
       };
       session.rcpt.directory = "'in-memory'";
       queue.strategy.route = "'local'";
-      directory."imap".lookup.domains = ["dbt.corp"];
       authentication.fallback-admin = {
         user = "admin";
         secret = "%{file:/etc/stalwart/pw}%";
       };
       storage.directory = "ldap";
       directory = {
+        default.type = "ldap";
+        imap.lookup.domains = ["dbt.corp"];
         ldap = {
           base-dn = "dc=dbt,dc=corp";
           timeout = "30s";
