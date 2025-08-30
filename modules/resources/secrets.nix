@@ -2,6 +2,8 @@ let
   age = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPvG7XOtIqjA+zibUaFj9gz/zOKYkZ9gAuYmkHjbseCk age@paepcke.de";
   srv-mp = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArbsQC2gdtQ9qCC54Khfei/rVMtVjOTiS0sduAi4jDO root@srv-mp";
 in {
+  "davis.age".publicKeys = [age srv-mp];
+  "davis-app.age".publicKeys = [age srv-mp];
   "lldap-admin.age".publicKeys = [age srv-mp];
   "lldap-jwt.age".publicKeys = [age srv-mp];
   "lldap-seed.age".publicKeys = [age srv-mp];

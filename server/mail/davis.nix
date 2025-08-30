@@ -1,16 +1,23 @@
 {
   lib,
-  pkgs,
+  config,
   ...
 }: let
   infra = {
     lan = {
       services = {
+        smtp = {
+          domain = "mail.corp";
+          server = {
+            hostname = "smtp.mail.corp";
+            port = 25;
+          };
+        };
         caldav = {
+          admin = "admin";
           ip = "10.20.6.127";
           hostname = "cal";
           domain = "dbt.corp";
-          mail = "it@debitor.de";
           namespace = "06-dbt";
           network = "10.20.6.0/23";
           ports.tcp = 443;
@@ -23,6 +30,46 @@
     };
   };
 in {
+  #################
+  #-=# IMPORTS #=-#
+  #################
+  imports = [
+    ../../packages/agenix.nix
+  ];
+
+  #############
+  #-=# AGE #=-#
+  #############
+  age = {
+    secrets = {
+      davis = {
+        file = ../../modules/resources/davis.age;
+        owner = "davis";
+        group = "davis";
+      };
+      davis-app = {
+        file = ../../modules/resources/davis-app.age;
+        owner = "davis";
+        group = "davis";
+      };
+    };
+  };
+
+  ###############
+  #-=# USERS #=-#
+  ###############
+  users = {
+    groups.davis = {};
+    users = {
+      davis = {
+        group = "davis";
+        isSystemUser = true;
+        hashedPassword = null; # disable ldap service account interactive logon
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
+      };
+    };
+  };
+
   #################
   #-=# SYSTEMD #=-#
   #################
@@ -41,9 +88,20 @@ in {
   ##################
   services = {
     davis = {
-      enable = false;
-      # hostname = "${infra.lan.services.caldav.hostname}.${infra.lan.services.caldav.domain}";
+      enable = true;
+      adminLogin = "${infra.lan.services.caldav.namespace}";
+      adminPasswordFile = config.age.secrets.davis.path;
+      appSecretFile = config.age.secrets.davis-app.path;
+      database.createLocally = true;
+      mail = {
+        dsn = "smtp://calendar:calendar@${infra.lan.services.mail.server.hostname}:${infra.lan.services.mail.server.port}";
+        inviteFromAddress = "calendar@${infra.lan.services.mail.server.domain}";
+      };
+      config = {
+        PUBLIC_CALENDARS_ENABLED = true;
+      };
       hostname = "localhost";
+      # hostname = "${infra.lan.services.caldav.hostname}.${infra.lan.services.caldav.domain}";
     };
     caddy = {
       enable = false;

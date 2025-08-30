@@ -43,22 +43,6 @@ in {
     ../../packages/agenix.nix
   ];
 
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.network.networks = {
-    ${infra.lan.services.ldap.namespace}.addresses = [{Address = "${infra.lan.services.ldap.ip}/32";}];
-    ${infra.lan.services.ldap-gui.namespace}.addresses = [{Address = "${infra.lan.services.ldap-gui.ip}/32";}];
-  };
-
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking = {
-    extraHosts = "${infra.lan.services.ldap.ip} ${infra.lan.services.ldap.hostname} ${infra.lan.services.ldap.hostname}.${infra.lan.services.ldap.domain}";
-    firewall.allowedTCPPorts = [infra.lan.services.ldap.ports.tcp infra.lan.services.ldap-gui.ports.tcp];
-  };
-
   #############
   #-=# AGE #=-#
   #############
@@ -85,6 +69,22 @@ in {
         group = "lldap";
       };
     };
+  };
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks = {
+    ${infra.lan.services.ldap.namespace}.addresses = [{Address = "${infra.lan.services.ldap.ip}/32";}];
+    ${infra.lan.services.ldap-gui.namespace}.addresses = [{Address = "${infra.lan.services.ldap-gui.ip}/32";}];
+  };
+
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking = {
+    extraHosts = "${infra.lan.services.ldap.ip} ${infra.lan.services.ldap.hostname} ${infra.lan.services.ldap.hostname}.${infra.lan.services.ldap.domain}";
+    firewall.allowedTCPPorts = [infra.lan.services.ldap.ports.tcp infra.lan.services.ldap-gui.ports.tcp];
   };
 
   ###############
