@@ -120,8 +120,8 @@ in {
       };
       nginx.listen = [
         {
-          addr = "192.154.1.1";
-          port = 80;
+          addr = "${infra.lan.services.caldav.localbind.ip}";
+          port = infra.lan.services.caldav.localbind.ports.tcp;
         }
       ];
     };
