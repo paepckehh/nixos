@@ -31,7 +31,7 @@
           fqdn = "${infra.lan.services.caldav.hostname}.${infra.lan.services.caldav.domain}";
           namespace = "06-dbt";
           network = "10.20.6.0/23";
-          ports.tcp = 443;
+          ports.tcp = 80;
           url = "https://${infra.lan.services.caldav.fqdn}";
           localbind = {
             ip = "127.0.0.1";
@@ -105,8 +105,7 @@ in {
       adminPasswordFile = config.age.secrets.davis.path;
       appSecretFile = config.age.secrets.davis-app.path;
       database.createLocally = true;
-      # hostname = "${infra.lan.services.caldav.fqdn}";
-      hostname = "localhost:7127";
+      hostname = "${infra.lan.services.caldav.fqdn}";
       mail = {
         dsn = "smtp://calendar:calendar@${infra.lan.services.smtp.fqdn}:${toString infra.lan.services.smtp.port}";
         inviteFromAddress = "calendar@${infra.lan.services.smtp.maildomain}";
@@ -121,8 +120,8 @@ in {
       };
       nginx.listen = [
         {
-          addr = "${infra.lan.services.caldav.localbind.ip}";
-          port = infra.lan.services.caldav.localbind.ports.tcp;
+          addr = "${infra.lan.services.caldav.ip}";
+          port = infra.lan.services.caldav.ports.tcp;
         }
       ];
     };
