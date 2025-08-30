@@ -9,8 +9,8 @@
         ldap = {
           url = "ldap://${infra.lan.services.ldap.server.host}:${infra.lan.services.ldap.server.port}";
           server = {
-            host = "10.20.0.124:3860";
-            port = 3860;
+            host = "10.20.0.126";
+            port = 3890;
           };
         };
         smtp = {
@@ -106,11 +106,11 @@ in {
       };
       config = {
         PUBLIC_CALENDARS_ENABLED = true;
-        # LDAP_AUTH_URL = "ldap://10.20.0.124:3860";
-        # LDAP_DN_PATTERN = "mail=%u";
-        # LDAP_MAIL_ATTRIBUTE = "mail";
-        # LDAP_AUTH_USER_AUTOCREATE = false;
-        # LDAP_CERTIFICATE_CHECKING_STRATEGY="never";  # never, try, hard, demand, allow
+        LDAP_AUTH_URL = "ldap://10.20.0.124:3860";
+        LDAP_DN_PATTERN = "mail=%u";
+        LDAP_MAIL_ATTRIBUTE = "mail";
+        LDAP_AUTH_USER_AUTOCREATE = false;
+        LDAP_CERTIFICATE_CHECKING_STRATEGY = "never"; # never, try, hard, demand, allow
       };
       hostname = "localhost";
       # hostname = "${infra.lan.services.caldav.hostname}.${infra.lan.services.caldav.domain}";
