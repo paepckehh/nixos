@@ -46,8 +46,17 @@ in {
   services = {
     open-web-calendar = {
       enable = true;
-      # domain = "${infra.lan.services.webcal.fqdn}";
-      domain = "10.20.6.128";
+      domain = "${infra.lan.services.webcal.fqdn}";
+      settings = {
+        title = "my corp calendar";
+        language = "de";
+      };
+    };
+    nginx = {
+      virtualHosts."${infra.lan.services.webcal.fqdn}" = {
+        forceSSL = false;
+        enableACME = false;
+      };
     };
   };
 }
