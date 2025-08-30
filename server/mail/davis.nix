@@ -101,7 +101,7 @@ in {
       appSecretFile = config.age.secrets.davis-app.path;
       database.createLocally = true;
       mail = {
-        dsn = "smtp://calendar:calendar@${infra.lan.services.smtp.server.host}:${infra.lan.services.smtp.server.port}";
+        dsn = "smtp://calendar:calendar@${infra.lan.services.smtp.server.host}:${toString infra.lan.services.smtp.server.port}";
         inviteFromAddress = "calendar@${infra.lan.services.smtp.server.domain}";
       };
       config = {
