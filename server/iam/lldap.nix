@@ -136,7 +136,7 @@ in {
         ldap_user_dn = "${infra.lan.services.ldap.admin.user}";
         ldap_user_email = "${infra.lan.services.ldap.admin.email}";
         # enable only for adminitrative admin password reset or init
-        force_ldap_user_pass_reset = "never";
+        force_ldap_user_pass_reset = true;
         # silenceForceUserPassResetWarning = true;
         ldap_user_pass_file = config.age.secrets.lldap-admin.path;
         # compatiblity (AD)
