@@ -109,7 +109,7 @@ in {
         LDAP_AUTH_URL = "ldap://10.20.0.124:3860";
         LDAP_DN_PATTERN = "mail=%u";
         LDAP_MAIL_ATTRIBUTE = "mail";
-        LDAP_AUTH_USER_AUTOCREATE = false;
+        LDAP_AUTH_USER_AUTOCREATE = true;
         LDAP_CERTIFICATE_CHECKING_STRATEGY = "never"; # never, try, hard, demand, allow
       };
       hostname = "localhost";
