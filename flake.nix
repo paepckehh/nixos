@@ -126,7 +126,6 @@
           ./configuration.nix
           ./client/addrootCA.nix
           ./storage/stateless-luks.nix
-          ./server/monitoring/collect-syslog-ng.nix
           ./person/desktop/mpaepcke.nix
           ./packages/agenix.nix
           ./packages/base.nix
@@ -140,6 +139,8 @@
           ./iot/moode/alias.nix
           ./server/iam/lldap.nix
           ./server/mail/davis.nix
+          ./server/mail/open-web-calendar.nix
+          ./server/monitoring/collect-syslog-ng.nix
           ./server/share/wiki.nix
           # ./client/wireguard-wg100.nix
           # ./packages/desktop/dss-portal.nix
