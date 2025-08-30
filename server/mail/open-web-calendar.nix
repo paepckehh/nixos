@@ -44,7 +44,7 @@ in {
   ##################
   services = {
     open-web-calendar = {
-      enable = true;
+      enable = false;
       domain = "${infra.lan.services.webcal.fqdn}";
       # domain = "${infra.lan.services.webcal.fqdn}";
     };
