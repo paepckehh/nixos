@@ -105,7 +105,7 @@ in {
       adminPasswordFile = config.age.secrets.davis.path;
       appSecretFile = config.age.secrets.davis-app.path;
       database.createLocally = true;
-      hostname = "${infra.lan.services.caldav.fqdn}.${infra.lan.services.caldav.domain}";
+      hostname = "${infra.lan.services.caldav.fqdn}";
       mail = {
         dsn = "smtp://calendar:calendar@${infra.lan.services.smtp.fqdn}:${toString infra.lan.services.smtp.port}";
         inviteFromAddress = "calendar@${infra.lan.services.smtp.maildomain}";
