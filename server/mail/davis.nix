@@ -91,7 +91,7 @@ in {
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = "${infra.lan.services.caldav.ip} ${infra.lan.services.caldav.hostname} ${infra.lan.services.caldav.hostname}.${infra.lan.services.caldav.domain}";
+    extraHosts = "${infra.lan.services.caldav.ip} ${infra.lan.services.caldav.hostname} ${infra.lan.services.caldav.fqdn}";
     firewall.allowedTCPPorts = [infra.lan.services.caldav.ports.tcp];
   };
 
@@ -105,6 +105,7 @@ in {
       adminPasswordFile = config.age.secrets.davis.path;
       appSecretFile = config.age.secrets.davis-app.path;
       database.createLocally = true;
+      hostname = "${infra.lan.services.caldav.fqdn}.${infra.lan.services.caldav.domain}";
       mail = {
         dsn = "smtp://calendar:calendar@${infra.lan.services.smtp.fqdn}:${toString infra.lan.services.smtp.port}";
         inviteFromAddress = "calendar@${infra.lan.services.smtp.maildomain}";
@@ -117,8 +118,6 @@ in {
         LDAP_AUTH_USER_AUTOCREATE = true;
         LDAP_CERTIFICATE_CHECKING_STRATEGY = "never"; # never, try, hard, demand, allow
       };
-      hostname = "localhost:7127";
-      # hostname = "${infra.lan.services.caldav.hostname}.${infra.lan.services.caldav.domain}";
     };
     caddy = {
       enable = false;
