@@ -15,6 +15,7 @@
           ports.tcp = 443;
           hostname = "calendar";
           domain = "dbt.corp";
+          namespace = "06-corp";
           fqdn = "${infra.lan.services.webcal.hostname}.${infra.lan.services.webcal.domain}";
           url = "https://${infra.lan.services.webcal.fqdn}";
           localbind = {
