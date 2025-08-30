@@ -118,6 +118,13 @@ in {
         LDAP_AUTH_USER_AUTOCREATE = true;
         LDAP_CERTIFICATE_CHECKING_STRATEGY = "never"; # never, try, hard, demand, allow
       };
+      nginx.listen = [
+         {
+          addr = "192.154.1.1";
+          port = 80;
+           } 
+           ];
+      };
     };
     caddy = {
       enable = false;
