@@ -102,7 +102,7 @@ in {
       database.createLocally = true;
       mail = {
         dsn = "smtp://calendar:calendar@${infra.lan.services.smtp.server.host}:${toString infra.lan.services.smtp.server.port}";
-        inviteFromAddress = "calendar@${infra.lan.services.smtp.server.domain}";
+        inviteFromAddress = "calendar@${infra.lan.services.smtp.domain}";
       };
       config = {
         PUBLIC_CALENDARS_ENABLED = true;
