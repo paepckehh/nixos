@@ -6,10 +6,17 @@
   infra = {
     lan = {
       services = {
+        ldap = {
+          url = "ldap://${infra.lan.services.ldap.server.host}:${infra.lan.services.ldap.server.port}";
+          server = {
+            host = "10.20.0.124:3860";
+            port = 3860;
+          };
+        };
         smtp = {
           domain = "mail.corp";
           server = {
-            hostname = "smtp.mail.corp";
+            host = "smtp.mail.corp";
             port = 25;
           };
         };
@@ -94,11 +101,16 @@ in {
       appSecretFile = config.age.secrets.davis-app.path;
       database.createLocally = true;
       mail = {
-        dsn = "smtp://calendar:calendar@${infra.lan.services.mail.server.hostname}:${infra.lan.services.mail.server.port}";
-        inviteFromAddress = "calendar@${infra.lan.services.mail.server.domain}";
+        dsn = "smtp://calendar:calendar@${infra.lan.services.smtp.server.host}:${infra.lan.services.smtp.server.port}";
+        inviteFromAddress = "calendar@${infra.lan.services.smtp.server.domain}";
       };
       config = {
         PUBLIC_CALENDARS_ENABLED = true;
+        # LDAP_AUTH_URL = "ldap://10.20.0.124:3860";
+        # LDAP_DN_PATTERN = "mail=%u";
+        # LDAP_MAIL_ATTRIBUTE = "mail";
+        # LDAP_AUTH_USER_AUTOCREATE = false;
+        # LDAP_CERTIFICATE_CHECKING_STRATEGY="never";  # never, try, hard, demand, allow
       };
       hostname = "localhost";
       # hostname = "${infra.lan.services.caldav.hostname}.${infra.lan.services.caldav.domain}";
