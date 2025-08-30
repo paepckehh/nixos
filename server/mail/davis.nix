@@ -11,7 +11,7 @@
           port = 3890;
           hostname = "ldap";
           domain = "dbt.corp";
-          url = "ldap://${infra.lan.services.ldap.ip}:${infra.lan.services.ldap.port}";
+          url = "ldap://${infra.lan.services.ldap.ip}:${toString infra.lan.services.ldap.port}";
           fqdn = "${infra.lan.services.ldap.hostname}.${infra.lan.services.ldap.domain}";
           # url = "ldap://${infra.lan.services.ldap.fqdn}:${infra.lan.services.ldap.port}";
         };
