@@ -18,9 +18,9 @@
         smtp = {
           ip = "10.20.0.126";
           port = 25;
+          hostname = "smtp";
           domain = "dbt.corp";
           maildomain = "debitor.de";
-          host = "smtp";
           fqdn = "${infra.lan.services.smtp.hostname}.${infra.lan.services.smtp.domain}";
         };
         caldav = {
@@ -106,7 +106,7 @@ in {
       appSecretFile = config.age.secrets.davis-app.path;
       database.createLocally = true;
       mail = {
-        dsn = "smtp://calendar:calendar@${infra.lan.services.smtp.server.host}:${toString infra.lan.services.smtp.server.port}";
+        dsn = "smtp://calendar:calendar@${infra.lan.services.smtp.fqdn}:${toString infra.lan.services.smtp.port}";
         inviteFromAddress = "calendar@${infra.lan.services.smtp.maildomain}";
       };
       config = {
