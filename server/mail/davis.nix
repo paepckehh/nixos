@@ -96,7 +96,7 @@ in {
   services = {
     davis = {
       enable = true;
-      adminLogin = "${infra.lan.services.caldav.namespace}";
+      adminLogin = "${infra.lan.services.caldav.admin}";
       adminPasswordFile = config.age.secrets.davis.path;
       appSecretFile = config.age.secrets.davis-app.path;
       database.createLocally = true;
