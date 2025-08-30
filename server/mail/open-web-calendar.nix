@@ -47,7 +47,7 @@ in {
     open-web-calendar = {
       enable = true;
       domain = "${infra.lan.services.webcal.fqdn}";
-      # domain = "${infra.lan.services.webcal.fqdn}";
+      domain = "10.20.6.128";
     };
   };
 }
