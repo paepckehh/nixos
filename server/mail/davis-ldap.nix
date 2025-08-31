@@ -112,12 +112,12 @@ in {
       };
       config = {
         PUBLIC_CALENDARS_ENABLED = true;
-        AUTH_METHOD = "LDAP";
-        LDAP_AUTH_URL = "${infra.lan.services.ldap.url}";
-        LDAP_DN_PATTERN = "mail=%u";
-        LDAP_MAIL_ATTRIBUTE = "mail";
-        LDAP_AUTH_USER_AUTOCREATE = true;
-        LDAP_CERTIFICATE_CHECKING_STRATEGY = "never"; # never, try, hard, demand, allow
+        AUTH_METHOD = lib.mkForce "LDAP";
+        LDAP_AUTH_URL = lib.mkForce "${infra.lan.services.ldap.url}";
+        LDAP_DN_PATTERN = lib.mkForce "mail=%u";
+        LDAP_MAIL_ATTRIBUTE = lib.mkForce "mail";
+        LDAP_AUTH_USER_AUTOCREATE = lib.mkForce true;
+        LDAP_CERTIFICATE_CHECKING_STRATEGY = lib.mkForce "never"; # never, try, hard, demand, allow
       };
       nginx.listen = [
         {
