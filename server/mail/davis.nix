@@ -6,7 +6,7 @@
   infra = {
     lan = {
       services = {
-        smtp = {``
+        smtp = {
           ip = "10.20.0.125";
           port = 25;
           hostname = "smtp";
