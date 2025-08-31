@@ -103,8 +103,8 @@ in {
       };
       config = {
         AUTH_METHOD = "Basic";
-        APP_LOG_DIR = "/var/log/davis/";
-        LOG_FILE_PATH = "/var/log/davis/";
+        APP_LOG_DIR = lib.mkForce "/var/log/davis/";
+        LOG_FILE_PATH = lib.mkForce "/var/log/davis/";
       };
       nginx.listen = [
         {
