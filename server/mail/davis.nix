@@ -102,7 +102,10 @@ in {
         inviteFromAddress = "calendar@${infra.lan.services.smtp.maildomain}";
       };
       config = {
-        PUBLIC_CALENDARS_ENABLED = true;
+        AUTH_METHOD = "Basic";
+        # LOG_FILE_PATH = "/var/log/davis/"; # default: /var/lib/davis/log/
+        # PUBLIC_CALENDARS_ENABLED = true;
+        # WEBDAV_ENABLED = false;
       };
       nginx.listen = [
         {

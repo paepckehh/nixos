@@ -112,6 +112,7 @@ in {
       };
       config = {
         PUBLIC_CALENDARS_ENABLED = true;
+        AUTH_METHOD = "LDAP";
         LDAP_AUTH_URL = "${infra.lan.services.ldap.url}";
         LDAP_DN_PATTERN = "mail=%u";
         LDAP_MAIL_ATTRIBUTE = "mail";
