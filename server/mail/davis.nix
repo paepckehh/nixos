@@ -103,9 +103,8 @@ in {
       };
       config = {
         AUTH_METHOD = "Basic";
-        # LOG_FILE_PATH = "/var/log/davis/"; # default: /var/lib/davis/log/
-        # PUBLIC_CALENDARS_ENABLED = true;
-        # WEBDAV_ENABLED = false;
+        APP_LOG_DIR = "/var/log/davis/";
+        LOG_FILE_PATH = "/var/log/davis/";
       };
       nginx.listen = [
         {
