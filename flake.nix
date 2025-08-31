@@ -140,9 +140,9 @@
           ./iot/moode/alias.nix
           ./server/iam/lldap.nix
           ./server/mail/davis.nix
-          # ./server/mail/open-web-calendar.nix
           ./server/monitoring/collect-syslog-ng.nix
           ./server/share/wiki.nix
+          # ./server/mail/open-web-calendar.nix
           # ./client/wireguard-wg100.nix
           # ./packages/desktop/dss-portal.nix
           # ./packages/desktop/firejail.nix
