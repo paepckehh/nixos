@@ -1,3 +1,8 @@
+##############################
+# DAV [WEBDAV|CARDAV|CALDAV] #
+##############################
+# client config:
+# * caldav discovery thunderbird -> https://dav.dbt.corp/dav/principals/<username>
 {
   lib,
   config,
