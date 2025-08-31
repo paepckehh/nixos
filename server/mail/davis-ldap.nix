@@ -14,6 +14,15 @@
           maildomain = "debitor.de";
           fqdn = "${infra.lan.services.smtp.hostname}.${infra.lan.services.smtp.domain}";
         };
+        ldap = {
+          ip = "10.20.0.126";
+          port = 3890;
+          hostname = "ldap";
+          domain = "dbt.corp";
+          url = "ldap://${infra.lan.services.ldap.ip}:${toString infra.lan.services.ldap.port}";
+          fqdn = "${infra.lan.services.ldap.hostname}.${infra.lan.services.ldap.domain}";
+          # url = "ldap://${infra.lan.services.ldap.fqdn}:${infra.lan.services.ldap.port}";
+        };
         dav = {
           admin = "admin";
           ip = "10.20.6.127";
@@ -67,7 +76,7 @@ in {
       davis = {
         group = "davis";
         isSystemUser = true;
-        hashedPassword = null; # disable interactive logon
+        hashedPassword = null; # disable ldap service account interactive logon
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
       };
     };
@@ -103,6 +112,11 @@ in {
       };
       config = {
         PUBLIC_CALENDARS_ENABLED = true;
+        LDAP_AUTH_URL = "${infra.lan.services.ldap.url}";
+        LDAP_DN_PATTERN = "mail=%u";
+        LDAP_MAIL_ATTRIBUTE = "mail";
+        LDAP_AUTH_USER_AUTOCREATE = true;
+        LDAP_CERTIFICATE_CHECKING_STRATEGY = "never"; # never, try, hard, demand, allow
       };
       nginx.listen = [
         {
