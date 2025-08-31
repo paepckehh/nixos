@@ -102,9 +102,7 @@ in {
         inviteFromAddress = "calendar@${infra.lan.services.smtp.maildomain}";
       };
       config = {
-        AUTH_METHOD = "Basic";
-        APP_LOG_DIR = lib.mkForce "/var/log/davis/";
-        LOG_FILE_PATH = lib.mkForce "/var/log/davis/";
+        AUTH_METHOD = lib.mkForce "Basic";
       };
       nginx.listen = [
         {
