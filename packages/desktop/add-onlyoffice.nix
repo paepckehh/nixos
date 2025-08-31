@@ -2,9 +2,5 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment = {
-    systemPackages = with pkgs; [
-      localai
-    ];
-  };
+  environment.systemPackages = with pkgs; [onlyoffice-desktopeditors];
 }

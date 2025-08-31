@@ -131,6 +131,7 @@
           ./packages/base.nix
           ./packages/desktop/gnome.nix
           ./packages/desktop/add-thunderbird.nix
+          ./packages/desktop/add-onlyoffice.nix
           ./packages/devops.nix
           ./packages/devops-iot.nix
           ./packages/neovim-nvf.nix
@@ -138,6 +139,8 @@
           ./packages/secops.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
+          ./server/ai/ollama.nix
+          ./server/ai/openweb-ui.nix
           ./server/iam/lldap.nix
           ./server/mail/davis.nix
           ./server/monitoring/collect-syslog-ng.nix
