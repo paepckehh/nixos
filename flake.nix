@@ -140,7 +140,7 @@
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
           ./server/ai/ollama.nix
-          ./server/ai/openweb-ui.nix
+          # ./server/ai/openweb-ui.nix
           ./server/iam/lldap.nix
           ./server/mail/davis.nix
           ./server/monitoring/collect-syslog-ng.nix
