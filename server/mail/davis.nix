@@ -6,6 +6,14 @@
   infra = {
     lan = {
       services = {
+        smtp = {``
+          ip = "10.20.0.125";
+          port = 25;
+          hostname = "smtp";
+          domain = "dbt.corp";
+          maildomain = "debitor.de";
+          fqdn = "${infra.lan.services.smtp.hostname}.${infra.lan.services.smtp.domain}";
+        };
         ldap = {
           ip = "10.20.0.126";
           port = 3890;
@@ -14,14 +22,6 @@
           url = "ldap://${infra.lan.services.ldap.ip}:${toString infra.lan.services.ldap.port}";
           fqdn = "${infra.lan.services.ldap.hostname}.${infra.lan.services.ldap.domain}";
           # url = "ldap://${infra.lan.services.ldap.fqdn}:${infra.lan.services.ldap.port}";
-        };
-        smtp = {
-          ip = "10.20.0.126";
-          port = 25;
-          hostname = "smtp";
-          domain = "dbt.corp";
-          maildomain = "debitor.de";
-          fqdn = "${infra.lan.services.smtp.hostname}.${infra.lan.services.smtp.domain}";
         };
         caldav = {
           admin = "admin";
