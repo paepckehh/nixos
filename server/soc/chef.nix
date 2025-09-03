@@ -4,19 +4,20 @@
   ...
 }: let
   infra = {
-    lan = {
-      domain = "lan";
-      network = "192.168.80.0/24";
-      namespace = "10-${infra.lan.domain}";
-      services = {
-        chef = {
-          ip = "192.168.80.212";
-          hostname = "chef";
-          ports.tcp = 443;
-          localbind = {
-            ip = "127.0.0.1";
-            ports.tcp = 7012;
-          };
+    services = {
+      chef = {
+        net = 6;
+        id = 117;
+        hostname = "chef";
+        domain = "dbt.corp";
+        fqdn = "${infra.services.chef.hostname}.${infra.services.chef.domain}";
+        ip = "10.20.${toString infra.services.chef.net}.${toString infra.serices.chef.id}";
+        network = "10.20.${toString infra.services.chef.net}.0/23";
+        namespace = "${toString infra.services.chef.net}";
+        ports.web = 443;
+        localbind = {
+          ip = "127.0.0.1";
+          ports.web = 7000 + infra.services.chef.id;
         };
       };
     };
@@ -25,16 +26,16 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks.${infra.lan.namespace}.addresses = [
-    {Address = "${infra.lan.services.chef.ip}/32";}
+  systemd.network.networks.${infra.services.chef.namespace}.addresses = [
+    {Address = "${infra.services.chef.ip}/32";}
   ];
 
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = "${infra.lan.services.chef.ip} ${infra.lan.services.chef.hostname} ${infra.lan.services.chef.hostname}.${infra.lan.domain}";
-    firewall.allowedTCPPorts = [infra.lan.services.chef.ports.tcp];
+    extraHosts = "${infra.services.chef.ip} ${infra.services.chef.hostname} ${infra.services.chef.fqdn}";
+    firewall.allowedTCPPorts = [infra.lan.services.chef.ports.web];
   };
 
   ########################
@@ -46,7 +47,7 @@ in {
       containers = {
         chef = {
           image = "ghcr.io/gchq/cyberchef:latest";
-          ports = ["${infra.lan.services.chef.localbind.ip}:${toString infra.lan.services.chef.localbind.ports.tcp}:80"];
+          ports = ["${infra.services.chef.localbind.ip}:${toString infra.services.chef.localbind.ports.web}:80"];
         };
       };
     };
@@ -57,18 +58,18 @@ in {
   ##################
   services = {
     caddy = {
-      enable = true;
+      enable = false;
       logDir = lib.mkForce "/var/log/caddy";
       logFormat = lib.mkForce "level INFO";
-      virtualHosts."chef.${infra.lan.domain}".extraConfig = ''
-        bind ${infra.lan.services.chef.ip}
-        reverse_proxy ${infra.lan.services.chef.localbind.ip}:${toString infra.lan.services.chef.localbind.ports.tcp}
-        tls acme@pki.lan {
+      virtualHosts."${infra.services.chef.fqdn}".extraConfig = ''
+        bind ${infra.services.chef.ip}
+        reverse_proxy ${infra.services.chef.localbind.ip}:${toString infra.services.chef.localbind.ports.web}
+        tls acme@pki.adm.corp {
               ca_root /etc/ca.crt
-              ca https://pki.lan/acme/acme/directory
+              ca https://pki.adm.corp/acme/acme/directory
         }
         @not_intranet {
-          not remote_ip ${infra.lan.network}
+          not remote_ip ${infra.services.chef.network}
         }
         respond @not_intranet 403
         log {

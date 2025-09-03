@@ -2,6 +2,7 @@ let
   age = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPvG7XOtIqjA+zibUaFj9gz/zOKYkZ9gAuYmkHjbseCk age@paepcke.de";
   srv-mp = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArbsQC2gdtQ9qCC54Khfei/rVMtVjOTiS0sduAi4jDO root@srv-mp";
 in {
+  "vault.age".publicKeys = [age srv-mp]; # ADMIN_TOKEN="..." ENV FILE FORMAT
   "davis.age".publicKeys = [age srv-mp];
   "davis-app.age".publicKeys = [age srv-mp];
   "lldap-admin.age".publicKeys = [age srv-mp];
