@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   infra = {
@@ -17,6 +18,7 @@
       caFile = "/etc/ca.crt";
       hostname = "pki";
       domain = "adm.corp";
+      maildomain = "debitor.de";
       fqdn = "${infra.pki.hostname}.${infra.pki.domain}";
       url = "https://${infra.pki.fqdn}/acme/acme/directory";
     };
@@ -59,7 +61,7 @@ in {
     groups.vaultwarden = {};
     users = {
       vaultwarden = {
-        group = "vaultwarden:wq";
+        group = "vaultwarden";
         isSystemUser = true;
         hashedPassword = null; # disable ldap service account interactive logon
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
@@ -95,7 +97,7 @@ in {
       enable = true;
       # ENV ADMIN_TOKEN, see https://github.com/dani-garcia/vaultwarden/wiki/Enabling-admin-page
       # echo -n "secret-pass..." | argon2 "$(openssl rand -base64 32)" -e -id -k 65540 -t 3 -p 4
-      environmentFile = config.age...; 
+      environmentFile = config.age.secrets.path; 
       config = {
         ROCKET_ADDRESS = "${infra.vault.localbind.ip}";
         ROCKET_PORT = infra.vault.localbind.ports.http;
