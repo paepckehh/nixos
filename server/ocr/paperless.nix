@@ -50,22 +50,19 @@
       hostname = "smtp";
       domain = infra.domain.admin;
       fqdn = "${infra.smtp.hostname}.${infra.smtp.domain}";
-      maildomain = "debitor.de";
     };
-    vault = {
-      net = 6;
-      id = 129;
-      name = "vault";
-      api_hibp = "";
-      hostname = infra.vault.name;
+    paperless = {
+      id = 125;
+      name = "paperless";
+      hostname = infra.paperless.name;
       domain = infra.domain.user;
-      fqdn = "${infra.vault.hostname}.${infra.vault.domain}";
-      ip = "${infra.net.user}.${toString infra.vault.id}";
+      fqdn = "${infra.paperless.hostname}.${infra.paperless.domain}";
+      ip = "${infra.net.user}.${toString infra.paperless.id}";
       network = infra.cidr.user;
       namespace = infra.namespace.user;
       localbind = {
         ip = infra.localhost;
-        ports.http = 7000 + infra.vault.id;
+        port.http = infra.localhostPortOffset + infra.paperless.id;
       };
     };
   };
@@ -74,10 +71,10 @@ in {
   #-=# AGE #=-#
   #############
   age = {
-    secrets.vault = {
-      file = ../../modules/resources/vault.age;
-      owner = "vaultwarden";
-      group = "vaultwarden";
+    secrets.paperless = {
+      file = ../../modules/resources/paperless.age;
+      owner = "paperless";
+      group = "paperless";
     };
   };
 
@@ -85,10 +82,10 @@ in {
   #-=# USERS #=-#
   ###############
   users = {
-    groups.vaultwarden = {};
+    groups.paperless = {};
     users = {
-      vaultwarden = {
-        group = "vaultwarden";
+      paperless = {
+        group = "paperless";
         isSystemUser = true;
         hashedPassword = null; # disable ldap service account interactive logon
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
@@ -99,60 +96,64 @@ in {
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.systemPackages = with pkgs; [argon2 openssl];
+  # environment.systemPackages = with pkgs; [];
 
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks.${infra.vault.namespace}.addresses = [
-    {Address = "${infra.vault.ip}/32";}
+  systemd.network.networks.${infra.paperless.namespace}.addresses = [
+    {Address = "${infra.paperless.ip}/32";}
   ];
 
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = "${infra.vault.ip} ${infra.vault.hostname} ${infra.vault.fqdn}";
-    firewall.allowedTCPPorts = [infra.ports.http infra.ports.https];
+    extraHosts = "${infra.paperless.ip} ${infra.paperless.hostname} ${infra.paperless.fqdn}";
+    firewall.allowedTCPPorts = [infra.port.webapp];
   };
 
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
-    vaultwarden = {
+    paperless = {
       enable = true;
-      # ENV ADMIN_TOKEN, see https://github.com/dani-garcia/vaultwarden/wiki/Enabling-admin-page
-      # echo -n "secret-pass..." | argon2 "$(openssl rand -base64 32)" -e -id -k 65540 -t 3 -p 4
-      environmentFile = config.age.secrets.path;
-      config = {
-        ROCKET_ADDRESS = "${infra.vault.localbind.ip}";
-        ROCKET_PORT = infra.vault.localbind.ports.http;
-        ROCKET_LOG = "info";
-        SMTP_HOST = "${infra.smtp.fqdn}";
-        SMTP_PORT = infra.ports.smtp;
-        SMTP_SSL = false;
-        SMTP_FROM = "${infra.contact}";
-        SMTP_FROM_NAME = "${infra.vault.name}@${infra.smtp.maildomain}";
-        SIGNUPS_DOMAINS_WHITELIST = infra.smtp.maildomain;
-        HIBP_API_KEY = infra.vault.api_hibp;
+      adress = infra.paperless.localbind.ip;
+      port = infra.paperless.localbind.port.http;
+      database.createLocally = true;
+      domain = infra.paperless.fqdn;
+      passwordFile = config.age.secrets.paperless.path;
+      settings = {
+        PAPERLESS_CONSUMER_IGNORE_PATTERN = [
+          ".DS_STORE/*"
+          "desktop.ini"
+        ];
+        PAPERLESS_OCR_LANGUAGE = "deu+eng";
+        PAPERLESS_OCR_USER_ARGS = {
+          optimize = 1;
+          pdfa_image_compression = "lossless";
+        };
+      };
+      exporter = {
+        enable = true;
       };
     };
     caddy = {
       enable = true;
-      virtualHosts."${infra.vault.fqdn}".extraConfig = ''
-        bind ${infra.vault.ip}
-        reverse_proxy ${infra.vault.localbind.ip}:${toString infra.vault.localbind.ports.http}
+      virtualHosts."${infra.paperless.fqdn}".extraConfig = ''
+        bind ${infra.paperless.ip}
+        reverse_proxy ${infra.paperless.localbind.ip}:${toString infra.paperless.localbind.port.http}
         tls ${infra.pki.acmeContact} {
               ca ${infra.pki.url}
               ca_root ${infra.pki.caFile}
         }
         @not_intranet {
-          not remot_ip ${infra.vault.network}
+          not remote_ip ${infra.paperless.network}
         }
         respond @not_intranet 403
         log {
-          output file ${config.services.caddy.logDir}/${infra.vault.name}.log
+          output file ${config.services.caddy.logDir}/${infra.paperless.name}.log
         }'';
     };
   };
