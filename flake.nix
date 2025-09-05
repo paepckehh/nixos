@@ -130,8 +130,6 @@
           ./packages/agenix.nix
           ./packages/base.nix
           ./packages/desktop/gnome.nix
-          ./packages/desktop/add-thunderbird.nix
-          ./packages/desktop/add-onlyoffice.nix
           ./packages/devops.nix
           ./packages/devops-iot.nix
           ./packages/neovim-nvf.nix
@@ -139,16 +137,18 @@
           ./packages/secops.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
-          ./server/iam/lldap.nix
           ./server/monitoring/collect-syslog-ng.nix
-          ./server/share/wiki.nix
-          ./server/ai/ollama.nix
-          ./server/mail/davis.nix
-          ./server/ai/openweb-ui.nix
+          # ./server/iam/lldap.nix
+          # ./server/share/wiki.nix
+          # ./server/ai/openweb-ui.nix
+          # ./server/ai/ollama.nix
+          # ./server/mail/davis.nix
           # ./server/mail/open-web-calendar.nix
           # ./client/wireguard-wg100.nix
           # ./packages/desktop/dss-portal.nix
           # ./packages/desktop/firejail.nix
+          # ./packages/desktop/add-thunderbird.nix
+          # ./packages/desktop/add-onlyoffice.nix
           # ./server/hr/timeoff.nix
           # ./server/dns/adguard.nix
           # ./server/pki/small-step.nix
