@@ -57,6 +57,7 @@
       id = 129;
       name = "matrix-web";
       alias = "matrix";
+      theme = "dark";
       hostname = infra.matrix-web.name;
       domain = infra.domain.user;
       fqdn = "${infra.matrix-web.hostname}.${infra.matrix-web.domain}";
@@ -82,7 +83,7 @@ in {
   ####################
   networking = {
     extraHosts = "${infra.matrix-web.ip} ${infra.matrix-web.hostname} ${infra.matrix-web.fqdn}";
-    firewall.allowedTCPPorts = [infra.port.webapp];
+    firewall.allowedTCPPorts = infra.port.webapp;
   };
 
   ##################
@@ -98,7 +99,7 @@ in {
       ];
       root = pkgs.element-web.override {
         conf = {
-          default_theme = "dark";
+          default_theme = infra.element-web.theme;
         };
       };
     };
