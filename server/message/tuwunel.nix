@@ -30,8 +30,8 @@
     };
     net = {
       prefix = "10.20";
-      admin = "${infra.net.prefix}.${infra.id.admin}";
-      user = "${infra.net.prefix}.${infra.id.user}";
+      admin = "${infra.net.prefix}.${toString infra.id.admin}";
+      user = "${infra.net.prefix}.${toString infra.id.user}";
     };
     namespace = {
       admin = "${toString infra.id.admin}";
