@@ -72,14 +72,14 @@ in {
   #-=# SYSTEMD #=-#
   #################
   systemd.network.networks.${infra.matrix-server.namespace}.addresses = [
-    {Address = "${infra.matrix.ip}/32";}
+    {Address = "${infra.matrix-server.ip}/32";}
   ];
 
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = "${infra.matrix.ip} ${infra.matrix-server.hostname} ${infra.matrix-server.fqdn}";
+    extraHosts = "${infra.matrix-server.ip} ${infra.matrix-server.hostname} ${infra.matrix-server.fqdn}";
     firewall.allowedTCPPorts = [infra.ports.webapp];
   };
 
