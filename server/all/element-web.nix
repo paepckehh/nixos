@@ -93,15 +93,16 @@ in {
     nginx = {
       enable = true;
       virtualHosts."${infra.localhostName}" = {
-      listen = [
-        {
-          addr = infra.matrix-web.localbind.ip;
-          port = infra.matrix-web.localbind.port.http;
-        }
-      ];
-      root = pkgs.element-web.override {
-        conf = {
-          default_theme = infra.element-web.theme;
+        listen = [
+          {
+            addr = infra.matrix-web.localbind.ip;
+            port = infra.matrix-web.localbind.port.http;
+          }
+        ];
+        root = pkgs.element-web.override {
+          conf = {
+            default_theme = infra.element-web.theme;
+          };
         };
       };
     };
