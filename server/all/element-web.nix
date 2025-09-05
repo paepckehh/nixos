@@ -101,7 +101,7 @@ in {
         ];
         root = pkgs.element-web.override {
           conf = {
-            default_theme = infra.element-web.theme;
+            default_theme = infra.matrix-web.theme;
           };
         };
       };
