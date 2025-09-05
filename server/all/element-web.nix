@@ -8,6 +8,7 @@
     admin = "admin";
     contact = "it@${infra.smtp.maildomain}";
     localhost = "127.0.0.1";
+    localhostName = "localhost";
     localhostPortOffset = 7000;
     id = {
       admin = 0;
@@ -30,8 +31,8 @@
     };
     net = {
       prefix = "10.20";
-      admin = "${infra.net.prefix}.${toString infra.id.admin}";
-      user = "${infra.net.prefix}.${toString infra.id.user}";
+      admin = "${infra.net.prefix}.${infra.id.admin}";
+      user = "${infra.net.prefix}.${infra.id.user}";
     };
     namespace = {
       admin = "${toString infra.id.admin}";
@@ -52,18 +53,19 @@
       fqdn = "${infra.smtp.hostname}.${infra.smtp.domain}";
       maildomain = "debitor.de";
     };
-    matrix-server = {
-      id = 128;
-      name = "matrix-server";
-      hostname = infra.matrix-server.name;
+    matrix-web = {
+      id = 129;
+      name = "matrix-web";
+      alias = "matrix";
+      hostname = infra.matrix-web.name;
       domain = infra.domain.user;
-      fqdn = "${infra.matrix-server.hostname}.${infra.matrix-server.domain}";
-      ip = "${infra.net.user}.${toString infra.matrix-server.id}";
+      fqdn = "${infra.matrix-web.hostname}.${infra.matrix-web.domain}";
+      ip = "${infra.net.user}.${toString infra.matrix-web.id}";
       network = infra.cidr.user;
       namespace = infra.namespace.user;
       localbind = {
         ip = infra.localhost;
-        ports.http = infra.localhostPortOffset + infra.matrix-server.id;
+        ports.http = infra.localhostPortOffset + infra.matrix-web.id;
       };
     };
   };
@@ -71,51 +73,51 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks.${infra.matrix-server.namespace}.addresses = [
-    {Address = "${infra.matrix-server.ip}/32";}
+  systemd.network.networks.${infra.matrix-web.namespace}.addresses = [
+    {Address = "${infra.matrix-web.ip}/32";}
   ];
 
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = "${infra.matrix-server.ip} ${infra.matrix-server.hostname} ${infra.matrix-server.fqdn}";
-    firewall.allowedTCPPorts = [infra.port.webapp];
+    extraHosts = "${infra.matrix-web.ip} ${infra.matrix-web.hostname} ${infra.matrix-web.fqdn}";
+    firewall.allowedTCPPorts = [infra.ports.webapp];
   };
 
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
-    matrix-tuwunel = {
-      enable = true;
-      settings = {
-        global = {
-          address = [infra.matrix-server.localbind.ip];
-          port = [infra.matrix-server.localbind.ports.http];
-          server_name = infra.matrix-server.fqdn;
-          allow_encryption = true;
-          allow_federation = true;
-          allow_registration = true;
-          registration_token = "start";
+    nginx.virtualHosts."${infra.localhostName}" = {
+      listen = [
+        {
+          addr = infra.matrix-web.localbind.ip;
+          port = infra.matrix-web.localbind.port.http;
+        }
+      ];
+      root = pkgs.element-web.override {
+        conf = {
+          default_theme = "dark";
         };
       };
     };
     caddy = {
       enable = false;
-      virtualHosts."${infra.matrix-server.fqdn}".extraConfig = ''
-        bind ${infra.matrix-server.ip}
-        reverse_proxy ${infra.matrix-server.localbind.ip}:${toString infra.matrix.localbind.ports.http}
+      virtualHosts."${infra.matrix.fqdn}".extraConfig = ''
+        alias ${infra.matrix-web.alias}
+        bind ${infra.matrix-web.ip}
+        reverse_proxy ${infra.matrix-web.localbind.ip}:${toString infra.matrix-web.localbind.port.http}
         tls ${infra.pki.acmeContact} {
               ca ${infra.pki.url}
               ca_root ${infra.pki.caFile}
         }
         @not_intranet {
-          not remot_ip ${infra.matrix-server.network}
+          not remot_ip ${infra.matrix.network}
         }
         respond @not_intranet 403
         log {
-          output file ${config.services.caddy.logDir}/${infra.matrix-server.name}.log
+          output file ${config.services.caddy.logDir}/${infra.matrix-web.name}.log
         }'';
     };
   };
