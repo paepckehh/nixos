@@ -66,7 +66,7 @@
       namespace = infra.namespace.user;
       localbind = {
         ip = infra.localhost;
-        ports.http = infra.localhostPortOffset + infra.matrix-web.id;
+        port.http = infra.localhostPortOffset + infra.matrix-web.id;
       };
     };
   };
