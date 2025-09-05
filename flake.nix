@@ -138,6 +138,7 @@
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
           ./server/monitoring/collect-syslog-ng.nix
+          ./server/message/element-web.nix
           ./server/message/tuwunel.nix
           # ./server/iam/lldap.nix
           # ./server/share/wiki.nix
