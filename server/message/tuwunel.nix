@@ -80,7 +80,7 @@ in {
   ####################
   networking = {
     extraHosts = "${infra.matrix-server.ip} ${infra.matrix-server.hostname} ${infra.matrix-server.fqdn}";
-    firewall.allowedTCPPorts = [infra.port.webapp];
+    firewall.allowedTCPPorts = infra.port.webapp;
   };
 
   ##################
