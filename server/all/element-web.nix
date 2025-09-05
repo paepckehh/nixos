@@ -90,7 +90,9 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
-    nginx.virtualHosts."${infra.localhostName}" = {
+    nginx = {
+      enable = true;
+      virtualHosts."${infra.localhostName}" = {
       listen = [
         {
           addr = infra.matrix-web.localbind.ip;
