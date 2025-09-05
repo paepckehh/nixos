@@ -91,7 +91,7 @@ in {
       enable = true;
       settings = {
         global = {
-          address = infra.matrix-server.localbind.ip;
+          address = "${infra.matrix-server.localbind.ip}";
           port = infra.matrix-server.localbind.ports.http;
           server_name = infra.matrix-server.fqdn;
           allow_encryption = true;
