@@ -55,6 +55,10 @@
     matrix-server = {
       id = 128;
       name = "matrix-server";
+      self-register = {
+        enable = true;
+        password = "start";
+      };
       hostname = infra.matrix-server.name;
       domain = infra.domain.user;
       fqdn = "${infra.matrix-server.hostname}.${infra.matrix-server.domain}";
@@ -95,9 +99,10 @@ in {
           port = [infra.matrix-server.localbind.ports.http];
           server_name = infra.matrix-server.fqdn;
           allow_encryption = true;
-          allow_federation = true;
-          allow_registration = true;
-          registration_token = "start";
+          allow_federation = false;
+          allow_registration = infra.matrix-server.self-register.enable;
+          registration_token = infra.matrix-server.self-register.password;
+          rocksdb_compression_algo = "zstd"
         };
       };
     };
