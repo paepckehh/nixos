@@ -1,9 +1,4 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
-}: let
+{config, ...}: let
   infra = {
     admin = "admin";
     contact = "it@${infra.smtp.maildomain}";
@@ -137,7 +132,7 @@ in {
           allow_registration = infra.matrix-server.self-register.enable;
           registration_token = infra.matrix-server.self-register.password;
           rocksdb_compression_algo = "zstd";
-          emergency_password = config.age.secrets.tuwunel.path;
+          # emergency_password = config.age.secrets.tuwunel.path;
           ldap = {
             enable = infra.matrix-server.ldap;
             uri = infra.ldap.uri;
