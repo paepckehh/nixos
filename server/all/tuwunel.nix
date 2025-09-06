@@ -50,14 +50,14 @@
     ldap = {
       uri = "http://10.20.0.126:3890";
       base = "dc=dbt,dc=corp";
-      baseDN = "ou=persons,${infra.ldap.base}";
+      bind.dn = "cn=bind,ou=persons,${infra.ldap.base}";
     };
     matrix-server = {
       id = 128;
       name = "matrix-server";
       ldap = true;
       self-register = {
-        enable = false;
+        enable = true;
         password = "start";
       };
       hostname = infra.matrix-server.name;
@@ -76,15 +76,20 @@ in {
   #############
   #-=# AGE #=-#
   #############
-  # age = {
-  #  secrets = {
-  #    tuwunnel = {
-  #      file = ../../modules/resources/tuwunel.age;
-  #      owner = "tuwunel";
-  #      group = "tuwunel";
-  #    };
-  #  };
-  # };
+  age = {
+    secrets = {
+      tuwunel = {
+        file = ../../modules/resources/tuwunel.age;
+        owner = "tuwunel";
+        group = "tuwunel";
+      };
+      tuwunel-ldap-bind = {
+        file = ../../modules/resources/tuwunel-ldap-bind.age;
+        owner = "tuwunel";
+        group = "tuwunel";
+      };
+    };
+  };
 
   ###############
   #-=# USERS #=-#
@@ -132,11 +137,15 @@ in {
           allow_registration = infra.matrix-server.self-register.enable;
           registration_token = infra.matrix-server.self-register.password;
           rocksdb_compression_algo = "zstd";
-          # emergency_password = config.age.secrets.tuwunel.path;
           ldap = {
             enable = infra.matrix-server.ldap;
             uri = infra.ldap.uri;
-            base_dn = infra.ldap.baseDN;
+            bind_dn = infra.ldap.bind.dn;
+            bind_password_file = config.age.secrets.tuwunel-ldap-bind.path;
+            filter = "(objectClass=*)";
+            uid_attribute = "uid";
+            mail_attribute = "mail";
+            name_attribute = "givenName";
           };
         };
       };
