@@ -76,15 +76,15 @@ in {
   #############
   #-=# AGE #=-#
   #############
-  age = {
-    secrets = {
-      lldap-admin = {
-        file = ../../modules/resources/tuwunel.age;
-        owner = "tuwunel";
-        group = "tuwunel";
-      };
-    };
-  };
+  # age = {
+  #  secrets = {
+  #    tuwunnel = {
+  #      file = ../../modules/resources/tuwunel.age;
+  #      owner = "tuwunel";
+  #      group = "tuwunel";
+  #    };
+  #  };
+  # };
 
   ###############
   #-=# USERS #=-#
