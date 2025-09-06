@@ -5,6 +5,7 @@ in {
   "vault.age".publicKeys = [age srv-mp]; # ADMIN_TOKEN="..." ENV FILE FORMAT
   "davis.age".publicKeys = [age srv-mp];
   "matrix.age".publicKeys = [age srv-mp];
+  "bind.age".publicKeys = [age srv-mp];
   "davis-app.age".publicKeys = [age srv-mp];
   "lldap-admin.age".publicKeys = [age srv-mp];
   "lldap-jwt.age".publicKeys = [age srv-mp];

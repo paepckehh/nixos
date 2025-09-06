@@ -79,12 +79,12 @@ in {
   age = {
     secrets = {
       tuwunel = {
-        file = ../../modules/resources/tuwunel.age;
+        file = ../../modules/resources/matrix.age;
         owner = "tuwunel";
         group = "tuwunel";
       };
       tuwunel-ldap-bind = {
-        file = ../../modules/resources/tuwunel-ldap-bind.age;
+        file = ../../modules/resources/bind.age;
         owner = "tuwunel";
         group = "tuwunel";
       };
