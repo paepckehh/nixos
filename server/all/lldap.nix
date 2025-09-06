@@ -79,14 +79,6 @@ in {
     ${infra.lan.services.ldap-gui.namespace}.addresses = [{Address = "${infra.lan.services.ldap-gui.ip}/32";}];
   };
 
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking = {
-    extraHosts = "${infra.lan.services.ldap.ip} ${infra.lan.services.ldap.hostname} ${infra.lan.services.ldap.hostname}.${infra.lan.services.ldap.domain}";
-    firewall.allowedTCPPorts = [infra.lan.services.ldap.ports.tcp infra.lan.services.ldap-gui.ports.tcp];
-  };
-
   ###############
   #-=# USERS #=-#
   ###############
@@ -100,6 +92,14 @@ in {
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
       };
     };
+  };
+
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking = {
+    extraHosts = "${infra.lan.services.ldap.ip} ${infra.lan.services.ldap.hostname} ${infra.lan.services.ldap.hostname}.${infra.lan.services.ldap.domain}";
+    firewall.allowedTCPPorts = [infra.lan.services.ldap.ports.tcp infra.lan.services.ldap-gui.ports.tcp];
   };
 
   #####################

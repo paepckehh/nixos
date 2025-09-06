@@ -52,11 +52,17 @@
       fqdn = "${infra.smtp.hostname}.${infra.smtp.domain}";
       maildomain = "debitor.de";
     };
+    ldap = {
+      uri = "http://10.20.0.126:3890";
+      base = "dc=dbt,dc=corp";
+      baseDN = "ou=persons,${infra.ldap.base}";
+    };
     matrix-server = {
       id = 128;
       name = "matrix-server";
+      ldap = true;
       self-register = {
-        enable = true;
+        enable = false;
         password = "start";
       };
       hostname = infra.matrix-server.name;
@@ -72,6 +78,34 @@
     };
   };
 in {
+  #############
+  #-=# AGE #=-#
+  #############
+  age = {
+    secrets = {
+      lldap-admin = {
+        file = ../../modules/resources/tuwunel.age;
+        owner = "tuwunel";
+        group = "tuwunel";
+      };
+    };
+  };
+
+  ###############
+  #-=# USERS #=-#
+  ###############
+  users = {
+    groups.tuwunel = {};
+    users = {
+      tuwunel = {
+        group = "tuwunel";
+        isSystemUser = true;
+        hashedPassword = null; # disable ldap service account interactive logon
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
+      };
+    };
+  };
+
   #################
   #-=# SYSTEMD #=-#
   #################
@@ -102,7 +136,13 @@ in {
           allow_federation = false;
           allow_registration = infra.matrix-server.self-register.enable;
           registration_token = infra.matrix-server.self-register.password;
-          rocksdb_compression_algo = "zstd"
+          rocksdb_compression_algo = "zstd";
+          emergency_password = config.age.secrets.tuwunel.path;
+          ldap = {
+            enable = infra.matrix-server.ldap;
+            uri = infra.ldap.uri;
+            base_dn = infra.ldap.baseDN;
+          };
         };
       };
     };

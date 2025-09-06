@@ -138,10 +138,10 @@
           ./packages/secops.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
+          ./server/iam/lldap.nix
           ./server/monitoring/collect-syslog-ng.nix
           ./server/message/element-web.nix
           ./server/message/tuwunel.nix
-          # ./server/iam/lldap.nix
           # ./server/share/wiki.nix
           # ./server/ai/openweb-ui.nix
           # ./server/ai/ollama.nix
