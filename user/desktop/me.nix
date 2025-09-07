@@ -144,7 +144,7 @@
         settings = {
           default_server_config = {
             m.homeserver = {
-              base_url = "http://localhost:7126";
+              base_url = "http://localhost:7128";
               server_name = "dbt.corp";
             };
             m.identity_server = {
