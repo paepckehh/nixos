@@ -147,6 +147,7 @@
                   base_url = "https://vector.im";
               };
             };
+            default_country_code = "DE";
             disable_custom_urls = false;
             disable_guests = false;
             disable_login_language_selector = false;

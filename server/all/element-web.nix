@@ -56,7 +56,7 @@
     matrix-web = {
       id = 129;
       name = "matrix-web";
-      alias = "matrix";
+      alias = "message";
       theme = "dark";
       hostname = infra.matrix-web.name;
       domain = infra.domain.user;
