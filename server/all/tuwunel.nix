@@ -132,7 +132,7 @@ in {
           address = [infra.matrix-server.localbind.ip];
           port = [infra.matrix-server.localbind.ports.http];
           server_name = infra.matrix-server.fqdn;
-          allow_encryption = true;
+          allow_encryption = false;
           allow_federation = false;
           allow_registration = infra.matrix-server.self-register.enable;
           registration_token = infra.matrix-server.self-register.password;
