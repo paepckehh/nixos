@@ -140,14 +140,14 @@
           {
             default_server_config = {
               "m.homeserver" = {
-                  base_url = "https://matrix-client.matrix.org";
-                  server_name = "matrix.org";
+                  base_url = "http://localhost:7126";
+                  server_name = "dbt.corp";
               };
               "m.identity_server" = {
                   base_url = "https://vector.im";
               };
             };
-            default_country_code = "DE";
+            default_country_code = "GE";
             disable_custom_urls = false;
             disable_guests = false;
             disable_login_language_selector = false;
