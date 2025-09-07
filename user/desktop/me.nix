@@ -134,6 +134,32 @@
           };
         };
       };
+      nheko = {
+        enable = true;
+      };
+      element-desktop = {
+        enable = true;
+        settings = ''
+          {
+                  disable_custom_urls = true;
+                  disable_guests = true;
+                  disable_login_language_selector = false;
+                  disable_3pid_login = false;
+                  force_verification = false;
+                  brand = "Debitor Internal Message";
+                  embedded_pages.wiki_url = "https://wiki.dbt.corp/matrix/";
+                  branding = {
+                          welcome_background_url = "https://example.org/assets/background.jpg";
+                          auth_header_logo_url =  "https://example.org/assets/logo.svg";
+                  };
+                  default_server_config = {
+                          "m.homeserver" = {
+                          base_url = "https://matrix.dbt.corp";
+                          server_name = "matrix.dbt.corp";
+                          };
+                   };
+          }'';
+      };
       keepassxc = {
         enable = true;
         settings = {
