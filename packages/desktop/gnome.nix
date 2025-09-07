@@ -15,7 +15,7 @@
   ##################
   programs = {
     geary.enable = lib.mkForce false;
-    seahorse.enable = lib.mkForce false;
+    seahorse.enable = true;
     # ssh.startAgent = lib.mkForce false;
   };
 

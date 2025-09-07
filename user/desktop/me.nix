@@ -15,6 +15,11 @@
     gnomeExtensions.network-stats
   ];
 
+  ##################
+  #-=# SECURITY #=-#
+  ##################
+  security.pam.services.me.enableGnomeKeyring = true;
+
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
