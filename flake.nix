@@ -127,7 +127,6 @@
           ./client/addrootCA.nix
           ./storage/stateless-luks.nix
           ./person/desktop/mpaepcke.nix
-          ./packages/desktop/add-element.nix
           ./packages/desktop/gnome.nix
           ./packages/agenix.nix
           ./packages/base.nix
