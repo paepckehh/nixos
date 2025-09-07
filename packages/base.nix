@@ -29,7 +29,7 @@
       histSize = 0;
     };
     ssh = {
-      startAgent = lib.mkDefault true;
+      # startAgent = lib.mkDefault true;
       extraConfig = "AddKeysToAgent yes";
       hostKeyAlgorithms = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
       pubkeyAcceptedKeyTypes = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
