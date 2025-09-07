@@ -34,7 +34,7 @@
           enabled-extensions = with pkgs.gnomeExtensions; [
             dash-to-panel.extensionUuid
           ];
-          favorite-apps = ["Alacritty.desktop" "dss.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop" "org.gnome.Nautilus.desktop" "element-desktop.desktop" "nheko.desktop"];
+          favorite-apps = ["Alacritty.desktop" "dss.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop" "org.gnome.Nautilus.desktop" "element-desktop.desktop"];
         };
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings = [
@@ -136,7 +136,7 @@
       };
       element-desktop = {
         enable = true;
-        profiles = ''
+        settings = ''
           {
             default_server_config = {
               "m.homeserver" = {
