@@ -134,9 +134,6 @@
           };
         };
       };
-      nheko = {
-        enable = true;
-      };
       element-desktop = {
         enable = true;
         settings = ''
