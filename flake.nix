@@ -127,8 +127,8 @@
           ./client/addrootCA.nix
           ./storage/stateless-luks.nix
           ./person/desktop/mpaepcke.nix
-          x./packages/desktop/add-rdp.nix
-          x./packages/desktop/gnome.nix
+          ./packages/desktop/add-rdp.nix
+          ./packages/desktop/gnome.nix
           ./packages/agenix.nix
           ./packages/base.nix
           ./packages/devops.nix
