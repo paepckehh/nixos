@@ -34,7 +34,7 @@
           enabled-extensions = with pkgs.gnomeExtensions; [
             dash-to-panel.extensionUuid
           ];
-          favorite-apps = ["Alacritty.desktop" "dss.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop" "org.gnome.Nautilus.desktop" "element.desktop"];
+          favorite-apps = ["Alacritty.desktop" "dss.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop" "org.gnome.Nautilus.desktop" "element-desktop.desktop"];
         };
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings = [
@@ -51,22 +51,27 @@
           binding = "<Super>Return";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-          name = "default [f]ile browser - nautilus";
+          name = "[f]ile browser - nautilus";
           command = "nautilus";
           binding = "<Super>f";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
-          name = "default [b]rowser = librewolf, not-sandboxed";
-          command = "firefox";
+          name = "[b]rowser = librewolf, not-sandboxed";
+          command = "librewolf";
           binding = "<Super>b";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
-          name = "[w]olf = librewolf firejail";
-          command = "jailwolf";
-          binding = "<Super>w";
+          name = "[d]ss = dss online";
+          command = "dss";
+          binding = "<Super>d";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4" = {
-          name = "keepassxc passwordmanager";
+          name = "[p]asswordmanager";
+          command = "vaultwarden";
+          binding = "<Super>p";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5" = {
+          name = "[k]eepassxc passwordmanager";
           command = "keepassxc";
           binding = "<Super>k";
         };
