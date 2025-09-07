@@ -127,7 +127,8 @@
           ./client/addrootCA.nix
           ./storage/stateless-luks.nix
           ./person/desktop/mpaepcke.nix
-          ./packages/desktop/gnome.nix
+          x./packages/desktop/add-rdp.nix
+          x./packages/desktop/gnome.nix
           ./packages/agenix.nix
           ./packages/base.nix
           ./packages/devops.nix
@@ -141,7 +142,7 @@
           ./server/monitoring/collect-syslog-ng.nix
           ./server/message/element-web.nix
           ./server/message/tuwunel.nix
-          # ./server/share/wiki.nix
+          ./server/share/wiki.nix
           # ./server/ai/openweb-ui.nix
           # ./server/ai/ollama.nix
           # ./server/mail/davis.nix
