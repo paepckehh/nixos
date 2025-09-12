@@ -137,13 +137,13 @@
           ./packages/secops.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
-          ./server/iam/lldap.nix
           ./server/monitoring/collect-syslog-ng.nix
-          ./server/message/element-web.nix
-          ./server/message/tuwunel.nix
-          ./server/share/wiki.nix
-          # ./server/ai/openweb-ui.nix
-          # ./server/ai/ollama.nix
+          ./server/ai/ollama.nix
+          ./server/ai/openweb-ui.nix
+          ./server/iam/lldap.nix
+          # ./server/message/element-web.nix
+          # ./server/message/tuwunel.nix
+          # ./server/share/wiki.nix
           # ./server/mail/davis.nix
           # ./server/mail/open-web-calendar.nix
           # ./client/wireguard-wg100.nix
