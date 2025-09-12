@@ -126,6 +126,8 @@
           ./configuration.nix
           ./client/addrootCA.nix
           ./storage/stateless-luks.nix
+          ./openwrt/alias.nix
+          ./iot/moode/alias.nix
           ./person/desktop/mpaepcke.nix
           ./packages/desktop/gnome.nix
           ./packages/agenix.nix
@@ -135,8 +137,6 @@
           ./packages/neovim-nvf.nix
           ./packages/netops.nix
           ./packages/secops.nix
-          ./openwrt/alias.nix
-          ./iot/moode/alias.nix
           ./server/monitoring/collect-syslog-ng.nix
           ./server/ai/ollama.nix
           ./server/ai/openweb-ui.nix
