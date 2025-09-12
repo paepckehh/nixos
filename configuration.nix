@@ -428,6 +428,7 @@
     power-profiles-daemon.enable = lib.mkForce false;
     udisks2.enable = lib.mkForce false;
     logind.settings.Login.HandleHibernateKey = "ignore";
+    libinput.enable = lib.mkForce true;
     lvm = {
       enable = lib.mkDefault false;
       dmeventd.enable = lib.mkDefault false;
