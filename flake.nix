@@ -139,10 +139,10 @@
           ./packages/netops.nix
           ./packages/secops.nix
           ./server/monitoring/collect-syslog-ng.nix
-          ./server/ai/ollama.nix
-          ./server/ai/openweb-ui.nix
-          ./server/iam/lldap.nix
-          ./server/share/wastebin.nix
+          # ./server/ai/ollama.nix
+          # ./server/ai/openweb-ui.nix
+          # ./server/iam/lldap.nix
+          # ./server/share/wastebin.nix
           # ./server/message/element-web.nix
           # ./server/message/tuwunel.nix
           # ./server/share/wiki.nix
