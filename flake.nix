@@ -139,7 +139,7 @@
           ./packages/netops.nix
           ./packages/secops.nix
           ./server/monitoring/collect-syslog-ng.nix
-          # ./server/ai/ollama.nix
+          ./server/ai/ollama.nix
           # ./server/ai/openweb-ui.nix
           # ./server/iam/lldap.nix
           # ./server/share/wastebin.nix
