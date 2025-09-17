@@ -10,7 +10,6 @@
     firefox = {
       enable = true;
       package = pkgs.librewolf;
-      # nativeMessagingHosts = [pkgs.keepassxc];
       profiles."0" = {
         id = 0;
         isDefault = true;
@@ -49,9 +48,10 @@
         settings = {
           # "general.useragent.override" = "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0";
           # "general.useragent.override" = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:139.0) Gecko/20100101 Firefox/139.0";
-          "general.useragent.override" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0";
-          "general.useragent.compatMode.firefox" = true;
+          # "general.useragent.override" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0";
+          "browser.search.region" = "de";
           "general.useragent.locale" = "en-US";
+          "general.useragent.compatMode.firefox" = true;
           "browser.aboutConfig.showWarning" = false;
           "browser.bookmarks.showMobileBookmarks" = true;
           "browser.bookmarks.restore_default_bookmarks" = true;
@@ -62,7 +62,6 @@
           "browser.safebrowsing.enabled" = false;
           "browser.safebrowsing.downloads.enabled" = false;
           "browser.safebrowsing.malware.enabled" = false;
-          "browser.search.region" = "DE";
           "browser.search.update" = false;
           "browser.startup.homepage" = "about:blank";
           "browser.sessionstore.restore_on_demand" = false;
@@ -108,7 +107,7 @@
           "geo.provider.use_corelocation" = false;
           "geo.provider.use_geoclue" = false;
           "geo.provider.use_gpsd" = false;
-          "gfx.webrender.all" = true;
+          "gfx.webrender.all" = false;
           "security.tls.grease_http3_enable" = true;
           "layers.acceleration.force-enabled" = true;
           "toolkit.telemetry.enabled" = false;
@@ -141,9 +140,15 @@
           "reader.parse-on-load.force-enabled" = true;
           "signon.rememberSignons" = false;
           "webgl.disabled" = false;
+          "browser.ml.enabled" = false;
+          "browser.ml.chat.enable" = false;
+          "browser.ml.linkPreview.enable" = false;
+          "browser.ml.modelHubRootUrl" = "http://localhost";
         };
       };
       policies = {
+        # HttpAllowlist = ["http://localhost" "http://127.0.0.1" "http://192.168.0.1" "http://192.186.1.1" "http://192.168.8.1" "http://192.168.80.1"];
+        # HttpsOnlyMode = "force_enabled"; # "force_enabled"
         BackgroundAppUpdate = false;
         CaptivePortal = false;
         DisableAccounts = true;
@@ -168,8 +173,6 @@
         DisplayBookmarksToolbar = "always";
         DNSOverHTTPS.Enabled = false;
         DontCheckDefaultBrowser = true;
-        HttpAllowlist = ["http://start.lan" "http://localhost" "http://127.0.0.1" "http://192.168.0.1" "http://192.186.1.1" "http://192.168.8.1" "http://192.168.80.1"];
-        HttpsOnlyMode = "force_enabled"; # "force_enabled"
         HardwareAcceleration = true;
         NetworkPrediction = false;
         NewTabPage = false;
@@ -199,7 +202,7 @@
           };
         };
         ExtensionSettings = {
-          "*".installation_mode = "blocked";
+          # "*".installation_mode = "blocked";
           "uBlock0@raymondhill.net" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
             installation_mode = "force_installed";
@@ -216,14 +219,14 @@
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/readeck/latest.xpi";
             installation_mode = "force_installed";
           };
-          "floccus@floccus.org" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/floccus/latest.xpi";
-            installation_mode = "force_installed";
-          };
-          "keepassxc-browser@keepass.org" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
-            installation_mode = "force_installed";
-          };
+          #"floccus@floccus.org" = {
+          #  install_url = "https://addons.mozilla.org/firefox/downloads/latest/floccus/latest.xpi";
+          #  installation_mode = "force_installed";
+          #};
+          #"keepassxc-browser@keepass.org" = {
+          #  install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
+          #  installation_mode = "force_installed";
+          #};
         };
         PrintingEnabled = true;
         PrivateBrowsingModeAvailability = 1;
