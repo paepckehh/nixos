@@ -18,8 +18,8 @@
       else []
     );
     initrd = {
-      compressor = "zstd";
-      compressorArgs = ["--ultra" "--long" "-22"];
+      # compressor = "zstd";
+      # compressorArgs = ["--ultra" "--long" "-22"];
       systemd = {
         enable = lib.mkForce true;
         emergencyAccess = lib.mkForce true;
@@ -124,7 +124,7 @@
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    priority = 5;
+    writebackDevice = "/dev/disk/by-partlabel/disk-main-swap";
   };
 
   #################
