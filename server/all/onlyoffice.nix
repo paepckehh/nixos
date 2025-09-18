@@ -52,23 +52,18 @@
       base = "dc=dbt,dc=corp";
       bind.dn = "cn=bind,ou=persons,${infra.ldap.base}";
     };
-    matrix = {
-      id = 128;
-      name = "matrix";
-      ldap = true;
-      self-register = {
-        enable = true;
-        password = "start";
-      };
-      hostname = infra.matrix.name;
+    onlyoffice = {
+      id = 132;
+      name = "onlyoffice";
+      hostname = infra.onlyoffice.name;
       domain = infra.domain.user;
-      fqdn = "${infra.matrix.hostname}.${infra.matrix.domain}";
-      ip = "${infra.net.user}.${toString infra.matrix.id}";
+      fqdn = "${infra.onlyoffice.hostname}.${infra.onlyoffice.domain}";
+      ip = "${infra.net.user}.${toString infra.onlyoffice.id}";
       network = infra.cidr.user;
       namespace = infra.namespace.user;
       localbind = {
         ip = infra.localhost;
-        port.http = infra.localhostPortOffset + infra.matrix.id;
+        port.http = infra.localhostPortOffset + infra.onlyoffice.id;
       };
     };
   };
@@ -78,15 +73,10 @@ in {
   #############
   age = {
     secrets = {
-      tuwunel = {
-        file = ../../modules/resources/matrix.age;
-        owner = "tuwunel";
-        group = "tuwunel";
-      };
-      tuwunel-ldap-bind = {
-        file = ../../modules/resources/bind.age;
-        owner = "tuwunel";
-        group = "tuwunel";
+      onlyoffice = {
+        file = ../../modules/resources/onlyoffice.age;
+        owner = "onlyoffice";
+        group = "onlyoffice";
       };
     };
   };
@@ -95,10 +85,10 @@ in {
   #-=# USERS #=-#
   ###############
   users = {
-    groups.tuwunel = {};
+    groups.onlyoffice = {};
     users = {
-      tuwunel = {
-        group = "tuwunel";
+      onlyoffice = {
+        group = "onlyoffice";
         isSystemUser = true;
         hashedPassword = null; # disable ldap service account interactive logon
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
@@ -109,15 +99,15 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks.${infra.matrix.namespace}.addresses = [
-    {Address = "${infra.matrix.ip}/32";}
+  systemd.network.networks.${infra.onlyoffice.namespace}.addresses = [
+    {Address = "${infra.onlyoffice.ip}/32";}
   ];
 
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = "${infra.matrix.ip} ${infra.matrix.hostname} ${infra.matrix.fqdn}";
+    extraHosts = "${infra.onlyoffice.ip} ${infra.onlyoffice.hostname} ${infra.onlyoffice.fqdn}";
     firewall.allowedTCPPorts = infra.port.webapp;
   };
 
@@ -125,46 +115,27 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
-    matrix-tuwunel = {
+    onlyoffice = {
       enable = true;
-      settings = {
-        global = {
-          address = [infra.matrix.localbind.ip];
-          port = [infra.matrix.localbind.port.http];
-          server_name = infra.matrix.fqdn;
-          allow_encryption = false;
-          allow_federation = false;
-          allow_registration = infra.matrix.self-register.enable;
-          registration_token = infra.matrix.self-register.password;
-          rocksdb_compression_algo = "zstd";
-          ldap = {
-            enable = infra.matrix.ldap;
-            uri = infra.ldap.uri;
-            bind_dn = infra.ldap.bind.dn;
-            bind_password_file = config.age.secrets.tuwunel-ldap-bind.path;
-            filter = "(objectClass=*)";
-            uid_attribute = "uid";
-            mail_attribute = "mail";
-            name_attribute = "givenName";
-          };
-        };
-      };
+      hostname = infra.onlyoffice.localbind.ip;
+      port = infra.onlyoffice.localbind.port.http;
+      jwtSecretFile = config.age.secrets.onlyoffice.path;
     };
     caddy = {
       enable = false;
-      virtualHosts."${infra.matrix.fqdn}".extraConfig = ''
-        bind ${infra.matrix.ip}
-        reverse_proxy ${infra.matrix.localbind.ip}:${toString infra.matrix.localbind.ports.http}
+      virtualHosts."${infra.onlyoffice.fqdn}".extraConfig = ''
+        bind ${infra.onlyoffice.ip}
+        reverse_proxy ${infra.onlyoffice.localbind.ip}:${toString infra.matrix.localbind.ports.http}
         tls ${infra.pki.acmeContact} {
               ca ${infra.pki.url}
               ca_root ${infra.pki.caFile}
         }
         @not_intranet {
-          not remot_ip ${infra.matrix.network}
+          not remot_ip ${infra.onlyoffice.network}
         }
         respond @not_intranet 403
         log {
-          output file ${config.services.caddy.logDir}/${infra.matrix.name}.log
+          output file ${config.services.caddy.logDir}/${infra.onlyoffice.name}.log
         }'';
     };
   };
