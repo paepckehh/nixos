@@ -11,7 +11,7 @@
       backend = "docker";
       containers = {
         onlyoffice = {
-          image = "onlyoffice/documentserver:latest";
+          image = "onlyoffice/documentserver";
           ports = ["127.0.0.1:80:80"];
           environment = {
             JWT_SECRET = "gjreopogh3QvVitrbgi3ongjniwveVE";
