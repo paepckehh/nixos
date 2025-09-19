@@ -7,16 +7,24 @@
   ###############
   #-=# FONTS #=-#
   ###############
-  fonts.packages = ( # no support for pre24.11
-    if (config.system.nixos.release == "24.11")
-    then [(pkgs.nerdfonts.override {fonts = ["FiraCode"];})]
-    else [pkgs.nerd-fonts.fira-code]
-  );
+  fonts.packages = [pkgs.nerd-fonts.fira-code];
 
   ##################
   #-=# HARDWARE #=-#
   ##################
-  hardware.bluetooth.enable = false;
+  hardware.bluetooth.enable = true;
+
+  #############
+  #-=# XDG #=-#
+  #############
+  xdg = {
+    autostart.enable = lib.mkdefault false;
+    mime = {
+      enable = true;
+      addedAssociations = {"application/pdf" = "librewolf.desktop";};
+      defaultApplications = {"application/pdf" = "librewolf.desktop";};
+    };
+  };
 
   ##################
   #-=# SERVICES #=-#
@@ -24,7 +32,7 @@
   services = {
     autosuspend.enable = lib.mkForce false;
     speechd.enable = lib.mkForce false;
-    printing.enable = lib.mkForce false;
+    printing.enable = lib.mkForce true;
     xserver = {
       enable = true;
       autoRepeatDelay = 150;
@@ -38,10 +46,10 @@
       };
     };
     pipewire = {
-      enable = false;
-      alsa.enable = lib.mkDefault false;
-      pulse.enable = lib.mkDefault false;
-      wireplumber.enable = lib.mkDefault false;
+      enable = true;
+      alsa.enable = lib.mkDefault true;
+      pulse.enable = lib.mkDefault true;
+      wireplumber.enable = lib.mkDefault true;
     };
   };
 

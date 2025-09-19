@@ -18,18 +18,6 @@
     seahorse.enable = true;
   };
 
-  #############
-  #-=# XDG #=-#
-  #############
-  xdg = {
-    autostart.enable = lib.mkdefault false;
-    mime = {
-      enable = true;
-      addedAssociations = {"application/pdf" = "librewolf.desktop";};
-      defaultApplication = {"application/pdf" = "librewolf.desktop";};
-    };
-  };
-
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
