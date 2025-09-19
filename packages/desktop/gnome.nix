@@ -23,7 +23,7 @@
   #############
   xdg = {
     autostart.enable = lib.mkdefault false;
-    xdg.mime = {
+    mime = {
       enable = true;
       addedAssociations = {"application/pdf" = "librewolf.desktop";};
       defaultApplication = {"application/pdf" = "librewolf.desktop";};
