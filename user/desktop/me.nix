@@ -36,7 +36,7 @@
         enable = true;
         readOnly = true;
         entries = [
-          "${pkgs.element-desktop}/share/applications/org.gnome.Evolution.desktop"
+          "${pkgs.element-desktop}/share/applications/element-desktop.desktop"
         ];
       };
     };
