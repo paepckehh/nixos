@@ -16,16 +16,25 @@
   programs = {
     geary.enable = lib.mkForce false;
     seahorse.enable = true;
-    # ssh.startAgent = lib.mkForce false;
+  };
+
+  #############
+  #-=# XDG #=-#
+  #############
+  xdg = {
+    autostart.enable = true;
+    xdg.mime = {
+      enable = true;
+      addedAssociations = {"application/pdf" = "librewolf.desktop";};
+      defaultApplication = {"application/pdf" = "librewolf.desktop";};
+    };
   };
 
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs.gnomeExtensions; [
-      # network-stats
-    ];
+    systemPackages = with pkgs.gnomeExtensions; [];
     gnome.excludePackages = with pkgs; [
       gnome-calendar
       gnome-contacts

@@ -131,6 +131,7 @@
           ./person/desktop/mpaepcke.nix
           ./packages/desktop/gnome.nix
           ./packages/desktop/add-onlyoffice.nix
+          ./packages/desktop/add-matrix-autostart.nix
           ./packages/agenix.nix
           ./packages/base.nix
           ./packages/devops.nix
