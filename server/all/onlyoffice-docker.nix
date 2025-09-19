@@ -17,6 +17,7 @@
             JWT_SECRET = "gjreopogh3QvVitrbgi3ongjniwveVE";
           };
           volumes = [
+            # sudo mkdir -p /var/log/onlyoffice /var/lib/onlyoffice /var/lib/onlyoffice-db /var/lib/onlyoffice-www/onlyoffice/Data
             "/var/log/onlyoffice:/var/log/onlyoffice"
             "/var/lib/onlyoffice:/var/lib/onlyoffice"
             "/var/lib/onlyoffice-db:/var/lib/postgresql"
