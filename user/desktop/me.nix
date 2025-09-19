@@ -31,6 +31,15 @@
     home.packages = with pkgs; [
       gnomeExtensions.dash-to-panel
     ];
+    xdg = {
+      autostart = {
+        enable = true;
+        readOnly = true;
+        entries = [
+          "${pkgs.element-desktop}/share/applications/org.gnome.Evolution.desktop"
+        ];
+      };
+    };
     dconf = {
       enable = true;
       settings = {
