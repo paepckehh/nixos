@@ -1,0 +1,29 @@
+{
+  config,
+  pkgs,
+  ...
+}: {
+  ########################
+  #-=# VIRTUALISATION #=-#
+  ########################
+  virtualisation = {
+    oci-containers = {
+      backend = "docker";
+      containers = {
+        teable = {
+          image = "onlyoffice/documentserver:latest";
+          ports = ["127.0.0.1:80:80"];
+          environment = {
+            JWT_SECRET = "gjreopogh3QvVitrbgi3ongjniwveVE";
+          };
+          volumes = [
+            "/var/log/onlyoffice:/var/log/onlyoffice"
+            "/var/lib/onlyoffice:/var/lib/onlyoffice"
+            "/var/lib/onlyoffice-db:/var/lib/postgresql"
+            "/var/lib/onlyoffice-www/onlyoffice/Data:/var/www/onlyoffice/Data"
+          ];
+        };
+      };
+    };
+  };
+}

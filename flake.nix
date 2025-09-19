@@ -131,7 +131,6 @@
           ./person/desktop/mpaepcke.nix
           ./packages/desktop/gnome.nix
           ./packages/desktop/add-onlyoffice.nix
-          ./packages/desktop/add-matrix.nix
           ./packages/agenix.nix
           ./packages/base.nix
           ./packages/devops.nix
@@ -141,6 +140,7 @@
           ./packages/secops.nix
           ./server/monitoring/collect-syslog-ng.nix
           ./server/office/teable.nix
+          # ./packages/desktop/add-matrix.nix
           # ./server/ai/ollama.nix
           # ./server/ai/openweb-ui.nix
           # ./server/iam/lldap.nix
