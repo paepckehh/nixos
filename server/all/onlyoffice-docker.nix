@@ -10,7 +10,7 @@
     oci-containers = {
       backend = "docker";
       containers = {
-        teable = {
+        onlyoffice = {
           image = "onlyoffice/documentserver:latest";
           ports = ["127.0.0.1:80:80"];
           environment = {
