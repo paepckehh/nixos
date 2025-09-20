@@ -139,7 +139,7 @@
           ./packages/netops.nix
           ./packages/secops.nix
           ./server/monitoring/collect-syslog-ng.nix
-          ./server/office/onlyoffice-docker.nix
+          # ./server/office/onlyoffice-docker.nix
           # ./packages/desktop/add-matrix.nix
           # ./server/ai/ollama.nix
           # ./server/ai/openweb-ui.nix
