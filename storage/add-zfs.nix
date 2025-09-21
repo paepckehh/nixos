@@ -2,7 +2,7 @@
   ########
   # BOOT #
   ########
-  boot.zfs.enabled = true;
+  boot.supportedFilesystems = ["zfs"];
 
   ############
   # SERVICES #
