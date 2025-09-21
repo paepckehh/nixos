@@ -177,6 +177,9 @@
           # ./server/soc/netalertx.nix
           # ./server/soc/wazuh.nix
           ./hosts/srv.nix
+          {networking.hostName = "srv";}
+          {networking.hostId = "3f95770b";} # head -c 8 /etc/maschine-id
+          {environment.etc."machine-id".text = "3f95770b57a4651bdf43a8c168cfb740";} # dbus-uuidgen
         ];
       };
       srv-mp = nixpkgs-dev.lib.nixosSystem {
