@@ -11,11 +11,11 @@
     prometheus.exporters.zfs.enable = false;
     zfs = {
       autoScrub = {
-        enabled = false;
+        enable = false;
         interval = "monthly";
       };
       autoSnapshot = {
-        enabled = false;
+        enable = false;
         daily = 7;
         weekly = 4;
       };
