@@ -49,9 +49,9 @@
     );
     tmp = {
       cleanOnBoot = true;
-      useTmpfs = true;
       tmpfsHugeMemoryPages = "within_size";
       tmpfsSize = "85%";
+      useTmpfs = true; # default
       useZram = false; # toggle only on memory constrained systems
       zramSettings = {
         compression-algorithm = "zstd";
