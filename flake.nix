@@ -125,8 +125,8 @@
           nvf.nixosModules.default
           ./configuration.nix
           ./client/addrootCA.nix
+          ./storage/add-zfs.nix
           ./storage/stateless-luks.nix
-          ./storage/zfs.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
           ./person/desktop/mpaepcke.nix
