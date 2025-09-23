@@ -87,6 +87,11 @@ in {
       };
     };
   };
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+  services = {
     caddy = {
       enable = false;
       virtualHosts."${infra.speed.fqdn}".extraConfig = ''

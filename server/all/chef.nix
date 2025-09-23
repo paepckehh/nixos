@@ -71,7 +71,7 @@ in {
     extraHosts = "${infra.chef.ip} ${infra.chef.hostname} ${infra.chef.fqdn}";
     firewall.allowedTCPPorts = infra.port.webapp;
   };
-  
+
   ########################
   #-=# VIRTUALISATION #=-#
   ########################
@@ -91,6 +91,7 @@ in {
   ##################
   #-=# SERVICES #=-#
   ##################
+  services = {
     caddy = {
       enable = false;
       virtualHosts."${infra.chef.fqdn}".extraConfig = ''
