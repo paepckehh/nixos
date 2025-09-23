@@ -1,23 +1,58 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{config, ...}: let
   infra = {
-    lan = {
-      domain = "lan";
-      network = "192.168.80.0/24";
-      namespace = "10-${infra.lan.domain}";
-      services = {
-        speed = {
-          ip = "192.168.80.218";
-          hostname = "speed";
-          ports.tcp = 443;
-          localbind = {
-            ip = "127.0.0.1";
-            ports.tcp = 7018;
-          };
-        };
+    admin = "admin";
+    contact = "it@${infra.smtp.maildomain}";
+    localhost = "127.0.0.1";
+    localhostPortOffset = 7000;
+    id = {
+      admin = 0;
+      user = 6;
+    };
+    port = {
+      smtp = 25;
+      http = 80;
+      https = 443;
+      webapp = [infra.port.http infra.port.https];
+    };
+    domain = {
+      tld = "corp";
+      admin = "adm.${infra.domain.tld}";
+      user = "dbt.${infra.domain.tld}";
+    };
+    cidr = {
+      admin = "${infra.net.user}.0/24";
+      user = "${infra.net.user}.0/23";
+    };
+    net = {
+      prefix = "10.20";
+      admin = "${infra.net.prefix}.${toString infra.id.admin}";
+      user = "${infra.net.prefix}.${toString infra.id.user}";
+    };
+    namespace = {
+      admin = "${toString infra.id.admin}";
+      user = "${toString infra.id.user}";
+    };
+    pki = {
+      acmeContact = "acme@${infra.pki.fqdn}";
+      caFile = "/etc/ca.crt";
+      hostname = "pki";
+      domain = infra.domain.admin;
+      maildomain = "debitor.de";
+      fqdn = "${infra.pki.hostname}.${infra.pki.domain}";
+      url = "https://${infra.pki.fqdn}/acme/acme/directory";
+    };
+    speed = {
+      id = 134;
+      name = "speed";
+      hostname = infra.speed.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.speed.hostname}.${infra.speed.domain}";
+      ip = "${infra.net.user}.${toString infra.speed.id}";
+      network = infra.cidr.user;
+      namespace = infra.namespace.user;
+      localbind = {
+        ip = infra.localhost;
+        port.http = infra.localhostPortOffset + infra.speed.id;
       };
     };
   };
@@ -25,16 +60,16 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks.${infra.lan.namespace}.addresses = [
-    {Address = "${infra.lan.services.speed.ip}/32";}
+  systemd.network.networks.${infra.speed.namespace}.addresses = [
+    {Address = "${infra.speed.ip}/32";}
   ];
 
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = "${infra.lan.services.speed.ip} ${infra.lan.services.speed.hostname} ${infra.lan.services.speed.hostname}.${infra.lan.domain}";
-    firewall.allowedTCPPorts = [infra.lan.services.speed.ports.tcp];
+    extraHosts = "${infra.speed.ip} ${infra.speed.hostname} ${infra.speed.fqdn}";
+    firewall.allowedTCPPorts = infra.port.webapp;
   };
 
   ########################
@@ -46,34 +81,27 @@ in {
       containers = {
         speed = {
           image = "openspeedtest/latest:latest";
-          ports = ["${infra.lan.services.speed.localbind.ip}:${toString infra.lan.services.speed.localbind.ports.tcp}:80"];
-          environment.SET_SERVER_NAME = "${infra.lan.services.speed.hostname}.${infra.lan.domain}";
+          ports = ["${infra.speed.localbind.ip}:${toString infra.speed.localbind.port.tcp}:80"];
+          environment.SET_SERVER_NAME = "${infra.speed.fqdn}";
         };
       };
     };
   };
-
-  ##################
-  #-=# SERVICES #=-#
-  ##################
-  services = {
     caddy = {
-      enable = true;
-      logDir = lib.mkForce "/var/log/caddy";
-      logFormat = lib.mkForce "level INFO";
-      virtualHosts."speed.${infra.lan.domain}".extraConfig = ''
-        bind ${infra.lan.services.speed.ip}
-        reverse_proxy ${infra.lan.services.speed.localbind.ip}:${toString infra.lan.services.speed.localbind.ports.tcp}
-        tls acme@pki.lan {
-              ca_root /etc/ca.crt
-              ca https://pki.lan/acme/acme/directory
+      enable = false;
+      virtualHosts."${infra.speed.fqdn}".extraConfig = ''
+        bind ${infra.speed.ip}
+        reverse_proxy ${infra.speed.localbind.ip}:${toString infra.speed.localbind.port.http}
+        tls ${infra.pki.acmeContact} {
+              ca ${infra.pki.url}
+              ca_root ${infra.pki.caFile}
         }
         @not_intranet {
-          not remote_ip ${infra.lan.network}
+          not remote_ip ${infra.speed.network}
         }
         respond @not_intranet 403
         log {
-          output file ${config.services.caddy.logDir}/access/proxy-read.log
+          output file ${config.services.caddy.logDir}/${infra.speed.name}.log
         }'';
     };
   };

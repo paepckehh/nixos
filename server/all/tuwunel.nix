@@ -154,13 +154,13 @@ in {
       enable = false;
       virtualHosts."${infra.matrix.fqdn}".extraConfig = ''
         bind ${infra.matrix.ip}
-        reverse_proxy ${infra.matrix.localbind.ip}:${toString infra.matrix.localbind.ports.http}
+        reverse_proxy ${infra.matrix.localbind.ip}:${toString infra.matrix.localbind.port.http}
         tls ${infra.pki.acmeContact} {
               ca ${infra.pki.url}
               ca_root ${infra.pki.caFile}
         }
         @not_intranet {
-          not remot_ip ${infra.matrix.network}
+          not remote_ip ${infra.matrix.network}
         }
         respond @not_intranet 403
         log {
