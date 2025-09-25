@@ -12,6 +12,10 @@
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = ["amd_pstate=active"];
     kernelModules = ["amd-pstate" "amdgpu"];
+    plymouth = {
+      enable = lib.mkForce true;
+      logo = lib.mkForce "${../../../shared/bootimg/deb-adm.png}";
+    };
   };
 
   ##################
@@ -37,7 +41,6 @@
   hardware = {
     amdgpu = {
       amdvlk.enable = lib.mkForce true;
-      opencl.enable = false;
     };
     enableAllFirmware = lib.mkForce true;
     enableAllHardware = lib.mkForce true;
@@ -46,9 +49,8 @@
       amd = {
         updateMicrocode = lib.mkForce true;
         ryzen-smu.enable = lib.Force true;
-        sev.enable = lib.mkForce false;
+        sev.enable = lib.mkForce true;
       };
     };
-    i2c.enable = true;
   };
 }

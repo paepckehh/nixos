@@ -219,11 +219,11 @@
       amd = {
         updateMicrocode = true;
         ryzen-smu.enable = true;
-        sev.enable = lib.mkForce false;
+        sev.enable = true;
       };
       intel = {
         updateMicrocode = true;
-        sgx.provision.enable = lib.mkForce false;
+        sgx.provision.enable = true;
       };
     };
     i2c.enable = true;
@@ -419,10 +419,10 @@
   services = {
     acpid.enable = lib.mkForce true;
     avahi.enable = lib.mkForce false;
-    devmon.enable = lib.mkForce false;
-    fwupd.enable = true; # enable manually
+    devmon.enable = lib.mkForce true;
+    fwupd.enable = lib.mkDefault true;
     geoclue2.enable = lib.mkForce false;
-    gvfs.enable = lib.mkForce false;
+    gvfs.enable = lib.mkDefault false;
     openssh.enable = false;
     smartd.enable = true;
     power-profiles-daemon.enable = lib.mkForce false;
