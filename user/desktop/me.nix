@@ -12,7 +12,6 @@
   #####################
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
-    gnomeExtensions.network-stats
   ];
 
   ##################
@@ -36,7 +35,7 @@
         enable = true;
         readOnly = true;
         entries = [
-          "${pkgs.element-desktop}/share/applications/element-desktop.desktop"
+          # "${pkgs.element-desktop}/share/applications/element-desktop.desktop"
         ];
       };
     };
@@ -48,7 +47,7 @@
           enabled-extensions = with pkgs.gnomeExtensions; [
             dash-to-panel.extensionUuid
           ];
-          favorite-apps = ["Alacritty.desktop" "dss.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop" "org.gnome.Nautilus.desktop" "element-desktop.desktop" "onlyoffice-desktopeditors.desktop"];
+          favorite-apps = ["Alacritty.desktop" "ghostty.desktop" "dss.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop" "org.gnome.Nautilus.desktop" "element-desktop.desktop" "onlyoffice-desktopeditors.desktop"];
         };
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings = [
@@ -105,6 +104,9 @@
     };
     programs = {
       tmux.enable = true;
+      ghostty = {
+        enable = true;
+      };
       alacritty = {
         enable = true;
         settings = {
