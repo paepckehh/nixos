@@ -12,10 +12,6 @@
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = ["amd_pstate=active"];
     kernelModules = ["amd-pstate" "amdgpu"];
-    plymouth = {
-      enable = lib.mkForce true;
-      logo = lib.mkForce "${../../../shared/bootimg/deb-adm.png}";
-    };
   };
 
   ##################
