@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   ##############
   #-=# BOOT #=-#
   ##############
@@ -13,3 +8,4 @@
       logo = lib.mkForce "${../shared/bootimg/deb-adm.png}";
     };
   };
+}
