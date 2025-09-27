@@ -1,9 +1,4 @@
 {pkgs, ...}: {
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  # imports = [];
-
   ##################
   #-=# PROGRAMS #=-#
   ##################
@@ -29,7 +24,9 @@
       certinfo-go
       curlie
       cryptsetup
+      binsider
       doggo
+      doxx
       dmidecode
       file
       jqfmt

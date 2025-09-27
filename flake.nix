@@ -125,8 +125,6 @@
           nvf.nixosModules.default
           ./configuration.nix
           ./client/addrootCA.nix
-          ./client/debi.nix
-          ./storage/add-zfs.nix
           ./storage/stateless-luks.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix

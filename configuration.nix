@@ -51,8 +51,8 @@
       cleanOnBoot = true;
       tmpfsHugeMemoryPages = "within_size";
       tmpfsSize = "85%";
-      useTmpfs = true; # default
-      useZram = false; # toggle only on memory constrained systems
+      useTmpfs = true;
+      useZram = true;
       zramSettings = {
         compression-algorithm = "zstd";
         fs-type = "ext4";
@@ -132,7 +132,7 @@
   #################
   nixpkgs = {
     config = {
-      allowBroken = lib.mkDefault true; # XXX dev mode
+      allowBroken = lib.mkDefault true;
       allowUnfree = lib.mkDefault true;
     };
   };
