@@ -140,8 +140,12 @@
           "reader.parse-on-load.force-enabled" = true;
           "signon.rememberSignons" = false;
           "webgl.disabled" = false;
+          "browser.tabs.groups.smart.enabled" = false;
           "browser.ml.enabled" = false;
-          "browser.ml.chat.enable" = false;
+          "browser.ml.chat.enabled" = false;
+          "browser.ml.chat.sidebar" = false;
+          "browser.ml.chat.shortcuts" = false;
+          "browser.ml.chat.menu" = false;
           "browser.ml.linkPreview.enable" = false;
           "browser.ml.modelHubRootUrl" = "http://localhost";
         };
@@ -223,14 +227,6 @@
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
             installation_mode = "force_installed";
           };
-          #"floccus@floccus.org" = {
-          #  install_url = "https://addons.mozilla.org/firefox/downloads/latest/floccus/latest.xpi";
-          #  installation_mode = "force_installed";
-          #};
-          #"keepassxc-browser@keepass.org" = {
-          #  install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
-          #  installation_mode = "force_installed";
-          #};
         };
         PrintingEnabled = true;
         PrivateBrowsingModeAvailability = 1;
