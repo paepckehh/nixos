@@ -156,7 +156,7 @@
         BackgroundAppUpdate = false;
         CaptivePortal = false;
         DisableAccounts = true;
-        DisableBuiltinPDFViewer = false;
+        DisableBuiltinPDFViewer = true;
         DisableTelemetry = true;
         DisableDeveloperTools = false;
         DisableEncryptedClientHello = false;
