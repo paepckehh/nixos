@@ -51,7 +51,7 @@
       cleanOnBoot = true;
       tmpfsHugeMemoryPages = "within_size";
       tmpfsSize = "85%";
-      useTmpfs = true;
+      # useTmpfs = true;
       useZram = true;
       zramSettings = {
         compression-algorithm = "zstd";
