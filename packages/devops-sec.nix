@@ -7,7 +7,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./netops.nix
+    ./devops-net.nix
   ];
 
   #################

@@ -128,7 +128,7 @@
         };
         languages = {
           enableFormat = lib.mkForce true;
-          clang.enable = true;
+          clang.enable = false;
           css.enable = true;
           html.enable = true;
           lua.enable = true;
@@ -188,12 +188,12 @@
             };
           };
         };
-        lsp = {
-          enable = lib.mkForce true;
-          formatOnSave = true;
-          lightbulb.enable = false;
-          lspkind.enable = true;
-        };
+        #lsp = {
+        #  enable = lib.mkForce true;
+        #  formatOnSave = true;
+        #  lightbulb.enable = false;
+        #  lspkind.enable = true;
+        # };
         lineNumberMode = "relNumber"; # number, relNumber, none
         package = pkgs.neovim-unwrapped; #
         # spellcheck = {

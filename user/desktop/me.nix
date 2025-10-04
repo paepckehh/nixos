@@ -12,7 +12,6 @@
   #####################
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
-    gnomeExtensions.network-stats
   ];
 
   ##################
@@ -31,6 +30,15 @@
     home.packages = with pkgs; [
       gnomeExtensions.dash-to-panel
     ];
+    xdg = {
+      autostart = {
+        enable = true;
+        readOnly = true;
+        entries = [
+          # "${pkgs.element-desktop}/share/applications/element-desktop.desktop"
+        ];
+      };
+    };
     dconf = {
       enable = true;
       settings = {
@@ -39,7 +47,7 @@
           enabled-extensions = with pkgs.gnomeExtensions; [
             dash-to-panel.extensionUuid
           ];
-          favorite-apps = ["Alacritty.desktop" "dss.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop" "org.gnome.Nautilus.desktop" "element-desktop.desktop"];
+          favorite-apps = ["Alacritty.desktop" "com.mitchellh.ghostty.desktop" "dss.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop" "org.gnome.Nautilus.desktop" "element-desktop.desktop" "onlyoffice-desktopeditors.desktop"];
         };
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings = [
@@ -48,6 +56,7 @@
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/"
           ];
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -56,19 +65,19 @@
           binding = "<Super>Return";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+          name = "ghostty terminal";
+          command = "ghostty";
+          binding = "<Super>\\";
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
           name = "[f]ile browser - nautilus";
           command = "nautilus";
           binding = "<Super>f";
         };
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
           name = "[b]rowser = librewolf, not-sandboxed";
           command = "librewolf";
           binding = "<Super>b";
-        };
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
-          name = "[d]ss = dss online";
-          command = "dss";
-          binding = "<Super>d";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4" = {
           name = "[p]asswordmanager";
@@ -96,6 +105,27 @@
     };
     programs = {
       tmux.enable = true;
+      ghostty = {
+        enable = true;
+        enableBashIntegration = true;
+        enableFishIntegration = true;
+        enableZshIntegration = true;
+        installBatSyntax = true;
+        installVimSyntax = true;
+        settings = {
+          theme = "Synthwave";
+          font-size = 13;
+        };
+      };
+      kitty = {
+        enable = true;
+        shellIntegration = {
+          enableBashIntegration = true;
+          enableFishIntegration = true;
+          enableZshIntegration = true;
+        };
+        enableGitIntegration = true;
+      };
       alacritty = {
         enable = true;
         settings = {
@@ -141,26 +171,7 @@
       };
       element-desktop = {
         enable = false;
-        settings = {
-          default_server_config = {
-            m.homeserver = {
-              base_url = "http://localhost:7128";
-              server_name = "localhost";
-            };
-            m.identity_server = {
-              base_url = "https://vector.im";
-            };
-          };
-          default_country_code = "DE";
-          disable_custom_urls = false;
-          disable_guests = false;
-          disable_login_language_selector = false;
-          disable_3pid_login = false;
-          force_verification = false;
-          brand = "Element";
-          integrations_ui_url = "https://scalar.vector.im/";
-          integrations_rest_url = "https://scalar.vector.im/api";
-        };
+        settings.default_country_code = "de";
       };
       keepassxc = {
         enable = true;

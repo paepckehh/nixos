@@ -20,8 +20,8 @@
       user = "dbt.${infra.domain.tld}";
     };
     cidr = {
-      admin = "${infra.net.user}.${toString infra.id.admin}.0/24";
-      user = "${infra.net.user}.${toString infra.id.user}.0/23";
+      admin = "${infra.net.user}.0/24";
+      user = "${infra.net.user}.0/23";
     };
     net = {
       prefix = "10.20";
@@ -52,23 +52,23 @@
       base = "dc=dbt,dc=corp";
       bind.dn = "cn=bind,ou=persons,${infra.ldap.base}";
     };
-    matrix-server = {
+    matrix = {
       id = 128;
-      name = "matrix-server";
+      name = "matrix";
       ldap = true;
       self-register = {
         enable = true;
         password = "start";
       };
-      hostname = infra.matrix-server.name;
+      hostname = infra.matrix.name;
       domain = infra.domain.user;
-      fqdn = "${infra.matrix-server.hostname}.${infra.matrix-server.domain}";
-      ip = "${infra.net.user}.${toString infra.matrix-server.id}";
+      fqdn = "${infra.matrix.hostname}.${infra.matrix.domain}";
+      ip = "${infra.net.user}.${toString infra.matrix.id}";
       network = infra.cidr.user;
       namespace = infra.namespace.user;
       localbind = {
         ip = infra.localhost;
-        ports.http = infra.localhostPortOffset + infra.matrix-server.id;
+        port.http = infra.localhostPortOffset + infra.matrix.id;
       };
     };
   };
@@ -109,15 +109,15 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks.${infra.matrix-server.namespace}.addresses = [
-    {Address = "${infra.matrix-server.ip}/32";}
+  systemd.network.networks.${infra.matrix.namespace}.addresses = [
+    {Address = "${infra.matrix.ip}/32";}
   ];
 
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = "${infra.matrix-server.ip} ${infra.matrix-server.hostname} ${infra.matrix-server.fqdn}";
+    extraHosts = "${infra.matrix.ip} ${infra.matrix.hostname} ${infra.matrix.fqdn}";
     firewall.allowedTCPPorts = infra.port.webapp;
   };
 
@@ -129,16 +129,16 @@ in {
       enable = true;
       settings = {
         global = {
-          address = [infra.matrix-server.localbind.ip];
-          port = [infra.matrix-server.localbind.ports.http];
-          server_name = infra.matrix-server.fqdn;
+          address = [infra.matrix.localbind.ip];
+          port = [infra.matrix.localbind.port.http];
+          server_name = infra.matrix.fqdn;
           allow_encryption = false;
           allow_federation = false;
-          allow_registration = infra.matrix-server.self-register.enable;
-          registration_token = infra.matrix-server.self-register.password;
+          allow_registration = infra.matrix.self-register.enable;
+          registration_token = infra.matrix.self-register.password;
           rocksdb_compression_algo = "zstd";
           ldap = {
-            enable = infra.matrix-server.ldap;
+            enable = infra.matrix.ldap;
             uri = infra.ldap.uri;
             bind_dn = infra.ldap.bind.dn;
             bind_password_file = config.age.secrets.tuwunel-ldap-bind.path;
@@ -152,19 +152,19 @@ in {
     };
     caddy = {
       enable = false;
-      virtualHosts."${infra.matrix-server.fqdn}".extraConfig = ''
-        bind ${infra.matrix-server.ip}
-        reverse_proxy ${infra.matrix-server.localbind.ip}:${toString infra.matrix.localbind.ports.http}
+      virtualHosts."${infra.matrix.fqdn}".extraConfig = ''
+        bind ${infra.matrix.ip}
+        reverse_proxy ${infra.matrix.localbind.ip}:${toString infra.matrix.localbind.port.http}
         tls ${infra.pki.acmeContact} {
               ca ${infra.pki.url}
               ca_root ${infra.pki.caFile}
         }
         @not_intranet {
-          not remot_ip ${infra.matrix-server.network}
+          not remote_ip ${infra.matrix.network}
         }
         respond @not_intranet 403
         log {
-          output file ${config.services.caddy.logDir}/${infra.matrix-server.name}.log
+          output file ${config.services.caddy.logDir}/${infra.matrix.name}.log
         }'';
     };
   };

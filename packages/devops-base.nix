@@ -2,7 +2,9 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  # imports = [];
+  imports = [
+    ./neovim-nvf.nix
+  ];
 
   ##################
   #-=# PROGRAMS #=-#
@@ -29,7 +31,9 @@
       certinfo-go
       curlie
       cryptsetup
+      binsider
       doggo
+      doxx
       dmidecode
       file
       jqfmt
@@ -62,8 +66,6 @@
       usbutils
       vale
       yamlfmt
-      # nvme-rs
-      # ventoy-full
     ];
   };
 }

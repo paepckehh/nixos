@@ -94,6 +94,7 @@
     shellAliases = {
       "e" = "vim";
       "l" = "ls -la";
+      "cron.list" = "systemctl list-timers --all";
       "log.boot" = "sudo dmesg --follow --human --kernel --userspace";
       "log.system" = "journalctl --follow --priority=7 --lines=2500";
       "info.nvme.extern" = "sudo smartctl --all /dev/sda";

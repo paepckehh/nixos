@@ -18,8 +18,8 @@
       else []
     );
     initrd = {
-      compressor = "zstd";
-      compressorArgs = ["--ultra" "--long" "-22"];
+      # compressor = "zstd";
+      # compressorArgs = ["--ultra" "--long" "-22"];
       systemd = {
         enable = lib.mkForce true;
         emergencyAccess = lib.mkForce true;
@@ -49,10 +49,10 @@
     );
     tmp = {
       cleanOnBoot = true;
-      useTmpfs = true;
       tmpfsHugeMemoryPages = "within_size";
       tmpfsSize = "85%";
-      useZram = false; # toggle only on memory constrained systems
+      # useTmpfs = true;
+      useZram = true;
       zramSettings = {
         compression-algorithm = "zstd";
         fs-type = "ext4";
@@ -124,7 +124,7 @@
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    priority = 5;
+    writebackDevice = "/dev/disk/by-partlabel/disk-main-swap";
   };
 
   #################
@@ -132,7 +132,7 @@
   #################
   nixpkgs = {
     config = {
-      allowBroken = lib.mkDefault true; # XXX dev mode
+      allowBroken = lib.mkDefault true;
       allowUnfree = lib.mkDefault true;
     };
   };
@@ -209,8 +209,8 @@
   hardware = {
     acpilight.enable = true;
     amdgpu = {
-      amdvlk.enable = true;
-      opencl.enable = false;
+      # amdvlk.enable = true;
+      # opencl.enable = false;
     };
     enableAllFirmware = lib.mkForce true;
     enableAllHardware = lib.mkForce true;
@@ -219,11 +219,11 @@
       amd = {
         updateMicrocode = true;
         ryzen-smu.enable = true;
-        sev.enable = lib.mkForce false;
+        sev.enable = true;
       };
       intel = {
         updateMicrocode = true;
-        sgx.provision.enable = lib.mkForce false;
+        sgx.provision.enable = true;
       };
     };
     i2c.enable = true;
@@ -342,7 +342,7 @@
   #####################
   environment = {
     shells = [pkgs.bashInteractive];
-    systemPackages = with pkgs; [cryptsetup libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools];
+    systemPackages = with pkgs; [cryptsetup libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
   };
 
   ####################
@@ -419,10 +419,10 @@
   services = {
     acpid.enable = lib.mkForce true;
     avahi.enable = lib.mkForce false;
-    devmon.enable = lib.mkForce false;
-    fwupd.enable = true; # enable manually
+    devmon.enable = lib.mkForce true;
+    fwupd.enable = lib.mkDefault true;
     geoclue2.enable = lib.mkForce false;
-    gvfs.enable = lib.mkForce false;
+    gvfs.enable = lib.mkDefault false;
     openssh.enable = false;
     smartd.enable = true;
     power-profiles-daemon.enable = lib.mkForce false;

@@ -16,16 +16,13 @@
   programs = {
     geary.enable = lib.mkForce false;
     seahorse.enable = true;
-    # ssh.startAgent = lib.mkForce false;
   };
 
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs.gnomeExtensions; [
-      # network-stats
-    ];
+    systemPackages = with pkgs.gnomeExtensions; [];
     gnome.excludePackages = with pkgs; [
       gnome-calendar
       gnome-contacts

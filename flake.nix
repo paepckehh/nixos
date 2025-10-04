@@ -100,11 +100,7 @@
           ./person/desktop/mpaepcke.nix
           ./packages/agenix.nix
           ./packages/base.nix
-          ./packages/devops.nix
-          ./packages/devops-iot.nix
-          ./packages/neovim-nvf.nix
-          ./packages/netops.nix
-          ./packages/secops.nix
+          ./packages/devops-all.nix
           ./packages/firejail.nix
           ./packages/desktop/gnome.nix
           {networking.hostName = "client";}
@@ -126,21 +122,24 @@
           ./configuration.nix
           ./client/addrootCA.nix
           ./storage/stateless-luks.nix
-          ./person/desktop/mpaepcke.nix
-          ./packages/desktop/gnome.nix
-          ./packages/agenix.nix
-          ./packages/base.nix
-          ./packages/devops.nix
-          ./packages/devops-iot.nix
-          ./packages/neovim-nvf.nix
-          ./packages/netops.nix
-          ./packages/secops.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
+          ./person/desktop/mpaepcke.nix
+          ./packages/desktop/gnome.nix
+          ./packages/desktop/add-onlyoffice.nix
+          ./packages/agenix.nix
+          ./packages/base.nix
+          ./packages/devops-core.nix
           ./server/monitoring/collect-syslog-ng.nix
-          ./server/ai/ollama.nix
-          ./server/ai/openweb-ui.nix
-          ./server/iam/lldap.nix
+          # ./server/lang/libretranslate.nix
+          # ./server/search/searx.nix
+          # ./server/cloud/nextcloud.nix
+          # ./server/office/onlyoffice-docker.nix
+          # ./packages/desktop/add-matrix.nix
+          # ./server/ai/ollama.nix
+          # ./server/ai/openweb-ui.nix
+          # ./server/iam/lldap.nix
+          # ./server/share/wastebin.nix
           # ./server/message/element-web.nix
           # ./server/message/tuwunel.nix
           # ./server/share/wiki.nix
@@ -154,7 +153,6 @@
           # ./server/hr/timeoff.nix
           # ./server/dns/adguard.nix
           # ./server/pki/small-step.nix
-          # ./server/share/wastebin.nix
           # ./server/mail/roundcube.nix
           # ./server/devops/olivetin.nix
           # ./server/soc/chef.nix
@@ -173,32 +171,9 @@
           # ./server/soc/netalertx.nix
           # ./server/soc/wazuh.nix
           ./hosts/srv.nix
-        ];
-      };
-      srv-mp = nixpkgs-dev.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          agenix.nixosModules.default
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
-          nvf.nixosModules.default
-          ./configuration.nix
-          ./client/addrootCA.nix
-          ./client/wireguard-wg100.nix
-          ./storage/disko-luks-legacy.nix
-          ./server/monitoring/collect-syslog-ng.nix
-          ./person/desktop/mpaepcke.nix
-          ./packages/agenix.nix
-          ./packages/base.nix
-          ./packages/desktop/gnome.nix
-          ./packages/devops.nix
-          ./packages/devops-iot.nix
-          ./packages/neovim-nvf.nix
-          ./packages/netops.nix
-          ./packages/secops.nix
-          ./openwrt/alias.nix
-          ./iot/moode/alias.nix
-          ./hosts/srv-mp.nix
+          {networking.hostName = "srv";}
+          {networking.hostId = "3f95770b";} # head -c 8 /etc/maschine-id
+          {environment.etc."machine-id".text = "3f95770b57a4651bdf43a8c168cfb740";} # dbus-uuidgen
         ];
       };
       ##################
