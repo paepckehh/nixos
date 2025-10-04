@@ -119,7 +119,7 @@ in {
   services = {
     paperless = {
       enable = true;
-      adress = infra.paperless.localbind.ip;
+      address = infra.paperless.localbind.ip;
       port = infra.paperless.localbind.port.http;
       database.createLocally = true;
       domain = infra.paperless.fqdn;
