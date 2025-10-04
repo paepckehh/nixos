@@ -159,21 +159,12 @@
       require-sigs = lib.mkForce true;
       preallocate-contents = true;
       allowed-uris = [
-        # "https://nixpkgs-unfree.cachix.org"
-        # "https://nix-community.cachix.org"
-        # "https://cache.saumon.network/proxmox-nixos"
         "https://cache.nixos.org"
       ];
       substituters = [
-        # "https://nixpkgs-unfree.cachix.org"
-        # "https://nix-community.cachix.org"
-        # "https://cache.saumon.network/proxmox-nixos"
         "https://cache.nixos.org"
       ];
       trusted-public-keys = [
-        # "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
-        # "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        # "proxmox-nixos:nveXDuVVhFDRFx8Dn19f1WDEaNRJjPrF2CPD2D+m1ys="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
     };
@@ -209,8 +200,8 @@
   hardware = {
     acpilight.enable = true;
     amdgpu = {
-      # amdvlk.enable = true;
-      # opencl.enable = false;
+      # amdvlk.enable = true; # legacy
+      opencl.enable = false;
     };
     enableAllFirmware = lib.mkForce true;
     enableAllHardware = lib.mkForce true;
@@ -232,7 +223,7 @@
     graphics = {
       enable = lib.mkForce true;
       enable32Bit = lib.mkForce false;
-      extraPackages = with pkgs; [intel-media-driver vpl-gpu-rt]; # intel-compute-runtime
+      # extraPackages = with pkgs; [intel-media-driver vpl-gpu-rt]; # intel-compute-runtime
     };
   };
 
@@ -410,7 +401,7 @@
   powerManagement = {
     enable = true;
     powertop.enable = false;
-    # cpuFreqGovernor = "ondemand";
+    cpuFreqGovernor = "ondemand";
   };
 
   ##################
@@ -488,6 +479,7 @@
         WIFI_PWR_ON_BAT = "on";
       };
     };
+    udev.packages = [pkgs.yubikey-personalization];
     usbguard = {
       enable = false;
       rules = ''
@@ -500,6 +492,5 @@
         allow with-interface one-of { 03:00:01 03:01:01 } if !allowed-matches(with-interface one-of { 03:00:01 03:01:01 })
       '';
     };
-    udev.packages = [pkgs.yubikey-personalization];
   };
 }
