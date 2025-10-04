@@ -131,6 +131,7 @@
           ./packages/base.nix
           ./packages/devops-core.nix
           ./server/monitoring/collect-syslog-ng.nix
+          ./server/ocr/paperless.nix
           # ./server/lang/libretranslate.nix
           # ./server/search/searx.nix
           # ./server/cloud/nextcloud.nix

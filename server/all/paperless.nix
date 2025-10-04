@@ -140,7 +140,7 @@ in {
       };
     };
     caddy = {
-      enable = true;
+      enable = false;
       virtualHosts."${infra.paperless.fqdn}".extraConfig = ''
         bind ${infra.paperless.ip}
         reverse_proxy ${infra.paperless.localbind.ip}:${toString infra.paperless.localbind.port.http}
