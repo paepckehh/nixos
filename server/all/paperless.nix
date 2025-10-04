@@ -110,7 +110,7 @@ in {
   ####################
   networking = {
     extraHosts = "${infra.paperless.ip} ${infra.paperless.hostname} ${infra.paperless.fqdn}";
-    firewall.allowedTCPPorts = [infra.port.webapp];
+    firewall.allowedTCPPorts = infra.port.webapp;
   };
 
   ##################
