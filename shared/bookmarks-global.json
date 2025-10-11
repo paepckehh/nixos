@@ -230,12 +230,34 @@
             "name": "fast.com [bigscreen, demo]"
           }
         ]
+      },
+      {
+        "name": "unifi",
+        "children": [
+          {
+            "url": "https://deluisio.com/category/networking/unifi/",
+            "name": "deluisio unifi dev blog "
+          }
+        ]
       }
     ]
   },
   {
     "name": "awesome selfhost and iot",
     "children": [
+      {
+        "name": "selfhost resources",
+        "children": [
+          {
+            "url": "https://selfh.st",
+            "name": "selfh.st"
+          },
+          {
+            "url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
+            "name": "github awesome selfhost list"
+          }
+        ]
+      },
       {
         "name": "home assistant",
         "children": [
