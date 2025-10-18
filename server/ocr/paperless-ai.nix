@@ -1,0 +1,1 @@
+../all/paperless-ai.nix

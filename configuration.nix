@@ -17,15 +17,23 @@
       then [config.boot.kernelPackages.zenpower]
       else []
     );
+    loader = {
+      efi.canTouchEfiVariables = true;
+      systemd-boot = {
+        enable = true;
+        consoleMode = "max";
+        configurationLimit = 4;
+      };
+    };
     initrd = {
-      compressor = "zstd";
-      compressorArgs = ["--ultra" "--long" "-22"];
+      # compressor = "zstd";
+      # compressorArgs = ["--ultra" "--long" "-22"];
       systemd = {
         enable = lib.mkForce true;
-        emergencyAccess = lib.mkForce true;
+        # emergencyAccess = lib.mkForce true;
       };
       luks.mitigateDMAAttacks = lib.mkForce true;
-      supportedFilesystems = ["ext4" "tmpfs"];
+      supportedFilesystems = ["ext4" "tmpfs" "vfat"];
       availableKernelModules = (
         if (config.nixpkgs.system == "x86_64-linux")
         then ["aesni_intel" "ahci" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"]
@@ -44,15 +52,15 @@
     );
     kernelModules = (
       if (config.nixpkgs.system == "x86_64-linux")
-      then ["amd-pstate" "amdgpu" "exfat" "kvm-amd" "kvm-intel" "uas" "vfat"]
-      else ["exfat" "uas" "vfat"]
+      then ["amd-pstate" "amdgpu" "kvm-amd" "kvm-intel" "uas"]
+      else ["uas"]
     );
     tmp = {
       cleanOnBoot = true;
-      useTmpfs = true;
       tmpfsHugeMemoryPages = "within_size";
       tmpfsSize = "85%";
-      useZram = false; # toggle only on memory constrained systems
+      useTmpfs = false;
+      useZram = true;
       zramSettings = {
         compression-algorithm = "zstd";
         fs-type = "ext4";
@@ -60,17 +68,6 @@
       };
     };
     runSize = "85%";
-    loader = {
-      efi = {
-        canTouchEfiVariables = false;
-        efiSysMountPoint = "/boot";
-      };
-      systemd-boot = {
-        enable = true;
-        consoleMode = "max";
-        configurationLimit = 4;
-      };
-    };
     kernel.sysctl = lib.mkDefault {
       "kernel.kptr_restrict" = 2;
       "kernel.ftrace_enabled" = 0;
@@ -116,15 +113,15 @@
   console = {
     enable = lib.mkForce true;
     earlySetup = lib.mkForce true;
-    keyMap = "us";
+    keyMap = "us,de";
     font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
     packages = with pkgs; [powerline-fonts];
   };
-  swapDevices = lib.mkForce [];
+  swapDevices = lib.mkForce []; # keep
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    priority = 5;
+    writebackDevice = "/dev/disk/by-partlabel/disk-main-swap";
   };
 
   #################
@@ -132,7 +129,7 @@
   #################
   nixpkgs = {
     config = {
-      allowBroken = lib.mkDefault true; # XXX dev mode
+      allowBroken = lib.mkDefault true;
       allowUnfree = lib.mkDefault true;
     };
   };
@@ -159,21 +156,12 @@
       require-sigs = lib.mkForce true;
       preallocate-contents = true;
       allowed-uris = [
-        # "https://nixpkgs-unfree.cachix.org"
-        # "https://nix-community.cachix.org"
-        # "https://cache.saumon.network/proxmox-nixos"
         "https://cache.nixos.org"
       ];
       substituters = [
-        # "https://nixpkgs-unfree.cachix.org"
-        # "https://nix-community.cachix.org"
-        # "https://cache.saumon.network/proxmox-nixos"
         "https://cache.nixos.org"
       ];
       trusted-public-keys = [
-        # "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
-        # "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        # "proxmox-nixos:nveXDuVVhFDRFx8Dn19f1WDEaNRJjPrF2CPD2D+m1ys="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
     };
@@ -209,7 +197,6 @@
   hardware = {
     acpilight.enable = true;
     amdgpu = {
-      amdvlk.enable = true;
       opencl.enable = false;
     };
     enableAllFirmware = lib.mkForce true;
@@ -219,11 +206,11 @@
       amd = {
         updateMicrocode = true;
         ryzen-smu.enable = true;
-        sev.enable = lib.mkForce false;
+        sev.enable = true;
       };
       intel = {
         updateMicrocode = true;
-        sgx.provision.enable = lib.mkForce false;
+        sgx.provision.enable = true;
       };
     };
     i2c.enable = true;
@@ -232,7 +219,7 @@
     graphics = {
       enable = lib.mkForce true;
       enable32Bit = lib.mkForce false;
-      extraPackages = with pkgs; [intel-media-driver vpl-gpu-rt]; # intel-compute-runtime
+      # extraPackages = with pkgs; [intel-media-driver vpl-gpu-rt]; # intel-compute-runtime
     };
   };
 
@@ -342,7 +329,7 @@
   #####################
   environment = {
     shells = [pkgs.bashInteractive];
-    systemPackages = with pkgs; [cryptsetup libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools];
+    systemPackages = with pkgs; [cryptsetup libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
   };
 
   ####################
@@ -410,7 +397,7 @@
   powerManagement = {
     enable = true;
     powertop.enable = false;
-    # cpuFreqGovernor = "ondemand";
+    cpuFreqGovernor = "ondemand";
   };
 
   ##################
@@ -419,15 +406,16 @@
   services = {
     acpid.enable = lib.mkForce true;
     avahi.enable = lib.mkForce false;
-    devmon.enable = lib.mkForce false;
-    fwupd.enable = true; # enable manually
+    devmon.enable = lib.mkForce true;
+    fwupd.enable = lib.mkDefault true;
     geoclue2.enable = lib.mkForce false;
-    gvfs.enable = lib.mkForce false;
+    gvfs.enable = lib.mkDefault false;
     openssh.enable = false;
     smartd.enable = true;
     power-profiles-daemon.enable = lib.mkForce false;
     udisks2.enable = lib.mkForce false;
     logind.settings.Login.HandleHibernateKey = "ignore";
+    libinput.enable = lib.mkForce true;
     lvm = {
       enable = lib.mkDefault false;
       dmeventd.enable = lib.mkDefault false;
@@ -487,6 +475,7 @@
         WIFI_PWR_ON_BAT = "on";
       };
     };
+    udev.packages = [pkgs.yubikey-personalization];
     usbguard = {
       enable = false;
       rules = ''
@@ -499,6 +488,5 @@
         allow with-interface one-of { 03:00:01 03:01:01 } if !allowed-matches(with-interface one-of { 03:00:01 03:01:01 })
       '';
     };
-    udev.packages = [pkgs.yubikey-personalization];
   };
 }

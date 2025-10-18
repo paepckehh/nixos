@@ -143,6 +143,10 @@
         "name": "Neovim packages and options search (NVF)"
       },
       {
+        "url": "https://git-scm.com/docs/git-config",
+        "name": "git options reference"
+      },
+      {
         "url": "https://nixos.wiki/wiki/Main_Page",
         "name": "Wiki (Unofficial, Legacy)"
       }
@@ -176,6 +180,15 @@
   {
     "name": "awesome online toolbox",
     "children": [
+      {
+        "name": "search",
+        "children": [
+          {
+            "url": "https://searx.space/",
+            "name": "searx.space public searxng instances"
+          }
+        ]
+      },
       {
         "name": "browser analysis",
         "children": [
@@ -213,7 +226,7 @@
             "name": "dnschecker.org [replication, keys, latency, cache]"
           },
           {
-            "url": "https://mxtoolbox.org/",
+            "url": "https://mxtoolbox.com/",
             "name": "mxtoolbox.com [dns, mx, blacklists, dmarc, spf, header]"
           }
         ]
@@ -230,12 +243,47 @@
             "name": "fast.com [bigscreen, demo]"
           }
         ]
+      },
+      {
+        "name": "cheat sheets [pdf]",
+        "children": [
+          {
+            "url": "https://education.github.com/git-cheat-sheet-education.pdf",
+            "name": "git"
+          },
+          {
+            "url": "https://ricoberger.de/cheat-sheets/vim/assets/vim-cheat-sheet.pdf",
+            "name": "vim"
+          }
+        ]
+      },
+      {
+        "name": "unifi",
+        "children": [
+          {
+            "url": "https://deluisio.com/category/networking/unifi/",
+            "name": "deluisio unifi dev blog "
+          }
+        ]
       }
     ]
   },
   {
     "name": "awesome selfhost and iot",
     "children": [
+      {
+        "name": "selfhost resources",
+        "children": [
+          {
+            "url": "https://selfh.st",
+            "name": "selfh.st"
+          },
+          {
+            "url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
+            "name": "github awesome selfhost list"
+          }
+        ]
+      },
       {
         "name": "home assistant",
         "children": [

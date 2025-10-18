@@ -83,8 +83,8 @@
           go.enable = true;
           starship.enable = true;
           ripgrep.enable = true;
-          skim.enable = true;
-          nushell.enable = true;
+          skim.enable = false;
+          nushell.enable = false;
           atuin = {
             enable = true;
             enableBashIntegration = false;
@@ -129,7 +129,7 @@
           git = {
             delta.enable = true;
             userName = "me";
-            userEmail = "me@intra.lan";
+            userEmail = "me@localhost";
             signing = {
               signByDefault = false;
               key = "~/.ssh/id_ed25519_sk.pub";
@@ -140,7 +140,7 @@
               protocol = {
                 allow = "always";
                 file.allow = "always";
-                git.allow = "always";
+                git.allow = "never";
                 ssh.allow = "always";
                 http.allow = "always";
                 https.allow = "always";
@@ -152,10 +152,6 @@
             enableBashIntegration = false;
             enableFishIntegration = true;
             enableZshIntegration = true;
-          };
-          ssh = {
-            enable = true;
-            # matchBlocks."*".addKeysToAgent = "yes";
           };
           vim = {
             enable = true;

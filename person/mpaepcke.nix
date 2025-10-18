@@ -61,7 +61,7 @@
               protocol = {
                 allow = "always";
                 file.allow = "always";
-                git.allow = "always";
+                git.allow = lib.mkForce "never";
                 ssh.allow = "always";
                 http.allow = "always";
                 https.allow = "always";
