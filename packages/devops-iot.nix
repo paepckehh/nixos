@@ -9,7 +9,7 @@
   #####################
   environment = {
     systemPackages = with pkgs; [
-      # mqtt-explorer
+      mqtt-explorer
       rpi-imager
       linuxPackages.usbip
     ];

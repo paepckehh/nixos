@@ -1,14 +1,8 @@
 {lib, ...}: {
-  ###############
-  # ENVIRONMENT #
-  ###############
-  environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";
-
   ##############
   # NETWORKING #
   ##############
   networking = {
-    hostName = "srv";
     usePredictableInterfaceNames = lib.mkForce true;
   };
 
@@ -20,15 +14,23 @@
       enable = true;
       addresses = [
         {Address = "192.168.80.100/24";}
+        {Address = "192.168.80.222/32";}
         {Address = "10.20.0.100/24";}
         {Address = "10.20.0.125/32";}
         {Address = "10.20.0.126/32";}
+        {Address = "10.20.0.127/32";}
+        {Address = "10.20.0.128/32";}
+        {Address = "10.20.0.129/32";}
+        {Address = "10.20.6.53/32";} # dns
         {Address = "10.20.6.100/23";}
         {Address = "10.20.6.125/32";}
-        {Address = "10.20.6.126/32";}
+        {Address = "10.20.6.126/32";} # ldap
         {Address = "10.20.6.127/32";}
         {Address = "10.20.6.128/32";}
         {Address = "10.20.6.129/32";}
+        {Address = "10.20.6.135/32";}
+        {Address = "10.20.6.142/32";}
+        {Address = "10.20.6.144/32";}
       ];
       domains = ["corp" "adm.corp" "sec.corp" "srv.corp" "dbt.corp"];
       dns = ["192.168.80.1"];

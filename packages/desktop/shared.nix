@@ -4,30 +4,30 @@
   lib,
   ...
 }: {
-  #####################
-  #-=# ENVIRONMENT #=-#
-  #####################
-  # add generic terminal pkg for all, configure individually via home-manager profile
-  environment = {
-    systemPackages = with pkgs; [alacritty gparted keepassxc wl-clipboard xclip];
-    variables = {
-      TERMINAL = "alacritty";
-    };
-  };
-
   ###############
   #-=# FONTS #=-#
   ###############
-  fonts.packages = ( # no support for pre24.11
-    if (config.system.nixos.release == "24.11")
-    then [(pkgs.nerdfonts.override {fonts = ["FiraCode"];})]
-    else [pkgs.nerd-fonts.fira-code]
-  );
+  fonts.packages = [pkgs.nerd-fonts.fira-code];
 
   ##################
   #-=# HARDWARE #=-#
   ##################
-  hardware.bluetooth.enable = false;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = false;
+  };
+
+  #############
+  #-=# XDG #=-#
+  #############
+  xdg = {
+    autostart.enable = lib.mkDefault false;
+    mime = {
+      enable = true;
+      # addedAssociations = {"application/pdf" = "librewolf.desktop";};
+      # defaultApplications = {"application/pdf" = "librewolf.desktop";};
+    };
+  };
 
   ##################
   #-=# SERVICES #=-#
@@ -35,7 +35,7 @@
   services = {
     autosuspend.enable = lib.mkForce false;
     speechd.enable = lib.mkForce false;
-    printing.enable = lib.mkForce false;
+    printing.enable = lib.mkForce true;
     xserver = {
       enable = true;
       autoRepeatDelay = 150;
@@ -49,10 +49,10 @@
       };
     };
     pipewire = {
-      enable = false;
-      alsa.enable = lib.mkDefault false;
-      pulse.enable = lib.mkDefault false;
-      wireplumber.enable = lib.mkDefault false;
+      enable = true;
+      alsa.enable = lib.mkDefault true;
+      pulse.enable = lib.mkDefault true;
+      wireplumber.enable = lib.mkDefault true;
     };
   };
 
@@ -60,4 +60,31 @@
   #-=# SECURITY #=-#
   ##################
   security.rtkit.enable = true;
+
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment = {
+    systemPackages = with pkgs; [alacritty gparted keepassxc wl-clipboard yubioath-flutter xclip];
+    variables = {
+      TERMINAL = "alacritty";
+    };
+    etc."libinput/local-overrides.quirks".text = ''
+      [MacBook(Pro) SPI Touchpads]
+      MatchName=*Apple SPI Touchpad*
+      ModelAppleTouchpad=1
+      AttrTouchSizeRange=200:150
+      AttrPalmSizeThreshold=1100
+
+      [MacBook(Pro) SPI Keyboards]
+      MatchName=*Apple SPI Keyboard*
+      AttrKeyboardIntegration=internal
+
+      [MacBookPro Touchbar]
+      MatchBus=usb
+      MatchVendor=0x05AC
+      MatchProduct=0x8600
+      AttrKeyboardIntegration=internal
+    '';
+  };
 }

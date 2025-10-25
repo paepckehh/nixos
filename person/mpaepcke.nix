@@ -49,28 +49,24 @@
         };
         programs = {
           git = {
-            userName = lib.mkForce "PAEPCKE, Michael";
-            userEmail = lib.mkForce "git@paepcke.de";
-            signing = {
-              signByDefault = lib.mkForce false;
-              key = lib.mkForce "~/.ssh/id_ed25519_sk.pub";
-            };
-            extraConfig = {
+            settings = {
               init.defaultBranch = "main";
-              gpg.format = "ssh";
-              protocol = {
-                allow = "always";
+              user = {
+                name = lib.mkForce "PAEPCKE, Michael";
+                email = lib.mkForce "git@paepcke.de";
+              };
+              protocol = lib.mkForce {
                 file.allow = "always";
-                git.allow = "always";
+                git.allow = "never";
                 ssh.allow = "always";
-                http.allow = "always";
+                http.allow = "never";
                 https.allow = "always";
               };
-              # url = {
-              #  "git@github.com:" = {insteadOf = ["gh:" "github:" "https://github.com/" "https://git.github.com/"];};
-              #  "git@gitlab.com:" = {insteadOf = ["gl:" "gitlab:" "https://gitlab.com/" "https://git.gitlab.com/"];};
-              #  "git@codeberg.org:" = {insteadOf = ["cb:" "codeberg:" "https://codeberg.org/" "https://git.codeberg.org/"];};
-              # };
+              signing = {
+                format = "ssh";
+                signByDefault = lib.mkForce false;
+                key = lib.mkForce "~/.ssh/id_ed25519_sk.pub";
+              };
             };
           };
         };
