@@ -42,12 +42,16 @@
   # pam_u2f
   # libu2f-host
   # yubico-pam
-
   environment = {
     systemPackages = with pkgs; [
+      beidconnect
+      eid-mw
+      web-eid-app
+      p11-kit
+      opensc
+      nssTools
       age-plugin-yubikey
       yubioath-flutter
-      yubikey-touch-detector
       yubikey-manager
       yubikey-manager-qt
       yubikey-personalization
@@ -60,7 +64,10 @@
   ##################
 
   services = {
-    pcscd.enable = true;
+    pcscd = {
+      enable = true;
+      plugins = [pkgs.acsccid];
+    };
     udev.extraRules = ''
       ACTION=="remove",\
       ENV{ID_BUS}=="usb",\

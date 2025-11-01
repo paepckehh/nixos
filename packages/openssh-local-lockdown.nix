@@ -44,7 +44,6 @@
         UseDns = false;
         UsePAM = false;
         X11Forwarding = false;
-        # startWhenNeeded = true;
       };
     };
   };
