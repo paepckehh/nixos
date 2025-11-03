@@ -29,7 +29,7 @@
       histSize = 0;
     };
     ssh = {
-      startAgent = lib.mkDefault true;
+      # startAgent = lib.mkDefault true;
       extraConfig = "AddKeysToAgent yes";
       hostKeyAlgorithms = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
       pubkeyAcceptedKeyTypes = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
@@ -94,6 +94,7 @@
     shellAliases = {
       "e" = "vim";
       "l" = "ls -la";
+      "cron.list" = "systemctl list-timers --all";
       "log.boot" = "sudo dmesg --follow --human --kernel --userspace";
       "log.system" = "journalctl --follow --priority=7 --lines=2500";
       "info.nvme.extern" = "sudo smartctl --all /dev/sda";

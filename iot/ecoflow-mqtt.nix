@@ -36,12 +36,12 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    resolved = {
-      enable = true;
-      llmnr = "true"; # string: true, false, resolve
-      # multicastdns = "true"; # needs PR399101
-      extraConfig = "MulticastDNS=true\nCache=true\nCacheFromLocalhost=true\nDomains=~.";
-    };
+    # resolved = {
+    # enable = true;
+    # llmnr = "true"; # string: true, false, resolve
+    # multicastdns = "true"; # needs PR399101
+    # extraConfig = "MulticastDNS=true\nCache=true\nCacheFromLocalhost=true\nDomains=~.";
+    # };
     prometheus = {
       enable = true;
       exporters.ecoflow = {

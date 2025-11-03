@@ -54,6 +54,13 @@ boot:   build
 build:  info commit build-log
 	$(SUDO) nixos-rebuild boot --flake $(OSFLAKE) --profile-name $(PROFILE)
 
+buildagain:  info commit build-log
+	$(SUDO) nixos-rebuild boot --flake $(OSFLAKE) --profile-name $(PROFILE)
+
+recover:  info commit build-log
+	@echo "Recover Build for system /mnt and $(OSFLAKE)"
+	$(SUDO) nixos-install --verbose --max-jobs $(PARALLEL) --cores $(PARALLEL) --keep-going --impure --no-root-password --root /mnt --flake $(OSFLAKE)
+
 check: info
 	nix flake check 
 	alejandra --quiet .
@@ -91,12 +98,12 @@ build-log:
 
 push: pre-commit 
 	git add .
-	git commit -S -m update
+	git commit -S -m 'update'
 	git push --force 
 
 commit: pre-commit
 	git add .
-	-git commit --quiet -m 'update' > /dev/null 2>&1 || true
+	-git commit -S --quiet -m 'update' > /dev/null 2>&1 || true
 
 pre-commit:
 	@-$(SUDO) rm -rf result > /dev/null 2>&1 || true
@@ -126,7 +133,8 @@ clean: internal-clean-12d build gc
 
 clean-hard: internal-clean-profiles internal-clean-1d build gc
 
-clean-profiles: internal-clean-profiles build
+clean-profiles: internal-clean-profiles build buildagain 
+	$(SUDO) ls -la /boot/loader/entries
 
 cache: update build-nixos-all sign
 
@@ -236,6 +244,24 @@ zero:
 
 umount:  
 	${MAKE} -C storage umount
+
+sda-luks-list:
+	$(SUDO) cryptsetup luksDump /dev/sda3
+
+sdb-luks-list:
+	$(SUDO) cryptsetup luksDump /dev/sda3
+
+nvme0-luks-list:
+	$(SUDO) cryptsetup luksDump /dev/nvme0s3
+
+sda-luks-change-pwd:
+	$(SUDO) cryptsetup luksChangeKey /dev/sda3
+
+sdb-luks-change-pwd:
+	$(SUDO) cryptsetup luksChangeKey /dev/sda3
+
+nvme0-luks-change-pwd:
+	$(SUDO) cryptsetup luksChangeKey /dev/nvme0s3
 
 wipe-home:
 	$(SUDO) -v || exit 1

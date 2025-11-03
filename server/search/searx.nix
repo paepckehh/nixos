@@ -1,0 +1,1 @@
+../all/searx.nix

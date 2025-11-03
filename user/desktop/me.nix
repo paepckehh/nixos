@@ -4,7 +4,7 @@
   #################
   imports = [
     ../me.nix
-    ./ff.nix
+    ./browser/me.nix
   ];
 
   #####################
@@ -12,20 +12,53 @@
   #####################
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
-    gnomeExtensions.network-stats
   ];
+
+  ################
+  #-=# SYSTEN #=-#
+  ################
+  system.activationScripts.script.text = ''
+    cp -f /home/me/.face /var/lib/AccountsService/icons/me
+  '';
+
+  ##################
+  #-=# SECURITY #=-#
+  ##################
+  security.pam.services.me.enableGnomeKeyring = true;
+
+  ##################
+  #-=# SECURITY #=-#
+  ##################
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "me";
+  };
 
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager.users.me = {
-    home.sessionVariables = {
-      NIXOS_OZONE_WL = "1";
-      MOZ_USE_XINPUT2 = "1";
+    home = {
+      sessionVariables = {
+        NIXOS_OZONE_WL = "1";
+        MOZ_USE_XINPUT2 = "1";
+      };
+      packages = with pkgs; [
+        gnomeExtensions.dash-to-panel
+        gnomeExtensions.clipboard-indicator
+        gnomeExtensions.translate-clipboard
+      ];
+      file.".face".source = ../../shared/brand/me.jpg;
     };
-    home.packages = with pkgs; [
-      gnomeExtensions.dash-to-panel
-    ];
+    xdg = {
+      autostart = {
+        enable = true;
+        readOnly = true;
+        entries = [
+          # "${pkgs.element-desktop}/share/applications/element-desktop.desktop"
+        ];
+      };
+    };
     dconf = {
       enable = true;
       settings = {
@@ -33,8 +66,10 @@
           disable-user-extensions = false;
           enabled-extensions = with pkgs.gnomeExtensions; [
             dash-to-panel.extensionUuid
+            clipboard-indicator.extensionUuid
+            translate-clipboard.extensionUuid
           ];
-          favorite-apps = ["Alacritty.desktop" "dss.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop" "org.gnome.Nautilus.desktop"];
+          favorite-apps = ["Alacritty.desktop" "com.mitchellh.ghostty.desktop" "kitty.desktop" "dss.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop" "org.gnome.Nautilus.desktop" "element-desktop.desktop" "onlyoffice-desktopeditors.desktop" "com.yubico.yubioath.desktop"];
         };
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings = [
@@ -51,27 +86,30 @@
           binding = "<Super>Return";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-          name = "default [f]ile browser - nautilus";
+          name = "[f]ile browser - nautilus";
           command = "nautilus";
           binding = "<Super>f";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
-          name = "default [b]rowser = librewolf, not-sandboxed";
-          command = "firefox";
+          name = "[b]rowser = librewolf, not-sandboxed";
+          command = "librewolf";
           binding = "<Super>b";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
-          name = "[w]olf = librewolf firejail";
-          command = "jailwolf";
-          binding = "<Super>w";
+          name = "[p]asswordmanager";
+          command = "vaultwarden";
+          binding = "<Super>p";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4" = {
-          name = "keepassxc passwordmanager";
+          name = "[k]eepassxc passwordmanager";
           command = "keepassxc";
           binding = "<Super>k";
         };
         "org/gnome/desktop/interface" = {
           clock-show-weekday = true;
+        };
+        "org.gnome.desktop.wm.preferences" = {
+          button-layout = "minimize,maximize,close";
         };
         # "org/gnome/desktop/background" = {
         #   picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/vnc-l.png";
@@ -86,6 +124,27 @@
     };
     programs = {
       tmux.enable = true;
+      ghostty = {
+        enable = false;
+        enableBashIntegration = true;
+        enableFishIntegration = true;
+        enableZshIntegration = true;
+        installBatSyntax = true;
+        installVimSyntax = true;
+        settings = {
+          theme = "Synthwave";
+          font-size = 11;
+        };
+      };
+      kitty = {
+        enable = false;
+        enableGitIntegration = true;
+        shellIntegration = {
+          enableBashIntegration = true;
+          enableFishIntegration = true;
+          enableZshIntegration = true;
+        };
+      };
       alacritty = {
         enable = true;
         settings = {
@@ -95,7 +154,7 @@
           scrolling = {
             history = 100000;
           };
-          font.size = 13;
+          font.size = 11;
           colors = {
             primary = {
               background = "#000000";
@@ -129,6 +188,10 @@
           };
         };
       };
+      element-desktop = {
+        enable = false;
+        settings.default_country_code = "de";
+      };
       keepassxc = {
         enable = true;
         settings = {
@@ -141,12 +204,6 @@
             HidePasswords = true;
           };
         };
-      };
-      zellij = {
-        enable = true;
-        enableBashIntegration = false;
-        enableFishIntegration = false;
-        enableZshIntegration = false;
       };
     };
     services = {

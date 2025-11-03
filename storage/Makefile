@@ -29,22 +29,23 @@ all:
 # USBDRIVE TARGETS #
 ####################
 
-usb: info check wipe format pre-mount mount post-mount install migrate umount
+usb: info check wipe format pre-mount mount post-mount install bootproof migrate umount
 
 ####################
 # USBDRIVE GENERIC #
 ####################
 
 info: 
-	@echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGET), os-flake: $(OSFLAKE), luks: $(USELUKS), build repo: $(REPO), disko-flake: $(DISKOFLAKE), jobs: $(PARALLEL)
+	echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGET), os-flake: $(OSFLAKE), luks: $(USELUKS), build repo: $(REPO), disko-flake: $(DISKOFLAKE), jobs: $(PARALLEL)
 	@if [ $(USELUKS) = "YES" ]; then (echo "### LUKS MODE ENABLED, PLEASE ENSURE PROPER DISK/STORAGE LAYOUT IN TARGETOS FLAKE CONFIG!" && sleep 3) ; fi  
 
 check: 
 	@if [ ! -e /dev/$(TARGETDRIVE) ]; then (echo "TARGETDRIVE: /dev/$(TARGETDRIVE) does not exists, exit" ; exit 1); fi  
 
 install:
-	$(SUDO) nixos-install --verbose --max-jobs $(PARALLEL) --cores $(PARALLEL) --keep-going --impure --no-root-password --root /mnt --flake $(OSFLAKE)
+	$(SUDO) nixos-install --verbose --max-jobs $(PARALLEL) --cores $(PARALLEL) --impure --no-root-password --root /mnt --flake $(OSFLAKE)
 	$(SUDO) git clone $(REPO) /mnt/nix/persist/etc/nixos
+	$(SUDO) chown -R me:me /mnt/nix/persist/etc/nixos
 
 pre-mount: 
 	$(SUDO) umount -f /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/root/.ssh || true
@@ -55,7 +56,7 @@ pre-mount:
 
 mount:
 	$(SUDO) mkdir -p /mnt
-	$(SUDO) mount -t tmpfs tmpfs /mnt
+	$(SUDO) mount -o rw,relatime,mode=755,huge=within_size -t tmpfs tmpfs /mnt
 	$(SUDO) mkdir -p /mnt/boot /mnt/nix
 	$(SUDO) mount /dev/$(TARGETDRIVE)1 /mnt/boot || exit 1
 	if [ $(USELUKS) = "NO" ]; then
@@ -78,6 +79,9 @@ post-mount:
 	$(SUDO) mount -o bind /mnt/nix/persist/etc/ssh /mnt/etc/ssh
 	$(SUDO) mount -o bind /mnt/nix/persist/root/.ssh /mnt/root/.ssh
 
+bootproof: 
+	$(SUDO) bootctl --no-pager --esp-path=/mnt/boot status || exit 1
+
 umount:
 	$(SUDO) sync && sync && sync
 	$(SUDO) umount -f /mnt/home /mnt/var/lib /mnt/etc/nixos /mnt/etc/ssh /mnt/root/.ssh  || true
@@ -98,33 +102,50 @@ wipe:
 # MIGRATE SECRETS #
 ###################
 
-migrate: migrate-etcssh migrate-root migrate-me 
+migrate: migrate-etcssh migrate-root migrate-me migrate-backup migrate-projects migrate-me-master
 
 migrate-etcssh:
-	$(SUDO) mkdir -p /mnt/nix/persist/etc/ssh
-	$(SUDO) cp -af /etc/ssh/ssh_host_ed25519* /mnt/nix/persist/etc/ssh/ 
-	$(SUDO) chmod 700 /mnt/nix/persist/etc/ssh/ssh_host_ed25519_key
-	$(SUDO) chmod 644 /mnt/nix/persist/etc/ssh/ssh_host_ed25519_key.pub
-	$(SUDO) chown -R 0:0 /mnt/nix/persist/etc/ssh
+	$(SUDO) mkdir -p /mnt/nix/persist/etc/ssh | true
+	$(SUDO) cp -af /etc/ssh/ssh_host_ed25519* /mnt/nix/persist/etc/ssh/  | true
+	$(SUDO) chmod 700 /mnt/nix/persist/etc/ssh/ssh_host_ed25519_key | true 
+	$(SUDO) chmod 644 /mnt/nix/persist/etc/ssh/ssh_host_ed25519_key.pub | true 
+	$(SUDO) chown -R 0:0 /mnt/nix/persist/etc/ssh | true
 
 migrate-root:
-	$(SUDO) cp -rf /root/.ssh /mnt/nix/persist/root/ 
-	$(SUDO) chmod 700 /mnt/nix/persist/root/.ssh
-	$(SUDO) chmod 600 /mnt/nix/persist/root/.ssh/id_ed25519
-	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/id_ed25519.pub
-	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/known_hosts
-	$(SUDO) chown -R 0:0 /mnt/nix/persist/root
+	$(SUDO) cp -rf /root/.ssh /mnt/nix/persist/root/ | true
+	$(SUDO) chmod 700 /mnt/nix/persist/root/.ssh | true
+	$(SUDO) chmod 600 /mnt/nix/persist/root/.ssh/id_ed25519 | true 
+	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/id_ed25519.pub | true
+	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/known_hosts | true
+	$(SUDO) chown -R 0:0 /mnt/nix/persist/root | true
 
 migrate-me:
-	$(SUDO) mkdir -p /mnt/nix/persist/home/me/.local/share
-	$(SUDO) cp -rf /home/me/.ssh /mnt/nix/persist/home/me/ 
-	$(SUDO) cp -rf /home/me/.local/share/atuin /mnt/nix/persist/home/me/.local/share/
-	$(SUDO) chmod 700 /mnt/nix/persist/home/me/.ssh
-	$(SUDO) chmod 600 /mnt/nix/persist/home/me/.ssh/pwd.kdbx
-	$(SUDO) chmod 600 /mnt/nix/persist/home/me/.ssh/id_ed25519
-	$(SUDO) chmod 644 /mnt/nix/persist/home/me/.ssh/id_ed25519.pub
-	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/known_hosts
-	$(SUDO) chown -R me:me /mnt/nix/persist/home/me
+	$(SUDO) mkdir -p /mnt/nix/persist 
+	$(SUDO) mkdir -p /mnt/nix/persist/home 
+	$(SUDO) mkdir -p /mnt/nix/persist/home/me
+	$(SUDO) cp -rf /home/me/.ssh /mnt/nix/persist/home/me/ | true
+	$(SUDO) cp -rf /home/me/.local/share/atuin /mnt/nix/persist/home/me/.local/share/ | true
+	$(SUDO) chmod 700 /mnt/nix/persist/home/me/.ssh | true
+	$(SUDO) chmod 600 /mnt/nix/persist/home/me/.ssh/pwd.kdbx | true
+	$(SUDO) chmod 600 /mnt/nix/persist/home/me/.ssh/id_ed25519 | true 
+	$(SUDO) chmod 644 /mnt/nix/persist/home/me/.ssh/id_ed25519.pub | true
+	$(SUDO) chmod 644 /mnt/nix/persist/home/me/.ssh/known_hosts | true
+
+migrate-backup:
+	$(SUDO) cp -rf /home/backup /mnt/nix/persist/home/ | true
+	$(SUDO) chown -R me:me /mnt/nix/persist/home/backup | true
+
+migrate-projects:
+	$(SUDO) cp -rf /home/projects /mnt/nix/persist/home/ | true 
+	$(SUDO) chown -R me:me /mnt/nix/persist/home/projects | true
+
+migrate-me-master:
+	$(SUDO) chown -R me:me /home/me | true
+	$(SUDO) mkdir -p /mnt/nix/persist/home | true
+	$(SUDO) chown -R me:me /mnt/nix/persist/home | true
+	sync && sync
+
+
 
 #################
 # LITTLE HELPER #

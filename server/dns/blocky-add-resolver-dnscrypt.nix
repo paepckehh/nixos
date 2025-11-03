@@ -1,9 +1,1 @@
-{
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  imports = [
-    ./blocky-add-resolver-setlocal.nix
-    ./dnscrypt-proxy.nix
-  ];
-}
+../all/blocky-add-resolver-dnscrypt.nix

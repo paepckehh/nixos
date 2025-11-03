@@ -17,15 +17,23 @@
       then [config.boot.kernelPackages.zenpower]
       else []
     );
+    loader = {
+      efi.canTouchEfiVariables = true;
+      systemd-boot = {
+        enable = true;
+        consoleMode = "max";
+        configurationLimit = 4;
+      };
+    };
     initrd = {
       compressor = "zstd";
       compressorArgs = ["--ultra" "--long" "-22"];
       systemd = {
         enable = lib.mkForce true;
-        emergencyAccess = lib.mkForce true;
+        emergencyAccess = lib.mkForce false;
       };
       luks.mitigateDMAAttacks = lib.mkForce true;
-      supportedFilesystems = ["ext4" "tmpfs"];
+      supportedFilesystems = ["ext4" "tmpfs" "vfat"];
       availableKernelModules = (
         if (config.nixpkgs.system == "x86_64-linux")
         then ["aesni_intel" "ahci" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"]
@@ -44,15 +52,15 @@
     );
     kernelModules = (
       if (config.nixpkgs.system == "x86_64-linux")
-      then ["amd-pstate" "amdgpu" "exfat" "kvm-amd" "kvm-intel" "uas" "vfat"]
-      else ["exfat" "uas" "vfat"]
+      then ["amd-pstate" "amdgpu" "kvm-amd" "kvm-intel" "uas"]
+      else ["uas"]
     );
     tmp = {
       cleanOnBoot = true;
-      useTmpfs = true;
       tmpfsHugeMemoryPages = "within_size";
       tmpfsSize = "85%";
-      useZram = false; # toggle only on memory constrained systems
+      useTmpfs = false;
+      useZram = true;
       zramSettings = {
         compression-algorithm = "zstd";
         fs-type = "ext4";
@@ -60,17 +68,6 @@
       };
     };
     runSize = "85%";
-    loader = {
-      efi = {
-        canTouchEfiVariables = false;
-        efiSysMountPoint = "/boot";
-      };
-      systemd-boot = {
-        enable = true;
-        consoleMode = "max";
-        configurationLimit = 4;
-      };
-    };
     kernel.sysctl = lib.mkDefault {
       "kernel.kptr_restrict" = 2;
       "kernel.ftrace_enabled" = 0;
@@ -120,11 +117,11 @@
     font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
     packages = with pkgs; [powerline-fonts];
   };
-  swapDevices = lib.mkForce [];
+  swapDevices = lib.mkForce []; # keep
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    priority = 5;
+    writebackDevice = "/dev/disk/by-partlabel/disk-main-swap";
   };
 
   #################
@@ -132,7 +129,7 @@
   #################
   nixpkgs = {
     config = {
-      allowBroken = lib.mkDefault true; # XXX dev mode
+      allowBroken = lib.mkDefault true;
       allowUnfree = lib.mkDefault true;
     };
   };
@@ -150,30 +147,21 @@
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
       trusted-users = lib.mkForce ["@wheel"];
-      http2 = lib.mkForce false;
+      http2 = lib.mkDefault true;
       sandbox = lib.mkForce true;
       sandbox-build-dir = "/build";
       sandbox-fallback = lib.mkForce false;
       trace-verbose = true;
       restrict-eval = lib.mkForce false;
       require-sigs = lib.mkForce true;
-      preallocate-contents = true;
+      preallocate-contents = lib.mkDefault true;
       allowed-uris = [
-        # "https://nixpkgs-unfree.cachix.org"
-        # "https://nix-community.cachix.org"
-        # "https://cache.saumon.network/proxmox-nixos"
         "https://cache.nixos.org"
       ];
       substituters = [
-        # "https://nixpkgs-unfree.cachix.org"
-        # "https://nix-community.cachix.org"
-        # "https://cache.saumon.network/proxmox-nixos"
         "https://cache.nixos.org"
       ];
       trusted-public-keys = [
-        # "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
-        # "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        # "proxmox-nixos:nveXDuVVhFDRFx8Dn19f1WDEaNRJjPrF2CPD2D+m1ys="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
     };
@@ -208,10 +196,7 @@
   ##################
   hardware = {
     acpilight.enable = true;
-    amdgpu = {
-      amdvlk.enable = true;
-      opencl.enable = false;
-    };
+    amdgpu.opencl.enable = lib.mkForce false;
     enableAllFirmware = lib.mkForce true;
     enableAllHardware = lib.mkForce true;
     enableRedistributableFirmware = lib.mkForce true;
@@ -219,11 +204,11 @@
       amd = {
         updateMicrocode = true;
         ryzen-smu.enable = true;
-        sev.enable = lib.mkForce false;
+        sev.enable = true;
       };
       intel = {
         updateMicrocode = true;
-        sgx.provision.enable = lib.mkForce false;
+        sgx.provision.enable = true;
       };
     };
     i2c.enable = true;
@@ -309,12 +294,10 @@
   #-=# USERS #=-#
   ###############
   users = {
-    mutableUsers = false;
-    users = {
-      root = {
-        hashedPassword = null; # disable root account
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # disable pubkey auth
-      };
+    mutableUsers = false; # impermanence
+    users.root = {
+      hashedPassword = null; # disable root account
+      openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # disable pubkey auth
     };
   };
 
@@ -322,7 +305,8 @@
   #-=# I18N #=-#
   ##############
   i18n = {
-    defaultLocale = "en_US.UTF-8";
+    defaultLocale = "C.UTF-8";
+    # defaultLocale = "en_US.UTF-8";
     # extraLocales = ["C.UTF-8" "de_DE.UTF-8"];
     extraLocaleSettings = {
       LC_ADDRESS = "de_DE.UTF-8";
@@ -342,7 +326,7 @@
   #####################
   environment = {
     shells = [pkgs.bashInteractive];
-    systemPackages = with pkgs; [cryptsetup libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools];
+    systemPackages = with pkgs; [cryptsetup libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
   };
 
   ####################
@@ -352,8 +336,8 @@
   networking = {
     domain = "lan";
     enableIPv6 = false;
-    nameservers = ["127.0.0.53"]; # systemd-resolved bind
-    resolvconf.enable = false; # use systemd-resolved
+    # nameservers = ["127.0.0.53"]; # systemd-resolved bind
+    # resolvconf.enable = false; # use systemd-resolved
     useNetworkd = true;
     usePredictableInterfaceNames = lib.mkDefault false;
     networkmanager = {
@@ -361,9 +345,9 @@
       logLevel = "INFO";
       wifi = {
         backend = "wpa_supplicant"; # wpa_supplicant
-        scanRandMacAddress = false;
-        macAddress = "permanent"; # allow wifi mac filter
-        powersave = false;
+        scanRandMacAddress = true;
+        macAddress = "random"; # permanent, stable, random
+        powersave = true;
       };
     };
     nftables.enable = true;
@@ -379,16 +363,6 @@
   #-=# SYSTEMD #=-#
   #################
   systemd = {
-    network = {
-      enable = true;
-      wait-online.enable = false;
-      networks."10-lan" = {
-        ipv6Prefixes = [{AddressAutoconfiguration = false;}];
-        matchConfig.Name = "eth0";
-        networkConfig.DHCP = "ipv4";
-        linkConfig.RequiredForOnline = "yes";
-      };
-    };
     targets = {
       sleep.enable = true;
       suspend.enable = lib.mkForce false;
@@ -410,7 +384,7 @@
   powerManagement = {
     enable = true;
     powertop.enable = false;
-    # cpuFreqGovernor = "ondemand";
+    cpuFreqGovernor = "ondemand";
   };
 
   ##################
@@ -419,15 +393,16 @@
   services = {
     acpid.enable = lib.mkForce true;
     avahi.enable = lib.mkForce false;
-    devmon.enable = lib.mkForce false;
-    fwupd.enable = true; # enable manually
+    devmon.enable = lib.mkForce true;
+    fwupd.enable = lib.mkDefault true;
     geoclue2.enable = lib.mkForce false;
-    gvfs.enable = lib.mkForce false;
+    gvfs.enable = lib.mkDefault false;
     openssh.enable = false;
     smartd.enable = true;
     power-profiles-daemon.enable = lib.mkForce false;
-    udisks2.enable = lib.mkForce false;
+    udisks2.enable = lib.mkForce true;
     logind.settings.Login.HandleHibernateKey = "ignore";
+    libinput.enable = lib.mkForce true;
     lvm = {
       enable = lib.mkDefault false;
       dmeventd.enable = lib.mkDefault false;
@@ -445,13 +420,14 @@
       enable = true;
       interval = "daily";
     };
-    resolved = {
-      enable = true;
-      dnssec = "false"; # XXX disable dnssec for the clowns pointless mitm
-      extraConfig = "MulticastDNS=false\nCache=true\nCacheFromLocalhost=true\nDomains=~.\n";
-      fallbackDns = ["192.168.80.1" "192.168.0.1" "192.168.1.1"];
-      llmnr = "false";
-    };
+    resolved.enable = false;
+    # resolved = {
+    # enable = true;
+    # dnssec = "false"; # XXX disable dnssec for the clowns pointless mitm
+    # llmnr = "true";
+    # extraConfig = "MulticastDNS=false\nCache=true\nCacheFromLocalhost=true\nDomains=~.\n";
+    # fallbackDns = ["192.168.80.1"];
+    # };
     tlp = {
       enable = true;
       settings = {
@@ -487,6 +463,7 @@
         WIFI_PWR_ON_BAT = "on";
       };
     };
+    udev.packages = [pkgs.yubikey-personalization];
     usbguard = {
       enable = false;
       rules = ''
@@ -499,6 +476,5 @@
         allow with-interface one-of { 03:00:01 03:01:01 } if !allowed-matches(with-interface one-of { 03:00:01 03:01:01 })
       '';
     };
-    udev.packages = [pkgs.yubikey-personalization];
   };
 }

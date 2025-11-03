@@ -100,11 +100,7 @@
           ./person/desktop/mpaepcke.nix
           ./packages/agenix.nix
           ./packages/base.nix
-          ./packages/devops.nix
-          ./packages/devops-iot.nix
-          ./packages/neovim-nvf.nix
-          ./packages/netops.nix
-          ./packages/secops.nix
+          ./packages/devops-all.nix
           ./packages/firejail.nix
           ./packages/desktop/gnome.nix
           {networking.hostName = "client";}
@@ -124,39 +120,71 @@
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
           ./configuration.nix
+          ./client/db.nix
           ./client/addrootCA.nix
           ./storage/stateless-luks.nix
-          ./server/monitoring/collect-syslog-ng.nix
-          ./person/desktop/mpaepcke.nix
-          ./packages/agenix.nix
-          ./packages/base.nix
-          ./packages/desktop/gnome.nix
-          ./packages/devops.nix
-          ./packages/devops-iot.nix
-          ./packages/neovim-nvf.nix
-          ./packages/netops.nix
-          ./packages/secops.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
-          ./server/iam/lldap.nix
-          ./server/mail/davis.nix
-          ./server/share/wiki.nix
+          ./person/desktop/mpaepcke.nix
+          ./packages/desktop/gnome.nix
+          ./packages/agenix.nix
+          ./packages/base.nix
+          ./packages/devops-core.nix
+          ./server/all/base.nix
+          ./server/monitoring/collect-syslog-ng.nix
+          ./server/cloud/nextcloud.nix
+          ./server/dns/bind.nix
+          # ./server/iam/authelia.nix
+          # ./server/iam/lldap.nix
+          ./server/search/searx.nix
+          ./server/office/grist.nix
+          ./server/portal/homer-home.nix
+          ./server/pki/small-step.nix
+          ./server/pki/certwarden.nix
+          ./server/pki/mkcertweb.nix
+          ./server/pki/vaultls.nix
+          ./server/webapp/res.nix
+          ./server/webapp/test.nix
+          # ./server/share/nextcloud.nix
+          # ./server/ticket/zammad.nix
+          # ./server/devops/openvs-code.nix
+          # ./virtual/distrobox.nix
           # ./client/wireguard-wg100.nix
           # ./packages/desktop/dss-portal.nix
           # ./packages/desktop/firejail.nix
+          # ./packages/desktop/add-thunderbird.nix
+          # ./packages/desktop/add-onlyoffice.nix
+          # ./packages/desktop/add-matrix.nix
+          # ./packages/desktop/add-onlyoffice.nix
+          # ./server/asset/snipeit.nix
+          # ./server/ocr/paperless-ai.nix
+          # ./server/portal/homer.nix
+          # ./server/devops/vscode.nix
+          # ./server/doc/stirling.nix
+          # ./server/crm/wordpress.nix
+          # ./server/rss/miniflux.nix
+          # ./server/share/immich.nix
+          # ./server/share/wastebin.nix
+          # ./server/share/paperless.nix
+          # ./server/share/mediawiki.nix
+          # ./server/lang/libretranslate.nix
+          # ./server/cloud/nextcloud.nix
+          # ./server/office/onlyoffice-docker.nix
+          # ./server/ai/ollama.nix
+          # ./server/ai/openweb-ui.nix
+          # ./server/message/element-web.nix
+          # ./server/message/tuwunel.nix
+          # ./server/mail/davis.nix
+          # ./server/mail/open-web-calendar.nix
           # ./server/hr/timeoff.nix
           # ./server/dns/adguard.nix
           # ./server/pki/small-step.nix
-          # ./server/share/wastebin.nix
           # ./server/mail/roundcube.nix
           # ./server/devops/olivetin.nix
           # ./server/soc/chef.nix
           # ./server/soc/proxy.nix
-          # ./server/share/paperless.nix
-          # ./server/share/nextcloud.nix
           # ./server/monitoring/kuma.nix
           # ./server/monitoring/prometheus-opnsense.nix
-          # ./virtual/distrobox.nix
           # ./server/monitoring/grafana.nix
           # ./server/monitoring/prometheus.nix
           # ./server/devops/atuin.nix
@@ -166,32 +194,9 @@
           # ./server/soc/netalertx.nix
           # ./server/soc/wazuh.nix
           ./hosts/srv.nix
-        ];
-      };
-      srv-mp = nixpkgs-dev.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          agenix.nixosModules.default
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
-          nvf.nixosModules.default
-          ./configuration.nix
-          ./client/addrootCA.nix
-          ./client/wireguard-wg100.nix
-          ./storage/disko-luks-legacy.nix
-          ./server/monitoring/collect-syslog-ng.nix
-          ./person/desktop/mpaepcke.nix
-          ./packages/agenix.nix
-          ./packages/base.nix
-          ./packages/desktop/gnome.nix
-          ./packages/devops.nix
-          ./packages/devops-iot.nix
-          ./packages/neovim-nvf.nix
-          ./packages/netops.nix
-          ./packages/secops.nix
-          ./openwrt/alias.nix
-          ./iot/moode/alias.nix
-          ./hosts/srv-mp.nix
+          {networking.hostName = "srv";}
+          {networking.hostId = "3f95770b";} # head -c 8 /etc/maschine-id
+          {environment.etc."machine-id".text = "3f95770b57a4651bdf43a8c168cfb740";} # dbus-uuidgen
         ];
       };
       ##################

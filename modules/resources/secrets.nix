@@ -1,8 +1,21 @@
 let
   age = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPvG7XOtIqjA+zibUaFj9gz/zOKYkZ9gAuYmkHjbseCk age@paepcke.de";
-  srv-mp = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArbsQC2gdtQ9qCC54Khfei/rVMtVjOTiS0sduAi4jDO root@srv-mp";
+  srv-mp = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOrnlrFwXPb2H3MR5TNilQpJSjUbeFAANSPlOvSFd8kM root@srv";
 in {
+  "vault.age".publicKeys = [age srv-mp]; # ENV ADMIN_TOKEN="..."
   "davis.age".publicKeys = [age srv-mp];
+  "miniflux.age".publicKeys = [age srv-mp]; # ENV ADMIN_USERNAME="..." ADMIN_PASSWORD="..."
+  "authelia-key.age".publicKeys = [age srv-mp];
+  "authelia-jwt.age".publicKeys = [age srv-mp];
+  "authelia-session.age".publicKeys = [age srv-mp];
+  "mkcertweb.age".publicKeys = [age srv-mp];
+  "vaultls.age".publicKeys = [age srv-mp];
+  "matrix.age".publicKeys = [age srv-mp];
+  "zammad-db.age".publicKeys = [age srv-mp];
+  "zammad-key.age".publicKeys = [age srv-mp];
+  "snipeit.age".publicKeys = [age srv-mp];
+  "paperless.age".publicKeys = [age srv-mp];
+  "bind.age".publicKeys = [age srv-mp];
   "davis-app.age".publicKeys = [age srv-mp];
   "lldap-admin.age".publicKeys = [age srv-mp];
   "lldap-jwt.age".publicKeys = [age srv-mp];

@@ -1,1 +1,1 @@
-../soc/wazuh.nix
+../all/wazuh.nix

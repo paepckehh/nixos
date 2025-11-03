@@ -6,17 +6,13 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [
-    #  ../server/ollama.nix
-  ];
+  # imports = [];
 
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    shellAliases = {
-      "e" = lib.mkForce "nvim";
-    };
+    shellAliases."e" = lib.mkForce "nvim";
     systemPackages = with pkgs; [xclip];
   };
 
@@ -104,6 +100,7 @@
             {"f" = "/etc/nixos/flake.nix";}
             {"c" = "/etc/nixos/configuration.nix";}
             {"v" = "/etc/nixos/packages/neovim.nix";}
+            {"m" = "/etc/nixos/Makefile";}
           ];
         };
         diagnostics.nvim-lint = {
@@ -128,7 +125,7 @@
         };
         languages = {
           enableFormat = lib.mkForce true;
-          clang.enable = true;
+          clang.enable = false;
           css.enable = true;
           html.enable = true;
           lua.enable = true;
@@ -149,20 +146,12 @@
               enable = true;
               type = "shfmt"; # shfmt
             };
-            lsp = {
-              enable = true;
-              server = "bash-ls"; # bash-ls
-            };
           };
           go = {
             enable = true;
             format = {
               enable = true;
               type = "gofmt"; # gofmt, gofumpt, golines
-            };
-            lsp = {
-              enable = true;
-              server = "gopls";
             };
           };
           markdown = {
@@ -182,25 +171,10 @@
               enable = true;
               type = "alejandra"; # alejandra, nixfmt
             };
-            lsp = {
-              enable = true;
-              server = "nil"; # nil, nixd
-            };
           };
         };
-        lsp = {
-          enable = lib.mkForce true;
-          formatOnSave = true;
-          lightbulb.enable = false;
-          lspkind.enable = true;
-        };
-        lineNumberMode = "relNumber"; # number, relNumber, none
+        lineNumberMode = "number"; # number, relNumber, none
         package = pkgs.neovim-unwrapped; #
-        # spellcheck = {
-        # enable = false;
-        # languages = ["en" "de"];
-        # programmingWordlist.enable = true;
-        # };
         theme = {
           enable = true;
           name = "base16"; # base16, catppuccin, dracula, github, gruvbox, mini-base16, nord, onedark, oxocarbon, rose-pine, tokyonight
@@ -241,7 +215,6 @@
         };
         utility = {
           icon-picker.enable = true;
-          vim-wakatime.enable = false;
           yanky-nvim = {
             enable = false;
             setupOpts = {

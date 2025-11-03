@@ -1,0 +1,1 @@
+../all/small-step-sync.sh

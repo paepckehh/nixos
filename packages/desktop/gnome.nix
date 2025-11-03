@@ -15,16 +15,16 @@
   ##################
   programs = {
     geary.enable = lib.mkForce false;
-    seahorse.enable = lib.mkForce false;
-    ssh.startAgent = lib.mkForce false;
+    seahorse.enable = true;
   };
 
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs.gnomeExtensions; [
-      # network-stats
+    systemPackages = with pkgs; [
+      gnome-decoder
+      gnome-firmware
     ];
     gnome.excludePackages = with pkgs; [
       gnome-calendar
@@ -47,7 +47,7 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    gvfs.enable = lib.mkForce false;
+    gvfs.enable = true;
     gnome = {
       core-os-services.enable = true;
       core-shell.enable = true;
@@ -58,7 +58,7 @@
       gnome-browser-connector.enable = lib.mkForce false;
       gnome-initial-setup.enable = lib.mkForce false;
       gnome-online-accounts.enable = lib.mkForce false;
-      gnome-keyring.enable = lib.mkForce false;
+      gnome-keyring.enable = true;
       gnome-remote-desktop.enable = lib.mkForce false;
       gnome-user-share.enable = lib.mkForce false;
       sushi.enable = lib.mkForce false;

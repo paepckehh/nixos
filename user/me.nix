@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   #################
@@ -51,13 +52,14 @@
             EDITOR = "vim";
           };
           shellAliases = {
+            "b" = "sudo btop";
+            "d" = "sudo dmesg";
             "l" = "ls -la";
             "n" = "cd /etc/nixos && ls -la";
             "h" = "htop --tree --highlight-changes";
             "log.boot" = "sudo dmesg --follow --human --kernel --userspace";
             "log.system" = "sudo journalctl --follow --priority=7 --lines=2500";
             "log.time" = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
-            "b" = "sudo btop";
             "man" = "batman";
             "cat" = "bat --paging=never";
             "time.status" = "timedatectl timesync-status";
@@ -83,8 +85,10 @@
           go.enable = true;
           starship.enable = true;
           ripgrep.enable = true;
-          skim.enable = true;
-          nushell.enable = true;
+          delta = {
+            enable = true;
+            enableGitIntegration = true;
+          };
           atuin = {
             enable = true;
             enableBashIntegration = false;
@@ -105,7 +109,7 @@
           };
           bat = {
             enable = true;
-            extraPackages = with pkgs.bat-extras; [batman batgrep batwatch];
+            extraPackages = with pkgs.bat-extras; [batman batwatch];
           };
           eza = {
             enable = true;
@@ -127,23 +131,23 @@
             enableZshIntegration = false;
           };
           git = {
-            delta.enable = true;
-            userName = "me";
-            userEmail = "me@intra.lan";
-            signing = {
-              signByDefault = false;
-              key = "~/.ssh/id_ed25519_sk.pub";
-            };
-            extraConfig = {
+            settings = {
               init.defaultBranch = "main";
-              gpg.format = "ssh";
-              protocol = {
-                allow = "always";
+              user = {
+                name = lib.mkDefault "me";
+                email = lib.mkDefault "me@localhost";
+              };
+              protocol = lib.mkForce {
                 file.allow = "always";
-                git.allow = "always";
+                git.allow = "never";
                 ssh.allow = "always";
-                http.allow = "always";
+                http.allow = "never";
                 https.allow = "always";
+              };
+              signing = {
+                format = "ssh";
+                signByDefault = lib.mkDefault false;
+                key = lib.mkDefault "~/.ssh/id_ed25519.pub";
               };
             };
           };
@@ -152,10 +156,6 @@
             enableBashIntegration = false;
             enableFishIntegration = true;
             enableZshIntegration = true;
-          };
-          ssh = {
-            enable = true;
-            # matchBlocks."*".addKeysToAgent = "yes";
           };
           vim = {
             enable = true;
@@ -166,25 +166,9 @@
               expandtab = true;
             };
             extraConfig = ''
-               set hlsearch
-               set nocompatible
-               set nobackup
-               let commentTextMap = {
-                   \'c': '\/\/',
-                   \'h': '\/\/',
-                   \'cpp': '\/\/',
-                   \'java': '\/\/',
-                   \'php': '\/\/',
-                   \'javascript': '\/\/',
-                   \'go': '\/\/',
-                   \'python': '#',
-                   \'sh': '#',
-                   \'vim': '"',
-                   \'make': '#',
-                   \'conf': '#',
-                   \'nix': ' #',
-              \}
-              noremap <silent> <expr> <F12> ((synIDattr(synID(line("."), col("."), 0), "name") =~ 'comment\c') ? ':<S-Right>:s/^\([ \t]*\)' . get(commentTextMap, &filetype, '#') . '/\1/<CR>' : ':<S-Right>:s/^/' . get(commentTextMap, &filetype, '#') . '/<CR>:nohl<CR>') . ':nohl<CR>:call histdel("/", -1)<CR>'
+              set hlsearch
+              set nocompatible
+              set nobackup
             '';
           };
           fish = {
@@ -196,7 +180,7 @@
             '';
           };
           zsh = {
-            enable = true;
+            enable = false;
             autocd = true;
             autosuggestion.enable = true;
             defaultKeymap = "viins";

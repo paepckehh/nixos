@@ -1,41 +1,44 @@
 {lib, ...}: {
-  ###############
-  # ENVIRONMENT #
-  ###############
-  environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";
-
   ##############
   # NETWORKING #
   ##############
-  networking = {
-    hostName = "srv";
-    usePredictableInterfaceNames = lib.mkForce true;
-  };
+  networking.usePredictableInterfaceNames = lib.mkForce true;
 
   ###########
   # SYSTEMD #
   ###########
-  systemd.network.networks = {
-    "00-corp" = {
-      enable = true;
-      addresses = [
-        {Address = "192.168.80.100/24";}
-        {Address = "10.20.0.100/24";}
-        {Address = "10.20.0.125/32";}
-        {Address = "10.20.0.126/32";}
-        {Address = "10.20.6.100/23";}
-        {Address = "10.20.6.125/32";}
-        {Address = "10.20.6.126/32";}
-        {Address = "10.20.6.127/32";}
-        {Address = "10.20.6.128/32";}
-        {Address = "10.20.6.129/32";}
-      ];
-      domains = ["corp" "adm.corp" "sec.corp" "srv.corp" "dbt.corp"];
-      dns = ["192.168.80.1"];
-      gateway = ["192.168.80.1"];
-      ntp = ["192.168.80.1"];
-      matchConfig.Name = "enp1s0f4u2u1";
-      linkConfig.ActivationPolicy = "always-up";
+  systemd = {
+    network = {
+      wait-online = {
+        enable = true;
+        ignoredInterfaces = ["lo"];
+      };
+      networks = {
+        "cloud" = {
+          enable = true;
+          domains = ["corp" "home.corp" "home.corp" "admin.corp"];
+          dns = ["10.50.6.53"];
+          matchConfig.Name = "lo*";
+          addresses = [
+            #### admim
+            {Address = "10.50.0.100/23";} # host native network access /23
+            {Address = "10.50.0.108/32";} # pki
+            {Address = "10.50.0.126/32";} # ldap
+            {Address = "10.50.0.151/32";} # webacme
+            {Address = "10.50.0.152/32";} # webpki
+            {Address = "10.50.0.153/32";} # webmtls
+            #### user
+            {Address = "10.50.6.25/32";} # smtp
+            {Address = "10.50.6.53/32";} # dns
+            {Address = "10.50.6.100/23";} # host native network access /23
+            {Address = "10.50.6.117/32";} # cloud
+            {Address = "10.50.6.119/32";} # search
+            {Address = "10.50.6.126/32";} # ldap iam
+            {Address = "10.50.6.143/32";} # sso
+            {Address = "10.50.6.154/32";} # translate-lama
+          ];
+        };
+      };
     };
   };
 }
