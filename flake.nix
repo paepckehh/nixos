@@ -140,9 +140,9 @@
           ./server/office/grist.nix
           ./server/portal/homer-home.nix
           ./server/pki/small-step.nix
-          ./server/pki/certwarden.nix
-          ./server/pki/mkcertweb.nix
-          ./server/pki/vaultls.nix
+          # ./server/pki/certwarden.nix
+          # ./server/pki/mkcertweb.nix
+          # ./server/pki/vaultls.nix
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           # ./server/share/nextcloud.nix
