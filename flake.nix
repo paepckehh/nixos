@@ -136,7 +136,6 @@
           ./server/cloud/nextcloud.nix
           ./server/dns/bind.nix
           ./server/search/searx.nix
-          ./server/office/grist.nix
           ./server/portal/homer-home.nix
           ./server/pki/small-step.nix
           ./server/webapp/res.nix
@@ -149,6 +148,7 @@
           # ./server/pki/vaultls.nix
           # ./server/ticket/zammad.nix
           # ./server/devops/openvs-code.nix
+          # ./server/office/grist.nix
           # ./virtual/distrobox.nix
           # ./client/wireguard-wg100.nix
           # ./packages/desktop/dss-portal.nix
