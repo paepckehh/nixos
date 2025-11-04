@@ -121,7 +121,7 @@ let
       fqdn = "${infra.cache.hostname}.${infra.cache.domain}";
       ip = "${infra.net.user}.${toString infra.cache.id}";
       port = infra.port.webapps;
-      access = infra.cidr.user;
+      access.cidr = infra.cidr.all;
       localbind.port.http = infra.localhost.port.offset + infra.cache.id;
       cacheSize = "50G";
       pubkey.url = "https://${infra.cache.fqdn}/pubkey"; # generated
