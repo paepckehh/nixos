@@ -50,8 +50,8 @@ in {
         publicKeys = ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
       };
     };
-    caddy.virtualHosts."${infra.grist.fqdn}" = {
-      listenAddresses = [infra.grist.ip];
+    caddy.virtualHosts."${infra.cache.fqdn}" = {
+      listenAddresses = [infra.cache.ip];
       extraConfig = ''
         reverse_proxy ${infra.localhost.ip}:${toString infra.cache.localbind.port.http}
         @not_intranet { not remote_ip ${infra.cache.access.cidr} }
