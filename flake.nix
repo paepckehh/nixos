@@ -134,18 +134,18 @@
           ./server/monitoring/collect-syslog-ng.nix
           ./server/cloud/nextcloud.nix
           ./server/dns/bind.nix
-          # ./server/iam/authelia.nix
-          # ./server/iam/lldap.nix
           ./server/search/searx.nix
           ./server/office/grist.nix
           ./server/portal/homer-home.nix
           ./server/pki/small-step.nix
+          ./server/webapp/res.nix
+          ./server/webapp/test.nix
+          ./server/iam/authelia.nix
+          ./server/iam/lldap.nix
+          ./server/cloud/nextcloud.nix
           # ./server/pki/certwarden.nix
           # ./server/pki/mkcertweb.nix
           # ./server/pki/vaultls.nix
-          ./server/webapp/res.nix
-          ./server/webapp/test.nix
-          # ./server/share/nextcloud.nix
           # ./server/ticket/zammad.nix
           # ./server/devops/openvs-code.nix
           # ./virtual/distrobox.nix
