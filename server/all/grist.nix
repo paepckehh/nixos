@@ -27,9 +27,9 @@ in {
           hostname = infra.grist.fqdn;
           image = "gristlabs/grist";
           ports = ["${infra.localhost.ip}:${toString infra.grist.localbind.port.http}:8484"];
-          environment = [
-             GRIST_SESSION_SECRET = "remplace-with-agetoken-for-prod";
-             GRIST_DEFAULT_EMAIL  = "${infra.admin.email}";
+          environment = {
+            GRIST_SESSION_SECRET = "remplace-with-agetoken-for-prod";
+            GRIST_DEFAULT_EMAIL = "${infra.admin.email}";
           };
         };
       };

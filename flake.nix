@@ -132,6 +132,7 @@
           ./packages/devops-core.nix
           ./server/all/base.nix
           ./server/monitoring/collect-syslog-ng.nix
+          ./server/cache/ncps.nix
           ./server/cloud/nextcloud.nix
           ./server/dns/bind.nix
           ./server/search/searx.nix

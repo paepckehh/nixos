@@ -70,7 +70,7 @@ in {
         settings = {
           # default_redirection_url = "https://start.dbt.corp";
           server = {
-            address = "tcp4://${infra.sso.localbind.ip}:${toString infra.sso.localbind.port.http}";
+            address = "tcp4://${infra.localhost.ip}:${toString infra.sso.localbind.port.http}";
             endpoints.authz.forward-auth.implementation = "ForwardAuth";
           };
           theme = "dark";
@@ -208,7 +208,7 @@ in {
       enable = true;
       virtualHosts."${infra.sso.fqdn}".extraConfig = ''
         bind ${infra.sso.ip}
-        reverse_proxy ${infra.sso.localbind.ip}:${toString infra.sso.localbind.port.http}
+        reverse_proxy ${infra.localhost.ip}:${toString infra.sso.localbind.port.http}
           tls ${infra.pki.acme.contact} {
                 ca_root ${infra.pki.certs.rootCA.path}
                 ca ${infra.pki.acme.url}
@@ -228,7 +228,7 @@ in {
 #  forceSSL = true;
 #  acmeRoot = null;
 #  locations."/" = {
-#    proxyPass = "http://${infra.sso.localbind.ip}:${toString infra.sso.localbind.port.http}";
+#    proxyPass = "http://${infra.sso.localhost.ip}:${toString infra.sso.localbind.port.http}";
 #    proxyWebsockets = true;
 #  };
 # };
