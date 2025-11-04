@@ -46,28 +46,16 @@ in {
       };
       server.addr = "${infra.localhost.ip}:${toString infra.cache.localbind.port.http}";
       upstream = {
-        caches = ["https://cache.nixos.org"];
+        caches = ["https://cache.nixos.org"]; # lock upstream trust
         publicKeys = ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
       };
     };
-    caddy = {
-      enable = true;
-      virtualHosts = {
-        "${infra.cache.fqdn}".extraConfig = ''
-          bind ${infra.cache.ip}
-          reverse_proxy ${infra.localhost.ip}:${toString infra.cache.localbind.port.http}
-          tls ${infra.pki.acme.contact} {
-                ca_root ${infra.pki.certs.rootCA.path}
-                ca ${infra.pki.acme.url}
-          }
-          @not_intranet {
-            not remote_ip ${infra.cache.access.cidr}
-          }
-          respond @not_intranet 403
-          log {
-            output file ${config.services.caddy.logDir}/access/${infra.cache.name}.log
-          }'';
-      };
+    caddy.virtualHosts."${infra.grist.fqdn}" = {
+      listenAddresses = [infra.grist.ip];
+      extraConfig = ''
+        reverse_proxy ${infra.localhost.ip}:${toString infra.cache.localbind.port.http}
+        @not_intranet { not remote_ip ${infra.cache.access.cidr} }
+        respond @not_intranet 403'';
     };
   };
 }
