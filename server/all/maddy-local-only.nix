@@ -17,6 +17,21 @@ in {
     firewall.allowedTCPPorts = [infra.port.smtp infra.port.imap];
   };
 
+  ###############
+  #-=# USERS #=-#
+  ###############
+  users = {
+    groups.maddy = {};
+    users = {
+      maddy = {
+        group = "maddy";
+        isSystemUser = true;
+        hashedPassword = null; # disable ldap service account interactive logon
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
+      };
+    };
+  };
+
   #################
   #-=# SYSTEMD #=-#
   #################
@@ -34,8 +49,9 @@ in {
       enable = true;
       hostname = infra.smtp.fqdn;
       primaryDomain = infra.smtp.domain;
+      localDomains = infra.smtp.domain;
       config = ''
-        # smtp
+        # listen smtp
         smtp tcp://${infra.smtp.ip}:${toString infra.port.smtp} {
           limits {
             all rate 20 1s
@@ -49,7 +65,7 @@ in {
           }
           debug on
         }
-        # imap
+        # listen imap
         imap tcp://${infra.imap.ip}:${toString infra.port.imap} {
           auth &local_authdb
           insecure_auth yes
@@ -58,7 +74,7 @@ in {
           io_errors on
           io_debug on
         }
-        # ldap user auth
+        # backend ldap user auth
         auth.ldap local_authdb {
           urls ${infra.ldap.uri}
           dn_template "cn={username},${infra.ldap.baseDN}"
@@ -66,14 +82,14 @@ in {
           connect_timeout 10s
           debug on
         }
-        # store backend
+        # backend storage
         storage.imapsql local_mailboxes {
           driver sqlite3
           dsn imapsql.db
           compression zstd 6
           debug on
         }
-        # routing
+        # message routing
         msgpipeline local_routing {
           modify {
             replace_rcpt &local_rewrites
@@ -83,7 +99,7 @@ in {
           }
           destination $(local_domains) {
             modify {
-              replace_rcpt regexp ".*" "catchall@$(primary_domain)"
+              replace_rcpt regexp ".*" "it@$(primary_domain)"
             }
             deliver_to &local_mailboxes
           }
@@ -91,7 +107,7 @@ in {
             reject 550 5.1.1 "User doesn't exist"
           }
         }
-        # rewrite filter
+        # message rewrite filter
         table.chain local_rewrites {
           optional_step regexp "(.+)\+(.+)@(.+)" "$1@$3"
           optional_step static {
