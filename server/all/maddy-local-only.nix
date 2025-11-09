@@ -47,7 +47,9 @@ in {
           destination ${infra.smtp.domain} {
              deliver_to &local_mailboxes
           }
-          reject 551 "Target Domain not local, go away!"
+          default_destination {
+           reject 551 "Target Domain not local, go away!"
+          }
         }
         imap tcp://${infra.imap.ip}:${toString infra.port.imap} {
           auth &local_authdb
