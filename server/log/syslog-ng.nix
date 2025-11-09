@@ -1,0 +1,1 @@
+../all/syslog-ng.nix

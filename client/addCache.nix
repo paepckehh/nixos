@@ -9,25 +9,25 @@
   ############################
   #-=# GLOBAL SITE IMPORT #=-#
   ############################
-  infra = (import ../siteconfig/home.nix).infra;
+  infra = (import ../siteconfig/config.nix).infra;
 in {
   #############
   #-=# NIX #=-#
   #############
+  # https://${infra.cache.fqdn}/pubkey" to fetch generated key
   nix = {
     settings = {
       http2 = lib.mkForce true;
       require-sigs = lib.mkForce true;
       preallocate-contents = true;
       allowed-uris = [
-        "https://cache.dbt.corp"
+        "https://${infra.cache.fqdn}"
       ];
       substituters = [
-        "https://cache.dbt.corp"
+        "https://${infra.cache.fqdn}"
       ];
       trusted-public-keys = [
-        # https://${infra.cache.fqdn}/pubkey" fetch here generated key
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        cache:aFde6/c1Vz93N1XGGrvt/7NlUNdAyV35CgBUXKzyhyU=
       ];
     };
   };

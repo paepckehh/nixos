@@ -7,15 +7,12 @@
   ############################
   #-=# GLOBAL SITE IMPORT #=-#
   ############################
-  infra = (import ../../siteconfig/home.nix).infra;
+  infra = (import ../../siteconfig/config.nix).infra;
 in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking = {
-    extraHosts = "${infra.sso.ip} ${infra.sso.hostname} ${infra.sso.fqdn}";
-    firewall.allowedTCPPorts = infra.sso.ports;
-  };
+  networking.extraHosts = "${infra.sso.ip} ${infra.sso.hostname} ${infra.sso.fqdn}";
 
   #############
   #-=# AGE #=-#
@@ -68,7 +65,6 @@ in {
           sessionSecretFile = config.age.secrets."authelia-session-${infra.sso.site}".path;
         };
         settings = {
-          # default_redirection_url = "https://start.dbt.corp";
           server = {
             address = "tcp4://${infra.localhost.ip}:${toString infra.sso.localbind.port.http}";
             endpoints.authz.forward-auth.implementation = "ForwardAuth";
@@ -95,17 +91,16 @@ in {
             default_policy = "deny";
             rules = [
               {
-                domain = ["sso.dbt.corp"];
+                domain = ["${infra.sso.fqdn}"];
                 policy = "bypass";
               }
               {
-                domain = ["*.dbt.corp"];
+                domain = ["*.${infra.sso.fqdn}"];
                 policy = "two_factor";
               }
             ];
           };
           session = {
-            # secret = "insecure_session_secret";
             name = "authelia_session";
             same_site = "lax";
             inactivity = "5m";
@@ -114,9 +109,9 @@ in {
             redis.host = "/run/redis-authelia-${infra.sso.site}/redis.sock";
             cookies = [
               {
-                domain = "dbt.corp";
-                authelia_url = "https://sso.dbt.corp";
-                default_redirection_url = "https://start.dbt.corp";
+                domain = infra.domain.user;
+                authelia_url = infra.sso.url;
+                default_redirection_url = infra.portal.url;
                 name = "authelia_session";
                 same_site = "lax";
                 inactivity = "1h";
@@ -126,7 +121,7 @@ in {
             ];
           };
           # session = {
-          #  domain = "dbt.corp";
+          #  domain = infra.domain.user;
           #  same_site = "lax";
           #  inactivity = "5m";
           #  expiration = "1h";
@@ -142,19 +137,18 @@ in {
             local.path = "/var/lib/authelia-${infra.sso.site}/db.sqlite3";
           };
           notifier = {
-            disable_startup_check = false;
+            disable_startup_check = true;
             smtp = {
               address = infra.smtp.uri;
               sender = infra.admin.email;
               subject = "[DebiCloud] [Business] [Anmeldung] [SSO]";
-              disable_starttls = true;
               disable_require_tls = true;
-              disable_html_emails = false;
+              disable_html_emails = true;
             };
           };
           telemetry = {
             metrics = {
-              enabled = true;
+              enabled = false;
               address = "tcp://localhost:9102/metrics";
             };
           };
@@ -204,32 +198,12 @@ in {
       unixSocket = "/run/redis-authelia-${infra.sso.site}/redis.sock";
       unixSocketPerm = 600;
     };
-    caddy = {
-      enable = true;
-      virtualHosts."${infra.sso.fqdn}".extraConfig = ''
-        bind ${infra.sso.ip}
+    caddy.virtualHosts."${infra.sso.fqdn}" = {
+      listenAddresses = [infra.sso.ip];
+      extraConfig = ''
         reverse_proxy ${infra.localhost.ip}:${toString infra.sso.localbind.port.http}
-          tls ${infra.pki.acme.contact} {
-                ca_root ${infra.pki.certs.rootCA.path}
-                ca ${infra.pki.acme.url}
-          }
-        @not_intranet {
-          not remote_ip ${infra.sso.access.cidr}
-        }
-        respond @not_intranet 403
-        log {
-          output file ${config.services.caddy.logDir}/${infra.sso.name}.log
-        }'';
+        @not_intranet { not remote_ip ${infra.sso.access.cidr} }
+        respond @not_intranet 403'';
     };
   };
 }
-# nginx.virtualHosts."sso.dbt.corp" = {
-#  enableACME = true;
-#  forceSSL = true;
-#  acmeRoot = null;
-#  locations."/" = {
-#    proxyPass = "http://${infra.sso.localhost.ip}:${toString infra.sso.localbind.port.http}";
-#    proxyWebsockets = true;
-#  };
-# };
-

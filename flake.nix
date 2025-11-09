@@ -120,29 +120,31 @@
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
           ./configuration.nix
-          ./client/db.nix
-          ./client/addrootCA.nix
+          ./client/addrootCA-small-step.nix
+          ./client/addCache.nix
           ./storage/stateless-luks.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
           ./person/desktop/mpaepcke.nix
+          ./packages/desktop/add-logi.nix
           ./packages/desktop/gnome.nix
-          ./packages/agenix.nix
           ./packages/base.nix
           ./packages/devops-core.nix
-          ./server/all/base.nix
-          ./server/monitoring/collect-syslog-ng.nix
+          ./server/base.nix
           ./server/cache/ncps.nix
           ./server/cloud/nextcloud.nix
           ./server/dns/bind.nix
-          ./server/search/searx.nix
-          ./server/portal/homer-home.nix
-          ./server/pki/small-step.nix
-          ./server/webapp/res.nix
-          ./server/webapp/test.nix
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix
-          ./server/cloud/nextcloud.nix
+          ./server/log/syslog-ng.nix
+          ./server/mail/autoconfig.nix
+          ./server/mail/maddy-local-only.nix
+          ./server/search/searx.nix
+          ./server/pki/small-step.nix
+          ./server/portal/homer-home.nix
+          ./server/webapp/res.nix
+          ./server/webapp/test.nix
+          # ./server/portal/homer-it.nix
           # ./server/pki/certwarden.nix
           # ./server/pki/mkcertweb.nix
           # ./server/pki/vaultls.nix

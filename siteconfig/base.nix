@@ -1,1 +1,1 @@
-home.nix
+config.nix

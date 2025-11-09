@@ -2,19 +2,16 @@
 sudo -v
 set -o verbose
 sudo systemctl stop nginx.service
-sudo systemctl stop caddy.service
 sudo systemctl restart bind.service
 sudo systemctl restart step-ca.service
-sudo systemctl restart caddy.service
-sudo systemctl restart nginx.service
-# sudo systemctl restart lldap.service
-# sudo systemctl restart authelia-home.service
+sudo systemctl restart lldap.service
+sudo systemctl restart authelia-home.service
 # sudo systemctl restart tuwunel.service
 # sudo systemctl restart uptime-kuma.service
 # sudo systemctl restart prometheus.service
 # sudo systemctl restart vaultwarden.service
-sudo systemctl restart searx.service
 sudo systemctl restart searx-init.service
+sudo systemctl restart searx.service
 # sudo systemctl restart readeck.service
 # sudo systemctl restart open-webui.service
 sudo systemctl restart redis-nextcloud.service
@@ -40,7 +37,7 @@ sudo systemctl restart nextcloud-cron.service
 # sudo systemctl restart podman-netalertx.service
 # sudo systemctl restart podman-speed.service
 # sudo systemctl restart podman-chef.service
-sudo systemctl restart podman-grist.service
+# sudo systemctl restart podman-grist.service
 sudo systemctl stop nginx.service
 sudo systemctl restart caddy.service
 sudo systemctl restart nginx.service

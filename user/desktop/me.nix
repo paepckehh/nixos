@@ -5,6 +5,7 @@
   imports = [
     ../me.nix
     ./browser/me.nix
+    ./mail/me.nix
   ];
 
   #####################
@@ -46,7 +47,6 @@
       packages = with pkgs; [
         gnomeExtensions.dash-to-panel
         gnomeExtensions.clipboard-indicator
-        gnomeExtensions.translate-clipboard
       ];
       file.".face".source = ../../shared/brand/me.jpg;
     };
@@ -67,7 +67,6 @@
           enabled-extensions = with pkgs.gnomeExtensions; [
             dash-to-panel.extensionUuid
             clipboard-indicator.extensionUuid
-            translate-clipboard.extensionUuid
           ];
           favorite-apps = ["Alacritty.desktop" "com.mitchellh.ghostty.desktop" "kitty.desktop" "dss.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop" "org.gnome.Nautilus.desktop" "element-desktop.desktop" "onlyoffice-desktopeditors.desktop" "com.yubico.yubioath.desktop"];
         };

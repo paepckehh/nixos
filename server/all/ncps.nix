@@ -9,7 +9,7 @@
   ############################
   #-=# GLOBAL SITE IMPORT #=-#
   ############################
-  infra = (import ../../siteconfig/home.nix).infra;
+  infra = (import ../../siteconfig/config.nix).infra;
 in {
   ####################
   #-=# NETWORKING #=-#

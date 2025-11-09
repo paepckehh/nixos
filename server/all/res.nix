@@ -1,4 +1,4 @@
-# RES => RES-CADDY: caddy resources (portal images, certs, ...)
+# res.nix => caddy resources (portal images, certs, ...)
 {
   config,
   pkgs,
@@ -8,7 +8,7 @@
   ############################
   #-=# GLOBAL SITE IMPORT #=-#
   ############################
-  infra = (import ../../siteconfig/home.nix).infra;
+  infra = (import ../../siteconfig/config.nix).infra;
 in {
   ####################
   #-=# NETWORKING #=-#

@@ -29,7 +29,6 @@
       histSize = 0;
     };
     ssh = {
-      # startAgent = lib.mkDefault true;
       extraConfig = "AddKeysToAgent yes";
       hostKeyAlgorithms = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
       pubkeyAcceptedKeyTypes = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
@@ -76,9 +75,9 @@
         protocol = {
           allow = "always";
           file.allow = "always";
-          git.allow = "always";
+          git.allow = "never";
           ssh.allow = "always";
-          http.allow = "always";
+          http.allow = "never";
           https.allow = "always";
         };
       };

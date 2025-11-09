@@ -12,9 +12,19 @@
   ##################
   #-=# HARDWARE #=-#
   ##################
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = false;
+  hardware = {
+    bluetooth = {
+      enable = lib.mkDefault true;
+      powerOnBoot = lib.mkDefault false;
+    };
+  };
+
+  ##################
+  #-=# PROGRAMS #=-#
+  ##################
+  programs = {
+    yubikey-manager.enable = true;
+    yubikey-touch-detector.enable = true;
   };
 
   #############
@@ -24,8 +34,8 @@
     autostart.enable = lib.mkDefault false;
     mime = {
       enable = true;
-      # addedAssociations = {"application/pdf" = "librewolf.desktop";};
-      # defaultApplications = {"application/pdf" = "librewolf.desktop";};
+      addedAssociations = {"application/pdf" = "org.gnome.Evince.desktop";};
+      defaultApplications = {"application/pdf" = "org.gnome.Evince.desktop";};
     };
   };
 
@@ -36,6 +46,7 @@
     autosuspend.enable = lib.mkForce false;
     speechd.enable = lib.mkForce false;
     printing.enable = lib.mkForce true;
+    hardware.bolt.enable = lib.mkDefault true;
     xserver = {
       enable = true;
       autoRepeatDelay = 150;

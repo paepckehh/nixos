@@ -8,7 +8,7 @@
   ############################
   #-=# GLOBAL SITE IMPORT #=-#
   ############################
-  infra = (import ../../siteconfig/home.nix).infra;
+  infra = (import ../../siteconfig/config.nix).infra;
 in {
   ####################
   #-=# NETWORKING #=-#
@@ -32,6 +32,15 @@ in {
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
       };
     };
+  };
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.services.searx = {
+    after = ["network-online.target"];
+    wants = ["network-online.target"];
+    wantedBy = ["multi-user.target"];
   };
 
   ##################

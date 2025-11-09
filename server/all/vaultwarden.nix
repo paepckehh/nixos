@@ -70,6 +70,25 @@
     };
   };
 in {
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking.extraHosts = "${infra.vault.ip} ${infra.vault.hostname} ${infra.vault.fqdn}";
+
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment.systemPackages = with pkgs; [argon2 openssl];
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.services.vaultwarden = {
+    after = ["network-online.target"];
+    wants = ["network-online.target"];
+    wantedBy = ["multi-user.target"];
+  };
+
   #############
   #-=# AGE #=-#
   #############
@@ -96,26 +115,6 @@ in {
     };
   };
 
-  #####################
-  #-=# ENVIRONMENT #=-#
-  #####################
-  environment.systemPackages = with pkgs; [argon2 openssl];
-
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.network.networks.${infra.vault.namespace}.addresses = [
-    {Address = "${infra.vault.ip}/32";}
-  ];
-
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking = {
-    extraHosts = "${infra.vault.ip} ${infra.vault.hostname} ${infra.vault.fqdn}";
-    firewall.allowedTCPPorts = [infra.ports.http infra.ports.https];
-  };
-
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -138,22 +137,13 @@ in {
         HIBP_API_KEY = infra.vault.api_hibp;
       };
     };
-    caddy = {
-      enable = true;
-      virtualHosts."${infra.vault.fqdn}".extraConfig = ''
-        bind ${infra.vault.ip}
+    caddy.virtualHosts."${infra.vault.fqdn}" = {
+      listenAddresses = [infra.vault.ip];
+      extraConfig = ''
         reverse_proxy ${infra.vault.localbind.ip}:${toString infra.vault.localbind.ports.http}
-        tls ${infra.pki.acmeContact} {
-              ca ${infra.pki.url}
-              ca_root ${infra.pki.caFile}
-        }
-        @not_intranet {
-          not remot_ip ${infra.vault.network}
-        }
+        @not_intranet { not remot_ip ${infra.vault.network} }
         respond @not_intranet 403
-        log {
-          output file ${config.services.caddy.logDir}/${infra.vault.name}.log
-        }'';
+        respond /admin* "The admin panel is disabled, please configure the 'ADMIN_TOKEN' variable to enable it"'';
     };
   };
 }

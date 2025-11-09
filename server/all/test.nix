@@ -19,9 +19,9 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
-    caddy = {
-      enable = true;
-      virtualHosts."${infra.test.fqdn}".extraConfig = ''
+    caddy.virtualHosts."${infra.test.fqdn}" = {
+      listenAddresses = [infra.search.ip];
+      extraConfig = ''
               bind ${infra.test.ip}
               tls ${infra.pki.acme.contact} {
                   ca_root ${infra.pki.certs.rootCA.path}

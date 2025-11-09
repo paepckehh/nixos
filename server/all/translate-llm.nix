@@ -7,7 +7,7 @@
   ############################
   #-=# GLOBAL SITE IMPORT #=-#
   ############################
-  infra = (import ../../siteconfig/home.nix).infra;
+  infra = (import ../../siteconfig/config.nix).infra;
 in {
   ####################
   #-=# NETWORKING #=-#
@@ -27,24 +27,12 @@ in {
       # models = "";
       # loadModels = [];
     };
-    caddy = {
-      enable = true;
-      virtualHosts = {
-        "${infra.translate-lama.fqdn}".extraConfig = ''
-          bind ${infra.translate-lama.ip}
-          reverse_proxy ${infra.localhost.ip}:${toString infra.translate-lama.localbind.port.http}
-          tls ${infra.pki.acme.contact} {
-                ca_root ${infra.pki.certs.rootCA.path}
-                ca ${infra.pki.acme.url}
-          }
-          @not_intranet {
-            not remote_ip ${infra.translate-lama.access.cidr}
-          }
-          respond @not_intranet 403
-          log {
-            output file ${config.services.caddy.logDir}/access/${infra.translate-lama.name}.log
-          }'';
-      };
+    caddy.virtualHosts."${infra.translate-lama.fqdn}" = {
+      listenAddresses = [infra.translate-lama.ip];
+      extraConfig = ''
+        reverse_proxy ${infra.localhost.ip}:${toString infra.translate-lama.localbind.port.http}
+        @not_intranet { not remote_ip ${infra.translate-lama.access.cidr} }
+        respond @not_intranet 403'';
     };
   };
 }

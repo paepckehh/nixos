@@ -169,7 +169,7 @@
       automatic = true;
       dates = "daily";
       persistent = true;
-      options = "--delete-older-than 42d";
+      options = "--delete-older-than 6d";
     };
     optimise = {
       automatic = true;
@@ -336,13 +336,11 @@
   networking = {
     domain = "lan";
     enableIPv6 = false;
-    # nameservers = ["127.0.0.53"]; # systemd-resolved bind
-    # resolvconf.enable = false; # use systemd-resolved
     useNetworkd = true;
-    usePredictableInterfaceNames = lib.mkDefault false;
     networkmanager = {
-      enable = true;
+      enable = false;
       logLevel = "INFO";
+      unmanaged = ["en*"];
       wifi = {
         backend = "wpa_supplicant"; # wpa_supplicant
         scanRandMacAddress = true;
@@ -354,8 +352,8 @@
     firewall = {
       enable = true;
       allowPing = true;
-      checkReversePath = lib.mkDefault true;
-      trustedInterfaces = [];
+      checkReversePath = lib.mkDefault true; # "loose";
+      trustedInterfaces = lib.mkDefault []; # lo inherent
     };
   };
 
@@ -375,7 +373,6 @@
       AllowHybridSleep=no
       AllowSuspendThenHibernate=no
     '';
-    services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "info";
   };
 
   #########################
@@ -412,7 +409,7 @@
       };
     };
     journald = {
-      audit = true;
+      audit = false;
       storage = "persistent";
       upload.enable = false;
     };
@@ -420,14 +417,7 @@
       enable = true;
       interval = "daily";
     };
-    resolved.enable = false;
-    # resolved = {
-    # enable = true;
-    # dnssec = "false"; # XXX disable dnssec for the clowns pointless mitm
-    # llmnr = "true";
-    # extraConfig = "MulticastDNS=false\nCache=true\nCacheFromLocalhost=true\nDomains=~.\n";
-    # fallbackDns = ["192.168.80.1"];
-    # };
+    # resolved.enable = false;
     tlp = {
       enable = true;
       settings = {

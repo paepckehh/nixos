@@ -7,7 +7,7 @@
   ############################
   #-=# GLOBAL SITE IMPORT #=-#
   ############################
-  infra = (import ../../siteconfig/home.nix).infra;
+  infra = (import ../../siteconfig/config.nix).infra;
 in {
   ####################
   #-=# NETWORKING #=-#
@@ -116,20 +116,12 @@ in {
         }
       ];
     };
-    caddy = {
-      enable = true;
-      virtualHosts = {
-        "${infra.cloud.fqdn}".extraConfig = ''
-          bind ${infra.cloud.ip}
-          reverse_proxy ${infra.localhost.ip}:${toString infra.cloud.localbind.port.http}
-          tls ${infra.pki.acme.contact} {
-                ca_root ${infra.pki.certs.rootCA.path}
-                ca ${infra.pki.acme.url}
-          }
-          @not_intranet { not remote_ip ${infra.cloud.access.cidr} }
-          respond @not_intranet 403
-        '';
-      };
+    caddy.virtualHosts."${infra.cloud.fqdn}" = {
+      listenAddresses = [infra.cloud.ip];
+      extraConfig = ''
+        reverse_proxy ${infra.localhost.ip}:${toString infra.cloud.localbind.port.http}
+        @not_intranet { not remote_ip ${infra.cloud.access.cidr} }
+        respond @not_intranet 403'';
     };
   };
 }

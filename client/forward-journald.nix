@@ -1,4 +1,14 @@
-{lib, ...}: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  ############################
+  #-=# GLOBAL SITE IMPORT #=-#
+  ############################
+  infra = (import ../../siteconfig/config.nix).infra;
+in {
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -7,7 +17,7 @@
       storage = lib.mkForce "volatile";
       upload = {
         enable = lib.mkForce true;
-        settings.Upload.URL = lib.mkForce "http://192.168.80.100";
+        settings.Upload.URL = lib.mkForce infra.syslog.url;
       };
     };
   };

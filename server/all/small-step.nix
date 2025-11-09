@@ -1,3 +1,12 @@
+# pki web-pki step-ca
+# regenerateCA:
+# sudo rm -rf /var/lib/private/step-ca/*
+# step ca init
+# --name="corpCA" --dns="pki,pki.corp,pki.adm.corp,10.20.0.20" --address="10.20.0.20:443" --provisioner="pki@adm.corp" --deployment-type standalone --remote-management
+# manual cat /root/.step/certs/* >> /etc/nixos/client/addrootCA-small-step.nix
+# manual as root: mv /root/.step/* /var/lib/private/step-ca/
+# sudo sh sync.sh
+# renew rootCA anchor trust everywhere (see above, clientAddRoot, ...)
 {
   config,
   pkgs,
@@ -7,15 +16,12 @@
   ############################
   #-=# GLOBAL SITE IMPORT #=-#
   ############################
-  infra = (import ../../siteconfig/home.nix).infra;
+  infra = (import ../../siteconfig/config.nix).infra;
 in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking = {
-    extraHosts = "${infra.pki.ip} ${infra.pki.hostname} ${infra.pki.fqdn}";
-    firewall.allowedTCPPorts = [infra.pki.port];
-  };
+  networking.extraHosts = "${infra.pki.ip} ${infra.pki.hostname} ${infra.pki.fqdn}";
 
   #################
   #-=# IMPORTS #=-#
@@ -62,6 +68,15 @@ in {
     };
   };
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.services.step-ca = {
+    after = ["network-online.target"];
+    wants = ["network-online.target"];
+    wantedBy = ["multi-user.target"];
+  };
+
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -69,17 +84,9 @@ in {
     step-ca = {
       enable = true;
       address = infra.pki.ip;
-      port = infra.pki.port;
+      port = infra.port.https;
       intermediatePasswordFile = config.age.secrets.pki-pwd.path;
       settings = {
-        # regenerateCA:
-        # sudo rm -rf /var/lib/private/step-ca/*
-        # step ca init
-        # --name="corpCA" --dns="pki,pki.corp,pki.adm.corp,10.20.0.20" --address="10.20.0.20:443" --provisioner="pki@adm.corp" --deployment-type standalone --remote-management
-        # manual cat /root/.step/certs/* >> /etc/nixos/client/addrootCA-small-step.nix
-        # manual as root: mv /root/.step/* /var/lib/private/step-ca/
-        # sudo sh sync.sh
-        # renew rootCA anchor trust everywhere (see above, clientAddRoot, ...)
         commonName = "${infra.site.displayName}-CA";
         crt = "/var/lib/step-ca/certs/intermediate_ca.crt";
         backdate = "10m0s";

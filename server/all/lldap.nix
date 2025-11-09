@@ -7,7 +7,7 @@
   ############################
   #-=# GLOBAL SITE IMPORT #=-#
   ############################
-  infra = (import ../../siteconfig/home.nix).infra;
+  infra = (import ../../siteconfig/config.nix).infra;
 in {
   ####################
   #-=# NETWORKING #=-#
@@ -82,7 +82,7 @@ in {
         http_url = infra.iam.url;
         # interface
         ldap_host = infra.ldap.ip;
-        ldap_port = infra.ldap.port;
+        ldap_port = infra.port.ldap;
         # ldap
         ldap_base_dn = infra.ldap.base;
         # ldap secrets
@@ -102,7 +102,7 @@ in {
         smtp_options = {
           enable_password_reset = true;
           server = infra.smtp.fqdn;
-          port = infra.smtp.port;
+          port = infra.port.smtp;
           smtp_encryption = "NONE";
           from = infra.admin.email;
           reply_to = infra.admin.email;
@@ -115,24 +115,12 @@ in {
         };
       };
     };
-    caddy = {
-      enable = true;
-      virtualHosts = {
-        "${infra.iam.fqdn}".extraConfig = ''
-          bind ${infra.iam.ip}
-          reverse_proxy ${infra.localhost.ip}:${toString infra.iam.localbind.port.http}
-          tls ${infra.pki.acme.contact} {
-                ca_root ${infra.pki.certs.rootCA.path}
-                ca ${infra.pki.acme.url}
-          }
-          @not_intranet {
-            not remote_ip ${infra.iam.access.cidr}
-          }
-          respond @not_intranet 403
-          log {
-            output file ${config.services.caddy.logDir}/access/${infra.iam.name}.log
-          }'';
-      };
+    caddy.virtualHosts."${infra.iam.fqdn}" = {
+      listenAddresses = [infra.iam.ip];
+      extraConfig = ''
+        reverse_proxy ${infra.localhost.ip}:${toString infra.iam.localbind.port.http}
+        @not_intranet { not remote_ip ${infra.iam.access.cidr} }
+        respond @not_intranet 403'';
     };
   };
 }

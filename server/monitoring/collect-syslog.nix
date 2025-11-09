@@ -1,1 +1,0 @@
-../all/collect-syslog.nix
