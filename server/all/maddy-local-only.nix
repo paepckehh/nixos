@@ -32,6 +32,8 @@ in {
   services = {
     maddy = {
       enable = true;
+      hostname = infra.smtp.domain;
+      primaryDomain = infra.smtp.domain;
       config = ''
         storage.imapsql local_mailboxes {
           driver sqlite3
