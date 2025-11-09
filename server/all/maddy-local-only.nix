@@ -44,6 +44,9 @@ in {
           destination ${infra.smtp.domain} {
             deliver_to &local_routing
           }
+          default_destination {
+            reject 550 5.1.1 "User or Domain doesn't exist"
+          }
           debug on
         }
         # imap
