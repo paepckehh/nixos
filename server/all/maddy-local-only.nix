@@ -35,6 +35,10 @@ in {
       hostname = infra.smtp.domain;
       primaryDomain = infra.smtp.domain;
       config = ''
+        table.chain local_rewrites {
+          optional_step regexp "(.+)\+(.+)@(.+)" "$1@$3"
+          optional_step file /etc/maddy/aliases
+        }
         storage.imapsql local_mailboxes {
           driver sqlite3
           dsn imapsql.db
@@ -47,7 +51,10 @@ in {
             all concurrency 10
           }
           destination ${infra.smtp.domain} {
-             deliver_to &local_mailboxes
+            modify {
+               replace_rcpt &local_rewrites
+            }
+            deliver_to &local_mailboxes
           }
           default_destination {
            reject 550 5.1.1 "User doesn't exist in local target domain, or wrong target domain."
@@ -56,6 +63,7 @@ in {
         }
         imap tcp://${infra.imap.ip}:${toString infra.port.imap} {
           auth &local_authdb
+          insecure_auth yes
           storage &local_mailboxes
           debug on
           io_errors on
@@ -65,7 +73,7 @@ in {
           urls ${infra.ldap.uri}
           dn_template "cn={username},${infra.ldap.baseDN}"
           starttls off
-          connect_timeout 1m
+          connect_timeout 10s
           debug on
         }
       '';
