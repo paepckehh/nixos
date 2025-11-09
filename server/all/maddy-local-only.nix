@@ -49,7 +49,7 @@ in {
       enable = true;
       hostname = infra.smtp.fqdn;
       primaryDomain = infra.smtp.domain;
-      localDomains = infra.smtp.domain;
+      localDomains = [infra.smtp.domain];
       config = ''
         # listen smtp
         smtp tcp://${infra.smtp.ip}:${toString infra.port.smtp} {
@@ -97,9 +97,10 @@ in {
           destination_in &local_mailboxes {
             deliver_to &local_mailboxes
           }
-          destination $(local_domains) {
+          # catchall => it@
+          destination ${infra.smtp.domain} {
             modify {
-              replace_rcpt regexp ".*" "it@$(primary_domain)"
+              replace_rcpt regexp ".*" "it@${infra.smtp.domain}"
             }
             deliver_to &local_mailboxes
           }
@@ -111,7 +112,7 @@ in {
         table.chain local_rewrites {
           optional_step regexp "(.+)\+(.+)@(.+)" "$1@$3"
           optional_step static {
-            entry postmaster postmaster@$(primary_domain)
+            entry postmaster it@${infra.smtp.domain}
           }
           optional_step file /etc/maddy/aliases
         }
