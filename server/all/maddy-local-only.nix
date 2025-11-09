@@ -105,7 +105,7 @@ in {
             deliver_to &local_mailboxes
           }
           default_destination {
-            reject 550 5.1.1 "User doesn't exist"
+            reject 550 5.1.1 "User doesn't exist. (Unreachable: catchall)"
           }
         }
         # message rewrite filter
