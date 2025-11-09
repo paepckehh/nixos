@@ -48,7 +48,7 @@ in {
              deliver_to &local_mailboxes
           }
           default_destination {
-           reject 551 "Target Domain not local, go away!"
+           reject 550 5.1.1 "User doesn't exist in local target domain, or wrong target domain."
           }
         }
         imap tcp://${infra.imap.ip}:${toString infra.port.imap} {
