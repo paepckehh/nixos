@@ -38,7 +38,6 @@ in {
         storage.imapsql local_mailboxes {
           driver sqlite3
           dsn imapsql.db
-          compression on
           compression zstd 6
           debug on
         }
