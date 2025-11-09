@@ -78,7 +78,7 @@ in {
         auth.ldap local_authdb {
           urls ${infra.ldap.uri}
           dn_template "cn={username},${infra.ldap.baseDN}"
-          bind plain "${infra.ldap.bind.dn}" "${infra.ldap.bind.pw}"
+          bind plain "${infra.ldap.bind.dn}" "${infra.ldap.bind.pwd}"
           base "${infra.ldap.base}"
           filter "(&(objectClass=person)(mail={username}))"
           starttls off
