@@ -58,6 +58,8 @@ in {
           auth &local_authdb
           storage &local_mailboxes
           debug on
+          io_errors on
+          io_debug on
         }
         auth.ldap local_authdb {
           urls ${infra.ldap.uri}
