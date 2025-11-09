@@ -32,7 +32,7 @@ in {
   services = {
     maddy = {
       enable = true;
-      hostname = infra.smtp.domain;
+      hostname = infra.smtp.fqdn;
       primaryDomain = infra.smtp.domain;
       config = ''
         table.chain local_rewrites {
