@@ -14,6 +14,18 @@ in {
   ####################
   networking.extraHosts = "${infra.sso.ip} ${infra.sso.hostname} ${infra.sso.fqdn}";
 
+  # GENERATE RSA-KEY PAIR
+  # mkdir -p /tmp/keys && cd /tmp/keys && nix-shell -p authelia --command 'authelia crypto pair rsa generate --bits 3072 --directory /tmp/keys'
+
+  # GENERATE RANDOM STRING
+  # nix-shell -p authelia --command 'authelia crypto rand --length 72 --charset rfc3986'
+  # Random Value: B4gJOtTZnctp2BExOHh._N0MjYcghfMIvwGKauJ~XEJnaqBMEuN3Te8HRb15bMD5mWkVB5bb
+
+  # GENERATE PBKDF2 HASHED
+  # nix-shell -p authelia --command 'authelia crypto hash generate pbkdf2 --variant sha512 --random --random.length 72 --random.charset rfc3986'
+  # Random Password: ph3qTDuGGwdRSA2I~ScU1PTXG8SPDUesrF2IETqYVTNl3D92P2d3EIL.TQ6Ex_-lbRi_9uL2
+  # Digest: $pbkdf2-sha512$310000$OAmF.7KG6d6wms25SZWZug$XsyRQpD0/qUCkuakGEz4Hdr4MVx5Jq6w/qFbUs.vZ0qmTVyYSUX92PYn0Db5YbqcCjVhLfKUBHGD2wNC8xfDVw
+
   #############
   #-=# AGE #=-#
   #############
@@ -24,13 +36,23 @@ in {
         owner = "authelia-${infra.sso.site}";
         group = "authelia-${infra.sso.site}";
       };
-      "authelia-key-${infra.sso.site}" = {
-        file = ../../modules/resources/authelia-key.age;
+      "authelia-storagekey-${infra.sso.site}" = {
+        file = ../../modules/resources/authelia-storagekey.age;
         owner = "authelia-${infra.sso.site}";
         group = "authelia-${infra.sso.site}";
       };
       "authelia-session-${infra.sso.site}" = {
         file = ../../modules/resources/authelia-session.age;
+        owner = "authelia-${infra.sso.site}";
+        group = "authelia-${infra.sso.site}";
+      };
+      "authelia-oidc-hmac-${infra.sso.site}" = {
+        file = ../../modules/resources/authelia-oidc-hmac.age;
+        owner = "authelia-${infra.sso.site}";
+        group = "authelia-${infra.sso.site}";
+      };
+      "authelia-oidc-issuer-${infra.sso.site}" = {
+        file = ../../modules/resources/authelia-oidc-issuer.age;
         owner = "authelia-${infra.sso.site}";
         group = "authelia-${infra.sso.site}";
       };
@@ -52,6 +74,15 @@ in {
     };
   };
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.services."authelia-${infra.sso.site}" = {
+    after = ["socket.target"];
+    wants = ["socket.target"];
+    wantedBy = ["multi-user.target"];
+  };
+
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -61,19 +92,14 @@ in {
         enable = true;
         secrets = {
           jwtSecretFile = config.age.secrets."authelia-jwt-${infra.sso.site}".path;
-          storageEncryptionKeyFile = config.age.secrets."authelia-key-${infra.sso.site}".path;
+          storageEncryptionKeyFile = config.age.secrets."authelia-storagekey-${infra.sso.site}".path;
           sessionSecretFile = config.age.secrets."authelia-session-${infra.sso.site}".path;
+          oidcHmacSecretFile = config.age.secrets."authelia-oidc-hmac-${infra.sso.site}".path;
+          oidcIssuerPrivateKeyFile = config.age.secrets."authelia-oidc-issuer-${infra.sso.site}".path;
         };
         settings = {
-          server = {
-            address = "tcp4://${infra.localhost.ip}:${toString infra.sso.localbind.port.http}";
-            endpoints.authz.forward-auth.implementation = "ForwardAuth";
-          };
           theme = "dark";
-          log = {
-            level = "debug";
-            format = "text";
-          };
+          password_policy.zxcvbn.enabled = true;
           authentication_backend = {
             refresh_interval = "1m";
             password_reset.disable = true;
@@ -86,6 +112,13 @@ in {
               user = infra.ldap.bind.dn;
               password = infra.ldap.bind.pwd;
             };
+          };
+          server = {
+            address = "tcp4://${infra.localhost.ip}:${toString infra.sso.localbind.port.http}";
+            # endpoints.authz.forward-auth.implementation = "ForwardAuth";
+          };
+          log = {
+            level = "trace";
           };
           access_control = {
             default_policy = "deny";
@@ -120,14 +153,6 @@ in {
               }
             ];
           };
-          # session = {
-          #  domain = infra.domain.user;
-          #  same_site = "lax";
-          #  inactivity = "5m";
-          #  expiration = "1h";
-          #  remember_me = "38d";
-          #  redis.host = "/run/redis-authelia-${infra.sso.site}/redis.sock";
-          # };
           regulation = {
             max_retries = 5;
             find_time = "5m";
@@ -165,28 +190,36 @@ in {
               user_verification = "preferred";
             };
           };
-          # identity_providers = {
-          #  oidc = {
-          #    clients = [
-          #      {
-          #        client_id = "nextcloud";
-          #        client_name = "NextCloud";
-          #        client_secret = "insecure_next_secret";
-          #        public = "false";
-          #        authorization_policy = "two_factor";
-          #        require_pkce = true;
-          #        pkce_challenge_method = "S256";
-          #        redirect_uris = ["https://cloud.dbt.corp/apps/user_oidc/code"];
-          #        scopes = ["openid" "profile" "email" "groups"];
-          #        response_types = ["code"];
-          #        grant_types = ["authorization_code"];
-          #        access_token_signed_response_alg = "none";
-          #        userinfo_signed_response_alg = "none";
-          #        token_endpoint_auth_method = "client_secret_post";
-          #      }
-          #    ];
-          #  };
-          # };
+          definitions.user_attributes.is_nextcloud_admin.expression = ''"nextcloud-admins" in groups'';
+          identity_providers.oidc = {
+            claims_policies.nextcloud_userinfo.custom_claims.is_nextcloud_admin = {};
+            scopes.nextcloud_userinfo.claims = "is_nextcloud_admin";
+            clients = [
+              {
+                client_id = "nextcloud";
+                client_name = "nextcloud";
+                client_secret = "nextcloud";
+                public = false;
+                authorization_policy = "two_factor";
+                require_pkce = true;
+                pkce_challenge_method = "S256";
+                claims_policy = "nextcloud_userinfo";
+                redirect_uris = ["https://cloud.home.corp/apps/sociallogin/custom_oidc/Authelia"];
+                scopes = [
+                  "openid"
+                  "profile"
+                  "email"
+                  "groups"
+                  "nextcloud_userinfo"
+                ];
+                response_types = "code";
+                grant_types = "authorization_code";
+                access_token_signed_response_alg = "none";
+                userinfo_signed_response_alg = "none";
+                token_endpoint_auth_method = "client_secret_basic";
+              }
+            ];
+          };
         };
       };
     };

@@ -1,1 +1,0 @@
-../all/cgit-nginx.nix

@@ -217,7 +217,7 @@
     graphics = {
       enable = lib.mkForce true;
       enable32Bit = lib.mkForce false;
-      extraPackages = with pkgs; [intel-media-driver vpl-gpu-rt]; # intel-compute-runtime
+      # extraPackages = with pkgs; [intel-media-driver vpl-gpu-rt]; # intel-compute-runtime
     };
   };
 
@@ -326,7 +326,7 @@
   #####################
   environment = {
     shells = [pkgs.bashInteractive];
-    systemPackages = with pkgs; [cryptsetup libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
+    systemPackages = with pkgs; [cryptsetup fwupd libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
   };
 
   ####################
@@ -338,7 +338,7 @@
     enableIPv6 = false;
     useNetworkd = true;
     networkmanager = {
-      enable = false;
+      enable = true;
       logLevel = "INFO";
       unmanaged = ["en*"];
       wifi = {
@@ -391,13 +391,13 @@
     acpid.enable = lib.mkForce true;
     avahi.enable = lib.mkForce false;
     devmon.enable = lib.mkForce true;
-    fwupd.enable = lib.mkDefault true;
     geoclue2.enable = lib.mkForce false;
-    gvfs.enable = lib.mkDefault false;
-    openssh.enable = false;
-    smartd.enable = true;
-    power-profiles-daemon.enable = lib.mkForce false;
+    gvfs.enable = lib.mkForce false;
     udisks2.enable = lib.mkForce true;
+    fwupd.enable = lib.mkForce false;
+    openssh.enable = lib.mkForce false;
+    smartd.enable = lib.mkDefault true;
+    power-profiles-daemon.enable = lib.mkForce false;
     logind.settings.Login.HandleHibernateKey = "ignore";
     libinput.enable = lib.mkForce true;
     lvm = {

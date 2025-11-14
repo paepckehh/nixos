@@ -16,27 +16,23 @@
       enable = true;
       wait-online = {
         enable = true;
-        ignoredInterfaces = ["lo"];
+        ignoredInterfaces = ["lo*" "wl*"];
       };
       networks = {
+        "legacy" = {
+          enable = true;
+          addresses = [{Address = "192.168.80.100/24";}];
+          ntp = ["192.168.80.1"];
+          dns = ["192.168.80.1"];
+          gateway = ["192.168.80.1"];
+          matchConfig.Name = "enp1s0f4u2u1";
+        };
         "cloud" = {
           enable = true;
           domains = ["corp" "home.corp" "home.corp" "admin.corp"];
           dns = ["10.50.6.53"];
           matchConfig.Name = "lo*";
           linkConfig.RequiredForOnline = "carrier"; # no, yes, routable, carrier
-          # networkConfig = [
-          #          IPv4Forwarding = false;
-          #          IPv6Forwarding = false;
-          #          DNSDefaultRoute = true;
-          # ];
-          # matchConfig.Path = "pci-0000:09:00.0";
-          # routes = [
-          #  {
-          #    Gateway = "192.168.0.1";
-          #    GatewayOnLink = true;
-          #  }
-          # ];
           addresses = [
             #### admin
             {Address = "10.50.0.86/32";} # ldap (iam)
@@ -68,6 +64,18 @@
             {Address = "10.50.6.154/32";} # test
             {Address = "10.50.6.156/32";} # grist
           ];
+          # networkConfig = [
+          #          IPv4Forwarding = false;
+          #          IPv6Forwarding = false;
+          #          DNSDefaultRoute = true;
+          # ];
+          # matchConfig.Path = "pci-0000:09:00.0";
+          # routes = [
+          #  {
+          #    Gateway = "192.168.0.1";
+          #    GatewayOnLink = true;
+          #  }
+          # ];
         };
       };
     };

@@ -85,36 +85,36 @@ in {
               {
                 name = "NextCloud";
                 logo = "https://res.${infra.domain.user}/icon/png/nextcloud-blue.png";
-                tag = "debi app";
+                tag = "app";
                 url = "https://cloud.${infra.domain.user}";
                 target = "_blank";
               }
               {
                 name = "KI-Assistenten";
                 logo = "https://res.${infra.domain.user}/icon/png/ollama.png";
-                tag = "debi app";
+                tag = "app";
                 url = "https://ai.${infra.domain.user}";
                 target = "_blank";
               }
               {
                 name = "Paperless";
                 logo = "https://res.${infra.domain.user}/icon/png/paperless-ng.png";
-                tag = "debi app";
+                tag = "app";
                 url = "https://paperless.${infra.domain.user}";
                 target = "_blank";
               }
               {
                 name = "WebArchiv";
-                logo = "https://res.${infra.domain.user}/icon/png/readeck.png";
-                tag = "debi app";
-                url = "https://archive.${infra.domain.user}";
+                url = infra.webarchiv.url;
+                logo = infra.webarchiv.logo;
+                tag = "app";
                 target = "_blank";
               }
               {
                 name = "Suche";
-                logo = "https://res.${infra.domain.user}/icon/png/searxng.png";
-                tag = "debi app";
-                url = "https://suche.${infra.domain.user}";
+                url = infra.search.url;
+                logo = infra.search.logo;
+                tag = "app";
                 target = "_blank";
               }
               {
@@ -227,6 +227,20 @@ in {
                 logo = "https://res.${infra.domain.user}/icon/png/vault.png";
                 tag = "debi it app";
                 url = "https://webmtls.${infra.domain.admin}";
+                target = "_blank";
+              }
+              {
+                name = "Web Resources (Caddy)";
+                logo = "https://res.${infra.domain.user}/icon/png/caddy.png";
+                tag = "debi it app";
+                url = "https://res.${infra.domain.user}";
+                target = "_blank";
+              }
+              {
+                name = "Test";
+                logo = "https://res.${infra.domain.user}/icon/png/speedtest-tracker.png";
+                tag = "debi it app";
+                url = "https://test.${infra.domain.user}";
                 target = "_blank";
               }
             ];

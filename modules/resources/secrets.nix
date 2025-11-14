@@ -5,9 +5,11 @@ in {
   "vault.age".publicKeys = [age srv-mp]; # ENV ADMIN_TOKEN="..."
   "davis.age".publicKeys = [age srv-mp];
   "miniflux.age".publicKeys = [age srv-mp]; # ENV ADMIN_USERNAME="..." ADMIN_PASSWORD="..."
-  "authelia-key.age".publicKeys = [age srv-mp];
+  "authelia-storagekey.age".publicKeys = [age srv-mp];
   "authelia-jwt.age".publicKeys = [age srv-mp];
   "authelia-session.age".publicKeys = [age srv-mp];
+  "authelia-oidc-hmac.age".publicKeys = [age srv-mp];
+  "authelia-oidc-issuer.age".publicKeys = [age srv-mp];
   "mkcertweb.age".publicKeys = [age srv-mp];
   "vaultls.age".publicKeys = [age srv-mp];
   "matrix.age".publicKeys = [age srv-mp];

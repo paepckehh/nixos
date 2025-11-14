@@ -141,7 +141,7 @@ in {
       listenAddresses = [infra.vault.ip];
       extraConfig = ''
         reverse_proxy ${infra.vault.localbind.ip}:${toString infra.vault.localbind.ports.http}
-        @not_intranet { not remot_ip ${infra.vault.network} }
+        @not_intranet { not remote_ip ${infra.vault.network} }
         respond @not_intranet 403
         respond /admin* "The admin panel is disabled, please configure the 'ADMIN_TOKEN' variable to enable it"'';
     };

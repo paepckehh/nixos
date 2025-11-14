@@ -43,8 +43,20 @@
             wetter_tls = "curl https://wttr.in/tls";
           };
           file = {
-            ".config/Yubico/u2f_keys".text = ''me:sSrgGgPQa/v0aVMtp0xJjBk4MiGQ7J69z+IOyLM6k/fllVmaqMAYepVNYMLNnMgOJI4Fkf3uyjtIJfnd4qFHmw==,lXeZ32meNOQO1xEA70CjCFn/NDl5qL3rXJn/3LY5ayvaLGvyWE6rUaVYnagNhfaoIIeYfEDvKOXvqlgpn3xoMQ==,es256,+presence'';
-            ".ssh/id_ed25519_sk.pub".text = ''sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIA44D5TOInaQRb7DrUzMVOciR3kdXhQK9ghkjaZiZJAFAAAABHNzaDo= git@paepcke.de'';
+            # yubikey private key handle
+            ".ssh/id_ed25519_sk".text = ''
+              -----BEGIN OPENSSH PRIVATE KEY-----
+              b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAASgAAABpzay1zc2
+              gtZWQyNTUxOUBvcGVuc3NoLmNvbQAAACABrIDkxMMalAiguPacLkB18oW/o4yAVMxXcEbI
+              0vYjJAAAAARzc2g6AAAA8O6alwTumpcEAAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY2
+              9tAAAAIAGsgOTEwxqUCKC49pwuQHXyhb+jjIBUzFdwRsjS9iMkAAAABHNzaDoBAAAAgPqg
+              5evHnZf1UWKRiy5WFmRdS22284ElPmxMTNB+9AEx+gXyeA2bn/rn/m8hm5b+SOZOz/ZB6x
+              mrM5Iy0zbrPZGnPMlb3+/icOmaVbFodvH2EWAKHo9P8D2An7v+B0Etyh0aozewwX8O2mtS
+              SzNv89bI6B8a7UQcHxvjKYqTAv7rAAAAAAAAAA5naXRAcGFlcGNrZS5kZQECAw==
+              -----END OPENSSH PRIVATE KEY-----
+            '';
+            ".ssh/id_ed25519_sk.pub".text = ''sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIAGsgOTEwxqUCKC49pwuQHXyhb+jjIBUzFdwRsjS9iMkAAAABHNzaDo= git@paepcke.de'';
+            ".config/Yubico/u2f_keys".text = ''me:sSrgGgPQamw==,[...],es256,+presence'';
           };
         };
         programs = {

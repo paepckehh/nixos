@@ -72,8 +72,8 @@ in {
   #-=# SYSTEMD #=-#
   #################
   systemd.services.step-ca = {
-    after = ["network-online.target"];
-    wants = ["network-online.target"];
+    after = ["socket.target"];
+    wants = ["socket.target"];
     wantedBy = ["multi-user.target"];
   };
 

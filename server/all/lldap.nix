@@ -67,6 +67,15 @@ in {
     '';
   };
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.services.lldap = {
+    after = ["sockets.target"];
+    wants = ["sockets.target"];
+    wantedBy = ["multi-user.target"];
+  };
+
   ##################
   #-=# SERVICES #=-#
   ##################

@@ -35,13 +35,13 @@ in {
   #################
   systemd.services = {
     caddy = {
-      after = ["network-online.target"];
-      wants = ["network-online.target"];
+      after = ["sockets.target"];
+      wants = ["sockets.target"];
       wantedBy = ["multi-user.target"];
     };
     nginx = {
-      after = ["network-online.target"];
-      wants = ["network-online.target"];
+      after = ["sockets.target"];
+      wants = ["sockets.target"];
       wantedBy = ["multi-user.target"];
     };
   };

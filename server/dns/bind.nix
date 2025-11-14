@@ -27,10 +27,14 @@ in {
   #-=# SYSTEMD #=-#
   #################
   systemd.services.bind = {
-    after = ["network-online.target"];
-    wants = ["network-online.target"];
+    after = ["sockets.target"];
+    wants = ["sockets.target"];
     wantedBy = ["multi-user.target"];
   };
+
+  # if-up.service
+  # network-online.target
+  # sockets.target
 
   ##################
   #-=# SERVICES #=-#
@@ -125,6 +129,7 @@ in {
             ${infra.search.hostname}          IN A  ${infra.search.ip}
             ${infra.test.hostname}            IN A  ${infra.test.ip}
             ${infra.translate-lama.hostname}  IN A  ${infra.translate-lama.ip}
+            ${infra.webarchiv.hostname}       IN A  ${infra.webarchiv.ip}
             ${infra.webmail.hostname}         IN A  ${infra.webmail.ip}
             ${infra.autoconfig.hostname}      IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.webmail.ip}"
             ${infra.cache.hostname}           IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.cache.ip}"
@@ -139,6 +144,7 @@ in {
             ${infra.search.hostname}          IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.search.ip}"
             ${infra.test.hostname}            IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.test.ip}"
             ${infra.translate-lama.hostname}  IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.translate-lama.ip}"
+            ${infra.webarchiv.hostname}       IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.webarchiv.ip}"
             ${infra.webmail.hostname}         IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.webmail.ip}"
             _autodiscover._tcp                IN SRV 0 0 443 ${infra.autoconfig.fqdn}.
           '';

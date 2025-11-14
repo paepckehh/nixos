@@ -6,18 +6,19 @@ sudo systemctl restart bind.service
 sudo systemctl restart step-ca.service
 sudo systemctl restart lldap.service
 sudo systemctl restart authelia-home.service
+sudo systemctl restart maddy.service
+sudo systemctl restart nextcloud-setup.service
+sudo systemctl restart searx-init.service
+sudo systemctl restart searx.service
 # sudo systemctl restart tuwunel.service
 # sudo systemctl restart uptime-kuma.service
 # sudo systemctl restart prometheus.service
 # sudo systemctl restart vaultwarden.service
-sudo systemctl restart searx-init.service
-sudo systemctl restart searx.service
 # sudo systemctl restart readeck.service
 # sudo systemctl restart open-webui.service
-sudo systemctl restart redis-nextcloud.service
-sudo systemctl restart nextcloud-update-db.service
-sudo systemctl restart nextcloud-setup.service
-sudo systemctl restart nextcloud-cron.service
+# sudo systemctl restart nextcloud-update-db.service
+# sudo systemctl restart redis-nextcloud.service
+# sudo systemctl restart nextcloud-cron.service
 # sudo systemctl restart redis-zammad.service
 # sudo systemctl restart zammad-websocket.service
 # sudo systemctl restart zammad-worker.service

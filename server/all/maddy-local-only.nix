@@ -72,15 +72,13 @@ in {
           storage &local_mailboxes
           debug on
           io_errors on
-          io_debug on
         }
         # backend ldap user auth
         auth.ldap local_authdb {
-          urls ${infra.ldap.uri}
-          dn_template "cn={username},${infra.ldap.baseDN}"
+          base_dn "${infra.ldap.base}"
+          filter "(mail={username})"
           bind plain "${infra.ldap.bind.dn}" "${infra.ldap.bind.pwd}"
-          base "${infra.ldap.base}"
-          filter "(&(objectClass=person)(mail={username}))"
+          urls ${infra.ldap.uri}
           starttls off
           connect_timeout 10s
           debug on

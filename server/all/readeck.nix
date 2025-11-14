@@ -1,68 +1,20 @@
-{config, ...}: let
-  infra = {
-    admin = "admin";
-    contact = "it@${infra.smtp.maildomain}";
-    localhost = "127.0.0.1";
-    localhostPortOffset = 7000;
-    id = {
-      admin = 0;
-      user = 6;
-    };
-    port = {
-      smtp = 25;
-      http = 80;
-      https = 443;
-      webapp = [infra.port.http infra.port.https];
-    };
-    domain = {
-      tld = "corp";
-      admin = "adm.${infra.domain.tld}";
-      user = "dbt.${infra.domain.tld}";
-    };
-    cidr = {
-      admin = "${infra.net.user}.${toString infra.id.admin}.0/24";
-      user = "${infra.net.user}.${toString infra.id.user}.0/23";
-    };
-    net = {
-      prefix = "10.20";
-      admin = "${infra.net.prefix}.${toString infra.id.admin}";
-      user = "${infra.net.prefix}.${toString infra.id.user}";
-    };
-    namespace = {
-      admin = "${toString infra.id.admin}";
-      user = "${toString infra.id.user}";
-    };
-    pki = {
-      acmeContact = "acme@${infra.pki.fqdn}";
-      caFile = "/etc/ca.crt";
-      hostname = "pki";
-      domain = infra.domain.admin;
-      maildomain = "debitor.de";
-      fqdn = "${infra.pki.hostname}.${infra.pki.domain}";
-      url = "https://${infra.pki.fqdn}/acme/acme/directory";
-    };
-    smtp = {
-      hostname = "smtp";
-      domain = infra.domain.admin;
-      fqdn = "${infra.smtp.hostname}.${infra.smtp.domain}";
-      maildomain = "debitor.de";
-    };
-    readeck = {
-      id = 130;
-      name = "readeck";
-      hostname = infra.readeck.name;
-      domain = infra.domain.user;
-      fqdn = "${infra.readeck.hostname}.${infra.readeck.domain}";
-      ip = "${infra.net.user}.${toString infra.readeck.id}";
-      network = infra.cidr.user;
-      namespace = infra.namespace.user;
-      localbind = {
-        ip = infra.localhost;
-        ports.http = infra.localhostPortOffset + infra.readeck.id;
-      };
-    };
-  };
+# webarchiv, archiv, archive, wayback, bookmark
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  ############################
+  #-=# GLOBAL SITE IMPORT #=-#
+  ############################
+  infra = (import ../../siteconfig/config.nix).infra;
 in {
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking.extraHosts = "${infra.webarchiv.ip} ${infra.webarchiv.hostname} ${infra.webarchiv.fqdn}";
+
   #############
   #-=# AGE #=-#
   #############
@@ -94,16 +46,10 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks.${infra.readeck.namespace}.addresses = [
-    {Address = "${infra.readeck.ip}/32";}
-  ];
-
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking = {
-    extraHosts = "${infra.readeck.ip} ${infra.readeck.hostname} ${infra.readeck.fqdn}";
-    firewall.allowedTCPPorts = infra.port.webapp;
+  systemd.services.readeck = {
+    after = ["socket.target"];
+    wants = ["socket.target"];
+    wantedBy = ["multi-user.target"];
   };
 
   ##################
@@ -112,37 +58,29 @@ in {
   services = {
     readeck = {
       enable = true;
-      environmentFile = config.age.secrets.readeck.path;
+      environmentFile = config.age.secrets.readeck.path; # secret env vars format
       settings = {
+        database.source = "sqlite3:/var/lib/readeck/db.sqlite";
         main = {
           log_level = "info";
           data_directory = "/var/lib/readeck";
         };
         server = {
-          host = infra.readeck.localbind.ip;
-          port = infra.readeck.localbind.ports.http;
-        };
-        database = {
-          source = "sqlite3:/var/lib/readeck/db.sqlite";
+          host = infra.localhost.ip;
+          port = infra.webarchiv.localbind.ports.http;
+          trusted_proxies = [infra.localhost.cidr];
+          base_url = infra.webarchiv.url;
         };
       };
     };
     caddy = {
-      enable = false;
-      virtualHosts."${infra.readeck.fqdn}".extraConfig = ''
-        bind ${infra.readeck.ip}
-        reverse_proxy ${infra.readeck.localbind.ip}:${toString infra.matrix.localbind.ports.http}
-        tls ${infra.pki.acmeContact} {
-              ca ${infra.pki.url}
-              ca_root ${infra.pki.caFile}
-        }
-        @not_intranet {
-          not remot_ip ${infra.readeck.network}
-        }
-        respond @not_intranet 403
-        log {
-          output file ${config.services.caddy.logDir}/${infra.readeck.name}.log
-        }'';
+      virtualHosts."${infra.webarchiv.fqdn}" = {
+        listenAddresses = [infra.webarchiv.ip];
+        extraConfig = ''
+          reverse_proxy ${infra.localhost.ip}:${toString infra.webarchiv.localbind.ports.http}
+          @not_intranet { not remote_ip ${infra.webarchiv.access.cidr} }
+          respond @not_intranet 403'';
+      };
     };
   };
 }

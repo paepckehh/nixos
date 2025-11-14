@@ -126,17 +126,8 @@ in {
       virtualHosts."${infra.onlyoffice.fqdn}".extraConfig = ''
         bind ${infra.onlyoffice.ip}
         reverse_proxy ${infra.onlyoffice.localbind.ip}:${toString infra.matrix.localbind.ports.http}
-        tls ${infra.pki.acmeContact} {
-              ca ${infra.pki.url}
-              ca_root ${infra.pki.caFile}
-        }
-        @not_intranet {
-          not remot_ip ${infra.onlyoffice.network}
-        }
-        respond @not_intranet 403
-        log {
-          output file ${config.services.caddy.logDir}/${infra.onlyoffice.name}.log
-        }'';
+        @not_intranet { not remote_ip ${infra.onlyoffice.network} }
+        respond @not_intranet 403'';
     };
   };
 }

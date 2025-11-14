@@ -37,8 +37,8 @@ in {
   #-=# SERVICES #=-#
   ##################
   systemd.services.syslog-ng = {
-    after = ["network-online.target"];
-    wants = ["network-online.target"];
+    after = ["sockets.target"];
+    wants = ["sockets.target"];
     wantedBy = ["multi-user.target"];
   };
 
@@ -130,7 +130,6 @@ in {
                         so-reuseport(1)
                 );
         };
-        filter f_crond { not program(crond); };
         filter f_err  { level(err..emerg); };
         filter f_crit { level(crit..emerg); };
         destination d_log { file("/var/syslog-ng/console.txt");  };
@@ -138,9 +137,9 @@ in {
         destination d_log_err { file("/var/syslog-ng/console-err.txt");  };
         destination d_log_crit { file("/var/syslog-ng/console-crit.txt");  };
         log { source(s_local); source(s_net_admin_tcp); source(s_net_admin_udp); source(s_net_user_tcp); source(s_net_user_udp); source(s_net_remote_tcp); source(s_net_remote_udp); destination(d_log_all); };
-        log { source(s_local); source(s_net_admin_tcp); source(s_net_admin_udp); source(s_net_user_tcp); source(s_net_user_udp); source(s_net_remote_tcp); source(s_net_remote_udp); filter(f_crond); destination(d_log); };
-        log { source(s_local); source(s_net_admin_tcp); source(s_net_admin_udp); source(s_net_user_tcp); source(s_net_user_udp); source(s_net_remote_tcp); source(s_net_remote_udp); filter(f_crond); filter(f_err); destination(d_log_err); };
-        log { source(s_local); source(s_net_admin_tcp); source(s_net_admin_udp); source(s_net_user_tcp); source(s_net_user_udp); source(s_net_remote_tcp); source(s_net_remote_udp); filter(f_crond); filter(f_crit); destination(d_log_crit); };'';
+        log { source(s_local); source(s_net_admin_tcp); source(s_net_admin_udp); source(s_net_user_tcp); source(s_net_user_udp); source(s_net_remote_tcp); source(s_net_remote_udp); destination(d_log); };
+        log { source(s_local); source(s_net_admin_tcp); source(s_net_admin_udp); source(s_net_user_tcp); source(s_net_user_udp); source(s_net_remote_tcp); source(s_net_remote_udp); filter(f_err); destination(d_log_err); };
+        log { source(s_local); source(s_net_admin_tcp); source(s_net_admin_udp); source(s_net_user_tcp); source(s_net_user_udp); source(s_net_remote_tcp); source(s_net_remote_udp); filter(f_crit); destination(d_log_crit); };'';
     };
   };
 }

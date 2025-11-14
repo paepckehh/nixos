@@ -1,3 +1,5 @@
+# nextcloud, cloud
+# cleanup: stop mysql, redis, php, /var/lib/nextcloud /var/lib/redis-nextcloud /var/lib/mysql
 {
   config,
   pkgs,
@@ -12,10 +14,7 @@ in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking = {
-    extraHosts = "${infra.cloud.ip} ${infra.cloud.hostname} ${infra.cloud.fqdn}";
-    firewall.allowedTCPPorts = infra.port.webapps;
-  };
+  networking.extraHosts = "${infra.cloud.ip} ${infra.cloud.hostname} ${infra.cloud.fqdn}";
 
   #############
   #-=# AGE #=-#
@@ -42,6 +41,16 @@ in {
       };
     };
   };
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.services.nextcloud-setup = {
+    after = ["socket.target"];
+    wants = ["socket.target"];
+    wantedBy = ["multi-user.target"];
+  };
+
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -53,10 +62,9 @@ in {
       hostName = infra.cloud.hostname;
       https = true;
       database.createLocally = true;
-      # extraOptions = {
       settings = {
         mail_smtpmode = "smtp";
-        mail_smtphost = "smtp.dbt.corp";
+        mail_smtphost = infra.smtp.fqdn;
         mail_smtpsecure = "";
       };
       config = {
@@ -80,6 +88,7 @@ in {
           mail
           news
           notes
+          tasks
           sociallogin
           onlyoffice
           polls
@@ -98,12 +107,55 @@ in {
         # default_language = infra.site.lang;
         # default_locale = infra.site.lang;
         # default_phone_region = infra.site.lang;
+        # session_keepalive = true;
         default_timezone = infra.site.tz;
         remember_login_cookie_lifetime = "60*60*24*90"; # 90 Tage
         session_lifetime = "60*60*24*7"; # 7 Tage
-        session_keepalive = true;
-        trusted_domains = ["${infra.cloud.fqdn}"];
-        trusted_proxies = ["${infra.cloud.access.cidr}"];
+        trusted_domains = ["home.corp" "cloud.home.corp" "sso.home.corp"];
+        trusted_proxies = [infra.localhost.cidr];
+        allow_user_to_change_display_name = false;
+        lost_password_link = "disabled";
+        oidc_create_groups = false;
+        oidc_login_provider_url = "https://sso.home.corp";
+        oidc_login_client_id = "nextcloud";
+        oidc_login_client_secret = "nextcloud";
+        oidc_login_auto_redirect = false;
+        oidc_login_end_session_redirect = false;
+        oidc_login_button_text = "Log in with Debitor-Yubikey";
+        oidc_login_hide_password_form = false;
+        oidc_login_use_id_token = false;
+        oidc_login_attributes = {
+          "id" = "preferred_username";
+          "name" = "name";
+          "mail" = "email";
+          "groups" = "groups";
+          "is_admin" = "is_nextcloud_admin";
+        };
+        oidc_login_default_group = "oidc";
+        oidc_login_use_external_storage = false;
+        oidc_login_scope = "openid profile email groups nextcloud_userinfo";
+        oidc_login_proxy_ldap = false;
+        oidc_login_disable_registration = false;
+        oidc_login_redir_fallback = false;
+        oidc_login_tls_verify = false;
+        oidc_login_webdav_enabled = false;
+        oidc_login_password_authentication = false;
+        oidc_login_public_key_caching_time = 86400;
+        oidc_login_min_time_between_jwks_requests = 10;
+        oidc_login_well_known_caching_time = 86400;
+        oidc_login_update_avatar = false;
+        oidc_login_code_challenge_method = "S256";
+        enabledPreviewProviders = [
+          "OC\\Preview\\Image"
+          "OC\\Preview\\Movie"
+          "OC\\Preview\\PDF"
+          "OC\\Preview\\MSOfficeDoc"
+          "OC\\Preview\\MSOffice"
+          "OC\\Preview\\Photoshop"
+          "OC\\Preview\\SVG"
+          "OC\\Preview\\TIFF"
+          "OC\\Preview\\HEIC"
+        ];
       };
     };
     nginx.virtualHosts."${infra.cloud.hostname}" = {

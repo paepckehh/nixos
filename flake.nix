@@ -126,11 +126,11 @@
           ./openwrt/alias.nix
           ./iot/moode/alias.nix
           ./person/desktop/mpaepcke.nix
-          ./packages/desktop/add-logi.nix
           ./packages/desktop/gnome.nix
           ./packages/base.nix
           ./packages/devops-core.nix
           ./server/base.nix
+          ./server/bookmarks/readeck.nix
           ./server/cache/ncps.nix
           ./server/cloud/nextcloud.nix
           ./server/dns/bind.nix
@@ -192,7 +192,6 @@
           # ./server/monitoring/prometheus.nix
           # ./server/devops/atuin.nix
           # ./server/bookmarks/webdav.nix
-          # ./server/bookmarks/readeck.nix
           # ./server/dns/unbound.nix
           # ./server/soc/netalertx.nix
           # ./server/soc/wazuh.nix

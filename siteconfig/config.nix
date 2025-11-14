@@ -181,6 +181,50 @@ let
       access.cidr = infra.cidr.user;
       localbind.port.http = infra.localhost.port.offset + infra.it.id;
     };
+    ldap = {
+      id = 86;
+      name = "ldap";
+      package = "lldap";
+      hostname = infra.ldap.name;
+      domain = infra.domain.user;
+      access.cidr = infra.cidr.all;
+      fqdn = "${infra.ldap.hostname}.${infra.ldap.domain}";
+      ip = "${infra.net.user}.${toString infra.ldap.id}";
+      port = infra.port.ldap;
+      url = "http://${infra.ldap.ip}:${toString infra.ldap.port}";
+      uri = "ldap://${infra.ldap.ip}:${toString infra.ldap.port}";
+      base = "dc=${infra.zonename.user},dc=${infra.domain.tld}";
+      baseDN = "ou=people,${infra.ldap.base}";
+      bind = {
+        dn = "uid=bind,${infra.ldap.baseDN}";
+        pwd = "startbind";
+      };
+    };
+    iam = {
+      id = infra.ldap.id;
+      name = "iam"; # ldap-web-gui
+      hostname = infra.iam.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.iam.hostname}.${infra.iam.domain}";
+      ip = "${infra.net.user}.${toString infra.iam.id}";
+      ports = infra.port.webapps;
+      url = "https://${infra.iam.fqdn}";
+      access.cidr = infra.cidr.all;
+      localbind.port.http = infra.localhost.port.offset + infra.iam.id;
+    };
+    sso = {
+      id = 87;
+      name = "authelia";
+      site = infra.site.name;
+      hostname = "sso";
+      domain = infra.domain.user;
+      fqdn = "${infra.sso.hostname}.${infra.sso.domain}";
+      ip = "${infra.net.user}.${toString infra.sso.id}";
+      url = "https://${infra.sso.fqdn}";
+      callbackUrl = "${infra.sso.url.base}/api/auth/oidc/callback";
+      access.cidr = infra.cidr.user;
+      localbind.port.http = infra.localhost.port.offset + infra.sso.id;
+    };
     syslog = {
       id = 100;
       name = "syslog";
@@ -225,50 +269,6 @@ let
         contact = infra.admin.email;
         url = "https://${infra.pki.fqdn}/acme/acme/directory";
       };
-    };
-    ldap = {
-      id = 86;
-      name = "ldap";
-      package = "lldap";
-      hostname = infra.ldap.name;
-      domain = infra.domain.user;
-      access.cidr = infra.cidr.all;
-      fqdn = "${infra.ldap.hostname}.${infra.ldap.domain}";
-      ip = "${infra.net.user}.${toString infra.ldap.id}";
-      port = infra.port.ldap;
-      url = "http://${infra.ldap.ip}:${toString infra.ldap.port}";
-      uri = "ldap://${infra.ldap.ip}:${toString infra.ldap.port}";
-      base = "dc=${infra.zonename.user},dc=${infra.domain.tld}";
-      baseDN = "ou=people,${infra.ldap.base}";
-      bind = {
-        dn = "uid=bind,${infra.ldap.baseDN}";
-        pwd = "startbind";
-      };
-    };
-    iam = {
-      id = infra.ldap.id;
-      name = "iam"; # ldap-web-gui
-      hostname = infra.iam.name;
-      domain = infra.domain.user;
-      fqdn = "${infra.iam.hostname}.${infra.iam.domain}";
-      ip = "${infra.net.user}.${toString infra.iam.id}";
-      ports = infra.port.webapps;
-      url = "https://${infra.iam.fqdn}";
-      access.cidr = infra.cidr.all;
-      localbind.port.http = infra.localhost.port.offset + infra.iam.id;
-    };
-    sso = {
-      id = 87;
-      name = "authelia";
-      site = infra.site.name;
-      hostname = "sso";
-      domain = infra.domain.user;
-      fqdn = "${infra.sso.hostname}.${infra.sso.domain}";
-      ip = "${infra.net.user}.${toString infra.sso.id}";
-      url = "https://${infra.sso.fqdn}";
-      callbackUrl = "${infra.sso.url.base}/api/auth/oidc/callback";
-      access.cidr = infra.cidr.user;
-      localbind.port.http = infra.localhost.port.offset + infra.sso.id;
     };
     status = {
       id = 110;
@@ -316,8 +316,21 @@ let
       ip = "${infra.net.user}.${toString infra.search.id}";
       port = infra.port.webapps;
       access.cidr = infra.cidr.user;
-      url = "https://${infra.search.fqdn}";
       localbind.port.http = infra.localhost.port.offset + infra.search.id;
+      url = "https://${infra.search.fqdn}";
+      logo = "https://res.${infra.domain.user}/icon/png/searxng.png";
+    };
+    webarchiv = {
+      id = 130;
+      name = "webarchiv";
+      hostname = infra.webarchiv.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.webarchiv.hostname}.${infra.webarchiv.domain}";
+      ip = "${infra.net.user}.${toString infra.webarchiv.id}";
+      access.cidr = infra.cidr.user;
+      localbind.ports.http = infra.localhost.port.offset + infra.webarchiv.id;
+      url = "https://${infra.webarchiv.fqdn}";
+      logo = "https://res.${infra.domain.user}/icon/png/readeck.png";
     };
     portal = {
       id = 135;
@@ -329,6 +342,7 @@ let
       access.cidr = infra.cidr.user;
       localbind.port.http = infra.localhost.port.offset + infra.portal.id;
       url = "https://${infra.portal.fqdn}";
+      logo = "https://res.${infra.domain.user}/icon/png/homer.png";
     };
     res = {
       id = 141;
