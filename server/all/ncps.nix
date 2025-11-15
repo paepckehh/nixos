@@ -31,23 +31,36 @@ in {
     };
   };
 
+  #################
+  #-=# IMPORTS #=-#
+  #################
+  imports = [
+    ../../client/addCache.nix # self
+  ];
+
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
     ncps = {
       enable = true;
+      prometheus.enable = false; # XXX
+      logLevel = "info"; # "trace", "debug", "info", "warn", "error", "fatal", "panic"
+      server.addr = "${infra.localhost.ip}:${toString infra.cache.localbind.port.http}";
       cache = {
         hostName = infra.cache.hostname;
         maxSize = "50G";
-        lru.schedule = "0 4 * * *"; # cleanup cache daily at 04:00
-        allowPutVerb = false;
-        allowDeleteVerb = false;
+        allowPutVerb = lib.mkForce false;
+        allowDeleteVerb = lib.mkForce false;
+        lru.schedule = "0 10 * * *"; # cleanup cache daily at 04:00
       };
-      server.addr = "${infra.localhost.ip}:${toString infra.cache.localbind.port.http}";
       upstream = {
-        caches = ["https://cache.nixos.org"]; # lock upstream trust
-        publicKeys = ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
+        caches = lib.mkForce [
+          "https://cache.nixos.org"
+        ];
+        publicKeys = lib.mkForce [
+          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        ];
       };
     };
     caddy.virtualHosts."${infra.cache.fqdn}" = {

@@ -14,20 +14,19 @@ in {
   #############
   #-=# NIX #=-#
   #############
-  # https://${infra.cache.fqdn}/pubkey" to fetch generated key
   nix = {
     settings = {
       http2 = lib.mkForce true;
       require-sigs = lib.mkForce true;
       preallocate-contents = true;
-      allowed-uris = [
-        "https://${infra.cache.fqdn}"
+      allowed-uris = lib.mkForce [
+        infra.cache.url
       ];
-      substituters = [
-        "https://${infra.cache.fqdn}"
+      substituters = lib.mkForce [
+        infra.cache.url
       ];
-      trusted-public-keys = [
-        cache:aFde6/c1Vz93N1XGGrvt/7NlUNdAyV35CgBUXKzyhyU=
+      trusted-public-keys = lib.mkForce [
+        infra.cache.key.pub
       ];
     };
   };

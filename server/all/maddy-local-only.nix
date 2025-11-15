@@ -36,8 +36,8 @@ in {
   #-=# SYSTEMD #=-#
   #################
   systemd.services.maddy = {
-    after = ["network-online.target"];
-    wants = ["network-online.target"];
+    after = ["socket.target"];
+    wants = ["socket.target"];
     wantedBy = ["multi-user.target"];
   };
 
@@ -63,15 +63,12 @@ in {
           default_destination {
             reject 550 5.1.1 "User or Domain doesn't exist"
           }
-          debug on
         }
         # listen imap
         imap tcp://${infra.imap.ip}:${toString infra.port.imap} {
           auth &local_authdb
           insecure_auth yes
           storage &local_mailboxes
-          debug on
-          io_errors on
         }
         # backend ldap user auth
         auth.ldap local_authdb {
@@ -81,14 +78,12 @@ in {
           urls ${infra.ldap.uri}
           starttls off
           connect_timeout 10s
-          debug on
         }
         # backend storage
         storage.imapsql local_mailboxes {
           driver sqlite3
           dsn imapsql.db
           compression zstd 6
-          debug on
         }
         # message routing
         msgpipeline local_routing {

@@ -144,6 +144,7 @@
           ./server/portal/homer-home.nix
           ./server/webapp/res.nix
           ./server/webapp/test.nix
+          # ./server/ai/open-webui.nix
           # ./server/portal/homer-it.nix
           # ./server/pki/certwarden.nix
           # ./server/pki/mkcertweb.nix

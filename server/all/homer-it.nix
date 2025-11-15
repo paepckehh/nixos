@@ -96,6 +96,13 @@ in {
                 url = infra.monitoring.url;
                 logo = infra.monitoring.logo;
               }
+              {
+                name = "cache";
+                tag = "app";
+                target = "_blank";
+                url = infra.cache.url;
+                logo = infra.cache.logo;
+              }
             ];
           }
           {

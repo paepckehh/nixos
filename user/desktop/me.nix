@@ -68,7 +68,21 @@
             dash-to-panel.extensionUuid
             clipboard-indicator.extensionUuid
           ];
-          favorite-apps = ["Alacritty.desktop" "com.mitchellh.ghostty.desktop" "kitty.desktop" "dss.desktop" "firefox.desktop" "librewolf.desktop" "org.keepassxc.KeePassXC.desktop" "org.gnome.Nautilus.desktop" "element-desktop.desktop" "onlyoffice-desktopeditors.desktop" "com.yubico.yubioath.desktop"];
+          favorite-apps = [
+            "Alacritty.desktop"
+            "com.mitchellh.ghostty.desktop"
+            "kitty.desktop"
+            "dss.desktop"
+            "firefox.desktop"
+            "librewolf.desktop"
+            "org.keepassxc.KeePassXC.desktop"
+            "org.gnome.Nautilus.desktop"
+            "bitwarden.desktop"
+            "element-desktop.desktop"
+            "thunderbird.desktop"
+            "onlyoffice-desktopeditors.desktop"
+            "com.yubico.yubioath.desktop"
+          ];
         };
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings = [

@@ -1,3 +1,15 @@
+# authelia sso single-sign-on
+# GENERATE RSA-KEY PAIR
+# mkdir -p /tmp/keys && cd /tmp/keys && nix-shell -p authelia --command 'authelia crypto pair rsa generate --bits 3072 --directory /tmp/keys'
+#
+# GENERATE RANDOM STRING
+# nix-shell -p authelia --command 'authelia crypto rand --length 72 --charset rfc3986'
+# Random Value: B4gJOtTZnctp2BExOHh._N0MjYcghfMIvwGKauJ~XEJnaqBMEuN3Te8HRb15bMD5mWkVB5bb
+#
+# GENERATE PBKDF2 HASHED
+# nix-shell -p authelia --command 'authelia crypto hash generate pbkdf2 --variant sha512 --random --random.length 72 --random.charset rfc3986'
+# Random Password: ph3qTDuGGwdRSA2I~ScU1PTXG8SPDUesrF2IETqYVTNl3D92P2d3EIL.TQ6Ex_-lbRi_9uL2
+# Digest: $pbkdf2-sha512$310000$OAmF.7KG6d6wms25SZWZug$XsyRQpD0/qUCkuakGEz4Hdr4MVx5Jq6w/qFbUs.vZ0qmTVyYSUX92PYn0Db5YbqcCjVhLfKUBHGD2wNC8xfDVw
 {
   config,
   pkgs,
@@ -13,18 +25,6 @@ in {
   #-=# NETWORKING #=-#
   ####################
   networking.extraHosts = "${infra.sso.ip} ${infra.sso.hostname} ${infra.sso.fqdn}";
-
-  # GENERATE RSA-KEY PAIR
-  # mkdir -p /tmp/keys && cd /tmp/keys && nix-shell -p authelia --command 'authelia crypto pair rsa generate --bits 3072 --directory /tmp/keys'
-
-  # GENERATE RANDOM STRING
-  # nix-shell -p authelia --command 'authelia crypto rand --length 72 --charset rfc3986'
-  # Random Value: B4gJOtTZnctp2BExOHh._N0MjYcghfMIvwGKauJ~XEJnaqBMEuN3Te8HRb15bMD5mWkVB5bb
-
-  # GENERATE PBKDF2 HASHED
-  # nix-shell -p authelia --command 'authelia crypto hash generate pbkdf2 --variant sha512 --random --random.length 72 --random.charset rfc3986'
-  # Random Password: ph3qTDuGGwdRSA2I~ScU1PTXG8SPDUesrF2IETqYVTNl3D92P2d3EIL.TQ6Ex_-lbRi_9uL2
-  # Digest: $pbkdf2-sha512$310000$OAmF.7KG6d6wms25SZWZug$XsyRQpD0/qUCkuakGEz4Hdr4MVx5Jq6w/qFbUs.vZ0qmTVyYSUX92PYn0Db5YbqcCjVhLfKUBHGD2wNC8xfDVw
 
   #############
   #-=# AGE #=-#
@@ -99,7 +99,9 @@ in {
         };
         settings = {
           theme = "dark";
-          password_policy.zxcvbn.enabled = true;
+          storage.local.path = "/var/lib/authelia-${infra.sso.site}/db.sqlite3";
+          server.address = "tcp4://${infra.localhost.ip}:${toString infra.sso.localbind.port.http}";
+          log.level = "info";
           authentication_backend = {
             refresh_interval = "1m";
             password_reset.disable = true;
@@ -112,13 +114,6 @@ in {
               user = infra.ldap.bind.dn;
               password = infra.ldap.bind.pwd;
             };
-          };
-          server = {
-            address = "tcp4://${infra.localhost.ip}:${toString infra.sso.localbind.port.http}";
-            # endpoints.authz.forward-auth.implementation = "ForwardAuth";
-          };
-          log = {
-            level = "trace";
           };
           access_control = {
             default_policy = "deny";
@@ -157,9 +152,6 @@ in {
             max_retries = 5;
             find_time = "5m";
             ban_time = "15m";
-          };
-          storage = {
-            local.path = "/var/lib/authelia-${infra.sso.site}/db.sqlite3";
           };
           notifier = {
             disable_startup_check = true;
@@ -203,30 +195,30 @@ in {
                 authorization_policy = "two_factor";
                 require_pkce = true;
                 pkce_challenge_method = "S256";
-                claims_policy = "nextcloud_userinfo";
-                redirect_uris = ["https://cloud.home.corp/apps/sociallogin/custom_oidc/authelia"];
+                redirect_uris = [
+                  "https://cloud.home.corp/apps/user_oidc/code"
+                ];
                 scopes = [
                   "openid"
                   "profile"
                   "email"
                   "groups"
-                  "nextcloud_userinfo"
                 ];
                 response_types = "code";
                 grant_types = "authorization_code";
                 access_token_signed_response_alg = "none";
                 userinfo_signed_response_alg = "none";
-                token_endpoint_auth_method = "client_secret_basic";
+                token_endpoint_auth_method = "client_secret_post";
               }
               {
                 client_id = "open-webui";
-                client_name: "open-webui";
+                client_name = "open-webui";
                 client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
                 public = false;
                 authorization_policy = "two_factor";
                 require_pkce = true;
                 pkce_challenge_method = "S256";
-                redirect_uris = [ "https://ai.example.com/oauth/oidc/callback"];
+                redirect_uris = ["https://ai.example.com/oauth/oidc/callback"];
                 scopes = [
                   "openid"
                   "profile"

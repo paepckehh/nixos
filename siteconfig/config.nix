@@ -1,5 +1,7 @@
 let
   infra = {
+    true = "true";
+    false = "false";
     site = {
       id = 50; # site/company id, range 1-256
       name = "home"; # site/company name
@@ -39,8 +41,8 @@ let
       ip = "127.0.0.1";
       cidr = "127.0.0.0/24";
       port.offset = 7000;
+      metric.offset = 9000;
     };
-    metric.port.offset = 9000;
     id = {
       admin = 0;
       user = 6;
@@ -168,8 +170,12 @@ let
       ip = "${infra.net.user}.${toString infra.cache.id}";
       access.cidr = infra.cidr.all;
       localbind.port.http = infra.localhost.port.offset + infra.cache.id;
+      url = "https://${infra.cache.fqdn}";
       cacheSize = "50G";
-      pubkey.url = "https://${infra.cache.fqdn}/pubkey"; # generated
+      key = {
+        url = "${infra.cache.url}/pubkey";
+        pub = "cache:aFde6/c1Vz93N1XGGrvt/7NlUNdAyV35CgBUXKzyhyU=";
+      };
     };
     it = {
       id = 56;
@@ -197,7 +203,7 @@ let
       baseDN = "ou=people,${infra.ldap.base}";
       bind = {
         dn = "uid=bind,${infra.ldap.baseDN}";
-        pwd = "startbind";
+        pwd = "startbind"; # XXX migrage socket / ragenix
       };
     };
     iam = {
@@ -277,6 +283,7 @@ let
       domain = infra.domain.user;
       fqdn = "${infra.ai.hostname}.${infra.ai.domain}";
       ip = "${infra.net.user}.${toString infra.ai.id}";
+      access.cidr = infra.cidr.user;
       worker.one = "http://127.0.0.1:11434";
       worker.two = "http://aiworker01.${infra.domain.user}:11434";
       localbind = {
