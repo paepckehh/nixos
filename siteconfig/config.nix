@@ -270,6 +270,22 @@ let
         url = "https://${infra.pki.fqdn}/acme/acme/directory";
       };
     };
+    ai = {
+      id = 109;
+      name = "ai";
+      hostname = infra.ai.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.ai.hostname}.${infra.ai.domain}";
+      ip = "${infra.net.user}.${toString infra.ai.id}";
+      worker.one = "http://127.0.0.1:11434";
+      worker.two = "http://aiworker01.${infra.domain.user}:11434";
+      localbind = {
+        proto = infra.localhost.proto;
+        port.http = infra.localhost.port.offset + infra.ai.id;
+      };
+      url = "https://${infra.ai.fqdn}";
+      logo = "https://res.${infra.ai.user}/icon/png/ollama.png";
+    };
     status = {
       id = 110;
       name = "status";

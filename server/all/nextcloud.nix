@@ -118,10 +118,10 @@ in {
         oidc_create_groups = false;
         oidc_login_provider_url = "https://sso.home.corp";
         oidc_login_client_id = "nextcloud";
-        oidc_login_client_secret = "nextcloud";
+        oidc_login_client_secret = "insecure_secret";
         oidc_login_auto_redirect = false;
         oidc_login_end_session_redirect = false;
-        oidc_login_button_text = "Log in with Debitor-Yubikey";
+        oidc_login_button_text = "CLOUD-LOGIN";
         oidc_login_hide_password_form = false;
         oidc_login_use_id_token = false;
         oidc_login_attributes = {

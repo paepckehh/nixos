@@ -71,6 +71,13 @@ in {
           trusted_proxies = [infra.localhost.cidr];
           base_url = infra.webarchiv.url;
         };
+        email = {
+          host = infra.smtp.fqdn;
+          port = infra.port.smtp;
+          insecure = true;
+          from = infa.admin.email;
+          from_noreply = infra.admin.email;
+        };
       };
     };
     caddy = {
