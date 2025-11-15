@@ -21,11 +21,12 @@
       networks = {
         "legacy" = {
           enable = true;
-          addresses = [{Address = "192.168.80.100/24";}];
-          ntp = ["192.168.80.1"];
-          dns = ["192.168.80.1"];
-          gateway = ["192.168.80.1"];
           matchConfig.Name = "enp1s0f4u2u1";
+          DHCP = "ipv4";
+          # addresses = [{Address = "192.168.80.100/24";}];
+          # ntp = ["192.168.80.1"];
+          # dns = ["192.168.80.1"];
+          # gateway = ["192.168.80.1"];
         };
         "cloud" = {
           enable = true;
