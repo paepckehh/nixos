@@ -75,7 +75,7 @@ in {
           host = infra.smtp.fqdn;
           port = infra.port.smtp;
           insecure = true;
-          from = infa.admin.email;
+          from = infra.admin.email;
           from_noreply = infra.admin.email;
         };
       };
