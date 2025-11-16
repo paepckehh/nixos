@@ -4,13 +4,14 @@
     # nixpkgs.url = "github:nixos/nixpkgs/25.05";
     # sops.url = "github:mic92/sops-nix";
     # proxmox-nixos.url = "github:saumonnet/proxmox-nixos";
+    # nixpkgs-dev.url = "github:nixos/nixpkgs/nixos-unstable";
     agenix.url = "github:ryantm/agenix";
     disko.url = "github:nix-community/disko/master";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nvf.url = "github:notashelf/nvf";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-dev.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "file:///home/projects/nixos/nixos_nixpkgs/nixos-unstable";
   };
   outputs = {
     self,
@@ -110,7 +111,7 @@
       ##########
       # SERVER #
       ##########
-      srv = nixpkgs-dev.lib.nixosSystem {
+      srv = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           # proxmox-nixos.nixosModules.proxmox-ve
