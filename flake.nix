@@ -11,7 +11,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nvf.url = "github:notashelf/nvf";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "git+file:///home/projects/nixos/nixos_nixpkgs/nixos-unstable";
+    nixpkgs.url = "git+file:///home/projects/nixos/nixos_nixpkgs";
   };
   outputs = {
     self,
