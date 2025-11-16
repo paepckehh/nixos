@@ -10,7 +10,7 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nvf.url = "github:notashelf/nvf";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
     # nixpkgs.url = "git+file:///home/projects/nixos/nixos_nixpkgs?ref=nixos-unstable";
   };
   outputs = {
@@ -131,8 +131,9 @@
           ./packages/devops-core.nix
           ./server/base.nix
           ./server/bookmarks/readeck.nix
+          # ./server/ai/open-webui-authelia.nix
           ./server/cache/ncps.nix
-          ./server/cloud/nextcloud.nix
+          ./server/cloud/nextcloud-authelia.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix
@@ -144,7 +145,6 @@
           ./server/portal/homer-home.nix
           ./server/webapp/res.nix
           ./server/webapp/test.nix
-          ./server/ai/open-webui.nix
           # ./server/portal/homer-it.nix
           # ./server/pki/certwarden.nix
           # ./server/pki/mkcertweb.nix

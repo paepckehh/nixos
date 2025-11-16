@@ -56,12 +56,29 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
+    authelia.instances."${infra.sso.site}".settings.identity_providers.oidc.clients = [
+      {
+        client_id = "nextcloud";
+        client_name = "nextcloud";
+        client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+        public = false;
+        authorization_policy = "two_factor";
+        require_pkce = true;
+        pkce_challenge_method = "S256";
+        redirect_uris = ["https://cloud.home.corp/apps/user_oidc/code"];
+        scopes = ["openid" "profile" "email" "groups"];
+        response_types = "code";
+        grant_types = "authorization_code";
+        access_token_signed_response_alg = "none";
+        userinfo_signed_response_alg = "none";
+        token_endpoint_auth_method = "client_secret_post";
+      }
+    ];
     nextcloud = {
       enable = true;
       package = pkgs.nextcloud32;
       configureRedis = true;
       hostName = infra.cloud.hostname;
-      # https = true;
       database.createLocally = true;
       settings = {
         mail_smtpmode = "smtp";

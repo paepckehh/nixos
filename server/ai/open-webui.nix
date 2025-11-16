@@ -1,1 +1,0 @@
-../all/open-webui.nix

@@ -35,10 +35,17 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.services.maddy = {
-    after = ["socket.target"];
-    wants = ["socket.target"];
-    wantedBy = ["multi-user.target"];
+  systemd.services = {
+    maddy = {
+      after = ["socket.target"];
+      wants = ["socket.target"];
+      wantedBy = ["multi-user.target"];
+    };
+    maddy-ensure-accounts = {
+      after = ["socket.target"];
+      wants = ["socket.target"];
+      wantedBy = ["multi-user.target"];
+    };
   };
 
   ##################
