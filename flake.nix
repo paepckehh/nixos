@@ -19,7 +19,6 @@
     disko,
     home-manager,
     nixpkgs,
-    nixpkgs-dev,
     nvf,
   }: {
     nixosConfigurations = {
