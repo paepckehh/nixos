@@ -10,7 +10,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nvf.url = "github:notashelf/nvf";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-dev.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-dev.url = "github:nixos/nixpkgs/nixos-unstable-small";
   };
   outputs = {
     self,
@@ -144,7 +144,7 @@
           ./server/portal/homer-home.nix
           ./server/webapp/res.nix
           ./server/webapp/test.nix
-          # ./server/ai/open-webui.nix
+          ./server/ai/open-webui.nix
           # ./server/portal/homer-it.nix
           # ./server/pki/certwarden.nix
           # ./server/pki/mkcertweb.nix

@@ -128,6 +128,8 @@
       fzf
       grc
       gnumake
+      gnupg
+      gpg-tui
       fishPlugins.autopair
       fishPlugins.fish-you-should-use
       fishPlugins.grc
