@@ -23,6 +23,7 @@
     nano.enable = true;
     mtr.enable = true;
     vim.enable = true;
+    yubikey-manager.enable = true;
     zsh = {
       enable = true;
       histFile = "/dev/null";

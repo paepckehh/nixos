@@ -16,6 +16,7 @@
   programs = {
     geary.enable = lib.mkForce false;
     seahorse.enable = true;
+    gnupg.agent.pinentryPackage = pkgs.pinentry-gnome3; # keep for yukikey agent
   };
 
   #####################
@@ -25,6 +26,7 @@
     systemPackages = with pkgs; [
       gnome-decoder
       gnome-firmware
+      pinentry-gnome3
     ];
     gnome.excludePackages = with pkgs; [
       gnome-calendar
