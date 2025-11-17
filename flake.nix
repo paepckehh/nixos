@@ -10,7 +10,7 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nvf.url = "github:notashelf/nvf";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:nixos/nixpkgs/master";
     # nixpkgs.url = "git+file:///home/projects/nixos/nixos_nixpkgs?ref=nixos-unstable";
   };
   outputs = {
@@ -174,7 +174,7 @@
           # ./server/lang/libretranslate.nix
           # ./server/cloud/nextcloud.nix
           # ./server/office/onlyoffice-docker.nix
-          # ./server/ai/ollama.nix
+          ./server/ai/ollama.nix
           # ./server/ai/openweb-ui.nix
           # ./server/message/element-web.nix
           # ./server/message/tuwunel.nix
