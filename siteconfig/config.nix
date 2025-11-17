@@ -158,7 +158,7 @@ let
       ip = "${infra.net.user}.${toString infra.dns.id}";
       access = infra.cidr.all;
       accessArray = infra.cidr.allArray;
-      upstream = ["192.168.80.1"]; # XXX
+      upstream = ["192.168.80.1" "10.20.6.2"]; # XXX
       contact = "it.${infra.smtp.extern.domain}";
     };
     cache = {

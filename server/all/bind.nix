@@ -32,10 +32,6 @@ in {
     wantedBy = ["multi-user.target"];
   };
 
-  # if-up.service
-  # network-online.target
-  # sockets.target
-
   ##################
   #-=# SERVICES #=-#
   ##################
