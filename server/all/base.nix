@@ -54,23 +54,35 @@ in {
       enable = true;
       logFormat = lib.mkForce "level INFO";
       globalConfig = ''
-                acme_ca ${infra.pki.acme.url}
-                acme_ca_root ${infra.pki.certs.rootCA.path}
-                email ${infra.pki.acme.contact}
-                grace_period 2s
-                default_sni ${infra.portal.fqdn}
-                fallback_sni ${infra.portal.fqdn}
-                renew_interval 24h
-                (intranet) {
-                  tls {
-                    client_auth {
-                    mode require_and_verify
-                    trusted_ca_cert_file /etc/rootCA.crt
-                    trusted_leaf_cert_file /etc/rootCA.crt
-            }
-          }
-        }
-      '';
+        acme_ca ${infra.pki.acme.url}
+        acme_ca_root ${infra.pki.certs.rootCA.path}
+        email ${infra.pki.acme.contact}
+        grace_period 2s
+        default_sni ${infra.portal.fqdn}
+        fallback_sni ${infra.portal.fqdn}
+        renew_interval 24h
+        (admin) {
+           @not_adminnet { not remote_ip ${infra.cidr.admin} }
+           respond @not_adminnet 403
+           tls {
+             client_auth {
+               mode verify_if_given
+               trusted_ca_cert_file /etc/rootCA.crt
+               trusted_leaf_cert_file /etc/adminMTLS.crt
+             }
+           }
+         }
+        (intra) {
+           @not_intranet { not remote_ip ${infra.cidr.user} }
+           respond @not_intranet 403
+           tls {
+             client_auth {
+               mode verify_if_given
+               trusted_ca_cert_file /etc/rootCA.crt
+               trusted_leaf_cert_file /etc/userMTL.crt
+             }
+           }
+         }'';
     };
   };
 }
