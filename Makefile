@@ -227,6 +227,7 @@ qemu: info-cleaninstall commit
 ###########
 
 yubikey-generate-ssh:
+	set +x
 	echo "Please verify your PIN, Default Factory PIN: 123456"
 	ykman fido info || exit 1
 	ykman fido access verify-pin  || exit 1
