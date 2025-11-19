@@ -261,9 +261,13 @@ in {
     caddy.virtualHosts."${infra.portal.fqdn}" = {
       listenAddresses = [infra.portal.ip];
       extraConfig = ''
-        reverse_proxy ${infra.localhost.ip}:${toString infra.portal.localbind.port.http}
-        @not_intranet { not remote_ip ${infra.portal.access.cidr} }
-        respond @not_intranet 403'';
+             	forward_auth ${infra.sso.url} {
+        	uri /api/authz/forward-auth
+        	copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
+        }
+               reverse_proxy ${infra.localhost.ip}:${toString infra.portal.localbind.port.http}
+               @not_intranet { not remote_ip ${infra.portal.access.cidr} }
+               respond @not_intranet 403'';
     };
   };
 }

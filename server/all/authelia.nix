@@ -99,7 +99,10 @@ in {
       settings = {
         theme = "dark";
         storage.local.path = "/var/lib/authelia-${infra.sso.site}/db.sqlite3";
-        server.address = "tcp4://${infra.localhost.ip}:${toString infra.sso.localbind.port.http}";
+        server = {
+          address = "tcp4://${infra.localhost.ip}:${toString infra.sso.localbind.port.http}";
+          endpoints.authz.forward-auth.implementation = "ForwardAuth";
+        };
         log.level = "info";
         authentication_backend = {
           refresh_interval = "1m";

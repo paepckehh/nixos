@@ -222,6 +222,24 @@ qemu: info-cleaninstall commit
 	nixos-rebuild build-image --flake $(OSFLAKE) --image-variant qemu-efi
 	ls -la /etc/nixos/result/iso
 
+###########
+# YUBIKEY #
+###########
+
+yubikey-generate-ssh:
+	echo "Please verify your PIN, Default Factory PIN: 123456"
+	ykman fido info || exit 1
+	ykman fido access verify-pin  || exit 1
+	echo "Please change your PIN if it is still the factory one."
+	echo "To keep your current PIN enter it 3x times."
+	ykman fido access change-pin  || exit 1
+	read -p "Enter your eMail Address: " EMAIL
+	echo "Backup your complete ssh keystore state now to ~/.ssh.backup.$(DTS)"
+	mkdir -p ~/.ssh || exit 1 
+	cp -af ~/.ssh ~/.ssh.backup.$(DTS) || exit 1 
+	rm -rf ~/.ssh/id_ed25519_sk ~/.ssh/id_ed25519_sk.pub > /dev/null 2>&1 || true 
+	ssh-keygen -t ed25519-sk -f ~/.ssh/id_ed25519_sk <<< y
+	
 
 
 #################

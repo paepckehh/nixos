@@ -32,12 +32,7 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment = {
-    systemPackages = with pkgs; [rofi-wayland];
-    variables = {
-      NIXOS_OZONE_WL = "1";
-    };
-  };
+  environment.systemPackages = with pkgs; [rofi-wayland];
 
   ##################
   #-=# SERVICES #=-#

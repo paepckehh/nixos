@@ -18,8 +18,8 @@ in {
     networkmanager.insertNameservers = [infra.dns.ip];
     extraHosts = "${infra.dns.ip} ${infra.dns.hostname} ${infra.dns.fqdn}.";
     firewall = {
-      allowedTCPPorts = [infra.dns.port];
-      allowedUDPPorts = [infra.dns.port];
+      allowedTCPPorts = [infra.port.dns];
+      allowedUDPPorts = [infra.port.dns];
     };
   };
 

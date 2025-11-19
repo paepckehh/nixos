@@ -38,8 +38,8 @@
         executable = "${pkgs.librewolf}/bin/librewolf";
         profile = "${pkgs.firejail}/etc/firejail/librewolf.profile";
         extraArgs = [
-          "--env=GTK_THEME=Adwaita:dark"
-          "--env=NIXOS_OZONE_WL=1"
+          # "--env=GTK_THEME=Adwaita:dark"
+          # "--env=NIXOS_OZONE_WL=1"
         ];
       };
     };

@@ -122,6 +122,7 @@
           ./configuration.nix
           ./client/addrootCA-small-step.nix
           ./client/addCache.nix
+          ./client/addEndlessh.nix
           ./storage/stateless-luks.nix
           ./openwrt/alias.nix
           ./iot/moode/alias.nix

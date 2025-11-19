@@ -37,10 +37,17 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.services.searx-init = {
-    after = ["sockets.target"];
-    wants = ["sockets.target"];
-    wantedBy = ["multi-user.target"];
+  systemd.services = {
+    searx-init = {
+      after = ["sockets.target"];
+      wants = ["sockets.target"];
+      wantedBy = ["multi-user.target"];
+    };
+    searx = {
+      after = ["sockets.target"];
+      wants = ["sockets.target"];
+      wantedBy = ["multi-user.target"];
+    };
   };
 
   ##################

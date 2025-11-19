@@ -12,7 +12,13 @@ in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking.extraHosts = "${infra.iam.ip} ${infra.iam.hostname} ${infra.iam.fqdn}.";
+  networking = {
+    extraHosts = "${infra.iam.ip} ${infra.iam.hostname} ${infra.iam.fqdn}.";
+    firewall = {
+      allowedTCPPorts = [infra.port.ldap];
+      allowedUDPPorts = [infra.port.ldap];
+    };
+  };
 
   #############
   #-=# AGE #=-#

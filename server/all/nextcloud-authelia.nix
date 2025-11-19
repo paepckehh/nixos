@@ -1,6 +1,6 @@
 # nextcloud, cloud
 # cleanup: stop mysql, redis, php, /var/lib/nextcloud /var/lib/redis-nextcloud /var/lib/mysql
-# Discovery endpoint https://sso.home.corp/.well-known/openid-configuration
+# sso: discovery endpoint https://sso.<domain.tld>/.well-known/openid-configuration
 {
   config,
   pkgs,
@@ -130,6 +130,13 @@ in {
         oidc_create_groups = false;
         user_oidc = {
           default_token_endpoint_auth_method = "client_secret_post";
+          provider = "authelia";
+          clientid = "nextcloud";
+          clientsecret = "insecure_secret";
+          discoveryuri = "https://sso.home.corp/.well-known/openid-configuration";
+          login_label' = "SSO Anmeldung";
+          enrich_login_id_token_with_userinfo = true;
+          allow_multiple_user_backends = false;
         };
         enabledPreviewProviders = [
           "OC\\Preview\\Image"
