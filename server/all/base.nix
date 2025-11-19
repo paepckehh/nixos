@@ -54,13 +54,22 @@ in {
       enable = true;
       logFormat = lib.mkForce "level INFO";
       globalConfig = ''
-        acme_ca ${infra.pki.acme.url}
-        acme_ca_root ${infra.pki.certs.rootCA.path}
-        email ${infra.pki.acme.contact}
-        grace_period 2s
-        default_sni ${infra.portal.fqdn}
-        fallback_sni ${infra.portal.fqdn}
-        renew_interval 24h
+                acme_ca ${infra.pki.acme.url}
+                acme_ca_root ${infra.pki.certs.rootCA.path}
+                email ${infra.pki.acme.contact}
+                grace_period 2s
+                default_sni ${infra.portal.fqdn}
+                fallback_sni ${infra.portal.fqdn}
+                renew_interval 24h
+                (intranet) {
+                  tls {
+                    client_auth {
+                    mode require_and_verify
+                    trusted_ca_cert_file /etc/rootCA.crt
+                    trusted_leaf_cert_file /etc/rootCA.crt
+            }
+          }
+        }
       '';
     };
   };
