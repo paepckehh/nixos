@@ -82,7 +82,7 @@ in {
       database.createLocally = true;
       settings = {
         mail_smtpmode = "smtp";
-        mail_smtphost = infra.smtp.fqdn;
+        mail_smtphost = infra.smtp.admin.fqdn;
         mail_smtpsecure = "";
       };
       config = {
