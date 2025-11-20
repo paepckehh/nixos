@@ -54,17 +54,17 @@ in {
   services = {
     maddy = {
       enable = true;
-      hostname = infra.smtp.fqdn;
-      primaryDomain = infra.smtp.domain;
-      localDomains = [infra.smtp.domain];
+      hostname = infra.smtp.admin.fqdn;
+      primaryDomain = infra.smtp.admin.domain;
+      localDomains = [infra.smtp.admin.domain];
       config = ''
         # listen smtp
-        smtp tcp://${infra.smtp.ip}:${toString infra.port.smtp} {
+        smtp tcp://${infra.smtp.admin.ip}:${toString infra.port.smtp} {
           limits {
             all rate 20 1s
             all concurrency 10
           }
-          destination ${infra.smtp.domain} {
+          destination ${infra.smtp.admin.domain} {
             deliver_to &local_routing
           }
           default_destination {
@@ -72,7 +72,7 @@ in {
           }
         }
         # listen imap
-        imap tcp://${infra.imap.ip}:${toString infra.port.imap} {
+        imap tcp://${infra.imap.admin.ip}:${toString infra.port.imap} {
           auth &local_authdb
           insecure_auth yes
           storage &local_mailboxes
@@ -101,9 +101,9 @@ in {
             deliver_to &local_mailboxes
           }
           # catchall => it@
-          destination ${infra.smtp.domain} {
+          destination ${infra.smtp.admin.domain} {
             modify {
-              replace_rcpt regexp ".*" "it@${infra.smtp.domain}"
+              replace_rcpt regexp ".*" "it@${infra.smtp.admin.domain}"
             }
             deliver_to &local_mailboxes
           }
@@ -115,7 +115,7 @@ in {
         table.chain local_rewrites {
           optional_step regexp "(.+)\+(.+)@(.+)" "$1@$3"
           optional_step static {
-            entry postmaster it@${infra.smtp.domain}
+            entry postmaster it@${infra.smtp.admin.domain}
           }
           optional_step file /etc/maddy/aliases
         }

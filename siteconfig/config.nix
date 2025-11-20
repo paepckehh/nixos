@@ -116,12 +116,27 @@ let
     smtp = {
       id = 25;
       hostname = "smtp";
-      domain = infra.domain.user;
-      fqdn = "${infra.smtp.hostname}.${infra.smtp.domain}";
-      ip = "${infra.net.user}.${toString infra.smtp.id}";
-      uri = "smtp://${infra.smtp.fqdn}:${toString infra.port.smtp}";
-      access.cidr = infra.cidr.user;
-      extern.domain = infra.site.domain.extern;
+      admin = {
+        domain = infra.domain.admin;
+        fqdn = "${infra.smtp.hostname}.${infra.smtp.admin.domain}";
+        ip = "${infra.net.admin}.${toString infra.smtp.id}";
+        uri = "smtp://${infra.smtp.admin.fqdn}:${toString infra.port.smtp}";
+        access.cidr = infra.cidr.admin;
+      };
+      user = {
+        domain = infra.domain.user;
+        fqdn = "${infra.smtp.hostname}.${infra.smtp.user.domain}";
+        ip = "${infra.net.user}.${toString infra.smtp.id}";
+        uri = "smtp://${infra.smtp.user.fqdn}:${toString infra.port.smtp}";
+        access.cidr = infra.cidr.user;
+      };
+      external = {
+        domain = infra.site.domain.extern;
+        fqdn = "${infra.smtp.hostname}.${infra.smtp.external.domain}";
+        ip = "192.168.21.125"; # XXX
+        uri = "smtp://${infra.smtp.external.fqdn}:${toString infra.port.smtp}";
+        access.cidr = infra.cidr.user;
+      };
     };
     # auto configure imap, jmap, smtp, thunderbird
     # https://www.ietf.org/archive/id/draft-ietf-mailmaint-autoconfig-00.html#name-formal-definition

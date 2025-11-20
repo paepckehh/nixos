@@ -1,0 +1,1 @@
+../all/maddy-admin.nix

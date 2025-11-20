@@ -86,6 +86,8 @@ in {
                                              1h)  ; Negative Cache TTL
                                       IN NS   ${infra.dns.fqdn}.
             ${infra.dns.fqdn}         IN A    ${infra.dns.ip}
+            ${infra.imap.hostname}    IN A    ${infra.imap.admin.ip}
+            ${infra.smtp.hostname}    IN A    ${infra.smtp.admin.ip}
             ${infra.pki.hostname}     IN A    ${infra.pki.ip}
             ${infra.webacme.hostname} IN A    ${infra.webacme.ip}
             ${infra.webmtls.hostname} IN A    ${infra.webmtls.ip}
@@ -116,10 +118,10 @@ in {
             ${infra.grist.hostname}           IN A  ${infra.grist.ip}
             ${infra.iam.hostname}             IN A  ${infra.iam.ip}
             ${infra.it.hostname}              IN A  ${infra.it.ip}
-            ${infra.imap.hostname}            IN A  ${infra.imap.ip}
+            ${infra.imap.hostname}            IN A  ${infra.imap.user.ip}
             ${infra.ldap.hostname}            IN A  ${infra.ldap.ip}
             ${infra.sso.hostname}             IN A  ${infra.sso.ip}
-            ${infra.smtp.hostname}            IN A  ${infra.smtp.ip}
+            ${infra.smtp.hostname}            IN A  ${infra.smtp.user.ip}
             ${infra.portal.hostname}          IN A  ${infra.portal.ip}
             ${infra.res.hostname}             IN A  ${infra.res.ip}
             ${infra.search.hostname}          IN A  ${infra.search.ip}
@@ -162,7 +164,29 @@ in {
             ${infra.dns.fqdn}    IN A  ${infra.dns.ip}
           '';
         };
-        "0.${toString infra.site.networkrange.oct2}.${toString infra.site.networkrange.oct1}.in-addr.arpa" = {
+        "${toString infra.id.admin}.${toString infra.site.networkrange.oct2}.${toString infra.site.networkrange.oct1}.in-addr.arpa" = {
+          master = true;
+          slaves = [infra.dns.ip];
+          allowQuery = infra.dns.accessArray;
+          file = pkgs.writeText "0.${toString infra.site.networkrange.oct2}.${toString infra.site.networkrange.oct1}.in-addr.arpa" ''
+            $ORIGIN 0.${toString infra.site.networkrange.oct2}.${toString infra.site.networkrange.oct1}.in-addr.arpa.
+            $TTL    1h
+            @ IN SOA ${infra.dns.fqdn}. ${infra.dns.contact}. (
+                                             1    ; Serial
+                                             3h   ; Refresh
+                                             1h   ; Retry
+                                             1w   ; Expire
+                                             1h)  ; Negative Cache TTL
+                                                IN NS  ${infra.dns.fqdn}.
+            ${infra.dns.fqdn}                   IN A   ${infra.dns.ip}
+            ${toString infra.imap.id}           IN PTR ${infra.imap.admin.fqdn}.
+            ${toString infra.smtp.id}           IN PTR ${infra.smtp.admin.fqdn}.
+            ${toString infra.webacme.id}        IN PTR ${infra.webacme.fqdn}.
+            ${toString infra.webmtls.id}        IN PTR ${infra.webmtls.fqdn}.
+            ${toString infra.webpki.id}         IN PTR ${infra.webpki.fqdn}.
+          '';
+        };
+        "${toString infra.id.user}.${toString infra.site.networkrange.oct2}.${toString infra.site.networkrange.oct1}.in-addr.arpa" = {
           master = true;
           slaves = [infra.dns.ip];
           allowQuery = infra.dns.accessArray;
@@ -181,17 +205,14 @@ in {
             ${toString infra.cache.id}          IN PTR ${infra.cache.fqdn}.
             ${toString infra.iam.id}            IN PTR ${infra.iam.fqdn}.
             ${toString infra.it.id}             IN PTR ${infra.it.fqdn}.
-            ${toString infra.imap.id}           IN PTR ${infra.imap.fqdn}.
+            ${toString infra.imap.id}           IN PTR ${infra.imap.user.fqdn}.
             ${toString infra.ldap.id}           IN PTR ${infra.ldap.fqdn}.
             ${toString infra.pki.id}            IN PTR ${infra.pki.fqdn}.
             ${toString infra.portal.id}         IN PTR ${infra.portal.fqdn}.
             ${toString infra.search.id}         IN PTR ${infra.search.fqdn}.
-            ${toString infra.smtp.id}           IN PTR ${infra.smtp.fqdn}.
+            ${toString infra.smtp.id}           IN PTR ${infra.smtp.user.fqdn}.
             ${toString infra.res.id}            IN PTR ${infra.res.fqdn}.
             ${toString infra.translate-lama.id} IN PTR ${infra.translate-lama.fqdn}.
-            ${toString infra.webacme.id}        IN PTR ${infra.webacme.fqdn}.
-            ${toString infra.webmtls.id}        IN PTR ${infra.webmtls.fqdn}.
-            ${toString infra.webpki.id}         IN PTR ${infra.webpki.fqdn}.
             ${toString infra.webmail.id}        IN PTR ${infra.webmail.fqdn}.
           '';
         };
