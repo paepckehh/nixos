@@ -174,7 +174,7 @@ let
       access = infra.cidr.all;
       accessArray = infra.cidr.allArray;
       upstream = ["192.168.80.1" "10.20.6.2"]; # XXX
-      contact = "it.${infra.smtp.extern.domain}";
+      contact = "it.${infra.smtp.external.domain}";
     };
     cache = {
       id = 55;
