@@ -140,7 +140,7 @@
           ./server/iam/lldap.nix
           ./server/log/syslog-ng.nix
           ./server/mail/autoconfig.nix
-          ./server/mail/maddy-local-only.nix
+          ./server/mail/maddy-admin.nix
           ./server/search/searx.nix
           ./server/pki/small-step.nix
           ./server/portal/homer-home.nix
