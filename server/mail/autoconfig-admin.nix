@@ -1,0 +1,1 @@
+../all/autoconfig-admin.nix
