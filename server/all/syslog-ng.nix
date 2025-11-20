@@ -93,8 +93,8 @@ in {
                          port(${toString infra.port.smtp})
                          from("syslog-ng alert service" "${infra.admin.email}")
                          to("ADMIN ${infra.admin.email}" "${infra.admin.email}")
-                         subject("[ALERT] Important log message of ${LEVEL} condition received from ${HOST}/${PROGRAM}!")
-                         body("Hi!\nThe syslog-ng alerting service detected the following important log message:\n ${MSG}\n-- \nsyslog-ng\n")
+                         subject("[ALERT] Important log message of XXX-LEVEL condition received from XXX-HOST-PROGRAM!")
+                         body("Hi!\nThe syslog-ng alerting service detected the following important log message:\n XXX-MSG \n-- \nsyslog-ng\n")
                 );
          };
          filter f_err  { level(err..emerg); };
