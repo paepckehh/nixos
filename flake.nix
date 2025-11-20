@@ -138,7 +138,7 @@
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix
           ./server/log/syslog-ng.nix
-          ./server/mail/autoconfig.nix
+          ./server/mail/autoconfig-admin.nix
           ./server/mail/maddy-admin.nix
           ./server/search/searx.nix
           ./server/pki/small-step.nix
