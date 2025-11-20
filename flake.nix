@@ -149,7 +149,7 @@
           # ./server/portal/homer-it.nix
           # ./server/pki/certwarden.nix
           # ./server/pki/mkcertweb.nix
-          # ./server/pki/vaultls.nix
+          ./server/pki/vaultls.nix
           # ./server/ticket/zammad.nix
           # ./server/devops/openvs-code.nix
           # ./server/office/grist.nix
@@ -175,7 +175,7 @@
           # ./server/lang/libretranslate.nix
           # ./server/cloud/nextcloud.nix
           # ./server/office/onlyoffice-docker.nix
-          ./server/ai/ollama.nix
+          # ./server/ai/ollama.nix
           # ./server/ai/openweb-ui.nix
           # ./server/message/element-web.nix
           # ./server/message/tuwunel.nix
