@@ -116,7 +116,7 @@ in {
         # smtp
         smtp_options = {
           enable_password_reset = true;
-          server = infra.smtp.fqdn;
+          server = infra.smtp.admin.fqdn;
           port = infra.port.smtp;
           smtp_encryption = "NONE";
           from = infra.admin.email;
