@@ -158,7 +158,7 @@ in {
         notifier = {
           disable_startup_check = true;
           smtp = {
-            address = infra.smtp.uri;
+            address = infra.smtp.admin.uri;
             sender = infra.admin.email;
             subject = "[DebiCloud] [Business] [Anmeldung] [SSO]";
             disable_require_tls = true;
