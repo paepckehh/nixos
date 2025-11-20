@@ -23,13 +23,6 @@ in {
   ####################
   networking.extraHosts = "${infra.pki.ip} ${infra.pki.hostname} ${infra.pki.fqdn}";
 
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  imports = [
-    ../../client/addrootCA-small-step.nix
-  ];
-
   #############
   #-=# AGE #=-#
   #############

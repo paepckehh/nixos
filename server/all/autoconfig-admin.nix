@@ -33,14 +33,14 @@ in {
         domain = infra.autoconfig.fqdn;
         service_addr = "${infra.localhost.ip}:${toString infra.autoconfig.localbind.port.http}";
         imap = {
-          server = infra.imap.fqdn;
+          server = infra.imap.admin.fqdn;
           port = infra.port.imap;
           socketType = infra.autoconfig.auth.socketType;
           authentication = infra.autoconfig.auth.authentication;
           userid = infra.autoconfig.auth.id;
         };
         smtp = {
-          server = infra.smtp.fqdn;
+          server = infra.smtp.admin.fqdn;
           port = infra.port.smtp;
           socketType = infra.autoconfig.auth.socketType;
           authentication = infra.autoconfig.auth.authentication;

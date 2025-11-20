@@ -36,8 +36,8 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment = {
-    etc."rootCA.crt".text = ''
+  environment.etc = {
+    "rootCA.crt".text = ''
       -----BEGIN CERTIFICATE-----
       MIIBmjCCAUGgAwIBAgIQeLqiGJEfATE/LpKT96khmTAKBggqhkjOPQQDAjAsMRAw
       DgYDVQQKEwdob21lbGFiMRgwFgYDVQQDEw9ob21lbGFiIFJvb3QgQ0EwHhcNMjUx
@@ -60,7 +60,42 @@
       EkYwHwYDVR0jBBgwFoAUVN0IqQWKArSXQdFVfQaNTv0bZg8wCgYIKoZIzj0EAwID
       SAAwRQIhAN+hzks0Z09eZK/YWztpdkJSSVRPdtgGKQ7C8uan3pOLAiBqO3gyD4ed
       ZkeKuMa4+VYkM9XkV9vdfBupx6HHCBRXqg==
-      -----END CERTIFICATE-----
-    '';
+      -----END CERTIFICATE-----'';
+    "rootMTLS.crt".text = ''
+      -----BEGIN CERTIFICATE-----
+      MIIBmjCCAUGgAwIBAgIQeLqiGJEfATE/LpKT96khmTAKBggqhkjOPQQDAjAsMRAw
+      DgYDVQQKEwdob21lbGFiMRgwFgYDVQQDEw9ob21lbGFiIFJvb3QgQ0EwHhcNMjUx
+      MDI2MTQzMTM1WhcNMzUxMDI0MTQzMTM1WjAsMRAwDgYDVQQKEwdob21lbGFiMRgw
+      FgYDVQQDEw9ob21lbGFiIFJvb3QgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNC
+      AAT8NzCaCOOl+prX8pXGZp1aXDlSjz5RH31abVHSGgekUuqmnWnF6wrDKvMPWDs+
+      eunAe2ZJ3aoQB1Xr15AdY6Mgo0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/
+      BAgwBgEB/wIBATAdBgNVHQ4EFgQUVN0IqQWKArSXQdFVfQaNTv0bZg8wCgYIKoZI
+      zj0EAwIDRwAwRAIge0ClrJ/YZJLxecEKjp809KtTlUDymQyXZ8TYP4wPm9ECIBkd
+      L/owkMWcN/LnN3FrW0iwkgQpl4yADI2+vKa2dL2o
+      -----END CERTIFICATE-----'';
+    "adminMTLS.crt".text = ''
+      -----BEGIN CERTIFICATE-----
+      MIIBmjCCAUGgAwIBAgIQeLqiGJEfATE/LpKT96khmTAKBggqhkjOPQQDAjAsMRAw
+      DgYDVQQKEwdob21lbGFiMRgwFgYDVQQDEw9ob21lbGFiIFJvb3QgQ0EwHhcNMjUx
+      MDI2MTQzMTM1WhcNMzUxMDI0MTQzMTM1WjAsMRAwDgYDVQQKEwdob21lbGFiMRgw
+      FgYDVQQDEw9ob21lbGFiIFJvb3QgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNC
+      AAT8NzCaCOOl+prX8pXGZp1aXDlSjz5RH31abVHSGgekUuqmnWnF6wrDKvMPWDs+
+      eunAe2ZJ3aoQB1Xr15AdY6Mgo0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/
+      BAgwBgEB/wIBATAdBgNVHQ4EFgQUVN0IqQWKArSXQdFVfQaNTv0bZg8wCgYIKoZI
+      zj0EAwIDRwAwRAIge0ClrJ/YZJLxecEKjp809KtTlUDymQyXZ8TYP4wPm9ECIBkd
+      L/owkMWcN/LnN3FrW0iwkgQpl4yADI2+vKa2dL2o
+      -----END CERTIFICATE-----'';
+    "userMTLS.crt".text = ''
+      -----BEGIN CERTIFICATE-----
+      MIIBmjCCAUGgAwIBAgIQeLqiGJEfATE/LpKT96khmTAKBggqhkjOPQQDAjAsMRAw
+      DgYDVQQKEwdob21lbGFiMRgwFgYDVQQDEw9ob21lbGFiIFJvb3QgQ0EwHhcNMjUx
+      MDI2MTQzMTM1WhcNMzUxMDI0MTQzMTM1WjAsMRAwDgYDVQQKEwdob21lbGFiMRgw
+      FgYDVQQDEw9ob21lbGFiIFJvb3QgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNC
+      AAT8NzCaCOOl+prX8pXGZp1aXDlSjz5RH31abVHSGgekUuqmnWnF6wrDKvMPWDs+
+      eunAe2ZJ3aoQB1Xr15AdY6Mgo0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/
+      BAgwBgEB/wIBATAdBgNVHQ4EFgQUVN0IqQWKArSXQdFVfQaNTv0bZg8wCgYIKoZI
+      zj0EAwIDRwAwRAIge0ClrJ/YZJLxecEKjp809KtTlUDymQyXZ8TYP4wPm9ECIBkd
+      L/owkMWcN/LnN3FrW0iwkgQpl4yADI2+vKa2dL2o
+      -----END CERTIFICATE-----'';
   };
 }

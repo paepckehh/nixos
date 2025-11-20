@@ -93,7 +93,6 @@
           nvf.nixosModules.default
           ./configuration.nix
           ./storage/stateless-luks.nix
-          ./client/addrootCA.nix
           ./client/forward-syslog-ng.nix
           ./client/wifi-base.nix
           ./client/wireguard-wg110.nix
@@ -120,7 +119,7 @@
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
           ./configuration.nix
-          ./client/addrootCA-small-step.nix
+          ./client/addrootCA.nix
           ./client/addCache.nix
           ./client/addEndlessh.nix
           ./storage/stateless-luks.nix

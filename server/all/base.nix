@@ -67,7 +67,7 @@ in {
            tls {
              client_auth {
                mode verify_if_given
-               trusted_ca_cert_file /etc/rootCA.crt
+               trusted_ca_cert_file /etc/rootMTLS.crt
                trusted_leaf_cert_file /etc/adminMTLS.crt
              }
            }
@@ -78,7 +78,7 @@ in {
            tls {
              client_auth {
                mode verify_if_given
-               trusted_ca_cert_file /etc/rootCA.crt
+               trusted_ca_cert_file /etc/rootMTLS.crt
                trusted_leaf_cert_file /etc/userMTL.crt
              }
            }
