@@ -395,10 +395,18 @@ let
     imap = {
       id = 143;
       hostname = "imap";
-      domain = infra.domain.user;
-      fqdn = "${infra.imap.hostname}.${infra.imap.domain}";
-      ip = "${infra.net.user}.${toString infra.imap.id}";
-      access.cidr = infra.cidr.user;
+      admin = {
+        domain = infra.domain.user;
+        fqdn = "${infra.imap.hostname}.${infra.imap.admin.domain}";
+        ip = "${infra.net.user}.${toString infra.imap.id}";
+        access.cidr = infra.cidr.admin;
+      };
+      user = {
+        domain = infra.domain.user;
+        fqdn = "${infra.imap.hostname}.${infra.imap.user.domain}";
+        ip = "${infra.net.user}.${toString infra.imap.id}";
+        access.cidr = infra.cidr.user;
+      };
     };
     webacme = {
       id = 151;
