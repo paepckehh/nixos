@@ -21,6 +21,6 @@ in {
   services.endlessh = {
     enable = true;
     port = 22;
-    extraOptions = ["-4" "-s" "-v" "-d 4500"];
+    extraOptions = ["-4" "-s" "-v" "-d 400"];
   };
 }
