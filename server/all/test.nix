@@ -20,18 +20,13 @@ in {
   ##################
   services = {
     caddy.virtualHosts."${infra.test.fqdn}" = {
-      listenAddresses = [infra.search.ip];
+      listenAddresses = [infra.test.ip];
       extraConfig = ''
-              bind ${infra.test.ip}
-              tls ${infra.pki.acme.contact} {
-                  ca_root ${infra.pki.certs.rootCA.path}
-                  ca ${infra.pki.acme.url}
-              }
-              @not_intranet { not remote_ip ${infra.test.access.cidr} }
-              respond @not_intranet 403
-              request_body { max_size 1MB }
-              templates
-              respond <<PARROT
+        import intra
+        request_body { max_size 1MB }
+        templates
+        respond <<PARROT
+
         ## Request Summary:
         Method         : {{ .Req.Method }}
         URI            : {{ .Req.RequestURI }}

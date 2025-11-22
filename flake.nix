@@ -134,6 +134,7 @@
           # ./server/ai/open-webui-authelia.nix
           ./server/cache/ncps.nix
           ./server/cloud/nextcloud-authelia.nix
+          ./server/dns/adguard.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix
@@ -141,14 +142,16 @@
           ./server/mail/autoconfig-admin.nix
           ./server/mail/maddy-admin.nix
           ./server/search/searx.nix
+          ./server/secret/vaultwarden.nix
           ./server/pki/small-step.nix
           ./server/portal/homer-home.nix
+          # ./server/ocr/paperless.nix
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           # ./server/portal/homer-it.nix
           # ./server/pki/certwarden.nix
           # ./server/pki/mkcertweb.nix
-          ./server/pki/vaultls.nix
+          # ./server/pki/vaultls.nix
           # ./server/ticket/zammad.nix
           # ./server/devops/openvs-code.nix
           # ./server/office/grist.nix
@@ -169,7 +172,6 @@
           # ./server/rss/miniflux.nix
           # ./server/share/immich.nix
           # ./server/share/wastebin.nix
-          # ./server/share/paperless.nix
           # ./server/share/mediawiki.nix
           # ./server/lang/libretranslate.nix
           # ./server/cloud/nextcloud.nix
@@ -181,8 +183,6 @@
           # ./server/mail/davis.nix
           # ./server/mail/open-web-calendar.nix
           # ./server/hr/timeoff.nix
-          # ./server/dns/adguard.nix
-          # ./server/pki/small-step.nix
           # ./server/mail/roundcube.nix
           # ./server/devops/olivetin.nix
           # ./server/soc/chef.nix

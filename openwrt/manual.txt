@@ -102,3 +102,5 @@ btop luci-ssl luci-mod-dashboard vim-fuller fish whereis mtr curl openssh-server
 
 # add prometheus
 prometheus-node-exporter-lua prometheus-node-exporter-lua-hostapd_stations prometheus-node-exporter-lua-hwmon prometheus-node-exporter-lua-nat_traffic prometheus-node-exporter-lua-netstat prometheus-node-exporter-lua-openwrt prometheus-node-exporter-lua-thermal prometheus-node-exporter-lua-uci_dhcp_host prometheus-node-exporter-lua-wifi prometheus-node-exporter-lua-wifi_stations
+
+# wfhpi

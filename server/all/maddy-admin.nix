@@ -13,7 +13,7 @@ in {
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = "${infra.smtp.ip} ${infra.smtp.hostname} ${infra.smtp.fqdn}";
+    extraHosts = "${infra.smtp.admin.ip} ${infra.smtp.admin.fqdn}";
     firewall.allowedTCPPorts = [infra.port.smtp infra.port.imap];
   };
 

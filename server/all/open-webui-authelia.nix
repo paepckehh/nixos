@@ -80,14 +80,9 @@ in {
         WEB_SEARCH_ENGINE = "searxng";
       };
     };
-    caddy = {
-      virtualHosts."${infra.ai.fqdn}" = {
-        listenAddresses = [infra.ai.ip];
-        extraConfig = ''
-          reverse_proxy ${infra.ai.ip}:${toString infra.ai.localbind.port.http}
-          @not_intranet { not remote_ip ${infra.ai.access.cidr} }
-          respond @not_intranet 403'';
-      };
+    caddy.virtualHosts."${infra.cloud.fqdn}" = {
+      listenAddresses = [infra.cloud.ip];
+      extraConfig = ''import intraproxy ${toString infra.cloud.localbind.port.http}'';
     };
   };
 }

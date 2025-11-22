@@ -119,8 +119,8 @@ in {
         overwriteprotocol = "https"; # check
         default_phone_region = "DE"; # check
         auto_logout = false;
-        allowed_admin_ranges = infra.cloud.access.cidr;
-        default_timezone = infra.site.tz;
+        allowed_admin_ranges = infra.cidr.admin;
+        default_timezone = infra.locale.tz;
         remember_login_cookie_lifetime = "60*60*24*90"; # 90 Tage
         session_lifetime = "60*60*24*7"; # 7 Tage
         trusted_domains = ["home.corp" "cloud.home.corp" "sso.home.corp"];
@@ -128,15 +128,16 @@ in {
         allow_user_to_change_display_name = false;
         lost_password_link = "disabled";
         oidc_create_groups = false;
+        hide_login_form = true;
         user_oidc = {
-          default_token_endpoint_auth_method = "client_secret_post";
-          provider = "authelia";
-          clientid = "nextcloud";
-          clientsecret = "insecure_secret";
-          discoveryuri = "https://sso.home.corp/.well-known/openid-configuration";
-          login_label' = "SSO Anmeldung";
-          enrich_login_id_token_with_userinfo = true;
           allow_multiple_user_backends = false;
+          clientid = infra.cloud.app;
+          clientsecret = "insecure_secret";
+          default_token_endpoint_auth_method = "client_secret_post";
+          discoveryuri = infra.sso.oicd.discoveryUri;
+          enrich_login_id_token_with_userinfo = true;
+          login_label' = "SSO Anmeldung [${infra.sso.app}]";
+          provider = infra.sso.app;
         };
         enabledPreviewProviders = [
           "OC\\Preview\\Image"
@@ -163,10 +164,7 @@ in {
     };
     caddy.virtualHosts."${infra.cloud.fqdn}" = {
       listenAddresses = [infra.cloud.ip];
-      extraConfig = ''
-        reverse_proxy ${infra.localhost.ip}:${toString infra.cloud.localbind.port.http}
-        @not_intranet { not remote_ip ${infra.cloud.access.cidr} }
-        respond @not_intranet 403'';
+      extraConfig = ''import intraproxy ${toString infra.cloud.localbind.port.http}'';
     };
   };
 }

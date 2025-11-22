@@ -92,9 +92,9 @@ in {
             ${infra.webacme.hostname} IN A    ${infra.webacme.ip}
             ${infra.webmtls.hostname} IN A    ${infra.webmtls.ip}
             ${infra.webpki.hostname}  IN A    ${infra.webpki.ip}
-            ${infra.webacme.hostname} IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.webacme.ip}"
-            ${infra.webmtls.hostname} IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.webmtls.ip}"
-            ${infra.webpki.hostname}  IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.webpki.ip}"
+            ${infra.webacme.hostname} IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webacme.ip}"
+            ${infra.webmtls.hostname} IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webmtls.ip}"
+            ${infra.webpki.hostname}  IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webpki.ip}"
           '';
         };
         "${infra.domain.user}" = {
@@ -127,23 +127,25 @@ in {
             ${infra.search.hostname}          IN A  ${infra.search.ip}
             ${infra.test.hostname}            IN A  ${infra.test.ip}
             ${infra.translate-lama.hostname}  IN A  ${infra.translate-lama.ip}
+            ${infra.vault.hostname}           IN A  ${infra.vault.ip}
             ${infra.webarchiv.hostname}       IN A  ${infra.webarchiv.ip}
             ${infra.webmail.hostname}         IN A  ${infra.webmail.ip}
-            ${infra.autoconfig.hostname}      IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.webmail.ip}"
-            ${infra.cache.hostname}           IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.cache.ip}"
-            ${infra.cloud.hostname}           IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.cloud.ip}"
-            ${infra.grist.hostname}           IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.grist.ip}"
-            ${infra.iam.hostname}             IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.iam.ip}"
-            ${infra.it.hostname}              IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.it.ip}"
-            ${infra.ldap.hostname}            IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.ldap.ip}"
-            ${infra.sso.hostname}             IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.sso.ip}"
-            ${infra.portal.hostname}          IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.portal.ip}"
-            ${infra.res.hostname}             IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.res.ip}"
-            ${infra.search.hostname}          IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.search.ip}"
-            ${infra.test.hostname}            IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.test.ip}"
-            ${infra.translate-lama.hostname}  IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.translate-lama.ip}"
-            ${infra.webarchiv.hostname}       IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.webarchiv.ip}"
-            ${infra.webmail.hostname}         IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.webmail.ip}"
+            ${infra.autoconfig.hostname}      IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webmail.ip}"
+            ${infra.cache.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.cache.ip}"
+            ${infra.cloud.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.cloud.ip}"
+            ${infra.grist.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.grist.ip}"
+            ${infra.iam.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.iam.ip}"
+            ${infra.it.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.it.ip}"
+            ${infra.ldap.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.ldap.ip}"
+            ${infra.sso.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.sso.ip}"
+            ${infra.portal.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.portal.ip}"
+            ${infra.res.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.res.ip}"
+            ${infra.search.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.search.ip}"
+            ${infra.test.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.test.ip}"
+            ${infra.translate-lama.hostname}  IN HTTPS 1 . alpn="h3" ipv4hint="${infra.translate-lama.ip}"
+            ${infra.vault.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.vault.ip}"
+            ${infra.webarchiv.hostname}       IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webarchiv.ip}"
+            ${infra.webmail.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webmail.ip}"
             _autodiscover._tcp                IN SRV 0 0 443 ${infra.autoconfig.fqdn}.
           '';
         };
