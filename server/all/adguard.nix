@@ -1,54 +1,23 @@
+# adguard dns filter
 {
+  config,
   pkgs,
   lib,
-  config,
   ...
 }: let
-  infra = {
-    lan = {
-      domain = "corp";
-      namespace = "00-${infra.lan.domain}";
-      services = {
-        pki = {
-          ip = "10.20.0.20";
-          hostname = "pki";
-          ports.tcp = 443;
-          domain = "adm.${infra.lan.domain}";
-          network = "10.20.0.0/24";
-        };
-        adguard = {
-          ip = "10.20.0.53";
-          hostname = "adguard";
-          domain = "adm.${infra.lan.domain}";
-          network = "10.20.0.0/24";
-          ports = {
-            dns = 53;
-            tcp = 443;
-          };
-          localbind = {
-            ip = "127.0.0.1";
-            ports.tcp = 7053;
-          };
-        };
-      };
-    };
-  };
+  ############################
+  #-=# GLOBAL SITE IMPORT #=-#
+  ############################
+  infra = (import ../../siteconfig/config.nix).infra;
 in {
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.network.networks.${infra.lan.namespace}.addresses = [
-    {Address = "${infra.lan.services.adguard.ip}/32";}
-  ];
-
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = "${infra.lan.services.adguard.ip} ${infra.lan.services.adguard.hostname} ${infra.lan.services.adguard.hostname}.${infra.lan.services.adguard.domain}";
+    extraHosts = "${infra.adguard.ip} ${infra.adguard.hostname} ${infra.adguard.fqdn}";
     firewall = {
-      allowedTCPPorts = [infra.lan.services.adguard.ports.dns infra.lan.services.adguard.ports.tcp];
-      allowedUDPPorts = [infra.lan.services.adguard.ports.dns];
+      allowedTCPPorts = [infra.port.dns];
+      allowedUDPPorts = [infra.port.dns];
     };
   };
 
@@ -58,11 +27,9 @@ in {
   environment = {
     systemPackages = with pkgs; [adguardian];
     variables = {
-      ADGUARD_IP = "${infra.lan.services.adguard.localbind.ip}";
-      ADGUARD_PORT = "${toString infra.lan.services.adguard.localbind.ports.tcp}";
+      ADGUARD_IP = infra.localhost.ip;
+      ADGUARD_PORT = "${toString infra.adguard.localbind.port.http}";
       ADGUARD_PROTOCOL = "http";
-      ADGUARD_USERNAME = "admin";
-      ADGUARD_PASSWORD = "admin";
     };
   };
 
@@ -73,8 +40,8 @@ in {
     adguardhome = {
       enable = true;
       mutableSettings = false;
-      host = "${infra.lan.services.adguard.localbind.ip}";
-      port = infra.lan.services.adguard.localbind.ports.tcp;
+      host = infra.localhost.ip;
+      port = infra.adguard.localbind.port.http;
       openFirewall = false;
       settings = {
         dhcp.enabled = false;
@@ -87,15 +54,10 @@ in {
           refuse_any = true;
           aaaa_disabled = true;
           enable_dnssec = true;
-          bind_hosts = ["${infra.lan.services.adguard.ip}"]; # bind only to outside interface
-          bind_port = infra.lan.services.adguard.ports.dns;
+          bind_hosts = [infra.adguard.ip]; # bind only to outside interface
+          bind_port = infra.port.dns;
           upstream_mode = "parallel";
-          upstream_dns = [
-            "sdns://AQcAAAAAAAAADjIzLjE0MC4yNDguMTAwIFa3zBQNs5jjEISHskpY7WSNK4sLj_qrbFiLk5tSBN1uGTIuZG5zY3J5cHQtY2VydC5kbnNjcnkucHQ"
-            "sdns://AQcAAAAAAAAADzE0Ny4xODkuMTQwLjEzNiCL7wgLXnE-35sDhXk5N1RNpUfWmM2aUBcMFlst7FPdnRkyLmRuc2NyeXB0LWNlcnQuZG5zY3J5LnB0"
-            "sdns://AQcAAAAAAAAADDIzLjE4NC40OC4xOSCwg3q2XK6z70eHJhi0H7whWQ_ZWQylhMItvqKpd9GtzRkyLmRuc2NyeXB0LWNlcnQuZG5zY3J5LnB0"
-            "sdns://AQcAAAAAAAAADzE3Ni4xMTEuMjE5LjEyNiDzuja5nmAyDvA5jakqkuLQEtb245xsAhNwJYDLkKraKhkyLmRuc2NyeXB0LWNlcnQuZG5zY3J5LnB0"
-          ];
+          upstream_dns = infra.adguard.upstream_dns;
           bootstrap_dns = [
             "9.9.9.9"
             "9.9.9.10"
@@ -145,41 +107,18 @@ in {
             hosts = false;
           };
         };
-        user_rules = [
-          "@@||bahn.de^$important"
-        ];
+        user_rules = infra.adguard.user_rules;
         filters =
           map (url: {
             enabled = true;
             url = url;
-          }) [
-            "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
-            "https://easylist.to/easylist/easylist.txt"
-            "https://easylist.to/easylistgermany/easylistgermany.txt"
-            "https://easylist-downloads.adblockplus.org/antiadblockfilters.txt"
-            "https://secure.fanboy.co.nz/fanboy-annoyance.txt"
-          ];
+          })
+          infra.adguard.filter_lists;
       };
     };
-    caddy = {
-      enable = true;
-      logDir = lib.mkForce "/var/log/caddy";
-      logFormat = lib.mkForce "level INFO";
-      virtualHosts."${infra.lan.services.adguard.hostname}.${infra.lan.services.adguard.domain}".extraConfig = ''
-        bind ${infra.lan.services.adguard.ip}
-        reverse_proxy ${infra.lan.services.adguard.localbind.ip}:${toString infra.lan.services.adguard.localbind.ports.tcp}
-        tls acme@${infra.lan.services.pki.hostname}.${infra.lan.services.pki.domain} {
-              ca_root /etc/ca.crt
-              ca https://${infra.lan.services.pki.hostname}.${infra.lan.services.pki.domain}/acme/acme/directory
-        }
-        @not_intranet {
-          not remote_ip ${infra.lan.services.adguard.network}
-        }
-        basic_auth {
-          admin $2a$14$GrYizTUqc495HtJI3I2/FuIQv22w1FArhkzGBsmqTIRJlTMdQjAEC
-        }
-        respond @not_intranet 403
-      '';
+    caddy.virtualHosts."${infra.adguard.fqdn}" = {
+      listenAddresses = [infra.adguard.ip];
+      extraConfig = ''import adminproxy ${toString infra.adguard.localbind.port.http}'';
     };
   };
 }

@@ -156,10 +156,10 @@
       require-sigs = lib.mkForce true;
       preallocate-contents = lib.mkDefault true;
       allowed-uris = lib.mkDefault [
-        # "https://cache.nixos.org"
+        "https://cache.nixos.org"
       ];
       substituters = lib.mkDefault [
-        # "https://cache.nixos.org"
+        "https://cache.nixos.org"
       ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -217,7 +217,7 @@
     graphics = {
       enable = lib.mkForce true;
       enable32Bit = lib.mkForce false;
-      # extraPackages = with pkgs; [intel-media-driver vpl-gpu-rt]; # intel-compute-runtime
+      extraPackages = with pkgs; [intel-media-driver vpl-gpu-rt]; # intel-compute-runtime
     };
   };
 
@@ -305,9 +305,7 @@
   #-=# I18N #=-#
   ##############
   i18n = {
-    defaultLocale = "C.UTF-8";
-    # defaultLocale = "en_US.UTF-8";
-    # extraLocales = ["C.UTF-8" "de_DE.UTF-8"];
+    defaultLocale = "C.UTF-8"; # "en_US.UTF-8" "de_DE.UTF-8;
     extraLocaleSettings = {
       LC_ADDRESS = "de_DE.UTF-8";
       LC_IDENTIFICATION = "en_US.UTF-8";

@@ -15,6 +15,7 @@ ALLFLAKE:=/etc/nixos/.\#nixos-all
 PROFILE:="$(TARGET)-$(DTS)"
 TYPE:="nixos boot profile"
 USELUKS:=YES
+MIRROR:=/home/projects/nixos
 ifeq ($(origin LUKS),undefined)
       USELUKS:=NO
 endif
@@ -51,43 +52,41 @@ info-image:
 
 boot:   build 
 
-build:  info commit build-log
+build:  info build-log  
 	$(SUDO) nixos-rebuild boot --flake $(OSFLAKE) --profile-name $(PROFILE)
 
-buildagain:  info commit build-log
+buildagain:  info build-log 
 	$(SUDO) nixos-rebuild boot --flake $(OSFLAKE) --profile-name $(PROFILE)
 
-recover:  info commit build-log
+recover:  info build-log
 	@echo "Recover Build for system /mnt and $(OSFLAKE)"
 	$(SUDO) nixos-install --verbose --max-jobs $(PARALLEL) --cores $(PARALLEL) --keep-going --impure --no-root-password --root /mnt --flake $(OSFLAKE)
 
-check: info
+check: info 
 	nix flake check 
 	alejandra --quiet .
 
-switch: info commit build-log
+switch: info build-log
 	$(SUDO) nixos-rebuild switch --flake $(OSFLAKE) --profile-name $(PROFILE)
 
-update: commit  
+update: creds 
 	mkdir -p .attic/flake.lock
 	cp -f flake.lock .attic/flake.lock/$(DTS).flake.lock
 	nix flake update
-        
-bootloader: info commit 
+
+bootloader: info creds
 	$(SUDO) nixos-rebuild boot -v --fallback --install-bootloader
 
 test: commit build-log
 	nixos-rebuild dry-activate --flake $(OSFLAKE)
 
-offline: info commit 
-	# XXX broken: fixme 
+offline: info creds 
 	$(SUDO) nixos-rebuild boot -v --flake $(OSFLAKE) --profile-name $(PROFILE)
       
-rollback: commit
-	# XXX broken: fixme 
+rollback: creds
 	$(SUDO) nixos-rebuild switch --rollback 
 
-build-log:
+build-log: creds
 	nom build ".#nixosConfigurations.$(TARGET).config.system.build.toplevel"
 	@$(SUDO) rm -rf result
 
@@ -179,24 +178,24 @@ internal-clean-profiles:
 # set TARGETDRIVE for usb stick, default: sdb [uses: /dev/sdb] [supports: sda, sdb and sdc]
 TARGETDRIVE?=sdb
 
-sda: info-cleaninstall commit
+sda: info-cleaninstall
 	export PARALLEL=1
 	export TARGETDRIVE=sda
 	${MAKE} -C storage usb
 
 
-sdb: info-cleaninstall commit
+sdb: info-cleaninstall 
 	export PARALLEL=1
 	export TARGETDRIVE=sdb
 	${MAKE} -C storage usb
 
 
-sdc: info-cleaninstall commit 
+sdc: info-cleaninstall  
 	export PARALLEL=1
 	export TARGETDRIVE=sdc
 	${MAKE} -C storage usb
 
-usb: info-cleaninstall commit
+usb: info-cleaninstall
 	export PARALLEL=1
 	export TARGETDRIVE=$(TARGETDRIVE)
 	${MAKE} -C storage usb
@@ -204,7 +203,7 @@ usb: info-cleaninstall commit
 
 # make full automatic bootable iso (offline-) installer for current system,
 # set env TARGET for other nix flake target systems
-installer: info-iso-installer commit 
+installer: info-iso-installer  
 	@if [ !  -z  $(LUKS) ]; then (echo "LUKS Passwords for target installer-iso must explicitly set in autoinstall script, not in env." && exit 1);fi
 	@export NIXPKGS_ALLOW_BROKEN=1 
 	nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
@@ -212,13 +211,13 @@ installer: info-iso-installer commit
 
 # XXX WIP: maybe currently broken
 # make live iso image from current system, set env TARGET for other nix flake target systems
-iso: info-cleaninstall commit
+iso: info-cleaninstall 
 	nixos-rebuild build-image --flake $(OSFLAKE) --image-variant iso
 	ls -la /etc/nixos/result/iso
 
 # XXX WIP: maybe currently broken
 # make live iso image from current system, set env TARGET for other nix flake target systems
-qemu: info-cleaninstall commit
+qemu: info-cleaninstall 
 	nixos-rebuild build-image --flake $(OSFLAKE) --image-variant qemu-efi
 	ls -la /etc/nixos/result/iso
 
@@ -240,12 +239,39 @@ yubikey-generate-ssh:
 	cp -af ~/.ssh ~/.ssh.backup.$(DTS) || exit 1 
 	rm -rf ~/.ssh/id_ed25519_sk ~/.ssh/id_ed25519_sk.pub > /dev/null 2>&1 || true 
 	ssh-keygen -t ed25519-sk -f ~/.ssh/id_ed25519_sk <<< y
-	
 
+##############
+# GIT MIRROR #
+##############
+
+mirror:
+	git -C $(MIRROR)/agenix.git fetch
+	git -C $(MIRROR)/disko.git fetch
+	git -C $(MIRROR)/home-manager.git fetch
+	git -C $(MIRROR)/nvf.git fetch
+	git -C $(MIRROR)/nixpkgs.git fetch
+
+mirror-compact:
+	git -C $(MIRROR)/agenix.git gc --auto
+	git -C $(MIRROR)/disko.git gc --auto
+	git -C $(MIRROR)/home-manager.git gc --auto
+	git -C $(MIRROR)/nvf.git gc --auto
+	git -C $(MIRROR)/nixpkgs.git gc --auto
+
+mirror-compact-full:
+	git -C $(MIRROR)/agenix.git gc --aggressive
+	git -C $(MIRROR)/disko.git gc --aggressive
+	git -C $(MIRROR)/home-manager.git gc --aggressive
+	git -C $(MIRROR)/nvf.git gc --aggressive
+	git -C $(MIRROR)/nixpkgs.git gc --aggressive
 
 #################
 # LITTLE HELPER #
 #################
+
+
+creds :
+	$(SUDO) -v || exit 1
 
 sda-zero:
 	${MAKE} -C storage sda-zero

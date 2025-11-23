@@ -5,13 +5,11 @@ let
     site = {
       id = 50; # site/company id, range 1-256
       name = "home"; # site/company name
-      displayName = "Home Labs Paepcke";
+      displayName = "Home Lab - Paepcke";
       type = "private"; # private, business, validation, mobile
-      lang = "de";
-      tz = "Europe/Berlin";
       domain = {
         tld = "corp";
-        name = infra.site.name; # home
+        name = infra.site.name;
         extern = "paepcke.de";
       };
       networkrange = {
@@ -22,6 +20,11 @@ let
         admin = "IT-ADMIN-HOMECLOUD";
         user = "HOMECLOUD";
       };
+    };
+    locale = {
+      tz = "Europe/Berlin";
+      lang = "de";
+      defaultLocale = "C.UTF-8"; # "en_US.UTF-8" "de_DE.UTF-8;
     };
     email.domain = {
       intern = infra.domain.user;
@@ -103,8 +106,6 @@ let
       https = [];
     };
     opn = {
-      name = "bug";
-      logo = "https://res.${infra.domain.user}/icon/png/${infra.it.name}.png";
       standby = ["01"];
       infra = ["02" "03"];
       firewall = ["11" "12" "13"];
@@ -112,10 +113,20 @@ let
         https = "8443";
         ssh = "6622";
       };
+      logo = "${infra.res.url}/icon/png/borg.png";
+    };
+    print = {
+      app = "cups";
+      url = "https://drucker.${infra.domain.user}/printers";
+      logo = "${infra.res.url}/icon/png/printer.png";
     };
     smtp = {
       id = 25;
       hostname = "smtp";
+      domain = infra.smtp.user.domain;
+      ip = infra.smtp.user.ip;
+      fqdn = infra.smtp.user.fqdn;
+      uri = infra.smtp.user.uri;
       admin = {
         domain = infra.domain.admin;
         fqdn = "${infra.smtp.hostname}.${infra.smtp.admin.domain}";
@@ -125,7 +136,7 @@ let
       };
       user = {
         domain = infra.domain.user;
-        fqdn = "${infra.smtp.hostname}.${infra.smtp.user.domain}";
+        fqdn = "${infra.smtp.hostname}.${infra.smtp.domain}";
         ip = "${infra.net.user}.${toString infra.smtp.id}";
         uri = "smtp://${infra.smtp.user.fqdn}:${toString infra.port.smtp}";
         access.cidr = infra.cidr.user;
@@ -133,7 +144,7 @@ let
       external = {
         domain = infra.site.domain.extern;
         fqdn = "${infra.smtp.hostname}.${infra.smtp.external.domain}";
-        ip = "192.168.21.125"; # XXX
+        ip = "192.168.21.125"; #
         uri = "smtp://${infra.smtp.external.fqdn}:${toString infra.port.smtp}";
         access.cidr = infra.cidr.user;
       };
@@ -143,15 +154,36 @@ let
     autoconfig = {
       id = 26;
       hostname = "autoconfig";
-      domain = infra.domain.user;
-      fqdn = "${infra.autoconfig.hostname}.${infra.autoconfig.domain}";
-      ip = "${infra.net.user}.${toString infra.autoconfig.id}";
-      access.cidr = infra.cidr.user;
       localbind.port.http = infra.localhost.port.offset + infra.autoconfig.id;
-      auth = {
-        authentication = "password-cleartext"; # password-cleartext; none; other see doc
-        id = "%EMAILADDRESS%"; #   %EMAILADDRESS% ;  %EMAILLOCALPART%
-        socketType = "plain"; # SSL ; STARTTLS ; plain
+      admin = {
+        domain = infra.domain.admin;
+        fqdn = "${infra.autoconfig.hostname}.${infra.autoconfig.admin.domain}";
+        ip = "${infra.net.admin}.${toString infra.autoconfig.id}";
+        auth = {
+          authentication = "password-cleartext"; # password-cleartext; none; other see doc
+          id = "%EMAILADDRESS%"; #   %EMAILADDRESS% ;  %EMAILLOCALPART%
+          socketType = "plain"; # SSL ; STARTTLS ; plain
+        };
+      };
+      user = {
+        domain = infra.domain.user;
+        fqdn = "${infra.autoconfig.hostname}.${infra.autoconfig.user.domain}";
+        ip = "${infra.net.user}.${toString infra.autoconfig.id}";
+        auth = {
+          authentication = "password-cleartext";
+          id = "%EMAILADDRESS%";
+          socketType = "plain";
+        };
+      };
+      external = {
+        domain = infra.email.domain.extern;
+        fqdn = "${infra.autoconfig.hostname}.${infra.autoconfig.external.domain}";
+        ip = "${infra.net.user}.${toString infra.autoconfig.id}";
+        auth = {
+          authentication = "password-cleartext";
+          id = "%EMAILADDRESS%";
+          socketType = "plain";
+        };
       };
     };
     webmail = {
@@ -160,12 +192,21 @@ let
       domain = infra.domain.user;
       fqdn = "${infra.webmail.hostname}.${infra.webmail.domain}";
       ip = "${infra.net.user}.${toString infra.webmail.id}";
-      access.cidr = infra.cidr.user;
       localbind.port.http = infra.localhost.port.offset + infra.webmail.id;
     };
     dns = {
       id = 53;
       name = "dns";
+      resolver = {
+        admin = {
+          primary = "${infra.net.admin}.${toString infra.dns.id}";
+          secondary = "${infra.net.admin}.${toString infra.dns.id}";
+        };
+        user = {
+          primary = "${infra.net.user}.${toString infra.dns.id}";
+          secondary = "${infra.net.user}.${toString infra.dns.id}";
+        };
+      };
       hostname = infra.dns.name;
       domain = infra.domain.user;
       fqdn = "${infra.dns.hostname}.${infra.dns.domain}";
@@ -175,6 +216,35 @@ let
       accessArray = infra.cidr.allArray;
       upstream = ["192.168.80.1" "10.20.6.2"]; # XXX
       contact = "it.${infra.smtp.external.domain}";
+    };
+    adguard = {
+      id = infra.dns.id;
+      app = "adguard-home";
+      name = "adguard";
+      hostname = infra.adguard.name;
+      domain = infra.domain.admin;
+      fqdn = "${infra.adguard.hostname}.${infra.adguard.domain}";
+      ip = "${infra.net.admin}.${toString infra.adguard.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.adguard.id;
+      filter_lists = [
+        "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+        "https://easylist.to/easylist/easylist.txt"
+        "https://easylist.to/easylistgermany/easylistgermany.txt"
+        "https://easylist-downloads.adblockplus.org/antiadblockfilters.txt"
+        "https://secure.fanboy.co.nz/fanboy-annoyance.txt"
+      ];
+      user_rules = [
+        "@@||bahn.de^$important"
+      ];
+
+      upstream_dns = [
+        "sdns://AQcAAAAAAAAADjIzLjE0MC4yNDguMTAwIFa3zBQNs5jjEISHskpY7WSNK4sLj_qrbFiLk5tSBN1uGTIuZG5zY3J5cHQtY2VydC5kbnNjcnkucHQ"
+        "sdns://AQcAAAAAAAAADzE0Ny4xODkuMTQwLjEzNiCL7wgLXnE-35sDhXk5N1RNpUfWmM2aUBcMFlst7FPdnRkyLmRuc2NyeXB0LWNlcnQuZG5zY3J5LnB0"
+        "sdns://AQcAAAAAAAAADDIzLjE4NC40OC4xOSCwg3q2XK6z70eHJhi0H7whWQ_ZWQylhMItvqKpd9GtzRkyLmRuc2NyeXB0LWNlcnQuZG5zY3J5LnB0"
+        "sdns://AQcAAAAAAAAADzE3Ni4xMTEuMjE5LjEyNiDzuja5nmAyDvA5jakqkuLQEtb245xsAhNwJYDLkKraKhkyLmRuc2NyeXB0LWNlcnQuZG5zY3J5LnB0"
+      ];
+      url = "https://${infra.adguard.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.adguard.app}.png";
     };
     cache = {
       id = 55;
@@ -223,28 +293,32 @@ let
     };
     iam = {
       id = infra.ldap.id;
-      name = "iam"; # ldap-web-gui
+      app = "lldap";
+      name = "iam";
       hostname = infra.iam.name;
       domain = infra.domain.user;
       fqdn = "${infra.iam.hostname}.${infra.iam.domain}";
       ip = "${infra.net.user}.${toString infra.iam.id}";
       ports = infra.port.webapps;
-      url = "https://${infra.iam.fqdn}";
       access.cidr = infra.cidr.all;
       localbind.port.http = infra.localhost.port.offset + infra.iam.id;
+      url = "https://${infra.iam.fqdn}";
+      logo = "${infra.res.url}/icon/png/nextcloud-contacts.png";
     };
     sso = {
       id = 87;
-      name = "authelia";
+      app = "authelia";
+      name = "sso";
+      hostname = infra.sso.name;
       site = infra.site.name;
-      hostname = "sso";
       domain = infra.domain.user;
       fqdn = "${infra.sso.hostname}.${infra.sso.domain}";
       ip = "${infra.net.user}.${toString infra.sso.id}";
-      url = "https://${infra.sso.fqdn}";
-      callbackUrl = "${infra.sso.url.base}/api/auth/oidc/callback";
-      access.cidr = infra.cidr.user;
       localbind.port.http = infra.localhost.port.offset + infra.sso.id;
+      callbackUrl = "${infra.sso.url.base}/api/auth/oidc/callback";
+      oicd.discoveryUri = "https://${infra.sso.url}/.well-known/openid-configuration";
+      url = "https://${infra.sso.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.sso.app}.png";
     };
     syslog = {
       id = 100;
@@ -298,7 +372,6 @@ let
       domain = infra.domain.user;
       fqdn = "${infra.ai.hostname}.${infra.ai.domain}";
       ip = "${infra.net.user}.${toString infra.ai.id}";
-      access.cidr = infra.cidr.user;
       worker.one = "http://127.0.0.1:11434";
       worker.two = "http://aiworker01.${infra.domain.user}:11434";
       localbind = {
@@ -306,7 +379,7 @@ let
         port.http = infra.localhost.port.offset + infra.ai.id;
       };
       url = "https://${infra.ai.fqdn}";
-      logo = "https://res.${infra.ai.user}/icon/png/ollama.png";
+      logo = "${infra.res.url}/icon/png/ollama.png";
     };
     status = {
       id = 110;
@@ -315,82 +388,119 @@ let
       domain = infra.domain.user;
       fqdn = "${infra.status.hostname}.${infra.status.domain}";
       ip = "${infra.net.user}.${toString infra.status.id}";
-      access.cidr = infra.cidr.user;
       localbind.port.http = infra.localhost.port.offset + infra.status.id;
       url = "https://${infra.status.fqdn}";
-      logo = "https://res.${infra.domain.user}/icon/png/healthchecks.png";
+      logo = "${infra.res.url}/icon/png/healthchecks.png";
     };
     monitoring = {
       id = 111;
+      app = "uptimekuma";
       name = "monitoring";
       hostname = infra.monitoring.name;
       domain = infra.domain.user;
       fqdn = "${infra.monitoring.hostname}.${infra.monitoring.domain}";
       ip = "${infra.net.user}.${toString infra.monitoring.id}";
-      access.cidr = infra.cidr.user;
       localbind.port.http = infra.localhost.port.offset + infra.monitoring.id;
       url = "https://${infra.monitoring.fqdn}";
-      logo = "https://res.${infra.domain.user}/icon/png/healthchecks.png";
+      logo = "${infra.res.url}/icon/png/healthchecks.png";
+    };
+    wiki = {
+      id = 112;
+      app = "mediawiki";
+      name = "wiki";
+      hostname = infra.wiki.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.wiki.hostname}.${infra.wiki.domain}";
+      ip = "${infra.net.user}.${toString infra.wiki.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.wiki.id;
+      url = "https://${infra.wiki.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.wiki.app}.png";
     };
     cloud = {
       id = 117;
+      app = "nextcloud";
       name = "cloud";
       hostname = infra.cloud.name;
       domain = infra.domain.user;
       fqdn = "${infra.cloud.hostname}.${infra.cloud.domain}";
       ip = "${infra.net.user}.${toString infra.cloud.id}";
       port = infra.port.webapps;
-      access.cidr = infra.cidr.user;
       localbind.port.http = infra.localhost.port.offset + infra.cloud.id;
       url = "https://${infra.cloud.fqdn}";
-      logo = "https://res.${infra.domain.user}/icon/png/nextcloud-blue.png";
+      logo = "${infra.res.url}/icon/png/nextcloud-blue.png";
     };
     search = {
       id = 119;
+      app = "searxng";
       name = "search";
       hostname = infra.search.name;
       domain = infra.domain.user;
       fqdn = "${infra.search.hostname}.${infra.search.domain}";
       ip = "${infra.net.user}.${toString infra.search.id}";
       port = infra.port.webapps;
-      access.cidr = infra.cidr.user;
       localbind.port.http = infra.localhost.port.offset + infra.search.id;
       url = "https://${infra.search.fqdn}";
-      logo = "https://res.${infra.domain.user}/icon/png/searxng.png";
+      logo = "${infra.res.url}/icon/png/${infra.search.app}.png";
+    };
+    paperless = {
+      id = 125;
+      app = "paperless";
+      name = infra.paperless.app;
+      hostname = infra.paperless.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.paperless.hostname}.${infra.paperless.domain}";
+      ip = "${infra.net.user}.${toString infra.webarchiv.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.paperless.id;
+      url = "https://${infra.webarchiv.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.paperless.name}.png";
+    };
+    vault = {
+      id = 127;
+      app = "vaultwarden";
+      name = "vault";
+      hostname = infra.vault.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.vault.hostname}.${infra.vault.domain}";
+      ip = "${infra.net.user}.${toString infra.vault.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.vault.id;
+      url = "https://${infra.vault.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.paperless.app}.png";
     };
     webarchiv = {
       id = 130;
+      app = "readeck";
       name = "webarchiv";
       hostname = infra.webarchiv.name;
       domain = infra.domain.user;
       fqdn = "${infra.webarchiv.hostname}.${infra.webarchiv.domain}";
       ip = "${infra.net.user}.${toString infra.webarchiv.id}";
-      access.cidr = infra.cidr.user;
-      localbind.ports.http = infra.localhost.port.offset + infra.webarchiv.id;
+      localbind.port.http = infra.localhost.port.offset + infra.webarchiv.id;
       url = "https://${infra.webarchiv.fqdn}";
-      logo = "https://res.${infra.domain.user}/icon/png/readeck.png";
+      logo = "${infra.res.url}/icon/png/${infra.webarchiv.app}.png";
     };
     portal = {
       id = 135;
+      app = "homer";
       name = "start";
       hostname = infra.portal.name;
       domain = infra.domain.user;
       fqdn = "${infra.portal.hostname}.${infra.portal.domain}";
       ip = "${infra.net.user}.${toString infra.portal.id}";
-      access.cidr = infra.cidr.user;
       localbind.port.http = infra.localhost.port.offset + infra.portal.id;
       url = "https://${infra.portal.fqdn}";
-      logo = "https://res.${infra.domain.user}/icon/png/homer.png";
+      logo = "${infra.res.url}/icon/png/${infra.portal.app}.png";
     };
     res = {
       id = 141;
+      app = "caddy";
       name = "res";
       hostname = infra.res.name;
       domain = infra.domain.user;
       fqdn = "${infra.res.hostname}.${infra.res.domain}";
       ip = "${infra.net.user}.${toString infra.res.id}";
-      access.cidr = infra.cidr.user;
       www.root = "/var/lib/caddy/res";
+      url = "https://${infra.res.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.res.app}.png";
     };
     imap = {
       id = 143;
@@ -399,76 +509,82 @@ let
         domain = infra.domain.user;
         fqdn = "${infra.imap.hostname}.${infra.imap.admin.domain}";
         ip = "${infra.net.user}.${toString infra.imap.id}";
-        access.cidr = infra.cidr.admin;
       };
       user = {
         domain = infra.domain.user;
         fqdn = "${infra.imap.hostname}.${infra.imap.user.domain}";
         ip = "${infra.net.user}.${toString infra.imap.id}";
-        access.cidr = infra.cidr.user;
       };
     };
     webacme = {
       id = 151;
+      app = "cert-warden";
       name = "webacme";
       hostname = infra.webacme.name;
       domain = infra.domain.admin;
       fqdn = "${infra.webacme.hostname}.${infra.webacme.domain}";
       ip = "${infra.net.admin}.${toString infra.webacme.id}";
-      access.cidr = infra.cidr.admin;
       localbind.port.http = infra.localhost.port.offset + infra.webacme.id;
       url = "https://${infra.webacme.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.webacme.app}.png";
     };
     webpki = {
       id = 152;
+      app = "mkcert-web";
       name = "webpki";
       hostname = infra.webpki.name;
       domain = infra.domain.admin;
       fqdn = "${infra.webpki.hostname}.${infra.webpki.domain}";
       ip = "${infra.net.admin}.${toString infra.webpki.id}";
-      access.cidr = infra.cidr.admin;
       localbind.port.http = infra.localhost.port.offset + infra.webpki.id;
       url = "https://${infra.webpki.fqdn}";
+      logo = "${infra.res.url}/icon/png/cert-manager.png";
     };
     webmtls = {
       id = 153;
+      app = "vaultls";
       name = "webmtls";
       hostname = infra.webmtls.name;
       domain = infra.domain.admin;
       fqdn = "${infra.webmtls.hostname}.${infra.webmtls.domain}";
       ip = "${infra.net.admin}.${toString infra.webmtls.id}";
-      access.cidr = infra.cidr.admin;
       localbind.port.http = infra.localhost.port.offset + infra.webmtls.id;
       url = "https://${infra.webmtls.fqdn}";
+      logo = "${infra.res.url}/icon/png/vault.png";
     };
     translate-lama = {
       id = 154;
+      app = "ollama";
       name = "translate-lama";
       hostname = infra.translate-lama.name;
       domain = infra.domain.user;
       fqdn = "${infra.translate-lama.hostname}.${infra.translate-lama.domain}";
       ip = "${infra.net.user}.${toString infra.translate-lama.id}";
-      access.cidr = infra.cidr.user;
       localbind.port.http = infra.localhost.port.offset + infra.translate-lama.id;
+      logo = "${infra.res.url}/icon/png/${infra.translate-lama.app}.png";
     };
     test = {
       id = 155;
+      app = "caddy";
       name = "test";
       hostname = infra.test.name;
       domain = infra.domain.user;
       fqdn = "${infra.test.hostname}.${infra.test.domain}";
       ip = "${infra.net.user}.${toString infra.test.id}";
-      access.cidr = infra.cidr.user;
+      url = "https://${infra.test.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.test.app}.png";
     };
     grist = {
       id = 156;
-      name = "grist";
+      app = "grist";
+      name = infra.grist.app;
       hostname = infra.grist.name;
       domain = infra.domain.user;
       fqdn = "${infra.grist.hostname}.${infra.grist.domain}";
       ip = "${infra.net.user}.${toString infra.grist.id}";
-      access.cidr = infra.cidr.user;
       localbind.port.http = infra.localhost.port.offset + infra.grist.id;
+      url = "https://${infra.grist.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.grist.app}.png";
     };
   };
 in {infra = infra;}

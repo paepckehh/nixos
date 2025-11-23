@@ -84,17 +84,20 @@ in {
                                              1h   ; Retry
                                              1w   ; Expire
                                              1h)  ; Negative Cache TTL
-                                      IN NS   ${infra.dns.fqdn}.
-            ${infra.dns.fqdn}         IN A    ${infra.dns.ip}
-            ${infra.imap.hostname}    IN A    ${infra.imap.admin.ip}
-            ${infra.smtp.hostname}    IN A    ${infra.smtp.admin.ip}
-            ${infra.pki.hostname}     IN A    ${infra.pki.ip}
-            ${infra.webacme.hostname} IN A    ${infra.webacme.ip}
-            ${infra.webmtls.hostname} IN A    ${infra.webmtls.ip}
-            ${infra.webpki.hostname}  IN A    ${infra.webpki.ip}
-            ${infra.webacme.hostname} IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.webacme.ip}"
-            ${infra.webmtls.hostname} IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.webmtls.ip}"
-            ${infra.webpki.hostname}  IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.webpki.ip}"
+                                          IN NS   ${infra.dns.fqdn}.
+            ${infra.autoconfig.hostname}  IN A    ${infra.autoconfig.admin.ip}
+            ${infra.dns.fqdn}             IN A    ${infra.dns.ip}
+            ${infra.imap.hostname}        IN A    ${infra.imap.admin.ip}
+            ${infra.smtp.hostname}        IN A    ${infra.smtp.admin.ip}
+            ${infra.pki.hostname}         IN A    ${infra.pki.ip}
+            ${infra.webacme.hostname}     IN A    ${infra.webacme.ip}
+            ${infra.webmtls.hostname}     IN A    ${infra.webmtls.ip}
+            ${infra.webpki.hostname}      IN A    ${infra.webpki.ip}
+            ${infra.autoconfig.hostname}  IN HTTPS 1 . alpn="h3" ipv4hint="${infra.autoconfig.admin.ip}"
+            ${infra.webacme.hostname}     IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webacme.ip}"
+            ${infra.webmtls.hostname}     IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webmtls.ip}"
+            ${infra.webpki.hostname}      IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webpki.ip}"
+            _autodiscover._tcp            IN SRV 0 0 443 ${infra.autoconfig.admin.fqdn}.
           '';
         };
         "${infra.domain.user}" = {
@@ -111,7 +114,7 @@ in {
                                            1w   ; Expire
                                            1h)  ; Negative Cache TTL
                                               IN NS ${infra.dns.fqdn}.
-            ${infra.autoconfig.hostname}      IN A  ${infra.autoconfig.ip}
+            ${infra.autoconfig.hostname}      IN A  ${infra.autoconfig.user.ip}
             ${infra.cache.hostname}           IN A  ${infra.cache.ip}
             ${infra.cloud.hostname}           IN A  ${infra.cloud.ip}
             ${infra.dns.hostname}             IN A  ${infra.dns.ip}
@@ -127,24 +130,26 @@ in {
             ${infra.search.hostname}          IN A  ${infra.search.ip}
             ${infra.test.hostname}            IN A  ${infra.test.ip}
             ${infra.translate-lama.hostname}  IN A  ${infra.translate-lama.ip}
+            ${infra.vault.hostname}           IN A  ${infra.vault.ip}
             ${infra.webarchiv.hostname}       IN A  ${infra.webarchiv.ip}
             ${infra.webmail.hostname}         IN A  ${infra.webmail.ip}
-            ${infra.autoconfig.hostname}      IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.webmail.ip}"
-            ${infra.cache.hostname}           IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.cache.ip}"
-            ${infra.cloud.hostname}           IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.cloud.ip}"
-            ${infra.grist.hostname}           IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.grist.ip}"
-            ${infra.iam.hostname}             IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.iam.ip}"
-            ${infra.it.hostname}              IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.it.ip}"
-            ${infra.ldap.hostname}            IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.ldap.ip}"
-            ${infra.sso.hostname}             IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.sso.ip}"
-            ${infra.portal.hostname}          IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.portal.ip}"
-            ${infra.res.hostname}             IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.res.ip}"
-            ${infra.search.hostname}          IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.search.ip}"
-            ${infra.test.hostname}            IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.test.ip}"
-            ${infra.translate-lama.hostname}  IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.translate-lama.ip}"
-            ${infra.webarchiv.hostname}       IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.webarchiv.ip}"
-            ${infra.webmail.hostname}         IN HTTPS 1 . alpn="h3,h2" ipv4hint="${infra.webmail.ip}"
-            _autodiscover._tcp                IN SRV 0 0 443 ${infra.autoconfig.fqdn}.
+            ${infra.autoconfig.hostname}      IN HTTPS 1 . alpn="h3" ipv4hint="${infra.autoconfig.user.ip}"
+            ${infra.cache.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.cache.ip}"
+            ${infra.cloud.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.cloud.ip}"
+            ${infra.grist.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.grist.ip}"
+            ${infra.iam.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.iam.ip}"
+            ${infra.it.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.it.ip}"
+            ${infra.ldap.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.ldap.ip}"
+            ${infra.sso.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.sso.ip}"
+            ${infra.portal.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.portal.ip}"
+            ${infra.res.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.res.ip}"
+            ${infra.search.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.search.ip}"
+            ${infra.test.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.test.ip}"
+            ${infra.translate-lama.hostname}  IN HTTPS 1 . alpn="h3" ipv4hint="${infra.translate-lama.ip}"
+            ${infra.vault.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.vault.ip}"
+            ${infra.webarchiv.hostname}       IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webarchiv.ip}"
+            ${infra.webmail.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webmail.ip}"
+            _autodiscover._tcp                IN SRV 0 0 443 ${infra.autoconfig.user.fqdn}.
           '';
         };
         "${infra.domain.remote}" = {
@@ -201,7 +206,7 @@ in {
                                              1h)  ; Negative Cache TTL
                                                 IN NS  ${infra.dns.fqdn}.
             ${infra.dns.fqdn}                   IN A   ${infra.dns.ip}
-            ${toString infra.autoconfig.id}     IN PTR ${infra.autoconfig.fqdn}.
+            ${toString infra.autoconfig.id}     IN PTR ${infra.autoconfig.user.fqdn}.
             ${toString infra.cache.id}          IN PTR ${infra.cache.fqdn}.
             ${toString infra.iam.id}            IN PTR ${infra.iam.fqdn}.
             ${toString infra.it.id}             IN PTR ${infra.it.fqdn}.
