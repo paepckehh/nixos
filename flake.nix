@@ -44,10 +44,9 @@
       nixos-luks = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           ./configuration.nix
-          ./storage/stateless-luks.nix
+          ./storage/stateless-luks-partlabel.nix
           ./user/desktop/me.nix
           ./packages/base.nix
           ./packages/desktop/gnome.nix
@@ -61,7 +60,6 @@
       kiosk = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          disko.nixosModules.disko
           ./configuration.nix
           ./storage/stateless.nix
           ./packages/desktop/kiosk.nix # see services.cage.program, url => https://start.lan
@@ -75,36 +73,10 @@
       internet = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          disko.nixosModules.disko
           ./configuration.nix
-          ./storage/stateless-luks.nix
+          ./storage/stateless-luks-partlabel.nix
           ./packages/desktop/browser.nix
           {networking.hostName = "internet";}
-          {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
-        ];
-      };
-      ##########
-      # CLIENT #
-      ##########
-      client = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          agenix.nixosModules.default
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
-          nvf.nixosModules.default
-          ./configuration.nix
-          ./storage/stateless-luks.nix
-          ./client/forward-syslog-ng.nix
-          ./client/wifi-base.nix
-          ./client/wireguard-wg110.nix
-          ./person/desktop/mpaepcke.nix
-          ./packages/agenix.nix
-          ./packages/base.nix
-          ./packages/devops-all.nix
-          ./packages/firejail.nix
-          ./packages/desktop/gnome.nix
-          {networking.hostName = "client";}
           {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
         ];
       };
@@ -116,27 +88,25 @@
         modules = [
           # proxmox-nixos.nixosModules.proxmox-ve
           # {nixpkgs.overlays = [proxmox-nixos.overlays."x86_64-linux"];}
+          # disko.nixosModules.disko
           agenix.nixosModules.default
-          disko.nixosModules.disko
           home-manager.nixosModules.home-manager
           nvf.nixosModules.default
+          # ./storage/stateless-luks-fixed-2733-AD8A.nix
+          # ./storage/stateless-luks-sequence.nix
+          ./storage/stateless-luks-partlabel.nix
           ./configuration.nix
           ./client/addrootCA.nix
           ./client/addCache.nix
-          ./client/addEndlessh.nix
-          ./storage/stateless-luks.nix
           ./openwrt/alias.nix
-          ./iot/moode/alias.nix
           ./person/desktop/mpaepcke.nix
           ./packages/desktop/gnome.nix
           ./packages/base.nix
           ./packages/devops-core.nix
           ./server/base.nix
           ./server/bookmarks/readeck.nix
-          # ./server/ai/open-webui-authelia.nix
           ./server/cache/ncps.nix
           ./server/cloud/nextcloud-authelia.nix
-          ./server/dns/adguard.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix
@@ -147,17 +117,12 @@
           ./server/secret/vaultwarden.nix
           ./server/pki/small-step.nix
           ./server/portal/homer-home.nix
-          # ./server/ocr/paperless.nix
           ./server/webapp/res.nix
           ./server/webapp/test.nix
-          # ./server/portal/homer-it.nix
-          # ./server/pki/certwarden.nix
-          # ./server/pki/mkcertweb.nix
-          # ./server/pki/vaultls.nix
-          # ./server/ticket/zammad.nix
-          # ./server/devops/openvs-code.nix
           # ./server/office/grist.nix
+          # ./client/nixbit.nix
           # ./virtual/distrobox.nix
+          # ./iot/moode/alias.nix
           # ./client/wireguard-wg100.nix
           # ./packages/desktop/dss-portal.nix
           # ./packages/desktop/firejail.nix
@@ -169,6 +134,15 @@
           # ./server/ocr/paperless-ai.nix
           # ./server/portal/homer.nix
           # ./server/devops/vscode.nix
+          # ./server/ai/open-webui-authelia.nix
+          # ./server/dns/adguard.nix
+          # ./server/ocr/paperless.nix
+          # ./server/portal/homer-it.nix
+          # ./server/pki/certwarden.nix
+          # ./server/pki/mkcertweb.nix
+          # ./server/pki/vaultls.nix
+          # ./server/ticket/zammad.nix
+          # ./server/devops/openvs-code.nix
           # ./server/doc/stirling.nix
           # ./server/crm/wordpress.nix
           # ./server/rss/miniflux.nix

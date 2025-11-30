@@ -41,7 +41,7 @@
       );
     };
     kernelPackages = (
-      if (config.system.nixos.release == "25.11")
+      if (config.system.nixos.release == "25.11") || (config.system.nixos.release == "26.05")
       then pkgs.linuxPackages_latest
       else pkgs.linuxPackages
     );
@@ -101,7 +101,7 @@
   #-= SYSTEM #=-#
   ###############
   system = {
-    stateVersion = "25.11"; # dummy target, do not modify
+    # stateVersion = "25.11"; # dummy target, do not modify
     switch.enable = true;
     rebuild.enableNg = true;
     includeBuildDependencies = false; # needed for full-offline (re-)build from source, its huge!
@@ -121,7 +121,7 @@
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    writebackDevice = "/dev/disk/by-partlabel/disk-main-swap";
+    writebackDevice = lib.mkDefault "/dev/disk/by-partlabel/disk-main-swap";
   };
 
   #################
@@ -161,7 +161,7 @@
       substituters = lib.mkDefault [
         "https://cache.nixos.org"
       ];
-      trusted-public-keys = [
+      trusted-public-keys = lib.mkDefault [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
     };

@@ -108,7 +108,8 @@ in {
             deliver_to &local_mailboxes
           }
           default_destination {
-            reject 550 5.1.1 "User doesn't exist. (Unreachable: catchall)"
+            deliver_to smtp ${infra.smtp.external.uriTcp}
+            # reject 550 5.1.1 "User doesn't exist. (Unreachable: catchall)"
           }
         }
         # message rewrite filter

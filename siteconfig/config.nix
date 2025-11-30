@@ -145,7 +145,8 @@ let
         domain = infra.site.domain.extern;
         fqdn = "${infra.smtp.hostname}.${infra.smtp.external.domain}";
         ip = "192.168.21.125"; #
-        uri = "smtp://${infra.smtp.external.fqdn}:${toString infra.port.smtp}";
+        uri = "smtp://${infra.smtp.external.ip}:${toString infra.port.smtp}";
+        uriTcp = "tcp://${infra.smtp.external.ip}:${toString infra.port.smtp}";
         access.cidr = infra.cidr.user;
       };
     };
@@ -464,7 +465,7 @@ let
       ip = "${infra.net.user}.${toString infra.vault.id}";
       localbind.port.http = infra.localhost.port.offset + infra.vault.id;
       url = "https://${infra.vault.fqdn}";
-      logo = "${infra.res.url}/icon/png/${infra.paperless.app}.png";
+      logo = "${infra.res.url}/icon/png/bitwarden.png";
     };
     webarchiv = {
       id = 130;
