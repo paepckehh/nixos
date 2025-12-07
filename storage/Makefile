@@ -108,7 +108,7 @@ wipe:
 # MIGRATE SECRETS #
 ###################
 
-migrate: migrate-etcssh migrate-root migrate-me-base migrate-me-all migrate-backup migrate-projects migrate-var
+migrate: migrate-etcssh migrate-root migrate-me-base migrate-me-full migrate-backup migrate-projects migrate-var
 	sync && sync && sync
 
 migrate-etcssh:
@@ -142,7 +142,7 @@ migrate-var:
 	sync && sync && sync
 
 migrate-me-base:
-	$(SUDO) mkdir -p /mnt/nix/persist/home/me
+	$(SUDO) mkdir -p /mnt/nix/persist/home/me | true
 	$(SUDO) cp -rf /home/me/.ssh /mnt/nix/persist/home/me/ | true
 	$(SUDO) cp -rf /home/me/.local/share/atuin /mnt/nix/persist/home/me/.local/share/ | true
 	$(SUDO) chmod 700 /mnt/nix/persist/home/me/.ssh | true
@@ -152,7 +152,7 @@ migrate-me-base:
 	$(SUDO) chmod 644 /mnt/nix/persist/home/me/.ssh/known_hosts | true
 	$(SUDO) chown -R me:me /mnt/nix/persist/home | true
 
-migrate-me-full: wipe-home
+migrate-me-full: 
 	$(SUDO) mkdir -p /mnt/nix/persist/home | true
 	$(SUDO) cp -af /home/me /mnt/nix/persist/home | true
 	$(SUDO) chown -R me:me /mnt/nix/persist/home | true

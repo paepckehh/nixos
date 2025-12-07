@@ -82,6 +82,13 @@ in {
             name = "APPS";
             items = [
               {
+                name = "Anmeldung Single-Sign-On [Authelia]";
+                tag = "app";
+                target = "_blank";
+                url = infra.sso.url;
+                logo = infra.sso.logo;
+              }
+              {
                 name = "NextCloud";
                 tag = "app";
                 target = "_blank";
@@ -129,13 +136,6 @@ in {
                 target = "_blank";
                 url = infra.iam.url;
                 logo = infra.iam.logo;
-              }
-              {
-                name = "Anmeldung [Single Sign-on]";
-                tag = "app";
-                target = "_blank";
-                url = infra.sso.url;
-                logo = infra.sso.logo;
               }
               {
                 name = "Druck-Aufträge Verwalten";

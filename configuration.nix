@@ -26,8 +26,8 @@
       };
     };
     initrd = {
-      compressor = "zstd";
-      compressorArgs = ["--ultra" "--long" "-22"];
+      # compressor = "zstd";
+      # compressorArgs = ["--ultra" "--long" "-22"];
       systemd = {
         enable = lib.mkForce true;
         emergencyAccess = lib.mkForce false;
@@ -40,11 +40,7 @@
         else ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"]
       );
     };
-    kernelPackages = (
-      if (config.system.nixos.release == "25.11") || (config.system.nixos.release == "26.05")
-      then pkgs.linuxPackages_latest
-      else pkgs.linuxPackages
-    );
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = (
       if (config.nixpkgs.system == "x86_64-linux")
       then ["amd_pstate=active" "page_alloc.shuffle=1" "ipv6.disable=1"] # "copytoram"
@@ -59,8 +55,8 @@
       cleanOnBoot = true;
       tmpfsHugeMemoryPages = "within_size";
       tmpfsSize = "85%";
-      useTmpfs = false;
-      useZram = true;
+      useTmpfs = true;
+      useZram = false;
       zramSettings = {
         compression-algorithm = "zstd";
         fs-type = "ext4";
@@ -169,7 +165,7 @@
       automatic = true;
       dates = "daily";
       persistent = true;
-      options = "--delete-older-than 6d";
+      options = "--delete-older-than 12d";
     };
     optimise = {
       automatic = true;
@@ -196,7 +192,6 @@
   ##################
   hardware = {
     acpilight.enable = true;
-    amdgpu.opencl.enable = lib.mkForce false;
     enableAllFirmware = lib.mkForce true;
     enableAllHardware = lib.mkForce true;
     enableRedistributableFirmware = lib.mkForce true;

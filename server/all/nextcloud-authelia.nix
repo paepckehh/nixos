@@ -58,20 +58,20 @@ in {
   services = {
     authelia.instances."${infra.sso.site}".settings.identity_providers.oidc.clients = [
       {
-        client_id = "nextcloud";
-        client_name = "nextcloud";
+        client_id = infra.cloud.app;
+        client_name = infra.cloud.app;
         client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
         public = false;
-        authorization_policy = "two_factor";
         require_pkce = true;
-        pkce_challenge_method = "S256";
-        redirect_uris = ["https://cloud.home.corp/apps/user_oidc/code"];
-        scopes = ["openid" "profile" "email" "groups"];
-        response_types = "code";
+        authorization_policy = infra.sso.oidc.policy;
+        pkce_challenge_method = infra.sso.oidc.method;
+        redirect_uris = ["${infra.cloud.url}/apps/user_oidc/code"];
+        scopes = infra.sso.oidc.scopes;
+        response_types = infra.sso.oidc.response;
         grant_types = "authorization_code";
         access_token_signed_response_alg = "none";
         userinfo_signed_response_alg = "none";
-        token_endpoint_auth_method = "client_secret_post";
+        token_endpoint_auth_method = infra.sso.oidc.auth;
       }
     ];
     nextcloud = {
@@ -133,8 +133,8 @@ in {
           allow_multiple_user_backends = false;
           clientid = infra.cloud.app;
           clientsecret = "insecure_secret";
-          default_token_endpoint_auth_method = "client_secret_post";
-          discoveryuri = infra.sso.oicd.discoveryUri;
+          default_token_endpoint_auth_method = infra.sso.oidc.discoveryUri;
+          discoveryuri = infra.sso.oidc.discoveryUri;
           enrich_login_id_token_with_userinfo = true;
           login_label' = "SSO Anmeldung [${infra.sso.app}]";
           provider = infra.sso.app;

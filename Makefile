@@ -267,9 +267,13 @@ nvme0-show:
 	$(SUDO) nvme id-ctrl /dev/nvme0n1 
 	$(SUDO) smartctl -c /dev/nvme0n1
 
-nvme0-lba-convert:
+nvme0-lba-on:
 	$(SUDO) nvme format /dev/nvme0n1 --lbaf=0 --ses=1 --reset --force --verbose
 	$(SUDO) nvme format /dev/nvme0n1 --lbaf=1 --reset --force --verbose
+
+nvme0-lba-off:
+	$(SUDO) nvme format /dev/nvme0n1 --lbaf=1 --ses=1 --reset --force --verbose
+	$(SUDO) nvme format /dev/nvme0n1 --lbaf=0 --reset --force --verbose
 
 nvme0-luks-list:
 	$(SUDO) cryptsetup luksDump /dev/nvme0s3
@@ -286,9 +290,13 @@ nvme1-show:
 	$(SUDO) nvme id-ctrl /dev/nvme0n1 
 	$(SUDO) smartctl -c /dev/nvme0n1
 
-nvme1-lba-convert:
+nvme1-lba-on:
 	$(SUDO) nvme format /dev/nvme0n1 --lbaf=0 --ses=1 --reset --force --verbose
 	$(SUDO) nvme format /dev/nvme0n1 --lbaf=1 --reset --force --verbose
+
+nvme1-lba-off:
+	$(SUDO) nvme format /dev/nvme0n1 --lbaf=1 --ses=1 --reset --force --verbose
+	$(SUDO) nvme format /dev/nvme0n1 --lbaf=0 --reset --force --verbose
 
 nvme1-luks-list:
 	$(SUDO) cryptsetup luksDump /dev/nvme1s3

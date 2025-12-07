@@ -94,24 +94,24 @@
         "name": "speed.lan (https)"
       },
       {
-        "url": "https://mail.adm.corp",
-        "name": "mail.adm.corp (https)"
+        "url": "https://mail.adm.home.corp",
+        "name": "mail.adm.home.corp (https)"
       },
       {
-        "url": "https://paste.adm.corp",
-        "name": "paste.adm.corp (https)"
+        "url": "https://paste.adm.home.corp",
+        "name": "paste.adm.home.corp (https)"
       },
       {
-        "url": "https://adguard.adm.corp",
-        "name": "adguard.adm.corp (https)"
+        "url": "https://adguard.adm.home.corp",
+        "name": "adguard.adm.home.corp (https)"
       },
       {
-        "url": "https://pki.adm.corp",
-        "name": "pki.adm.corp (https)"
+        "url": "https://pki.adm.home.corp",
+        "name": "pki.adm.home.corp (https)"
       },
       {
-        "url": "https://pki.adm.corp/roots.pem",
-        "name": "pki.adm.corp - rootCA PEM Bundle"
+        "url": "https://pki.adm.home.corp/roots.pem",
+        "name": "pki.adm.home.corp - rootCA PEM Bundle"
       }
     ]
   },

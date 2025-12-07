@@ -15,7 +15,7 @@ sudo systemctl restart searx.service
 # sudo systemctl restart prometheus.service
 # sudo systemctl restart vaultwarden.service
 # sudo systemctl restart readeck.service
-# sudo systemctl restart open-webui.service
+sudo systemctl restart open-webui.service
 # sudo systemctl restart nextcloud-update-db.service
 # sudo systemctl restart redis-nextcloud.service
 # sudo systemctl restart nextcloud-cron.service

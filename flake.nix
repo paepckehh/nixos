@@ -7,11 +7,11 @@
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # home-manager.url = "github:nix-community/home-manager/master";
     # home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    # nvf.url = "git+file:///home/projects/nixos/nvf.git";
     # local git mirror
     nixpkgs.url = "git+file:///home/projects/nixos/nixpkgs.git?ref=nixos-unstable";
     agenix.url = "git+file:///home/projects/nixos/agenix.git";
     disko.url = "git+file:///home/projects/nixos/disko.git";
-    nvf.url = "git+file:///home/projects/nixos/nvf.git";
     home-manager.url = "git+file:///home/projects/nixos/home-manager.git";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -21,7 +21,6 @@
     disko,
     home-manager,
     nixpkgs,
-    nvf,
   }: {
     nixosConfigurations = {
       ###########
@@ -89,12 +88,13 @@
           # proxmox-nixos.nixosModules.proxmox-ve
           # {nixpkgs.overlays = [proxmox-nixos.overlays."x86_64-linux"];}
           # disko.nixosModules.disko
+          # nvf.nixosModules.default
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
-          nvf.nixosModules.default
-          # ./storage/stateless-luks-fixed-2733-AD8A.nix
+          ./storage/stateless-luks-fixed-AAF0-2F44.nix
+          # ./storage/stateless-luks-fixed-2489-EAAA.nix
           # ./storage/stateless-luks-sequence.nix
-          ./storage/stateless-luks-partlabel.nix
+          # ./storage/stateless-luks-partlabel.nix
           ./configuration.nix
           ./client/addrootCA.nix
           ./client/addCache.nix
@@ -103,6 +103,7 @@
           ./packages/desktop/gnome.nix
           ./packages/base.nix
           ./packages/devops-core.nix
+          ./server/ai/open-webui-authelia.nix
           ./server/base.nix
           ./server/bookmarks/readeck.nix
           ./server/cache/ncps.nix
@@ -117,6 +118,7 @@
           ./server/secret/vaultwarden.nix
           ./server/pki/small-step.nix
           ./server/portal/homer-home.nix
+          ./server/ocr/paperless-ngx-authelia.nix
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           # ./server/office/grist.nix
@@ -134,9 +136,7 @@
           # ./server/ocr/paperless-ai.nix
           # ./server/portal/homer.nix
           # ./server/devops/vscode.nix
-          # ./server/ai/open-webui-authelia.nix
           # ./server/dns/adguard.nix
-          # ./server/ocr/paperless.nix
           # ./server/portal/homer-it.nix
           # ./server/pki/certwarden.nix
           # ./server/pki/mkcertweb.nix

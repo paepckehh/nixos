@@ -3,12 +3,12 @@
   pkgs,
   lib,
   ...
-}: {
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  # imports = [];
-
+}: let
+  ############################
+  #-=# GLOBAL SITE IMPORT #=-#
+  ############################
+  infra = (import ../siteconfig/config.nix).infra;
+in {
   ###############
   #-=# USERS #=-#
   ###############
@@ -47,9 +47,9 @@
           keyboard.layout = "us,de";
           sessionVariables = {
             PAGER = "bat";
-            STARSHIP_LOG = "error";
-            SHELLCHECK_OPTS = "-e SC2086";
             EDITOR = "vim";
+            STARSHIP_LOG = "error";
+            SSL_CERT_FILE = infra.pki.certs.rootCA.path;
           };
           shellAliases = {
             "b" = "sudo btop";

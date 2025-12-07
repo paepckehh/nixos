@@ -80,7 +80,7 @@ let
     domain = {
       tld = infra.site.domain.tld; # tld => .corp
       domain = "${infra.domain.tld}"; # not used, domain = tld => .corp
-      admin = "${infra.zonename.admin}.${infra.domain.tld}"; # result => dns-zone adm.corp
+      admin = "${infra.zonename.admin}.${infra.domain.user}"; # result => dns-zone adm.home.corp
       user = "${infra.zonename.user}.${infra.domain.tld}"; # result => dns-zone home.corp
       remote = "${infra.zonename.remote}.${infra.domain.tld}"; # result => dnz-sone remote.corp
     };
@@ -105,6 +105,10 @@ let
       http = [];
       https = [];
     };
+    caldav = {
+      name = "caldav";
+      fqdn = "${infra.caldav.name}.${infra.domain.user}";
+    };
     opn = {
       standby = ["01"];
       infra = ["02" "03"];
@@ -117,7 +121,8 @@ let
     };
     print = {
       app = "cups";
-      url = "https://drucker.${infra.domain.user}/printers";
+      # url = "https://drucker.${infra.domain.user}/printers";
+      url = "http://localhost:631/";
       logo = "${infra.res.url}/icon/png/printer.png";
     };
     smtp = {
@@ -317,7 +322,15 @@ let
       ip = "${infra.net.user}.${toString infra.sso.id}";
       localbind.port.http = infra.localhost.port.offset + infra.sso.id;
       callbackUrl = "${infra.sso.url.base}/api/auth/oidc/callback";
-      oicd.discoveryUri = "https://${infra.sso.url}/.well-known/openid-configuration";
+      oidc = {
+        auth = "client_secret_post";
+        policy = "two_factor";
+        method = "S256";
+        response = "code";
+        scope = "openid profile groups email";
+        scopes = ["openid" "profile" "groups" "email"];
+        discoveryUri = "${infra.sso.url}/.well-known/openid-configuration";
+      };
       url = "https://${infra.sso.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.sso.app}.png";
     };
@@ -368,6 +381,7 @@ let
     };
     ai = {
       id = 109;
+      app = "open-webui";
       name = "ai";
       hostname = infra.ai.name;
       domain = infra.domain.user;
@@ -440,6 +454,7 @@ let
       ip = "${infra.net.user}.${toString infra.search.id}";
       port = infra.port.webapps;
       localbind.port.http = infra.localhost.port.offset + infra.search.id;
+      query.url = "${infra.search.url}/search?q=<query>";
       url = "https://${infra.search.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.search.app}.png";
     };
@@ -450,13 +465,32 @@ let
       hostname = infra.paperless.name;
       domain = infra.domain.user;
       fqdn = "${infra.paperless.hostname}.${infra.paperless.domain}";
-      ip = "${infra.net.user}.${toString infra.webarchiv.id}";
+      ip = "${infra.net.user}.${toString infra.paperless.id}";
       localbind.port.http = infra.localhost.port.offset + infra.paperless.id;
-      url = "https://${infra.webarchiv.fqdn}";
+      url = "https://${infra.paperless.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.paperless.name}.png";
     };
-    vault = {
+    matrix = {
       id = 127;
+      app = "tuwunnel";
+      name = "matrix";
+      ldap = false;
+      self-register = {
+        enable = true;
+        password = "start";
+      };
+      externalHostname = "matrix.${infra.site.external.domain}";
+      hostname = infra.matrix.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.matrix.hostname}.${infra.matrix.domain}";
+      ip = "${infra.net.user}.${toString infra.matrix.id}";
+      access.cidr = "${infra.cidr.user}";
+      localbind.port.http = infra.localhost.port.offset + infra.matrix.id;
+      url = "https://${infra.matrix.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.matrix.app}.png";
+    };
+    vault = {
+      id = 128;
       app = "vaultwarden";
       name = "vault";
       hostname = infra.vault.name;

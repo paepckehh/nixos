@@ -58,6 +58,7 @@
             {Address = "10.50.6.117/32";} # cloud
             {Address = "10.50.6.119/32";} # search
             {Address = "10.50.6.126/32";} # ldap iam
+            {Address = "10.50.6.125/32";} # paperless
             {Address = "10.50.6.135/32";} # portal start
             {Address = "10.50.6.141/32";} # res
             {Address = "10.50.6.143/32";} # imap

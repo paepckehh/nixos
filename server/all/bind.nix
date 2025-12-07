@@ -84,20 +84,21 @@ in {
                                              1h   ; Retry
                                              1w   ; Expire
                                              1h)  ; Negative Cache TTL
-                                          IN NS   ${infra.dns.fqdn}.
-            ${infra.autoconfig.hostname}  IN A    ${infra.autoconfig.admin.ip}
-            ${infra.dns.fqdn}             IN A    ${infra.dns.ip}
-            ${infra.imap.hostname}        IN A    ${infra.imap.admin.ip}
-            ${infra.smtp.hostname}        IN A    ${infra.smtp.admin.ip}
-            ${infra.pki.hostname}         IN A    ${infra.pki.ip}
-            ${infra.webacme.hostname}     IN A    ${infra.webacme.ip}
-            ${infra.webmtls.hostname}     IN A    ${infra.webmtls.ip}
-            ${infra.webpki.hostname}      IN A    ${infra.webpki.ip}
-            ${infra.autoconfig.hostname}  IN HTTPS 1 . alpn="h3" ipv4hint="${infra.autoconfig.admin.ip}"
-            ${infra.webacme.hostname}     IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webacme.ip}"
-            ${infra.webmtls.hostname}     IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webmtls.ip}"
-            ${infra.webpki.hostname}      IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webpki.ip}"
-            _autodiscover._tcp            IN SRV 0 0 443 ${infra.autoconfig.admin.fqdn}.
+                                              IN NS   ${infra.dns.fqdn}.
+            ${infra.autoconfig.hostname}      IN A    ${infra.autoconfig.admin.ip}
+            ${infra.dns.fqdn}                 IN A    ${infra.dns.ip}
+            ${infra.imap.hostname}            IN A    ${infra.imap.admin.ip}
+            ${infra.smtp.hostname}            IN A    ${infra.smtp.admin.ip}
+            ${infra.pki.hostname}             IN A    ${infra.pki.ip}
+            ${infra.webacme.hostname}         IN A    ${infra.webacme.ip}
+            ${infra.webmtls.hostname}         IN A    ${infra.webmtls.ip}
+            ${infra.webpki.hostname}          IN A    ${infra.webpki.ip}
+            ${infra.autoconfig.hostname}      IN HTTPS 1 . alpn="h3" ipv4hint="${infra.autoconfig.admin.ip}"
+            ${infra.webacme.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webacme.ip}"
+            ${infra.webmtls.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webmtls.ip}"
+            ${infra.webpki.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webpki.ip}"
+            _autodiscover._tcp                IN SRV 0 0 443 ${infra.autoconfig.admin.fqdn}.
+            _imap._tcp                        IN SRV 0 0 143 ${infra.imap.user.fqdn}.
           '';
         };
         "${infra.domain.user}" = {
@@ -123,6 +124,7 @@ in {
             ${infra.it.hostname}              IN A  ${infra.it.ip}
             ${infra.imap.hostname}            IN A  ${infra.imap.user.ip}
             ${infra.ldap.hostname}            IN A  ${infra.ldap.ip}
+            ${infra.matrix.hostname}          IN A  ${infra.matrix.ip}
             ${infra.sso.hostname}             IN A  ${infra.sso.ip}
             ${infra.smtp.hostname}            IN A  ${infra.smtp.user.ip}
             ${infra.portal.hostname}          IN A  ${infra.portal.ip}
@@ -140,6 +142,7 @@ in {
             ${infra.iam.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.iam.ip}"
             ${infra.it.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.it.ip}"
             ${infra.ldap.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.ldap.ip}"
+            ${infra.matrix.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.matrix.ip}"
             ${infra.sso.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.sso.ip}"
             ${infra.portal.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.portal.ip}"
             ${infra.res.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.res.ip}"
@@ -150,6 +153,10 @@ in {
             ${infra.webarchiv.hostname}       IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webarchiv.ip}"
             ${infra.webmail.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webmail.ip}"
             _autodiscover._tcp                IN SRV 0 0 443 ${infra.autoconfig.user.fqdn}.
+            _imap._tcp                        IN SRV 0 0 143 ${infra.imap.user.fqdn}.
+            _matrix._tcp                      IN SRV 0 0 443 ${infra.matrix.fqdn}.
+            _caldav._tcp	              IN SRV 0 0 443 ${infra.caldav.fqdn}.
+            _caldav._tcp                      IN TXT "path=/"
           '';
         };
         "${infra.domain.remote}" = {

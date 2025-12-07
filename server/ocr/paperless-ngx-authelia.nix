@@ -1,0 +1,1 @@
+../all/paperless-ngx-authelia.nix
