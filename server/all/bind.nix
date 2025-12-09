@@ -125,6 +125,7 @@ in {
             ${infra.imap.hostname}            IN A  ${infra.imap.user.ip}
             ${infra.ldap.hostname}            IN A  ${infra.ldap.ip}
             ${infra.matrix.hostname}          IN A  ${infra.matrix.ip}
+            ${infra.meshtastic-web.hostname}  IN A  ${infra.meshtastic-web.ip}
             ${infra.sso.hostname}             IN A  ${infra.sso.ip}
             ${infra.smtp.hostname}            IN A  ${infra.smtp.user.ip}
             ${infra.portal.hostname}          IN A  ${infra.portal.ip}
@@ -143,6 +144,7 @@ in {
             ${infra.it.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.it.ip}"
             ${infra.ldap.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.ldap.ip}"
             ${infra.matrix.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.matrix.ip}"
+            ${infra.meshtastic-web.hostname}  IN HTTPS 1 . alpn="h3" ipv4hint="${infra.meshtastic-web.ip}"
             ${infra.sso.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.sso.ip}"
             ${infra.portal.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.portal.ip}"
             ${infra.res.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.res.ip}"

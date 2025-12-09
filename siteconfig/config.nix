@@ -621,5 +621,17 @@ let
       url = "https://${infra.grist.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.grist.app}.png";
     };
+    meshtastic-web = {
+      id = 157;
+      app = "meshtastic";
+      name = "${infra.meshtastic-web.app}-web";
+      hostname = infra.meshtastic-web.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.meshtastic-web.hostname}.${infra.meshtastic-web.domain}";
+      ip = "${infra.net.user}.${toString infra.meshtastic-web.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.meshtastic-web.id;
+      url = "https://${infra.meshtastic-web.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.meshtastic-web.app}.png";
+    };
   };
 in {infra = infra;}

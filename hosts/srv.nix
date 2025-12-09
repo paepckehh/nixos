@@ -65,6 +65,7 @@
             {Address = "10.50.6.154/32";} # translate-lama
             {Address = "10.50.6.154/32";} # test
             {Address = "10.50.6.156/32";} # grist
+            {Address = "10.50.6.157/32";} # meshtastic-web
           ];
           # networkConfig = [
           #          IPv4Forwarding = false;

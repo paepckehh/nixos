@@ -1,4 +1,4 @@
-# meshtasic web gui lora wan
+# meshtastic-web, airtable
 {
   config,
   pkgs,
@@ -25,11 +25,18 @@ in {
         meshtastic-web = {
           autoStart = true;
           hostname = infra.meshtastic-web.fqdn;
-          image = "gristlabs/grist";
+          image = "ghcr.io/meshtastic/web:nightly";
           ports = ["${infra.localhost.ip}:${toString infra.meshtastic-web.localbind.port.http}:8080"];
           environment = {};
         };
       };
     };
+  };
+  #################
+  #-=# SERVICE #=-#
+  #################
+  caddy.virtualHosts."${infra.meshtastic-web.fqdn}" = {
+    listenAddresses = [infra.meshtastic-web.ip];
+    extraConfig = ''import intraproxy ${toString infra.meshtastic-web.localbind.port.http}'';
   };
 }

@@ -103,7 +103,7 @@
           ./packages/desktop/gnome.nix
           ./packages/base.nix
           ./packages/devops-core.nix
-          ./server/ai/open-webui-authelia.nix
+          # ./server/ai/open-webui-authelia.nix
           ./server/base.nix
           ./server/bookmarks/readeck.nix
           ./server/cache/ncps.nix
@@ -112,13 +112,14 @@
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix
           ./server/log/syslog-ng.nix
+          ./server/lora/meshtastic-web.nix
           ./server/mail/autoconfig-admin.nix
           ./server/mail/maddy-admin.nix
           ./server/search/searx.nix
           ./server/secret/vaultwarden.nix
           ./server/pki/small-step.nix
           ./server/portal/homer-home.nix
-          ./server/ocr/paperless-ngx-authelia.nix
+          # ./server/ocr/paperless-ngx-authelia.nix
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           # ./server/office/grist.nix

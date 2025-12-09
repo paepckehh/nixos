@@ -173,6 +173,13 @@ in {
                 logo = infra.test.logo;
               }
               {
+                name = infra.meshtastic-web.app;
+                tag = "app";
+                target = "_blank";
+                url = infra.meshtastic-web.url;
+                logo = infra.meshtastic-web.logo;
+              }
+              {
                 name = "Adguard";
                 tag = "app";
                 target = "_blank";
