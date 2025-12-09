@@ -49,7 +49,7 @@ in {
       server.addr = "${infra.localhost.ip}:${toString infra.cache.localbind.port.http}";
       cache = {
         hostName = infra.cache.hostname;
-        maxSize = "25G";
+        maxSize = infra.cache.size;
         allowPutVerb = lib.mkForce false;
         allowDeleteVerb = lib.mkForce false;
         lru.schedule = "10 10 * * *"; # cleanup cache daily 10:10

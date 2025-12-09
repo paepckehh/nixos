@@ -32,10 +32,10 @@ in {
       };
     };
   };
-  #################
-  #-=# SERVICE #=-#
-  #################
-  caddy.virtualHosts."${infra.meshtastic-web.fqdn}" = {
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+  services.caddy.virtualHosts."${infra.meshtastic-web.fqdn}" = {
     listenAddresses = [infra.meshtastic-web.ip];
     extraConfig = ''import intraproxy ${toString infra.meshtastic-web.localbind.port.http}'';
   };
