@@ -38,7 +38,7 @@ sudo systemctl restart open-webui.service
 # sudo systemctl restart podman-netalertx.service
 # sudo systemctl restart podman-speed.service
 # sudo systemctl restart podman-chef.service
-# sudo systemctl restart podman-grist.service
+sudo systemctl restart podman-meshtastic-web.service
 sudo systemctl stop nginx.service
 sudo systemctl restart caddy.service
 sudo systemctl restart nginx.service

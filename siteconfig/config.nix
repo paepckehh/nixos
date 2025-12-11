@@ -321,15 +321,18 @@ let
       fqdn = "${infra.sso.hostname}.${infra.sso.domain}";
       ip = "${infra.net.user}.${toString infra.sso.id}";
       localbind.port.http = infra.localhost.port.offset + infra.sso.id;
-      callbackUrl = "${infra.sso.url.base}/api/auth/oidc/callback";
       oidc = {
-        auth = "client_secret_post";
+        auth = {
+          basic = "client_secret_basic"; # paperless, openweb-ui
+          post = "client_secret_post"; # nextcloud
+        };
         policy = "two_factor";
         method = "S256";
-        response = "code";
+        response.code = "code";
         scope = "openid profile groups email";
         scopes = ["openid" "profile" "groups" "email"];
         discoveryUri = "${infra.sso.url}/.well-known/openid-configuration";
+        consent = "implicit";
       };
       url = "https://${infra.sso.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.sso.app}.png";

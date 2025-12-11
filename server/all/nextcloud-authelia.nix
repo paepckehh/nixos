@@ -67,11 +67,12 @@ in {
         pkce_challenge_method = infra.sso.oidc.method;
         redirect_uris = ["${infra.cloud.url}/apps/user_oidc/code"];
         scopes = infra.sso.oidc.scopes;
-        response_types = infra.sso.oidc.response;
+        response_types = infra.sso.oidc.response.code;
         grant_types = "authorization_code";
         access_token_signed_response_alg = "none";
         userinfo_signed_response_alg = "none";
-        token_endpoint_auth_method = infra.sso.oidc.auth;
+        token_endpoint_auth_method = infra.sso.oidc.auth.post;
+        consent_mode = infra.sso.oidc.consent;
       }
     ];
     nextcloud = {

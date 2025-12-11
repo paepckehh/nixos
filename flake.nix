@@ -108,7 +108,7 @@
           ./server/base.nix
           ./server/bookmarks/readeck.nix
           ./server/cache/ncps.nix
-          # ./server/cloud/nextcloud-authelia.nix
+          ./server/cloud/nextcloud-authelia.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix

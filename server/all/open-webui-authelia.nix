@@ -39,11 +39,12 @@ in {
         scopes = infra.sso.oidc.scopes;
         pkce_challenge_method = infra.sso.oidc.method;
         redirect_uris = ["${infra.ai.url}/oauth/oidc/callback"];
-        response_types = infra.sso.oidc.response;
+        response_types = infra.sso.oidc.response.code;
         grant_types = "authorization_code";
         access_token_signed_response_alg = "none";
         userinfo_signed_response_alg = "none";
-        token_endpoint_auth_method = "client_secret_basic";
+        token_endpoint_auth_method = infra.sso.oidc.auth.basic;
+        consent_mode = infra.sso.oidc.consent;
       }
     ];
     open-webui = {
