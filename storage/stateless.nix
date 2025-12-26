@@ -2,7 +2,7 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [./disko/stateless.nix];
+  # imports = [./disko/stateless.nix];
 
   fileSystems = lib.mkForce {
     "/" = lib.mkForce {

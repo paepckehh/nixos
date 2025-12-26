@@ -3,12 +3,12 @@
   pkgs,
   lib,
   ...
-}: {
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  # imports = [];
-
+}: let
+  ############################
+  #-=# GLOBAL SITE IMPORT #=-#
+  ############################
+  infra = (import ../siteconfig/config.nix).infra;
+in {
   ###############
   #-=# USERS #=-#
   ###############
@@ -46,10 +46,11 @@
           homeDirectory = "/home/me";
           keyboard.layout = "us,de";
           sessionVariables = {
+            # SSL_CERT_FILE = infra.pki.certs.rootCA.path;
             PAGER = "bat";
-            STARSHIP_LOG = "error";
-            SHELLCHECK_OPTS = "-e SC2086";
             EDITOR = "vim";
+            STARSHIP_LOG = "error";
+            CGO_ENABLED = "0";
           };
           shellAliases = {
             "b" = "sudo btop";
@@ -64,6 +65,7 @@
             "cat" = "bat --paging=never";
             "time.status" = "timedatectl timesync-status";
             "keybordlight" = "echo 1 | sudo tee /sys/class/leds/input1::scrolllock/brightness";
+            "portal" = "xdg-open http://$(ip --oneline route get 1.1.1.1 | awk '{print $3}')";
             "ll" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
             "la" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
             "lg" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --group";

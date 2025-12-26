@@ -67,13 +67,13 @@ in {
             SESSION_SECRET = "your-random-secret-token"; # XXX rage
             # OpenID Connect (Optional)
             ENABLE_OIDC = "false";
-            OIDC_ISSUER = infra.sso.url.base;
-            OIDC_CLIENT_ID = infra.webpki.fqdn;
-            OIDC_CLIENT_SECRET = "your-oidc-secret-token"; # XXX
+            # OIDC_ISSUER = [ infra.sso.url.base ];
+            # OIDC_CLIENT_ID = infra.webpki.fqdn;
+            # OIDC_CLIENT_SECRET = "your-oidc-secret-token"; # XXX
             # Email Notifications
             EMAIL_NOTIFICATIONS_ENABLED = "false";
             SMTP_HOST = infra.smtp.fqdn;
-            SMTP_PORT = "${toString infra.smtp.port}";
+            SMTP_PORT = "25";
             SMTP_SECURE = "false";
             SMTP_USER = infra.admin.smtp.id;
             SMTP_PASSWORD = infra.admin.smtp.pwd;
@@ -97,9 +97,7 @@ in {
     caddy.virtualHosts."${infra.webpki.fqdn}" = {
       listenAddresses = [infra.webpki.ip];
       extraConfig = ''
-        reverse_proxy ${infra.localhost.ip}:${toString infra.webpki.localbind.port.http}
-        @not_intranet { not remote_ip ${infra.webpki.access.cidr} }
-        respond @not_intranet 403'';
+        reverse_proxy ${infra.localhost.ip}:${toString infra.webpki.localbind.port.http}'';
     };
   };
 }

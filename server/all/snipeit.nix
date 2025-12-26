@@ -157,7 +157,7 @@ in {
       ];
     };
     caddy = {
-      enable = false;
+      enable = true;
       virtualHosts."${infra.snipeit.fqdn}".extraConfig = ''
         bind ${infra.snipeit.ip}
         reverse_proxy ${infra.snipeit.localbind.ip}:${toString infra.snipeit.localbind.port.http}

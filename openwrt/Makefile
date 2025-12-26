@@ -31,18 +31,18 @@ axt-clean:
 	$(MAKE) -C glinet/gl-axt1800 clean
 
 axt-config:
-	ssh -p 6623 root@192.168.80.1 uci show | sed '/.key=/d'
+	ssh -p 6622 root@192.168.80.1 uci show | sed '/.key=/d'
 
 axt-backup:
 	mkdir -p /etc/nixos/openwrt/config/axt
-	ssh -p 6623 root@192.168.80.1 "uci show | sed '/.key=/d'" > /etc/nixos/openwrt/config/axt/$(DTS).uci-config
+	ssh -p 6622 root@192.168.80.1 "uci show | sed '/.key=/d'" > /etc/nixos/openwrt/config/axt/$(DTS).uci-config
 
 axt-btop:
-	ssh -t -p 6623 root@192.168.80.1 "LANG=en_US.UTF-8 btop"
+	ssh -t -p 6622 root@192.168.80.1 "LANG=en_US.UTF-8 btop"
 
 axt-luci:
-	ssh -p 6623 root@192.168.80.1 "service uhttpd start"
-	ssh -p 6623 -L localhost:8091:127.0.0.1:8080 root@192.168.80.1
+	ssh -p 6622 root@192.168.80.1 "service uhttpd start"
+	ssh -p 6622 -L localhost:8091:127.0.0.1:8080 root@192.168.80.1
 
 
 #################
@@ -59,18 +59,18 @@ b3000-clean:
 	$(MAKE) -C glinet/gl-axt1800 clean
 
 b3000-config:
-	ssh -p 6623 root@192.168.80.250 "uci show | sed '/.key=/d'"
+	ssh -p 6622 root@192.168.90.250 "uci show | sed '/.key=/d'"
 
 b3000-backup:
 	mkdir -p /etc/nixos/openwrt/config/b3000
-	ssh -p 6623 root@192.168.80.250 "uci show | sed '/.key=/d'" > /etc/nixos/openwrt/config/b3000/$(DTS).uci-config
+	ssh -p 6622 root@192.168.90.250 "uci show | sed '/.key=/d'" > /etc/nixos/openwrt/config/b3000/$(DTS).uci-config
 
 b3000-btop:
-	ssh -t -p 6623 root@192.168.80.250 "LANG=en_US.UTF-8 btop"
+	ssh -t -p 6622 root@192.168.90.250 "LANG=en_US.UTF-8 btop"
 
 b3000-luci:
-	ssh -p 6623 root@192.168.80.250 "service uhttpd start"
-	ssh -p 6623 -L localhost:8093:127.0.0.1:8080 root@192.168.80.250
+	ssh -p 6622 root@192.168.90.250 "service uhttpd start"
+	ssh -p 6622 -L 127.0.0.1:8443:127.0.0.1:8443 root@192.168.90.250
 
 
 #####################

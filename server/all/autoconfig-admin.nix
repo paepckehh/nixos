@@ -1,3 +1,4 @@
+# autoconfigure email imap smtp thunderbird
 {
   config,
   pkgs,
@@ -12,7 +13,7 @@ in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking.extraHosts = "${infra.autoconfig.ip} ${infra.autoconfig.hostname} ${infra.autoconfig.fqdn}";
+  networking.extraHosts = "${infra.autoconfig.admin.ip} ${infra.autoconfig.hostname} ${infra.autoconfig.admin.fqdn}";
 
   #################
   #-=# SYSTEMD #=-#
@@ -30,30 +31,27 @@ in {
     go-autoconfig = {
       enable = true;
       settings = {
-        domain = infra.autoconfig.fqdn;
+        domain = infra.autoconfig.admin.fqdn;
         service_addr = "${infra.localhost.ip}:${toString infra.autoconfig.localbind.port.http}";
         imap = {
           server = infra.imap.admin.fqdn;
           port = infra.port.imap;
-          socketType = infra.autoconfig.auth.socketType;
-          authentication = infra.autoconfig.auth.authentication;
-          userid = infra.autoconfig.auth.id;
+          socketType = infra.autoconfig.admin.auth.socketType;
+          authentication = infra.autoconfig.admin.auth.authentication;
+          userid = infra.autoconfig.admin.auth.id;
         };
         smtp = {
           server = infra.smtp.admin.fqdn;
           port = infra.port.smtp;
-          socketType = infra.autoconfig.auth.socketType;
-          authentication = infra.autoconfig.auth.authentication;
-          userid = infra.autoconfig.auth.id;
+          socketType = infra.autoconfig.admin.auth.socketType;
+          authentication = infra.autoconfig.admin.auth.authentication;
+          userid = infra.autoconfig.admin.auth.id;
         };
       };
     };
-    caddy.virtualHosts."${infra.autoconfig.fqdn}" = {
-      listenAddresses = [infra.autoconfig.ip];
-      extraConfig = ''
-        reverse_proxy ${infra.localhost.ip}:${toString infra.autoconfig.localbind.port.http}
-        @not_intranet { not remote_ip ${infra.cloud.access.cidr} }
-        respond @not_intranet 403'';
+    caddy.virtualHosts."${infra.autoconfig.admin.fqdn}" = {
+      listenAddresses = [infra.autoconfig.admin.ip];
+      extraConfig = ''import intraproxy ${toString infra.autoconfig.localbind.port.http}'';
     };
   };
 }

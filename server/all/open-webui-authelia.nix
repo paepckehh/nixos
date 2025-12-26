@@ -30,20 +30,21 @@ in {
   services = {
     authelia.instances."${infra.sso.site}".settings.identity_providers.oidc.clients = [
       {
-        client_id = "open-webui";
-        client_name = "open-webui";
+        client_id = infra.ai.app;
+        client_name = infra.ai.app;
         client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
         public = false;
-        authorization_policy = "two_factor";
+        authorization_policy = infra.sso.oidc.policy;
         require_pkce = true;
-        pkce_challenge_method = "S256";
-        redirect_uris = ["https://ai.example.com/oauth/oidc/callback"];
-        scopes = ["openid" "profile" "groups" "email"];
-        response_types = "code";
+        scopes = infra.sso.oidc.scopes;
+        pkce_challenge_method = infra.sso.oidc.method;
+        redirect_uris = ["${infra.ai.url}/oauth/oidc/callback"];
+        response_types = infra.sso.oidc.response.code;
         grant_types = "authorization_code";
         access_token_signed_response_alg = "none";
         userinfo_signed_response_alg = "none";
-        token_endpoint_auth_method = "client_secret_basic";
+        token_endpoint_auth_method = infra.sso.oidc.auth.basic;
+        consent_mode = infra.sso.oidc.consent;
       }
     ];
     open-webui = {
@@ -51,43 +52,45 @@ in {
       host = infra.localhost.ip;
       port = infra.ai.localbind.port.http;
       environment = {
+        # WEBUI_AUTH_COOKIE_SAME_SITE = "lax";
+        # WEBUI_SESSION_COOKIE_SAME_SITE = "lax";
+        # DEFAULT_USER_ROLE = "user";
+        # ENABLE_OAUTH_ROLE_MANAGEMENT = infra.true;
+        SSL_CERT_FILE = infra.pki.certs.rootCA.path;
+        WEBUI_URL = infra.ai.url;
+        WEBUI_SECRET_KEY = "gvtwmbktrnkbnkrnbkrsghtrHRbrBRBrgf";
+        OLLAMA_BASE_URL = infra.ai.worker.one;
+        MODELS_CACHE_TTL = "600";
         CHAT_RESPONSE_STREAM_DELTA_CHUNK_SIZE = "6";
         DEFAULT_LOCALE = "de";
-        DEFAULT_USER_ROLE = "user";
         ENABLE_API_KEY = infra.false;
         ENABLE_PERSISTENT_CONFIG = infra.false;
         ENABLE_OPENAI_API = infra.false;
         ENABLE_OLLAMA_API = infra.true;
-        ENABLE_SIGNUP = infra.true;
-        ENABLE_SIGNUP_PASSWORD_CONFIRMATION = infra.true;
         ENABLE_VERSION_UPDATE_CHECK = infra.false;
         ENABLE_WEB_SEARCH = infra.true;
-        ENABLE_LDAP = infra.true;
-        LDAP_SEARCH_BASE = infra.ldap.base;
-        LDAP_SERVER_LABEL = infra.ldap.fqdn;
-        LDAP_ATTRIBUTE_FOR_MAIL = "mail";
-        LDAP_ATTRIBUTE_FOR_USERNAME = "uid";
-        LDAP_APP_DN = infra.ldap.bind.dn;
-        LDAP_APP_PASSWORD = infra.ldap.bind.pwd;
-        LDAP_SERVER_HOST = infra.ldap.fqdn;
-        LDAP_SERVER_PORT = "${toString infra.ldap.port}";
-        LDAP_USE_TLS = infra.false;
-        LDAP_VALIDATE_CERT = infra.false;
-        OLLAMA_BASE_URL = infra.ai.worker.one;
-        MODELS_CACHE_TTL = "600";
-        SEARXNG_QUERY_URL = "https://${infra.search.fqdn}/search?q=<query>";
-        WEBUI_URL = "https://${infra.ai.fqdn}";
-        WEB_SEARCH_ENGINE = "searxng";
+        WEB_SEARCH_ENGINE = infra.search.app; # fixed token: searxng
+        SEARXNG_QUERY_URL = infra.search.query.url;
+        ENABLE_LOGIN_FORM = infra.false;
+        ENABLE_OAUTH_SIGNUP = infra.true;
+        OPENID_PROVIDER_URL = infra.sso.oidc.discoveryUri;
+        OPENID_REDIRECT_URI = "${infra.ai.url}/oauth/oidc/callback";
+        OAUTH_MERGE_ACCOUNTS_BY_EMAIL = infra.true;
+        OAUTH_CLIENT_ID = infra.ai.app;
+        OAUTH_CLIENT_SECRET = "insecure_secret";
+        OAUTH_SCOPES = infra.sso.oidc.scope;
+        OAUTH_CODE_CHALLENGE_METHOD = infra.sso.oidc.method;
+        OAUTH_PROVIDER_NAME = infra.sso.app;
+        OAUTH_ALLOWED_ROLES = "users,admin";
+        OAUTH_ADMIN_ROLES = "admin";
+        OAUTH_ROLES_CLAIM = "groups";
+        OAUTH_UPDATE_PICTURE_ON_LOGIN = infra.true;
+        ENABLE_OAUTH_PERSISTENT_CONFIG = infra.false;
       };
     };
-    caddy = {
-      virtualHosts."${infra.ai.fqdn}" = {
-        listenAddresses = [infra.ai.ip];
-        extraConfig = ''
-          reverse_proxy ${infra.ai.ip}:${toString infra.ai.localbind.port.http}
-          @not_intranet { not remote_ip ${infra.ai.access.cidr} }
-          respond @not_intranet 403'';
-      };
+    caddy.virtualHosts."${infra.ai.fqdn}" = {
+      listenAddresses = [infra.ai.ip];
+      extraConfig = ''import intraproxy ${toString infra.ai.localbind.port.http}'';
     };
   };
 }

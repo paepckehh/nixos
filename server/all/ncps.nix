@@ -49,10 +49,10 @@ in {
       server.addr = "${infra.localhost.ip}:${toString infra.cache.localbind.port.http}";
       cache = {
         hostName = infra.cache.hostname;
-        maxSize = "50G";
+        maxSize = infra.cache.size;
         allowPutVerb = lib.mkForce false;
         allowDeleteVerb = lib.mkForce false;
-        lru.schedule = "0 10 * * *"; # cleanup cache daily at 04:00
+        lru.schedule = "10 10 * * *"; # cleanup cache daily 10:10
       };
       upstream = {
         caches = lib.mkForce [
@@ -65,10 +65,7 @@ in {
     };
     caddy.virtualHosts."${infra.cache.fqdn}" = {
       listenAddresses = [infra.cache.ip];
-      extraConfig = ''
-        reverse_proxy ${infra.localhost.ip}:${toString infra.cache.localbind.port.http}
-        @not_intranet { not remote_ip ${infra.cache.access.cidr} }
-        respond @not_intranet 403'';
+      extraConfig = ''import intraproxy ${toString infra.cache.localbind.port.http}'';
     };
   };
 }

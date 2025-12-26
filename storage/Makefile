@@ -5,7 +5,13 @@
 ######################
 # SETUP ENV DEFAULTS #
 ######################
-REPO?=https://github.com/paepckehh/nixos
+# REPO?=https://github.com/paepckehh/nixos
+# DISKOREPO?=github:nix-community/disko/latest 
+ID:=$(shell id -u)
+GID:=$(shell id -g)
+NAME:=$(shell id -nu)
+REPO?=git+file:///etc/nixos
+DISKOREPO?=git+file:///home/projects/nixos/disko.git
 TARGET?=$(shell hostname)
 TARGETDRIVE?=sdb
 PARALLEL?=0
@@ -24,17 +30,14 @@ EXT4MOPT:=-o noatime,nodiratime,discard,commit=10,nobarrier,data=writeback,journ
 EXT4FOPT:=-E packed_meta_blocks=1
 
 all:
-
 ####################
 # USBDRIVE TARGETS #
 ####################
-
 usb: info check wipe format pre-mount mount post-mount install bootproof migrate umount
 
 ####################
 # USBDRIVE GENERIC #
 ####################
-
 info: 
 	echo build target drive: /dev/$(TARGETDRIVE), target os: $(TARGET), os-flake: $(OSFLAKE), luks: $(USELUKS), build repo: $(REPO), disko-flake: $(DISKOFLAKE), jobs: $(PARALLEL)
 	@if [ $(USELUKS) = "YES" ]; then (echo "### LUKS MODE ENABLED, PLEASE ENSURE PROPER DISK/STORAGE LAYOUT IN TARGETOS FLAKE CONFIG!" && sleep 3) ; fi  
@@ -92,17 +95,17 @@ umount:
 
 format:
 	echo ${LUKS} > /tmp/luks
-	$(SUDO) nix run github:nix-community/disko/latest -- --mode format --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+	$(SUDO) nix run $(DISKOREPO) -- --mode format --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
 
 wipe:
-	$(SUDO) nix run github:nix-community/disko/latest -- --mode destroy --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+	$(SUDO) nix run $(DISKOREPO) -- --mode destroy --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
 	ZERODRIVE=$(TARGETDRIVE) $(MAKE) trim 
 
 ###################
 # MIGRATE SECRETS #
 ###################
-
-migrate: migrate-etcssh migrate-root migrate-me migrate-backup migrate-projects migrate-me-master
+migrate: migrate-etcssh migrate-root migrate-me-base migrate-me-full migrate-backup migrate-projects migrate-var
+	sync && sync && sync
 
 migrate-etcssh:
 	$(SUDO) mkdir -p /mnt/nix/persist/etc/ssh | true
@@ -119,10 +122,23 @@ migrate-root:
 	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/known_hosts | true
 	$(SUDO) chown -R 0:0 /mnt/nix/persist/root | true
 
-migrate-me:
-	$(SUDO) mkdir -p /mnt/nix/persist 
-	$(SUDO) mkdir -p /mnt/nix/persist/home 
-	$(SUDO) mkdir -p /mnt/nix/persist/home/me
+
+migrate-backup:
+	$(SUDO) cp -rf /home/backup /mnt/nix/persist/home/ | true
+	$(SUDO) chown -R me:me /mnt/nix/persist/home/backup | true
+	sync && sync && sync
+
+migrate-projects:
+	$(SUDO) cp -rf /home/projects /mnt/nix/persist/home/ | true 
+	$(SUDO) chown -R me:me /mnt/nix/persist/home/projects | true
+	sync && sync && sync
+
+migrate-var:
+	$(SUDO) cp -af /var/lib /mnt/nix/persist/var/ | true
+	sync && sync && sync
+
+migrate-me-base:
+	$(SUDO) mkdir -p /mnt/nix/persist/home/me | true
 	$(SUDO) cp -rf /home/me/.ssh /mnt/nix/persist/home/me/ | true
 	$(SUDO) cp -rf /home/me/.local/share/atuin /mnt/nix/persist/home/me/.local/share/ | true
 	$(SUDO) chmod 700 /mnt/nix/persist/home/me/.ssh | true
@@ -130,36 +146,41 @@ migrate-me:
 	$(SUDO) chmod 600 /mnt/nix/persist/home/me/.ssh/id_ed25519 | true 
 	$(SUDO) chmod 644 /mnt/nix/persist/home/me/.ssh/id_ed25519.pub | true
 	$(SUDO) chmod 644 /mnt/nix/persist/home/me/.ssh/known_hosts | true
-
-migrate-backup:
-	$(SUDO) cp -rf /home/backup /mnt/nix/persist/home/ | true
-	$(SUDO) chown -R me:me /mnt/nix/persist/home/backup | true
-
-migrate-projects:
-	$(SUDO) cp -rf /home/projects /mnt/nix/persist/home/ | true 
-	$(SUDO) chown -R me:me /mnt/nix/persist/home/projects | true
-
-migrate-me-master:
-	$(SUDO) chown -R me:me /home/me | true
-	$(SUDO) mkdir -p /mnt/nix/persist/home | true
 	$(SUDO) chown -R me:me /mnt/nix/persist/home | true
-	sync && sync
 
-
+migrate-me-full: 
+	$(SUDO) mkdir -p /mnt/nix/persist/home | true
+	$(SUDO) cp -af /home/me /mnt/nix/persist/home | true
+	$(SUDO) chown -R me:me /mnt/nix/persist/home | true
+	sync && sync && sync
 
 #################
 # LITTLE HELPER #
 #################
-
 sda-zero: 
 	ZERODRIVE=sda $(MAKE) zero trim
 sdb-zero: 
 	ZERODRIVE=sdb $(MAKE) zero trim
 sdc-zero: 
 	ZERODRIVE=sdc $(MAKE) zero trim 
+nvme0-zero: 
+	ZERODRIVE=nvme0n1 $(MAKE) zero trim 
+nvme1-zero: 
+	ZERODRIVE=nvme1n1 $(MAKE) zero trim 
 trim:
 	$(SUDO) blkdiscard -f /dev/$(ZERODRIVE) > /dev/null || true
-	$(SUDO) nvme format /dev/$(ZERODRIVE) --force > /dev/null || true
 zero: 
 	$(SUDO) dd if=/dev/zero of=/dev/$(ZERODRIVE) oflag=direct bs=512k status=progress
 	$(SUDO) dd if=/dev/zero of=/dev/$(ZERODRIVE) oflag=direct bs=512k status=progress
+wipe-home:
+	$(SUDO) -v || exit 1
+	$(SUDO) chown -R $(ID):$(GID) /home/$(NAME)
+	cd || exit 1
+	mv .local/share/atuin . || true
+	rm -rf .cache .config .local .mozilla .librewolf .bash* .profile .sudo* .vim* .step .pki || true
+	mkdir -p .cache .local/share .mozilla .librewolf 
+	mv atuin .local/share/ | true
+	sync && sync && sync
+	$(SUDO) chown -R $(ID):$(GID) /home/$(NAME)
+	$(SUDO) systemctl stop home-manager-me.service
+	$(SUDO) systemctl start home-manager-me.service

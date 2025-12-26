@@ -1,82 +1,34 @@
-{config, ...}: let
-  infra = {
-    admin = "admin";
-    contact = "it@${infra.smtp.maildomain}";
-    localhost = "127.0.0.1";
-    localhostPortOffset = 7000;
-    id = {
-      admin = 0;
-      user = 6;
-    };
-    port = {
-      smtp = 25;
-      http = 80;
-      https = 443;
-      webapp = [infra.port.http infra.port.https];
-    };
-    domain = {
-      tld = "corp";
-      admin = "adm.${infra.domain.tld}";
-      user = "dbt.${infra.domain.tld}";
-    };
-    cidr = {
-      admin = "${infra.net.user}.0/24";
-      user = "${infra.net.user}.0/23";
-    };
-    net = {
-      prefix = "10.20";
-      admin = "${infra.net.prefix}.${toString infra.id.admin}";
-      user = "${infra.net.prefix}.${toString infra.id.user}";
-    };
-    namespace = {
-      admin = "${toString infra.id.admin}";
-      user = "${toString infra.id.user}";
-    };
-    pki = {
-      acmeContact = "acme@${infra.pki.fqdn}";
-      caFile = "/etc/ca.crt";
-      hostname = "pki";
-      domain = infra.domain.admin;
-      maildomain = "debitor.de";
-      fqdn = "${infra.pki.hostname}.${infra.pki.domain}";
-      url = "https://${infra.pki.fqdn}/acme/acme/directory";
-    };
-    smtp = {
-      hostname = "smtp";
-      domain = infra.domain.admin;
-      fqdn = "${infra.smtp.hostname}.${infra.smtp.domain}";
-      maildomain = "debitor.de";
-    };
-    ldap = {
-      uri = "http://10.20.0.126:3890";
-      base = "dc=dbt,dc=corp";
-      bind.dn = "cn=bind,ou=persons,${infra.ldap.base}";
-    };
-    onlyoffice = {
-      id = 132;
-      name = "onlyoffice";
-      hostname = infra.onlyoffice.name;
-      domain = infra.domain.user;
-      fqdn = "${infra.onlyoffice.hostname}.${infra.onlyoffice.domain}";
-      ip = "${infra.net.user}.${toString infra.onlyoffice.id}";
-      network = infra.cidr.user;
-      namespace = infra.namespace.user;
-      localbind = {
-        ip = infra.localhost;
-        port.http = infra.localhostPortOffset + infra.onlyoffice.id;
-      };
-    };
-  };
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  ############################
+  #-=# GLOBAL SITE IMPORT #=-#
+  ############################
+  infra = (import ../../siteconfig/config.nix).infra;
 in {
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking.extraHosts = "${infra.onlyoffice.ip} ${infra.onlyoffice.hostname} ${infra.onlyoffice.fqdn}";
+
   #############
   #-=# AGE #=-#
   #############
   age = {
     secrets = {
-      onlyoffice = {
-        file = ../../modules/resources/onlyoffice.age;
+      onlyoffice-jwt = {
+        file = ../../modules/resources/onlyoffice-jwt.age;
+        owner = "onlyoffice";
+      };
+      onlyoffice-nonce = {
+        # set $secure_link_secret "changeme";
+        file = ../../modules/resources/onlyoffice-nonce.age;
         owner = "onlyoffice";
         group = "onlyoffice";
+        mode = "440"; # nginx group access
       };
     };
   };
@@ -85,49 +37,32 @@ in {
   #-=# USERS #=-#
   ###############
   users = {
-    groups.onlyoffice = {};
+    groups."${infra.onlyoffice.name}" = {};
     users = {
-      onlyoffice = {
-        group = "onlyoffice";
+      "${infra.onlyoffice.name}" = {
+        group = "${infra.onlyoffice.name}";
         isSystemUser = true;
-        hashedPassword = null; # disable ldap service account interactive logon
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
+        hashedPassword = null;
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
     };
-  };
-
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.network.networks.${infra.onlyoffice.namespace}.addresses = [
-    {Address = "${infra.onlyoffice.ip}/32";}
-  ];
-
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking = {
-    extraHosts = "${infra.onlyoffice.ip} ${infra.onlyoffice.hostname} ${infra.onlyoffice.fqdn}";
-    firewall.allowedTCPPorts = infra.port.webapp;
   };
 
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
+    epmd.listenStream = "0.0.0.0:4369";
     onlyoffice = {
       enable = true;
-      hostname = infra.onlyoffice.localbind.ip;
+      # hostname = infra.localhost.ip;
       port = infra.onlyoffice.localbind.port.http;
-      jwtSecretFile = config.age.secrets.onlyoffice.path;
+      jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
+      securityNonceFile = config.age.secrets.onlyoffice-nonce.path;
     };
-    caddy = {
-      enable = false;
-      virtualHosts."${infra.onlyoffice.fqdn}".extraConfig = ''
-        bind ${infra.onlyoffice.ip}
-        reverse_proxy ${infra.onlyoffice.localbind.ip}:${toString infra.matrix.localbind.ports.http}
-        @not_intranet { not remote_ip ${infra.onlyoffice.network} }
-        respond @not_intranet 403'';
+    caddy.virtualHosts."${infra.onlyoffice.fqdn}" = {
+      listenAddresses = [infra.onlyoffice.ip];
+      extraConfig = ''import intraproxy ${toString infra.onlyoffice.localbind.port.http}'';
     };
   };
 }

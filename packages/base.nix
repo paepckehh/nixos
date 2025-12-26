@@ -8,8 +8,6 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    pcscd.enable = true;
-    yubikey-agent.enable = true;
   };
 
   ##################
@@ -24,10 +22,9 @@
     mtr.enable = true;
     vim.enable = true;
     yubikey-manager.enable = true;
-    zsh = {
+    gnupg.agent = {
       enable = true;
-      histFile = "/dev/null";
-      histSize = 0;
+      enableSSHSupport = true;
     };
     ssh = {
       extraConfig = "AddKeysToAgent yes";
@@ -63,11 +60,6 @@
         init.defaultBranch = "main";
         safe.directory = "*";
         gpg.format = "ssh";
-        user = {
-          email = "nix@nixos.local";
-          name = "NIXOS, Generic Local";
-          signingkey = "~/.ssh/id_ed25519.pub";
-        };
         http = {
           sslVerify = "true";
           sslVersion = "tlsv1.3";

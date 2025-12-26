@@ -26,6 +26,8 @@ in {
   "pki-pwd.age".publicKeys = [age srv-mp];
   "nextcloud-admin.age".publicKeys = [age srv-mp];
   "readeck.age".publicKeys = [age srv-mp];
+  "onlyoffice-jwt.age".publicKeys = [age srv-mp];
+  "onlyoffice-nonce.age".publicKeys = [age srv-mp];
   "wg-nix-pk-wg110.age".publicKeys = [age srv-mp];
   "wg-nix-pk-wg100.age".publicKeys = [age srv-mp];
   "wg-nix-psk.age".publicKeys = [age srv-mp];

@@ -80,168 +80,181 @@ in {
         services = [
           {
             name = "APPS";
-            icon = "fas fa-cloud";
             items = [
               {
+                name = "Anmeldung [Authelia]";
+                tag = "app";
+                target = "_blank";
+                url = infra.sso.url;
+                logo = infra.sso.logo;
+              }
+              {
                 name = "NextCloud";
-                logo = "https://res.${infra.domain.user}/icon/png/nextcloud-blue.png";
                 tag = "app";
-                url = "https://cloud.${infra.domain.user}";
                 target = "_blank";
+                url = infra.cloud.url;
+                logo = infra.cloud.logo;
               }
               {
-                name = "KI-Assistenten";
-                logo = "https://res.${infra.domain.user}/icon/png/ollama.png";
+                name = "KI-Assistent";
                 tag = "app";
-                url = "https://ai.${infra.domain.user}";
                 target = "_blank";
+                url = infra.ai.url;
+                logo = infra.ai.logo;
               }
               {
-                name = "Paperless";
-                logo = "https://res.${infra.domain.user}/icon/png/paperless-ng.png";
+                name = "Paperless-NGX";
                 tag = "app";
-                url = "https://paperless.${infra.domain.user}";
                 target = "_blank";
+                url = infra.paperless.url;
+                logo = infra.paperless.logo;
               }
               {
-                name = "WebArchiv";
+                name = "WebArchiv [Readeck]";
+                tag = "app";
+                target = "_blank";
                 url = infra.webarchiv.url;
                 logo = infra.webarchiv.logo;
-                tag = "app";
-                target = "_blank";
               }
               {
-                name = "Suche";
+                name = "Suche [SearX]";
+                tag = "app";
+                target = "_blank";
                 url = infra.search.url;
                 logo = infra.search.logo;
+              }
+              {
+                name = "Password Safe [Vaultwarden]";
                 tag = "app";
                 target = "_blank";
+                url = infra.vault.url;
+                logo = infra.vault.logo;
               }
               {
-                name = "Password Safe";
-                logo = "https://res.${infra.domain.user}/icon/png/bitwarden.png";
-                tag = "debi app";
-                url = "https://vault.${infra.domain.user}";
+                name = "Benutzer- und Passwordverwaltung [LLDAP]";
+                tag = "app";
                 target = "_blank";
+                url = infra.iam.url;
+                logo = infra.iam.logo;
               }
               {
-                name = "Secret Share";
-                logo = "https://res.${infra.domain.user}/icon/png/passwork.png";
-                tag = "debi app";
-                url = "https://secret.${infra.domain.user}";
+                name = "Druck-Aufträge Verwalten [CUPS]";
+                tag = "app";
                 target = "_blank";
+                url = infra.print.url;
+                logo = infra.print.logo;
               }
               {
-                name = "Matrix Web Messenger";
-                logo = "https://res.${infra.domain.user}/icon/png/element.png";
-                tag = "debi app";
-                url = "https://matrix-web.${infra.domain.user}";
+                name = "IT Status [KUMA]";
+                tag = "app";
                 target = "_blank";
+                url = infra.status.url;
+                logo = infra.status.logo;
               }
               {
-                name = "Benutzer- und Passwordverwaltung";
-                logo = "https://res.${infra.domain.user}/icon/png/nextcloud-contacts.png";
-                tag = "debi it app";
-                url = "https://iam.${infra.domain.user}";
+                name = "IT WikiPedia [Wikipedia]";
+                tag = "app";
                 target = "_blank";
+                url = infra.wiki.url;
+                logo = infra.wiki.logo;
               }
               {
-                name = "Anmeldung [Single Sign-on]";
-                logo = "https://res.${infra.domain.user}/icon/png/authelia.png";
-                tag = "debi it app";
-                url = "https://sso.${infra.domain.user}";
+                name = "Web Resources [Caddy]";
+                tag = "app";
                 target = "_blank";
-              }
-              {
-                name = "Drucker Aufträge Verwalten";
-                logo = "https://res.${infra.domain.user}/icon/png/printer.png";
-                tag = "debi it app";
-                url = "https://drucker.${infra.domain.user}/printers";
-                target = "_blank";
-              }
-              {
-                name = "IT Status";
-                logo = "https://res.${infra.domain.user}/icon/png/healthchecks.png";
-                tag = "debi it app";
-                url = "https://status.${infra.domain.user}/status/debitor";
-                target = "_blank";
-              }
-              {
-                name = "IT WikiPedia";
-                logo = "https://res.${infra.domain.user}/icon/png/mediawiki.png";
-                tag = "debi it app";
-                url = "https://wiki.${infra.domain.user}";
-                target = "_blank";
-              }
-              {
-                name = "Freifunk Status";
-                logo = "https://res.${infra.domain.user}/icon/png/openwrt.png";
-                tag = "debi it app";
-                url = "https://map.luebeck.freifunk.net/#!v:m;n:60beb4236e6b";
-                target = "_blank";
-              }
-              {
-                name = "PDF Cloud [Stirling]";
-                logo = "https://res.${infra.domain.user}/icon/png/stirling-pdf.png";
-                tag = "debi app";
-                url = "https://pdf.${infra.domain.user}";
-                target = "_blank";
-              }
-              {
-                name = "Data Konverter Cloud [Chef]";
-                logo = "https://res.${infra.domain.user}/icon/png/cyberchef.png";
-                tag = "debi app";
-                url = "https://chef.${infra.domain.user}";
-                target = "_blank";
-              }
-              {
-                name = "Code Cloud GIT [forgejo]";
-                logo = "https://res.${infra.domain.user}/icon/png/forgejo.png";
-                tag = "debi app";
-                url = "https://git.${infra.domain.user}/explore/repos";
-                target = "_blank";
-              }
-              {
-                name = "Netzwerk Test Intern [OpenSpeedtest]";
-                logo = "https://res.${infra.domain.user}/icon/png/openspeedtest.png";
-                tag = "debi it app";
-                url = "https://speed.${infra.domain.user}";
-                target = "_blank";
-              }
-              {
-                name = "WebACME";
-                logo = "https://res.${infra.domain.user}/icon/png/cert-warden.png";
-                tag = "debi it app";
-                url = "https://webacme.${infra.domain.admin}";
-                target = "_blank";
-              }
-              {
-                name = "WebPKI";
-                logo = "https://res.${infra.domain.user}/icon/png/cert-manager.png";
-                tag = "debi it app";
-                url = "https://webpki.${infra.domain.admin}";
-                target = "_blank";
-              }
-              {
-                name = "WebMTLS";
-                logo = "https://res.${infra.domain.user}/icon/png/vault.png";
-                tag = "debi it app";
-                url = "https://webmtls.${infra.domain.admin}";
-                target = "_blank";
-              }
-              {
-                name = "Web Resources (Caddy)";
-                logo = "https://res.${infra.domain.user}/icon/png/caddy.png";
-                tag = "debi it app";
-                url = "https://res.${infra.domain.user}";
-                target = "_blank";
+                url = infra.res.url;
+                logo = infra.res.logo;
               }
               {
                 name = "Test";
-                logo = "https://res.${infra.domain.user}/icon/png/speedtest-tracker.png";
-                tag = "debi it app";
-                url = "https://test.${infra.domain.user}";
+                tag = "app";
                 target = "_blank";
+                url = infra.test.url;
+                logo = infra.test.logo;
+              }
+              {
+                name = "Glance";
+                tag = "app";
+                target = "_blank";
+                url = infra.glance.url;
+                logo = infra.glance.logo;
+              }
+              {
+                name = infra.meshtastic-web.app;
+                tag = "app";
+                target = "_blank";
+                url = infra.meshtastic-web.url;
+                logo = infra.meshtastic-web.logo;
+              }
+              {
+                name = "DNS Status [Adguard] ";
+                tag = "app";
+                target = "_blank";
+                url = infra.adguard.url;
+                logo = infra.adguard.logo;
+              }
+              {
+                name = "Bildverwaltung [Immich]";
+                tag = "app";
+                target = "_blank";
+                url = infra.immich.url;
+                logo = infra.immich.logo;
+              }
+              {
+                name = "Bildverwaltung [Ente]";
+                tag = "app";
+                target = "_blank";
+                url = infra.ente.url;
+                logo = infra.ente.logo;
+              }
+              {
+                name = "Musik Stream [Navidrome]";
+                tag = "app";
+                target = "_blank";
+                url = infra.navidrome.url;
+                logo = infra.navidrome.logo;
+              }
+              {
+                name = "RSS Reader [Miniflux]";
+                tag = "app";
+                target = "_blank";
+                url = infra.miniflux.url;
+                logo = infra.miniflux.logo;
+              }
+              {
+                name = "Office [OnlyOffice-Cloud]";
+                tag = "app";
+                target = "_blank";
+                url = infra.onlyoffice.url;
+                logo = infra.onlyoffice.logo;
+              }
+              {
+                name = "WebACME";
+                tag = "app";
+                target = "_blank";
+                url = infra.webacme.url;
+                logo = infra.webacme.logo;
+              }
+              {
+                name = "WebPKI";
+                tag = "app";
+                target = "_blank";
+                url = infra.webpki.url;
+                logo = infra.webpki.logo;
+              }
+              {
+                name = "WebMTLS";
+                tag = "app";
+                target = "_blank";
+                url = infra.webmtls.url;
+                logo = infra.webmtls.logo;
+              }
+              {
+                name = "Freifunk Status";
+                tag = "external web";
+                target = "_blank";
+                logo = "${infra.res.url}/icon/png/openwrt.png";
+                url = "https://map.luebeck.freifunk.net/#!v:m;n:60beb4236e6b";
               }
             ];
           }
@@ -260,14 +273,7 @@ in {
     };
     caddy.virtualHosts."${infra.portal.fqdn}" = {
       listenAddresses = [infra.portal.ip];
-      extraConfig = ''
-             	forward_auth ${infra.sso.url} {
-        	uri /api/authz/forward-auth
-        	copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
-        }
-               reverse_proxy ${infra.localhost.ip}:${toString infra.portal.localbind.port.http}
-               @not_intranet { not remote_ip ${infra.portal.access.cidr} }
-               respond @not_intranet 403'';
+      extraConfig = ''import intraproxy ${toString infra.portal.localbind.port.http}'';
     };
   };
 }

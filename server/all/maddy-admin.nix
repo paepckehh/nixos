@@ -13,7 +13,7 @@ in {
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = "${infra.smtp.ip} ${infra.smtp.hostname} ${infra.smtp.fqdn}";
+    extraHosts = "${infra.smtp.admin.ip} ${infra.smtp.admin.fqdn}";
     firewall.allowedTCPPorts = [infra.port.smtp infra.port.imap];
   };
 
@@ -108,7 +108,8 @@ in {
             deliver_to &local_mailboxes
           }
           default_destination {
-            reject 550 5.1.1 "User doesn't exist. (Unreachable: catchall)"
+            deliver_to smtp ${infra.smtp.external.uriTcp}
+            # reject 550 5.1.1 "User doesn't exist. (Unreachable: catchall)"
           }
         }
         # message rewrite filter

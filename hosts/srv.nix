@@ -2,7 +2,13 @@
   ##############
   # NETWORKING #
   ##############
-  networking.usePredictableInterfaceNames = lib.mkForce true;
+  networking = {
+    usePredictableInterfaceNames = lib.mkForce true;
+    networkmanager = {
+      enable = true;
+      unmanaged = ["enp1s0f4u2u1"];
+    };
+  };
 
   ###########
   # SYSTEMD #
@@ -58,12 +64,23 @@
             {Address = "10.50.6.117/32";} # cloud
             {Address = "10.50.6.119/32";} # search
             {Address = "10.50.6.126/32";} # ldap iam
+            {Address = "10.50.6.125/32";} # paperless
             {Address = "10.50.6.135/32";} # portal start
             {Address = "10.50.6.141/32";} # res
             {Address = "10.50.6.143/32";} # imap
             {Address = "10.50.6.154/32";} # translate-lama
             {Address = "10.50.6.154/32";} # test
             {Address = "10.50.6.156/32";} # grist
+            {Address = "10.50.6.157/32";} # meshtastic-web
+            {Address = "10.50.6.158/32";} # glance
+            {Address = "10.50.6.159/32";} # immich
+            {Address = "10.50.6.160/32";} # ente
+            {Address = "10.50.6.161/32";} # miniflux
+            {Address = "10.50.6.162/32";} # navidrome
+            {Address = "10.50.6.163/32";} # chef
+            {Address = "10.50.6.164/32";} # onlyoffice
+            {Address = "10.50.6.165/32";} #
+            {Address = "10.50.6.166/32";} #
           ];
           # networkConfig = [
           #          IPv4Forwarding = false;

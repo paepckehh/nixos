@@ -10,11 +10,13 @@ ISO?=iso
 PARALLEL?=0
 TARGET?=$(shell /run/current-system/sw/bin/hostname)
 DTS:=$(shell date '+%Y-%m-%d-%H-%M')
-OSFLAKE:=/etc/nixos/\#$(TARGET)
-ALLFLAKE:=/etc/nixos/.\#nixos-all
+REPO:=/etc/nixos
+OSFLAKE:=$(REPO)\#$(TARGET)
+ALLFLAKE:=$(REPO)/.\#nixos-all
 PROFILE:="$(TARGET)-$(DTS)"
 TYPE:="nixos boot profile"
 USELUKS:=YES
+MIRROR:=/home/projects/nixos
 ifeq ($(origin LUKS),undefined)
       USELUKS:=NO
 endif
@@ -24,7 +26,6 @@ SUDO:=/run/wrappers/bin/sudo
 ###########
 # GENERIC #
 ###########
-
 all:
 	@echo "STATUS # $(MAKE) # ID: $(ID) # GID: $(GID) # TARGET: $(TARGET) # LUKS: $(USELUKS) # DTS: $(DTS) # PROFILE: $(PROFILE) # OSFLAKE: $(OSFLAKE)"
 	@echo "Set TARGET='hostname' to build for a specific host target. Your current target TARGET=$(TARGET)."
@@ -48,54 +49,53 @@ info-image:
 ####################
 # NIXOS OPERATIONS #
 ####################
+boot: build 
+test: check
+test-all: check
+	  nix flake check 
 
-boot:   build 
-
-build:  info commit build-log
+build:  check   
 	$(SUDO) nixos-rebuild boot --flake $(OSFLAKE) --profile-name $(PROFILE)
 
-buildagain:  info commit build-log
+buildagain: check 
 	$(SUDO) nixos-rebuild boot --flake $(OSFLAKE) --profile-name $(PROFILE)
 
-recover:  info commit build-log
+recover: check 
 	@echo "Recover Build for system /mnt and $(OSFLAKE)"
 	$(SUDO) nixos-install --verbose --max-jobs $(PARALLEL) --cores $(PARALLEL) --keep-going --impure --no-root-password --root /mnt --flake $(OSFLAKE)
 
-check: info
-	nix flake check 
+check: creds info
 	alejandra --quiet .
+	git add .
+	nom build ".#nixosConfigurations.$(TARGET).config.system.build.toplevel"
+	@$(SUDO) rm -rf result
 
-switch: info commit build-log
+wake-cache:
+	$(SUDO) systemctl restart ncps.service || true
+	$(SUDO) systemctl restart nix-daemon.service || true
+
+switch: check 
 	$(SUDO) nixos-rebuild switch --flake $(OSFLAKE) --profile-name $(PROFILE)
 
-update: commit  
+update: creds 
 	mkdir -p .attic/flake.lock
 	cp -f flake.lock .attic/flake.lock/$(DTS).flake.lock
 	nix flake update
-        
-bootloader: info commit 
+
+bootloader: check 
 	$(SUDO) nixos-rebuild boot -v --fallback --install-bootloader
 
-test: commit build-log
-	nixos-rebuild dry-activate --flake $(OSFLAKE)
-
-offline: info commit 
-	# XXX broken: fixme 
+offline: check
+	git add .
 	$(SUDO) nixos-rebuild boot -v --flake $(OSFLAKE) --profile-name $(PROFILE)
       
-rollback: commit
-	# XXX broken: fixme 
+rollback: check 
 	$(SUDO) nixos-rebuild switch --rollback 
-
-build-log:
-	nom build ".#nixosConfigurations.$(TARGET).config.system.build.toplevel"
-	@$(SUDO) rm -rf result
 
 
 #######################
 # NIX REPO OPERATIONS #
 #######################
-
 push: pre-commit 
 	git add .
 	git commit -S -m 'update'
@@ -128,16 +128,12 @@ git-gc: commit
 ########################
 # NIX STORE OPERATIONS #
 ########################
-
 clean: internal-clean-12d build gc 
-
 clean-hard: internal-clean-profiles internal-clean-1d build gc
-
 clean-profiles: internal-clean-profiles build buildagain 
 	$(SUDO) ls -la /boot/loader/entries
 
 cache: update build-nixos-all sign
-
 build-nixos-all:
 	nixos-rebuild build -v --fallback --flake $(ALLFLAKE)
 	rm -rf result
@@ -173,30 +169,26 @@ internal-clean-profiles:
 #################
 # NIXOS INSTALL #
 #################
-
-# install optimized usbdrive live os
-# set env TARGETOS for other target-os, default: current-system [$hostname]
-# set TARGETDRIVE for usb stick, default: sdb [uses: /dev/sdb] [supports: sda, sdb and sdc]
 TARGETDRIVE?=sdb
 
-sda: info-cleaninstall commit
+sda: info-cleaninstall
 	export PARALLEL=1
 	export TARGETDRIVE=sda
 	${MAKE} -C storage usb
 
 
-sdb: info-cleaninstall commit
+sdb: info-cleaninstall 
 	export PARALLEL=1
 	export TARGETDRIVE=sdb
 	${MAKE} -C storage usb
 
 
-sdc: info-cleaninstall commit 
+sdc: info-cleaninstall  
 	export PARALLEL=1
 	export TARGETDRIVE=sdc
 	${MAKE} -C storage usb
 
-usb: info-cleaninstall commit
+usb: info-cleaninstall
 	export PARALLEL=1
 	export TARGETDRIVE=$(TARGETDRIVE)
 	${MAKE} -C storage usb
@@ -204,7 +196,7 @@ usb: info-cleaninstall commit
 
 # make full automatic bootable iso (offline-) installer for current system,
 # set env TARGET for other nix flake target systems
-installer: info-iso-installer commit 
+installer: info-iso-installer  
 	@if [ !  -z  $(LUKS) ]; then (echo "LUKS Passwords for target installer-iso must explicitly set in autoinstall script, not in env." && exit 1);fi
 	@export NIXPKGS_ALLOW_BROKEN=1 
 	nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
@@ -212,20 +204,19 @@ installer: info-iso-installer commit
 
 # XXX WIP: maybe currently broken
 # make live iso image from current system, set env TARGET for other nix flake target systems
-iso: info-cleaninstall commit
+iso: info-cleaninstall 
 	nixos-rebuild build-image --flake $(OSFLAKE) --image-variant iso
 	ls -la /etc/nixos/result/iso
 
 # XXX WIP: maybe currently broken
 # make live iso image from current system, set env TARGET for other nix flake target systems
-qemu: info-cleaninstall commit
+qemu: info-cleaninstall 
 	nixos-rebuild build-image --flake $(OSFLAKE) --image-variant qemu-efi
 	ls -la /etc/nixos/result/iso
 
 ###########
 # YUBIKEY #
 ###########
-
 yubikey-generate-ssh:
 	set +x
 	echo "Please verify your PIN, Default Factory PIN: 123456"
@@ -240,12 +231,90 @@ yubikey-generate-ssh:
 	cp -af ~/.ssh ~/.ssh.backup.$(DTS) || exit 1 
 	rm -rf ~/.ssh/id_ed25519_sk ~/.ssh/id_ed25519_sk.pub > /dev/null 2>&1 || true 
 	ssh-keygen -t ed25519-sk -f ~/.ssh/id_ed25519_sk <<< y
-	
 
+##############
+# GIT MIRROR #
+##############
+mirror-update:
+	$(SUDO) -v 
+	git -C $(MIRROR)/agenix.git fetch
+	git -C $(MIRROR)/disko.git fetch
+	git -C $(MIRROR)/home-manager.git fetch
+	git -C $(MIRROR)/nixpkgs.git fetch
+
+mirror-compact:
+	$(SUDO) -v 
+	git -C $(REPO) gc --aggressive 
+	git -C $(MIRROR)/agenix.git gc --aggressive 
+	git -C $(MIRROR)/disko.git gc --aggressive
+	git -C $(MIRROR)/home-manager.git gc --aggressive --keep-largest-pack
+	git -C $(MIRROR)/nixpkgs.git gc --aggressive --keep-largest-pack
+
+mirror-compact-full:
+	$(SUDO) -v 
+	git -C $(MIRROR)/agenix.git gc --aggressive
+	git -C $(MIRROR)/disko.git gc --aggressive
+	git -C $(MIRROR)/home-manager.git gc --aggressive 
+	git -C $(MIRROR)/nixpkgs.git gc --aggressive 
 
 #################
 # LITTLE HELPER #
 #################
+nvme0-zero:
+	${MAKE} -C storage nvme0-zero
+
+nvme0-show:
+	$(SUDO) lsblk -td
+	$(SUDO) nvme id-ns -H /dev/nvme0n1 
+	$(SUDO) nvme id-ctrl /dev/nvme0n1 
+	$(SUDO) smartctl -c /dev/nvme0n1
+
+nvme0-lba-on:
+	$(SUDO) nvme format /dev/nvme0n1 --lbaf=0 --ses=1 --reset --force --verbose
+	$(SUDO) nvme format /dev/nvme0n1 --lbaf=1 --reset --force --verbose
+
+nvme0-lba-off:
+	$(SUDO) nvme format /dev/nvme0n1 --lbaf=1 --ses=1 --reset --force --verbose
+	$(SUDO) nvme format /dev/nvme0n1 --lbaf=0 --reset --force --verbose
+
+nvme0-luks-list:
+	$(SUDO) cryptsetup luksDump /dev/nvme0s3
+
+nvme0-luks-change-pwd:
+	$(SUDO) cryptsetup luksChangeKey /dev/nvme0s3
+
+nvme1-zero:
+	${MAKE} -C storage nvme1-zero
+
+nvme1-show:
+	$(SUDO) lsblk -td
+	$(SUDO) nvme id-ns -H /dev/nvme0n1 
+	$(SUDO) nvme id-ctrl /dev/nvme0n1 
+	$(SUDO) smartctl -c /dev/nvme0n1
+
+nvme1-lba-on:
+	$(SUDO) nvme format /dev/nvme0n1 --lbaf=0 --ses=1 --reset --force --verbose
+	$(SUDO) nvme format /dev/nvme0n1 --lbaf=1 --reset --force --verbose
+
+nvme1-lba-off:
+	$(SUDO) nvme format /dev/nvme0n1 --lbaf=1 --ses=1 --reset --force --verbose
+	$(SUDO) nvme format /dev/nvme0n1 --lbaf=0 --reset --force --verbose
+
+nvme1-luks-list:
+	$(SUDO) cryptsetup luksDump /dev/nvme1s3
+
+nvme1-luks-change-pwd:
+	$(SUDO) cryptsetup luksChangeKey /dev/nvme1s3
+
+creds :
+	$(SUDO) -v || exit 1
+trim:
+	${MAKE} -C storage trim
+zero: 
+	${MAKE} -C storage zero
+
+umount:  
+	${MAKE} -C storage umount
 
 sda-zero:
 	${MAKE} -C storage sda-zero
@@ -256,41 +325,17 @@ sdb-zero:
 sdc-zero:
 	${MAKE} -C storage sdc-zero
 
-trim:
-	${MAKE} -C storage trim
-zero: 
-	${MAKE} -C storage zero
-
-umount:  
-	${MAKE} -C storage umount
-
 sda-luks-list:
 	$(SUDO) cryptsetup luksDump /dev/sda3
-
-sdb-luks-list:
-	$(SUDO) cryptsetup luksDump /dev/sda3
-
-nvme0-luks-list:
-	$(SUDO) cryptsetup luksDump /dev/nvme0s3
 
 sda-luks-change-pwd:
 	$(SUDO) cryptsetup luksChangeKey /dev/sda3
 
+sdb-luks-list:
+	$(SUDO) cryptsetup luksDump /dev/sda3
+
 sdb-luks-change-pwd:
 	$(SUDO) cryptsetup luksChangeKey /dev/sda3
 
-nvme0-luks-change-pwd:
-	$(SUDO) cryptsetup luksChangeKey /dev/nvme0s3
-
 wipe-home:
-	$(SUDO) -v || exit 1
-	$(SUDO) chown -R $(ID):$(GID) /home/$(NAME)
-	cd || exit 1
-	mv .local/share/atuin .
-	mv .local/share/containers .
-	rm -rf .cache .config .local .mozilla .librewolf .bash* .profile .sudo* .vim* .step .pki
-	mkdir -p .cache .local/share .mozilla .librewolf 
-	( cd .mozilla && ln -fs ../.librewolf firefox )
-	mv atuin containers .local/share/
-	$(SUDO) systemctl stop home-manager-me.service
-	$(SUDO) systemctl start home-manager-me.service
+	${MAKE} -C storage wipe-home 

@@ -44,8 +44,8 @@ in {
       wantedBy = ["multi-user.target"];
     };
     searx = {
-      after = ["sockets.target"];
-      wants = ["sockets.target"];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
       wantedBy = ["multi-user.target"];
     };
   };
@@ -92,10 +92,7 @@ in {
     };
     caddy.virtualHosts."${infra.search.fqdn}" = {
       listenAddresses = [infra.search.ip];
-      extraConfig = ''
-        reverse_proxy ${infra.localhost.ip}:${toString infra.search.localbind.port.http}
-        @not_intranet { not remote_ip ${infra.search.access.cidr} }
-        respond @not_intranet 403'';
+      extraConfig = ''import intraproxy ${toString infra.search.localbind.port.http}'';
     };
   };
 }

@@ -12,6 +12,7 @@
       # mqtt-explorer
       contact
       linuxPackages.usbip
+      ungoogled-chromium
     ];
   };
 }

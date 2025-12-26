@@ -107,7 +107,7 @@ in {
       };
     };
     caddy = {
-      enable = false;
+      enable = true;
       virtualHosts."${infra.matrix.fqdn}".extraConfig = ''
         alias ${infra.matrix-web.alias}
         bind ${infra.matrix-web.ip}
