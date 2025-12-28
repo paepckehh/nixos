@@ -1,4 +1,4 @@
-# grist, airtable
+# meshtasic web gui lora wan
 {
   config,
   pkgs,
@@ -13,7 +13,7 @@ in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking.extraHosts = "${infra.grist.ip} ${infra.grist.hostname} ${infra.grist.fqdn}.";
+  networking.extraHosts = "${infra.meshtastic-web.ip} ${infra.meshtastic-web.hostname} ${infra.meshtastic-web.fqdn}.";
 
   ########################
   #-=# VIRTUALISATION #=-#
@@ -22,30 +22,14 @@ in {
     oci-containers = {
       backend = "podman";
       containers = {
-        grist = {
+        meshtastic-web = {
           autoStart = true;
-          hostname = infra.grist.fqdn;
+          hostname = infra.meshtastic-web.fqdn;
           image = "gristlabs/grist";
-          ports = ["${infra.localhost.ip}:${toString infra.grist.localbind.port.http}:8484"];
-          environment = {
-            GRIST_SESSION_SECRET = "remplace-with-agetoken-for-prod";
-            GRIST_DEFAULT_EMAIL = "${infra.admin.email}";
-          };
+          ports = ["${infra.localhost.ip}:${toString infra.meshtastic-web.localbind.port.http}:8080"];
+          environment = {};
         };
       };
-    };
-  };
-
-  #################
-  #-=# SERVICE #=-#
-  #################
-  services = {
-    caddy.virtualHosts."${infra.grist.fqdn}" = {
-      listenAddresses = [infra.grist.ip];
-      extraConfig = ''
-        reverse_proxy ${infra.localhost.ip}:${toString infra.grist.localbind.port.http}
-        @not_intranet { not remote_ip ${infra.grist.access.cidr} }
-        respond @not_intranet 403'';
     };
   };
 }

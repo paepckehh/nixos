@@ -6,6 +6,6 @@
     ./devops-core.nix
     ./devops-iot.nix
     ./devops-lora.nix
-    ./devops-guidev.nix
+    ./devops-ventoy.nix
   ];
 }

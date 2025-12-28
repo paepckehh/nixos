@@ -5,7 +5,6 @@
   imports = [
     ../me.nix
     ./browser/me.nix
-    ./mail/me.nix
   ];
 
   #####################
@@ -41,8 +40,8 @@
   home-manager.users.me = {
     home = {
       sessionVariables = {
-        # NIXOS_OZONE_WL = "1";
-        # MOZ_USE_XINPUT2 = "1";
+        NIXOS_OZONE_WL = "1";
+        MOZ_USE_XINPUT2 = "1";
       };
       packages = with pkgs; [
         gnomeExtensions.dash-to-panel

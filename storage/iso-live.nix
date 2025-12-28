@@ -16,4 +16,8 @@
     makeUsbBootable = true;
     squashfsCompression = "zstd -Xcompression-level 19";
   };
+  boot = {
+    loader.systemd-boot.enable = lib.mkForce false;
+    initrd.systemd.enable = lib.mkForce false;
+  };
 }

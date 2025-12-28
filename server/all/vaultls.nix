@@ -75,10 +75,7 @@ in {
   services = {
     caddy.virtualHosts."${infra.webmtls.fqdn}" = {
       listenAddresses = [infra.webmtls.ip];
-      extraConfig = ''
-        reverse_proxy ${infra.localhost.ip}:${toString infra.webmtls.localbind.port.http}
-        @not_intranet { not remote_ip ${infra.webmtls.access.cidr} }
-        respond @not_intranet 403'';
+      extraConfig = ''import adminproxy ${toString infra.webmtls.localbind.port.http}'';
     };
   };
 }

@@ -41,9 +41,7 @@ in {
     caddy.virtualHosts."${infra.webacme.fqdn}" = {
       listenAddresses = [infra.webacme.ip];
       extraConfig = ''
-        reverse_proxy ${infra.localhost.ip}:${toString infra.webacme.localbind.port.http}
-        @not_intranet { not remote_ip ${infra.webacme.access.cidr} }
-        respond @not_intranet 403'';
+        reverse_proxy ${infra.localhost.ip}:${toString infra.webacme.localbind.port.http}'';
     };
   };
 }

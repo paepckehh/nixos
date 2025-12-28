@@ -67,12 +67,12 @@ in {
         };
         server = {
           host = infra.localhost.ip;
-          port = infra.webarchiv.localbind.ports.http;
+          port = infra.webarchiv.localbind.port.http;
           trusted_proxies = [infra.localhost.cidr];
           base_url = infra.webarchiv.url;
         };
         email = {
-          host = infra.smtp.fqdn;
+          host = infra.smtp.admin.fqdn;
           port = infra.port.smtp;
           insecure = true;
           from = infra.admin.email;
@@ -83,10 +83,7 @@ in {
     caddy = {
       virtualHosts."${infra.webarchiv.fqdn}" = {
         listenAddresses = [infra.webarchiv.ip];
-        extraConfig = ''
-          reverse_proxy ${infra.localhost.ip}:${toString infra.webarchiv.localbind.ports.http}
-          @not_intranet { not remote_ip ${infra.webarchiv.access.cidr} }
-          respond @not_intranet 403'';
+        extraConfig = ''import intraproxy ${toString infra.webarchiv.localbind.port.http}'';
       };
     };
   };

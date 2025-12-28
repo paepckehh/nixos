@@ -1,0 +1,1 @@
+../all/meshtastic-web.nix

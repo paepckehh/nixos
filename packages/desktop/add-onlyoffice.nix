@@ -7,5 +7,7 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.systemPackages = with pkgs; [onlyoffice-desktopeditors];
+  environment.systemPackages = with pkgs; [
+    onlyoffice-desktopeditors
+  ];
 }

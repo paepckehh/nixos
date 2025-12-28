@@ -102,3 +102,9 @@ btop luci-ssl luci-mod-dashboard vim-fuller fish whereis mtr curl openssh-server
 
 # add prometheus
 prometheus-node-exporter-lua prometheus-node-exporter-lua-hostapd_stations prometheus-node-exporter-lua-hwmon prometheus-node-exporter-lua-nat_traffic prometheus-node-exporter-lua-netstat prometheus-node-exporter-lua-openwrt prometheus-node-exporter-lua-thermal prometheus-node-exporter-lua-uci_dhcp_host prometheus-node-exporter-lua-wifi prometheus-node-exporter-lua-wifi_stations
+
+# wfhpi
+
+# add 
+btop luci-ssl luci-mod-dashboard vim-fuller fish whereis mtr curl openssh-server bind-dig kmod-wireguard luci-proto-wireguard wireguard-tools kmod-usb-net-rndis kmod-lib-zstd kmod-zram btop coreutils-shuf coreutils-sleep kmod-usb-net-huawei-cdc-ncm luci-proto-ncm usb-modeswitch kmod-usb-net-asix kmod-usb-net-asix-ax88179 kmod-mt7921u kmod-mt7921-firmware
+

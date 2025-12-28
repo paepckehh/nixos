@@ -37,10 +37,10 @@ in {
     caddy.virtualHosts."${infra.res.fqdn}" = {
       listenAddresses = [infra.res.ip];
       extraConfig = ''
+        import intra
         root * /var/lib/caddy/res
         file_server browse
-        @not_intranet { not remote_ip ${infra.res.access.cidr} }
-        respond @not_intranet 403'';
+      '';
     };
   };
 }

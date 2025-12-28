@@ -20,17 +20,17 @@
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot = {
-        enable = true;
+        enable = lib.mkDefault true;
         consoleMode = "max";
         configurationLimit = 4;
       };
     };
     initrd = {
-      compressor = "zstd";
-      compressorArgs = ["--ultra" "--long" "-22"];
+      # compressor = "zstd";
+      # compressorArgs = ["--ultra" "--long" "-22"];
       systemd = {
-        enable = lib.mkForce true;
-        emergencyAccess = lib.mkForce false;
+        enable = lib.mkDefault true;
+        emergencyAccess = lib.mkDefault false;
       };
       luks.mitigateDMAAttacks = lib.mkForce true;
       supportedFilesystems = ["ext4" "tmpfs" "vfat"];
@@ -40,15 +40,11 @@
         else ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"]
       );
     };
-    kernelPackages = (
-      if (config.system.nixos.release == "25.11")
-      then pkgs.linuxPackages_latest
-      else pkgs.linuxPackages
-    );
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = (
       if (config.nixpkgs.system == "x86_64-linux")
-      then ["amd_pstate=active" "page_alloc.shuffle=1" "ipv6.disable=1"] # "copytoram"
-      else ["page_alloc.shuffle=1" "ipv6.disable=1"]
+      then ["amd_pstate=active" "page_alloc.shuffle=1" "ipv6.disable=1" "copytoram"] # "copytoram" "ipv6.disable=1"
+      else ["page_alloc.shuffle=1"]
     );
     kernelModules = (
       if (config.nixpkgs.system == "x86_64-linux")
@@ -59,8 +55,8 @@
       cleanOnBoot = true;
       tmpfsHugeMemoryPages = "within_size";
       tmpfsSize = "85%";
-      useTmpfs = false;
-      useZram = true;
+      useTmpfs = true;
+      useZram = false;
       zramSettings = {
         compression-algorithm = "zstd";
         fs-type = "ext4";
@@ -101,9 +97,8 @@
   #-= SYSTEM #=-#
   ###############
   system = {
-    stateVersion = "25.11"; # dummy target, do not modify
+    stateVersion = "26.05"; # dummy target, do not modify
     switch.enable = true;
-    rebuild.enableNg = true;
     includeBuildDependencies = false; # needed for full-offline (re-)build from source, its huge!
   };
   time = {
@@ -121,7 +116,7 @@
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    writebackDevice = "/dev/disk/by-partlabel/disk-main-swap";
+    writebackDevice = lib.mkDefault "/dev/disk/by-partlabel/disk-main-swap";
   };
 
   #################
@@ -156,12 +151,12 @@
       require-sigs = lib.mkForce true;
       preallocate-contents = lib.mkDefault true;
       allowed-uris = lib.mkDefault [
-        # "https://cache.nixos.org"
+        "https://cache.nixos.org"
       ];
       substituters = lib.mkDefault [
-        # "https://cache.nixos.org"
+        "https://cache.nixos.org"
       ];
-      trusted-public-keys = [
+      trusted-public-keys = lib.mkDefault [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
     };
@@ -169,7 +164,7 @@
       automatic = true;
       dates = "daily";
       persistent = true;
-      options = "--delete-older-than 6d";
+      options = "--delete-older-than 12d";
     };
     optimise = {
       automatic = true;
@@ -196,7 +191,6 @@
   ##################
   hardware = {
     acpilight.enable = true;
-    amdgpu.opencl.enable = lib.mkForce false;
     enableAllFirmware = lib.mkForce true;
     enableAllHardware = lib.mkForce true;
     enableRedistributableFirmware = lib.mkForce true;
@@ -217,7 +211,7 @@
     graphics = {
       enable = lib.mkForce true;
       enable32Bit = lib.mkForce false;
-      # extraPackages = with pkgs; [intel-media-driver vpl-gpu-rt]; # intel-compute-runtime
+      extraPackages = with pkgs; [intel-media-driver vpl-gpu-rt]; # intel-compute-runtime
     };
   };
 
@@ -305,9 +299,7 @@
   #-=# I18N #=-#
   ##############
   i18n = {
-    defaultLocale = "C.UTF-8";
-    # defaultLocale = "en_US.UTF-8";
-    # extraLocales = ["C.UTF-8" "de_DE.UTF-8"];
+    defaultLocale = "C.UTF-8"; # "en_US.UTF-8" "de_DE.UTF-8;
     extraLocaleSettings = {
       LC_ADDRESS = "de_DE.UTF-8";
       LC_IDENTIFICATION = "en_US.UTF-8";
@@ -393,6 +385,7 @@
     devmon.enable = lib.mkForce true;
     geoclue2.enable = lib.mkForce false;
     gvfs.enable = lib.mkForce false;
+    hardware.bolt.enable = true;
     udisks2.enable = lib.mkForce true;
     fwupd.enable = lib.mkForce false;
     openssh.enable = lib.mkForce false;
@@ -400,6 +393,11 @@
     power-profiles-daemon.enable = lib.mkForce false;
     logind.settings.Login.HandleHibernateKey = "ignore";
     libinput.enable = lib.mkForce true;
+    yubikey-agent.enable = true;
+    pcscd = {
+      enable = true;
+      plugins = [pkgs.ccid];
+    };
     lvm = {
       enable = lib.mkDefault false;
       dmeventd.enable = lib.mkDefault false;

@@ -2,9 +2,7 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [
-    # ./neovim-nvf.nix
-  ];
+  # imports = [ ./neovim-nvf.nix];
 
   ##################
   #-=# PROGRAMS #=-#
@@ -17,7 +15,7 @@
   ##################
   #-=# SERVICES #=-#
   ##################
-  services.sysprof.enable = true;
+  services.sysprof.enable = false;
 
   #####################
   #-=# ENVIRONMENT #=-#

@@ -66,6 +66,7 @@
               user = {
                 name = lib.mkForce "PAEPCKE, Michael";
                 email = lib.mkForce "git@paepcke.de";
+                signingkey = lib.mkForce "~/.ssh/id_ed25519_sk.pub";
               };
               protocol = lib.mkForce {
                 file.allow = "always";

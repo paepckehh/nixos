@@ -188,7 +188,26 @@ in {
         identity_providers.oidc = {
           # claims_policies.nextcloud_userinfo.custom_claims.is_nextcloud_admin = {};
           # scopes.nextcloud_userinfo.claims = "is_nextcloud_admin";
-          clients = [];
+          clients = [
+            {
+              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+              client_id = infra.test.app;
+              client_name = infra.test.app;
+              public = false;
+              require_pkce = false;
+              authorization_policy = infra.sso.oidc.policy;
+              scopes = infra.sso.oidc.scopes;
+              response_types = infra.sso.oidc.response.code;
+              grant_types = infra.sso.oidc.grant;
+              access_token_signed_response_alg = "none";
+              userinfo_signed_response_alg = "none";
+              token_endpoint_auth_method = infra.sso.oidc.auth.post;
+              consent_mode = infra.sso.oidc.consent;
+              redirect_uris = [
+                "${infra.test.url}"
+              ];
+            }
+          ];
         };
       };
     };
@@ -202,10 +221,7 @@ in {
     };
     caddy.virtualHosts."${infra.sso.fqdn}" = {
       listenAddresses = [infra.sso.ip];
-      extraConfig = ''
-        reverse_proxy ${infra.localhost.ip}:${toString infra.sso.localbind.port.http}
-        @not_intranet { not remote_ip ${infra.sso.access.cidr} }
-        respond @not_intranet 403'';
+      extraConfig = ''import intraproxy ${toString infra.sso.localbind.port.http}'';
     };
   };
 }

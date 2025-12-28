@@ -2,7 +2,7 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [./disko/stateless-luks.nix];
+  # imports = [./disko/stateless-luks.nix];
 
   ##############
   #-=# BOOT #=-#
@@ -14,7 +14,7 @@
         mitigateDMAAttacks = lib.mkForce true;
         devices = {
           "nix" = {
-            device = lib.mkForce "/dev/disk/by-diskseq/1-part3";
+            device = lib.mkDefault "/dev/disk/by-diskseq/1-part3";
             allowDiscards = true;
           };
         };
@@ -25,7 +25,7 @@
   #####################
   #-=# FILESYSTEMS #=-#
   #####################
-  fileSystems = lib.mkForce {
+  fileSystems = {
     "/" = lib.mkForce {
       device = "tmpfs";
       fsType = "tmpfs";
@@ -70,11 +70,6 @@
       fsType = "none";
       depends = ["/nix"];
       options = ["bind"];
-    };
-    "/boot" = lib.mkForce {
-      device = "/dev/disk/by-diskseq/1-part1";
-      fsType = "vfat";
-      options = ["fmask=0077" "dmask=0077"];
     };
   };
 }

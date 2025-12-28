@@ -1,0 +1,302 @@
+[
+  {
+    "toplevel_name": "start"
+  },
+  {
+    "name": "local services",
+    "children": [
+      {
+        "url": "http://start.corp:80",
+        "name": "start.corp"
+      },
+      {
+        "url": "http://moode.corp:80",
+        "name": "moode.corp"
+      },
+      {
+        "url": "https://127.0.0.1:8091/cgi-bin/luci",
+        "name": "axt luci"
+      },
+      {
+        "url": "https://127.0.0.1:8092/cgi-bin/luci",
+        "name": "rpi2 luci"
+      },
+      {
+        "url": "https://127.0.0.1:8093/cgi-bin/luci",
+        "name": "b3000 luci"
+      }
+    ]
+  },
+  {
+    "name": "nixos",
+    "children": [
+      {
+        "url": "https://wiki.nixos.org/",
+        "name": "Wiki (Official)"
+      },
+      {
+        "url": "https://discourse.nixos.org/",
+        "name": "Forum (Discourse)"
+      },
+      {
+        "url": "https://github.com/nixos",
+        "name": "Github main repo (Org)"
+      },
+      {
+        "url": "https://search.nixos.org/packages",
+        "name": "Nixos packages and options search"
+      },
+      {
+        "url": "https://home-manager-options.extranix.com/",
+        "name": "Home-Manager packages and options search"
+      },
+      {
+        "url": "https://notashelf.github.io/nvf/options.html",
+        "name": "Neovim packages and options search (NVF)"
+      },
+      {
+        "url": "https://git-scm.com/docs/git-config",
+        "name": "git options reference"
+      },
+      {
+        "url": "https://nixos.wiki/wiki/Main_Page",
+        "name": "Wiki (Unofficial, Legacy)"
+      },
+      {
+        "name": "blogs",
+        "children": [
+        {
+          "url": "https://nixcademy.com/posts/",
+          "name": "nixcademy"
+        },
+        {
+          "url": "https://xxx.xxx",
+          "name": "blog2"
+        }
+       ]
+      }
+    ]
+  },
+  {
+    "name": "openwrt",
+    "children": [
+      {
+        "url": "https://openwrt.org",
+        "name": "Wiki (Official)"
+      },
+      {
+        "url": "https://forum.openwrt.org/",
+        "name": "Forum (Discourse)"
+      },
+      {
+        "url": "https://github.com/openwrt",
+        "name": "Github Main Repo (Org)"
+      },
+      {
+        "url": "https://toh.openwrt.org/",
+        "name": "Table of Supported Hardware | Download Images"
+      },
+      {
+        "url": "https://firmware-selector.openwrt.org/",
+        "name": "Firmware Builder | Build and Download Images"
+      }
+    ]
+  },
+  {
+    "name": "awesome online toolbox",
+    "children": [
+      {
+        "name": "search",
+        "children": [
+          {
+            "url": "https://searx.space/",
+            "name": "searx.space public searxng instances"
+          }
+        ]
+      },
+      {
+        "name": "browser analysis",
+        "children": [
+          {
+            "url": "https://html5test.co/",
+            "name": "html5test.co [sw/hw features, video, audio, conference,...]"
+          },
+          {
+            "url": "https://www.cloudflare.com/ssl/encrypted-sni/",
+            "name": "cloudflare.com/ssl/encrypted-sni [encrypted sni, dnssec,...]"
+          },
+          {
+            "url": "https://browserleaks.com/ip/",
+            "name": "browserleaks.com/ip [ip, asn, user-agent, http-header, fingerpriny, JA3, JA4, ... ]"
+          },
+          {
+            "url": "https://browserleaks.com/dns/",
+            "name": "browserleaks.com/dns [dns, leaks ...]"
+          },
+          {
+            "url": "https://browserleaks.com/js/",
+            "name": "browserleaks.com/js [js, javascript, engine, leaks, ...]"
+          },
+          {
+            "url": "https://browserleaks.com/tls",
+            "name": "browserleaks.com/tls [tls13, tls12, cipher, fingerprint, ...]"
+          },
+          {
+            "url": "https://www.amiunique.org/fingerprint",
+            "name": "amiunique.org/fingerprint [uniq browser hash test]"
+          }
+        ]
+      },
+      {
+        "name": "dns, email",
+        "children": [
+          {
+            "url": "https://which.resolve.rs/",
+            "name": "which.resolve.rs [dns resolver identify]"
+          },
+          {
+            "url": "https://dnschecker.org/",
+            "name": "dnschecker.org [replication, keys, latency, cache]"
+          },
+          {
+            "url": "https://mxtoolbox.com/",
+            "name": "mxtoolbox.com [dns, mx, blacklists, dmarc, spf, header]"
+          }
+        ]
+      },
+      {
+        "name": "connectivity",
+        "children": [
+          {
+            "url": "https://speed.cloudflare.com/",
+            "name": "speed.cloudflare.com [latency, packetloss, details]"
+          },
+          {
+            "url": "https://fast.com/",
+            "name": "fast.com [bigscreen, demo]"
+          }
+        ]
+      },
+      {
+        "name": "cheat sheets [pdf]",
+        "children": [
+          {
+            "url": "https://education.github.com/git-cheat-sheet-education.pdf",
+            "name": "git"
+          },
+          {
+            "url": "https://ricoberger.de/cheat-sheets/vim/assets/vim-cheat-sheet.pdf",
+            "name": "vim"
+          }
+        ]
+      },
+      {
+        "name": "unifi",
+        "children": [
+          {
+            "url": "https://deluisio.com/category/networking/unifi/",
+            "name": "deluisio unifi dev blog "
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "awesome selfhost and iot",
+    "children": [
+      {
+        "name": "selfhost resources",
+        "children": [
+          {
+            "url": "https://selfh.st",
+            "name": "selfh.st"
+          },
+          {
+            "url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
+            "name": "github awesome selfhost list"
+          }
+        ]
+      },
+      {
+        "name": "home assistant",
+        "children": [
+          {
+            "url": "https://www.home-assistant.io/integrations/?brands=featured",
+            "name": "home assistant integrations"
+          },
+          {
+            "url": "https://community.home-assistant.io/",
+            "name": "home assistant forum"
+          },
+          {
+            "url": "https://www.home-assistant.io/docs/",
+            "name": "home assitant docs"
+          }
+        ]
+      },
+      {
+        "name": "moode audio",
+        "children": [
+          {
+            "url": "https://moodeaudio.org/",
+            "name": "moode audio download"
+          },
+          {
+            "url": "https://moodeaudio.org/forum/",
+            "name": "moode audio forum"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "firmware web-ui http",
+    "children": [
+      {
+        "url": "http://192.168.0.1/",
+        "name": "http://192.168.0.1/"
+      },
+      {
+        "url": "http://192.168.0.50/",
+        "name": "http://192.168.0.50/"
+      },
+      {
+        "url": "http://192.168.1.1/",
+        "name": "http://192.168.1.1/"
+      },
+      {
+        "url": "http://192.168.8.1/",
+        "name": "http://192.168.8.1/"
+      },
+      {
+        "url": "http://192.168.178.1/",
+        "name": "http://192.168.178.1/"
+      }
+    ]
+  },
+  {
+    "name": "firmware web-ui https",
+    "children": [
+      {
+        "url": "https://192.168.0.1/",
+        "name": "https://192.168.0.1/"
+      },
+      {
+        "url": "https://192.168.0.50/",
+        "name": "https://192.168.0.50/"
+      },
+      {
+        "url": "https://192.168.1.1/",
+        "name": "https://192.168.1.1/"
+      },
+      {
+        "url": "https://192.168.8.1/",
+        "name": "https://192.168.8.1/"
+      },
+      {
+        "url": "https://192.168.178.1/",
+        "name": "https://192.168.178.1/"
+      }
+    ]
+  }
+]

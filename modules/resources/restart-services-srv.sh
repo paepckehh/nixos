@@ -6,10 +6,11 @@ sudo systemctl restart bind.service
 sudo systemctl restart step-ca.service
 sudo systemctl restart lldap.service
 sudo systemctl restart authelia-home.service
-sudo systemctl restart maddy.service
-sudo systemctl restart nextcloud-setup.service
 sudo systemctl restart searx-init.service
 sudo systemctl restart searx.service
+sudo systemctl restart onlyoffice-docservice.service
+# sudo systemctl restart maddy.service
+# sudo systemctl restart nextcloud-setup.service
 # sudo systemctl restart tuwunel.service
 # sudo systemctl restart uptime-kuma.service
 # sudo systemctl restart prometheus.service
@@ -38,7 +39,7 @@ sudo systemctl restart searx.service
 # sudo systemctl restart podman-netalertx.service
 # sudo systemctl restart podman-speed.service
 # sudo systemctl restart podman-chef.service
-# sudo systemctl restart podman-grist.service
+# sudo systemctl restart podman-meshtastic-web.service
 sudo systemctl stop nginx.service
 sudo systemctl restart caddy.service
 sudo systemctl restart nginx.service

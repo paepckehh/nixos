@@ -5,14 +5,6 @@
   ...
 }: {
   ##################
-  #-=# SERVICES #=-#
-  ##################
-  services = {
-    pcscd.enable = true;
-    yubikey-agent.enable = true;
-  };
-
-  ##################
   #-=# PROGRAMS #=-#
   ##################
   programs = {
@@ -24,10 +16,9 @@
     mtr.enable = true;
     vim.enable = true;
     yubikey-manager.enable = true;
-    zsh = {
+    gnupg.agent = {
       enable = true;
-      histFile = "/dev/null";
-      histSize = 0;
+      enableSSHSupport = true;
     };
     ssh = {
       extraConfig = "AddKeysToAgent yes";
@@ -63,11 +54,6 @@
         init.defaultBranch = "main";
         safe.directory = "*";
         gpg.format = "ssh";
-        user = {
-          email = "nix@nixos.local";
-          name = "NIXOS, Generic Local";
-          signingkey = "~/.ssh/id_ed25519.pub";
-        };
         http = {
           sslVerify = "true";
           sslVersion = "tlsv1.3";
@@ -90,7 +76,7 @@
   #####################
   environment = {
     interactiveShellInit = ''uname -a'';
-    shells = [pkgs.bashInteractive pkgs.zsh pkgs.fish];
+    shells = [pkgs.bashInteractive pkgs.fish];
     shellAliases = {
       "e" = "vim";
       "l" = "ls -la";
@@ -113,6 +99,9 @@
       ROC_ENABLE_PRE_VEGA = "1";
     };
     systemPackages = with pkgs; [
+      # fishPlugins.autopair
+      # fishPlugins.grc
+      # gpg-tui
       alejandra
       bashmount
       bmon
@@ -130,10 +119,6 @@
       grc
       gnumake
       gnupg
-      gpg-tui
-      fishPlugins.autopair
-      fishPlugins.fish-you-should-use
-      fishPlugins.grc
       inetutils
       jq
       kmon
@@ -142,7 +127,6 @@
       moreutils
       nix-output-monitor
       nvme-cli
-      onefetch
       openssl
       p7zip
       paper-age
