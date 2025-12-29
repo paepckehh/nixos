@@ -9,7 +9,7 @@
     # home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # nvf.url = "git+file:///home/projects/nixos/nvf.git";
     # local git mirror
-    nixpkgs.url = "git+file:///home/projects/nixos/nixpkgs.git?ref=nixos-unstable-small";
+    nixpkgs.url = "git+file:///home/projects/nixos/nixpkgs.git?ref=nixos-unstable";
     agenix.url = "git+file:///home/projects/nixos/agenix.git";
     disko.url = "git+file:///home/projects/nixos/disko.git";
     home-manager.url = "git+file:///home/projects/nixos/home-manager.git";
@@ -65,11 +65,14 @@
           ./client/addCache.nix
           ./openwrt/alias.nix
           ./person/desktop/mpaepcke.nix
-          ./packages/desktop/gnome.nix
-          ./packages/desktop/add-onlyoffice.nix
           ./packages/base.nix
           ./packages/devops-core.nix
+          ./packages/desktop/gnome.nix
+          ./packages/desktop/add-onlyoffice.nix
+          ./packages/desktop/add-av.nix
+          ./packages/desktop/add-chrome.nix
           ./server/base.nix
+          ./server/ai/ollama.nix
           ./server/cache/ncps.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
@@ -116,6 +119,8 @@
           ./packages/desktop/gnome.nix
           ./packages/desktop/add-matrix.nix
           ./packages/desktop/add-onlyoffice.nix
+          ./packages/desktop/add-av.nix
+          ./packages/desktop/add-chrome.nix
           ./packages/base.nix
           ./packages/devops-all.nix
           ./server/base.nix
@@ -149,7 +154,7 @@
           ./server/portal/homer-home.nix
           ./server/webapp/res.nix
           ./server/webapp/test.nix
-          # ./server/rss/miniflux.nix
+          ./server/rss/miniflux.nix
           # ./server/message/element-web.nix
           # ./server/media/ente.nix
           # ./server/media/immich.nix

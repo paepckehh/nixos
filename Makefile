@@ -12,7 +12,8 @@ TARGET?=$(shell /run/current-system/sw/bin/hostname)
 DTS:=$(shell date '+%Y-%m-%d-%H-%M')
 REPO:=/etc/nixos
 OSFLAKE:=$(REPO)\#$(TARGET)
-ALLFLAKE:=$(REPO)/.\#nixos-all
+ISOFLAKE:=$(REPO)/.\#iso 
+ALLFLAKE:=$(REPO)/.\#srv-full
 PROFILE:="$(TARGET)-$(DTS)"
 TYPE:="nixos boot profile"
 USELUKS:=YES
@@ -39,6 +40,8 @@ info:
 
 info-cleaninstall:
 	@echo "Building for target TARGET=$(TARGET) # Building on TARGETDRIVE=$(TARGETDRIVE) # Using LUKS: $(USELUKS) # OSFLAKE: $(OSFLAKE)"
+	alejandra --quiet .
+	git add .
 
 info-iso-installer:
 	@echo "Building iso-auto-installer ..."
@@ -205,7 +208,7 @@ installer: info-iso-installer
 # XXX WIP: maybe currently broken
 # make live iso image from current system, set env TARGET for other nix flake target systems
 iso: info-cleaninstall 
-	nixos-rebuild build-image --flake $(OSFLAKE) --image-variant iso
+	nixos-rebuild build-image --flake $(ISOFLAKE) --image-variant iso
 	ls -la /etc/nixos/result/iso
 
 # XXX WIP: maybe currently broken

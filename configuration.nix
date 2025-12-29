@@ -151,10 +151,10 @@
       require-sigs = lib.mkForce true;
       preallocate-contents = lib.mkDefault true;
       allowed-uris = lib.mkDefault [
-        "https://cache.nixos.org"
+        # "https://cache.nixos.org"
       ];
       substituters = lib.mkDefault [
-        "https://cache.nixos.org"
+        # "https://cache.nixos.org"
       ];
       trusted-public-keys = lib.mkDefault [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="

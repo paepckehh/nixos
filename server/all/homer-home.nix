@@ -31,8 +31,8 @@ in {
         domain = infra.portal.fqdn;
       };
       settings = {
-        title = " ⛅Cloud ";
-        subtitle = " ==> Start Portal interne Service Cloud!";
+        title = " ⛅HomeCloud ";
+        subtitle = " ==> Start Portal internal HomeCloud!";
         # logo = "https://res.${infra.domain.user}/branding/debitor_icon_dark.png";
         header = true;
         columns = "2";
