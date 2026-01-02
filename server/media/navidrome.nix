@@ -1,1 +1,0 @@
-../all/navidrome.nix

@@ -382,7 +382,7 @@
   services = {
     acpid.enable = lib.mkForce true;
     avahi.enable = lib.mkForce false;
-    devmon.enable = lib.mkForce true;
+    # devmon.enable = lib.mkForce true;
     geoclue2.enable = lib.mkForce false;
     gvfs.enable = lib.mkForce false;
     hardware.bolt.enable = true;

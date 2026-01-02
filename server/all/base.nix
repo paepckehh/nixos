@@ -105,6 +105,14 @@ in {
            import intra
            reverse_proxy ${infra.localhost.ip}:{args[0]}
          }
+        (admincontainer) {
+           import admin
+           reverse_proxy {args[0]}:${toString infra.port.http}
+         }
+        (intracontainer) {
+           import intra
+           reverse_proxy {args[0]}:${toString infra.port.http}
+         }
       '';
     };
   };

@@ -14,6 +14,21 @@ in {
   ####################
   networking.extraHosts = "${infra.chef.ip} ${infra.chef.hostname} ${infra.chef.fqdn}";
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks."user".addresses = [{Address = "${infra.chef.ip}/32";}];
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+  services = {
+    caddy.virtualHosts."${infra.chef.fqdn}" = {
+      listenAddresses = [infra.chef.ip];
+      extraConfig = ''import intraproxy ${toString infra.chef.localbind.port.http}'';
+    };
+  };
+
   ########################
   #-=# VIRTUALISATION #=-#
   ########################
@@ -27,16 +42,6 @@ in {
           environment.SET_SERVER_NAME = "${infra.chef.fqdn}";
         };
       };
-    };
-  };
-
-  ##################
-  #-=# SERVICES #=-#
-  ##################
-  services = {
-    caddy.virtualHosts."${infra.chef.fqdn}" = {
-      listenAddresses = [infra.chef.ip];
-      extraConfig = ''import intraproxy ${toString infra.chef.localbind.port.http}'';
     };
   };
 }

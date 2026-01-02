@@ -26,6 +26,18 @@ in {
   ####################
   networking.extraHosts = "${infra.sso.ip} ${infra.sso.hostname} ${infra.sso.fqdn}";
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd = {
+    network.networks."user".addresses = [{Address = "${infra.sso.ip}/32";}];
+    services."authelia-${infra.sso.site}" = {
+      after = ["socket.target"];
+      wants = ["socket.target"];
+      wantedBy = ["multi-user.target"];
+    };
+  };
+
   #############
   #-=# AGE #=-#
   #############
@@ -74,15 +86,6 @@ in {
     };
   };
 
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.services."authelia-${infra.sso.site}" = {
-    after = ["socket.target"];
-    wants = ["socket.target"];
-    wantedBy = ["multi-user.target"];
-  };
-
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -109,7 +112,7 @@ in {
           password_reset.disable = true;
           password_change.disable = true;
           ldap = {
-            implementation = infra.ldap.package;
+            implementation = infra.ldap.app;
             address = infra.ldap.uri;
             tls.skip_verify = true;
             base_dn = infra.ldap.base;
@@ -186,26 +189,59 @@ in {
         };
         definitions.user_attributes.is_nextcloud_admin.expression = ''"nextcloud-admins" in groups'';
         identity_providers.oidc = {
-          # claims_policies.nextcloud_userinfo.custom_claims.is_nextcloud_admin = {};
-          # scopes.nextcloud_userinfo.claims = "is_nextcloud_admin";
           clients = [
             {
+              # Nextcloud
+              client_id = infra.nextcloud.app;
+              client_name = infra.nextcloud.app;
               client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
-              client_id = infra.test.app;
-              client_name = infra.test.app;
+              public = false;
+              require_pkce = true;
+              authorization_policy = infra.sso.oidc.policy;
+              pkce_challenge_method = infra.sso.oidc.method;
+              scopes = infra.sso.oidc.scopes;
+              response_types = infra.sso.oidc.response.code;
+              grant_types = infra.sso.oidc.grant;
+              access_token_signed_response_alg = infra.none;
+              userinfo_signed_response_alg = infra.none;
+              token_endpoint_auth_method = infra.sso.oidc.auth.post;
+              consent_mode = infra.sso.oidc.consent;
+              redirect_uris = ["${infra.nextcloud.url}/apps/user_oidc/code"];
+            }
+            {
+              # Miniflux
+              client_id = infra.miniflux.app;
+              client_name = infra.miniflux.app;
+              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+              public = false;
+              require_pkce = false;
+              authorization_policy = infra.sso.oidc.policy;
+              pkce_challenge_method = "";
+              scopes = infra.sso.oidc.scopes;
+              response_types = infra.sso.oidc.response.code;
+              grant_types = infra.sso.oidc.grant;
+              access_token_signed_response_alg = infra.none;
+              userinfo_signed_response_alg = infra.none;
+              token_endpoint_auth_method = infra.sso.oidc.auth.basic;
+              consent_mode = infra.sso.oidc.consent;
+              redirect_uris = ["${infra.miniflux.url}/oauth2/oidc/callback"];
+            }
+            {
+              # Immich
+              client_id = infra.immich.app;
+              client_name = infra.immich.app;
+              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
               public = false;
               require_pkce = false;
               authorization_policy = infra.sso.oidc.policy;
               scopes = infra.sso.oidc.scopes;
               response_types = infra.sso.oidc.response.code;
               grant_types = infra.sso.oidc.grant;
-              access_token_signed_response_alg = "none";
-              userinfo_signed_response_alg = "none";
+              access_token_signed_response_alg = infra.none;
+              userinfo_signed_response_alg = infra.none;
               token_endpoint_auth_method = infra.sso.oidc.auth.post;
               consent_mode = infra.sso.oidc.consent;
-              redirect_uris = [
-                "${infra.test.url}"
-              ];
+              redirect_uris = ["${infra.immich.url}/auth/login" "${infra.immich.url}/user-settings" "app.immich:///oauth-callback"];
             }
           ];
         };

@@ -15,20 +15,10 @@ in {
   ####################
   networking.extraHosts = "${infra.res.ip} ${infra.res.hostname} ${infra.res.fqdn}.";
 
-  ###############
-  #-=# USERS #=-#
-  ###############
-  users = {
-    groups."caddy" = {};
-    users = {
-      "caddy" = {
-        group = "caddy";
-        isSystemUser = true;
-        hashedPassword = null; # disable ldap service account interactive logon
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh ssoentication
-      };
-    };
-  };
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks."user".addresses = [{Address = "${infra.res.ip}/32";}];
 
   ##################
   #-=# SERVICES #=-#

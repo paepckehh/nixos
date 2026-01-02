@@ -242,6 +242,7 @@ mirror-update:
 	$(SUDO) -v 
 	git -C $(MIRROR)/agenix.git fetch
 	git -C $(MIRROR)/disko.git fetch
+	git -C $(MIRROR)/proxmox-nixos.git fetch
 	git -C $(MIRROR)/home-manager.git fetch
 	git -C $(MIRROR)/nixpkgs.git fetch
 
@@ -250,14 +251,12 @@ mirror-compact:
 	git -C $(REPO) gc --aggressive 
 	git -C $(MIRROR)/agenix.git gc --aggressive 
 	git -C $(MIRROR)/disko.git gc --aggressive
-	git -C $(MIRROR)/home-manager.git gc --aggressive --keep-largest-pack
+	git -C $(MIRROR)/proxmox-nixos.git gc --aggressive 
+	git -C $(MIRROR)/home-manager.git gc --aggressive 
 	git -C $(MIRROR)/nixpkgs.git gc --aggressive --keep-largest-pack
 
-mirror-compact-full:
+mirror-compact-full: 
 	$(SUDO) -v 
-	git -C $(MIRROR)/agenix.git gc --aggressive
-	git -C $(MIRROR)/disko.git gc --aggressive
-	git -C $(MIRROR)/home-manager.git gc --aggressive 
 	git -C $(MIRROR)/nixpkgs.git gc --aggressive 
 
 #################

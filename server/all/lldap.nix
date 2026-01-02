@@ -14,9 +14,21 @@ in {
   ####################
   networking = {
     extraHosts = "${infra.iam.ip} ${infra.iam.hostname} ${infra.iam.fqdn}.";
-    firewall = {
-      allowedTCPPorts = [infra.port.ldap];
-      allowedUDPPorts = [infra.port.ldap];
+    firewall.allowedTCPPorts = [infra.port.ldap];
+  };
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd = {
+    network.networks = {
+      "admin".addresses = [{Address = "${infra.ldap.ip}/32";}];
+      "user".addresses = [{Address = "${infra.iam.ip}/32";}];
+    };
+    services.lldap = {
+      after = ["sockets.target"];
+      wants = ["sockets.target"];
+      wantedBy = ["multi-user.target"];
     };
   };
 
@@ -73,19 +85,14 @@ in {
     '';
   };
 
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.services.lldap = {
-    after = ["sockets.target"];
-    wants = ["sockets.target"];
-    wantedBy = ["multi-user.target"];
-  };
-
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
+    caddy.virtualHosts."${infra.iam.fqdn}" = {
+      listenAddresses = [infra.iam.ip];
+      extraConfig = ''import intraproxy ${toString infra.iam.localbind.port.http}'';
+    };
     lldap = {
       enable = true;
       settings = {
@@ -129,10 +136,6 @@ in {
           key_file = config.age.secrets.lldap-key.path;
         };
       };
-    };
-    caddy.virtualHosts."${infra.iam.fqdn}" = {
-      listenAddresses = [infra.iam.ip];
-      extraConfig = ''import intraproxy ${toString infra.iam.localbind.port.http}'';
     };
   };
 }

@@ -13,17 +13,32 @@ in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking = {
-    extraHosts = "${infra.portal.ip} ${infra.portal.hostname} ${infra.portal.fqdn}.";
-    firewall.allowedTCPPorts = infra.port.webapps;
-    firewall.allowedUDPPorts = [infra.port.http];
-  };
+  networking.extraHosts = "${infra.portal.ip} ${infra.portal.hostname} ${infra.portal.fqdn}.";
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks."user".addresses = [{Address = "${infra.portal.ip}/32";}];
 
   ##################
   #-=# SERVICES #=-#
   ##################
   # icons [see res.nix] caddy file_server hosted icons via res.${infra.domain.user}/icons cc_source https://github.com/homarr-labs/dashboard-icons
   services = {
+    nginx.virtualHosts."${infra.portal.fqdn}" = {
+      forceSSL = false;
+      enableACME = false;
+      listen = [
+        {
+          addr = infra.localhost.ip;
+          port = infra.portal.localbind.port.http;
+        }
+      ];
+    };
+    caddy.virtualHosts."${infra.portal.fqdn}" = {
+      listenAddresses = [infra.portal.ip];
+      extraConfig = ''import intraproxy ${toString infra.portal.localbind.port.http}'';
+    };
     homer = {
       enable = true;
       virtualHost = {
@@ -92,8 +107,8 @@ in {
                 name = "NextCloud";
                 tag = "app";
                 target = "_blank";
-                url = infra.cloud.url;
-                logo = infra.cloud.logo;
+                url = infra.nextcloud.url;
+                logo = infra.nextcloud.logo;
               }
               {
                 name = "KI-Assistent";
@@ -222,6 +237,13 @@ in {
                 logo = infra.miniflux.logo;
               }
               {
+                name = "Proxmox [VM]";
+                tag = "app";
+                target = "_blank";
+                url = infra.proxmox.url;
+                logo = infra.proxmox.logo;
+              }
+              {
                 name = "Office [OnlyOffice-Cloud]";
                 tag = "app";
                 target = "_blank";
@@ -260,20 +282,6 @@ in {
           }
         ];
       };
-    };
-    nginx.virtualHosts."${infra.portal.fqdn}" = {
-      forceSSL = false;
-      enableACME = false;
-      listen = [
-        {
-          addr = infra.localhost.ip;
-          port = infra.portal.localbind.port.http;
-        }
-      ];
-    };
-    caddy.virtualHosts."${infra.portal.fqdn}" = {
-      listenAddresses = [infra.portal.ip];
-      extraConfig = ''import intraproxy ${toString infra.portal.localbind.port.http}'';
     };
   };
 }

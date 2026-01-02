@@ -8,12 +8,17 @@
   ############################
   #-=# GLOBAL SITE IMPORT #=-#
   ############################
-  infra = (import ../../siteconfig/home.nix).infra;
+  infra = (import ../../siteconfig/config.nix).infra;
 in {
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking.extraHosts = "${infra.test.ip} ${infra.test.hostname} ${infra.test.fqdn}.";
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks."user".addresses = [{Address = "${infra.test.ip}/32";}];
 
   ##################
   #-=# SERVICES #=-#

@@ -2,12 +2,15 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [./openssh-local-lockdown.nix];
+  # imports = [./openssh-local-lockdown.nix];
 
   #######
   # AGE #
   #######
-  age.identityPaths = ["/nix/persist/root/.ssh/id_ed25519"];
+  age.identityPaths = [
+    "/root/.ssh/id_ed25519"
+    "/etc/ssh/ssh_host_ed25519_key"
+  ];
 
   #####################
   #-=# ENVIRONMENT #=-#

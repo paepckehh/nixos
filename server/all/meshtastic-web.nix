@@ -15,6 +15,19 @@ in {
   ####################
   networking.extraHosts = "${infra.meshtastic-web.ip} ${infra.meshtastic-web.hostname} ${infra.meshtastic-web.fqdn}.";
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks."user".addresses = [{Address = "${infra.meshtastic-web.ip}/32";}];
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+  services.caddy.virtualHosts."${infra.meshtastic-web.fqdn}" = {
+    listenAddresses = [infra.meshtastic-web.ip];
+    extraConfig = ''import intraproxy ${toString infra.meshtastic-web.localbind.port.http}'';
+  };
+
   ########################
   #-=# VIRTUALISATION #=-#
   ########################
@@ -31,12 +44,5 @@ in {
         };
       };
     };
-  };
-  ##################
-  #-=# SERVICES #=-#
-  ##################
-  services.caddy.virtualHosts."${infra.meshtastic-web.fqdn}" = {
-    listenAddresses = [infra.meshtastic-web.ip];
-    extraConfig = ''import intraproxy ${toString infra.meshtastic-web.localbind.port.http}'';
   };
 }
