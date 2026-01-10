@@ -16,33 +16,19 @@ in {
   ####################
   networking.extraHosts = "${infra.immich.ip} ${infra.immich.hostname} ${infra.immich.fqdn}";
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks."user".addresses = [{Address = "${infra.immich.ip}/32";}];
+
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
-    authelia.instances."${infra.sso.site}".settings.identity_providers.oidc.clients = [
-      {
-        client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
-        client_id = infra.immich.app;
-        client_name = infra.immich.app;
-        public = false;
-        require_pkce = false;
-        # pkce_challenge_method = infra.sso.oidc.method;
-        authorization_policy = infra.sso.oidc.policy;
-        scopes = infra.sso.oidc.scopes;
-        response_types = infra.sso.oidc.response.code;
-        grant_types = infra.sso.oidc.grant;
-        access_token_signed_response_alg = "none";
-        userinfo_signed_response_alg = "none";
-        token_endpoint_auth_method = infra.sso.oidc.auth.post;
-        consent_mode = infra.sso.oidc.consent;
-        redirect_uris = [
-          "${infra.immich.url}/auth/login"
-          "${infra.immich.url}/user-settings"
-          "app.immich:///oauth-callback"
-        ];
-      }
-    ];
+    caddy.virtualHosts."${infra.immich.fqdn}" = {
+      listenAddresses = [infra.immich.ip];
+      extraConfig = ''import intraproxy ${toString infra.immich.localbind.port.http}'';
+    };
     immich = {
       enable = true;
       host = infra.localhost.ip;
@@ -68,10 +54,6 @@ in {
           tokenEndpointAuthMethod = infra.sso.oidc.auth.post;
         };
       };
-    };
-    caddy.virtualHosts."${infra.immich.fqdn}" = {
-      listenAddresses = [infra.immich.ip];
-      extraConfig = ''import intraproxy ${toString infra.immich.localbind.port.http}'';
     };
   };
 }

@@ -13,12 +13,6 @@
     kernelParams = ["amd_pstate=active"];
     kernelModules = ["amd-pstate" "amdgpu"];
   };
-
-  ##################
-  #-=# SERVICES #=-#
-  ##################
-  services.fwupd.enable = lib.mkForce true;
-
   #####################
   #-=# ENVIRONMENT #=-#
   #####################

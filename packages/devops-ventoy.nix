@@ -3,6 +3,6 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment.systemPackages = with pkgs; [
-    # ventoy-full-gtk
+    ventoy-full-gtk
   ];
 }

@@ -64,8 +64,8 @@
 - https://artemis.sh/2023/03/07/nixos-early-boot-running-from-ram.html # iso, boot, ram, stateless
 
 # osm 
-https://wiki.openstreetmap.org/wiki/DE:Key:de:strassenschluessel
-https://wiki.openstreetmap.org/wiki/DE:Stra%C3%9Fenschl%C3%BCssel
+- https://wiki.openstreetmap.org/wiki/DE:Key:de:strassenschluessel
+- https://wiki.openstreetmap.org/wiki/DE:Stra%C3%9Fenschl%C3%BCssel
 
 # freifunk
 - https://github.com/nix-freifunk/nix-freifunk
@@ -77,5 +77,10 @@ https://wiki.openstreetmap.org/wiki/DE:Stra%C3%9Fenschl%C3%BCssel
 
 # thin client t640 hp, sbc, rpi raspberry pi
 - https://goughlui.com/2024/10/03/review-hp-t640-thin-client-r1505g-8gb-ram-64gb-emmc/
-- https://github.com/nakato/nixos
-- 
+- nakato/nixos
+
+# projectmanagement 
+- makeplane/plane
+
+# db
+- nocodb/nocodb 

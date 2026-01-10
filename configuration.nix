@@ -124,8 +124,8 @@
   #################
   nixpkgs = {
     config = {
-      allowBroken = lib.mkDefault true;
-      allowUnfree = lib.mkDefault true;
+      allowBroken = true;
+      allowUnfree = true;
     };
   };
 
@@ -318,7 +318,7 @@
   #####################
   environment = {
     shells = [pkgs.bashInteractive];
-    systemPackages = with pkgs; [cryptsetup fwupd libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
+    systemPackages = with pkgs; [cryptsetup libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
   };
 
   ####################
@@ -382,7 +382,7 @@
   services = {
     acpid.enable = lib.mkForce true;
     avahi.enable = lib.mkForce false;
-    devmon.enable = lib.mkForce true;
+    # devmon.enable = lib.mkForce true;
     geoclue2.enable = lib.mkForce false;
     gvfs.enable = lib.mkForce false;
     hardware.bolt.enable = true;

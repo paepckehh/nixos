@@ -1,1 +1,0 @@
-../all/immich-authelia.nix

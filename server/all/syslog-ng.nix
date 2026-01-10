@@ -13,13 +13,25 @@ in {
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    extraHosts = ''
-      ${infra.syslog.admin.ip} ${infra.syslog.admin.fqdn}
-      ${infra.syslog.user.ip} ${infra.syslog.user.fqdn}
-    '';
+    extraHosts = "${infra.syslog.user.ip} ${infra.syslog.user.fqdn}\n${infra.syslog.admin.ip} ${infra.syslog.admin.fqdn}";
     firewall = {
       allowedTCPPorts = [infra.port.syslog];
       allowedUDPPorts = [infra.port.syslog];
+    };
+  };
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd = {
+    network.networks = {
+      "admin".addresses = [{Address = "${infra.syslog.admin.ip}/32";}];
+      "user".addresses = [{Address = "${infra.syslog.user.ip}/32";}];
+    };
+    services.syslog-ng = {
+      after = ["sockets.target"];
+      wants = ["sockets.target"];
+      wantedBy = ["multi-user.target"];
     };
   };
 
@@ -30,15 +42,6 @@ in {
     "console" = ''sudo tail -n 1500 -f /var/syslog-ng/console.txt           |  bat -f -l syslog --paging never'';
     "console.err" = ''sudo tail -n 1500 -f /var/syslog-ng/console-err.txt   |  bat -f -l syslog --paging never'';
     "console.crit" = ''sudo tail -n 1500 -f /var/syslog-ng/console-crit.txt |  bat -f -l syslog --paging never'';
-  };
-
-  ##################
-  #-=# SERVICES #=-#
-  ##################
-  systemd.services.syslog-ng = {
-    after = ["sockets.target"];
-    wants = ["sockets.target"];
-    wantedBy = ["multi-user.target"];
   };
 
   ##################

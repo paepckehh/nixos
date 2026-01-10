@@ -7,10 +7,11 @@
 ######################
 # REPO?=https://github.com/paepckehh/nixos
 # DISKOREPO?=github:nix-community/disko/latest 
+REPO:=/etc/nixos
 ID:=$(shell id -u)
 GID:=$(shell id -g)
 NAME:=$(shell id -nu)
-REPO?=git+file:///etc/nixos
+REPO?=git+file://$(REPO)
 DISKOREPO?=git+file:///home/projects/nixos/disko.git
 TARGET?=$(shell hostname)
 TARGETDRIVE?=sdb
@@ -22,7 +23,7 @@ ifeq ($(origin LUKS),undefined)
       USELUKS:=NO
       DISKOFLAKE:=disko/stateless.nix
 endif
-OSFLAKE:=/etc/nixos/\#$(TARGET)
+OSFLAKE:=$(REPO)/\#$(TARGET)
 WIPEDRIVE?=/dev/null
 PATH:=/run/current-system/sw/bin
 SUDO:=/run/wrappers/bin/sudo
@@ -121,7 +122,6 @@ migrate-root:
 	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/id_ed25519.pub | true
 	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/known_hosts | true
 	$(SUDO) chown -R 0:0 /mnt/nix/persist/root | true
-
 
 migrate-backup:
 	$(SUDO) cp -rf /home/backup /mnt/nix/persist/home/ | true

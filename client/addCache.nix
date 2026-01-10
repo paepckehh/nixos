@@ -21,11 +21,11 @@ in {
       preallocate-contents = true;
       allowed-uris = lib.mkForce [
         infra.cache.url
-        "https://cache.nixos.org"
+        # "https://cache.nixos.org"
       ];
       substituters = lib.mkForce [
         infra.cache.url
-        "https://cache.nixos.org"
+        # "https://cache.nixos.org"
       ];
       trusted-public-keys = lib.mkForce [
         infra.cache.key.pub

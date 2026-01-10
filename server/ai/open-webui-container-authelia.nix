@@ -1,0 +1,1 @@
+../all/open-webui-container-authelia.nix

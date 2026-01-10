@@ -44,7 +44,7 @@
       hyperfine
       murex
       ncdu
-      nixfmt-rfc-style
+      nixfmt
       nix-init
       nixpkgs-review
       nix-prefetch-scripts
