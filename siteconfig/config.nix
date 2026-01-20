@@ -898,5 +898,17 @@ let
       url = "https://${infra.wiki-go.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.wiki-go.name}.png";
     };
+    coturn = {
+      id = 178;
+      app = "coturn";
+      name = infra.coturn.app;
+      hostname = infra.coturn.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.coturn.hostname}.${infra.coturn.domain}";
+      ip = "${infra.net.user}.${toString infra.coturn.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.coturn.id;
+      url = "https://${infra.coturn.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.coturn.name}.png";
+    };
   };
 in {infra = infra;}

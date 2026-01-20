@@ -5,6 +5,7 @@ in {
   "vault.age".publicKeys = [age srv-mp]; # ENV ADMIN_TOKEN="..."
   "davis.age".publicKeys = [age srv-mp];
   "miniflux.age".publicKeys = [age srv-mp]; # ENV ADMIN_USERNAME="..." ADMIN_PASSWORD="..."
+  "coturn.age".publicKeys = [age srv-mp];
   "authelia-storagekey.age".publicKeys = [age srv-mp];
   "authelia-jwt.age".publicKeys = [age srv-mp];
   "authelia-session.age".publicKeys = [age srv-mp];

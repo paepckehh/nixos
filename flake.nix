@@ -87,6 +87,7 @@
           ./server/webapp/test.nix
           ./hosts/srv.nix
           ./packages/desktop/add-atuin-desktop.nix
+          ./server/sip/coturn.nix
           # ./server/wiki/wiki-go-docker.nix
           # ./server/wiki/docmost-docker.nix
           # ./server/all/timetrack.nix

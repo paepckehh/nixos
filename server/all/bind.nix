@@ -127,6 +127,7 @@ in {
             ${infra.bentopdf.hostname}           IN A  ${infra.bentopdf.ip}
             ${infra.cache.hostname}              IN A  ${infra.cache.ip}
             ${infra.chef.hostname}               IN A  ${infra.chef.ip}
+            ${infra.coturn.hostname}             IN A  ${infra.coturn.ip}
             ${infra.dns.hostname}                IN A  ${infra.dns.ip}
             ${infra.ente.hostname}               IN A  ${infra.ente.ip}
             ${infra.erpnext.hostname}            IN A  ${infra.erpnext.ip}
