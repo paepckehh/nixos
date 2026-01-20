@@ -6,7 +6,6 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  # environment.systemPackages = with pkgs; [podman-tui podman-compose docker docker-compose compose2nix];
 
   ###############
   # NETWORKING #
@@ -18,7 +17,6 @@
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "podman";
       containers = {
         timeoff = {
           image = "ashless/timeoff-alien";

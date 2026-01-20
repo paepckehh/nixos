@@ -26,6 +26,18 @@ in {
   ####################
   networking.extraHosts = "${infra.sso.ip} ${infra.sso.hostname} ${infra.sso.fqdn}";
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd = {
+    network.networks."user".addresses = [{Address = "${infra.sso.ip}/32";}];
+    services."authelia-${infra.sso.site}" = {
+      after = ["socket.target"];
+      wants = ["socket.target"];
+      wantedBy = ["multi-user.target"];
+    };
+  };
+
   #############
   #-=# AGE #=-#
   #############
@@ -74,19 +86,22 @@ in {
     };
   };
 
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.services."authelia-${infra.sso.site}" = {
-    after = ["socket.target"];
-    wants = ["socket.target"];
-    wantedBy = ["multi-user.target"];
-  };
-
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
+    caddy.virtualHosts."${infra.sso.fqdn}" = {
+      listenAddresses = [infra.sso.ip];
+      extraConfig = ''import intraproxy ${toString infra.sso.localbind.port.http}'';
+    };
+    redis.servers."authelia-${infra.sso.site}" = {
+      enable = true;
+      group = "authelia-${infra.sso.site}";
+      user = "authelia-${infra.sso.site}";
+      port = 0;
+      unixSocket = "/run/redis-authelia-${infra.sso.site}/redis.sock";
+      unixSocketPerm = 600;
+    };
     authelia.instances."${infra.sso.site}" = {
       enable = true;
       secrets = {
@@ -109,7 +124,7 @@ in {
           password_reset.disable = true;
           password_change.disable = true;
           ldap = {
-            implementation = infra.ldap.package;
+            implementation = infra.ldap.app;
             address = infra.ldap.uri;
             tls.skip_verify = true;
             base_dn = infra.ldap.base;
@@ -186,42 +201,116 @@ in {
         };
         definitions.user_attributes.is_nextcloud_admin.expression = ''"nextcloud-admins" in groups'';
         identity_providers.oidc = {
-          # claims_policies.nextcloud_userinfo.custom_claims.is_nextcloud_admin = {};
-          # scopes.nextcloud_userinfo.claims = "is_nextcloud_admin";
           clients = [
             {
+              # Nextcloud
+              client_id = infra.nextcloud.app;
+              client_name = infra.nextcloud.app;
               client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
-              client_id = infra.test.app;
-              client_name = infra.test.app;
+              public = false;
+              require_pkce = true;
+              authorization_policy = infra.sso.oidc.policy;
+              pkce_challenge_method = infra.sso.oidc.method;
+              scopes = infra.sso.oidc.scopes;
+              response_types = infra.sso.oidc.response.code;
+              grant_types = infra.sso.oidc.grant;
+              access_token_signed_response_alg = infra.none;
+              userinfo_signed_response_alg = infra.none;
+              token_endpoint_auth_method = infra.sso.oidc.auth.post;
+              consent_mode = infra.sso.oidc.consent;
+              redirect_uris = ["${infra.nextcloud.url}/apps/user_oidc/code"];
+            }
+            {
+              # Miniflux
+              client_id = infra.miniflux.app;
+              client_name = infra.miniflux.app;
+              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+              public = false;
+              require_pkce = false;
+              authorization_policy = infra.sso.oidc.policy;
+              pkce_challenge_method = "";
+              scopes = infra.sso.oidc.scopes;
+              response_types = infra.sso.oidc.response.code;
+              grant_types = infra.sso.oidc.grant;
+              access_token_signed_response_alg = infra.none;
+              userinfo_signed_response_alg = infra.none;
+              token_endpoint_auth_method = infra.sso.oidc.auth.basic;
+              consent_mode = infra.sso.oidc.consent;
+              redirect_uris = ["${infra.miniflux.url}/oauth2/oidc/callback"];
+            }
+            {
+              # Immich
+              client_id = infra.immich.app;
+              client_name = infra.immich.app;
+              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
               public = false;
               require_pkce = false;
               authorization_policy = infra.sso.oidc.policy;
               scopes = infra.sso.oidc.scopes;
               response_types = infra.sso.oidc.response.code;
               grant_types = infra.sso.oidc.grant;
-              access_token_signed_response_alg = "none";
-              userinfo_signed_response_alg = "none";
+              access_token_signed_response_alg = infra.none;
+              userinfo_signed_response_alg = infra.none;
               token_endpoint_auth_method = infra.sso.oidc.auth.post;
               consent_mode = infra.sso.oidc.consent;
-              redirect_uris = [
-                "${infra.test.url}"
-              ];
+              redirect_uris = ["${infra.immich.url}/auth/login" "${infra.immich.url}/user-settings" "app.immich:///oauth-callback"];
+            }
+            {
+              # Jellyfin
+              client_id = infra.jellyfin.app;
+              client_name = infra.jellyfin.app;
+              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+              public = false;
+              require_pkce = true;
+              pkce_challenge_method = infra.sso.oidc.method;
+              authorization_policy = infra.sso.oidc.policy;
+              scopes = infra.sso.oidc.scopes;
+              response_types = infra.sso.oidc.response.code;
+              grant_types = infra.sso.oidc.grant;
+              access_token_signed_response_alg = infra.none;
+              userinfo_signed_response_alg = infra.none;
+              token_endpoint_auth_method = infra.sso.oidc.auth.post;
+              consent_mode = infra.sso.oidc.consent;
+              redirect_uris = ["${infra.jellyfin.url}/sso/OID/redirect/authelia"];
+            }
+            {
+              # Open-WebUI
+              client_id = infra.ai.app;
+              client_name = infra.ai.app;
+              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+              public = false;
+              authorization_policy = infra.sso.oidc.policy;
+              require_pkce = true;
+              scopes = infra.sso.oidc.scopes;
+              pkce_challenge_method = infra.sso.oidc.method;
+              redirect_uris = ["${infra.ai.url}/oauth/oidc/callback"];
+              response_types = infra.sso.oidc.response.code;
+              grant_types = "authorization_code";
+              access_token_signed_response_alg = "none";
+              userinfo_signed_response_alg = "none";
+              token_endpoint_auth_method = infra.sso.oidc.auth.basic;
+              consent_mode = infra.sso.oidc.consent;
+            }
+            {
+              # Paperless-ngx
+              client_id = infra.paperless.app;
+              client_name = infra.paperless.app;
+              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+              public = false;
+              authorization_policy = infra.sso.oidc.policy;
+              require_pkce = true;
+              scopes = infra.sso.oidc.scopes;
+              pkce_challenge_method = infra.sso.oidc.method;
+              redirect_uris = ["${infra.paperless.url}/accounts/oidc/authelia/login/callback/"];
+              response_types = infra.sso.oidc.response.code;
+              grant_types = "authorization_code";
+              access_token_signed_response_alg = "none";
+              userinfo_signed_response_alg = "none";
+              token_endpoint_auth_method = infra.sso.oidc.auth.basic;
             }
           ];
         };
       };
-    };
-    redis.servers."authelia-${infra.sso.site}" = {
-      enable = true;
-      group = "authelia-${infra.sso.site}";
-      user = "authelia-${infra.sso.site}";
-      port = 0;
-      unixSocket = "/run/redis-authelia-${infra.sso.site}/redis.sock";
-      unixSocketPerm = 600;
-    };
-    caddy.virtualHosts."${infra.sso.fqdn}" = {
-      listenAddresses = [infra.sso.ip];
-      extraConfig = ''import intraproxy ${toString infra.sso.localbind.port.http}'';
     };
   };
 }

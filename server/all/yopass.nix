@@ -101,7 +101,6 @@ in {
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "docker"; # podman
       containers = {
         secret = {
           image = "ghcr.io/paepckehh/yopass-ng:latest";

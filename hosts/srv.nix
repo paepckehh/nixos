@@ -1,4 +1,14 @@
-{lib, ...}: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  ############################
+  #-=# GLOBAL SITE IMPORT #=-#
+  ############################
+  infra = (import ../siteconfig/config.nix).infra;
+in {
   ##############
   # NETWORKING #
   ##############
@@ -14,86 +24,93 @@
   # SYSTEMD #
   ###########
   # networkctl
-  # systemctl service-log-level systemd-networkd.service info
-  # systemctl service-log-level systemd-networkd.service debug
+  # systemctl service-log-level systemd-networkd.service [info|debug]
   systemd = {
     services."systemd-networkd".environment.SYSTEMD_LOG_LEVEL = "debug"; # warn, info, debug
     network = {
       enable = true;
-      wait-online = {
-        enable = true;
-        ignoredInterfaces = ["lo*" "wl*"];
+      netdevs = {
+        "br0" = {
+          netdevConfig = {
+            Kind = "bridge";
+            Name = "br0";
+          };
+        };
+        "admin-vlan" = {
+          vlanConfig.Id = infra.vlan.admin;
+          netdevConfig = {
+            Kind = "vlan";
+            Name = "admin-vlan";
+          };
+        };
+        "user-vlan" = {
+          vlanConfig.Id = infra.vlan.user;
+          netdevConfig = {
+            Kind = "vlan";
+            Name = "user-vlan";
+          };
+        };
+        "remote-vlan" = {
+          vlanConfig.Id = infra.vlan.remote;
+          netdevConfig = {
+            Kind = "vlan";
+            Name = "remote-vlan";
+          };
+        };
+        "virtual-vlan" = {
+          vlanConfig.Id = infra.vlan.virtual;
+          netdevConfig = {
+            Kind = "vlan";
+            Name = "virtual-vlan";
+          };
+        };
       };
       networks = {
-        "legacy" = {
+        "link" = {
           enable = true;
           matchConfig.Name = "enp1s0f4u2u1";
           DHCP = "ipv4";
-          # addresses = [{Address = "192.168.80.100/24";}];
-          # ntp = ["192.168.80.1"];
-          # dns = ["192.168.80.1"];
-          # gateway = ["192.168.80.1"];
         };
-        "cloud" = {
+        "br0" = {
           enable = true;
-          domains = ["corp" "home.corp" "home.corp" "admin.corp"];
-          dns = ["10.50.6.53"];
-          matchConfig.Name = "lo*";
-          linkConfig.RequiredForOnline = "carrier"; # no, yes, routable, carrier
-          addresses = [
-            #### admin
-            {Address = "10.50.0.86/32";} # ldap (iam)
-            {Address = "10.50.0.87/32";} # sso
-            {Address = "10.50.0.100/23";} # host native network access /23
-            {Address = "10.50.0.108/32";} # pki
-            {Address = "10.50.0.110/32";} # monitoring
-            {Address = "10.50.0.111/32";} # status
-            {Address = "10.50.0.151/32";} # webacme
-            {Address = "10.50.0.152/32";} # webpki
-            {Address = "10.50.0.153/32";} # webmtls
-            #### user
-            {Address = "10.50.6.25/32";} # smtp
-            {Address = "10.50.6.26/32";} # autoconfig
-            {Address = "10.50.6.27/32";} # webmail
-            {Address = "10.50.6.53/32";} # dns
-            {Address = "10.50.6.86/32";} # iam
-            {Address = "10.50.6.87/32";} # sso
-            {Address = "10.50.6.100/23";} # host native network access /23
-            {Address = "10.50.6.110/32";} # monitoring
-            {Address = "10.50.6.111/32";} # status
-            {Address = "10.50.6.117/32";} # cloud
-            {Address = "10.50.6.119/32";} # search
-            {Address = "10.50.6.126/32";} # ldap iam
-            {Address = "10.50.6.125/32";} # paperless
-            {Address = "10.50.6.135/32";} # portal start
-            {Address = "10.50.6.141/32";} # res
-            {Address = "10.50.6.143/32";} # imap
-            {Address = "10.50.6.154/32";} # translate-lama
-            {Address = "10.50.6.154/32";} # test
-            {Address = "10.50.6.156/32";} # grist
-            {Address = "10.50.6.157/32";} # meshtastic-web
-            {Address = "10.50.6.158/32";} # glance
-            {Address = "10.50.6.159/32";} # immich
-            {Address = "10.50.6.160/32";} # ente
-            {Address = "10.50.6.161/32";} # miniflux
-            {Address = "10.50.6.162/32";} # navidrome
-            {Address = "10.50.6.163/32";} # chef
-            {Address = "10.50.6.164/32";} # onlyoffice
-            {Address = "10.50.6.165/32";} #
-            {Address = "10.50.6.166/32";} #
-          ];
-          # networkConfig = [
-          #          IPv4Forwarding = false;
-          #          IPv6Forwarding = false;
-          #          DNSDefaultRoute = true;
-          # ];
-          # matchConfig.Path = "pci-0000:09:00.0";
-          # routes = [
-          #  {
-          #    Gateway = "192.168.0.1";
-          #    GatewayOnLink = true;
-          #  }
-          # ];
+          bridgeConfig = {};
+          vlan = ["admin-vlan" "user-vlan" "remote-vlan" "virtual-vlan"];
+          matchConfig.Name = "br0";
+          networkConfig.ConfigureWithoutCarrier = true;
+          linkConfig.ActivationPolicy = "always-up";
+          addresses = [{Address = "${infra.srv.bridge.ip}/23";}];
+        };
+        "admin" = {
+          enable = true;
+          domains = [infra.domain.admin];
+          matchConfig.Name = "admin-vlan";
+          networkConfig.ConfigureWithoutCarrier = true;
+          linkConfig.ActivationPolicy = "always-up";
+          addresses = [{Address = "${infra.srv.admin.ip}/23";}];
+        };
+        "user" = {
+          enable = true;
+          domains = [infra.domain.user];
+          matchConfig.Name = "user-vlan";
+          networkConfig.ConfigureWithoutCarrier = true;
+          linkConfig.ActivationPolicy = "always-up";
+          addresses = [{Address = "${infra.srv.user.ip}/23";}];
+        };
+        "remote" = {
+          enable = false;
+          domains = [infra.domain.remote];
+          matchConfig.Name = "remote-vlan";
+          networkConfig.ConfigureWithoutCarrier = true;
+          linkConfig.ActivationPolicy = "always-up";
+          addresses = [{Address = "${infra.srv.remote.ip}/23";}];
+        };
+        "virtual" = {
+          enable = true;
+          domains = [infra.domain.virtual];
+          matchConfig.Name = "virtual-vlan";
+          networkConfig.ConfigureWithoutCarrier = true;
+          linkConfig.ActivationPolicy = "always-up";
+          addresses = [{Address = "${infra.srv.virtual.ip}/23";}];
         };
       };
     };

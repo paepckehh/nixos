@@ -83,6 +83,11 @@
             "com.yubico.yubioath.desktop"
           ];
         };
+        "org.gnome.desktop.notifications" = {
+          application-children = [];
+          show-banners = false;
+          show-in-lock-screen = false;
+        };
         "org/gnome/settings-daemon/plugins/media-keys" = {
           custom-keybindings = [
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
@@ -217,10 +222,6 @@
           };
         };
       };
-    };
-    services = {
-      remmina.enable = false;
-      network-manager-applet.enable = true;
     };
   };
 }

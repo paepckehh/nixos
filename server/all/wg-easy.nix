@@ -3,23 +3,11 @@
   pkgs,
   ...
 }: {
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking = {
-    nat = {
-      enable = true;
-      externalInterface = "wg0";
-      # internalInterfaces = ["lo0"];
-    };
-  };
-
   ########################
   #-=# VIRTUALISATION #=-#
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "docker";
       containers = {
         wg-easy = {
           hostname = "wg-easy";

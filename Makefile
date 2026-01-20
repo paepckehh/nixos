@@ -58,10 +58,10 @@ test-all: check
 	  nix flake check 
 
 build:  check   
-	$(SUDO) nixos-rebuild boot --flake $(OSFLAKE) --profile-name $(PROFILE)
+	$(SUDO) nixos-rebuild boot --flake $(OSFLAKE) # --profile-name $(PROFILE)
 
 buildagain: check 
-	$(SUDO) nixos-rebuild boot --flake $(OSFLAKE) --profile-name $(PROFILE)
+	$(SUDO) nixos-rebuild boot --flake $(OSFLAKE) # --profile-name $(PROFILE)
 
 recover: check 
 	@echo "Recover Build for system /mnt and $(OSFLAKE)"
@@ -78,7 +78,7 @@ wake-cache:
 	$(SUDO) systemctl restart nix-daemon.service || true
 
 switch: check 
-	$(SUDO) nixos-rebuild switch --flake $(OSFLAKE) --profile-name $(PROFILE)
+	$(SUDO) nixos-rebuild switch --flake $(OSFLAKE) # --profile-name $(PROFILE)
 
 update: creds 
 	mkdir -p .attic/flake.lock
@@ -90,7 +90,7 @@ bootloader: check
 
 offline: check
 	git add .
-	$(SUDO) nixos-rebuild boot -v --flake $(OSFLAKE) --profile-name $(PROFILE)
+	$(SUDO) nixos-rebuild boot -v --flake $(OSFLAKE) # --profile-name $(PROFILE)
       
 rollback: check 
 	$(SUDO) nixos-rebuild switch --rollback 
@@ -250,14 +250,11 @@ mirror-compact:
 	git -C $(REPO) gc --aggressive 
 	git -C $(MIRROR)/agenix.git gc --aggressive 
 	git -C $(MIRROR)/disko.git gc --aggressive
-	git -C $(MIRROR)/home-manager.git gc --aggressive --keep-largest-pack
+	git -C $(MIRROR)/home-manager.git gc --aggressive 
 	git -C $(MIRROR)/nixpkgs.git gc --aggressive --keep-largest-pack
 
-mirror-compact-full:
+mirror-compact-full: 
 	$(SUDO) -v 
-	git -C $(MIRROR)/agenix.git gc --aggressive
-	git -C $(MIRROR)/disko.git gc --aggressive
-	git -C $(MIRROR)/home-manager.git gc --aggressive 
 	git -C $(MIRROR)/nixpkgs.git gc --aggressive 
 
 #################

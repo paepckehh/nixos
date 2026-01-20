@@ -1,0 +1,109 @@
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  ############################
+  #-=# GLOBAL SITE IMPORT #=-#
+  ############################
+  infra = (import ../../siteconfig/config.nix).infra;
+in {
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking.extraHosts = "${infra.miniflux.ip} ${infra.miniflux.hostname} ${infra.miniflux.fqdn}";
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+  services = {
+    authelia.instances."${infra.sso.site}".settings.identity_providers.oidc.clients = [
+      {
+        client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+        client_id = infra.miniflux.app;
+        client_name = infra.miniflux.app;
+        public = false;
+        require_pkce = false;
+        authorization_policy = infra.sso.oidc.policy;
+        pkce_challenge_method = "";
+        scopes = infra.sso.oidc.scopes;
+        response_types = infra.sso.oidc.response.code;
+        grant_types = infra.sso.oidc.grant;
+        access_token_signed_response_alg = infra.none;
+        userinfo_signed_response_alg = infra.none;
+        token_endpoint_auth_method = infra.sso.oidc.auth.basic;
+        consent_mode = infra.sso.oidc.consent;
+        redirect_uris = [
+          "https://miniflux.home.corp/oauth2/oidc/callback"
+        ];
+      }
+    ];
+    caddy.virtualHosts."${infra.miniflux.fqdn}" = {
+      listenAddresses = [infra.miniflux.ip];
+      extraConfig = ''import intraproxy ${toString infra.miniflux.localbind.port.http}'';
+    };
+  };
+
+  ####################
+  #-=# CONTAINERS #=-#
+  ####################
+  containers.miniflux = {
+    autoStart = true;
+    privateNetwork = false;
+    hostAddress = infra.miniflux.ip;
+    config = {
+      config,
+      pkgs,
+      lib,
+      ...
+    }: {
+      #################
+      #-=# IMPORTS #=-#
+      #################
+      imports = [../../client/env.nix];
+
+      #####################
+      #-=# ENVIRONMENT #=-#
+      #####################
+      # initial/reset admin creds (see below, CREATE_ADMIN, set true, uncomment adminCredFile)
+      # environment.etc."miniflux.env".text = ''ADMIN_PASSWORD = "start.me.pw"'';
+
+      #################
+      #-=# SYSTEMD #=-#
+      #################
+      systemd.services.miniflux = {
+        after = ["sockets.target"];
+        wants = ["sockets.target"];
+        wantedBy = ["multi-user.target"];
+      };
+
+      ##################
+      #-=# SERVICES #=-#
+      ##################
+      services = {
+        miniflux = {
+          # adminCredentialsFile = "/etc/miniflux.env";
+          enable = true;
+          config = {
+            LISTEN_ADDR = "${infra.localhost.ip}:${toString infra.miniflux.localbind.port.http}";
+            CREATE_ADMIN = false;
+            DISABLE_LOCAL_AUTH = "1";
+            OAUTH2_CLIENT_ID = "miniflux";
+            OAUTH2_CLIENT_SECRET = "insecure_secret";
+            OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://sso.home.corp";
+            OAUTH2_OIDC_PROVIDER_NAME = "Authelia";
+            OAUTH2_REDIRECT_URL = "https://miniflux.home.corp/oauth2/oidc/callback";
+            OAUTH2_PROVIDER = "oidc";
+            WEBAUTHN = "0";
+            OAUTH2_USER_CREATION = "1";
+            # ADMIN_USERNAME = "admin";
+            # HTTP_CLIENT_PROXIES = [];        # outbound proxies
+            # METRICS_COLLECTOR = infra.one;   # prometheus
+            # METRICS_REFRESH_INTERVAL = "60"; # refresh every 60 seconds
+          };
+        };
+      };
+    };
+  };
+}

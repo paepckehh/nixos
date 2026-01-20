@@ -23,6 +23,18 @@ in {
   ####################
   networking.extraHosts = "${infra.pki.ip} ${infra.pki.hostname} ${infra.pki.fqdn}";
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd = {
+    network.networks."admin".addresses = [{Address = "${infra.pki.ip}/32";}];
+    # services.step-ca = {
+    #  after = ["socket.target"];
+    #  wants = ["socket.target"];
+    #  wantedBy = ["multi-user.target"];
+    # };
+  };
+
   #############
   #-=# AGE #=-#
   #############
@@ -43,8 +55,8 @@ in {
       step = {
         group = "step";
         isSystemUser = true;
-        hashedPassword = null; # disable ldap service account interactive logon
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
+        hashedPassword = null;
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
     };
   };
@@ -59,15 +71,6 @@ in {
       STEPPATH = "/var/lib/step-ca";
       CA_FINGERPRINT = "4491d25c90d38427597b154164de4952a9fa248143684f8b559448f9efd61e13";
     };
-  };
-
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.services.step-ca = {
-    after = ["socket.target"];
-    wants = ["socket.target"];
-    wantedBy = ["multi-user.target"];
   };
 
   ##################

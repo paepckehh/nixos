@@ -15,6 +15,21 @@ in {
   ####################
   networking.extraHosts = "${infra.webpki.ip} ${infra.webpki.hostname} ${infra.webpki.fqdn}.";
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks."user".addresses = [{Address = "${infra.webpki.ip}/32";}];
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+  services = {
+    caddy.virtualHosts."${infra.webpki.fqdn}" = {
+      listenAddresses = [infra.webpki.ip];
+      extraConfig = ''import intraproxy ${toString infra.webpki.localbind.port.http}'';
+    };
+  };
+
   #############
   #-=# AGE #=-#
   #############
@@ -48,7 +63,6 @@ in {
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "podman";
       containers = {
         mkcertweb = {
           autoStart = true;
@@ -87,17 +101,6 @@ in {
           };
         };
       };
-    };
-  };
-
-  #################
-  #-=# SERVICE #=-#
-  #################
-  services = {
-    caddy.virtualHosts."${infra.webpki.fqdn}" = {
-      listenAddresses = [infra.webpki.ip];
-      extraConfig = ''
-        reverse_proxy ${infra.localhost.ip}:${toString infra.webpki.localbind.port.http}'';
     };
   };
 }

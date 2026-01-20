@@ -1,3 +1,4 @@
+# global nix cloud server config basline, docker, reverse proxy, ...
 {
   config,
   pkgs,
@@ -45,6 +46,11 @@ in {
       wantedBy = ["multi-user.target"];
     };
   };
+
+  ########################
+  #-=# VIRTUALISATION #=-#
+  ########################
+  virtualisation.oci-containers.backend = "podman"; # global: docker or podman
 
   ##################
   #-=# SERVICES #=-#
@@ -104,6 +110,14 @@ in {
         (intraproxy) {
            import intra
            reverse_proxy ${infra.localhost.ip}:{args[0]}
+         }
+        (admincontainer) {
+           import admin
+           reverse_proxy {args[0]}:${toString infra.port.http}
+         }
+        (intracontainer) {
+           import intra
+           reverse_proxy {args[0]}:${toString infra.port.http}
          }
       '';
     };

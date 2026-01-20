@@ -91,20 +91,15 @@ service sysntpd disable
 # replace port /etc/config/gpsd
 # ntpd add device, https://openwrt.org/docs/guide-user/services/ntp/gps
 
-# base axt18000 (clean)
-apk-mbedtls ath11k-firmware-ipq6018 base-files ca-bundle dropbear e2fsprogs firewall4 fstools kmod-ath11k-ahb kmod-fs-ext4 kmod-gpio-button-hotplug kmod-leds-gpio kmod-nft-offload kmod-qca-nss-dp kmod-usb-dwc3 kmod-usb-dwc3-qcom kmod-usb3 libc libgcc libustream-mbedtls logd losetup mtd netifd nftables odhcp6c odhcpd-ipv6only procd-ujail uboot-envtools uci uclient-fetch urandom-seed urngd wpad-basic-mbedtls ipq-wifi-glinet_gl-axt1800 kmod-hwmon-pwmfan luci 
+# custom
+luci-ssl luci-mod-dashboard 
+coreutils-shuf coreutils-sleep btop vim-fuller fish whereis mtr curl openssh-server dnsmasq-full dnscrypt-proxy2 bind-dig 
+kmod-wireguard luci-proto-wireguard wireguard-tools 
+kmod-zram kmod-lib-zstd 
+kmod-usb-net-rndis kmod-usb-net-huawei-cdc-ncm luci-proto-ncm usb-modeswitch 
+kmod-mt7921u kmod-mt7921-firmware
+kmod-usb-net-asix kmod-usb-net-asix-ax88179
 
-# base b3000 (clean)
-apk-mbedtls ath11k-firmware-ipq5018 base-files ca-bundle dnsmasq dropbear e2fsprogs firewall4 fstools kmod-ath11k-ahb kmod-fs-ext4 kmod-gpio-button-hotplug kmod-leds-gpio kmod-nft-offload kmod-qca-nss-dp kmod-usb-dwc3 kmod-usb-dwc3-qcom kmod-usb3 libc libgcc libustream-mbedtls logd losetup mtd netifd nftables procd-ujail uboot-envtools uci uclient-fetch urandom-seed urngd wpad-basic-mbedtls ath11k-firmware-qcn6122 ipq-wifi-glinet_gl-b3000 dumpimage luci
-
-# add custom 
-btop luci-ssl luci-mod-dashboard vim-fuller fish whereis mtr curl openssh-server dnsmasq-full dnscrypt-proxy2 banip luci-app-banip bind-dig kmod-wireguard luci-proto-wireguard wireguard-tools adblock luci-app-adblock kmod-usb-net-rndis kmod-lib-zstd kmod-zram btop coreutils-shuf coreutils-sleep kmod-usb-net-huawei-cdc-ncm luci-proto-ncm usb-modeswitch
-
-# add prometheus
+# prometheus
 prometheus-node-exporter-lua prometheus-node-exporter-lua-hostapd_stations prometheus-node-exporter-lua-hwmon prometheus-node-exporter-lua-nat_traffic prometheus-node-exporter-lua-netstat prometheus-node-exporter-lua-openwrt prometheus-node-exporter-lua-thermal prometheus-node-exporter-lua-uci_dhcp_host prometheus-node-exporter-lua-wifi prometheus-node-exporter-lua-wifi_stations
-
-# wfhpi
-
-# add 
-btop luci-ssl luci-mod-dashboard vim-fuller fish whereis mtr curl openssh-server bind-dig kmod-wireguard luci-proto-wireguard wireguard-tools kmod-usb-net-rndis kmod-lib-zstd kmod-zram btop coreutils-shuf coreutils-sleep kmod-usb-net-huawei-cdc-ncm luci-proto-ncm usb-modeswitch kmod-usb-net-asix kmod-usb-net-asix-ax88179 kmod-mt7921u kmod-mt7921-firmware
 

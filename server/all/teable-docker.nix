@@ -8,7 +8,6 @@
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "docker";
       containers = {
         teable = {
           image = "ghcr.io/teableio/teable:latest";

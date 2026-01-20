@@ -13,10 +13,25 @@ in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking = {
-    extraHosts = "${infra.search.ip} ${infra.search.hostname} ${infra.search.fqdn}";
-    firewall.allowedTCPPorts = infra.port.webapps;
-    firewall.allowedUDPPorts = [infra.port.http];
+  networking.extraHosts = "${infra.search.ip} ${infra.search.hostname} ${infra.search.fqdn}";
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd = {
+    network.networks."user".addresses = [{Address = "${infra.search.ip}/32";}];
+    services = {
+      searx-init = {
+        after = ["sockets.target"];
+        wants = ["sockets.target"];
+        wantedBy = ["multi-user.target"];
+      };
+      searx = {
+        after = ["network-online.target"];
+        wants = ["network-online.target"];
+        wantedBy = ["multi-user.target"];
+      };
+    };
   };
 
   ###############
@@ -34,26 +49,14 @@ in {
     };
   };
 
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.services = {
-    searx-init = {
-      after = ["sockets.target"];
-      wants = ["sockets.target"];
-      wantedBy = ["multi-user.target"];
-    };
-    searx = {
-      after = ["network-online.target"];
-      wants = ["network-online.target"];
-      wantedBy = ["multi-user.target"];
-    };
-  };
-
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
+    caddy.virtualHosts."${infra.search.fqdn}" = {
+      listenAddresses = [infra.search.ip];
+      extraConfig = ''import intraproxy ${toString infra.search.localbind.port.http}'';
+    };
     searx = {
       enable = true;
       redisCreateLocally = false; # bot protection
@@ -89,10 +92,6 @@ in {
           };
         };
       };
-    };
-    caddy.virtualHosts."${infra.search.fqdn}" = {
-      listenAddresses = [infra.search.ip];
-      extraConfig = ''import intraproxy ${toString infra.search.localbind.port.http}'';
     };
   };
 }

@@ -8,7 +8,6 @@
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "docker";
       containers = {
         picoshare = {
           image = "mtlynch/picoshare";

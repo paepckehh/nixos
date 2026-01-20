@@ -178,6 +178,28 @@
         ]
       },
       {
+        "name": "website",
+        "children": [
+          {
+            "url": "https://web-check.xyz/",
+            "name": "web-check.xyz [check website security quality]"
+          },
+          {
+            "url": "https://www.ssllabs.com/ssltest/",
+            "name": "sslabs.com [check website tls, ssl security, cert chain]"
+          }
+        ]
+      },
+      {
+        "name": "infrastructure",
+        "children": [
+          {
+            "url": "https://openinframap.org",
+            "name": "openinframap.org [powergrid, telco infra]"
+          }
+        ]
+      },
+      {
         "name": "cheat sheets [pdf]",
         "children": [
           {

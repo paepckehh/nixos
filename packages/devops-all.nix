@@ -4,8 +4,9 @@
   #################
   imports = [
     ./devops-core.nix
-    ./devops-iot.nix
-    ./devops-lora.nix
-    ./devops-ventoy.nix
+    ./devops-wine.nix
+    # ./devops-iot.nix
+    # ./devops-lora.nix
+    # ./devops-ventoy.nix
   ];
 }

@@ -7,7 +7,7 @@
   ############################
   #-=# GLOBAL SITE IMPORT #=-#
   ############################
-  infra = (import ../../siteconfig/config.nix).infra;
+  infra = (import ../siteconfig/config.nix).infra;
 in {
   ##################
   #-=# SERVICES #=-#

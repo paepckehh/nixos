@@ -1,0 +1,1 @@
+../all/jellyfin-authelia.nix

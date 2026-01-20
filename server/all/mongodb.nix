@@ -33,7 +33,6 @@ in {
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "podman";
       containers = {
         mongo-express = {
           image = "mongo-express";

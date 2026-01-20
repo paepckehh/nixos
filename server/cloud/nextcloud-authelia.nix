@@ -1,1 +1,0 @@
-../all/nextcloud-authelia.nix

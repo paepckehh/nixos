@@ -1,0 +1,1 @@
+../all/wiki-go-docker.nix

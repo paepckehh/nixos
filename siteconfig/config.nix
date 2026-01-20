@@ -2,6 +2,8 @@ let
   infra = {
     true = "true";
     false = "false";
+    none = "none";
+    one = "1";
     site = {
       id = 50; # site/company id, range 1-256
       name = "home"; # site/company name
@@ -50,17 +52,21 @@ let
       admin = 0;
       user = 6;
       remote = 66;
+      virtual = 99;
     };
     vlan = {
       admin = infra.id.admin;
       user = infra.id.user;
       remote = infra.id.remote;
+      virtual = infra.id.virtual;
     };
     net = {
       prefix = "${toString infra.site.networkrange.oct1}.${toString infra.site.networkrange.oct2}";
       admin = "${infra.net.prefix}.${toString infra.id.admin}";
+      bridge = "10.255.254";
       user = "${infra.net.prefix}.${toString infra.id.user}";
       remote = "${infra.net.prefix}.${toString infra.id.remote}";
+      virtual = "${infra.net.prefix}.${toString infra.id.virtual}";
     };
     cidr = {
       netmask = 23; # result => /23 => 255.255.254.0 => 512 ip/net
@@ -76,19 +82,25 @@ let
       admin = "adm";
       user = infra.site.name;
       remote = "remote";
+      virtual = "virtual";
     };
     domain = {
       tld = infra.site.domain.tld; # tld => .corp
       domain = "${infra.domain.tld}"; # not used, domain = tld => .corp
       admin = "${infra.zonename.admin}.${infra.domain.user}"; # result => dns-zone adm.home.corp
       user = "${infra.zonename.user}.${infra.domain.tld}"; # result => dns-zone home.corp
-      remote = "${infra.zonename.remote}.${infra.domain.tld}"; # result => dnz-sone remote.corp
+      remote = "${infra.zonename.remote}.${infra.domain.tld}"; # result => dnz-zone remote.corp
+      virtual = "${infra.zonename.virtual}.${infra.domain.tld}"; # result => dnz-zone remote.corp
     };
     namespace = {
       prefix = "";
       admin = "${infra.namespace.prefix}${toString infra.id.admin}";
       user = "${infra.namespace.prefix}${toString infra.id.user}";
       remote = "${infra.namespace.prefix}${toString infra.id.remote}";
+    };
+    container = {
+      network = infra.net.virtual;
+      interface = "br0";
     };
     port = {
       smtp = 25;
@@ -275,18 +287,28 @@ let
       domain = infra.domain.user;
       fqdn = "${infra.it.hostname}.${infra.it.domain}";
       ip = "${infra.net.user}.${toString infra.it.id}";
-      access.cidr = infra.cidr.user;
       localbind.port.http = infra.localhost.port.offset + infra.it.id;
+    };
+    proxmox = {
+      id = 57;
+      app = "proxmox";
+      name = infra.proxmox.app;
+      hostname = infra.proxmox.name;
+      domain = infra.domain.admin;
+      fqdn = "${infra.proxmox.hostname}.${infra.proxmox.domain}";
+      ip = "${infra.net.admin}.${toString infra.proxmox.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.proxmox.id;
+      url = "https://${infra.proxmox.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.proxmox.app}.png";
     };
     ldap = {
       id = 86;
+      app = "lldap";
       name = "ldap";
-      package = "lldap";
       hostname = infra.ldap.name;
-      domain = infra.domain.user;
-      access.cidr = infra.cidr.all;
+      domain = infra.domain.admin;
       fqdn = "${infra.ldap.hostname}.${infra.ldap.domain}";
-      ip = "${infra.net.user}.${toString infra.ldap.id}";
+      ip = "${infra.net.admin}.${toString infra.ldap.id}";
       port = infra.port.ldap;
       url = "http://${infra.ldap.ip}:${toString infra.ldap.port}";
       uri = "ldap://${infra.ldap.ip}:${toString infra.ldap.port}";
@@ -294,7 +316,7 @@ let
       baseDN = "ou=people,${infra.ldap.base}";
       bind = {
         dn = "uid=bind,${infra.ldap.baseDN}";
-        pwd = "startbind"; # XXX migrage socket / ragenix
+        pwd = "startbind"; # public bind
       };
     };
     iam = {
@@ -323,7 +345,7 @@ let
       localbind.port.http = infra.localhost.port.offset + infra.sso.id;
       oidc = {
         auth = {
-          basic = "client_secret_basic"; # paperless, openweb-ui
+          basic = "client_secret_basic"; # paperless, openweb-ui, miniflux
           post = "client_secret_post"; # nextcloud
         };
         grant = "authorization_code";
@@ -338,8 +360,36 @@ let
       url = "https://${infra.sso.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.sso.app}.png";
     };
-    syslog = {
+    srv = {
       id = 100;
+      app = "nixos";
+      name = "srv";
+      hostname = infra.srv.name;
+      bridge.ip = "${infra.net.bridge}.${toString infra.srv.id}";
+      admin = {
+        domain = infra.domain.admin;
+        fqdn = "${infra.srv.hostname}.${infra.srv.admin.domain}";
+        ip = "${infra.net.admin}.${toString infra.srv.id}";
+      };
+      user = {
+        domain = infra.domain.user;
+        fqdn = "${infra.srv.hostname}.${infra.srv.user.domain}";
+        ip = "${infra.net.user}.${toString infra.srv.id}";
+      };
+      remote = {
+        domain = infra.domain.remote;
+        fqdn = "${infra.srv.hostname}.${infra.srv.remote.domain}";
+        ip = "192.168.80.100";
+      };
+      virtual = {
+        domain = infra.domain.virtual;
+        fqdn = "${infra.srv.hostname}.${infra.srv.virtual.domain}";
+        ip = "${infra.net.user}.${toString infra.srv.id}";
+      };
+    };
+    syslog = {
+      id = infra.srv.id;
+      app = "syslog-ng";
       name = "syslog";
       hostname = infra.syslog.name;
       admin = {
@@ -348,15 +398,19 @@ let
         ip = "${infra.net.admin}.${toString infra.syslog.id}";
       };
       user = {
-        domain = infra.domain.admin;
+        domain = infra.domain.user;
         fqdn = "${infra.syslog.hostname}.${infra.syslog.user.domain}";
         ip = "${infra.net.user}.${toString infra.syslog.id}";
       };
       remote = {
         domain = infra.domain.remote;
-        fqdn = "${infra.syslog.hostname}.${infra.syslog.user.remote}";
-        # ip = "${infra.net.user}.${toString infra.syslog.id}";
+        fqdn = "${infra.syslog.hostname}.${infra.syslog.remote.domain}";
         ip = "192.168.80.100";
+      };
+      virtual = {
+        domain = infra.domain.virtual;
+        fqdn = "${infra.syslog.hostname}.${infra.syslog.virtual.domain}";
+        ip = "${infra.net.virtual}.${toString infra.syslog.id}";
       };
     };
     pki = {
@@ -366,7 +420,6 @@ let
       domain = infra.domain.admin;
       fqdn = "${infra.pki.hostname}.${infra.pki.domain}";
       ip = "${infra.net.admin}.${toString infra.pki.id}";
-      access.cidr = infra.cidr.admin;
       url = "https://${infra.pki.fqdn}";
       certs = {
         defaultTLSCertDuration = "1440h0m0s";
@@ -402,6 +455,7 @@ let
     };
     status = {
       id = 110;
+      app = "status";
       name = "status";
       hostname = infra.status.name;
       domain = infra.domain.user;
@@ -411,16 +465,16 @@ let
       url = "https://${infra.status.fqdn}";
       logo = "${infra.res.url}/icon/png/healthchecks.png";
     };
-    monitoring = {
+    kuma = {
       id = 111;
       app = "uptimekuma";
-      name = "monitoring";
-      hostname = infra.monitoring.name;
+      name = "kuma";
+      hostname = infra.kuma.name;
       domain = infra.domain.user;
-      fqdn = "${infra.monitoring.hostname}.${infra.monitoring.domain}";
-      ip = "${infra.net.user}.${toString infra.monitoring.id}";
-      localbind.port.http = infra.localhost.port.offset + infra.monitoring.id;
-      url = "https://${infra.monitoring.fqdn}";
+      fqdn = "${infra.kuma.hostname}.${infra.kuma.domain}";
+      ip = "${infra.net.user}.${toString infra.kuma.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.kuma.id;
+      url = "https://${infra.kuma.fqdn}";
       logo = "${infra.res.url}/icon/png/healthchecks.png";
     };
     wiki = {
@@ -435,18 +489,18 @@ let
       url = "https://${infra.wiki.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.wiki.app}.png";
     };
-    cloud = {
+    nextcloud = {
       id = 117;
       app = "nextcloud";
-      name = "cloud";
-      hostname = infra.cloud.name;
+      name = "nextcloud";
+      hostname = infra.nextcloud.name;
       domain = infra.domain.user;
-      fqdn = "${infra.cloud.hostname}.${infra.cloud.domain}";
-      ip = "${infra.net.user}.${toString infra.cloud.id}";
+      fqdn = "${infra.nextcloud.hostname}.${infra.nextcloud.domain}";
+      ip = "${infra.net.user}.${toString infra.nextcloud.id}";
       port = infra.port.webapps;
-      localbind.port.http = infra.localhost.port.offset + infra.cloud.id;
-      url = "https://${infra.cloud.fqdn}";
-      logo = "${infra.res.url}/icon/png/nextcloud-blue.png";
+      localbind.port.http = infra.localhost.port.offset + infra.nextcloud.id;
+      url = "https://${infra.nextcloud.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.nextcloud.name}-blue.png";
     };
     search = {
       id = 119;
@@ -661,6 +715,7 @@ let
       domain = infra.domain.user;
       fqdn = "${infra.immich.hostname}.${infra.immich.domain}";
       ip = "${infra.net.user}.${toString infra.immich.id}";
+      container.ip = "${infra.container.network}.${toString infra.immich.id}";
       localbind.port.http = infra.localhost.port.offset + infra.immich.id;
       url = "https://${infra.immich.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.immich.app}.png";
@@ -724,6 +779,124 @@ let
       localbind.port.http = infra.localhost.port.offset + infra.onlyoffice.id;
       url = "https://${infra.onlyoffice.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.onlyoffice.app}.png";
+    };
+    ollama01 = {
+      id = 165;
+      app = "ollama01";
+      name = infra.ollama01.app;
+      hostname = infra.ollama01.name;
+      domain = infra.domain.admin;
+      fqdn = "${infra.ollama01.hostname}.${infra.ollama01.domain}";
+      ip = "${infra.net.user}.${toString infra.ollama01.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.ollama01.id;
+    };
+    rackula = {
+      id = 170;
+      app = "rackula";
+      name = infra.rackula.app;
+      hostname = infra.rackula.name;
+      domain = infra.domain.admin;
+      fqdn = "${infra.rackula.hostname}.${infra.rackula.domain}";
+      ip = "${infra.net.user}.${toString infra.rackula.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.rackula.id;
+      url = "https://${infra.rackula.fqdn}";
+      logo = "${infra.res.url}/icon/png/mcmyadmin.png";
+    };
+    bentopdf = {
+      id = 171;
+      app = "bentopdf";
+      name = infra.bentopdf.app;
+      hostname = infra.bentopdf.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.bentopdf.hostname}.${infra.bentopdf.domain}";
+      ip = "${infra.net.user}.${toString infra.bentopdf.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.bentopdf.id;
+      url = "https://${infra.bentopdf.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.bentopdf.app}.png";
+    };
+    web-check = {
+      id = 172;
+      app = "web-check";
+      name = infra.web-check.app;
+      hostname = infra.web-check.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.web-check.hostname}.${infra.web-check.domain}";
+      ip = "${infra.net.user}.${toString infra.web-check.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.web-check.id;
+      url = "https://${infra.web-check.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.web-check.app}.png";
+    };
+    databasement = {
+      id = 173;
+      app = "databasement";
+      name = infra.databasement.app;
+      hostname = infra.databasement.name;
+      domain = infra.domain.admin;
+      fqdn = "${infra.databasement.hostname}.${infra.databasement.domain}";
+      ip = "${infra.net.admin}.${toString infra.databasement.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.databasement.id;
+      url = "https://${infra.databasement.fqdn}";
+      logo = "${infra.res.url}/icon/png/webdb.png";
+    };
+    jellyfin = {
+      id = 174;
+      app = "jellyfin";
+      name = infra.jellyfin.app;
+      hostname = infra.jellyfin.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.jellyfin.hostname}.${infra.jellyfin.domain}";
+      ip = "${infra.net.user}.${toString infra.jellyfin.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.jellyfin.id;
+      url = "https://${infra.jellyfin.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.jellyfin.app}.png";
+    };
+    kimai = {
+      id = 175;
+      app = "kimai";
+      name = infra.kimai.app;
+      hostname = infra.kimai.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.kimai.hostname}.${infra.kimai.domain}";
+      ip = "${infra.net.user}.${toString infra.kimai.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.kimai.id;
+      url = "https://${infra.kimai.fqdn}";
+      logo = "${infra.res.url}/icon/png/nextcloud-timemanager.png";
+    };
+    erpnext = {
+      id = 176;
+      app = "erpnext";
+      name = infra.erpnext.app;
+      hostname = infra.erpnext.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.erpnext.hostname}.${infra.erpnext.domain}";
+      ip = "${infra.net.user}.${toString infra.erpnext.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.erpnext.id;
+      url = "https://${infra.erpnext.fqdn}";
+      logo = "${infra.res.url}/icon/png/espocrm.png";
+    };
+    networking-toolbox = {
+      id = 176;
+      app = "networking-toolbox";
+      name = infra.networking-toolbox.app;
+      hostname = infra.networking-toolbox.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.networking-toolbox.hostname}.${infra.networking-toolbox.domain}";
+      ip = "${infra.net.user}.${toString infra.networking-toolbox.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.networking-toolbox.id;
+      url = "https://${infra.networking-toolbox.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.networking-toolbox.app}.png";
+    };
+    wiki-go = {
+      id = 177;
+      app = "wiki-go";
+      name = infra.wiki-go.app;
+      hostname = infra.wiki-go.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.wiki-go.hostname}.${infra.wiki-go.domain}";
+      ip = "${infra.net.user}.${toString infra.wiki-go.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.wiki-go.id;
+      url = "https://${infra.wiki-go.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.wiki-go.name}.png";
     };
   };
 in {infra = infra;}

@@ -96,7 +96,6 @@ in {
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "podman"; # docker
       containers = {
         paperless-ai = {
           image = "clusterzx/paperless-ai:latest";

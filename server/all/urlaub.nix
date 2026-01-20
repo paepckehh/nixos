@@ -4,7 +4,6 @@
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "docker";
       containers = {
         urlaub = {
           image = "urlaubsverwaltung/urlaubsverwaltung:latest";

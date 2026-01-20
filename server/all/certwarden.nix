@@ -15,12 +15,26 @@ in {
   ####################
   networking.extraHosts = "${infra.webacme.ip} ${infra.webacme.hostname} ${infra.webacme.fqdn}.";
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks."user".addresses = [{Address = "${infra.webacme.ip}/32";}];
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+  services = {
+    caddy.virtualHosts."${infra.webacme.fqdn}" = {
+      listenAddresses = [infra.webacme.ip];
+      extraConfig = ''import intraproxy ${toString infra.webacme.localbind.port.http}'';
+    };
+  };
+
   ########################
   #-=# VIRTUALISATION #=-#
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "podman";
       containers = {
         certwarden = {
           autoStart = true;
@@ -31,17 +45,6 @@ in {
           ];
         };
       };
-    };
-  };
-
-  #################
-  #-=# SERVICE #=-#
-  #################
-  services = {
-    caddy.virtualHosts."${infra.webacme.fqdn}" = {
-      listenAddresses = [infra.webacme.ip];
-      extraConfig = ''
-        reverse_proxy ${infra.localhost.ip}:${toString infra.webacme.localbind.port.http}'';
     };
   };
 }

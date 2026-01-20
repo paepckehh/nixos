@@ -12,7 +12,6 @@
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "podman";
       containers = {
         opnborg = {
           image = "ghcr.io/paepckehh/opnborg";

@@ -8,7 +8,10 @@ sudo systemctl restart lldap.service
 sudo systemctl restart authelia-home.service
 sudo systemctl restart searx-init.service
 sudo systemctl restart searx.service
-sudo systemctl restart onlyoffice-docservice.service
+# sudo systemctl restart container@miniflux.service
+# sudo systemctl restart container@immich.service
+# sudo systemctl restart container@nextcloud.service
+# sudo systemctl restart onlyoffice-docservice.service
 # sudo systemctl restart maddy.service
 # sudo systemctl restart nextcloud-setup.service
 # sudo systemctl restart tuwunel.service

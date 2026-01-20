@@ -1,0 +1,1 @@
+../all/miniflux-container-authelia.nix

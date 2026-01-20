@@ -20,7 +20,6 @@ in {
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "podman";
       containers = {
         meshtastic-web = {
           autoStart = true;

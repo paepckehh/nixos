@@ -5,7 +5,6 @@
   services.nginx.enable = true; # create user/group
   virtualisation = {
     oci-containers = {
-      backend = "docker";
       containers = {
         netalertx = {
           autoStart = true;

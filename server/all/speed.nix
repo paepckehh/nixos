@@ -77,7 +77,6 @@ in {
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "podman"; # docker
       containers = {
         speed = {
           image = "openspeedtest/latest:latest";

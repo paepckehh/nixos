@@ -53,25 +53,8 @@ in {
             CGO_ENABLED = "0";
           };
           shellAliases = {
-            "b" = "sudo btop";
-            "d" = "sudo dmesg";
-            "l" = "ls -la";
-            "n" = "cd /etc/nixos && ls -la";
-            "h" = "htop --tree --highlight-changes";
-            "log.boot" = "sudo dmesg --follow --human --kernel --userspace";
-            "log.system" = "sudo journalctl --follow --priority=7 --lines=2500";
-            "log.time" = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
             "man" = "batman";
             "cat" = "bat --paging=never";
-            "time.status" = "timedatectl timesync-status";
-            "keybordlight" = "echo 1 | sudo tee /sys/class/leds/input1::scrolllock/brightness";
-            "portal" = "xdg-open http://$(ip --oneline route get 1.1.1.1 | awk '{print $3}')";
-            "ll" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
-            "la" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
-            "lg" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --group";
-            "lt" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
-            "lo" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
-            "li" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
           };
           file = {
             ".npmrc".text = ''prefix=~/.npm-packages'';

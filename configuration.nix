@@ -12,45 +12,26 @@
     blacklistedKernelModules = ["affs" "befs" "bfs" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb"];
     nixStoreMountOpts = lib.mkForce ["ro"];
     hardwareScan = true;
-    extraModulePackages = (
-      if (config.nixpkgs.system == "x86_64-linux")
-      then [config.boot.kernelPackages.zenpower]
-      else []
-    );
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot = {
         enable = lib.mkDefault true;
         consoleMode = "max";
-        configurationLimit = 4;
+        configurationLimit = 8;
       };
     };
     initrd = {
-      # compressor = "zstd";
-      # compressorArgs = ["--ultra" "--long" "-22"];
       systemd = {
         enable = lib.mkDefault true;
         emergencyAccess = lib.mkDefault false;
       };
       luks.mitigateDMAAttacks = lib.mkForce true;
       supportedFilesystems = ["ext4" "tmpfs" "vfat"];
-      availableKernelModules = (
-        if (config.nixpkgs.system == "x86_64-linux")
-        then ["aesni_intel" "ahci" "applespi" "applesmc" "dm_mod" "cryptd" "intel_lpss_pci" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"]
-        else ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"]
-      );
+      availableKernelModules = ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = (
-      if (config.nixpkgs.system == "x86_64-linux")
-      then ["amd_pstate=active" "page_alloc.shuffle=1" "ipv6.disable=1" "copytoram"] # "copytoram" "ipv6.disable=1"
-      else ["page_alloc.shuffle=1"]
-    );
-    kernelModules = (
-      if (config.nixpkgs.system == "x86_64-linux")
-      then ["amd-pstate" "amdgpu" "kvm-amd" "kvm-intel" "uas"]
-      else ["uas"]
-    );
+    kernelParams = ["page_alloc.shuffle=1" "ipv6.disable=1"];
+    kernelModules = ["uas"];
     tmp = {
       cleanOnBoot = true;
       tmpfsHugeMemoryPages = "within_size";
@@ -96,15 +77,19 @@
   ###############
   #-= SYSTEM #=-#
   ###############
-  system = {
-    stateVersion = "26.05"; # dummy target, do not modify
-    switch.enable = true;
-    includeBuildDependencies = false; # needed for full-offline (re-)build from source, its huge!
-  };
+  system.stateVersion = "26.05"; # dummy target, do not modify
+
+  #############
+  #-= TIME #=-#
+  #############
   time = {
     timeZone = null; # UTC, local: "Europe/Berlin";
     hardwareClockInLocalTime = true;
   };
+
+  ################
+  #-= CONSOLE #=-#
+  ################
   console = {
     enable = lib.mkForce true;
     earlySetup = lib.mkForce true;
@@ -112,6 +97,10 @@
     font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
     packages = with pkgs; [powerline-fonts];
   };
+
+  #############
+  #-= SWAP #=-#
+  #############
   swapDevices = lib.mkForce []; # keep
   zramSwap = {
     enable = true;
@@ -124,8 +113,8 @@
   #################
   nixpkgs = {
     config = {
-      allowBroken = lib.mkDefault true;
-      allowUnfree = lib.mkDefault true;
+      allowBroken = true;
+      allowUnfree = true;
     };
   };
 
@@ -151,10 +140,10 @@
       require-sigs = lib.mkForce true;
       preallocate-contents = lib.mkDefault true;
       allowed-uris = lib.mkDefault [
-        # "https://cache.nixos.org"
+        "https://cache.nixos.org"
       ];
       substituters = lib.mkDefault [
-        # "https://cache.nixos.org"
+        "https://cache.nixos.org"
       ];
       trusted-public-keys = lib.mkDefault [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -318,7 +307,7 @@
   #####################
   environment = {
     shells = [pkgs.bashInteractive];
-    systemPackages = with pkgs; [cryptsetup fwupd libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
+    systemPackages = with pkgs; [cryptsetup libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
   };
 
   ####################
@@ -372,7 +361,7 @@
   #########################
   powerManagement = {
     enable = true;
-    powertop.enable = false;
+    powertop.enable = false; # buggy!
     cpuFreqGovernor = "ondemand";
   };
 
@@ -394,44 +383,25 @@
     logind.settings.Login.HandleHibernateKey = "ignore";
     libinput.enable = lib.mkForce true;
     yubikey-agent.enable = true;
+    udev.packages = [pkgs.yubikey-personalization];
     pcscd = {
       enable = true;
       plugins = [pkgs.ccid];
     };
-    lvm = {
-      enable = lib.mkDefault false;
-      dmeventd.enable = lib.mkDefault false;
-      boot = {
-        thin.enable = lib.mkDefault false;
-        vdo.enable = lib.mkDefault false;
-      };
-    };
     journald = {
       audit = false;
-      storage = "persistent";
+      storage = "volatile"; # persistent
       upload.enable = false;
     };
     fstrim = {
       enable = true;
       interval = "daily";
     };
-    # resolved.enable = false;
     tlp = {
       enable = true;
       settings = {
-        # info => tlp-stat
         USB_AUTOSUSPEND = "0";
-        DEVICES_TO_ENABLE_ON_STARTUP = "bluetooth wifi wwan";
-        DEVICES_TO_ENABLE_ON_AC = "bluetooth wifi wwan";
-        DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "";
-        DEVICES_TO_DISABLE_ON_LAN_CONNECT = "";
-        DEVICES_TO_DISABLE_ON_WIFI_CONNECT = "";
-        DEVICES_TO_DISABLE_ON_WWAN_CONNECT = "";
-        DEVICES_TO_ENABLE_ON_LAN_DISCONNECT = "bluetooth wifi wwan";
-        DEVICES_TO_ENABLE_ON_WIFI_DISCONNECT = "bluetooth wifi wwan";
-        DEVICES_TO_ENABLE_ON_WWAN_DISCONNECT = "bluetooth wifi wwan";
-        DEVICES_TO_ENABLE_ON_UNDOCK = "bluetooth wifi wwan";
-        DEVICES_TO_DISABLE_ON_UNDOCK = "";
+        WOL_DISABLE = "Y";
         START_CHARGE_THRESH_BAT0 = 45;
         STOP_CHARGE_THRESH_BAT0 = 85;
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
@@ -440,18 +410,22 @@
         CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
         PLATFORM_PROFILE_ON_AC = "performance";
         PLATFORM_PROFILE_ON_BAT = "low-power";
-        RADEON_DPM_PERF_LEVEL_ON_AC = "low";
-        RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
-        RADEON_DPM_STATE_ON_AC = "battery";
-        RADEON_DPM_STATE_ON_BAT = "battery";
-        RADEON_POWER_PROFILE_ON_AC = "low";
-        RADEON_POWER_PROFILE_ON_BAT = "low";
-        WOL_DISABLE = "Y";
-        WIFI_PWR_ON_AC = "on";
-        WIFI_PWR_ON_BAT = "on";
+        # WIFI_PWR_ON_AC = "on";
+        # WIFI_PWR_ON_BAT = "on";
+        # DEVICES_TO_ENABLE_ON_STARTUP = "bluetooth wifi wwan";
+        # DEVICES_TO_ENABLE_ON_AC = "bluetooth wifi wwan";
+        # DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "";
+        # DEVICES_TO_DISABLE_ON_LAN_CONNECT = "";
+        # DEVICES_TO_DISABLE_ON_WIFI_CONNECT = "";
+        # DEVICES_TO_DISABLE_ON_WWAN_CONNECT = "";
+        # DEVICES_TO_ENABLE_ON_LAN_DISCONNECT = "bluetooth wifi wwan";
+        # DEVICES_TO_ENABLE_ON_WIFI_DISCONNECT = "bluetooth wifi wwan";
+        # DEVICES_TO_ENABLE_ON_WWAN_DISCONNECT = "bluetooth wifi wwan";
+        # DEVICES_TO_ENABLE_ON_UNDOCK = "bluetooth wifi wwan";
+        # DEVICES_TO_DISABLE_ON_UNDOCK = "";
+        # use tlp-stat for more details
       };
     };
-    udev.packages = [pkgs.yubikey-personalization];
     usbguard = {
       enable = false;
       rules = ''

@@ -48,7 +48,6 @@ in {
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "podman";
       containers = {
         vaultls = {
           autoStart = true;

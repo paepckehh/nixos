@@ -22,7 +22,6 @@
   ########################
   virtualisation = {
     oci-containers = {
-      backend = "podman";
       containers = {
         yo = {
           # image = "jhaals/yopass:latest";
