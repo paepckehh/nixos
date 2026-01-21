@@ -4,7 +4,7 @@
     # agenix.url = "github:ryantm/agenix";
     # disko.url = "github:nix-community/disko/master";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.url = "github:nix-community/home-manager/master";
     # home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # proxmox-nixos.url = "git+file:///home/projects/nixos/proxmox-nixos.git";
     # local git mirror
@@ -12,7 +12,7 @@
     nixpkgs.url = "git+file:///home/projects/nixos/nixpkgs.git?ref=nixos-unstable";
     agenix.url = "git+file:///home/projects/nixos/agenix.git?ref=main";
     disko.url = "git+file:///home/projects/nixos/disko.git?ref=master";
-    home-manager.url = "git+file:///home/projects/nixos/home-manager.git?ref=master";
+    # home-manager.url = "git+file:///home/projects/nixos/home-manager.git?ref=master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
@@ -70,24 +70,24 @@
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix
           ./packages/devops-core.nix
-          ./packages/devops-docker.nix
+          # ./packages/devops-docker.nix
           ./packages/desktop/gnome.nix
           ./server/base.nix
-          ./server/ai/ollama.nix
-          ./server/cache/ncps.nix
+          # ./server/ai/ollama.nix
+          # ./server/cache/ncps.nix
           ./server/dns/bind.nix
-          ./server/iam/authelia.nix
-          ./server/iam/lldap.nix
+          # ./server/iam/authelia.nix
+          # ./server/iam/lldap.nix
           ./server/log/syslog-ng.nix
-          ./server/lora/meshtastic-web.nix
-          ./server/search/searx.nix
-          ./server/pki/small-step.nix
-          ./server/portal/homer-home.nix
-          ./server/webapp/res.nix
-          ./server/webapp/test.nix
+          # ./server/lora/meshtastic-web.nix
+          # ./server/search/searx.nix
+          # ./server/pki/small-step.nix
+          # ./server/portal/homer-home.nix
+          # ./server/webapp/res.nix
+          # ./server/webapp/test.nix
           ./hosts/srv.nix
-          ./packages/desktop/add-atuin-desktop.nix
-          ./server/sip/coturn.nix
+          # ./packages/desktop/add-atuin-desktop.nix
+          # ./server/sip/coturn.nix
           # ./server/wiki/wiki-go-docker.nix
           # ./server/wiki/docmost-docker.nix
           # ./server/all/timetrack.nix

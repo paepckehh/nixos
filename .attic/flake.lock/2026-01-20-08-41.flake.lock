@@ -49,11 +49,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1766150702,
-        "narHash": "sha256-P0kM+5o+DKnB6raXgFEk3azw8Wqg5FL6wyl9jD+G5a4=",
+        "lastModified": 1768727946,
+        "narHash": "sha256-le2GY+ZR6uRHMuOAc60sBR3gBD2BEk1qOZ3S5C/XFpU=",
         "ref": "master",
-        "rev": "916506443ecd0d0b4a0f4cf9d40a3c22ce39b378",
-        "revCount": 1302,
+        "rev": "558e84658d0eafc812497542ad6ca0d9654b3b0f",
+        "revCount": 1303,
         "type": "git",
         "url": "file:///home/projects/nixos/disko.git"
       },
@@ -91,18 +91,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1768068402,
-        "narHash": "sha256-bAXnnJZKJiF7Xr6eNW6+PhBf1lg2P1aFUO9+xgWkXfA=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "8bc5473b6bc2b6e1529a9c4040411e1199c43b4c",
-        "type": "github"
+        "lastModified": 1768893778,
+        "narHash": "sha256-iSHEptqSun9Ryl1NgoKguJAjRHAFO3k9bQ9bB+UpCNA=",
+        "ref": "master",
+        "rev": "895eddbee851630201154725c22e94ecd8232dbf",
+        "revCount": 6122,
+        "type": "git",
+        "url": "file:///home/projects/nixos/home-manager.git"
       },
       "original": {
-        "owner": "nix-community",
         "ref": "master",
-        "repo": "home-manager",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/projects/nixos/home-manager.git"
       }
     },
     "nixpkgs": {
@@ -139,16 +139,16 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1767767207,
-        "narHash": "sha256-Mj3d3PfwltLmukFal5i3fFt27L6NiKXdBezC1EBuZs4=",
-        "ref": "nixos-unstable",
-        "rev": "5912c1772a44e31bf1c63c0390b90501e5026886",
-        "revCount": 923638,
+        "lastModified": 1768886240,
+        "narHash": "sha256-C2TjvwYZ2VDxYWeqvvJ5XPPp6U7H66zeJlRaErJKoEM=",
+        "ref": "nixos-unstable-small",
+        "rev": "80e4adbcf8992d3fd27ad4964fbb84907f9478b0",
+        "revCount": 930839,
         "type": "git",
         "url": "file:///home/projects/nixos/nixpkgs.git"
       },
       "original": {
-        "ref": "nixos-unstable",
+        "ref": "nixos-unstable-small",
         "type": "git",
         "url": "file:///home/projects/nixos/nixpkgs.git"
       }

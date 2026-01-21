@@ -83,7 +83,7 @@
             "com.yubico.yubioath.desktop"
           ];
         };
-        "org.gnome.desktop.notifications" = {
+        "org/gnome.desktop/notifications" = {
           application-children = [];
           show-banners = false;
           show-in-lock-screen = false;

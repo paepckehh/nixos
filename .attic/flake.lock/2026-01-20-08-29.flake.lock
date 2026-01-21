@@ -49,11 +49,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1766150702,
-        "narHash": "sha256-P0kM+5o+DKnB6raXgFEk3azw8Wqg5FL6wyl9jD+G5a4=",
+        "lastModified": 1768727946,
+        "narHash": "sha256-le2GY+ZR6uRHMuOAc60sBR3gBD2BEk1qOZ3S5C/XFpU=",
         "ref": "master",
-        "rev": "916506443ecd0d0b4a0f4cf9d40a3c22ce39b378",
-        "revCount": 1302,
+        "rev": "558e84658d0eafc812497542ad6ca0d9654b3b0f",
+        "revCount": 1303,
         "type": "git",
         "url": "file:///home/projects/nixos/disko.git"
       },
@@ -91,18 +91,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1768068402,
-        "narHash": "sha256-bAXnnJZKJiF7Xr6eNW6+PhBf1lg2P1aFUO9+xgWkXfA=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "8bc5473b6bc2b6e1529a9c4040411e1199c43b4c",
-        "type": "github"
+        "lastModified": 1768893778,
+        "narHash": "sha256-iSHEptqSun9Ryl1NgoKguJAjRHAFO3k9bQ9bB+UpCNA=",
+        "ref": "master",
+        "rev": "895eddbee851630201154725c22e94ecd8232dbf",
+        "revCount": 6122,
+        "type": "git",
+        "url": "file:///home/projects/nixos/home-manager.git"
       },
       "original": {
-        "owner": "nix-community",
         "ref": "master",
-        "repo": "home-manager",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/projects/nixos/home-manager.git"
       }
     },
     "nixpkgs": {
@@ -139,11 +139,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1767767207,
-        "narHash": "sha256-Mj3d3PfwltLmukFal5i3fFt27L6NiKXdBezC1EBuZs4=",
+        "lastModified": 1768564909,
+        "narHash": "sha256-Kell/SpJYVkHWMvnhqJz/8DqQg2b6PguxVWOuadbHCc=",
         "ref": "nixos-unstable",
-        "rev": "5912c1772a44e31bf1c63c0390b90501e5026886",
-        "revCount": 923638,
+        "rev": "e4bae1bd10c9c57b2cf517953ab70060a828ee6f",
+        "revCount": 928726,
         "type": "git",
         "url": "file:///home/projects/nixos/nixpkgs.git"
       },

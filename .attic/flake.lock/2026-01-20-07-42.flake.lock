@@ -91,18 +91,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1768068402,
-        "narHash": "sha256-bAXnnJZKJiF7Xr6eNW6+PhBf1lg2P1aFUO9+xgWkXfA=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "8bc5473b6bc2b6e1529a9c4040411e1199c43b4c",
-        "type": "github"
+        "lastModified": 1768598210,
+        "narHash": "sha256-kkgA32s/f4jaa4UG+2f8C225Qvclxnqs76mf8zvTVPg=",
+        "ref": "master",
+        "rev": "c47b2cc64a629f8e075de52e4742de688f930dc6",
+        "revCount": 6105,
+        "type": "git",
+        "url": "file:///home/projects/nixos/home-manager.git"
       },
       "original": {
-        "owner": "nix-community",
         "ref": "master",
-        "repo": "home-manager",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/projects/nixos/home-manager.git"
       }
     },
     "nixpkgs": {
