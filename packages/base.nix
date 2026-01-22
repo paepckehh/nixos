@@ -115,6 +115,7 @@
     systemPackages = with pkgs; [
       alejandra
       bashmount
+      bandwhich
       bmon
       bc
       cliqr

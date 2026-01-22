@@ -4,7 +4,7 @@
     # agenix.url = "github:ryantm/agenix";
     # disko.url = "github:nix-community/disko/master";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/master";
+    # home-manager.url = "github:nix-community/home-manager/master";
     # home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # proxmox-nixos.url = "git+file:///home/projects/nixos/proxmox-nixos.git";
     # local git mirror
@@ -12,7 +12,7 @@
     nixpkgs.url = "git+file:///home/projects/nixos/nixpkgs.git?ref=nixos-unstable";
     agenix.url = "git+file:///home/projects/nixos/agenix.git?ref=main";
     disko.url = "git+file:///home/projects/nixos/disko.git?ref=master";
-    # home-manager.url = "git+file:///home/projects/nixos/home-manager.git?ref=master";
+    home-manager.url = "git+file:///home/projects/nixos/home-manager.git?ref=master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
@@ -74,7 +74,7 @@
           ./packages/desktop/gnome.nix
           ./server/base.nix
           # ./server/ai/ollama.nix
-          # ./server/cache/ncps.nix
+          ./server/cache/ncps.nix
           ./server/dns/bind.nix
           # ./server/iam/authelia.nix
           # ./server/iam/lldap.nix
