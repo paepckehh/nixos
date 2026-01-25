@@ -17,7 +17,7 @@
       systemd-boot = {
         enable = lib.mkDefault true;
         consoleMode = "max";
-        configurationLimit = 8;
+        configurationLimit = 24;
       };
     };
     initrd = {

@@ -1,3 +1,5 @@
+# coturn turn for matrix server
+# age secrets: keep in sync coturn coturn-matrix, generate: pwgen -s 64 1
 {
   config,
   pkgs,
@@ -12,7 +14,19 @@ in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking.extraHosts = "${infra.coturn.ip} ${infra.coturn.hostname} ${infra.coturn.fqdn}";
+  networking = {
+    extraHosts = "${infra.coturn.ip} ${infra.coturn.hostname} ${infra.coturn.fqdn}";
+    firewall = {
+      allowedTCPPorts = [3478 5349];
+      allowedUDPPorts = [3478 5349];
+      allowedUDPPortRanges = [
+        {
+          from = 50201;
+          to = 65535;
+        }
+      ];
+    };
+  };
 
   #################
   #-=# SYSTEMD #=-#
@@ -40,8 +54,8 @@ in {
       coturn = {
         group = "coturn";
         isSystemUser = true;
-        hashedPassword = null; # disable ldap service account interactive logon
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
+        hashedPassword = null;
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
     };
   };
@@ -50,15 +64,15 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
-    caddy = {
-      virtualHosts."${infra.coturn.fqdn}" = {
-        listenAddresses = [infra.coturn.ip];
-        extraConfig = ''import intraproxy ${toString infra.coturn.localbind.port.http}'';
-      };
-      coturn = {
-        enable = true;
-        static-auth-secret-file = config.age.secrets.coturn.path;
-      };
+    coturn = {
+      enable = true;
+      static-auth-secret-file = config.age.secrets.coturn.path;
+      use-auth-secret = true;
+      realm = infra.matrix.fqdn;
+      listening-ips = [infra.coturn.ip];
+      listening-port = 3478;
+      min-port = 50201;
+      max-port = 65535;
     };
   };
 }

@@ -57,7 +57,8 @@
 - https://github.com/nix-community/nix-init # nixpkgs
 - services.firewalld, firewalld-gui # fw
 - maikel.dev # vm, freebsd
-- dm-verity # sec, secure, store 
+- dm-verity # sec, secure, store
+- https://blog.frankleonhardt.com freebsd, nix, network 
 - https://artemis.sh/2023/03/07/nixos-early-boot-running-from-ram.html # iso, boot, ram, stateless
 
 # osm 

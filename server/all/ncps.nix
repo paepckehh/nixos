@@ -36,23 +36,26 @@ in {
     };
     ncps = {
       enable = true;
-      prometheus.enable = false;
-      logLevel = "trace"; # "trace", "debug", "info", "warn", "error", "fatal", "panic"
+      analytics.reporting.enable = lib.mkForce false;
+      logLevel = "info"; # "trace", "debug", "info", "warn", "error", "fatal", "panic"
+      prometheus.enable = lib.mkForce false;
       server.addr = "${infra.localhost.ip}:${toString infra.cache.localbind.port.http}";
+      openTelemetry.enable = lib.mkForce false;
+      netrcFile = null;
       cache = {
-        hostName = infra.cache.hostname;
-        maxSize = infra.cache.size;
         allowPutVerb = lib.mkForce false;
         allowDeleteVerb = lib.mkForce false;
+        hostName = infra.cache.hostname;
         lru.schedule = "10 10 * * *"; # cleanup cache daily 10:10
-      };
-      upstream = {
-        caches = lib.mkForce [
-          "https://cache.nixos.org"
-        ];
-        publicKeys = lib.mkForce [
-          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        ];
+        maxSize = infra.cache.size;
+        secretKeyPath = null;
+        signNarinfo = lib.mkForce true;
+        upstream = {
+          dialerTimeout = lib.mkForce "4m";
+          responseHeaderTimeout = lib.mkForce "30s";
+          urls = lib.mkForce ["https://cache.nixos.org"];
+          publicKeys = lib.mkForce ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
+        };
       };
     };
   };

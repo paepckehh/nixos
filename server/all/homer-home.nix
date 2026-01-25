@@ -356,6 +356,13 @@ in {
                     logo = infra.web-check.logo;
                   }
                   {
+                    name = "WebSurfx";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.websurfx.url;
+                    logo = infra.websurfx.logo;
+                  }
+                  {
                     name = "Networking-Toolbox";
                     tag = "app";
                     target = "_blank";

@@ -158,6 +158,7 @@ in {
             ${infra.vault.hostname}              IN A  ${infra.vault.ip}
             ${infra.webarchiv.hostname}          IN A  ${infra.webarchiv.ip}
             ${infra.webmail.hostname}            IN A  ${infra.webmail.ip}
+            ${infra.websurfx.hostname}           IN A  ${infra.websurfx.ip}
             ${infra.web-check.hostname}          IN A  ${infra.web-check.ip}
             ${infra.wiki-go.hostname}            IN A  ${infra.wiki-go.ip}
             ${infra.autoconfig.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.autoconfig.user.ip}"
@@ -190,6 +191,7 @@ in {
             ${infra.vault.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.vault.ip}"
             ${infra.webarchiv.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webarchiv.ip}"
             ${infra.webmail.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webmail.ip}"
+            ${infra.websurfx.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.websurfx.ip}"
             ${infra.web-check.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.web-check.ip}"
             ${infra.wiki-go.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.wiki-go.ip}"
             _autodiscover._tcp                   IN SRV 0 0 443 ${infra.autoconfig.user.fqdn}.

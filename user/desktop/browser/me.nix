@@ -14,8 +14,9 @@ in {
   ################
   home-manager.users.me.programs.firefox = {
     enable = true;
-    package = pkgs.librewolf;
     # languagePacks = ["de"];
+    package = pkgs.firefox;
+    # package = pkgs.librewolf;
     policies = {
       BackgroundAppUpdate = false;
       CaptivePortal = false;

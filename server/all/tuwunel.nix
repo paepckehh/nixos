@@ -15,6 +15,11 @@ in {
   ####################
   networking.extraHosts = "${infra.matrix.ip} ${infra.matrix.hostname} ${infra.matrix.fqdn}";
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks."user".addresses = [{Address = "${infra.matrix.ip}/32";}];
+
   #############
   #-=# AGE #=-#
   #############
@@ -23,12 +28,10 @@ in {
       tuwunel = {
         file = ../../modules/resources/matrix.age;
         owner = "tuwunel";
-        group = "tuwunel";
       };
-      tuwunel-ldap-bind = {
-        file = ../../modules/resources/bind.age;
+      coturn-matrix = {
+        file = ../../modules/resources/coturn-matrix.age;
         owner = "tuwunel";
-        group = "tuwunel";
       };
     };
   };
@@ -64,16 +67,9 @@ in {
           allow_registration = infra.matrix.self-register.enable;
           registration_token = infra.matrix.self-register.password;
           rocksdb_compression_algo = "zstd";
-          ldap = {
-            enable = infra.matrix.ldap;
-            uri = infra.ldap.uri;
-            bind_dn = infra.ldap.bind.dn;
-            bind_password_file = config.age.secrets.tuwunel-ldap-bind.path;
-            filter = "(objectClass=*)";
-            uid_attribute = "uid";
-            mail_attribute = "mail";
-            name_attribute = "givenName";
-          };
+          turn_allow_guests = true;
+          turn_secret_file = config.age.secrets.coturn-matrix.path;
+          turn_uris = [infra.coturn.fqdn];
         };
       };
     };

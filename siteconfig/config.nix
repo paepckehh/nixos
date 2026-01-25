@@ -910,5 +910,17 @@ let
       url = "https://${infra.coturn.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.coturn.name}.png";
     };
+    websurfx = {
+      id = 179;
+      app = "websurfx";
+      name = infra.websurfx.app;
+      hostname = infra.websurfx.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.websurfx.hostname}.${infra.websurfx.domain}";
+      ip = "${infra.net.user}.${toString infra.websurfx.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.websurfx.id;
+      url = "https://${infra.websurfx.fqdn}";
+      logo = "${infra.res.url}/icon/png/searxng.png";
+    };
   };
 in {infra = infra;}
