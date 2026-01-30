@@ -7,9 +7,9 @@
   infra = (import ./base.nix).infra {
     site = {
       id = 23;
-      name = "pvz";
-      displayName = "PVZ Pressevertriebszentrale GmbH & Co. KG";
-      domain.extern = "pvz.digital";
+      name = "dss";
+      displayName = "CDE  GmbH";
+      domain.extern = "cde.de";
     };
   };
 in {infra = infra;}

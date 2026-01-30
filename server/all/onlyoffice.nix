@@ -14,6 +14,11 @@ in {
   ####################
   networking.extraHosts = "${infra.onlyoffice.ip} ${infra.onlyoffice.hostname} ${infra.onlyoffice.fqdn}";
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks."user".addresses = [{Address = "${infra.onlyoffice.ip}/32";}];
+
   #############
   #-=# AGE #=-#
   #############
@@ -52,17 +57,17 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
-    epmd.listenStream = "0.0.0.0:4369";
+    caddy.virtualHosts."${infra.onlyoffice.fqdn}" = {
+      listenAddresses = [infra.onlyoffice.ip];
+      extraConfig = ''import intraproxy ${toString infra.onlyoffice.localbind.port.http}'';
+    };
+    # epmd.listenStream = "0.0.0.0:4369";
     onlyoffice = {
       enable = true;
       # hostname = infra.localhost.ip;
       port = infra.onlyoffice.localbind.port.http;
       jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
       securityNonceFile = config.age.secrets.onlyoffice-nonce.path;
-    };
-    caddy.virtualHosts."${infra.onlyoffice.fqdn}" = {
-      listenAddresses = [infra.onlyoffice.ip];
-      extraConfig = ''import intraproxy ${toString infra.onlyoffice.localbind.port.http}'';
     };
   };
 }

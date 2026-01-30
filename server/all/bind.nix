@@ -57,6 +57,11 @@ in {
       listenOnPort = infra.dns.port;
       extraOptions = ''dnssec-validation auto;'';
       zones = {
+        # "dbt.corp".extraConfig = "
+        #      type forward;
+        #      forward only;
+        #      forwarders { 10.20.6.3; 10.20.6.2 };
+        # ";
         "${infra.domain.domain}" = {
           master = true;
           slaves = [infra.dns.ip];

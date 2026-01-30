@@ -3,6 +3,6 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment.systemPackages = with pkgs; [
-    wine
+    compose2nix
   ];
 }

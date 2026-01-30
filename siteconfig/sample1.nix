@@ -6,10 +6,10 @@
 }: let
   infra = (import ./base.nix).infra {
     site = {
-      id = 50;
-      name = "dbt";
-      displayName = "Debitor Inkasso GmbH";
-      domain.extern = "debitor.de";
+      id = 23;
+      name = "pvz";
+      displayName = "ABC GmbH & Co. KG";
+      domain.extern = "abc.digital";
     };
   };
 in {infra = infra;}

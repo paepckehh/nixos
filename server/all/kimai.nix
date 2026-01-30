@@ -1,3 +1,7 @@
+# kimai
+# sudo bash
+# cd /nix/store/<hash>-kimai-<yoursite>-2.40.0/bin/
+# sudo -u kimai ./console  kimai:user:create -- admin admin@adm.corp ROLE_SUPER_ADMIN
 {
   config,
   pkgs,

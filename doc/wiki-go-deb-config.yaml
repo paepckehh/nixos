@@ -9,8 +9,8 @@ wiki:
     root_dir: "data"
     documents_dir: "documents"
     title: "📚 DebiWiki"
-    owner: "dbt.corp"
-    notice: "Debitor Inkasso GmbH"
+    owner: "sample.corp"
+    notice: "Sample GmbH"
     timezone: "Europe/Berlin"
     private: false
     disable_comments: false
@@ -31,6 +31,6 @@ security:
         max_ban_seconds: 86400
 users:
     - username: admin
-      password: $2a$14$Rfw0JacuDVUoLrzhCSCv9.UjTFCyhG1J8c4fuFjlr0WAYts73QCpi
+      password: $2a$........
       role: admin
 access_rules:

@@ -48,7 +48,6 @@
           ./storage/stateless-luks-partlabel.nix
           ./packages/desktop/browser.nix
           {networking.hostName = "internet";}
-          {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ed6058";}
         ];
       };
       ##########
@@ -71,7 +70,7 @@
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix
           ./packages/devops-core.nix
-          ./packages/devops-docker.nix
+          ./packages/desktop/add-chrome.nix
           ./packages/desktop/gnome.nix
           ./server/base.nix
           ./server/ai/ollama.nix
@@ -81,24 +80,23 @@
           ./server/iam/lldap.nix
           ./server/log/syslog-ng.nix
           ./server/lora/meshtastic-web.nix
-          # ./server/search/searx.nix
-          ./server/search/websurfx-systemd.nix
+          ./server/search/searx.nix
           ./server/pki/small-step.nix
           ./server/portal/homer-home.nix
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
-          ./server/sip/coturn.nix
-          ./server/message/tuwunel.nix
           # ./packages/desktop/add-atuin-desktop.nix
+          # ./server/time/kimai.nix
+          # ./server/office/onlyoffice.nix
+          # ./server/search/websurfx-systemd.nix
+          # ./server/sip/coturn.nix
+          # ./server/message/tuwunel.nix
           # ./server/wiki/wiki-go-docker.nix
           # ./server/wiki/docmost-docker.nix
           # ./server/all/timetrack.nix
-          # ./server/time/kimai.nix
           # ./server/ocr/paperless-ngx-authelia.nix
           # ./server/it/networking-toolbox.nix
-          # ./server/it/web-check.nix
-          # ./server/office/onlyoffice.nix
           # ./server/office/bentopdf.nix
           # ./server/soc/web-check.nix
           # ./server/ai/open-webui-container-authelia.nix
@@ -107,10 +105,9 @@
           # ./server/rss/miniflux-container-authelia.nix
           # ./packages/desktop/add-onlyoffice.nix
           # ./packages/desktop/add-av.nix
-          # ./packages/desktop/add-chrome.nix
           {networking.hostName = "srv";}
-          {networking.hostId = "3f95770b";} # head -c 8 /etc/maschine-id
-          {environment.etc."machine-id".text = "3f95770b57a4651bdf43a8c168cfb740";} # dbus-uuidgen
+          # {networking.hostId = "3f95770b";} # head -c 8 /etc/maschine-id
+          # {environment.etc."machine-id".text = "3f95770b57a4651bdf43a8c168cfb740";} # dbus-uuidgen, define for zfs imports
         ];
       };
       ##########
@@ -222,8 +219,6 @@
           # ./server/soc/wazuh.nix
           ./hosts/srv.nix
           {networking.hostName = "srv-full";}
-          {networking.hostId = "3f95770b";} # head -c 8 /etc/maschine-id
-          {environment.etc."machine-id".text = "3f95770b57a4651bdf43a8c168cfb740";} # dbus-uuidgen
         ];
       };
       ##################
@@ -239,7 +234,6 @@
           ./packages/base.nix
           ./packages/desktop/gnome.nix
           {networking.hostName = "client";}
-          {environment.etc."machine-id".text = "d4f98853253040fea71e4fe946ee6058";}
         ];
       };
       iso = nixpkgs.lib.nixosSystem {

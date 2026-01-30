@@ -102,7 +102,7 @@ rollback: check
 push: pre-commit 
 	git add .
 	git commit -S -m 'update'
-	git push --force 
+	git push 
 
 commit: pre-commit
 	git add .
@@ -113,6 +113,7 @@ pre-commit:
 	@$(SUDO) chown -R me:me *
 	@$(SUDO) chown -R me:me .git 
 	@alejandra --quiet .
+	git add .
 
 followremote: 
 	@git reset --hard
@@ -244,18 +245,23 @@ mirror-update:
 	git -C $(MIRROR)/disko.git fetch
 	git -C $(MIRROR)/home-manager.git fetch
 	git -C $(MIRROR)/nixpkgs.git fetch
+	git -C $(MIRROR)/paepckehh-nixospkgs fetch
+	git -C $(MIRROR)/paepckehh-nixos fetch
 
 mirror-compact:
 	$(SUDO) -v 
 	git -C $(REPO) gc --aggressive 
+	git -C $(MIRROR)/paepckehh-nixos gc --aggressive
 	git -C $(MIRROR)/agenix.git gc --aggressive 
 	git -C $(MIRROR)/disko.git gc --aggressive
 	git -C $(MIRROR)/home-manager.git gc --aggressive 
 	git -C $(MIRROR)/nixpkgs.git gc --aggressive --keep-largest-pack
+	git -C $(MIRROR)/paepckehh-nixpkgs gc --aggressive --keep-largest-pack
 
 mirror-compact-full: 
 	$(SUDO) -v 
 	git -C $(MIRROR)/nixpkgs.git gc --aggressive 
+	git -C $(MIRROR)/paepckehh-nixpkgs gc --aggressive 
 
 #################
 # LITTLE HELPER #

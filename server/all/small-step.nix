@@ -28,11 +28,11 @@ in {
   #################
   systemd = {
     network.networks."admin".addresses = [{Address = "${infra.pki.ip}/32";}];
-    # services.step-ca = {
-    #  after = ["socket.target"];
-    #  wants = ["socket.target"];
-    #  wantedBy = ["multi-user.target"];
-    # };
+    services.step-ca = {
+      after = ["socket.target"];
+      wants = ["socket.target"];
+      wantedBy = lib.mkForce [];
+    };
   };
 
   #############
