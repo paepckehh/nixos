@@ -8,7 +8,6 @@
 - https://github.com/ItzCrazyKns/Perplexica
 
 # timesheets
-- kimai: nix, ldap
 - ente/timetrack 
 
 # finance

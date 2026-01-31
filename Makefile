@@ -52,6 +52,8 @@ info-image:
 ####################
 # NIXOS OPERATIONS #
 ####################
+# TODO 
+# nix-build -E 'with import <nixpkgs> {}; callPackage ./package.nix {}'
 boot: build 
 test: check
 test-all: check

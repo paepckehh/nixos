@@ -4,7 +4,7 @@
   #################
   imports = [
     ../me.nix
-    ./browser/me.nix
+    ./browser/me-lw.nix
   ];
 
   #####################

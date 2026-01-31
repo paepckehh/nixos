@@ -8,6 +8,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment.systemPackages = with pkgs; [
-    ungoogled-chromium
+    chrome
+    # ungoogled-chromium
   ];
 }

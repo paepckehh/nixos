@@ -312,6 +312,7 @@ let
       port = infra.port.ldap;
       url = "http://${infra.ldap.ip}:${toString infra.ldap.port}";
       uri = "ldap://${infra.ldap.ip}:${toString infra.ldap.port}";
+      uriHost = "ldap://${infra.ldap.ip}";
       base = "dc=${infra.zonename.user},dc=${infra.domain.tld}";
       baseDN = "ou=people,${infra.ldap.base}";
       bind = {

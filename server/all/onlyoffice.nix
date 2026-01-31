@@ -61,7 +61,7 @@ in {
       listenAddresses = [infra.onlyoffice.ip];
       extraConfig = ''import intraproxy ${toString infra.onlyoffice.localbind.port.http}'';
     };
-    # epmd.listenStream = "0.0.0.0:4369";
+    epmd.listenStream = "0.0.0.0:4369";
     onlyoffice = {
       enable = true;
       # hostname = infra.localhost.ip;

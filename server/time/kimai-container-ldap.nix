@@ -1,0 +1,1 @@
+../all/kimai-container-ldap.nix

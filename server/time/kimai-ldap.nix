@@ -1,0 +1,1 @@
+../all/kimai-ldap.nix

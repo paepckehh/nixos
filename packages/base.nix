@@ -148,6 +148,7 @@
       progress
       pwgen
       pv
+      ripgrep
       smartmontools
       tldr
       tree

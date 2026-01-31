@@ -70,7 +70,7 @@
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix
           ./packages/devops-core.nix
-          ./packages/desktop/add-chrome.nix
+          ./packages/devops-docker.nix
           ./packages/desktop/gnome.nix
           ./server/base.nix
           ./server/ai/ollama.nix
@@ -86,15 +86,13 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
-          # ./packages/desktop/add-atuin-desktop.nix
-          # ./server/time/kimai.nix
-          # ./server/office/onlyoffice.nix
+          ./server/time/kimai-container-ldap.nix
+          # ./server/ocr/paperless-ngx-authelia.nix
           # ./server/search/websurfx-systemd.nix
           # ./server/sip/coturn.nix
           # ./server/message/tuwunel.nix
           # ./server/wiki/wiki-go-docker.nix
           # ./server/wiki/docmost-docker.nix
-          # ./server/all/timetrack.nix
           # ./server/ocr/paperless-ngx-authelia.nix
           # ./server/it/networking-toolbox.nix
           # ./server/office/bentopdf.nix
@@ -106,8 +104,6 @@
           # ./packages/desktop/add-onlyoffice.nix
           # ./packages/desktop/add-av.nix
           {networking.hostName = "srv";}
-          # {networking.hostId = "3f95770b";} # head -c 8 /etc/maschine-id
-          # {environment.etc."machine-id".text = "3f95770b57a4651bdf43a8c168cfb740";} # dbus-uuidgen, define for zfs imports
         ];
       };
       ##########
@@ -135,7 +131,6 @@
           ./packages/desktop/add-matrix.nix
           ./packages/desktop/add-onlyoffice.nix
           ./packages/desktop/add-av.nix
-          ./packages/desktop/add-chrome.nix
           ./packages/base.nix
           ./packages/devops-all.nix
           ./server/base.nix
@@ -170,14 +165,20 @@
           ./server/media/immich-container-authelia.nix
           ./server/ocr/paperless-ngx-authelia.nix
           ./server/portal/glance.nix
-          ./server/time/timetracker.nix
           ./server/it/networking-toolbox.nix
           ./server/it/web-check.nix
-          ./server/wiki/wiki-go.nix
+          ./server/time/kimai.nix
+          ./server/search/websurfx-systemd.nix
+          ./server/sip/coturn.nix
+          ./server/message/tuwunel.nix
+          ./server/ai/open-webui-container-authelia.nix
+          # ./server/office/onlyoffice.nix
+          # ./server/wiki/wiki-go-docker.nix
+          # ./server/wiki/docmost-docker.nix
+          # ./server/all/timetrack.nix
           # ./server/lora/meshtastic-web.nix
           # ./server/monitoring/kuma.nix
           # ./server/office/onlyoffice.nix
-          # ./server/ai/open-webui-container-authelia.nix
           # ./server/office/onlyoffice-docker.nix
           # ./server/office/onlyoffice.nix
           # ./server/message/element-web.nix
