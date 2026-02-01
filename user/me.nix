@@ -15,7 +15,8 @@ in {
   users = {
     users = {
       me = {
-        initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
+        #  initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
+        initialHashedPassword = null; # lockdown, use smardcard only
         description = "me";
         uid = 60100;
         group = "me";

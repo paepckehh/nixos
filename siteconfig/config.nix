@@ -923,5 +923,17 @@ let
       url = "https://${infra.websurfx.fqdn}";
       logo = "${infra.res.url}/icon/png/searxng.png";
     };
+    timetrack = {
+      id = 180;
+      app = "timetrack";
+      name = infra.timetrack.app;
+      hostname = infra.timetrack.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.timetrack.hostname}.${infra.timetrack.domain}";
+      ip = "${infra.net.user}.${toString infra.timetrack.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.timetrack.id;
+      url = "https://${infra.timetrack.fqdn}";
+      logo = "${infra.res.url}/icon/png/nextcloud-timemanager.png";
+    };
   };
 in {infra = infra;}

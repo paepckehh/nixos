@@ -23,6 +23,7 @@ ifeq ($(origin LUKS),undefined)
 endif
 PATH:=/run/current-system/sw/bin
 SUDO:=/run/wrappers/bin/sudo
+YUBIME:=/nix/persist/home/me/.config/Yubico
 
 ###########
 # GENERIC #
@@ -223,8 +224,14 @@ qemu: info-cleaninstall
 ###########
 # YUBIKEY #
 ###########
+yubi-me:
+	mkdir -p      $(YUBIME)   
+	touch         $(YUBIME)/u2f_keys
+	rm -rf        $(YUBIME)/u2f_keys || true 
+	pamu2fcfg >   $(YUBIME)/u2f_keys
+	chmod 640     $(YUBIME)/u2f_keys
+
 yubikey-generate-ssh:
-	set +x
 	echo "Please verify your PIN, Default Factory PIN: 123456"
 	ykman fido info || exit 1
 	ykman fido access verify-pin  || exit 1

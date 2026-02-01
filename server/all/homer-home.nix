@@ -279,6 +279,13 @@ in {
                     logo = infra.kimai.logo;
                   }
                   {
+                    name = "TimeTracker [TimeTrack]";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.timetrack.url;
+                    logo = infra.timetrack.logo;
+                  }
+                  {
                     name = "Proxmox [VM]";
                     tag = "app";
                     target = "_blank";

@@ -86,7 +86,8 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
-          ./server/time/kimai-container-ldap.nix
+          # ./server/time/timetrack-docker.nix
+          # ./server/time/kimai-container-ldap.nix
           # ./server/ocr/paperless-ngx-authelia.nix
           # ./server/search/websurfx-systemd.nix
           # ./server/sip/coturn.nix

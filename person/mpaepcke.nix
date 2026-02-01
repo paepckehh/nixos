@@ -56,7 +56,7 @@
               -----END OPENSSH PRIVATE KEY-----
             '';
             ".ssh/id_ed25519_sk.pub".text = ''sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIAGsgOTEwxqUCKC49pwuQHXyhb+jjIBUzFdwRsjS9iMkAAAABHNzaDo= git@paepcke.de'';
-            ".config/Yubico/u2f_keys".text = ''me:sSrgGgPQamw==,[...],es256,+presence'';
+            ".config/Yubico/u2f_keys".text = ''me:FD8oH114iYoM2nQPgI48t6dL6yKxTJkPcx4xu79S0ws5jz+vsNbfpDdB59i4kKu4XDXV9J6bNOoZiCGRcrIEyA==,Wvragy6qUSoX7YprLI9hPraQ5kCdSbfQ77/Hp8E9o/Pfb3rz8CQUSrZYTjLyQNRFN0km3JAAFWaCrBD6Ku1C4Q==,es256,+presence'';
           };
         };
         programs = {

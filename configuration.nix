@@ -240,34 +240,25 @@
           debug = false;
         };
       };
-      yubico = {
-        enable = true;
-        debug = false;
-        mode = "challenge-response";
-      };
       services = {
         login = {
-          allowNullPassword = lib.mkForce false;
           failDelay = {
             enable = true;
-            delay = 500000;
+            delay = 400000;
           };
           logFailures = true;
           u2fAuth = true;
-          unixAuth = true;
-          yubicoAuth = true;
+          unixAuth = false;
         };
         sudo = {
-          allowNullPassword = lib.mkForce false;
           failDelay = {
             enable = true;
-            delay = 500000;
+            delay = 350000;
           };
           logFailures = true;
           requireWheel = true;
           u2fAuth = true;
-          unixAuth = true;
-          yubicoAuth = true;
+          unixAuth = false;
         };
       };
     };
@@ -361,7 +352,6 @@
   #########################
   powerManagement = {
     enable = true;
-    powertop.enable = false; # buggy!
     cpuFreqGovernor = "ondemand";
   };
 
@@ -400,6 +390,7 @@
     tlp = {
       enable = true;
       settings = {
+        # use tlp-stat for more details, https://linrunner.de/tlp/
         USB_AUTOSUSPEND = "0";
         WOL_DISABLE = "Y";
         START_CHARGE_THRESH_BAT0 = 45;
@@ -410,22 +401,16 @@
         CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
         PLATFORM_PROFILE_ON_AC = "performance";
         PLATFORM_PROFILE_ON_BAT = "low-power";
-        # WIFI_PWR_ON_AC = "on";
-        # WIFI_PWR_ON_BAT = "on";
-        # DEVICES_TO_ENABLE_ON_STARTUP = "bluetooth wifi wwan";
-        # DEVICES_TO_ENABLE_ON_AC = "bluetooth wifi wwan";
-        # DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "";
-        # DEVICES_TO_DISABLE_ON_LAN_CONNECT = "";
-        # DEVICES_TO_DISABLE_ON_WIFI_CONNECT = "";
-        # DEVICES_TO_DISABLE_ON_WWAN_CONNECT = "";
-        # DEVICES_TO_ENABLE_ON_LAN_DISCONNECT = "bluetooth wifi wwan";
-        # DEVICES_TO_ENABLE_ON_WIFI_DISCONNECT = "bluetooth wifi wwan";
-        # DEVICES_TO_ENABLE_ON_WWAN_DISCONNECT = "bluetooth wifi wwan";
-        # DEVICES_TO_ENABLE_ON_UNDOCK = "bluetooth wifi wwan";
-        # DEVICES_TO_DISABLE_ON_UNDOCK = "";
-        # use tlp-stat for more details
       };
     };
+    udev.extraRules = ''
+      ACTION=="remove",\
+      ENV{ID_BUS}=="usb",\
+      ENV{ID_MODEL_ID}=="0407",\
+      ENV{ID_VENDOR_ID}=="1050",\
+      ENV{ID_VENDOR}=="Yubico",\
+      RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
+    '';
     usbguard = {
       enable = false;
       rules = ''

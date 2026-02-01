@@ -105,53 +105,62 @@ wipe:
 ###################
 # MIGRATE SECRETS #
 ###################
-migrate: migrate-etcssh migrate-root migrate-me-base migrate-me-full migrate-backup migrate-projects migrate-var
+migrate: migrate-etcssh migrate-root migragte-me-prep migrate-me-full migrate-backup migrate-projects migrate-var
 	sync && sync && sync
 
 migrate-etcssh:
-	$(SUDO) mkdir -p /mnt/nix/persist/etc/ssh | true
-	$(SUDO) cp -af /etc/ssh/ssh_host_ed25519* /mnt/nix/persist/etc/ssh/  | true
-	$(SUDO) chmod 700 /mnt/nix/persist/etc/ssh/ssh_host_ed25519_key | true 
-	$(SUDO) chmod 644 /mnt/nix/persist/etc/ssh/ssh_host_ed25519_key.pub | true 
-	$(SUDO) chown -R 0:0 /mnt/nix/persist/etc/ssh | true
+	$(SUDO) mkdir -p /mnt/nix/persist/etc/ssh || true
+	$(SUDO) cp -af /etc/ssh/ssh_host_ed25519* /mnt/nix/persist/etc/ssh/  || true
+	$(SUDO) chmod 700 /mnt/nix/persist/etc/ssh/ssh_host_ed25519_key || true 
+	$(SUDO) chmod 644 /mnt/nix/persist/etc/ssh/ssh_host_ed25519_key.pub || true 
+	$(SUDO) chown -R 0:0 /mnt/nix/persist/etc/ssh || true
 
 migrate-root:
-	$(SUDO) cp -rf /root/.ssh /mnt/nix/persist/root/ | true
-	$(SUDO) chmod 700 /mnt/nix/persist/root/.ssh | true
-	$(SUDO) chmod 600 /mnt/nix/persist/root/.ssh/id_ed25519 | true 
-	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/id_ed25519.pub | true
-	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/known_hosts | true
-	$(SUDO) chown -R 0:0 /mnt/nix/persist/root | true
+	$(SUDO) cp -rf /root/.ssh /mnt/nix/persist/root/ || true
+	$(SUDO) chmod 700 /mnt/nix/persist/root/.ssh || true
+	$(SUDO) chmod 600 /mnt/nix/persist/root/.ssh/id_ed25519 || true 
+	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/id_ed25519.pub || true
+	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/known_hosts || true
+	$(SUDO) chown -R 0:0 /mnt/nix/persist/root || true
 
 migrate-backup:
-	$(SUDO) cp -rf /home/backup /mnt/nix/persist/home/ | true
-	$(SUDO) chown -R me:me /mnt/nix/persist/home/backup | true
+	$(SUDO) cp -rf /home/backup /mnt/nix/persist/home/ || true
+	$(SUDO) chown -R me:me /mnt/nix/persist/home/backup || true
 	sync && sync && sync
 
 migrate-projects:
-	$(SUDO) cp -rf /home/projects /mnt/nix/persist/home/ | true 
-	$(SUDO) chown -R me:me /mnt/nix/persist/home/projects | true
+	$(SUDO) cp -rf /home/projects /mnt/nix/persist/home/ || true 
+	$(SUDO) chown -R me:me /mnt/nix/persist/home/projects || true
+	sync && sync && sync
+
+migrate-me-prep: 
+	$(SUDO) mkdir -p /mnt/nix/persist/home/me || true
+	$(SUDO) rm -rf /mnt/nix/persist/home/me/.cache || true
+	$(SUDO) rm -rf /mnt/nix/persist/home/me/.local || true 
+	$(SUDO) rm -rf /mnt/nix/persist/home/me/.librewolf || true 
+	$(SUDO) rm -rf /mnt/nix/persist/home/me/.mozilla || true 
+
+migrate-me-base: 
+	$(SUDO) mkdir -p /mnt/nix/persist/home/me/.config/Yubico || true
+	$(SUDO) cp -rf /nix/persist/home/me/.config/Yubico/u2f_keys /mnt/nix/persist/home/me/.config/Yubico/u2f_keys || true
+	$(SUDO) cp -rf /nix/persist/home/me/.ssh /mnt/nix/persist/home/me/ || true
+	$(SUDO) cp -rf /nix/persist/home/me/.local/share/atuin /mnt/nix/persist/home/me/.lo0cal/share/ || true
+	$(SUDO) chmod 640 /mnt/nix/persist/home/me/.config/Yubico/u2f_keys || true
+	$(SUDO) chmod 700 /mnt/nix/persist/home/me/.ssh || true/
+	$(SUDO) chmod 600 /mnt/nix/persist/home/me/.ssh/pwd.kdbx || true
+	$(SUDO) chmod 600 /mnt/nix/persist/home/me/.ssh/id_ed25519 || true 
+	$(SUDO) chmod 640 /mnt/nix/persist/home/me/.ssh/id_ed25519.pub || true
+	$(SUDO) chmod 640 /mnt/nix/persist/home/me/.ssh/known_hosts || true
+	$(SUDO) chown -R me:me /mnt/nix/persist/home || true
+
+migrate-me-full: 
+	$(SUDO) mkdir -p /mnt/nix/persist/home || true
+	$(SUDO) cp -af /home/me /mnt/nix/persist/home || true
+	$(SUDO) chown -R me:me /mnt/nix/persist/home || true
 	sync && sync && sync
 
 migrate-var:
-	$(SUDO) cp -af /var/lib /mnt/nix/persist/var/ | true
-	sync && sync && sync
-
-migrate-me-base:
-	$(SUDO) mkdir -p /mnt/nix/persist/home/me | true
-	$(SUDO) cp -rf /home/me/.ssh /mnt/nix/persist/home/me/ | true
-	$(SUDO) cp -rf /home/me/.local/share/atuin /mnt/nix/persist/home/me/.local/share/ | true
-	$(SUDO) chmod 700 /mnt/nix/persist/home/me/.ssh | true
-	$(SUDO) chmod 600 /mnt/nix/persist/home/me/.ssh/pwd.kdbx | true
-	$(SUDO) chmod 600 /mnt/nix/persist/home/me/.ssh/id_ed25519 | true 
-	$(SUDO) chmod 644 /mnt/nix/persist/home/me/.ssh/id_ed25519.pub | true
-	$(SUDO) chmod 644 /mnt/nix/persist/home/me/.ssh/known_hosts | true
-	$(SUDO) chown -R me:me /mnt/nix/persist/home | true
-
-migrate-me-full: 
-	$(SUDO) mkdir -p /mnt/nix/persist/home | true
-	$(SUDO) cp -af /home/me /mnt/nix/persist/home | true
-	$(SUDO) chown -R me:me /mnt/nix/persist/home | true
+	$(SUDO) cp -af /var/lib /mnt/nix/persist/var/ || true
 	sync && sync && sync
 
 #################
@@ -179,7 +188,7 @@ wipe-home:
 	mv .local/share/atuin . || true
 	rm -rf .cache .config .local .mozilla .librewolf .bash* .profile .sudo* .vim* .step .pki || true
 	mkdir -p .cache .local/share .mozilla .librewolf 
-	mv atuin .local/share/ | true
+	mv atuin .local/share/ || true
 	sync && sync && sync
 	$(SUDO) chown -R $(ID):$(GID) /home/$(NAME)
 	$(SUDO) systemctl stop home-manager-me.service

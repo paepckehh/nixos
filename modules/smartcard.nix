@@ -62,7 +62,6 @@
   ##################
   #-=# SERVICES #=-#
   ##################
-
   services = {
     pcscd = {
       enable = true;
