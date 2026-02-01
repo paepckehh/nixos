@@ -286,6 +286,13 @@ in {
                     logo = infra.timetrack.logo;
                   }
                   {
+                    name = "DoneTick [Project]";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.donetick.url;
+                    logo = infra.donetick.logo;
+                  }
+                  {
                     name = "Proxmox [VM]";
                     tag = "app";
                     target = "_blank";

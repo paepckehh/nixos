@@ -26,7 +26,7 @@
 
   # Containers
   virtualisation.oci-containers.containers."timetrack" = {
-    image = "openducks/timetrack:latest";
+    image = "docker.io/openducks/timetrack";
     volumes = [
       "/etc/nixos/timetrack:/var/www/html:rw"
     ];

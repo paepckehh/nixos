@@ -38,6 +38,7 @@
       cheese
       geary
       epiphany
+      showtime
       iagno
       totem
       hitori

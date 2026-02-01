@@ -935,5 +935,17 @@ let
       url = "https://${infra.timetrack.fqdn}";
       logo = "${infra.res.url}/icon/png/nextcloud-timemanager.png";
     };
+    donetick = {
+      id = 181;
+      app = "donetick";
+      name = infra.donetick.app;
+      hostname = infra.donetick.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.donetick.hostname}.${infra.donetick.domain}";
+      ip = "${infra.net.user}.${toString infra.donetick.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.donetick.id;
+      url = "https://${infra.donetick.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.donetick.app}.png";
+    };
   };
 in {infra = infra;}

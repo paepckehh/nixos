@@ -224,12 +224,17 @@ qemu: info-cleaninstall
 ###########
 # YUBIKEY #
 ###########
+yubi-print:
+	@echo "Print u2f key, asking for pin and touch now!"
+	pamu2fcfg 
+
 yubi-me:
-	mkdir -p      $(YUBIME)   
-	touch         $(YUBIME)/u2f_keys
-	rm -rf        $(YUBIME)/u2f_keys || true 
-	pamu2fcfg >   $(YUBIME)/u2f_keys
-	chmod 640     $(YUBIME)/u2f_keys
+	@echo "Add u2f key to me user, asking for pin and touch now!"
+	mkdir -p $(YUBIME)   
+	touch $(YUBIME)/u2f_keys
+	rm -rf $(YUBIME)/u2f_keys || true 
+	pamu2fcfg | tee $(YUBIME)/u2f_keys
+	chmod 640 $(YUBIME)/u2f_keys
 
 yubikey-generate-ssh:
 	echo "Please verify your PIN, Default Factory PIN: 123456"

@@ -234,8 +234,16 @@
             "name": "selfh.st"
           },
           {
+            "url": "https://awesome-selfhosted.net/",
+            "name": "github awesome selfhost list [structure]"
+          },
+          {
+            "url": "https://awexplor.github.io/",
+            "name": "github awesome selfhost list [interactive]"
+          },
+          {
             "url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
-            "name": "github awesome selfhost list"
+            "name": "github awesome selfhost list [raw]"
           }
         ]
       },

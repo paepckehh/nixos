@@ -105,7 +105,7 @@ wipe:
 ###################
 # MIGRATE SECRETS #
 ###################
-migrate: migrate-etcssh migrate-root migragte-me-prep migrate-me-full migrate-backup migrate-projects migrate-var
+migrate: migrate-etcssh migrate-root migrate-me-prep migrate-me-full migrate-backup migrate-projects migrate-var
 	sync && sync && sync
 
 migrate-etcssh:

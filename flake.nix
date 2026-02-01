@@ -70,7 +70,6 @@
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix
           ./packages/devops-core.nix
-          ./packages/devops-docker.nix
           ./packages/desktop/gnome.nix
           ./server/base.nix
           ./server/ai/ollama.nix
@@ -86,6 +85,9 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
+          ./server/tasks/donetick-docker.nix
+          # ./packages/devops-docker.nix
+          # ./server/time/timetrack.nix
           # ./server/time/timetrack-docker.nix
           # ./server/time/kimai-container-ldap.nix
           # ./server/ocr/paperless-ngx-authelia.nix

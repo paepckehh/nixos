@@ -134,6 +134,7 @@ in {
             ${infra.chef.hostname}               IN A  ${infra.chef.ip}
             ${infra.coturn.hostname}             IN A  ${infra.coturn.ip}
             ${infra.dns.hostname}                IN A  ${infra.dns.ip}
+            ${infra.donetick.hostname}           IN A  ${infra.donetick.ip}
             ${infra.ente.hostname}               IN A  ${infra.ente.ip}
             ${infra.erpnext.hostname}            IN A  ${infra.erpnext.ip}
             ${infra.grist.hostname}              IN A  ${infra.grist.ip}
@@ -159,6 +160,7 @@ in {
             ${infra.srv.hostname}                IN A  ${infra.srv.user.ip}
             ${infra.smtp.hostname}               IN A  ${infra.smtp.user.ip}
             ${infra.test.hostname}               IN A  ${infra.test.ip}
+            ${infra.timetrack.hostname}          IN A  ${infra.timetrack.ip}
             ${infra.translate-lama.hostname}     IN A  ${infra.translate-lama.ip}
             ${infra.vault.hostname}              IN A  ${infra.vault.ip}
             ${infra.webarchiv.hostname}          IN A  ${infra.webarchiv.ip}
@@ -170,6 +172,7 @@ in {
             ${infra.bentopdf.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.bentopdf.ip}"
             ${infra.cache.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.cache.ip}"
             ${infra.chef.hostname}               IN HTTPS 1 . alpn="h3" ipv4hint="${infra.chef.ip}"
+            ${infra.donetick.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.donetick.ip}"
             ${infra.ente.hostname}               IN HTTPS 1 . alpn="h3" ipv4hint="${infra.ente.ip}"
             ${infra.erpnext.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.erpnext.ip}"
             ${infra.grist.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.grist.ip}"
@@ -192,6 +195,7 @@ in {
             ${infra.search.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.search.ip}"
             ${infra.sso.hostname}                IN HTTPS 1 . alpn="h3" ipv4hint="${infra.sso.ip}"
             ${infra.test.hostname}               IN HTTPS 1 . alpn="h3" ipv4hint="${infra.test.ip}"
+            ${infra.timetrack.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.timetrack.ip}"
             ${infra.translate-lama.hostname}     IN HTTPS 1 . alpn="h3" ipv4hint="${infra.translate-lama.ip}"
             ${infra.vault.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.vault.ip}"
             ${infra.webarchiv.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webarchiv.ip}"
