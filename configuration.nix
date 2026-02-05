@@ -30,7 +30,7 @@
       availableKernelModules = ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = ["page_alloc.shuffle=1" "ipv6.disable=1"];
+    kernelParams = ["page_alloc.shuffle=1"]; # "ipv6.disable=1"
     kernelModules = ["uas"];
     tmp = {
       cleanOnBoot = true;
@@ -403,14 +403,14 @@
         PLATFORM_PROFILE_ON_BAT = "low-power";
       };
     };
-    udev.extraRules = ''
-      ACTION=="remove",\
-      ENV{ID_BUS}=="usb",\
-      ENV{ID_MODEL_ID}=="0407",\
-      ENV{ID_VENDOR_ID}=="1050",\
-      ENV{ID_VENDOR}=="Yubico",\
-      RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
-    '';
+    # udev.extraRules = ''
+    #  ACTION=="remove",\
+    #  ENV{ID_BUS}=="usb",\
+    #  ENV{ID_MODEL_ID}=="0407",\
+    #  ENV{ID_VENDOR_ID}=="1050",\
+    #  ENV{ID_VENDOR}=="Yubico",\
+    #  RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
+    # '';
     usbguard = {
       enable = false;
       rules = ''

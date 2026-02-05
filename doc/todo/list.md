@@ -22,6 +22,7 @@
 - jokob/NetAlertX
 - leiweibau/Pi.Alert
 - https://balagetech.com/monitor-network-traffic-openwrt-syslog-ng/
+- https://github.com/Lachee/opnsense-oidc
 
 # syslog 
 - tinylama/rsyslog-webui

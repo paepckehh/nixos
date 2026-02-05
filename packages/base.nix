@@ -125,6 +125,7 @@
       dnsutils
       duf
       dust
+      eza
       fastfetch
       fd
       fzf

@@ -85,11 +85,14 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
-          ./server/tasks/donetick-docker.nix
+          # ./server/time/kimai-container.nix
+          # ./server/office/bentopdf.nix
+          # ./server/office/onlyoffice.nix
+          # ./packages/desktop/add-onlyoffice.nix
+          # ./server/tasks/donetick-docker.nix
           # ./packages/devops-docker.nix
           # ./server/time/timetrack.nix
           # ./server/time/timetrack-docker.nix
-          # ./server/time/kimai-container-ldap.nix
           # ./server/ocr/paperless-ngx-authelia.nix
           # ./server/search/websurfx-systemd.nix
           # ./server/sip/coturn.nix
@@ -98,13 +101,11 @@
           # ./server/wiki/docmost-docker.nix
           # ./server/ocr/paperless-ngx-authelia.nix
           # ./server/it/networking-toolbox.nix
-          # ./server/office/bentopdf.nix
           # ./server/soc/web-check.nix
           # ./server/ai/open-webui-container-authelia.nix
           # ./server/media/immich-container-authelia.nix
           # ./server/cloud/nextcloud-container-authelia.nix
           # ./server/rss/miniflux-container-authelia.nix
-          # ./packages/desktop/add-onlyoffice.nix
           # ./packages/desktop/add-av.nix
           {networking.hostName = "srv";}
         ];
@@ -183,7 +184,6 @@
           # ./server/monitoring/kuma.nix
           # ./server/office/onlyoffice.nix
           # ./server/office/onlyoffice-docker.nix
-          # ./server/office/onlyoffice.nix
           # ./server/message/element-web.nix
           # ./server/all/ente.nix
           # ./server/media/immich.nix

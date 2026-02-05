@@ -9,14 +9,16 @@
   ############################
   infra = (import ../../../siteconfig/config.nix).infra;
 in {
+  services.gnome.gnome-browser-connector.enable = true;
   ################
   # HOME-MANAGER #
   ################
   home-manager.users.me.programs.librewolf = {
     enable = true;
-    languagePacks = ["de"];
+    languagePacks = ["de" "Deutsch"];
     # package = pkgs.firefox;
     # package = pkgs.librewolf;
+    package = pkgs.librewolf.override {nativeMessagingHosts = [pkgs.gnome-browser-connector];};
     policies = {
       BackgroundAppUpdate = false;
       CaptivePortal = false;
@@ -145,6 +147,9 @@ in {
         Locked = true;
       };
     };
+    settings = {
+      "privacy.privacy.resistFingerprinting.exemptedDomains" = "*.home.corp";
+    };
     profiles.default = {
       id = 0;
       isDefault = true;
@@ -154,6 +159,13 @@ in {
         "distribution.searchplugins.defaultLocale" = "de";
         # "general.useragent.locale" = "de";
         # "browser.search.region" = "de";
+        # "privacy.resistFingerprinting" = false;
+        "privacy.clearOnShutdown.cookies" = false;
+        "privacy.clearOnShutdown.history" = false;
+        "privacy.firstparty.isolate" = true;
+        "privacy.privacy.resistFingerprinting.exemptedDomains" = "*.home.corp";
+        "privacy.trackingprotection.emailtracking.enabled" = true;
+        "privacy.trackingprotection.socialtracking.enabled" = true;
         "general.useragent.compatMode.firefox" = true;
         "general.autoScroll" = true;
         "browser.aboutConfig.showWarning" = false;
@@ -225,11 +237,6 @@ in {
         "network.dns.preferIPv6" = false;
         "network.dns.http3.echconfig.enabled" = true;
         "network.wifi.scanning_period" = 0;
-        "privacy.clearOnShutdown.cookies" = false;
-        "privacy.clearOnShutdown.history" = false;
-        "privacy.firstparty.isolate" = true;
-        "privacy.trackingprotection.emailtracking.enabled" = true;
-        "privacy.trackingprotection.socialtracking.enabled" = true;
         "browser.tabs.groups.smart.enabled" = false;
         "browser.ml.enabled" = false;
         "browser.ml.chat.enabled" = false;

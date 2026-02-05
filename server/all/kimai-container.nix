@@ -1,3 +1,8 @@
+# kimai
+# sudo bash
+# nixos-container root-login kimai
+# cd /nix/store/<hash>-kimai-<yoursite>-2.40.x/bin/
+# sudo -u kimai ./console  kimai:user:create -- admin admin@adm.corp ROLE_SUPER_ADMIN
 {
   config,
   pkgs,

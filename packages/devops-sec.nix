@@ -31,6 +31,7 @@
   environment = {
     systemPackages = with pkgs; [
       clamav
+      xurls
       yara
       yara-x
       yaralyzer
