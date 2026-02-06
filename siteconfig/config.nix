@@ -103,13 +103,14 @@ let
       interface = "br0";
     };
     port = {
-      smtp = 25;
       dns = 53;
+      https = 443;
+      smtp = 25;
+      ssh = 6622;
       http = 80;
       imap = 143;
       jmap = 143;
       syslog = 514;
-      https = 443;
       ldap = 3890;
       webapps = [infra.port.http infra.port.https];
     };
@@ -386,6 +387,33 @@ let
         domain = infra.domain.virtual;
         fqdn = "${infra.srv.hostname}.${infra.srv.virtual.domain}";
         ip = "${infra.net.user}.${toString infra.srv.id}";
+      };
+    };
+    srv2 = {
+      id = 102;
+      app = "nixos";
+      name = "srv2";
+      hostname = infra.srv2.name;
+      bridge.ip = "${infra.net.bridge}.${toString infra.srv2.id}";
+      admin = {
+        domain = infra.domain.admin;
+        fqdn = "${infra.srv2.hostname}.${infra.srv2.admin.domain}";
+        ip = "${infra.net.admin}.${toString infra.srv2.id}";
+      };
+      user = {
+        domain = infra.domain.user;
+        fqdn = "${infra.srv2.hostname}.${infra.srv2.user.domain}";
+        ip = "${infra.net.user}.${toString infra.srv2.id}";
+      };
+      remote = {
+        domain = infra.domain.remote;
+        fqdn = "${infra.srv2.hostname}.${infra.srv2.remote.domain}";
+        ip = "192.168.80.102";
+      };
+      virtual = {
+        domain = infra.domain.virtual;
+        fqdn = "${infra.srv2.hostname}.${infra.srv.virtual.domain}";
+        ip = "${infra.net.user}.${toString infra.srv2.id}";
       };
     };
     syslog = {

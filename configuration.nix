@@ -244,21 +244,21 @@
         login = {
           failDelay = {
             enable = true;
-            delay = 400000;
+            delay = 10000000;
           };
           logFailures = true;
           u2fAuth = true;
-          unixAuth = false;
+          unixAuth = true;
         };
         sudo = {
           failDelay = {
             enable = true;
-            delay = 350000;
+            delay = 10000000;
           };
           logFailures = true;
           requireWheel = true;
           u2fAuth = true;
-          unixAuth = false;
+          unixAuth = true;
         };
       };
     };
@@ -367,7 +367,7 @@
     hardware.bolt.enable = true;
     udisks2.enable = lib.mkForce true;
     fwupd.enable = lib.mkForce false;
-    openssh.enable = lib.mkForce false;
+    openssh.enable = lib.mkDefault false;
     smartd.enable = lib.mkDefault true;
     power-profiles-daemon.enable = lib.mkForce false;
     logind.settings.Login.HandleHibernateKey = "ignore";

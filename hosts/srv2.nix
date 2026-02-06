@@ -13,7 +13,7 @@ in {
   # NETWORKING #
   ##############
   networking = {
-    hostName = "srv";
+    hostName = "srv2";
     usePredictableInterfaceNames = lib.mkForce true;
     networkmanager = {
       enable = true;
@@ -40,7 +40,7 @@ in {
       enable = lib.mkForce true;
       listenAddresses = [
         {
-          addr = infra.srv.admin.ip;
+          addr = infra.srv2.admin.ip;
           port = infra.port.ssh;
         }
       ];
@@ -111,7 +111,7 @@ in {
           matchConfig.Name = "br0";
           networkConfig.ConfigureWithoutCarrier = true;
           linkConfig.ActivationPolicy = "always-up";
-          addresses = [{Address = "${infra.srv.bridge.ip}/23";}];
+          addresses = [{Address = "${infra.srv2.bridge.ip}/23";}];
         };
         "admin" = {
           enable = true;
@@ -119,7 +119,7 @@ in {
           matchConfig.Name = "admin-vlan";
           networkConfig.ConfigureWithoutCarrier = true;
           linkConfig.ActivationPolicy = "always-up";
-          addresses = [{Address = "${infra.srv.admin.ip}/23";}];
+          addresses = [{Address = "${infra.srv2.admin.ip}/23";}];
         };
         "user" = {
           enable = true;
@@ -127,7 +127,7 @@ in {
           matchConfig.Name = "user-vlan";
           networkConfig.ConfigureWithoutCarrier = true;
           linkConfig.ActivationPolicy = "always-up";
-          addresses = [{Address = "${infra.srv.user.ip}/23";}];
+          addresses = [{Address = "${infra.srv2.user.ip}/23";}];
         };
         "remote" = {
           enable = false;
@@ -135,7 +135,7 @@ in {
           matchConfig.Name = "remote-vlan";
           networkConfig.ConfigureWithoutCarrier = true;
           linkConfig.ActivationPolicy = "always-up";
-          addresses = [{Address = "${infra.srv.remote.ip}/23";}];
+          addresses = [{Address = "${infra.srv2.remote.ip}/23";}];
         };
         "virtual" = {
           enable = true;
@@ -143,7 +143,7 @@ in {
           matchConfig.Name = "virtual-vlan";
           networkConfig.ConfigureWithoutCarrier = true;
           linkConfig.ActivationPolicy = "always-up";
-          addresses = [{Address = "${infra.srv.virtual.ip}/23";}];
+          addresses = [{Address = "${infra.srv2.virtual.ip}/23";}];
         };
       };
     };

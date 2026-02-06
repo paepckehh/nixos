@@ -85,34 +85,26 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
-          # ./server/time/kimai-container.nix
-          # ./server/office/bentopdf.nix
-          # ./server/office/onlyoffice.nix
-          # ./packages/desktop/add-onlyoffice.nix
-          # ./server/tasks/donetick-docker.nix
-          # ./packages/devops-docker.nix
-          # ./server/time/timetrack.nix
-          # ./server/time/timetrack-docker.nix
-          # ./server/ocr/paperless-ngx-authelia.nix
-          # ./server/search/websurfx-systemd.nix
-          # ./server/sip/coturn.nix
-          # ./server/message/tuwunel.nix
-          # ./server/wiki/wiki-go-docker.nix
-          # ./server/wiki/docmost-docker.nix
-          # ./server/ocr/paperless-ngx-authelia.nix
-          # ./server/it/networking-toolbox.nix
-          # ./server/soc/web-check.nix
-          # ./server/ai/open-webui-container-authelia.nix
-          # ./server/media/immich-container-authelia.nix
-          # ./server/cloud/nextcloud-container-authelia.nix
-          # ./server/rss/miniflux-container-authelia.nix
-          # ./packages/desktop/add-av.nix
-          {networking.hostName = "srv";}
         ];
       };
-      ##########
-      # SERVER #
-      ##########
+      srv2 = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          agenix.nixosModules.default
+          home-manager.nixosModules.home-manager
+          ./storage/stateless-luks-partlabel.nix
+          ./configuration.nix
+          ./hardware/default.nix
+          ./client/addrootCA.nix
+          ./client/addCache.nix
+          ./person/desktop/mpaepcke.nix
+          ./packages/base.nix
+          ./packages/devops-core.nix
+          ./packages/desktop/gnome.nix
+          ./server/base.nix
+          ./hosts/srv2.nix
+        ];
+      };
       srv-full = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -176,6 +168,29 @@
           ./server/sip/coturn.nix
           ./server/message/tuwunel.nix
           ./server/ai/open-webui-container-authelia.nix
+          ./hosts/srv.nix
+          # ./server/time/kimai-container.nix
+          # ./server/office/bentopdf.nix
+          # ./server/office/onlyoffice.nix
+          # ./packages/desktop/add-onlyoffice.nix
+          # ./server/tasks/donetick-docker.nix
+          # ./packages/devops-docker.nix
+          # ./server/time/timetrack.nix
+          # ./server/time/timetrack-docker.nix
+          # ./server/ocr/paperless-ngx-authelia.nix
+          # ./server/search/websurfx-systemd.nix
+          # ./server/sip/coturn.nix
+          # ./server/message/tuwunel.nix
+          # ./server/wiki/wiki-go-docker.nix
+          # ./server/wiki/docmost-docker.nix
+          # ./server/ocr/paperless-ngx-authelia.nix
+          # ./server/it/networking-toolbox.nix
+          # ./server/soc/web-check.nix
+          # ./server/ai/open-webui-container-authelia.nix
+          # ./server/media/immich-container-authelia.nix
+          # ./server/cloud/nextcloud-container-authelia.nix
+          # ./server/rss/miniflux-container-authelia.nix
+          # ./packages/desktop/add-av.nix
           # ./server/office/onlyoffice.nix
           # ./server/wiki/wiki-go-docker.nix
           # ./server/wiki/docmost-docker.nix
@@ -221,8 +236,6 @@
           # ./server/dns/unbound.nix
           # ./server/soc/netalertx.nix
           # ./server/soc/wazuh.nix
-          ./hosts/srv.nix
-          {networking.hostName = "srv-full";}
         ];
       };
       ##################

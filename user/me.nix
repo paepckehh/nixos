@@ -9,14 +9,28 @@
   ############################
   infra = (import ../siteconfig/config.nix).infra;
 in {
+  #############
+  #-=# AGE #=-#
+  #############
+  age = {
+    secrets = {
+      "me" = {
+        file = ../modules/resources/me.age;
+        owner = "root";
+        group = "wheel";
+      };
+    };
+  };
+
   ###############
   #-=# USERS #=-#
   ###############
   users = {
     users = {
       me = {
-        #  initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
-        initialHashedPassword = null; # lockdown, use smardcard only
+        # initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
+        # initialHashedPassword = null; # lockdown, use smardcard only
+        hashedPasswordFile = config.age.secrets."me".path;
         description = "me";
         uid = 60100;
         group = "me";

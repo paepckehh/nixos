@@ -13,14 +13,9 @@
   ###############
   #-=# USERS #=-#
   ###############
-  users = {
-    users = {
-      me = {
-        hashedPassword = lib.mkForce "$y$j9T$Iy95xl/8Bp1QIgxedGD4./$mnrwPShtcuWfGXV1wBmikrK4O0KupHkp1hxjrnJ9KDB";
-        description = lib.mkForce "PAEPCKE Michael";
-        openssh.authorizedKeys.keys = lib.mkForce ["ssh-ed25519 AAA-#locked#-"];
-      };
-    };
+  users.users.me = {
+    description = lib.mkForce "PAEPCKE, Michael";
+    openssh.authorizedKeys.keys = ["sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIAGsgOTEwxqUCKC49pwuQHXyhb+jjIBUzFdwRsjS9iMkAAAABHNzaDo= git@paepcke.de"];
   };
 
   ######################
