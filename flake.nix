@@ -59,8 +59,6 @@
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           # ./storage/stateless-luks-sequence.nix
-          # ./storage/stateless-luks-partlabel.nix
-          # ./storage/stateless-luks-fixed-6D57-1267.nix
           ./storage/stateless-luks-fixed-6F6B-6565.nix
           ./configuration.nix
           ./hardware/default.nix
@@ -92,7 +90,7 @@
         modules = [
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
-          ./storage/stateless-luks-partlabel.nix
+          ./storage/stateless-luks-sequence.nix
           ./configuration.nix
           ./hardware/default.nix
           ./client/addrootCA.nix
