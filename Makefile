@@ -21,6 +21,7 @@ MIRROR:=/home/projects/nixos
 ifeq ($(origin LUKS),undefined)
       USELUKS:=NO
 endif
+LUKS?=start
 PATH:=/run/current-system/sw/bin
 SUDO:=/run/wrappers/bin/sudo
 YUBIME:=/nix/persist/home/me/.config/Yubico
@@ -204,7 +205,6 @@ usb: info-cleaninstall
 # make full automatic bootable iso (offline-) installer for current system,
 # set env TARGET for other nix flake target systems
 installer: info-iso-installer  
-	@if [ !  -z  $(LUKS) ]; then (echo "LUKS Passwords for target installer-iso must explicitly set in autoinstall script, not in env." && exit 1);fi
 	@export NIXPKGS_ALLOW_BROKEN=1 
 	nix build --impure -L ".#nixosConfigurations.iso-installer.config.system.build.isoImage"
 	ls -la /etc/nixos/result/iso

@@ -230,6 +230,7 @@
       enable = true;
       execWheelOnly = lib.mkForce true;
       wheelNeedsPassword = lib.mkForce true;
+      extraConfig = "Defaults        env_reset,timestamp_timeout=20    # timeout in minutes";
     };
     pam = {
       u2f = {

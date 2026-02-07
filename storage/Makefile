@@ -23,6 +23,7 @@ ifeq ($(origin LUKS),undefined)
       USELUKS:=NO
       DISKOFLAKE:=disko/stateless.nix
 endif
+LUKS?=start
 OSFLAKE:=$(REPO)/\#$(TARGET)
 WIPEDRIVE?=/dev/null
 PATH:=/run/current-system/sw/bin
