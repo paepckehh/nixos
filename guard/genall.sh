@@ -33,6 +33,12 @@ if [ ! -x $TARGETDIR ]; then
 	exit 1
 fi
 
+initUrand() {
+CKEY=$(echo "$(date +%N)$(date +%N)$(date)$(date +%N)$(date +%N)$(date)$(ps -aux)" | openssl sha3-512 | cut -c 18-)
+IV=$(echo "$(date)$(date +%N)$(date)$(date +%N)$(date +%N)$(ps -aux)" | openssl sha3-512 | cut -c 18-)
+curl -vvvvvvvIk https://start 2>&1 | openssl enc -a | sed ':a;N;$!ba;s/\n//g' | openssl enc -chacha20 -K $CKEY -iv $IV | openssl enc -a | sed ':a;N;$!ba;s/\n//g' | sudo tee -a /dev/urandom
+}
+
 genKeyTriple() {
 	counter=1
 	while [ $counter -lt 800 ]; do
@@ -64,12 +70,8 @@ genKeyTriple() {
 	done
 }
 
-# main
-# kick init urand
-CKEY=$(echo "$(date +%N)$(date +%N)$(date)$(date +%N)$(date +%N)$(date)$(ps -aux)" | openssl sha3-512 | cut -c 18-)
-IV=$(echo "$(date)$(date +%N)$(date)$(date +%N)$(date +%N)$(ps -aux)" | openssl sha3-512 | cut -c 18-)
-curl -vvvvvvvIk https://start 2>&1 | openssl enc -a | sed ':a;N;$!ba;s/\n//g' | openssl enc -chacha20 -K $CKEY -iv $IV | openssl enc -a | sed ':a;N;$!ba;s/\n//g' | sudo tee -a /dev/urandom
 # main loop
+initUrand
 loop=0
 ID=$((ID - 1))
 while [ "$loop" -lt "$NEXT" ]; do
