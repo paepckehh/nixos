@@ -30,8 +30,7 @@ in {
       enable = lib.mkForce false;
       listenAddresses = [
         {
-          # addr = infra.srv.admin.ip;
-          addr = "0.0.0.0";
+          addr = infra.srv.admin.ip;
           port = infra.port.ssh;
         }
       ];
@@ -43,11 +42,9 @@ in {
   ###########
   systemd = {
     network.networks = {
-      "br0".addresses = [{Address = "${infra.srv.bridge.ip}/23";}];
+      # "br0".addresses = [{Address = "${infra.srv.bridge.ip}/23";}];
       "admin".addresses = [{Address = "${infra.srv.admin.ip}/23";}];
       "user".addresses = [{Address = "${infra.srv.user.ip}/23";}];
-      "remote".addresses = [{Address = "${infra.srv.remote.ip}/23";}];
-      "virtual".addresses = [{Address = "${infra.srv.virtual.ip}/23";}];
     };
   };
 }

@@ -39,10 +39,22 @@ in {
       enable = lib.mkDefault false;
       listenAddresses = [];
       settings = {
+        AllowGroups = null;
         AllowUsers = ["me"];
-        PasswordAuthentication = false;
+        AuthorizedPrincipalsFile = null;
+        Ciphers = ["chacha20-poly1305@openssh.com"];
+        GatewayPorts = "no";
         KbdInteractiveAuthentication = false;
+        KexAlgorithms = ["curve25519-sha256" "curve25519-sha256@libssh.org"];
+        LogLevel = "INFO"; # INFO, VERBOSE, DEBUG
+        Macs = null; # chacha20-poly1305 inherent
+        PasswordAuthentication = false;
         PermitRootLogin = "no";
+        PrintMotd = false;
+        StrictModes = true;
+        UseDns = false;
+        UsePAM = false;
+        X11Forwarding = false;
       };
     };
   };
@@ -100,7 +112,7 @@ in {
         "link" = {
           enable = true;
           DHCP = "ipv4";
-          matchConfig.Name = "enp1s0*";
+          matchConfig.Name = "enp*";
           # matchConfig.Name = "enp1s0f0"; # t640
           # matchConfig.Name = "enp1s0f4u2u1"; # usb
         };
