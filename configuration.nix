@@ -245,7 +245,7 @@
         login = {
           failDelay = {
             enable = true;
-            delay = 10000000;
+            delay = 4000000;
           };
           logFailures = true;
           u2fAuth = true;
@@ -254,7 +254,7 @@
         sudo = {
           failDelay = {
             enable = true;
-            delay = 10000000;
+            delay = 4000000;
           };
           logFailures = true;
           requireWheel = true;
@@ -305,7 +305,6 @@
   ####################
   #-=# NETWORKING #=-#
   ####################
-  # networking: ethernet, localhost, virtual, container: see systemd.networking, wifi client: networkmanager
   networking = {
     domain = "lan";
     enableIPv6 = false;
