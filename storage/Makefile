@@ -36,6 +36,7 @@ all:
 # USBDRIVE TARGETS #
 ####################
 usb: info check wipe format pre-mount mount post-mount install bootproof migrate umount
+usb-small: info check wipe format pre-mount mount post-mount install bootproof migrate-small umount
 
 ####################
 # USBDRIVE GENERIC #
@@ -106,8 +107,8 @@ wipe:
 ###################
 # MIGRATE SECRETS #
 ###################
-migrate: migrate-etcssh migrate-root migrate-me-prep migrate-me-full migrate-backup migrate-projects migrate-var
-	sync && sync && sync
+migrate: migrate-etcssh migrate-me-prep migrate-me-full migrate-backup migrate-projects migrate-var
+migrate-small: migrate-etcssh migrate-me-prep migrate-me-full 
 
 migrate-etcssh:
 	$(SUDO) mkdir -p /mnt/nix/persist/etc/ssh || true
@@ -115,14 +116,7 @@ migrate-etcssh:
 	$(SUDO) chmod 700 /mnt/nix/persist/etc/ssh/ssh_host_ed25519_key || true 
 	$(SUDO) chmod 644 /mnt/nix/persist/etc/ssh/ssh_host_ed25519_key.pub || true 
 	$(SUDO) chown -R 0:0 /mnt/nix/persist/etc/ssh || true
-
-migrate-root:
-	$(SUDO) cp -rf /root/.ssh /mnt/nix/persist/root/ || true
-	$(SUDO) chmod 700 /mnt/nix/persist/root/.ssh || true
-	$(SUDO) chmod 600 /mnt/nix/persist/root/.ssh/id_ed25519 || true 
-	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/id_ed25519.pub || true
-	$(SUDO) chmod 644 /mnt/nix/persist/root/.ssh/known_hosts || true
-	$(SUDO) chown -R 0:0 /mnt/nix/persist/root || true
+	sync && sync && sync
 
 migrate-backup:
 	$(SUDO) cp -rf /home/backup /mnt/nix/persist/home/ || true
@@ -140,19 +134,19 @@ migrate-me-prep:
 	$(SUDO) rm -rf /mnt/nix/persist/home/me/.local || true 
 	$(SUDO) rm -rf /mnt/nix/persist/home/me/.librewolf || true 
 	$(SUDO) rm -rf /mnt/nix/persist/home/me/.mozilla || true 
+	sync && sync && sync
 
 migrate-me-base: 
 	$(SUDO) mkdir -p /mnt/nix/persist/home/me/.config/Yubico || true
 	$(SUDO) cp -rf /nix/persist/home/me/.config/Yubico/u2f_keys /mnt/nix/persist/home/me/.config/Yubico/u2f_keys || true
 	$(SUDO) cp -rf /nix/persist/home/me/.ssh /mnt/nix/persist/home/me/ || true
 	$(SUDO) cp -rf /nix/persist/home/me/.local/share/atuin /mnt/nix/persist/home/me/.lo0cal/share/ || true
-	$(SUDO) chmod 640 /mnt/nix/persist/home/me/.config/Yubico/u2f_keys || true
+	$(SUDO) chmod 600 /mnt/nix/persist/home/me/.config/Yubico/u2f_keys || true
 	$(SUDO) chmod 700 /mnt/nix/persist/home/me/.ssh || true/
 	$(SUDO) chmod 600 /mnt/nix/persist/home/me/.ssh/pwd.kdbx || true
-	$(SUDO) chmod 600 /mnt/nix/persist/home/me/.ssh/id_ed25519 || true 
-	$(SUDO) chmod 640 /mnt/nix/persist/home/me/.ssh/id_ed25519.pub || true
 	$(SUDO) chmod 640 /mnt/nix/persist/home/me/.ssh/known_hosts || true
 	$(SUDO) chown -R me:me /mnt/nix/persist/home || true
+	sync && sync && sync
 
 migrate-me-full: 
 	$(SUDO) mkdir -p /mnt/nix/persist/home || true

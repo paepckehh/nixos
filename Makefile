@@ -201,6 +201,10 @@ usb: info-cleaninstall
 	export TARGETDRIVE=$(TARGETDRIVE)
 	${MAKE} -C storage usb
 
+usb-small: info-cleaninstall
+	export PARALLEL=1
+	export TARGETDRIVE=$(TARGETDRIVE)
+	${MAKE} -C storage usb-small
 
 # make full automatic bootable iso (offline-) installer for current system,
 # set env TARGET for other nix flake target systems

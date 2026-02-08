@@ -53,9 +53,17 @@
       autostart = {
         enable = true;
         readOnly = true;
-        entries = [
-          # "${pkgs.element-desktop}/share/applications/element-desktop.desktop"
-        ];
+        # entries = [ "${pkgs.element-desktop}/share/applications/element-desktop.desktop"];
+      };
+      mime.enable = true;
+      mimeApps = {
+        enable = true;
+        associations.added = {
+          "application/pdf" = "org.gnome.Papers.desktop";
+        };
+        defaultApplications = {
+          "application/pdf" = "org.gnome.Papers.desktop";
+        };
       };
     };
     dconf = {
@@ -140,28 +148,6 @@
       };
     };
     programs = {
-      tmux.enable = true;
-      ghostty = {
-        enable = false;
-        enableBashIntegration = true;
-        enableFishIntegration = true;
-        enableZshIntegration = true;
-        installBatSyntax = true;
-        installVimSyntax = true;
-        settings = {
-          theme = "Synthwave";
-          font-size = 11;
-        };
-      };
-      kitty = {
-        enable = false;
-        enableGitIntegration = true;
-        shellIntegration = {
-          enableBashIntegration = true;
-          enableFishIntegration = true;
-          enableZshIntegration = true;
-        };
-      };
       alacritty = {
         enable = true;
         settings = {

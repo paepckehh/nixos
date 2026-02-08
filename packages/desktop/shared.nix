@@ -33,9 +33,9 @@
   xdg = {
     autostart.enable = lib.mkDefault false;
     mime = {
-      enable = true;
-      addedAssociations = {"application/pdf" = "org.gnome.Evince.desktop";};
-      defaultApplications = {"application/pdf" = "org.gnome.Evince.desktop";};
+      enable = lib.mkForce true;
+      addedAssociations = {"application/pdf" = "org.gnome.Papers.desktop";};
+      defaultApplications = {"application/pdf" = "org.gnome.Papers.desktop";};
     };
   };
 

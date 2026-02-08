@@ -79,10 +79,10 @@ in {
         fonts.fontconfig.enable = true;
         services.ssh-agent.enable = true;
         programs = {
-          btop.enable = true;
+          # btop.enable = true;
+          # go.enable = true;
           home-manager.enable = true;
           git.enable = true;
-          go.enable = true;
           starship.enable = true;
           ripgrep.enable = true;
           delta = {

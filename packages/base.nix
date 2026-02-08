@@ -116,8 +116,9 @@
       alejandra
       bashmount
       bandwhich
-      bmon
       bc
+      bmon
+      btop
       cliqr
       cryptsetup
       delta
@@ -132,6 +133,7 @@
       grc
       gnumake
       gnupg
+      go
       inetutils
       jq
       kmon
