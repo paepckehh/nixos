@@ -61,6 +61,12 @@ in {
             Name = "br0";
           };
         };
+        "dummy0" = {
+          netdevConfig = {
+            Kind = "dummy";
+            Name = "dummy0";
+          };
+        };
         "admin-vlan" = {
           vlanConfig.Id = infra.vlan.admin;
           netdevConfig = {
@@ -94,10 +100,19 @@ in {
         "link" = {
           enable = true;
           DHCP = "ipv4";
-          networkConfig.Bridge = "br0";
           matchConfig.Name = "enp1s0*";
           # matchConfig.Name = "enp1s0f0"; # t640
           # matchConfig.Name = "enp1s0f4u2u1"; # usb
+        };
+        "dummy0" = {
+          enable = true;
+          matchConfig.Name = "dummy0";
+          networkConfig = {
+            Bridge = "br0";
+            ConfigureWithoutCarrier = true;
+          };
+          linkConfig.ActivationPolicy = "always-up";
+          addresses = [{Address = "172.16.0.0/12";}]; # catch-all bougus rfc1918
         };
         "br0" = {
           enable = true;
