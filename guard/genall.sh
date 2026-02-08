@@ -66,8 +66,8 @@ genKeyTriple() {
 
 # main
 # kick init urand
-CKEY=$(echo "$(date +%N)$(date +%N)$(date)$(date +%N)$(date +%N)" | openssl sha3-512 | cut -c 18-)
-IV=$(echo "$(date +%N)$(date +%N)$(date)$(date +%N)$(date +%N)" | openssl sha3-512 | cut -c 18-)
+CKEY=$(echo "$(date +%N)$(date +%N)$(date)$(date +%N)$(date +%N)$(date)$(ps -aux)" | openssl sha3-512 | cut -c 18-)
+IV=$(echo "$(date)$(date +%N)$(date)$(date +%N)$(date +%N)$(ps -aux)" | openssl sha3-512 | cut -c 18-)
 curl -vvvvvvvIk https://start 2>&1 | openssl enc -a | sed ':a;N;$!ba;s/\n//g' | openssl enc -chacha20 -K $CKEY -iv $IV | openssl enc -a | sed ':a;N;$!ba;s/\n//g' | sudo tee -a /dev/urandom
 # main loop
 loop=0
@@ -76,7 +76,7 @@ while [ "$loop" -lt "$NEXT" ]; do
 	loop=$((loop + 1))
 	ID=$((ID + 1))
 	echo
-	echo "# INIT KEY TRIPLE GEN FOR ID: $ID"
+        echo "# INIT KEY TRIPLE GEN FOR CONFIG: ($TARGETDIR)<$BRAND$ID>"
 	genKeyTriple
 	echo
 	echo "# VALID TRIPLE FOUND AFTER $counter ROUNDS => PSK: $PSK , PUB: $PUB, PK: [secret]"
