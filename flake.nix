@@ -99,7 +99,6 @@
           ./packages/base.nix
           ./packages/devops-core.nix
           ./packages/desktop/gnome.nix
-          ./server/base.nix
           ./hosts/srv2.nix
         ];
       };
@@ -110,10 +109,10 @@
           home-manager.nixosModules.home-manager
           # proxmox-nixos.nixosModules.proxmox-ve
           # ./storage/stateless-luks-sequence.nix
-          ./storage/stateless-luks-partlabel.nix
           # ./storage/stateless-luks-fixed-AAF0-2F44.nix
           # ./storage/stateless-luks-fixed-2489-EAAA.nix
           # ./storage/stateless-luks-fixed-22A2-C548.nix
+          ./storage/stateless-luks-partlabel.nix
           ./configuration.nix
           ./hardware/default.nix
           ./client/addrootCA.nix

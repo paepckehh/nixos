@@ -17,7 +17,7 @@ in {
     usePredictableInterfaceNames = lib.mkForce true;
     networkmanager = {
       enable = true;
-      unmanaged = ["enp1s0f4u2u1"];
+      unmanaged = ["enp*"];
     };
     firewall.allowedTCPPorts = [infra.port.ssh];
   };
@@ -37,7 +37,7 @@ in {
   ##################
   services = {
     openssh = {
-      enable = lib.mkForce true;
+      enable = lib.mkForce false;
       listenAddresses = [
         {
           addr = infra.srv.admin.ip;
@@ -101,8 +101,10 @@ in {
       networks = {
         "link" = {
           enable = true;
-          matchConfig.Name = "enp1s0f4u2u1";
           DHCP = "ipv4";
+          matchConfig.Name = "enp1s0*";
+          # matchConfig.Name = "enp1s0f0"; # t640
+          # matchConfig.Name = "enp1s0f4u2u1"; # usb
         };
         "br0" = {
           enable = true;

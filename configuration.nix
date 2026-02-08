@@ -30,7 +30,7 @@
       availableKernelModules = ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = ["page_alloc.shuffle=1"]; # "ipv6.disable=1"
+    kernelParams = ["page_alloc.shuffle=1" "ipv6.disable=1"];
     kernelModules = ["uas"];
     tmp = {
       cleanOnBoot = true;
