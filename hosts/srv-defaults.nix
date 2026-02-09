@@ -19,6 +19,11 @@ in {
       enable = true;
       unmanaged = ["enp*"];
     };
+    firewall.allowedTCPPorts = (
+      if (config.services.openssh.enable == true)
+      then [infra.port.ssh]
+      else []
+    );
   };
 
   #######
@@ -148,20 +153,20 @@ in {
           networkConfig.ConfigureWithoutCarrier = true;
           linkConfig.ActivationPolicy = "always-up";
         };
-        "remote" = {
-          enable = false;
-          domains = [infra.domain.remote];
-          matchConfig.Name = "remote-vlan";
-          networkConfig.ConfigureWithoutCarrier = true;
-          linkConfig.ActivationPolicy = "always-up";
-        };
-        "virtual" = {
-          enable = false;
-          domains = [infra.domain.virtual];
-          matchConfig.Name = "virtual-vlan";
-          networkConfig.ConfigureWithoutCarrier = true;
-          linkConfig.ActivationPolicy = "always-up";
-        };
+        # "remote" = {
+        #  enable = false;
+        #  domains = [infra.domain.remote];
+        #  matchConfig.Name = "remote-vlan";
+        #  networkConfig.ConfigureWithoutCarrier = true;
+        #  linkConfig.ActivationPolicy = "always-up";
+        # };
+        # "virtual" = {
+        #  enable = false;
+        #  domains = [infra.domain.virtual];
+        #  matchConfig.Name = "virtual-vlan";
+        #  networkConfig.ConfigureWithoutCarrier = true;
+        #  linkConfig.ActivationPolicy = "always-up";
+        #};
       };
     };
   };

@@ -17,23 +17,15 @@ in {
   ##############
   # NETWORKING #
   ##############
-  networking = {
-    hostName = lib.mkForce "srv";
-    # firewall.allowedTCPPorts = [infra.port.ssh];
-  };
+  networking.hostName = lib.mkForce "srv";
 
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
     openssh = {
-      enable = lib.mkForce false;
-      listenAddresses = [
-        {
-          addr = infra.srv.admin.ip;
-          port = infra.port.ssh;
-        }
-      ];
+      enable = infra.srv.sshd;
+      listenAddresses = [{addr = infra.srv.admin.ip;}];
     };
   };
 
@@ -42,7 +34,6 @@ in {
   ###########
   systemd = {
     network.networks = {
-      # "br0".addresses = [{Address = "${infra.srv.bridge.ip}/23";}];
       "admin".addresses = [{Address = "${infra.srv.admin.ip}/23";}];
       "user".addresses = [{Address = "${infra.srv.user.ip}/23";}];
     };

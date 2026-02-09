@@ -325,7 +325,6 @@
       enable = true;
       allowPing = true;
       checkReversePath = lib.mkDefault true; # "loose";
-      trustedInterfaces = lib.mkDefault []; # lo inherent
     };
   };
 
@@ -402,26 +401,6 @@
         PLATFORM_PROFILE_ON_AC = "performance";
         PLATFORM_PROFILE_ON_BAT = "low-power";
       };
-    };
-    # udev.extraRules = ''
-    #  ACTION=="remove",\
-    #  ENV{ID_BUS}=="usb",\
-    #  ENV{ID_MODEL_ID}=="0407",\
-    #  ENV{ID_VENDOR_ID}=="1050",\
-    #  ENV{ID_VENDOR}=="Yubico",\
-    #  RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
-    # '';
-    usbguard = {
-      enable = false;
-      rules = ''
-        allow with-interface all-of { 03:*:* } # HID
-        allow with-interface all-of { 08:*:* } # Storage
-        reject with-interface all-of { 08:*:* 03:00:* }
-        reject with-interface all-of { 08:*:* 03:01:* }
-        reject with-interface all-of { 08:*:* e0:*:* }
-        reject with-interface all-of { 08:*:* 02:*:* }
-        allow with-interface one-of { 03:00:01 03:01:01 } if !allowed-matches(with-interface one-of { 03:00:01 03:01:01 })
-      '';
     };
   };
 }

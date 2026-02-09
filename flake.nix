@@ -64,6 +64,7 @@
           ./hardware/default.nix
           ./client/addrootCA.nix
           ./client/addCache.nix
+          ./client/addYubilock.nix
           ./openwrt/alias.nix
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix

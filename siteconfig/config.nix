@@ -367,7 +367,7 @@ let
       app = "nixos";
       name = "srv";
       hostname = infra.srv.name;
-      bridge.ip = "${infra.net.bridge}.${toString infra.srv.id}";
+      sshd = false;
       admin = {
         domain = infra.domain.admin;
         fqdn = "${infra.srv.hostname}.${infra.srv.admin.domain}";
@@ -394,7 +394,7 @@ let
       app = "nixos";
       name = "srv2";
       hostname = infra.srv2.name;
-      bridge.ip = "${infra.net.bridge}.${toString infra.srv2.id}";
+      sshd = true;
       admin = {
         domain = infra.domain.admin;
         fqdn = "${infra.srv2.hostname}.${infra.srv2.admin.domain}";
