@@ -1,7 +1,9 @@
 # PREP
 BRAND?=debiguard
 NETWORK?=10.20.66
+INSTANCE=turbo
 TARGETDIR?=~/Downloads
+DTS:=$(shell date '+%Y-%m-%d-%H-%M')
 
 ###########
 # GENERIC #

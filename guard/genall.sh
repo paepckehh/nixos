@@ -1,5 +1,6 @@
 #!/bin/sh
 sudo -v
+out_csv="$TARGETDIR/$BRAND-$DTS.csv"
 if ! [[ "$ID" =~ ^[0-9]+$ ]]; then
 	echo "ID variable contains: $ID"
 	echo "ID variable should contain a number only."
@@ -33,7 +34,7 @@ if [ ! -x $TARGETDIR ]; then
 	exit 1
 fi
 
-initUrand() {
+init_urand() {
 	CKEY="$(echo "$(date +%N)$(date +%N)$(date)$(date +%N)$(date +%N)$(date)$(ps -aux)" | openssl sha3-512 | cut -c 18-81)"
 	IV="$(echo "$(date)$(date +%N)$(date)$(date +%N)$(date +%N)$(ps -aux)" | openssl sha3-512 | cut -c 18-49)"
         STATE="$(sudo ps -aux)$(date)$(date +%N)$(date +%N)$(sudo dmesg)$(sudo ps -aux)$(date +%N)"
@@ -44,7 +45,19 @@ initUrand() {
         FEED="[...]$(echo $FEED | cut -c 64-)"
 }
 
-genKeyTriple() {
+write_opn_csv_header() {
+        echo "HOSTNAME,IP,PUBLIC-KEY,PRE-SHARED-KEY,INSTANCE" > $out_csv
+}
+
+write_opn_csv() {
+        echo "$HOST,$NETWORK.$ID/32,$PUB,$PSK,$INSTANCE" >> $out_csv
+}
+
+write_wrt_conf() {
+        # XXX
+}
+
+gen_key_triple() {
 	counter=1
 	while [ $counter -lt 800 ]; do
 		PSK=""
@@ -63,7 +76,7 @@ genKeyTriple() {
 			while ! [[ "$PUB" =~ ^[a-zA-Z0-9=]+$ ]]; do
 				PK=""
 				while ! [[ "$PK" =~ ^[a-zA-Z0-9=]+$ ]]; do
-					PK=$(wg genpsk)
+					PK=$(wg genkey)
 					counter=$((counter + 1))
 					echo -n '.'
 				done
@@ -75,20 +88,27 @@ genKeyTriple() {
 	done
 }
 
-# main loop
-initUrand
+# main 
+init_urand
+write_opn_csv_header
 echo $TOKEN
 loop=0
 ID=$((ID - 1))
 while [ "$loop" -lt "$NEXT" ]; do
 	loop=$((loop + 1))
 	ID=$((ID + 1))
+        HOST="$BRAND$ID"
 	echo
-	initUrand
-	echo "# INIT KEY TRIPLE GEN FOR CONFIG: ($TARGETDIR)<$BRAND$ID>, pushing uRandFeed $FEED"
-	genKeyTriple
-	echo
-	echo "# VALID TRIPLE FOUND AFTER $counter ROUNDS => PSK: $PSK , PUB: $PUB, PK: [secret]"
+	init_urand
+	echo "# INIT KEY TRIPLE GEN FOR CONFIG: ($TARGETDIR/)<$HOST>, pushing uRandFeed $FEED"
+	gen_key_triple
+	echo "# VALID TRIPLE FOUND AFTER $counter ROUNDS!"
+        write_opn_csv
+        echo "# ADDING HOSTNAME: $HOST PSK: $PSK , PUB: $PUB, PK: [...secret...] to CSV Import File ($out_csv)."
+        write_wrt_conf
+        echo "# WRITE RESTORE FILE TO ($TARGETDIR/)<$HOST>"
 	echo
 	echo
 done
+cat $out_csv
+echo
