@@ -975,5 +975,17 @@ let
       url = "https://${infra.donetick.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.donetick.app}.png";
     };
+    zipline = {
+      id = 182;
+      app = "zipline";
+      name = infra.zipline.app;
+      hostname = infra.zipline.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.zipline.hostname}.${infra.zipline.domain}";
+      ip = "${infra.net.user}.${toString infra.zipline.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.zipline.id;
+      url = "https://${infra.zipline.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.zipline.app}.png";
+    };
   };
 in {infra = infra;}

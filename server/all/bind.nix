@@ -57,11 +57,6 @@ in {
       listenOnPort = infra.dns.port;
       extraOptions = ''dnssec-validation auto;'';
       zones = {
-        # "dbt.corp".extraConfig = "
-        #      type forward;
-        #      forward only;
-        #      forwarders { 10.20.6.3; 10.20.6.2 };
-        # ";
         "${infra.domain.domain}" = {
           master = true;
           slaves = [infra.dns.ip];
@@ -168,6 +163,7 @@ in {
             ${infra.websurfx.hostname}           IN A  ${infra.websurfx.ip}
             ${infra.web-check.hostname}          IN A  ${infra.web-check.ip}
             ${infra.wiki-go.hostname}            IN A  ${infra.wiki-go.ip}
+            ${infra.zipline.hostname}            IN A  ${infra.zipline.ip}
             ${infra.autoconfig.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.autoconfig.user.ip}"
             ${infra.bentopdf.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.bentopdf.ip}"
             ${infra.cache.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.cache.ip}"
@@ -203,6 +199,7 @@ in {
             ${infra.websurfx.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.websurfx.ip}"
             ${infra.web-check.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.web-check.ip}"
             ${infra.wiki-go.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.wiki-go.ip}"
+            ${infra.zipline.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.zipline.ip}"
             _autodiscover._tcp                   IN SRV 0 0 443 ${infra.autoconfig.user.fqdn}.
             _imap._tcp                           IN SRV 0 0 143 ${infra.imap.user.fqdn}.
             _matrix._tcp                         IN SRV 0 0 443 ${infra.matrix.fqdn}.
