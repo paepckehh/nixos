@@ -19,12 +19,24 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks."user".addresses = [{Address = "${infra.cache.ip}/32";}];
+  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.cache.ip}/32";}];
 
   #################
   #-=# IMPORTS #=-#
   #################
   imports = [../../client/addCache.nix];
+
+  #############
+  #-=# AGE #=-#
+  #############
+  age = {
+    secrets = {
+      ncps = {
+        file = ../../modules/resources/ncps.age;
+        owner = "ncps";
+      };
+    };
+  };
 
   ##################
   #-=# SERVICES #=-#

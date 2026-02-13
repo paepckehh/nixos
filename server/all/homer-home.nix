@@ -19,7 +19,7 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks."user".addresses = [{Address = "${infra.portal.ip}/32";}];
+  systemd.network.networks.${infra.namespace.user}.addresses = [{Address = "${infra.portal.ip}/32";}];
 
   ##################
   #-=# SERVICES #=-#
@@ -228,6 +228,20 @@ in {
                     target = "_blank";
                     url = infra.glance.url;
                     logo = infra.glance.logo;
+                  }
+                  {
+                    name = "Zipline";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.zipline.url;
+                    logo = infra.zipline.logo;
+                  }
+                  {
+                    name = "Dumbdrop";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.dumbdrop.url;
+                    logo = infra.dumbdrop.logo;
                   }
                   {
                     name = infra.meshtastic-web.app;

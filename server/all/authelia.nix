@@ -30,7 +30,7 @@ in {
   #-=# SYSTEMD #=-#
   #################
   systemd = {
-    network.networks."user".addresses = [{Address = "${infra.sso.ip}/32";}];
+    network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.sso.ip}/32";}];
     services."authelia-${infra.sso.site}" = {
       after = ["socket.target"];
       wants = ["socket.target"];

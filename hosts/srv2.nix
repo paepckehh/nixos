@@ -43,7 +43,6 @@ in {
   ###########
   systemd = {
     network.networks = {
-      # "br0".addresses = [{Address = "${infra.srv2.bridge.ip}/23";}];
       "admin".addresses = [{Address = "${infra.srv2.admin.ip}/23";}];
       "user".addresses = [{Address = "${infra.srv2.user.ip}/23";}];
     };

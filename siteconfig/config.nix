@@ -94,9 +94,9 @@ let
     };
     namespace = {
       prefix = "";
-      admin = "${infra.namespace.prefix}${toString infra.id.admin}";
-      user = "${infra.namespace.prefix}${toString infra.id.user}";
-      remote = "${infra.namespace.prefix}${toString infra.id.remote}";
+      admin = "0${infra.namespace.prefix}${toString infra.id.admin}-admin";
+      user = "0${infra.namespace.prefix}${toString infra.id.user}-user";
+      remote = "${infra.namespace.prefix}${toString infra.id.remote}-remote";
     };
     container = {
       network = infra.net.virtual;
@@ -137,6 +137,38 @@ let
       # url = "https://drucker.${infra.domain.user}/printers";
       url = "http://localhost:631/";
       logo = "${infra.res.url}/icon/png/printer.png";
+    };
+    smbgate = {
+      id = 24;
+      name = "smbgate";
+      hostname = infra.smbgate.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.smbgate.hostname}.${infra.smbgate.domain}";
+      ip = "${infra.net.user}.${toString infra.smbgate.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.smbgate.id;
+      lock.interface = "user-vlan@br0";
+      url = "https://${infra.smbgate.fqdn}";
+      logo = "${infra.res.url}/icon/png/dropbox.png";
+      shares = {
+        "fe" = {
+          "browseable" = "no";
+          "comment" = "Debitor Finanz-Einzug";
+          "path" = "/mnt/fe";
+          "writable" = "yes";
+        };
+        "ti" = {
+          "browseable" = "no";
+          "comment" = "Debitor Telefonie";
+          "path" = "/mnt/ti";
+          "writable" = "yes";
+        };
+        "gs" = {
+          "browseable" = "no";
+          "comment" = "Debitor Geschaefsfuehrung";
+          "path" = "/mnt/gs";
+          "writable" = "yes";
+        };
+      };
     };
     smtp = {
       id = 25;
@@ -986,6 +1018,18 @@ let
       localbind.port.http = infra.localhost.port.offset + infra.zipline.id;
       url = "https://${infra.zipline.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.zipline.app}.png";
+    };
+    dumbdrop = {
+      id = 183;
+      app = "dumbdrop";
+      name = infra.dumbdrop.app;
+      hostname = infra.dumbdrop.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.dumbdrop.hostname}.${infra.dumbdrop.domain}";
+      ip = "${infra.net.user}.${toString infra.dumbdrop.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.dumbdrop.id;
+      url = "https://${infra.dumbdrop.fqdn}";
+      logo = "${infra.res.url}/icon/png/dropbox.png";
     };
   };
 in {infra = infra;}

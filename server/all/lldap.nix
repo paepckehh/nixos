@@ -22,8 +22,8 @@ in {
   #################
   systemd = {
     network.networks = {
-      "admin".addresses = [{Address = "${infra.ldap.ip}/32";}];
-      "user".addresses = [{Address = "${infra.iam.ip}/32";}];
+      "${infra.namespace.admin}".addresses = [{Address = "${infra.ldap.ip}/32";}];
+      "${infra.namespace.user}".addresses = [{Address = "${infra.iam.ip}/32";}];
     };
     services.lldap = {
       after = ["sockets.target"];

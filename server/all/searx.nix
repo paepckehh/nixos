@@ -19,7 +19,7 @@ in {
   #-=# SYSTEMD #=-#
   #################
   systemd = {
-    network.networks."user".addresses = [{Address = "${infra.search.ip}/32";}];
+    network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.search.ip}/32";}];
     services = {
       searx-init = {
         after = ["sockets.target"];

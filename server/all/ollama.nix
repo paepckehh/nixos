@@ -18,7 +18,7 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks."admin".addresses = [{Address = "${infra.ollama01.ip}/32";}];
+  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.ollama01.ip}/32";}];
 
   ##################
   #-=# SERVICES #=-#

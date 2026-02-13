@@ -34,8 +34,8 @@ in {
   ###########
   systemd = {
     network.networks = {
-      "admin".addresses = [{Address = "${infra.srv.admin.ip}/23";}];
-      "user".addresses = [{Address = "${infra.srv.user.ip}/23";}];
+      "${infra.namespace.admin}".addresses = [{Address = "${infra.srv.admin.ip}/23";}];
+      "${infra.namespace.user}".addresses = [{Address = "${infra.srv.user.ip}/23";}];
     };
   };
 }

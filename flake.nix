@@ -78,6 +78,8 @@
           ./server/log/syslog-ng.nix
           ./server/lora/meshtastic-web.nix
           ./server/search/searx.nix
+          ./server/share/dumbdrop.nix
+          ./server/share/smbgate.nix
           ./server/pki/small-step.nix
           ./server/portal/homer-home.nix
           ./server/webapp/res.nix
@@ -144,6 +146,7 @@
           ./server/monitoring/prometheus.nix
           ./server/ocr/paperless-ngx-authelia.nix
           ./server/search/searx.nix
+          ./server/share/zipline.nix
           ./server/secret/vaultwarden.nix
           ./server/soc/chef.nix
           ./server/it/rackula.nix

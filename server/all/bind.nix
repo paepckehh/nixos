@@ -27,7 +27,7 @@ in {
   #-=# SYSTEMD #=-#
   #################
   systemd = {
-    network.networks."user".addresses = [{Address = "${infra.dns.ip}/32";}];
+    network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.dns.ip}/32";}];
     services.bind = {
       after = ["sockets.target"];
       wants = ["sockets.target"];
@@ -130,6 +130,7 @@ in {
             ${infra.coturn.hostname}             IN A  ${infra.coturn.ip}
             ${infra.dns.hostname}                IN A  ${infra.dns.ip}
             ${infra.donetick.hostname}           IN A  ${infra.donetick.ip}
+            ${infra.dumbdrop.hostname}           IN A  ${infra.dumbdrop.ip}
             ${infra.ente.hostname}               IN A  ${infra.ente.ip}
             ${infra.erpnext.hostname}            IN A  ${infra.erpnext.ip}
             ${infra.grist.hostname}              IN A  ${infra.grist.ip}
@@ -154,6 +155,7 @@ in {
             ${infra.sso.hostname}                IN A  ${infra.sso.ip}
             ${infra.srv.hostname}                IN A  ${infra.srv.user.ip}
             ${infra.smtp.hostname}               IN A  ${infra.smtp.user.ip}
+            ${infra.smbgate.hostname}            IN A  ${infra.smbgate.ip}
             ${infra.test.hostname}               IN A  ${infra.test.ip}
             ${infra.timetrack.hostname}          IN A  ${infra.timetrack.ip}
             ${infra.translate-lama.hostname}     IN A  ${infra.translate-lama.ip}
@@ -169,6 +171,7 @@ in {
             ${infra.cache.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.cache.ip}"
             ${infra.chef.hostname}               IN HTTPS 1 . alpn="h3" ipv4hint="${infra.chef.ip}"
             ${infra.donetick.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.donetick.ip}"
+            ${infra.dumbdrop.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.dumbdrop.ip}"
             ${infra.ente.hostname}               IN HTTPS 1 . alpn="h3" ipv4hint="${infra.ente.ip}"
             ${infra.erpnext.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.erpnext.ip}"
             ${infra.grist.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.grist.ip}"

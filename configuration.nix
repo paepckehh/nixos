@@ -30,7 +30,7 @@
       availableKernelModules = ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = ["page_alloc.shuffle=1" "ipv6.disable=1"];
+    kernelParams = ["page_alloc.shuffle=1"]; # "ipv6.disable=1"];
     kernelModules = ["uas"];
     tmp = {
       cleanOnBoot = true;
@@ -312,7 +312,7 @@
     networkmanager = {
       enable = true;
       logLevel = "INFO";
-      unmanaged = ["en*"];
+      unmanaged = ["enp1s0f4u2u1"];
       wifi = {
         backend = "wpa_supplicant"; # wpa_supplicant
         scanRandMacAddress = true;

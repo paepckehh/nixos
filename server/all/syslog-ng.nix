@@ -25,8 +25,8 @@ in {
   #################
   systemd = {
     network.networks = {
-      "admin".addresses = [{Address = "${infra.syslog.admin.ip}/32";}];
-      "user".addresses = [{Address = "${infra.syslog.user.ip}/32";}];
+      "${infra.namespace.admin}".addresses = [{Address = "${infra.syslog.admin.ip}/32";}];
+      "${infra.namespace.user}".addresses = [{Address = "${infra.syslog.user.ip}/32";}];
     };
     services.syslog-ng = {
       after = ["sockets.target"];

@@ -30,11 +30,12 @@ in {
     };
     zipline = {
       enable = true;
-      environmentFiles = true;
+      # environmentFiles = true;
       database.createLocally = true;
       settings = {
         CORE_HOSTNAME = infra.localhost.ip;
         CORE_PORT = infra.zipline.localbind.port.http;
+        CORE_SECRET = "vfdsvfdsvfvrVREQVeqvfeqVFvfeqrewqVfeqvfeqvrEQre";
       };
     };
   };

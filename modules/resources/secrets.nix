@@ -3,6 +3,7 @@ let
 in {
   "vault.age".publicKeys = [srv]; # ENV ADMIN_TOKEN="..."
   "davis.age".publicKeys = [srv];
+  "ncps.age".publicKeys = [srv];
   "me.age".publicKeys = [srv];
   "miniflux.age".publicKeys = [srv]; # ENV ADMIN_USERNAME="..." ADMIN_PASSWORD="..."
   "coturn.age".publicKeys = [srv];

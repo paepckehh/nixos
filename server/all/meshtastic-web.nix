@@ -18,7 +18,7 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks."user".addresses = [{Address = "${infra.meshtastic-web.ip}/32";}];
+  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.meshtastic-web.ip}/32";}];
 
   ##################
   #-=# SERVICES #=-#

@@ -98,28 +98,29 @@ in {
             Name = "user-vlan";
           };
         };
-        "remote-vlan" = {
-          vlanConfig.Id = infra.vlan.remote;
-          netdevConfig = {
-            Kind = "vlan";
-            Name = "remote-vlan";
-          };
-        };
-        "virtual-vlan" = {
-          vlanConfig.Id = infra.vlan.virtual;
-          netdevConfig = {
-            Kind = "vlan";
-            Name = "virtual-vlan";
-          };
-        };
       };
       networks = {
-        "link" = {
+        "55-link" = {
           enable = true;
           DHCP = "ipv4";
-          matchConfig.Name = "enp*";
-          # matchConfig.Name = "enp1s0f0"; # t640
-          # matchConfig.Name = "enp1s0f4u2u1"; # usb
+          matchConfig.Name = "enp1s0f4u2u1"; # "enp1s0f0"; # t640  | "enp1s0f4u2u1"; # usb
+          networkConfig = {
+            IPv6AcceptRA = "no";
+            LinkLocalAddressing = "no";
+          };
+        };
+        "br0" = {
+          enable = true;
+          bridgeConfig = {};
+          vlan = ["admin-vlan" "user-vlan"];
+          matchConfig.Name = "br0";
+          networkConfig = {
+            ConfigureWithoutCarrier = true;
+            IPv6AcceptRA = "no";
+            LinkLocalAddressing = "no";
+          };
+          linkConfig.ActivationPolicy = "always-up";
+          addresses = [{Address = "172.16.0.1/12";}];
         };
         "dummy0" = {
           enable = true;
@@ -127,46 +128,34 @@ in {
           networkConfig = {
             Bridge = "br0";
             ConfigureWithoutCarrier = true;
+            IPv6AcceptRA = "no";
+            LinkLocalAddressing = "no";
           };
           linkConfig.ActivationPolicy = "always-up";
-          addresses = [{Address = "172.16.0.0/12";}]; # catch-all bougus rfc1918
+          addresses = [{Address = "172.16.0.2/32";}]; # catch-all-172 rfc1918
         };
-        "br0" = {
-          enable = true;
-          bridgeConfig = {};
-          vlan = ["admin-vlan" "user-vlan" "remote-vlan" "virtual-vlan"];
-          matchConfig.Name = "br0";
-          networkConfig.ConfigureWithoutCarrier = true;
-          linkConfig.ActivationPolicy = "always-up";
-        };
-        "admin" = {
+        "${infra.namespace.admin}" = {
           enable = true;
           domains = [infra.domain.admin];
           matchConfig.Name = "admin-vlan";
-          networkConfig.ConfigureWithoutCarrier = true;
+          networkConfig = {
+            ConfigureWithoutCarrier = true;
+            IPv6AcceptRA = "no";
+            LinkLocalAddressing = "no";
+          };
           linkConfig.ActivationPolicy = "always-up";
         };
-        "user" = {
+        "${infra.namespace.user}" = {
           enable = true;
           domains = [infra.domain.user];
           matchConfig.Name = "user-vlan";
-          networkConfig.ConfigureWithoutCarrier = true;
+          networkConfig = {
+            ConfigureWithoutCarrier = true;
+            IPv6AcceptRA = "no";
+            LinkLocalAddressing = "no";
+          };
           linkConfig.ActivationPolicy = "always-up";
         };
-        # "remote" = {
-        #  enable = false;
-        #  domains = [infra.domain.remote];
-        #  matchConfig.Name = "remote-vlan";
-        #  networkConfig.ConfigureWithoutCarrier = true;
-        #  linkConfig.ActivationPolicy = "always-up";
-        # };
-        # "virtual" = {
-        #  enable = false;
-        #  domains = [infra.domain.virtual];
-        #  matchConfig.Name = "virtual-vlan";
-        #  networkConfig.ConfigureWithoutCarrier = true;
-        #  linkConfig.ActivationPolicy = "always-up";
-        #};
       };
     };
   };

@@ -27,11 +27,10 @@ in {
   #-=# SYSTEMD #=-#
   #################
   systemd = {
-    network.networks."admin".addresses = [{Address = "${infra.pki.ip}/32";}];
+    network.networks."${infra.namespace.admin}".addresses = [{Address = "${infra.pki.ip}/32";}];
     services.step-ca = {
       after = ["socket.target"];
       wants = ["socket.target"];
-      wantedBy = lib.mkForce [];
     };
   };
 
