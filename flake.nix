@@ -69,6 +69,7 @@
           ./packages/base.nix
           ./packages/devops-core.nix
           ./packages/desktop/gnome.nix
+          ./packages/desktop/add-onlyoffice.nix
           ./server/base.nix
           ./server/ai/ollama.nix
           ./server/cache/ncps.nix
@@ -76,9 +77,9 @@
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix
           ./server/log/syslog-ng.nix
+          ./server/time/kimai-container.nix
           ./server/lora/meshtastic-web.nix
           ./server/search/searx.nix
-          ./server/share/dumbdrop.nix
           ./server/share/smbgate.nix
           ./server/pki/small-step.nix
           ./server/portal/homer-home.nix
@@ -169,6 +170,7 @@
           ./server/sip/coturn.nix
           ./server/message/tuwunel.nix
           ./server/ai/open-webui-container-authelia.nix
+          ./server/share/dumbdrop.nix
           ./hosts/srv.nix
           # ./server/time/kimai-container.nix
           # ./server/office/bentopdf.nix

@@ -91,11 +91,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771037579,
-        "narHash": "sha256-NX5XuhGcsmk0oEII2PEtMRgvh2KaAv3/WWQsOpxAgR4=",
+        "lastModified": 1770961512,
+        "narHash": "sha256-NZ1V/y2HeR9ThZe+wzBwVxERD0psDYmQnhF+iF0+Pv8=",
         "ref": "master",
-        "rev": "05e6dc0f6ed936f918cb6f0f21f1dad1e4c53150",
-        "revCount": 6237,
+        "rev": "a6c93262f349afeeebb390fb441910abffef329c",
+        "revCount": 6224,
         "type": "git",
         "url": "file:///home/projects/nixos/home-manager.git"
       },

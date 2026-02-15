@@ -1,4 +1,7 @@
 let
+  ################
+  #-=# INFRA  #=-#
+  ################
   infra = {
     true = "true";
     false = "false";
@@ -112,6 +115,10 @@ let
       jmap = 143;
       syslog = 514;
       ldap = 3890;
+      smb = {
+        quic = 443;
+        tcp = 445;
+      };
       webapps = [infra.port.http infra.port.https];
     };
     proxies = {
@@ -148,26 +155,89 @@ let
       localbind.port.http = infra.localhost.port.offset + infra.smbgate.id;
       lock.interface = "user-vlan@br0";
       url = "https://${infra.smbgate.fqdn}";
-      logo = "${infra.res.url}/icon/png/dropbox.png";
+      logo = "${infra.res.url}/icon/png/samba-server.png";
+      # XXX samba users need statefull init - do additional: sudo sh ; smbpasswd -a <user>
+      users = {
+        "it" = {
+          initialHashedPassword = null;
+          openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
+          description = "samba user for ti share";
+          group = "ti";
+          createHome = false;
+          extraGroups = ["users"];
+          isNormalUser = true;
+        };
+        "ti" = {
+          initialHashedPassword = null;
+          openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
+          description = "samba user for ti share";
+          group = "ti";
+          createHome = false;
+          extraGroups = ["users"];
+          isNormalUser = true;
+        };
+        "fa" = {
+          initialHashedPassword = null;
+          openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
+          description = "samba user for fa share";
+          group = "fa";
+          createHome = false;
+          extraGroups = ["users"];
+          isNormalUser = true;
+        };
+      };
+      groups = {
+        "it".members = ["it"];
+        "ti".members = ["it"];
+        "fa".members = ["fa"];
+      };
       shares = {
-        "fe" = {
+        "it" = {
           "browseable" = "no";
-          "comment" = "Debitor Finanz-Einzug";
-          "path" = "/mnt/fe";
+          "comment" = "IT DataExchange";
+          "path" = "/nix/persist/mnt/it";
           "writable" = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "it";
+          "force group" = "it";
+          "valid users" = "it";
         };
         "ti" = {
           "browseable" = "no";
-          "comment" = "Debitor Telefonie";
-          "path" = "/mnt/ti";
+          "comment" = "TI DataExchange";
+          "path" = "/nix/persist/mnt/ti";
           "writable" = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "ti";
+          "force group" = "i";
+          "valid users" = "ti";
         };
-        "gs" = {
+        "fa" = {
           "browseable" = "no";
-          "comment" = "Debitor Geschaefsfuehrung";
-          "path" = "/mnt/gs";
+          "comment" = "FA DataExchange";
+          "path" = "/nix/persist/mnt/fa";
           "writable" = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "fa";
+          "force group" = "fa";
+          "valid users" = "fa";
         };
+      };
+      mountpoints = [
+        "d /nix/persist/mnt/it 0770 it it - -"
+        "d /nix/persist/mnt/ti 0770 ti ti - -"
+        "d /nix/persist/mnt/fa 0770 fa fa - -"
+      ];
+      mounts = {
       };
     };
     smtp = {

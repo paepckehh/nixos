@@ -22,7 +22,7 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks."user".addresses = [{Address = "${infra.kimai.ip}/32";}];
+  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.kimai.ip}/32";}];
 
   ##################
   #-=# SERVICES #=-#

@@ -1,6 +1,9 @@
 let
   srv = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN95PYUMGYuzc+gsuxZ76p5eT2nocV8ckGUQtQ7T4Mn1 srv";
 in {
+  "it.age".publicKeys = [srv];
+  "ti.age".publicKeys = [srv];
+  "fa.age".publicKeys = [srv];
   "vault.age".publicKeys = [srv]; # ENV ADMIN_TOKEN="..."
   "davis.age".publicKeys = [srv];
   "ncps.age".publicKeys = [srv];
