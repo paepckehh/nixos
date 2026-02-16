@@ -10,6 +10,11 @@
   ############################
   infra = (import ../../siteconfig/config.nix).infra;
 in {
+  #################
+  #-=# IMPORTS #=-#
+  #################
+  imports = [../../siteconfig/smbgate-mounts.nix];
+
   ####################
   #-=# NETWORKING #=-#
   ####################
@@ -38,6 +43,11 @@ in {
     users = infra.smbgate.users;
     groups = infra.smbgate.groups;
   };
+
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment.systemPackages = [pkgs.cifs-utils];
 
   ##################
   #-=# SERVICES #=-#

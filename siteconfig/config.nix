@@ -237,8 +237,6 @@ let
         "d /nix/persist/mnt/ti 0770 ti ti - -"
         "d /nix/persist/mnt/fa 0770 fa fa - -"
       ];
-      mounts = {
-      };
     };
     smtp = {
       id = 25;

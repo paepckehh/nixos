@@ -1,6 +1,7 @@
 let
   srv = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN95PYUMGYuzc+gsuxZ76p5eT2nocV8ckGUQtQ7T4Mn1 srv";
 in {
+  "smb1.age".publicKeys = [srv];
   "it.age".publicKeys = [srv];
   "ti.age".publicKeys = [srv];
   "fa.age".publicKeys = [srv];
