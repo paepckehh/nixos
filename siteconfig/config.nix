@@ -375,7 +375,7 @@ let
       access.cidr = infra.cidr.all;
       localbind.port.http = infra.localhost.port.offset + infra.cache.id;
       url = "https://${infra.cache.fqdn}";
-      size = "100G";
+      size = "256G";
       key = {
         url = "${infra.cache.url}/pubkey";
         pub = "cache:aFde6/c1Vz93N1XGGrvt/7NlUNdAyV35CgBUXKzyhyU=";

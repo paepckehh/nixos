@@ -148,6 +148,16 @@
       };
     };
     programs = {
+      onlyoffice = {
+        enable = true;
+        # [General]
+        settings = {
+          editorWindowMode = "false";
+          locale = "de-DE";
+          maximized = true;
+          titlebar = "MyHomeOffice";
+        };
+      };
       alacritty = {
         enable = true;
         settings = {

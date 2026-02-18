@@ -49,7 +49,7 @@ in {
     ncps = {
       enable = true;
       analytics.reporting.enable = lib.mkForce false;
-      logLevel = "info"; # "trace", "debug", "info", "warn", "error", "fatal", "panic"
+      logLevel = "warn"; # "trace", "debug", "info", "warn", "error", "fatal", "panic"
       prometheus.enable = lib.mkForce false;
       server.addr = "${infra.localhost.ip}:${toString infra.cache.localbind.port.http}";
       openTelemetry.enable = lib.mkForce false;

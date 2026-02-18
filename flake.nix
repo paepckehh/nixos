@@ -77,7 +77,6 @@
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix
           ./server/log/syslog-ng.nix
-          ./server/time/kimai-container.nix
           ./server/lora/meshtastic-web.nix
           ./server/search/searx.nix
           ./server/share/smbgate.nix
@@ -132,7 +131,6 @@
           ./packages/devops-all.nix
           ./server/base.nix
           ./server/ai/ollama.nix
-          ./server/asset/snipeit.nix
           ./server/bookmarks/readeck.nix
           ./server/cache/ncps.nix
           ./server/cloud/nextcloud-container-authelia.nix
@@ -165,13 +163,13 @@
           ./server/portal/glance.nix
           ./server/it/networking-toolbox.nix
           ./server/it/web-check.nix
-          ./server/time/kimai.nix
           ./server/search/websurfx-systemd.nix
           ./server/sip/coturn.nix
           ./server/message/tuwunel.nix
-          ./server/ai/open-webui-container-authelia.nix
+          # ./server/ai/open-webui-container-authelia.nix
           ./server/share/dumbdrop.nix
           ./hosts/srv.nix
+          # ./server/asset/snipeit.nix
           # ./server/time/kimai-container.nix
           # ./server/office/bentopdf.nix
           # ./server/office/onlyoffice.nix
