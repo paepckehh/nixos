@@ -9,6 +9,7 @@
     # proxmox-nixos.url = "git+file:///home/projects/nixos/proxmox-nixos.git";
     # local git mirror
     # nixpkgs.url = "git+file:///home/projects/nixos/nixpkgs.git?ref=master";
+    # nixpkgs.url = "git+file:///home/projects/nixos/nixpkgs.git?ref=nixos-unstable-small";
     nixpkgs.url = "git+file:///home/projects/nixos/nixpkgs.git?ref=nixos-unstable";
     agenix.url = "git+file:///home/projects/nixos/agenix.git?ref=main";
     disko.url = "git+file:///home/projects/nixos/disko.git?ref=master";
@@ -79,12 +80,13 @@
           ./server/log/syslog-ng.nix
           ./server/lora/meshtastic-web.nix
           ./server/search/searx.nix
-          ./server/share/smbgate.nix
+          ./server/office/onlyoffice-container.nix
           ./server/pki/small-step.nix
           ./server/portal/homer-home.nix
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
+          # ./server/share/smbgate.nix
         ];
       };
       srv2 = nixpkgs.lib.nixosSystem {
@@ -172,7 +174,6 @@
           # ./server/asset/snipeit.nix
           # ./server/time/kimai-container.nix
           # ./server/office/bentopdf.nix
-          # ./server/office/onlyoffice.nix
           # ./packages/desktop/add-onlyoffice.nix
           # ./server/tasks/donetick-docker.nix
           # ./packages/devops-docker.nix

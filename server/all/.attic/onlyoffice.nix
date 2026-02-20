@@ -1,3 +1,4 @@
+#
 {
   config,
   pkgs,
@@ -17,7 +18,15 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks."user".addresses = [{Address = "${infra.onlyoffice.ip}/32";}];
+  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.onlyoffice.ip}/32";}];
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+  services.caddy.virtualHosts."${infra.onlyoffice.fqdn}" = {
+    listenAddresses = [infra.onlyoffice.ip];
+    extraConfig = ''import intraproxy ${toString infra.onlyoffice.localbind.port.http}'';
+  };
 
   #############
   #-=# AGE #=-#
@@ -41,32 +50,26 @@ in {
   ###############
   #-=# USERS #=-#
   ###############
-  users = {
-    groups."${infra.onlyoffice.name}" = {};
-    users = {
-      "${infra.onlyoffice.name}" = {
-        group = "${infra.onlyoffice.name}";
-        isSystemUser = true;
-        hashedPassword = null;
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
-      };
-    };
-  };
+  # users = {
+  #  groups.onlyoffice = {};
+  #  users.onlyoffice = {
+  #    group = "${infra.onlyoffice.name}";
+  #    isSystemUser = true;
+  #    hashedPassword = null;
+  #    openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
+  #  };
+  # };
 
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
-    caddy.virtualHosts."${infra.onlyoffice.fqdn}" = {
-      listenAddresses = [infra.onlyoffice.ip];
-      extraConfig = ''import intraproxy ${toString infra.onlyoffice.localbind.port.http}'';
-    };
     epmd.listenStream = "0.0.0.0:4369";
     onlyoffice = {
       enable = true;
-      # hostname = infra.localhost.ip;
+      hostname = infra.onlyoffice.fqdn;
       port = infra.onlyoffice.localbind.port.http;
-      jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
+      # jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
       securityNonceFile = config.age.secrets.onlyoffice-nonce.path;
     };
   };

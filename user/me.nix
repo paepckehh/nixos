@@ -22,6 +22,13 @@ in {
     };
   };
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.user.tmpfiles.rules = [
+    "L /home/me/Mounts - - - - /var/run/user/60100/gvfs"
+  ];
+
   ###############
   #-=# USERS #=-#
   ###############

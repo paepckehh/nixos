@@ -26,7 +26,7 @@
         emergencyAccess = lib.mkDefault false;
       };
       luks.mitigateDMAAttacks = lib.mkForce true;
-      supportedFilesystems = ["ext4" "tmpfs" "vfat"];
+      supportedFilesystems = ["ext4" "tmpfs" "vfat"]; # zfs
       availableKernelModules = ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
     kernelPackages = pkgs.linuxPackages_latest;

@@ -13,9 +13,9 @@ in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking = {
-    firewall.allowedTCPPorts = infra.port.webapps;
-    firewall.allowedUDPPorts = infra.port.webapps;
+  networking.firewall = {
+    allowedTCPPorts = infra.port.webapps;
+    allowedUDPPorts = infra.port.webapps;
   };
 
   #################
