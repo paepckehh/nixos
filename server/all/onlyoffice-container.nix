@@ -26,7 +26,7 @@ in {
   ##################
   services.caddy.virtualHosts."${infra.onlyoffice.fqdn}" = {
     listenAddresses = [infra.onlyoffice.ip];
-    extraConfig = ''import intracontainer 172.16.0.${toString infra.onlyoffice.id}'';
+    extraConfig = ''import intracontainer ${infra.onlyoffice.container.ip} ${toString infra.port.http}'';
   };
 
   ####################
@@ -35,8 +35,8 @@ in {
   containers.${infra.onlyoffice.name} = {
     autoStart = true;
     privateNetwork = true;
-    hostBridge = "br0";
-    localAddress = "172.16.0.${toString infra.onlyoffice.id}/24";
+    hostBridge = infra.container.interface;
+    localAddress = "${infra.onlyoffice.container.ip}/24";
     config = {
       config,
       pkgs,
@@ -79,8 +79,8 @@ in {
         onlyoffice = {
           enable = true;
           securityNonceFile = "/etc/onlyoffice_container_nonce";
-          hostname = infra.onlyoffice.fqdn;
-          port = infra.port.http;
+          hostname = "onlyoffice"; #infra.onlyoffice.fqdn;
+          port = infra.onlyoffice.localbind.port.http;
           # jwtSecretFile = config.age.secrets.onlyoffice-jwt.path;
         };
       };

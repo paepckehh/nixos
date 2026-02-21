@@ -28,8 +28,7 @@ in {
   services = {
     caddy.virtualHosts."${infra.immich.fqdn}" = {
       listenAddresses = [infra.immich.ip];
-      extraConfig = ''import intracontainer ${toString infra.immich.container.ip}'';
-      # extraConfig = ''import intraproxy ${toString infra.immich.localbind.port.http}'';
+      extraConfig = ''import intracontainer ${infra.immich.container.ip} ${toString infra.immich.localbind.port.http}'';
     };
   };
 
@@ -73,7 +72,7 @@ in {
           enable = true;
           # host = infra.immich.container.ip;
           host = infra.localhost.ip;
-          port = infra.port.http;
+          port = infra.immich.localbind.port.http;
           settings = {
             server.externalDomain = infra.immich.url;
             passwordLogin.enabled = true;

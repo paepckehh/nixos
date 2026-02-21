@@ -80,12 +80,12 @@
           ./server/log/syslog-ng.nix
           ./server/lora/meshtastic-web.nix
           ./server/search/searx.nix
-          ./server/office/onlyoffice-container.nix
           ./server/pki/small-step.nix
           ./server/portal/homer-home.nix
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
+          # ./server/office/onlyoffice-container.nix
           # ./server/share/smbgate.nix
         ];
       };

@@ -104,7 +104,7 @@ in {
          }
         (intracontainer) {
            import intra
-           reverse_proxy {args[0]}:${toString infra.port.http}
+           reverse_proxy {args[0]}:{args[1]}
          }
       '';
     };

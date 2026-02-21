@@ -102,8 +102,9 @@ let
       remote = "${infra.namespace.prefix}${toString infra.id.remote}-remote";
     };
     container = {
-      network = infra.net.virtual;
       interface = "br0";
+      network = "172.16.0";
+      netmask = 24;
     };
     port = {
       dns = 53;
@@ -844,7 +845,10 @@ let
       domain = infra.domain.user;
       fqdn = "${infra.immich.hostname}.${infra.immich.domain}";
       ip = "${infra.net.user}.${toString infra.immich.id}";
-      container.ip = "${infra.container.network}.${toString infra.immich.id}";
+      container = {
+        ip = "${infra.container.network}.${toString infra.immich.id}";
+        cidr = "${infra.immich.container.ip}/${toString infra.container.netmask}";
+      };
       localbind.port.http = infra.localhost.port.offset + infra.immich.id;
       url = "https://${infra.immich.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.immich.app}.png";
@@ -906,6 +910,10 @@ let
       fqdn = "${infra.onlyoffice.hostname}.${infra.onlyoffice.domain}";
       ip = "${infra.net.user}.${toString infra.onlyoffice.id}";
       localbind.port.http = infra.localhost.port.offset + infra.onlyoffice.id;
+      container = {
+        ip = "${infra.container.network}.${toString infra.onlyoffice.id}";
+        cidr = "${infra.onlyoffice.container.ip}/${toString infra.container.netmask}";
+      };
       url = "https://${infra.onlyoffice.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.onlyoffice.app}.png";
     };
