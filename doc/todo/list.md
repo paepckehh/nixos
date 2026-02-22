@@ -82,3 +82,6 @@
 
 # db
 - nocodb/nocodb 
+
+# devops, ide, vim
+# https://github.com/TabbyML/tabby - services.tabby

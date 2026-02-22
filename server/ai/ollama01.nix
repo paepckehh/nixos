@@ -1,0 +1,1 @@
+../all/ollama01.nix

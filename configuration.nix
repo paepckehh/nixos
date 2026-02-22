@@ -30,7 +30,10 @@
       availableKernelModules = ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = ["page_alloc.shuffle=1"]; # "ipv6.disable=1"];
+    kernelParams = [
+      "page_alloc.shuffle=1"
+      # "options ttm pages_limit=15728640"
+    ];
     kernelModules = ["uas"];
     tmp = {
       cleanOnBoot = true;
@@ -180,6 +183,7 @@
   ##################
   hardware = {
     acpilight.enable = true;
+    amdgpu.initrd.enable = true;
     enableAllFirmware = lib.mkForce true;
     enableAllHardware = lib.mkForce true;
     enableRedistributableFirmware = lib.mkForce true;
@@ -199,7 +203,7 @@
     uinput.enable = true;
     graphics = {
       enable = lib.mkForce true;
-      enable32Bit = lib.mkForce false;
+      enable32Bit = lib.mkForce true;
       extraPackages = with pkgs; [intel-media-driver vpl-gpu-rt]; # intel-compute-runtime
     };
   };

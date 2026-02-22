@@ -37,7 +37,7 @@ in {
   ########################
   #-=# VIRTUALISATION #=-#
   ########################
-  virtualisation.oci-containers.backend = "podman"; # global: docker or podman
+  # virtualisation.oci-containers.backend = "podman"; # global: docker or podman
 
   ##################
   #-=# SERVICES #=-#

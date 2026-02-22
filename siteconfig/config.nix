@@ -376,7 +376,9 @@ let
       access.cidr = infra.cidr.all;
       localbind.port.http = infra.localhost.port.offset + infra.cache.id;
       url = "https://${infra.cache.fqdn}";
+      processor = "cpu"; # cpu, rocm, cuda, vulcan
       size = "256G";
+      storage = "/nix/persist/ncps";
       key = {
         url = "${infra.cache.url}/pubkey";
         pub = "cache:aFde6/c1Vz93N1XGGrvt/7NlUNdAyV35CgBUXKzyhyU=";
@@ -925,6 +927,8 @@ let
       domain = infra.domain.admin;
       fqdn = "${infra.ollama01.hostname}.${infra.ollama01.domain}";
       ip = "${infra.net.user}.${toString infra.ollama01.id}";
+      storage = "/nix/persist/ollama/models";
+      models = [];
       localbind.port.http = infra.localhost.port.offset + infra.ollama01.id;
     };
     rackula = {

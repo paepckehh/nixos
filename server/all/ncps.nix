@@ -62,6 +62,7 @@ in {
         maxSize = infra.cache.size;
         secretKeyPath = null;
         signNarinfo = lib.mkForce true;
+        storage.local = lib.mkForce infra.cache.storage;
         upstream = {
           dialerTimeout = lib.mkForce "4m";
           responseHeaderTimeout = lib.mkForce "30s";

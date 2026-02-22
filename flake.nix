@@ -72,21 +72,21 @@
           ./packages/desktop/gnome.nix
           ./packages/desktop/add-onlyoffice.nix
           ./server/base.nix
-          ./server/ai/ollama.nix
+          ./server/ai/ollama01.nix
           ./server/cache/ncps.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix
           ./server/log/syslog-ng.nix
-          ./server/lora/meshtastic-web.nix
           ./server/search/searx.nix
           ./server/pki/small-step.nix
-          ./server/portal/homer-home.nix
+          ./server/portal/homer-home-container.nix
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
-          # ./server/office/onlyoffice-container.nix
+          # ./server/lora/meshtastic-web.nix
           # ./server/share/smbgate.nix
+          # ./server/office/onlyoffice-container.nix
         ];
       };
       srv2 = nixpkgs.lib.nixosSystem {
