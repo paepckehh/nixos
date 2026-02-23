@@ -26,10 +26,11 @@ in {
   services = {
     ollama = {
       enable = true;
-      package = pkgs.ollama-rocm; # cpu, rocm, cuda, vulcan
       models = infra.ollama01.storage;
-      loadModels = infra.ollama01.models;
-      syncModels = false;
+      user = "ollama";
+      # package = pkgs.ollama-rocm; # cpu, rocm, cuda, vulcan
+      # loadModels = infra.ollama01.models;
+      # syncModels = false;
       # host = infra.ollama01.ip;
       # port = infra.ollama01.localbind.port.http;
     };

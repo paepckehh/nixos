@@ -158,7 +158,7 @@ in {
             ${infra.smbgate.hostname}            IN A  ${infra.smbgate.ip}
             ${infra.test.hostname}               IN A  ${infra.test.ip}
             ${infra.timetrack.hostname}          IN A  ${infra.timetrack.ip}
-            ${infra.translate-lama.hostname}     IN A  ${infra.translate-lama.ip}
+            ${infra.translate.hostname}          IN A  ${infra.translate.ip}
             ${infra.vault.hostname}              IN A  ${infra.vault.ip}
             ${infra.webarchiv.hostname}          IN A  ${infra.webarchiv.ip}
             ${infra.webmail.hostname}            IN A  ${infra.webmail.ip}
@@ -195,7 +195,7 @@ in {
             ${infra.sso.hostname}                IN HTTPS 1 . alpn="h3" ipv4hint="${infra.sso.ip}"
             ${infra.test.hostname}               IN HTTPS 1 . alpn="h3" ipv4hint="${infra.test.ip}"
             ${infra.timetrack.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.timetrack.ip}"
-            ${infra.translate-lama.hostname}     IN HTTPS 1 . alpn="h3" ipv4hint="${infra.translate-lama.ip}"
+            ${infra.translate.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.translate.ip}"
             ${infra.vault.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.vault.ip}"
             ${infra.webarchiv.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webarchiv.ip}"
             ${infra.webmail.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webmail.ip}"
@@ -306,7 +306,7 @@ in {
             ${toString infra.test.id}               IN PTR ${infra.test.fqdn}.
             ${toString infra.portal.id}             IN PTR ${infra.portal.fqdn}.
             ${toString infra.res.id}                IN PTR ${infra.res.fqdn}.
-            ${toString infra.translate-lama.id}     IN PTR ${infra.translate-lama.fqdn}.
+            ${toString infra.translate.id}          IN PTR ${infra.translate.fqdn}.
             ${toString infra.vault.id}              IN PTR ${infra.vault.fqdn}.
             ${toString infra.webarchiv.id}          IN PTR ${infra.webarchiv.fqdn}.
             ${toString infra.webmail.id}            IN PTR ${infra.webmail.fqdn}.

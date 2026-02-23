@@ -13,11 +13,7 @@ in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking = {
-    extraHosts = "${infra.it.ip} ${infra.it.hostname} ${infra.it.fqdn}.";
-    firewall.allowedTCPPorts = infra.port.webapps;
-    firewall.allowedUDPPorts = [infra.port.http];
-  };
+  networking.extraHosts = "${infra.it.ip} ${infra.it.hostname} ${infra.it.fqdn}.";
 
   ##################
   #-=# SERVICES #=-#

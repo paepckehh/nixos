@@ -781,16 +781,17 @@ let
       url = "https://${infra.webmtls.fqdn}";
       logo = "${infra.res.url}/icon/png/vault.png";
     };
-    translate-lama = {
+    translate = {
       id = 154;
-      app = "ollama";
-      name = "translate-lama";
-      hostname = infra.translate-lama.name;
+      app = "libretranslate";
+      name = "translate";
+      hostname = infra.translate.name;
       domain = infra.domain.user;
-      fqdn = "${infra.translate-lama.hostname}.${infra.translate-lama.domain}";
-      ip = "${infra.net.user}.${toString infra.translate-lama.id}";
-      localbind.port.http = infra.localhost.port.offset + infra.translate-lama.id;
-      logo = "${infra.res.url}/icon/png/${infra.translate-lama.app}.png";
+      fqdn = "${infra.translate.hostname}.${infra.translate.domain}";
+      ip = "${infra.net.user}.${toString infra.translate.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.translate.id;
+      logo = "${infra.res.url}/icon/png/${infra.translate.app}.png";
+      container.ip = "${infra.container.network}.${toString infra.translate.id}";
     };
     test = {
       id = 155;
@@ -847,10 +848,7 @@ let
       domain = infra.domain.user;
       fqdn = "${infra.immich.hostname}.${infra.immich.domain}";
       ip = "${infra.net.user}.${toString infra.immich.id}";
-      container = {
-        ip = "${infra.container.network}.${toString infra.immich.id}";
-        cidr = "${infra.immich.container.ip}/${toString infra.container.netmask}";
-      };
+      container.ip = "${infra.container.network}.${toString infra.immich.id}";
       localbind.port.http = infra.localhost.port.offset + infra.immich.id;
       url = "https://${infra.immich.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.immich.app}.png";

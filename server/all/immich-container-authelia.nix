@@ -20,7 +20,7 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks."user".addresses = [{Address = "${infra.immich.ip}/32";}];
+  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.immich.ip}/32";}];
 
   ##################
   #-=# SERVICES #=-#
@@ -39,7 +39,7 @@ in {
     autoStart = true;
     privateNetwork = true;
     hostBridge = infra.container.interface;
-    localAddress = "${infra.immich.container.ip}/24";
+    localAddress = "${infra.immich.container.ip}/${toString infra.container.netmask}";
     config = {
       config,
       pkgs,
