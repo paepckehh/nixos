@@ -85,6 +85,7 @@
           ./server/webapp/test.nix
           ./hosts/srv.nix
           ./server/translate/libretranslate-container.nix
+          ./server/db/undb-docker.nix
           # ./server/lora/meshtastic-web.nix
           # ./server/share/smbgate.nix
           # ./server/office/onlyoffice-container.nix

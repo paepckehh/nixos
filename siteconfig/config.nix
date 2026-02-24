@@ -1109,5 +1109,17 @@ let
       url = "https://${infra.dumbdrop.fqdn}";
       logo = "${infra.res.url}/icon/png/dropbox.png";
     };
+    undb = {
+      id = 184;
+      app = "undb";
+      name = infra.undb.app;
+      hostname = infra.undb.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.undb.hostname}.${infra.undb.domain}";
+      ip = "${infra.net.user}.${toString infra.undb.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.undb.id;
+      url = "https://${infra.undb.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.undb.app}.png";
+    };
   };
 in {infra = infra;}

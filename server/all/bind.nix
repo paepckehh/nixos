@@ -148,6 +148,7 @@ in {
             ${infra.nextcloud.hostname}          IN A  ${infra.nextcloud.ip}
             ${infra.miniflux.hostname}           IN A  ${infra.miniflux.ip}
             ${infra.portal.hostname}             IN A  ${infra.portal.ip}
+            ${infra.undb.hostname}               IN A  ${infra.undb.ip}
             ${infra.onlyoffice.hostname}         IN A  ${infra.onlyoffice.ip}
             ${infra.rackula.hostname}            IN A  ${infra.rackula.ip}
             ${infra.res.hostname}                IN A  ${infra.res.ip}

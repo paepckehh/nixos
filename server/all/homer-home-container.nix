@@ -377,6 +377,20 @@ in {
                     logo = infra.erpnext.logo;
                   }
                   {
+                    name = "Undb";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.undb.url;
+                    logo = infra.undb.logo;
+                  }
+                  {
+                    name = "Translate";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.translate.url;
+                    logo = infra.translate.logo;
+                  }
+                  {
                     name = "Web-Check";
                     tag = "app";
                     target = "_blank";
