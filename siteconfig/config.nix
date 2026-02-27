@@ -448,6 +448,8 @@ let
       fqdn = "${infra.sso.hostname}.${infra.sso.domain}";
       ip = "${infra.net.user}.${toString infra.sso.id}";
       localbind.port.http = infra.localhost.port.offset + infra.sso.id;
+      url = "https://${infra.sso.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.sso.app}.png";
       oidc = {
         auth = {
           basic = "client_secret_basic"; # paperless, openweb-ui, miniflux
@@ -462,8 +464,6 @@ let
         discoveryUri = "${infra.sso.url}/.well-known/openid-configuration";
         consent = "implicit";
       };
-      url = "https://${infra.sso.fqdn}";
-      logo = "${infra.res.url}/icon/png/${infra.sso.app}.png";
     };
     srv = {
       id = 100;
@@ -769,16 +769,23 @@ let
       url = "https://${infra.webpki.fqdn}";
       logo = "${infra.res.url}/icon/png/cert-manager.png";
     };
-    webmtls = {
+    vaultls = {
       id = 153;
       app = "vaultls";
-      name = "webmtls";
-      hostname = infra.webmtls.name;
-      domain = infra.domain.admin;
-      fqdn = "${infra.webmtls.hostname}.${infra.webmtls.domain}";
-      ip = "${infra.net.admin}.${toString infra.webmtls.id}";
-      localbind.port.http = infra.localhost.port.offset + infra.webmtls.id;
-      url = "https://${infra.webmtls.fqdn}";
+      name = infra.vaultls.app;
+      hostname = infra.vaultls.name;
+      domain = infra.domain.user;
+      namespace = infra.namespace.user;
+      fqdn = "${infra.vaultls.hostname}.${infra.vaultls.domain}";
+      ip = "${infra.net.user}.${toString infra.vaultls.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.vaultls.id;
+      api = "a2Ni8SCUuCboDfAa5VGZ8ByPxb2k6hM//babfp/2F+A=";
+      db = "9ME/zzODKjHOMKmUYhSccHFxZ5Q+sWqJrCCu+yfalIs=";
+      oidc = {
+        secret = "insecure_secret";
+        callback.url = "${infra.vaultls.url}/api/auth/oidc/callback";
+      };
+      url = "https://${infra.vaultls.fqdn}";
       logo = "${infra.res.url}/icon/png/vault.png";
     };
     translate = {
@@ -790,8 +797,9 @@ let
       fqdn = "${infra.translate.hostname}.${infra.translate.domain}";
       ip = "${infra.net.user}.${toString infra.translate.id}";
       localbind.port.http = infra.localhost.port.offset + infra.translate.id;
-      logo = "${infra.res.url}/icon/png/${infra.translate.app}.png";
       container.ip = "${infra.container.network}.${toString infra.translate.id}";
+      logo = "${infra.res.url}/icon/png/${infra.translate.app}.png";
+      url = "https://${infra.translate.fqdn}";
     };
     test = {
       id = 155;

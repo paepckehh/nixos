@@ -37,7 +37,7 @@ in {
       containers = {
         undb = {
           image = "ghcr.io/undb-io/undb:latest";
-          ports = ["${infra.localhost.ip}:${toString infra.undb.localbind.port.http}:80"];
+          ports = ["${infra.localhost.ip}:${toString infra.undb.localbind.port.http}:3721"];
           environment.SET_SERVER_NAME = "${infra.undb.fqdn}";
         };
       };

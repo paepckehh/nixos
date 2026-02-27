@@ -84,11 +84,11 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
-          ./server/translate/libretranslate-container.nix
-          ./server/db/undb-docker.nix
-          # ./server/lora/meshtastic-web.nix
+          ./server/pki/vaultls-docker-authelia.nix
+          # ./server/translate/libretranslate-container.nix
           # ./server/share/smbgate.nix
           # ./server/office/onlyoffice-container.nix
+          # ./server/lora/meshtastic-web.nix
         ];
       };
       srv2 = nixpkgs.lib.nixosSystem {
@@ -170,9 +170,15 @@
           ./server/search/websurfx-systemd.nix
           ./server/sip/coturn.nix
           ./server/message/tuwunel.nix
-          # ./server/ai/open-webui-container-authelia.nix
           ./server/share/dumbdrop.nix
           ./hosts/srv.nix
+          ./server/pki/vaultls.nix
+          ./server/db/undb-docker.nix
+          ./server/translate/libretranslate-container.nix
+          ./server/share/smbgate.nix
+          ./server/office/onlyoffice-container.nix
+          ./server/lora/meshtastic-web.nix
+          # ./server/ai/open-webui-container-authelia.nix
           # ./server/asset/snipeit.nix
           # ./server/time/kimai-container.nix
           # ./server/office/bentopdf.nix

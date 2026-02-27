@@ -221,6 +221,24 @@ in {
               redirect_uris = ["${infra.nextcloud.url}/apps/user_oidc/code"];
             }
             {
+              # Vaultls
+              client_id = infra.vaultls.app;
+              client_name = infra.vaultls.app;
+              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+              public = false;
+              require_pkce = true;
+              authorization_policy = infra.sso.oidc.policy;
+              pkce_challenge_method = infra.sso.oidc.method;
+              scopes = infra.sso.oidc.scopes;
+              response_types = infra.sso.oidc.response.code;
+              grant_types = infra.sso.oidc.grant;
+              access_token_signed_response_alg = infra.none;
+              userinfo_signed_response_alg = infra.none;
+              # token_endpoint_auth_method = infra.sso.oidc.auth.post;
+              consent_mode = infra.sso.oidc.consent;
+              redirect_uris = [infra.vaultls.oidc.callback.url];
+            }
+            {
               # Miniflux
               client_id = infra.miniflux.app;
               client_name = infra.miniflux.app;

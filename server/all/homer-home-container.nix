@@ -335,11 +335,11 @@ in {
                     logo = infra.webpki.logo;
                   }
                   {
-                    name = "WebMTLS";
+                    name = "VaulTLS";
                     tag = "app";
                     target = "_blank";
-                    url = infra.webmtls.url;
-                    logo = infra.webmtls.logo;
+                    url = infra.vaultls.url;
+                    logo = infra.vaultls.logo;
                   }
                   {
                     name = "Rackula";
