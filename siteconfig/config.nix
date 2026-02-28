@@ -7,6 +7,12 @@ let
     false = "false";
     none = "none";
     one = "1";
+    log = {
+      trace = "trace";
+      debug = "debug";
+      info = "info";
+      warn = "warn";
+    };
     site = {
       id = 50; # site/company id, range 1-256
       name = "home"; # site/company name
@@ -53,12 +59,16 @@ let
     };
     id = {
       admin = 0;
+      bridge = 70;
+      container = 80;
       user = 6;
       remote = 66;
       virtual = 99;
     };
     vlan = {
       admin = infra.id.admin;
+      bridge = infra.id.bridge;
+      container = infra.id.container;
       user = infra.id.user;
       remote = infra.id.remote;
       virtual = infra.id.virtual;
@@ -66,45 +76,50 @@ let
     net = {
       prefix = "${toString infra.site.networkrange.oct1}.${toString infra.site.networkrange.oct2}";
       admin = "${infra.net.prefix}.${toString infra.id.admin}";
-      bridge = "10.255.254";
+      bridge = "${infra.net.prefix}.${toString infra.id.bridge}";
+      container = "${infra.net.prefix}.${toString infra.id.container}";
       user = "${infra.net.prefix}.${toString infra.id.user}";
       remote = "${infra.net.prefix}.${toString infra.id.remote}";
       virtual = "${infra.net.prefix}.${toString infra.id.virtual}";
     };
     cidr = {
-      netmask = 23; # result => /23 => 255.255.254.0 => 512 ip/net
-      admin = "${infra.net.admin}.0/${toString infra.cidr.netmask}"; # result => network admin  10.50.0.0/23
-      user = "${infra.net.user}.0/${toString infra.cidr.netmask}"; # result => network user   10.50.6.0/23
-      remote = "${infra.net.remote}.0/${toString infra.cidr.netmask}"; # result => network remote 10.50.66.0/23
+      netmask = 23;
+      admin = "${infra.net.admin}.0/${toString infra.cidr.netmask}"; # 10.50.0.0/23
+      bridge = "${infra.net.bridge}.0/${toString infra.cidr.netmask}"; # 10.50.70.0/23
+      container = "${infra.net.container}.0/${toString infra.cidr.netmask}"; # 10.50.80.0/23
+      user = "${infra.net.user}.0/${toString infra.cidr.netmask}"; # 10.50.6.0/23
+      remote = "${infra.net.remote}.0/${toString infra.cidr.netmask}"; # 10.50.66.0/23
       clients = "${infra.cidr.user} ${infra.cidr.remote}";
-      all = "${infra.cidr.admin} ${infra.cidr.user} ${infra.cidr.remote} ${infra.localhost.cidr}";
-      allArray = [infra.cidr.admin infra.cidr.user infra.cidr.remote infra.localhost.cidr];
+      all = "${infra.cidr.admin} ${infra.cidr.container} ${infra.cidr.user} ${infra.cidr.remote} ${infra.cidr.podman} ${infra.localhost.cidr}";
+      allArray = [infra.cidr.admin infra.cidr.container infra.cidr.user infra.cidr.remote infra.cidr.podman infra.localhost.cidr];
       clientsArray = [infra.cidr.user infra.cidr.remote infra.localhost.cidr];
+      podman = "10.88.0.0/16";
+    };
+    domain = {
+      tld = infra.site.domain.tld;
+      domain = "${infra.domain.tld}"; # corp
+      user = "${infra.site.name}.${infra.domain.tld}"; # home.corp
+      admin = "${infra.zonename.admin}.${infra.domain.user}"; # admin.home.corp
+      bridge = "${infra.zonename.bridge}.${infra.domain.user}"; # container.home.corp
+      container = "${infra.zonename.container}.${infra.domain.user}"; # container.home.corp
+      remote = "${infra.zonename.remote}.${infra.domain.user}"; # remote.home.corp
+      virtual = "${infra.zonename.virtual}.${infra.domain.user}"; # virtual.home.corp
     };
     zonename = {
-      admin = "adm";
-      user = infra.site.name;
+      admin = "admin";
+      bridge = "bridge";
+      container = "container";
+      user = "user";
       remote = "remote";
       virtual = "virtual";
     };
-    domain = {
-      tld = infra.site.domain.tld; # tld => .corp
-      domain = "${infra.domain.tld}"; # not used, domain = tld => .corp
-      admin = "${infra.zonename.admin}.${infra.domain.user}"; # result => dns-zone adm.home.corp
-      user = "${infra.zonename.user}.${infra.domain.tld}"; # result => dns-zone home.corp
-      remote = "${infra.zonename.remote}.${infra.domain.tld}"; # result => dnz-zone remote.corp
-      virtual = "${infra.zonename.virtual}.${infra.domain.tld}"; # result => dnz-zone remote.corp
-    };
     namespace = {
       prefix = "";
-      admin = "0${infra.namespace.prefix}${toString infra.id.admin}-admin";
-      user = "0${infra.namespace.prefix}${toString infra.id.user}-user";
+      admin = "0${infra.namespace.prefix}${toString infra.id.admin}-${infra.zonename.admin}";
+      bridge = "${infra.namespace.prefix}${toString infra.id.bridge}-${infra.zonename.bridge}";
+      container = "${infra.namespace.prefix}${toString infra.id.container}-${infra.zonename.container}";
+      user = "0${infra.namespace.prefix}${toString infra.id.user}-${infra.zonename.user}";
       remote = "${infra.namespace.prefix}${toString infra.id.remote}-remote";
-    };
-    container = {
-      interface = "br0";
-      network = "172.16.0";
-      netmask = 24;
     };
     port = {
       dns = 53;
@@ -248,6 +263,7 @@ let
       uri = infra.smtp.user.uri;
       admin = {
         domain = infra.domain.admin;
+        namespace = infra.namespace.admin;
         fqdn = "${infra.smtp.hostname}.${infra.smtp.admin.domain}";
         ip = "${infra.net.admin}.${toString infra.smtp.id}";
         uri = "smtp://${infra.smtp.admin.fqdn}:${toString infra.port.smtp}";
@@ -255,6 +271,7 @@ let
       };
       user = {
         domain = infra.domain.user;
+        namespace = infra.namespace.user;
         fqdn = "${infra.smtp.hostname}.${infra.smtp.domain}";
         ip = "${infra.net.user}.${toString infra.smtp.id}";
         uri = "smtp://${infra.smtp.user.fqdn}:${toString infra.port.smtp}";
@@ -471,6 +488,7 @@ let
       name = "srv";
       hostname = infra.srv.name;
       sshd = false;
+      reverseproxy = true;
       admin = {
         domain = infra.domain.admin;
         fqdn = "${infra.srv.hostname}.${infra.srv.admin.domain}";
@@ -498,6 +516,7 @@ let
       name = "srv2";
       hostname = infra.srv2.name;
       sshd = true;
+      reverseproxy = false;
       admin = {
         domain = infra.domain.admin;
         fqdn = "${infra.srv2.hostname}.${infra.srv2.admin.domain}";

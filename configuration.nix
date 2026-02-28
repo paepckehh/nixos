@@ -64,7 +64,7 @@
       "net.ipv4.conf.default.rp_filter" = 1;
       "net.ipv4.icmp_echo_ignore_broadcasts" = 1;
       "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
-      "net.ipv4.ip_forward" = 0;
+      "net.ipv4.ip_forward" = 1;
       "net.ipv4.tcp_fastopen" = 3;
       "net.ipv4.tcp_rfc1337" = 1;
       "net.ipv4.tcp_syncookies" = 1;
@@ -303,7 +303,7 @@
   #####################
   environment = {
     shells = [pkgs.bashInteractive];
-    systemPackages = with pkgs; [cryptsetup libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
+    systemPackages = with pkgs; [cryptsetup git libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
   };
 
   ####################

@@ -17,6 +17,25 @@ in {
     firewall.allowedTCPPorts = [infra.port.smtp infra.port.imap];
   };
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd = {
+    network.networks."${infra.smtp.admin.namespace}".addresses = [{Address = "${infra.smtp.admin.ip}/32";}];
+    services = {
+      maddy = {
+        after = ["socket.target"];
+        wants = ["socket.target"];
+        wantedBy = ["multi-user.target"];
+      };
+      maddy-ensure-accounts = {
+        after = ["socket.target"];
+        wants = ["socket.target"];
+        wantedBy = ["multi-user.target"];
+      };
+    };
+  };
+
   ###############
   #-=# USERS #=-#
   ###############
@@ -29,22 +48,6 @@ in {
         hashedPassword = null; # disable ldap service account interactive logon
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
       };
-    };
-  };
-
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.services = {
-    maddy = {
-      after = ["socket.target"];
-      wants = ["socket.target"];
-      wantedBy = ["multi-user.target"];
-    };
-    maddy-ensure-accounts = {
-      after = ["socket.target"];
-      wants = ["socket.target"];
-      wantedBy = ["multi-user.target"];
     };
   };
 

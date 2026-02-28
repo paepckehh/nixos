@@ -44,8 +44,8 @@ in {
         createHome = true;
         isNormalUser = true;
         shell = pkgs.fish;
-        extraGroups = ["users" "wheel" "mongodb" "backup" "networkmanager" "audio" "input" "video" "docker" "libvirtd" "qemu-libvirtd" "rsync"];
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
+        extraGroups = ["users" "wheel" "backup" "networkmanager" "audio" "input" "video"];
+        openssh.authorizedKeys.keys = lib.mkDefault ["ssh-ed25519 AAA-#locked#-"];
       };
     };
     groups.me = {

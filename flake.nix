@@ -71,13 +71,13 @@
           ./packages/devops-core.nix
           ./packages/desktop/gnome.nix
           ./packages/desktop/add-onlyoffice.nix
-          ./server/base.nix
           ./server/ai/ollama01.nix
           ./server/cache/ncps.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix
           ./server/log/syslog-ng.nix
+          ./server/mail/maddy-admin.nix
           ./server/search/searx.nix
           ./server/pki/small-step.nix
           ./server/portal/homer-home-container.nix
@@ -102,7 +102,6 @@
           ./client/addrootCA.nix
           ./client/addCache.nix
           ./person/desktop/mpaepcke.nix
-          ./packages/base.nix
           ./packages/devops-core.nix
           ./packages/desktop/gnome.nix
           ./hosts/srv2.nix
