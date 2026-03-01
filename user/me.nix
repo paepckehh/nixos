@@ -86,8 +86,7 @@ in {
         fonts.fontconfig.enable = true;
         services.ssh-agent.enable = true;
         programs = {
-          # btop.enable = true;
-          # go.enable = true;
+          btop.enable = true;
           home-manager.enable = true;
           git.enable = true;
           starship.enable = true;
@@ -156,6 +155,36 @@ in {
                 signByDefault = lib.mkDefault false;
                 key = lib.mkDefault "~/.ssh/id_ed25519.pub";
               };
+            };
+          };
+          go = {
+            enable = true;
+            telemetry.mode = "off";
+            env = lib.mkForce {
+              CGO_ENABLED = "0";
+              GOAMD64 = "v3";
+              GOARCH = "amd64";
+              GOAUTH = lib.mkForce "";
+              GOCACHE = lib.mkForce "/nix/persist/cache/go/cache";
+              GOEXPERIMENT = "";
+              GOFIPS140 = "off";
+              GOHOSTARCH = "amd64";
+              GOHOSTOS = "linux";
+              GOINSECURE = lib.mkForce "";
+              GOMOD = lib.mkForce "/dev/null";
+              GOMODCACHE = lib.mkForce "/nix/persist/cache/go/pkg/mod";
+              GONOPROXY = lib.mkForce "";
+              GONOSUMDB = lib.mkForce "";
+              GOOS = "linux";
+              GOPATH = lib.mkForce ["/nix/persist/cache/go/path"];
+              GOPRIVATE = lib.mkForce "";
+              GOPROXY = lib.mkForce "https://proxy.golang.org"; # direct
+              GOSUMDB = lib.mkForce "sum.golang.org+033de0ae+Ac4zctda0e5eza+HJyk9SxEdh+s3Ux18htTTAD8OuAn8";
+              GOTELEMETRY = lib.mkForce "off";
+              GOTELEMETRYDIR = lib.mkForce "/dev/null";
+              GOTOOLCHAIN = lib.mkForce "auto";
+              GOVCS = lib.mkForce "";
+              GOWORK = lib.mkForce "";
             };
           };
           vim = {
