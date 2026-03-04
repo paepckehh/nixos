@@ -64,7 +64,7 @@ in {
           listen = [
             {
               addr = infra.localhost.ip;
-              port = infra.portal.localbind.port.http;
+              port = infra.git-mirror.localbind.port.http;
             }
           ];
         };
