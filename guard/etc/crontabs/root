@@ -1,0 +1,3 @@
+00 20 * * * poweroff
+00 23 * * * poweroff
+00 04 * * * poweroff

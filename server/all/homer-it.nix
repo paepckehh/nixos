@@ -29,7 +29,6 @@ in {
       settings = {
         title = " ⛅Cloud ";
         subtitle = " ==> Start Portal interne Service Cloud!";
-        # logo = "https://res.${infra.domain.user}/branding/debitor_icon_dark.png";
         header = true;
         columns = "2";
         connectivityCheck = false;

@@ -98,12 +98,10 @@ in {
             ${infra.proxmox.hostname}            IN A  ${infra.proxmox.ip}
             ${infra.ollama01.hostname}           IN A  ${infra.ollama01.ip}
             ${infra.webacme.hostname}            IN A  ${infra.webacme.ip}
-            ${infra.webmtls.hostname}            IN A  ${infra.webmtls.ip}
             ${infra.webpki.hostname}             IN A  ${infra.webpki.ip}
             ${infra.autoconfig.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.autoconfig.admin.ip}"
             ${infra.databasement.hostname}       IN HTTPS 1 . alpn="h3" ipv4hint="${infra.databasement.ip}"
             ${infra.webacme.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webacme.ip}"
-            ${infra.webmtls.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webmtls.ip}"
             ${infra.webpki.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webpki.ip}"
             _autodiscover._tcp                   IN SRV 0 0 443 ${infra.autoconfig.admin.fqdn}.
             _imap._tcp                           IN SRV 0 0 143 ${infra.imap.user.fqdn}.
@@ -133,6 +131,8 @@ in {
             ${infra.dumbdrop.hostname}           IN A  ${infra.dumbdrop.ip}
             ${infra.ente.hostname}               IN A  ${infra.ente.ip}
             ${infra.erpnext.hostname}            IN A  ${infra.erpnext.ip}
+            ${infra.git.hostname}                IN A  ${infra.git.ip}
+            ${infra.git-mirror.hostname}         IN A  ${infra.git-mirror.ip}
             ${infra.grist.hostname}              IN A  ${infra.grist.ip}
             ${infra.glance.hostname}             IN A  ${infra.glance.ip}
             ${infra.iam.hostname}                IN A  ${infra.iam.ip}
@@ -148,6 +148,7 @@ in {
             ${infra.nextcloud.hostname}          IN A  ${infra.nextcloud.ip}
             ${infra.miniflux.hostname}           IN A  ${infra.miniflux.ip}
             ${infra.portal.hostname}             IN A  ${infra.portal.ip}
+            ${infra.undb.hostname}               IN A  ${infra.undb.ip}
             ${infra.onlyoffice.hostname}         IN A  ${infra.onlyoffice.ip}
             ${infra.rackula.hostname}            IN A  ${infra.rackula.ip}
             ${infra.res.hostname}                IN A  ${infra.res.ip}
@@ -160,6 +161,7 @@ in {
             ${infra.timetrack.hostname}          IN A  ${infra.timetrack.ip}
             ${infra.translate.hostname}          IN A  ${infra.translate.ip}
             ${infra.vault.hostname}              IN A  ${infra.vault.ip}
+            ${infra.vaultls.hostname}            IN A  ${infra.vaultls.ip}
             ${infra.webarchiv.hostname}          IN A  ${infra.webarchiv.ip}
             ${infra.webmail.hostname}            IN A  ${infra.webmail.ip}
             ${infra.websurfx.hostname}           IN A  ${infra.websurfx.ip}
@@ -174,6 +176,8 @@ in {
             ${infra.dumbdrop.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.dumbdrop.ip}"
             ${infra.ente.hostname}               IN HTTPS 1 . alpn="h3" ipv4hint="${infra.ente.ip}"
             ${infra.erpnext.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.erpnext.ip}"
+            ${infra.git.hostname}                IN HTTPS 1 . alpn="h3" ipv4hint="${infra.git.ip}"
+            ${infra.git-mirror.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.git-mirror.ip}"
             ${infra.grist.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.grist.ip}"
             ${infra.glance.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.glance.ip}"
             ${infra.iam.hostname}                IN HTTPS 1 . alpn="h3" ipv4hint="${infra.iam.ip}"
@@ -197,12 +201,16 @@ in {
             ${infra.timetrack.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.timetrack.ip}"
             ${infra.translate.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.translate.ip}"
             ${infra.vault.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.vault.ip}"
+            ${infra.vaultls.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.vaultls.ip}"
             ${infra.webarchiv.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webarchiv.ip}"
             ${infra.webmail.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webmail.ip}"
             ${infra.websurfx.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.websurfx.ip}"
             ${infra.web-check.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.web-check.ip}"
             ${infra.wiki-go.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.wiki-go.ip}"
             ${infra.zipline.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.zipline.ip}"
+            _autoupdate-it                       IN TXT "true"
+            _autoupdate-ti                       IN TXT "false"
+            _autoupdate-op                       IN TXT "false"
             _autodiscover._tcp                   IN SRV 0 0 443 ${infra.autoconfig.user.fqdn}.
             _imap._tcp                           IN SRV 0 0 143 ${infra.imap.user.fqdn}.
             _matrix._tcp                         IN SRV 0 0 443 ${infra.matrix.fqdn}.
@@ -264,7 +272,6 @@ in {
             ${toString infra.imap.id}               IN PTR ${infra.imap.admin.fqdn}.
             ${toString infra.smtp.id}               IN PTR ${infra.smtp.admin.fqdn}.
             ${toString infra.webacme.id}            IN PTR ${infra.webacme.fqdn}.
-            ${toString infra.webmtls.id}            IN PTR ${infra.webmtls.fqdn}.
             ${toString infra.webpki.id}             IN PTR ${infra.webpki.fqdn}.
           '';
         };
@@ -308,6 +315,7 @@ in {
             ${toString infra.res.id}                IN PTR ${infra.res.fqdn}.
             ${toString infra.translate.id}          IN PTR ${infra.translate.fqdn}.
             ${toString infra.vault.id}              IN PTR ${infra.vault.fqdn}.
+            ${toString infra.vaultls.id}            IN PTR ${infra.vaultls.fqdn}.
             ${toString infra.webarchiv.id}          IN PTR ${infra.webarchiv.fqdn}.
             ${toString infra.webmail.id}            IN PTR ${infra.webmail.fqdn}.
             ${toString infra.web-check.id}          IN PTR ${infra.webmail.fqdn}.

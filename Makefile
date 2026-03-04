@@ -17,7 +17,7 @@ ALLFLAKE:=$(REPO)/.\#srv-full
 PROFILE:="$(TARGET)-$(DTS)"
 TYPE:="nixos boot profile"
 USELUKS:=YES
-MIRROR:=/home/projects/nixos
+MIRROR:=/nix/persist/gitmirror
 ifeq ($(origin LUKS),undefined)
       USELUKS:=NO
 endif
@@ -99,7 +99,6 @@ offline: check
 rollback: check 
 	$(SUDO) nixos-rebuild switch --rollback 
 
-
 #######################
 # NIX REPO OPERATIONS #
 #######################
@@ -141,13 +140,9 @@ clean-hard: internal-clean-profiles internal-clean-1d build gc
 clean-profiles: internal-clean-profiles build buildagain 
 	$(SUDO) ls -la /boot/loader/entries
 
-cache: update build-nixos-all sign
 build-nixos-all:
 	nixos-rebuild build -v --fallback --flake $(ALLFLAKE)
 	rm -rf result
-
-sign:
-	nix store sign --all --key-file /var/cache-priv-key.pem
 
 gc: git-gc 
 	nix-store --gc
@@ -173,6 +168,11 @@ internal-clean-profiles:
 	$(SUDO) chmod -R 700 /boot/loader/entries
 	$(SUDO) mkdir -p /nix/var/log/nix/drvs
 	$(SUDO) mkdir -p /nix/var/nix/profiles/system-profiles
+
+cache: 
+	${MAKE} mirror-update update boot
+	TARGET=srv-full ${make} test
+
 
 #################
 # NIXOS INSTALL #
@@ -259,27 +259,22 @@ yubikey-generate-ssh:
 ##############
 mirror-update:
 	$(SUDO) -v 
-	git -C $(MIRROR)/agenix.git fetch
-	git -C $(MIRROR)/disko.git fetch
-	git -C $(MIRROR)/home-manager.git fetch
-	git -C $(MIRROR)/nixpkgs.git fetch
-	git -C $(MIRROR)/paepckehh-nixospkgs fetch
-	git -C $(MIRROR)/paepckehh-nixos fetch
+	$(SUDO) chown -R 0:0 $(MIRROR)
+	$(SUDO) git -C $(MIRROR)/agenix.git fetch
+	$(SUDO) git -C $(MIRROR)/disko.git fetch
+	$(SUDO) git -C $(MIRROR)/home-manager.git fetch
+	$(SUDO) git -C $(MIRROR)/nixpkgs.git fetch
 
 mirror-compact:
 	$(SUDO) -v 
-	git -C $(REPO) gc --aggressive 
-	git -C $(MIRROR)/paepckehh-nixos gc --aggressive
-	git -C $(MIRROR)/agenix.git gc --aggressive 
-	git -C $(MIRROR)/disko.git gc --aggressive
-	git -C $(MIRROR)/home-manager.git gc --aggressive 
-	git -C $(MIRROR)/nixpkgs.git gc --aggressive --keep-largest-pack
-	git -C $(MIRROR)/paepckehh-nixpkgs gc --aggressive --keep-largest-pack
+	$(SUDO) chown -R 0:0 $(MIRROR)
+	$(SUDO) git -C $(MIRROR)/agenix.git gc --aggressive 
+	$(SUDO) git -C $(MIRROR)/disko.git gc --aggressive
+	$(SUDO) git -C $(MIRROR)/home-manager.git gc --aggressive 
+	$(SUDO) git -C $(MIRROR)/nixpkgs.git gc --aggressive --keep-largest-pack
 
 mirror-compact-full: 
-	$(SUDO) -v 
-	git -C $(MIRROR)/nixpkgs.git gc --aggressive 
-	git -C $(MIRROR)/paepckehh-nixpkgs gc --aggressive 
+	$(SUDO) git -C $(MIRROR)/nixpkgs.git gc --aggressive 
 
 #################
 # LITTLE HELPER #

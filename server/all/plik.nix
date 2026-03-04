@@ -11,7 +11,7 @@
         ListenAddress = "0.0.0.0";
         MetricsPort = 0;
         MetricsAddress = "0.0.0.0";
-        AbuseContac = "it@pvz.digital";
+        AbuseContac = "it@example.digital";
         MaxFileSizeStr = "4GB";
         MaxUserSizeStr = "4GB";
         DefaultTTLStr = "1d";

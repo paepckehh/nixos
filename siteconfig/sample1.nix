@@ -7,7 +7,7 @@
   infra = (import ./base.nix).infra {
     site = {
       id = 23;
-      name = "pvz";
+      name = "adc";
       displayName = "ABC GmbH & Co. KG";
       domain.extern = "abc.digital";
     };

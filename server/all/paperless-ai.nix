@@ -49,7 +49,7 @@
       hostname = "smtp";
       domain = infra.domain.admin;
       fqdn = "${infra.smtp.hostname}.${infra.smtp.domain}";
-      externalDomain = "debitor.de";
+      externalDomain = "example.de";
     };
     admin = {
       name = "admin";

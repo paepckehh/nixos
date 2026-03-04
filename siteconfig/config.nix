@@ -7,6 +7,12 @@ let
     false = "false";
     none = "none";
     one = "1";
+    log = {
+      trace = "trace";
+      debug = "debug";
+      info = "info";
+      warn = "warn";
+    };
     site = {
       id = 50; # site/company id, range 1-256
       name = "home"; # site/company name
@@ -44,6 +50,12 @@ let
         pwd = "password";
       };
     };
+    storage = {
+      persist = "/nix/persist";
+      cache = "${infra.storage.persist}/cache";
+      gitmirror = "${infra.storage.persist}/gitmirror";
+    };
+    go.cache = "${infra.storage.cache}/go";
     localhost = {
       name = "localhost";
       ip = "127.0.0.1";
@@ -51,14 +63,19 @@ let
       port.offset = 7000;
       metric.offset = 9000;
     };
+    container.interface = "br0";
     id = {
       admin = 0;
+      bridge = 70;
+      container = 80;
       user = 6;
       remote = 66;
       virtual = 99;
     };
     vlan = {
       admin = infra.id.admin;
+      bridge = infra.id.bridge;
+      container = infra.id.container;
       user = infra.id.user;
       remote = infra.id.remote;
       virtual = infra.id.virtual;
@@ -66,45 +83,50 @@ let
     net = {
       prefix = "${toString infra.site.networkrange.oct1}.${toString infra.site.networkrange.oct2}";
       admin = "${infra.net.prefix}.${toString infra.id.admin}";
-      bridge = "10.255.254";
+      bridge = "${infra.net.prefix}.${toString infra.id.bridge}";
+      container = "${infra.net.prefix}.${toString infra.id.container}";
       user = "${infra.net.prefix}.${toString infra.id.user}";
       remote = "${infra.net.prefix}.${toString infra.id.remote}";
       virtual = "${infra.net.prefix}.${toString infra.id.virtual}";
     };
     cidr = {
-      netmask = 23; # result => /23 => 255.255.254.0 => 512 ip/net
-      admin = "${infra.net.admin}.0/${toString infra.cidr.netmask}"; # result => network admin  10.50.0.0/23
-      user = "${infra.net.user}.0/${toString infra.cidr.netmask}"; # result => network user   10.50.6.0/23
-      remote = "${infra.net.remote}.0/${toString infra.cidr.netmask}"; # result => network remote 10.50.66.0/23
+      netmask = 23;
+      admin = "${infra.net.admin}.0/${toString infra.cidr.netmask}"; # 10.50.0.0/23
+      bridge = "${infra.net.bridge}.0/${toString infra.cidr.netmask}"; # 10.50.70.0/23
+      container = "${infra.net.container}.0/${toString infra.cidr.netmask}"; # 10.50.80.0/23
+      user = "${infra.net.user}.0/${toString infra.cidr.netmask}"; # 10.50.6.0/23
+      remote = "${infra.net.remote}.0/${toString infra.cidr.netmask}"; # 10.50.66.0/23
       clients = "${infra.cidr.user} ${infra.cidr.remote}";
-      all = "${infra.cidr.admin} ${infra.cidr.user} ${infra.cidr.remote} ${infra.localhost.cidr}";
-      allArray = [infra.cidr.admin infra.cidr.user infra.cidr.remote infra.localhost.cidr];
+      all = "${infra.cidr.admin} ${infra.cidr.container} ${infra.cidr.user} ${infra.cidr.remote} ${infra.cidr.podman} ${infra.localhost.cidr}";
+      allArray = [infra.cidr.admin infra.cidr.container infra.cidr.user infra.cidr.remote infra.cidr.podman infra.localhost.cidr];
       clientsArray = [infra.cidr.user infra.cidr.remote infra.localhost.cidr];
+      podman = "10.88.0.0/16";
+    };
+    domain = {
+      tld = infra.site.domain.tld;
+      domain = "${infra.domain.tld}"; # corp
+      user = "${infra.site.name}.${infra.domain.tld}"; # home.corp
+      admin = "${infra.zonename.admin}.${infra.domain.user}"; # admin.home.corp
+      bridge = "${infra.zonename.bridge}.${infra.domain.user}"; # container.home.corp
+      container = "${infra.zonename.container}.${infra.domain.user}"; # container.home.corp
+      remote = "${infra.zonename.remote}.${infra.domain.user}"; # remote.home.corp
+      virtual = "${infra.zonename.virtual}.${infra.domain.user}"; # virtual.home.corp
     };
     zonename = {
-      admin = "adm";
-      user = infra.site.name;
+      admin = "admin";
+      bridge = "bridge";
+      container = "container";
+      user = "user";
       remote = "remote";
       virtual = "virtual";
     };
-    domain = {
-      tld = infra.site.domain.tld; # tld => .corp
-      domain = "${infra.domain.tld}"; # not used, domain = tld => .corp
-      admin = "${infra.zonename.admin}.${infra.domain.user}"; # result => dns-zone adm.home.corp
-      user = "${infra.zonename.user}.${infra.domain.tld}"; # result => dns-zone home.corp
-      remote = "${infra.zonename.remote}.${infra.domain.tld}"; # result => dnz-zone remote.corp
-      virtual = "${infra.zonename.virtual}.${infra.domain.tld}"; # result => dnz-zone remote.corp
-    };
     namespace = {
       prefix = "";
-      admin = "0${infra.namespace.prefix}${toString infra.id.admin}-admin";
-      user = "0${infra.namespace.prefix}${toString infra.id.user}-user";
+      admin = "0${infra.namespace.prefix}${toString infra.id.admin}-${infra.zonename.admin}";
+      bridge = "${infra.namespace.prefix}${toString infra.id.bridge}-${infra.zonename.bridge}";
+      container = "${infra.namespace.prefix}${toString infra.id.container}-${infra.zonename.container}";
+      user = "0${infra.namespace.prefix}${toString infra.id.user}-${infra.zonename.user}";
       remote = "${infra.namespace.prefix}${toString infra.id.remote}-remote";
-    };
-    container = {
-      interface = "br0";
-      network = "172.16.0";
-      netmask = 24;
     };
     port = {
       dns = 53;
@@ -248,6 +270,7 @@ let
       uri = infra.smtp.user.uri;
       admin = {
         domain = infra.domain.admin;
+        namespace = infra.namespace.admin;
         fqdn = "${infra.smtp.hostname}.${infra.smtp.admin.domain}";
         ip = "${infra.net.admin}.${toString infra.smtp.id}";
         uri = "smtp://${infra.smtp.admin.fqdn}:${toString infra.port.smtp}";
@@ -255,6 +278,7 @@ let
       };
       user = {
         domain = infra.domain.user;
+        namespace = infra.namespace.user;
         fqdn = "${infra.smtp.hostname}.${infra.smtp.domain}";
         ip = "${infra.net.user}.${toString infra.smtp.id}";
         uri = "smtp://${infra.smtp.user.fqdn}:${toString infra.port.smtp}";
@@ -314,6 +338,30 @@ let
       ip = "${infra.net.user}.${toString infra.webmail.id}";
       localbind.port.http = infra.localhost.port.offset + infra.webmail.id;
     };
+    git = {
+      id = 26;
+      app = "forgejo";
+      name = "git";
+      hostname = infra.git.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.git.hostname}.${infra.git.domain}";
+      ip = "${infra.net.user}.${toString infra.git.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.git.id;
+      url = "https://${infra.git.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.git.app}.png";
+    };
+    git-mirror = {
+      id = 27;
+      app = "cgit";
+      name = "git-mirror";
+      hostname = infra.git-mirror.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.git-mirror.hostname}.${infra.git-mirror.domain}";
+      ip = "${infra.net.user}.${toString infra.git.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.git-mirror.id;
+      url = "https://${infra.git-mirror.fqdn}";
+      logo = "${infra.res.url}/icon/png/git.png";
+    };
     dns = {
       id = 53;
       name = "dns";
@@ -368,6 +416,7 @@ let
     };
     cache = {
       id = 55;
+      app = "ncps";
       name = "cache";
       hostname = infra.cache.name;
       domain = infra.domain.user;
@@ -378,7 +427,7 @@ let
       url = "https://${infra.cache.fqdn}";
       processor = "cpu"; # cpu, rocm, cuda, vulcan
       size = "256G";
-      storage = "/nix/persist/ncps";
+      storage = "${infra.storage.cache}/${infra.cache.app}";
       key = {
         url = "${infra.cache.url}/pubkey";
         pub = "cache:aFde6/c1Vz93N1XGGrvt/7NlUNdAyV35CgBUXKzyhyU=";
@@ -448,6 +497,8 @@ let
       fqdn = "${infra.sso.hostname}.${infra.sso.domain}";
       ip = "${infra.net.user}.${toString infra.sso.id}";
       localbind.port.http = infra.localhost.port.offset + infra.sso.id;
+      url = "https://${infra.sso.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.sso.app}.png";
       oidc = {
         auth = {
           basic = "client_secret_basic"; # paperless, openweb-ui, miniflux
@@ -462,8 +513,6 @@ let
         discoveryUri = "${infra.sso.url}/.well-known/openid-configuration";
         consent = "implicit";
       };
-      url = "https://${infra.sso.fqdn}";
-      logo = "${infra.res.url}/icon/png/${infra.sso.app}.png";
     };
     srv = {
       id = 100;
@@ -471,6 +520,7 @@ let
       name = "srv";
       hostname = infra.srv.name;
       sshd = false;
+      reverseproxy = true;
       admin = {
         domain = infra.domain.admin;
         fqdn = "${infra.srv.hostname}.${infra.srv.admin.domain}";
@@ -498,6 +548,7 @@ let
       name = "srv2";
       hostname = infra.srv2.name;
       sshd = true;
+      reverseproxy = false;
       admin = {
         domain = infra.domain.admin;
         fqdn = "${infra.srv2.hostname}.${infra.srv2.admin.domain}";
@@ -769,16 +820,23 @@ let
       url = "https://${infra.webpki.fqdn}";
       logo = "${infra.res.url}/icon/png/cert-manager.png";
     };
-    webmtls = {
+    vaultls = {
       id = 153;
       app = "vaultls";
-      name = "webmtls";
-      hostname = infra.webmtls.name;
-      domain = infra.domain.admin;
-      fqdn = "${infra.webmtls.hostname}.${infra.webmtls.domain}";
-      ip = "${infra.net.admin}.${toString infra.webmtls.id}";
-      localbind.port.http = infra.localhost.port.offset + infra.webmtls.id;
-      url = "https://${infra.webmtls.fqdn}";
+      name = infra.vaultls.app;
+      hostname = infra.vaultls.name;
+      domain = infra.domain.user;
+      namespace = infra.namespace.user;
+      fqdn = "${infra.vaultls.hostname}.${infra.vaultls.domain}";
+      ip = "${infra.net.user}.${toString infra.vaultls.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.vaultls.id;
+      api = "a2Ni8SCUuCboDfAa5VGZ8ByPxb2k6hM//babfp/2F+A=";
+      db = "9ME/zzODKjHOMKmUYhSccHFxZ5Q+sWqJrCCu+yfalIs=";
+      oidc = {
+        secret = "insecure_secret";
+        callback.url = "${infra.vaultls.url}/api/auth/oidc/callback";
+      };
+      url = "https://${infra.vaultls.fqdn}";
       logo = "${infra.res.url}/icon/png/vault.png";
     };
     translate = {
@@ -790,8 +848,9 @@ let
       fqdn = "${infra.translate.hostname}.${infra.translate.domain}";
       ip = "${infra.net.user}.${toString infra.translate.id}";
       localbind.port.http = infra.localhost.port.offset + infra.translate.id;
+      container.ip = "${infra.net.container}.${toString infra.translate.id}";
       logo = "${infra.res.url}/icon/png/${infra.translate.app}.png";
-      container.ip = "${infra.container.network}.${toString infra.translate.id}";
+      url = "https://${infra.translate.fqdn}";
     };
     test = {
       id = 155;
@@ -848,7 +907,7 @@ let
       domain = infra.domain.user;
       fqdn = "${infra.immich.hostname}.${infra.immich.domain}";
       ip = "${infra.net.user}.${toString infra.immich.id}";
-      container.ip = "${infra.container.network}.${toString infra.immich.id}";
+      container.ip = "${infra.net.container}.${toString infra.immich.id}";
       localbind.port.http = infra.localhost.port.offset + infra.immich.id;
       url = "https://${infra.immich.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.immich.app}.png";
@@ -910,10 +969,7 @@ let
       fqdn = "${infra.onlyoffice.hostname}.${infra.onlyoffice.domain}";
       ip = "${infra.net.user}.${toString infra.onlyoffice.id}";
       localbind.port.http = infra.localhost.port.offset + infra.onlyoffice.id;
-      container = {
-        ip = "${infra.container.network}.${toString infra.onlyoffice.id}";
-        cidr = "${infra.onlyoffice.container.ip}/${toString infra.container.netmask}";
-      };
+      container.ip = "${infra.net.container}.${toString infra.onlyoffice.id}";
       url = "https://${infra.onlyoffice.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.onlyoffice.app}.png";
     };
@@ -925,7 +981,7 @@ let
       domain = infra.domain.admin;
       fqdn = "${infra.ollama01.hostname}.${infra.ollama01.domain}";
       ip = "${infra.net.user}.${toString infra.ollama01.id}";
-      storage = "/nix/persist/ollama/models";
+      storage = "${infra.storage.cache}/ollama/models";
       models = [];
       localbind.port.http = infra.localhost.port.offset + infra.ollama01.id;
     };
@@ -1108,6 +1164,18 @@ let
       localbind.port.http = infra.localhost.port.offset + infra.dumbdrop.id;
       url = "https://${infra.dumbdrop.fqdn}";
       logo = "${infra.res.url}/icon/png/dropbox.png";
+    };
+    undb = {
+      id = 184;
+      app = "undb";
+      name = infra.undb.app;
+      hostname = infra.undb.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.undb.hostname}.${infra.undb.domain}";
+      ip = "${infra.net.user}.${toString infra.undb.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.undb.id;
+      url = "https://${infra.undb.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.undb.app}.png";
     };
   };
 in {infra = infra;}

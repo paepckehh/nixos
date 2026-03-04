@@ -1,0 +1,3 @@
+# wfhpi, add packages
+# https://firmware-selector.openwrt.org/ 
+luci-ssl luci-mod-dashboard bind-dig vim-fuller fish whereis curl mtr btop kmod-lib-zstd kmod-wireguard luci-proto-wireguard wireguard-tools kmod-usb-net-asix kmod-usb-net-asix-ax88179 kmod-usb-net-cdc-ether kmod-usb-net-cdc-mbim kmod-mt7921-firmware kmod-mt7921u kmod-rtw88

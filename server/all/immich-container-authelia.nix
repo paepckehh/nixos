@@ -39,7 +39,7 @@ in {
     autoStart = true;
     privateNetwork = true;
     hostBridge = infra.container.interface;
-    localAddress = "${infra.immich.container.ip}/${toString infra.container.netmask}";
+    localAddress = "${infra.immich.container.ip}/${toString infra.cidr.netmask}";
     config = {
       config,
       pkgs,

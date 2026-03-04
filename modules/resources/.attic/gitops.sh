@@ -16,8 +16,8 @@ $SUDO_CMD chown -R $REPO_OWNER:$REPO_GROUP $REPO_STORE
 $SUDO_CMD chmod -R g=rwX $REPO_STORE
 if [ ! -d $REPO_PATH ]; then
 	echo "[GITOPS] Init: First Run!"
-	mkdir -p $REPO_PATH/pvz
-	XCMD="git -C $REPO_PATH/pvz clone --progress https://git.admin.lan/pvz/nixos.git nixos" && action
+	mkdir -p $REPO_PATH/ex
+	XCMD="git -C $REPO_PATH/ex clone --progress https://git.admin.lan/ex/nixos.git nixos" && action
 fi
 ls $REPO_PATH | while read target; do
 	FOLDER=$REPO_PATH/$target

@@ -16,7 +16,7 @@
           port = 25;
           hostname = "smtp";
           domain = "dbt.corp";
-          maildomain = "debitor.de";
+          maildomain = "example.de";
           fqdn = "${infra.lan.services.smtp.hostname}.${infra.lan.services.smtp.domain}";
         };
         dav = {

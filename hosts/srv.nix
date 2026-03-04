@@ -12,7 +12,7 @@ in {
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [./srv-defaults.nix];
+  imports = [../role/server.nix];
 
   ##############
   # NETWORKING #
@@ -23,8 +23,9 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
+    caddy.enable = lib.mkForce infra.srv.reverseproxy;
     openssh = {
-      enable = infra.srv.sshd;
+      enable = lib.mkForce infra.srv.sshd;
       listenAddresses = [{addr = infra.srv.admin.ip;}];
     };
   };
@@ -34,8 +35,8 @@ in {
   ###########
   systemd = {
     network.networks = {
-      "${infra.namespace.admin}".addresses = [{Address = "${infra.srv.admin.ip}/23";}];
-      "${infra.namespace.user}".addresses = [{Address = "${infra.srv.user.ip}/23";}];
+      "${infra.namespace.admin}".addresses = [{Address = "${infra.srv.admin.ip}/${toString infra.cidr.netmask}";}];
+      "${infra.namespace.user}".addresses = [{Address = "${infra.srv.user.ip}/${toString infra.cidr.netmask}";}];
     };
   };
 }

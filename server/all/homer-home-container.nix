@@ -76,7 +76,7 @@ in {
           settings = {
             title = " ⛅HomeCloud ";
             subtitle = " ==> Start Portal internal HomeCloud!";
-            # logo = "https://res.${infra.domain.user}/branding/debitor_icon_dark.png";
+            # logo = "https://res.${infra.domain.user}/branding/example_icon_dark.png";
             header = true;
             columns = "2";
             connectivityCheck = false;
@@ -209,11 +209,18 @@ in {
                     logo = infra.res.logo;
                   }
                   {
-                    name = "Test";
+                    name = "forgejo";
                     tag = "app";
                     target = "_blank";
-                    url = infra.test.url;
-                    logo = infra.test.logo;
+                    url = infra.git.url;
+                    logo = infra.git.logo;
+                  }
+                  {
+                    name = "git-mirror";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.git-mirror.url;
+                    logo = infra.git-mirror.logo;
                   }
                   {
                     name = "Wiki";
@@ -335,11 +342,11 @@ in {
                     logo = infra.webpki.logo;
                   }
                   {
-                    name = "WebMTLS";
+                    name = "VaulTLS";
                     tag = "app";
                     target = "_blank";
-                    url = infra.webmtls.url;
-                    logo = infra.webmtls.logo;
+                    url = infra.vaultls.url;
+                    logo = infra.vaultls.logo;
                   }
                   {
                     name = "Rackula";
@@ -375,6 +382,20 @@ in {
                     target = "_blank";
                     url = infra.erpnext.url;
                     logo = infra.erpnext.logo;
+                  }
+                  {
+                    name = "Undb";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.undb.url;
+                    logo = infra.undb.logo;
+                  }
+                  {
+                    name = "Translate";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.translate.url;
+                    logo = infra.translate.logo;
                   }
                   {
                     name = "Web-Check";

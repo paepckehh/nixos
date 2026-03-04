@@ -1,0 +1,74 @@
+
+config interface 'loopback'
+	option device 'lo'
+	option proto 'static'
+	list ipaddr '127.0.0.1/8'
+
+config globals 'globals'
+	option dhcp_default_duid '0004c0e23c03c1c341ae926548a3fdc73a32'
+	option ula_prefix 'fd6c:8ac5:4ba6::/48'
+	option packet_steering '1'
+
+config device
+	option name 'br-lan'
+	option type 'bridge'
+	list ports 'eth0'
+	option ipv6 '0'
+
+config interface 'lan'
+	option device 'eth0.6'
+	option proto 'static'
+	list ipaddr '192.168.1.1/24'
+	option delegate '0'
+
+config interface 'wanusb'
+	option proto 'dhcp'
+	option device 'eth1'
+	option peerdns '0'
+	list dns '10.20.6.3'
+	list dns '10.20.6.2'
+	option delegate '0'
+
+config device
+	option name 'eth0'
+	option ipv6 '0'
+
+config device
+	option name 'eth1'
+	option ipv6 '0'
+
+config device
+	option name 'phy0-sta0'
+	option ipv6 '0'
+
+config device
+	option name 'phy1-sta0'
+	option ipv6 '0'
+
+config device
+	option name 'wg'
+	option ipv6 '0'
+
+config device
+	option type '8021q'
+	option ifname 'eth0'
+	option vid '6'
+	option name 'eth0.6'
+	option ipv6 '0'
+
+config interface 'wg0'
+	option proto 'wireguard'
+	option private_key 'REPLACEWPK'
+	list addresses 'REPLACEIP/32'
+	list dns '10.20.6.3'
+	list dns '10.20.6.2'
+
+config wireguard_wg0
+	option description 'Imported peer configuration'
+	option public_key '==== ANCHOR PUBLIC KEY HERE - STATIC ===='
+	option preshared_key 'REPLACEPSK'
+	list allowed_ips '10.20.0.0/16'
+	option endpoint_host '=== PUBLIC ENDPOINT IP HERE === '
+	option endpoint_port '51820'
+	option route_allowed_ips '1'
+

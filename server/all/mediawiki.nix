@@ -10,7 +10,7 @@
           ip = "10.20.6.123";
           hostname = "wiki";
           domain = "dbt.corp";
-          mail = "it@debitor.de";
+          mail = "it@example.de";
           namespace = "06-dbt";
           network = "10.20.6.0/23";
           ports.tcp = 443;

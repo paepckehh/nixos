@@ -18,7 +18,10 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.ollama01.ip}/32";}];
+  systemd = {
+    network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.ollama01.ip}/32";}];
+    tmpfiles.rules = ["d ${infra.ollama01.storage} 0700 ollama ollama"];
+  };
 
   ##################
   #-=# SERVICES #=-#

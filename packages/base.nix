@@ -16,10 +16,8 @@
     mtr.enable = true;
     vim.enable = true;
     yubikey-manager.enable = true;
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
+    gnupg.agent.enable = false;
+    #  enableSSHSupport = true;
     ssh = {
       extraConfig = "AddKeysToAgent yes";
       hostKeyAlgorithms = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
@@ -133,7 +131,6 @@
       grc
       gnumake
       gnupg
-      go
       inetutils
       jq
       kmon

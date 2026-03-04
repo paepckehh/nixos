@@ -27,7 +27,7 @@
   # systemctl service-log-level systemd-networkd.service info
   # systemctl service-log-level systemd-networkd.service debug
   systemd = {
-    services."systemd-networkd".environment.SYSTEMD_LOG_LEVEL = "debug"; # warn, info, debug
+    services."systemd-networkd".environment.SYSTEMD_LOG_LEVEL = lib.mkForce "debug";
     network = {
       enable = true;
       networks = {

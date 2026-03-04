@@ -7,9 +7,9 @@
   infra = (import ./base.nix).infra {
     site = {
       id = 50;
-      name = "dbt";
-      displayName = "zyx GmbH";
-      domain.extern = "xyz.de";
+      name = "ttt";
+      displayName = "ttt GmbH";
+      domain.extern = "ttt.de";
     };
   };
 in {infra = infra;}

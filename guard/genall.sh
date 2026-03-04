@@ -16,6 +16,14 @@ fi
 if [ -z $NEXT ]; then
 	NEXT=1
 fi
+if [ -z $NETWORK ]; then
+	echo "NETWORK env variable missing. Needed for IP Address generation."
+        exit 1
+fi
+if [ -z $BRAND ]; then
+	echo "BRAND env variable missing. Needed for Hostname generation"
+        exit 1
+fi
 if ! [[ "$NEXT" =~ ^[0-9]+$ ]]; then
 	echo "NEXT variable contains: $NEXT"
 	echo "NEXT variable should contain a number only."
@@ -36,25 +44,44 @@ fi
 
 init_urand() {
 	CKEY="$(echo "$(date +%N)$(date +%N)$(date)$(date +%N)$(date +%N)$(date)$(ps -aux)" | openssl sha3-512 | cut -c 18-81)"
-	IV="$(echo "$(date)$(date +%N)$(date)$(date +%N)$(date +%N)$(ps -aux)" | openssl sha3-512 | cut -c 18-49)"
-        STATE="$(sudo ps -aux)$(date)$(date +%N)$(date +%N)$(sudo dmesg)$(sudo ps -aux)$(date +%N)"
+        IV="$(echo "$(date)$(date +%N)$(date)$(date +%N)$(date +%N)$(ps -aux)" | openssl sha3-512 | cut -c 18-49)"
+        STATE="$(ps -aux)$(date)$(date +%N)$(date +%N)$(ps -aux)$(date +%N)"
 	TOKEN="$(echo $STATE | openssl enc -a | sed ':a;N;$!ba;s/\n//g' | openssl enc -chacha20 -K $CKEY -iv $IV | openssl enc -a | sed ':a;N;$!ba;s/\n//g')"
         FEED="$(echo $TOKEN | openssl sha3-256 | cut -c 18- | openssl enc -a | sed ':a;N;$!ba;s/\n//g')"
-	echo "$FEED" | sudo tee -a /dev/urandom > /dev/null
+	echo "$FEED" | tee -a /dev/urandom > /dev/null
         dd if=/dev/urandom of=/dev/null bs=64 count=1024 > /dev/null 2>&1 
         FEED="[...]$(echo $FEED | cut -c 64-)"
 }
 
 write_opn_csv_header() {
-        echo "HOSTNAME,IP,PUBLIC-KEY,PRE-SHARED-KEY,INSTANCE" > $out_csv
+        echo "HOSTNAME,PUBLIC-KEY,PRE-SHARED-KEY,IP,INSTANCE" > $out_csv
 }
 
 write_opn_csv() {
-        echo "$HOST,$NETWORK.$ID/32,$PUB,$PSK,$INSTANCE" >> $out_csv
+        echo "$HOST,$PUB,$PSK,$NETWORK.$ID/32,$INSTANCE" >> $out_csv
 }
 
 write_wrt_conf() {
-        # XXX
+        TARBALL="$PREFIX-$BRAND$ID-$DTS.tar"
+        OUTFILE="$TARBALL.gz"
+	cd /etc/nixos/guard || exit 1
+	mkdir -p $TARGETDIR
+	rm -rf $TARGETDIR/etc > /dev/null 2>&1 || true 
+        cp -af etc $TARGETDIR/
+	cd $TARGETDIR || exit 1 
+	sync && sync && sync
+	sed -i "s/REPLACEHOSTNAME/$BRAND$ID/g" etc/config/system 
+	sed -i "s/REPLACEWPK/$PK/g" etc/config/network
+	sed -i "s/REPLACEPSK/$PSK/g" etc/config/network
+	sed -i "s/REPLACEIP/$NETWORK.$ID/g" etc/config/network
+        if [ $WIFI -eq 0 ]; then sed -i "s/192\.168\.1\.1/127\.0\.0\.1/g" etc/config/uhttpd; fi
+	rm -rf $TARBALL > /dev/null 2>&1 || true 
+	rm -rf $OUTFILE > /dev/null 2>&1 || true 
+        echo $TARBALL 
+	tar -cf $TARBALL etc
+	gzip $TARBALL
+	rm -rf etc 
+	cd /etc/nixos/guard || exit 1
 }
 
 gen_key_triple() {

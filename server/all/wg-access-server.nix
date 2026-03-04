@@ -18,7 +18,7 @@
       settings = {
         adminUsername = "admin";
         loglevel = "info";
-        externalHost = "wfh.pvz.digital";
+        externalHost = "wfh.example.digital";
         wireguard = {
           enabled = true;
           interface = "wg0";
@@ -34,12 +34,12 @@
         };
         dns = {
           enabled = false;
-          domain = "pvz.lan";
-          upstream = ["192.168.83.3" "192.168.83.2"];
+          domain = "example.lan";
+          upstream = ["192.168.66.3" "192.168.66.2"];
         };
         clientConfig = {
-          dnsSearchDomain = "pvz.lan";
-          dnsServer = ["192.168.83.3" "192.168.83.2"];
+          dnsSearchDomain = "example.lan";
+          dnsServer = ["192.168.66.3" "192.168.66.2"];
         };
       };
     };

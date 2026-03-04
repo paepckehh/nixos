@@ -1,0 +1,13 @@
+[all]
+dtoverlay=disable-bt
+arm_64bit=1
+arm_boost=0
+arm_freq=900
+arm_freq_max=900
+camera_auto_detect=0
+display_auto_detect=0
+disable_splash=1
+disable_camera_led=1
+hdmi_blanking=2
+max_framebuffers=0
+gpu_mem=16

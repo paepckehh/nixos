@@ -46,7 +46,7 @@
       caFile = "/etc/ca.crt";
       hostname = "pki";
       domain = infra.domain.admin;
-      maildomain = "debitor.de";
+      maildomain = "example.de";
       fqdn = "${infra.pki.hostname}.${infra.pki.domain}";
       url = "https://${infra.pki.fqdn}/acme/acme/directory";
     };
@@ -54,7 +54,7 @@
       hostname = "smtp";
       domain = infra.domain.admin;
       fqdn = "${infra.smtp.hostname}.${infra.smtp.domain}";
-      maildomain = "debitor.de";
+      maildomain = "example.de";
       port = 25;
     };
     ldap = {

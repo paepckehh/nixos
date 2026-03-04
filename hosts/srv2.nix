@@ -12,29 +12,21 @@ in {
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [./srv-defaults.nix];
+  imports = [../role/server.nix];
 
   ##############
   # NETWORKING #
   ##############
-  networking = {
-    hostName = lib.mkForce "srv2";
-    firewall.allowedTCPPorts = [infra.port.ssh];
-  };
+  networking.hostName = lib.mkForce infra.srv2.hostname;
 
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
+    caddy.enable = lib.mkForce infra.srv2.reverseproxy;
     openssh = {
-      enable = lib.mkForce true;
-      listenAddresses = [
-        {
-          # addr = infra.srv2.admin.ip;
-          addr = "0.0.0.0";
-          port = infra.port.ssh;
-        }
-      ];
+      enable = lib.mkForce infra.srv2.sshd;
+      listenAddresses = [{addr = infra.srv2.admin.ip;}];
     };
   };
 
@@ -43,8 +35,8 @@ in {
   ###########
   systemd = {
     network.networks = {
-      "admin".addresses = [{Address = "${infra.srv2.admin.ip}/23";}];
-      "user".addresses = [{Address = "${infra.srv2.user.ip}/23";}];
+      "${infra.namespace.admin}".addresses = [{Address = "${infra.srv2.admin.ip}/${toString infra.cidr.netmask}";}];
+      "${infra.namespace.user}".addresses = [{Address = "${infra.srv2.user.ip}/${toString infra.cidr.netmask}";}];
     };
   };
 }

@@ -14,6 +14,7 @@
   ###############
   users = {
     users = {
+      me.extraGroups = ["mongodb" "opnborg"];
       opnborg = {
         createHome = true;
         description = "opnborg service account";
@@ -25,7 +26,7 @@
     };
     groups."opnborg" = {
       name = "opnborg";
-      members = ["opnborg"];
+      members = ["opnborg" "me"];
       gid = 6464;
     };
   };

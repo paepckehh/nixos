@@ -10,10 +10,10 @@
     # local git mirror
     # nixpkgs.url = "git+file:///home/projects/nixos/nixpkgs.git?ref=master";
     # nixpkgs.url = "git+file:///home/projects/nixos/nixpkgs.git?ref=nixos-unstable-small";
-    nixpkgs.url = "git+file:///home/projects/nixos/nixpkgs.git?ref=nixos-unstable";
-    agenix.url = "git+file:///home/projects/nixos/agenix.git?ref=main";
-    disko.url = "git+file:///home/projects/nixos/disko.git?ref=master";
-    home-manager.url = "git+file:///home/projects/nixos/home-manager.git?ref=master";
+    nixpkgs.url = "git+file:///nix/persist/gitmirror/nixpkgs.git?ref=nixos-unstable";
+    agenix.url = "git+file:///nix/persist/gitmirror/agenix.git?ref=main";
+    disko.url = "git+file:///nix/persist/gitmirror/disko.git?ref=master";
+    home-manager.url = "git+file:///nix/persist/gitmirror/home-manager.git?ref=master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
@@ -71,12 +71,12 @@
           ./packages/devops-core.nix
           ./packages/desktop/gnome.nix
           ./packages/desktop/add-onlyoffice.nix
-          ./server/base.nix
           ./server/ai/ollama01.nix
           ./server/cache/ncps.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix
+          ./server/infra/gitmirror-container.nix
           ./server/log/syslog-ng.nix
           ./server/search/searx.nix
           ./server/pki/small-step.nix
@@ -84,10 +84,12 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
-          ./server/translate/libretranslate-container.nix
-          # ./server/lora/meshtastic-web.nix
+          # ./server/pki/vaultls-docker-authelia.nix
+          # ./server/translate/libretranslate-container.nix
           # ./server/share/smbgate.nix
+          # ./server/mail/maddy-admin.nix
           # ./server/office/onlyoffice-container.nix
+          # ./server/lora/meshtastic-web.nix
         ];
       };
       srv2 = nixpkgs.lib.nixosSystem {
@@ -101,7 +103,6 @@
           ./client/addrootCA.nix
           ./client/addCache.nix
           ./person/desktop/mpaepcke.nix
-          ./packages/base.nix
           ./packages/devops-core.nix
           ./packages/desktop/gnome.nix
           ./hosts/srv2.nix
@@ -132,8 +133,6 @@
           ./packages/desktop/add-av.nix
           ./packages/base.nix
           ./packages/devops-all.nix
-          ./server/base.nix
-          ./server/ai/ollama.nix
           ./server/bookmarks/readeck.nix
           ./server/cache/ncps.nix
           ./server/cloud/nextcloud-container-authelia.nix
@@ -144,19 +143,17 @@
           ./server/log/syslog-ng.nix
           ./server/mail/maddy-admin.nix
           ./server/message/tuwunel.nix
-          ./server/monitoring/grafana.nix
+          # ./server/monitoring/grafana.nix
           ./server/monitoring/prometheus.nix
           ./server/ocr/paperless-ngx-authelia.nix
           ./server/search/searx.nix
-          ./server/share/zipline.nix
           ./server/secret/vaultwarden.nix
           ./server/soc/chef.nix
           ./server/it/rackula.nix
           ./server/pki/small-step.nix
           ./server/pki/certwarden.nix
           ./server/pki/mkcertweb.nix
-          ./server/pki/vaultls.nix
-          ./server/portal/homer-home.nix
+          ./server/portal/homer-home-container.nix
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./server/cloud/nextcloud-container-authelia.nix
@@ -169,11 +166,20 @@
           ./server/search/websurfx-systemd.nix
           ./server/sip/coturn.nix
           ./server/message/tuwunel.nix
-          # ./server/ai/open-webui-container-authelia.nix
           ./server/share/dumbdrop.nix
           ./hosts/srv.nix
-          # ./server/asset/snipeit.nix
-          # ./server/time/kimai-container.nix
+          ./server/db/undb-docker.nix
+          ./server/translate/libretranslate-container.nix
+          ./server/share/smbgate.nix
+          ./server/office/onlyoffice-container.nix
+          ./server/lora/meshtastic-web.nix
+          ./server/pki/vaultls-docker-authelia.nix
+          ./server/translate/libretranslate-container.nix
+          ./server/share/smbgate.nix
+          ./server/mail/maddy-admin.nix
+          ./server/office/onlyoffice-container.nix
+          ./server/lora/meshtastic-web.nix
+          ./server/ai/open-webui-container-authelia.nix
           # ./server/office/bentopdf.nix
           # ./packages/desktop/add-onlyoffice.nix
           # ./server/tasks/donetick-docker.nix
