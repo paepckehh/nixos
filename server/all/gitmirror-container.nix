@@ -76,6 +76,9 @@ in {
             enable = true;
             checkExportOkFiles = false;
           };
+          settings = {
+            clone-url = "${infra.git-mirror.url}/$CGIT_REPO_URL";
+          };
         };
       };
     };
