@@ -36,7 +36,7 @@ in {
   containers.${infra.git-mirror.name} = {
     autoStart = true;
     ephemeral = true;
-    bindMounts."/nix/persist/gitmirror".isReadOnly = true;
+    bindMounts."${infra.git-mirror.storage}".isReadOnly = true;
     privateNetwork = false;
     config = {
       config,
@@ -71,7 +71,7 @@ in {
         cgit.${infra.git-mirror.name} = {
           enable = true;
           nginx.virtualHost = "${infra.git-mirror.name}";
-          scanPath = infra.storage.gitmirror;
+          scanPath = infra.git-mirror.storage;
           gitHttpBackend = {
             enable = true;
             checkExportOkFiles = false;

@@ -154,13 +154,16 @@
     };
     gc = {
       automatic = true;
-      dates = "daily";
-      persistent = true;
+      dates = "daily"; # "18:00"
+      persistent = false;
+      randomizedDelaySec = "15min";
       options = "--delete-older-than 12d";
     };
     optimise = {
       automatic = true;
-      dates = ["daily"];
+      dates = "daily"; # "19:00"
+      persistent = false;
+      randomizedDelaySec = "15min";
     };
   };
 
@@ -198,13 +201,13 @@
         sgx.provision.enable = true;
       };
     };
-    i2c.enable = true;
-    intel-gpu-tools.enable = true;
+    # i2c.enable = true;
+    # intel-gpu-tools.enable = true;
     uinput.enable = true;
     graphics = {
       enable = lib.mkForce true;
       enable32Bit = lib.mkForce true;
-      extraPackages = with pkgs; [intel-media-driver vpl-gpu-rt]; # intel-compute-runtime
+      # extraPackages = with pkgs; [intel-media-driver vpl-gpu-rt]; # intel-compute-runtime
     };
   };
 
@@ -234,7 +237,7 @@
       enable = true;
       execWheelOnly = lib.mkForce true;
       wheelNeedsPassword = lib.mkForce true;
-      extraConfig = "Defaults        env_reset,timestamp_timeout=20    # timeout in minutes";
+      extraConfig = "Defaults        env_reset,timestamp_timeout=30    # timeout in minutes";
     };
     pam = {
       u2f = {
@@ -249,7 +252,7 @@
         login = {
           failDelay = {
             enable = true;
-            delay = 4000000;
+            delay = 3500000;
           };
           logFailures = true;
           u2fAuth = true;
@@ -258,7 +261,7 @@
         sudo = {
           failDelay = {
             enable = true;
-            delay = 4000000;
+            delay = 3500000;
           };
           logFailures = true;
           requireWheel = true;
@@ -310,7 +313,6 @@
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    domain = "lan";
     enableIPv6 = false;
     useNetworkd = true;
     networkmanager = {

@@ -14,12 +14,12 @@
         "rev": "b027ee29d959fda4b60b57566d64c98a202e0feb",
         "revCount": 359,
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/agenix.git"
+        "url": "file:///nix/persist/gitmirror/agenix.git"
       },
       "original": {
         "ref": "main",
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/agenix.git"
+        "url": "file:///nix/persist/gitmirror/agenix.git"
       }
     },
     "darwin": {
@@ -55,12 +55,12 @@
         "rev": "5af7af10f14706e4095bd6bc0d9373eb097283c6",
         "revCount": 1334,
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/disko.git"
+        "url": "file:///nix/persist/gitmirror/disko.git"
       },
       "original": {
         "ref": "master",
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/disko.git"
+        "url": "file:///nix/persist/gitmirror/disko.git"
       }
     },
     "home-manager": {
@@ -97,12 +97,12 @@
         "rev": "924e61f5c2aeab38504028078d7091077744ab17",
         "revCount": 6329,
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/home-manager.git"
+        "url": "file:///nix/persist/gitmirror/home-manager.git"
       },
       "original": {
         "ref": "master",
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/home-manager.git"
+        "url": "file:///nix/persist/gitmirror/home-manager.git"
       }
     },
     "nixpkgs": {
@@ -145,12 +145,12 @@
         "rev": "8c809a146a140c5c8806f13399592dbcb1bb5dc4",
         "revCount": 957538,
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/nixpkgs.git"
+        "url": "file:///nix/persist/gitmirror/nixpkgs.git"
       },
       "original": {
         "ref": "nixos-unstable",
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/nixpkgs.git"
+        "url": "file:///nix/persist/gitmirror/nixpkgs.git"
       }
     },
     "root": {

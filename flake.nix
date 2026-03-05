@@ -10,10 +10,10 @@
     # local git mirror
     # nixpkgs.url = "git+file:///home/projects/nixos/nixpkgs.git?ref=master";
     # nixpkgs.url = "git+file:///home/projects/nixos/nixpkgs.git?ref=nixos-unstable-small";
-    nixpkgs.url = "git+file:///nix/persist/gitmirror/nixpkgs.git?ref=nixos-unstable";
-    agenix.url = "git+file:///nix/persist/gitmirror/agenix.git?ref=main";
-    disko.url = "git+file:///nix/persist/gitmirror/disko.git?ref=master";
-    home-manager.url = "git+file:///nix/persist/gitmirror/home-manager.git?ref=master";
+    nixpkgs.url = "git+file:///nix/persist/cache/git-mirror/nixpkgs.git?ref=nixos-unstable";
+    agenix.url = "git+file:///nix/persist/cache/git-mirror/agenix.git?ref=main";
+    disko.url = "git+file:///nix/persist/cache/git-mirror/disko.git?ref=master";
+    home-manager.url = "git+file:///nix/persist/cache/git-mirror/home-manager.git?ref=master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {

@@ -53,7 +53,6 @@ let
     storage = {
       persist = "/nix/persist";
       cache = "${infra.storage.persist}/cache";
-      gitmirror = "${infra.storage.persist}/gitmirror";
     };
     go.cache = "${infra.storage.cache}/go";
     localhost = {
@@ -339,7 +338,7 @@ let
       localbind.port.http = infra.localhost.port.offset + infra.webmail.id;
     };
     git = {
-      id = 26;
+      id = 30;
       app = "forgejo";
       name = "git";
       hostname = infra.git.name;
@@ -351,7 +350,7 @@ let
       logo = "${infra.res.url}/icon/png/${infra.git.app}.png";
     };
     git-mirror = {
-      id = 27;
+      id = 31;
       app = "cgit";
       name = "git-mirror";
       hostname = infra.git-mirror.name;
@@ -359,6 +358,7 @@ let
       fqdn = "${infra.git-mirror.hostname}.${infra.git-mirror.domain}";
       ip = "${infra.net.user}.${toString infra.git.id}";
       localbind.port.http = infra.localhost.port.offset + infra.git-mirror.id;
+      storage = "${infra.storage.cache}/${infra.git-mirror.name}";
       url = "https://${infra.git-mirror.fqdn}";
       logo = "${infra.res.url}/icon/png/git.png";
     };

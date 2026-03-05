@@ -155,6 +155,7 @@ in {
       isDefault = true;
       name = "0";
       settings = {
+        "gfx.canvas.accelerated" = false;
         "browser.bookmarks.restore_default_bookmarks" = true;
         "distribution.searchplugins.defaultLocale" = "de";
         # "general.useragent.locale" = "de";

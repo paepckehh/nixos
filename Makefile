@@ -17,7 +17,7 @@ ALLFLAKE:=$(REPO)/.\#srv-full
 PROFILE:="$(TARGET)-$(DTS)"
 TYPE:="nixos boot profile"
 USELUKS:=YES
-MIRROR:=/nix/persist/gitmirror
+MIRROR:=/nix/persist/cache/git-mirror
 ifeq ($(origin LUKS),undefined)
       USELUKS:=NO
 endif
