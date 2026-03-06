@@ -1,1 +1,0 @@
-../all/gitmirror-container.nix

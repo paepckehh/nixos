@@ -14,12 +14,12 @@
         "rev": "b027ee29d959fda4b60b57566d64c98a202e0feb",
         "revCount": 359,
         "type": "git",
-        "url": "https://git-mirror.home.corp/ryantm/agenix"
+        "url": "file:///nix/persist/cache/git-mirror/agenix.git"
       },
       "original": {
         "ref": "main",
         "type": "git",
-        "url": "https://git-mirror.home.corp/ryantm/agenix"
+        "url": "file:///nix/persist/cache/git-mirror/agenix.git"
       }
     },
     "darwin": {
@@ -49,18 +49,18 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1772699110,
-        "narHash": "sha256-jkyo/9fZVB3F/PHk3fVK1ImxJBZ71DCOYZvAz4R4v4E=",
+        "lastModified": 1772420042,
+        "narHash": "sha256-naZz40TUFMa0E0CutvwWsSPhgD5JldyTUDEgP9ADpfU=",
         "ref": "master",
-        "rev": "42affa9d33750ac0a0a89761644af20d8d03e6ee",
-        "revCount": 1336,
+        "rev": "5af7af10f14706e4095bd6bc0d9373eb097283c6",
+        "revCount": 1334,
         "type": "git",
-        "url": "https://git-mirror.home.corp/nix-community/disko"
+        "url": "file:///nix/persist/cache/git-mirror/disko.git"
       },
       "original": {
         "ref": "master",
         "type": "git",
-        "url": "https://git-mirror.home.corp/nix-community/disko"
+        "url": "file:///nix/persist/cache/git-mirror/disko.git"
       }
     },
     "home-manager": {
@@ -91,18 +91,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1772633327,
-        "narHash": "sha256-jl+DJB2DUx7EbWLRng+6HNWW/1/VQOnf0NsQB4PlA7I=",
+        "lastModified": 1772569491,
+        "narHash": "sha256-bdr6ueeXO1Xg91sFkuvaysYF0mVdwHBpdyhTjBEWv+s=",
         "ref": "master",
-        "rev": "5a75730e6f21ee624cbf86f4915c6e7489c74acc",
-        "revCount": 6331,
+        "rev": "924e61f5c2aeab38504028078d7091077744ab17",
+        "revCount": 6329,
         "type": "git",
-        "url": "https://git-mirror.home.corp/nix-community/home-manager"
+        "url": "file:///nix/persist/cache/git-mirror/home-manager.git"
       },
       "original": {
         "ref": "master",
         "type": "git",
-        "url": "https://git-mirror.home.corp/nix-community/home-manager"
+        "url": "file:///nix/persist/cache/git-mirror/home-manager.git"
       }
     },
     "nixpkgs": {
@@ -139,18 +139,18 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1772624091,
-        "narHash": "sha256-QKyJ0QGWBn6r0invrMAK8dmJoBYWoOWy7lN+UHzW1jc=",
+        "lastModified": 1772542754,
+        "narHash": "sha256-WGV2hy+VIeQsYXpsLjdr4GvHv5eECMISX1zKLTedhdg=",
         "ref": "nixos-unstable",
-        "rev": "80bdc1e5ce51f56b19791b52b2901187931f5353",
-        "revCount": 958232,
+        "rev": "8c809a146a140c5c8806f13399592dbcb1bb5dc4",
+        "revCount": 957538,
         "type": "git",
-        "url": "https://git-mirror.home.corp/nixos/nixpkgs"
+        "url": "file:///nix/persist/cache/git-mirror/nixpkgs.git"
       },
       "original": {
         "ref": "nixos-unstable",
         "type": "git",
-        "url": "https://git-mirror.home.corp/nixos/nixpkgs"
+        "url": "file:///nix/persist/cache/git-mirror/nixpkgs.git"
       }
     },
     "root": {

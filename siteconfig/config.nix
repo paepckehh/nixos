@@ -3,16 +3,6 @@ let
   #-=# INFRA  #=-#
   ################
   infra = {
-    true = "true";
-    false = "false";
-    none = "none";
-    one = "1";
-    log = {
-      trace = "trace";
-      debug = "debug";
-      info = "info";
-      warn = "warn";
-    };
     site = {
       id = 50; # site/company id, range 1-256
       name = "home"; # site/company name
@@ -53,6 +43,29 @@ let
     storage = {
       persist = "/nix/persist";
       cache = "${infra.storage.persist}/cache";
+    };
+    sources = {
+      prefix = infra.sources.mirror;
+      github = "github:";
+      git-mirror = "git+${infra.git-mirror.url}/";
+      local = "git+file://${infra.git-mirror.storage}/";
+      repos = {
+        agenix.url = "${infra.sources.prefix}ryan/agenix.git?ref=main";
+        disko.url = "${infra.sources.prefix}nix-community/disko.git?ref=master";
+        nixpkgs.url = "${infra.sources.prefix}nixos/nixpkgs.git?ref=nixos-unstable";
+        home-manager.url = "${infra.sources.prefix}nix-community/home-manager.git?ref=master";
+        home-manager.inputs.nixpkgs.follows = "nixpkgs";
+      };
+    };
+    true = "true";
+    false = "false";
+    none = "none";
+    one = "1";
+    log = {
+      trace = "trace";
+      debug = "debug";
+      info = "info";
+      warn = "warn";
     };
     go.cache = "${infra.storage.cache}/go";
     localhost = {

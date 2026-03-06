@@ -14,12 +14,12 @@
         "rev": "b027ee29d959fda4b60b57566d64c98a202e0feb",
         "revCount": 359,
         "type": "git",
-        "url": "https://git-mirror.home.corp/ryantm/agenix"
+        "url": "file:///nix/persist/cache/git-mirror/ryantm/agenix"
       },
       "original": {
         "ref": "main",
         "type": "git",
-        "url": "https://git-mirror.home.corp/ryantm/agenix"
+        "url": "file:///nix/persist/cache/git-mirror/ryantm/agenix"
       }
     },
     "darwin": {
@@ -55,12 +55,12 @@
         "rev": "42affa9d33750ac0a0a89761644af20d8d03e6ee",
         "revCount": 1336,
         "type": "git",
-        "url": "https://git-mirror.home.corp/nix-community/disko"
+        "url": "file:///nix/persist/cache/git-mirror/nix-community/disko"
       },
       "original": {
         "ref": "master",
         "type": "git",
-        "url": "https://git-mirror.home.corp/nix-community/disko"
+        "url": "file:///nix/persist/cache/git-mirror/nix-community/disko"
       }
     },
     "home-manager": {
@@ -97,12 +97,12 @@
         "rev": "5a75730e6f21ee624cbf86f4915c6e7489c74acc",
         "revCount": 6331,
         "type": "git",
-        "url": "https://git-mirror.home.corp/nix-community/home-manager"
+        "url": "file:///nix/persist/cache/git-mirror/nix-community/home-manager"
       },
       "original": {
         "ref": "master",
         "type": "git",
-        "url": "https://git-mirror.home.corp/nix-community/home-manager"
+        "url": "file:///nix/persist/cache/git-mirror/nix-community/home-manager"
       }
     },
     "nixpkgs": {
@@ -145,12 +145,12 @@
         "rev": "80bdc1e5ce51f56b19791b52b2901187931f5353",
         "revCount": 958232,
         "type": "git",
-        "url": "https://git-mirror.home.corp/nixos/nixpkgs"
+        "url": "file:///nix/persist/cache/git-mirror/nixos/nixpkgs"
       },
       "original": {
         "ref": "nixos-unstable",
         "type": "git",
-        "url": "https://git-mirror.home.corp/nixos/nixpkgs"
+        "url": "file:///nix/persist/cache/git-mirror/nixos/nixpkgs"
       }
     },
     "root": {

@@ -1,24 +1,19 @@
 {
   description = "nixos infra global config flake";
-  inputs = {
-    ### source: github
-    # nixpkgs.url      = "github:nixos/nixpkgs?ref=nixos-unstable";
-    # agenix.url       = "github:ryantm/agenix?ref=main";
-    # disko.url        = "github:nix-community/disko?ref=master";
-    # home-manager.url = "github:nix-community/home-manager?ref=master";
-    ### source: git-mirror
-    nixpkgs.url = "git+https://git-mirror.home.corp/nixos/nixpkgs?ref=nixos-unstable";
-    agenix.url = "git+https://git-mirror.home.corp/ryantm/agenix?ref=main";
-    disko.url = "git+https://git-mirror.home.corp/nix-community/disko?ref=master";
-    home-manager.url = "git+https://git-mirror.home.corp/nix-community/home-manager?ref=master";
-    ### source: local storage
-    # nixpkgs.url = "git+file:///nix/persist/cache/git-mirror/nixos/nixpkgs?ref=nixos-unstable";
-    # agenix.url = "git+file:///nix/persist/cache/git-mirror/ryantm/agenix?ref=main";
-    # disko.url = "git+file:///nix/persist/cache/git-mirror/nix-community/disko?ref=master";
-    # home-manager.url = "git+file:///nix/persist/cache/git-mirror/nix-community/home-manager?ref=master";
-    ### shared
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+  sources = {
+    prefix = sources.git-mirror;
+    github = "github:";
+    git-mirror = "git+https://git-mirror.home.corp/";
+    git-files = "git+file:///nix/persist/cache/git-mirror/";
+    repos = {
+      agenix.url = "${sources.prefix}ryan/agenix.git?ref=main";
+      disko.url = "${sources.prefix}nix-community/disko.git?ref=master";
+      nixpkgs.url = "${sources.prefix}nixos/nixpkgs.git?ref=nixos-unstable";
+      home-manager.url = "${sources.prefix}nix-community/home-manager.git?ref=master";
+      home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
+  inputs = sources.repos;
   outputs = {
     self,
     agenix,

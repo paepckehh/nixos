@@ -1,1 +1,0 @@
-../all/firefox-sync-server.nix

@@ -344,12 +344,12 @@
       hybrid-sleep.enable = lib.mkForce false;
       hibernate.enable = lib.mkForce false;
     };
-    sleep.extraConfig = ''
-      AllowSuspend=no
-      AllowHibernation=no
-      AllowHybridSleep=no
-      AllowSuspendThenHibernate=no
-    '';
+    sleep.settings.Sleep = {
+      AllowSuspend = "no";
+      AllowHibernation = "no";
+      AllowHybridSleep = "no";
+      AllowSuspendThenHibernate = "no";
+    };
   };
 
   #########################

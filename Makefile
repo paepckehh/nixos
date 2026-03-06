@@ -260,21 +260,20 @@ yubikey-generate-ssh:
 mirror-update:
 	$(SUDO) -v 
 	$(SUDO) chown -R 0:0 $(MIRROR)
-	$(SUDO) git -C $(MIRROR)/agenix.git fetch
-	$(SUDO) git -C $(MIRROR)/disko.git fetch
-	$(SUDO) git -C $(MIRROR)/home-manager.git fetch
-	$(SUDO) git -C $(MIRROR)/nixpkgs.git fetch
+	$(SUDO) git -C $(MIRROR)/paepckehh/nixos            fetch 
+	$(SUDO) git -C $(MIRROR)/ryantm/agenix              fetch
+	$(SUDO) git -C $(MIRROR)/nix-community/disko        fetch
+	$(SUDO) git -C $(MIRROR)/nix-community/home-manager fetch
+	$(SUDO) git -C $(MIRROR)/nixos/nixpkgs              fetch
 
 mirror-compact:
 	$(SUDO) -v 
 	$(SUDO) chown -R 0:0 $(MIRROR)
-	$(SUDO) git -C $(MIRROR)/agenix.git gc --aggressive 
-	$(SUDO) git -C $(MIRROR)/disko.git gc --aggressive
-	$(SUDO) git -C $(MIRROR)/home-manager.git gc --aggressive 
-	$(SUDO) git -C $(MIRROR)/nixpkgs.git gc --aggressive --keep-largest-pack
-
-mirror-compact-full: 
-	$(SUDO) git -C $(MIRROR)/nixpkgs.git gc --aggressive 
+	$(SUDO) git -C $(MIRROR)/paepckehh/nixos            gc --aggressive
+	$(SUDO) git -C $(MIRROR)/ryantm/agenix              gc --aggressive
+	$(SUDO) git -C $(MIRROR)/nix-community/disko        gc --aggressive
+	$(SUDO) git -C $(MIRROR)/nix-community/home-manager gc --aggressive
+	$(SUDO) git -C $(MIRROR)/nixos/nixpkgs              gc --aggressive --keep-largest-pack
 
 #################
 # LITTLE HELPER #

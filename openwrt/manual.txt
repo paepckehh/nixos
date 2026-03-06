@@ -103,3 +103,5 @@ kmod-usb-net-asix kmod-usb-net-asix-ax88179
 # prometheus
 prometheus-node-exporter-lua prometheus-node-exporter-lua-hostapd_stations prometheus-node-exporter-lua-hwmon prometheus-node-exporter-lua-nat_traffic prometheus-node-exporter-lua-netstat prometheus-node-exporter-lua-openwrt prometheus-node-exporter-lua-thermal prometheus-node-exporter-lua-uci_dhcp_host prometheus-node-exporter-lua-wifi prometheus-node-exporter-lua-wifi_stations
 
+## 
+luci-ssl luci-mod-dashboard coreutils-shuf coreutils-sleep btop vim-fuller fish whereis mtr curl openssh-server dnsmasq-full dnscrypt-proxy2 bind-dig kmod-wireguard luci-proto-wireguard wireguard-tools kmod-zram kmod-lib-zstd kmod-usb-net-rndis kmod-usb-net-huawei-cdc-ncm luci-proto-ncm usb-modeswitch kmod-mt7921u kmod-mt7921-firmware kmod-usb-net-asix kmod-usb-net-asix-ax88179

@@ -18,7 +18,7 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks.${infra.namespace.user}.addresses = [{Address = "${infra.git-mirror.ip}/32";}];
+  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.git-mirror.ip}/32";}];
 
   ##################
   #-=# SERVICES #=-#
@@ -33,7 +33,7 @@ in {
   ####################
   #-=# CONTAINERS #=-#
   ####################
-  containers.${infra.git-mirror.name} = {
+  containers."${infra.git-mirror.name}" = {
     autoStart = true;
     ephemeral = true;
     bindMounts."${infra.git-mirror.storage}".isReadOnly = true;
@@ -72,13 +72,8 @@ in {
           enable = true;
           nginx.virtualHost = "${infra.git-mirror.name}";
           scanPath = infra.git-mirror.storage;
-          gitHttpBackend = {
-            enable = true;
-            checkExportOkFiles = false;
-          };
-          settings = {
-            clone-url = "${infra.git-mirror.url}/$CGIT_REPO_URL";
-          };
+          gitHttpBackend.enable = false;
+          settings.clone-url = "${infra.git-mirror.url}/$CGIT_REPO_URL";
         };
       };
     };
