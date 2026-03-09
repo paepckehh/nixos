@@ -251,6 +251,13 @@ in {
                     logo = infra.dumbdrop.logo;
                   }
                   {
+                    name = "Vikunja";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.vikunja.url;
+                    logo = infra.vikunja.logo;
+                  }
+                  {
                     name = infra.meshtastic-web.app;
                     tag = "app";
                     target = "_blank";

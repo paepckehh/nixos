@@ -1,12 +1,12 @@
 # -= warning =-
 
-This repo is just for rapid prototyping, wild tests.
+This repo is for rapid prototyping, wild tests.
 Feel free to copy code, take inspiration.  
-Do not use anything - uncheck and reviewed - in production.
+Do not use anything in production without review!
 
 # nixos
 - nixos flakes 
-- nixos hardware config files
+- nixos hardware config files 
 - nixos env config files
 - nixos home-manager files
 
@@ -23,9 +23,6 @@ Do not use anything - uncheck and reviewed - in production.
 - TARGET=client make build          # builds a new boot profile for targetos 'client'  
 - TARGET=kiosk make build           # builds a new boot profile for targetos 'kiosk'
 
-## => build new bootable autoinstaller-iso-image, installes nixos offfline, full automatic (will auto-wipe ALL target-system disks, no interface) <=
-- make installer                    # builds a new auto-installer-iso (TARGET=nixos, LUKS='plenase define in iso-autoinstaller.nix')
-
 ## => build new os on target-disk device <=
-- TARGET=kiosk make sdb                  # builds a new bootable disk for profile 'kiosk' on disk sdb
+- TARGET=kiosk make sdb                   # builds a new bootable disk for profile 'kiosk' on disk sdb
 - TARGET=client LUKS=secret make sdb      # builds a new bootable disk for profile 'client' on disk sdb with fulldisk encryption (LUKS)

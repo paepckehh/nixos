@@ -154,6 +154,7 @@ let
         quic = 443;
         tcp = 445;
       };
+      proxy = 3128;
       webapps = [infra.port.http infra.port.https];
     };
     proxies = {
@@ -174,11 +175,284 @@ let
       };
       logo = "${infra.res.url}/icon/png/borg.png";
     };
+    proxy = {
+      one.uri = "${infra.net.user}.11:${toString infra.port.proxy}";
+      two.uri = "${infra.net.user}.12:${toString infra.port.proxy}";
+      three.uri = "${infra.net.user}.13:${toString infra.port.proxy}";
+    };
     print = {
       app = "cups";
-      # url = "https://drucker.${infra.domain.user}/printers";
       url = "http://localhost:631/";
       logo = "${infra.res.url}/icon/png/printer.png";
+    };
+    thunderbird = {
+      settings = infra.firefox.settings;
+      policy = {
+        # Certificates.Install."mailCA.der" = "/etc/mailCA.pem";
+        DisableTelemetry = true;
+        HardwareAcceleration = false;
+        NetworkPrediction = false;
+        RequestedLocales = "de";
+        Preferences = infra.firefox.settings;
+        DNSOverHTTPS = {
+          Enabled = false;
+          Locked = true;
+        };
+        ExtensionSettings = {
+          "*".installation_mode = "blocked";
+          "uBlock0@raymondhill.net" = {
+            installation_mode = "force_installed";
+            install_url = "https://addons.thunderbird.net/thunderbird/downloads/latest/ublock-origin/latest.xpi";
+          };
+        };
+        Proxy = {
+          Mode = "none"; # XXX "none" | "system" | "manual" | "autoDetect" | "autoConfig"
+          AutoConfigURL = infra.wpad.url;
+        };
+        SearchEngines = {
+          Default = "${infra.search.label}";
+          Add = [
+            {
+              Name = "${infra.search.label}";
+              Alias = "ds";
+              Description = "Internal-Search-Engine";
+              Method = "GET";
+              URLTemplate = infra.search.urls.search;
+              SuggestURLTemplate = infra.search.urls.suggest;
+              IconURL = infra.search.logo;
+            }
+          ];
+        };
+      };
+    };
+    firefox = {
+      policy = {
+        BackgroundAppUpdate = false;
+        CaptivePortal = false;
+        DisableAccounts = true;
+        DisableBuiltinPDFViewer = false;
+        DisableTelemetry = true;
+        DisableDeveloperTools = false;
+        DisableEncryptedClientHello = false;
+        DisableFeedbackCommands = true;
+        DisableFirefoxAccounts = true;
+        DisableFirefoxScreenshots = true;
+        DisableFirefoxStudies = true;
+        DisableForgetButton = false;
+        DisableFormHistory = false;
+        DisableMasterPasswordCreation = false;
+        DisablePasswordReveal = false;
+        DisablePocket = true;
+        DisablePrivateBrowsing = false;
+        DisableProfileImport = true;
+        DisableProfileRefresh = true;
+        DisableSafeMode = false;
+        DisableSecurityBypass.InvalidCertificate = false;
+        DisplayBookmarksToolbar = "always";
+        DNSOverHTTPS.Enabled = false;
+        DontCheckDefaultBrowser = true;
+        GoToIntranetSiteForSingleWordEntryInAddressBar = false;
+        Homepage = {
+          URL = infra.portal.url;
+          Locked = true;
+          StartPage = "Start";
+        };
+        NetworkPrediction = false;
+        NewTabPage = false;
+        NoDefaultBookmarks = false;
+        OfferToSaveLogins = false;
+        OfferToSaveLoginsDefault = false;
+        OverrideFirstRunPage = "";
+        OverridePostUpdatePage = "";
+        PasswordManagerEnabled = false;
+        PostQuantumKeyAgreementEnabled = true;
+        ShowHomeButton = true;
+        SkipTermsOfUse = true;
+        SSLVersionMax = "tls1.3";
+        SSLVersionMin = "tls1.2";
+        StartDownloadsInTempDirectory = true;
+        TranslateEnabled = false;
+        Permissions.Autoplay.BlockNewRequests = true;
+        ExtensionSettings = {
+          "*".installation_mode = "blocked";
+          "uBlock0@raymondhill.net" = {
+            installation_mode = "force_installed";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+            adminSettings = {
+              userSettings = {
+                uiTheme = "dark";
+                uiAccentCustom = true;
+                uiAccentCustom0 = "#8300ff";
+                cloudStorageEnabled = false;
+              };
+            };
+          };
+          "readeck@readeck.com" = {
+            installation_mode = "force_installed";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/readeck/latest.xpi";
+          };
+          "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
+            installation_mode = "force_installed";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
+          };
+        };
+        PrintingEnabled = true;
+        Proxy = {
+          Mode = "none"; # XXX "none" | "system" | "manual" | "autoDetect" | "autoConfig"
+          AutoConfigURL = infra.wpad.url;
+        };
+        SearchEngines = {
+          Default = "${infra.search.label}";
+          Add = [
+            {
+              Name = "${infra.search.label}";
+              Alias = "ds";
+              Description = "Internal-Search-Engine";
+              Method = "GET";
+              URLTemplate = infra.search.urls.search;
+              SuggestURLTemplate = infra.search.urls.suggest;
+              IconURL = infra.search.logo;
+            }
+          ];
+        };
+        SanitizeOnShutdown = {
+          Cache = true;
+          Cookies = false;
+          Downloads = true;
+          FormData = true;
+          History = true;
+          Sessions = false;
+          SiteSettings = false;
+          OfflineApps = false;
+        };
+      };
+      settings = {
+        "browser.aboutConfig.showWarning" = false;
+        "browser.bookmarks.restore_default_bookmarks" = true;
+        "browser.bookmarks.showMobileBookmarks" = true;
+        "browser.cache.disk.enable" = false;
+        "browser.cache.disk_cache_ssl" = false;
+        "browser.compactmode.show" = true;
+        "browser.fullscreen.autohide" = false;
+        "browser.ml.chat.enabled" = false;
+        "browser.ml.chat.menu" = false;
+        "browser.ml.chat.shortcuts" = false;
+        "browser.ml.chat.sidebar" = false;
+        "browser.ml.enabled" = false;
+        "browser.ml.linkPreview.enable" = false;
+        "browser.ml.modelHubRootUrl" = "";
+        "browser.newtabpage.activity-stream.feeds.telemetry" = false;
+        "browser.newtabpage.activity-stream.telemetry" = false;
+        "browser.ping-centre.telemetry" = false;
+        "browser.policies.runOncePerModification.setDefaultSearchEngine" = "${infra.search.label}";
+        "browser.safebrowsing.downloads.enabled" = false;
+        "browser.safebrowsing.enabled" = false;
+        "browser.safebrowsing.malware.enabled" = false;
+        "browser.search.region" = infra.locale.lang;
+        "browser.search.update" = false;
+        "browser.sessionstore.privacy_level" = 2;
+        "browser.sessionstore.restore_on_demand" = false;
+        "browser.sessionstore.resume_from_crash" = false;
+        "browser.sessionstore.resuming_after_os_restart" = false;
+        "browser.startup.homepage" = "${infra.portal.url}";
+        "browser.tabs.groups.smart.enabled" = false;
+        "browser.urlbar.quicksuggest.enabled" = false;
+        "browser.urlbar.shortcuts.bookmarks" = true;
+        "browser.urlbar.shortcuts.history" = true;
+        "browser.urlbar.shortcuts.tabs" = true;
+        "browser.urlbar.speculativeConnect.enabled" = false;
+        "browser.urlbar.suggest.addons" = false;
+        "browser.urlbar.suggest.bookmark" = true;
+        "browser.urlbar.suggest.calculator" = true;
+        "browser.urlbar.suggest.clipboard" = true;
+        "browser.urlbar.suggest.engines" = true;
+        "browser.urlbar.suggest.history" = true;
+        "browser.urlbar.suggest.openpage" = false;
+        "browser.urlbar.suggest.pocket" = false;
+        "browser.urlbar.suggest.quickaction" = false;
+        "browser.urlbar.suggest.recentsearches" = false;
+        "browser.urlbar.suggest.remotetab" = false;
+        "browser.urlbar.suggest.topsites" = false;
+        "browser.urlbar.suggest.trending" = false;
+        "browser.urlbar.suggest.weather" = false;
+        "browser.urlbar.suggest.yelp" = false;
+        "browser.urlbar.trimHttps" = false;
+        "browser.urlbar.trimURLs" = false;
+        "browser.urlbar.unifiedSearchButton.always" = true;
+        "browser.urlbar.unitConversion.enabled" = true;
+        "cookiebanners.service.mode" = 2;
+        "cookiebanners.service.mode.privateBrowsing" = 2;
+        "datareporting.dau.cachedUsageProfileGroupID" = "";
+        "datareporting.healthreport.service.enabled" = false;
+        "datareporting.healthreport.uploadEnabled" = false;
+        "datareporting.policy.dataSubmissionEnabled" = false;
+        "datareporting.sessions.current.clean" = true;
+        "devtools.onboarding.telemetry.logged" = false;
+        "distribution.searchplugins.defaultLocale" = infra.locale.lang;
+        "dom.push.connection.enabled" = false;
+        "dom.push.enabled" = false;
+        "dom.push.indicate_aesgcm_support.enabled" = true;
+        "dom.push.serverURL" = "";
+        "general.autoScroll" = true;
+        "general.useragent.compatMode.firefox" = true;
+        "geo.enabled" = false;
+        "geo.provider.geoclue.always_high_accuracy" = false;
+        "geo.provider.network.url" = "";
+        "geo.provider.use_corelocation" = false;
+        "geo.provider.use_geoclue" = false;
+        "geo.provider.use_gpsd" = false;
+        "gfx.canvas.accelerated" = false;
+        "intl.locale.requested" = infra.locale.lang;
+        "network.connectivity-service.DNS_HTTPS.domain" = "";
+        "network.connectivity-service.DNSv4.domain" = "";
+        "network.connectivity-service.DNSv6.domain" = "";
+        "network.connectivity-service.IPv4.url" = "";
+        "network.connectivity-service.IPv6.url" = "";
+        "network.connectivity-service.enabled" = false;
+        "network.dns.disableIPv6" = true;
+        "network.dns.echconfig.enabled" = true;
+        "network.dns.http3.echconfig.enabled" = true;
+        "network.dns.preferIPv6" = false;
+        "network.proxy.type" = 4;
+        "network.trr.mode" = 0;
+        "network.wifi.scanning_period" = 0;
+        "privacy.clearOnShutdown.cookies" = false;
+        "privacy.clearOnShutdown.history" = false;
+        "privacy.firstparty.isolate" = true;
+        "privacy.privacy.resistFingerprinting.exemptedDomains" = "*.${infra.domain.tld}";
+        "privacy.resistFingerprinting" = false;
+        "privacy.trackingprotection.emailtracking.enabled" = true;
+        "privacy.trackingprotection.socialtracking.enabled" = true;
+        "security.tls.ech.grease_http3" = true;
+        "security.tls.enable_0rtt_data" = false;
+        "security.tls.enable_certificate_compression_abridged" = false;
+        "security.tls.enable_certificate_compression_brotli" = false;
+        "security.tls.enable_certificate_compression_zlib" = false;
+        "security.tls.enable_certificate_compression_zstd" = false;
+        "security.tls.enable_delegated_credentials" = false;
+        "security.tls.enable_kyber" = true;
+        "security.tls.enable_post_handshake_auth" = false;
+        "security.tls.grease_http3_enable" = true;
+        "security.tls.hello_downgrade_check" = true;
+        "security.tls.version.enable-deprecated" = false;
+        "security.tls.version.fallback-limit" = 4;
+        "security.tls.version.max" = 4; # 1.3
+        "security.tls.version.min" = 3; # 1.2
+        "toolkit.telemetry.archive.enabled" = false;
+        "toolkit.telemetry.bhrPing.enabled" = false;
+        "toolkit.telemetry.enabled" = false;
+        "toolkit.telemetry.firstShutdownPing.enabled" = false;
+        "toolkit.telemetry.hybridContent.enabled" = false;
+        "toolkit.telemetry.newProfilePing.enabled" = false;
+        "toolkit.telemetry.prompted" = "2";
+        "toolkit.telemetry.rejected" = true;
+        "toolkit.telemetry.reportingpolicy.firstRun" = false;
+        "toolkit.telemetry.server" = "";
+        "toolkit.telemetry.shutdownPingSender.enabled" = false;
+        "toolkit.telemetry.unified" = false;
+        "toolkit.telemetry.unifiedIsOptIn" = false;
+        "toolkit.telemetry.updatePing.enabled" = false;
+      };
     };
     smbgate = {
       id = 24;
@@ -698,9 +972,39 @@ let
       url = "https://${infra.nextcloud.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.nextcloud.name}-blue.png";
     };
+    wpad = {
+      id = 118;
+      name = "wpad";
+      hostname = infra.wpad.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.wpad.hostname}.${infra.wpad.domain}";
+      ip = "${infra.net.user}.${toString infra.wpad.id}";
+      access.cidr = infra.cidr.user;
+      logo = "${infra.res.url}/icon/png/haproxy.png";
+      url = "https://${infra.wpad.fqdn}";
+      content = ''
+        header Content-Type application/x-ns-proxy-autoconfig
+        respond <<HTML
+        function FindProxyForURL(url, host) {
+        url = url.toLowerCase();
+        host = host.toLowerCase();
+        /* Debitor internal IT  */
+        if (shExpMatch(host, "127.0.0.1" ))                    {return "DIRECT";}
+        if (shExpMatch(host, "*/localhost*" ))                 {return "DIRECT";}
+        if (dnsDomainIs(host,".corp"))                         {return "DIRECT";}
+        /* Windows Update Dumpster */
+        if (dnsDomainIs(host,".msn.com"))                      {return "PROXY 10.20.6.12:3128";}
+        if (dnsDomainIs(host,".windows.com"))                  {return "PROXY 10.20.6.12:3128";}
+        if (dnsDomainIs(host,".windowsupdate.com"))            {return "PROXY 10.20.6.12:3128";}
+        return 'PROXY ${infra.proxy.one.uri}; PROXY ${infra.proxy.two.uri}; PROXY ${infra.proxy.three.uri}; DIRECT';
+        }
+        HTML 200
+      '';
+    };
     search = {
       id = 119;
       app = "searxng";
+      label = "searX";
       name = "search";
       hostname = infra.search.name;
       domain = infra.domain.user;
@@ -1189,6 +1493,18 @@ let
       localbind.port.http = infra.localhost.port.offset + infra.undb.id;
       url = "https://${infra.undb.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.undb.app}.png";
+    };
+    vikunja = {
+      id = 185;
+      app = "vikunja";
+      name = infra.vikunja.app;
+      hostname = infra.vikunja.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.vikunja.hostname}.${infra.vikunja.domain}";
+      ip = "${infra.net.user}.${toString infra.vikunja.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.vikunja.id;
+      url = "https://${infra.vikunja.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.vikunja.app}.png";
     };
   };
 in {infra = infra;}

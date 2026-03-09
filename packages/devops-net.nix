@@ -9,7 +9,9 @@
       bandwhich
       dnstracer
       gping
+      grepcidr
       netscanner
+      ngrep
       stress
       tcping-go
       termshark

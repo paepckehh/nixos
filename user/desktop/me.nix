@@ -1,38 +1,36 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  ############################
+  #-=# GLOBAL SITE IMPORT #=-#
+  ############################
+  infra = (import ../../siteconfig/config.nix).infra;
+  bookmarks = {
+    ManagedBookmarks = lib.importJSON ../../shared/bookmarks.json;
+  };
+in {
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [
-    ../me.nix
-    ./browser/me-lw.nix
-  ];
+  imports = [../me.nix];
 
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.systemPackages = with pkgs; [
-    adwaita-icon-theme
-  ];
+  environment.systemPackages = with pkgs; [adwaita-icon-theme];
 
   ################
   #-=# SYSTEN #=-#
   ################
-  system.activationScripts.script.text = ''
-    cp -f /home/me/.face /var/lib/AccountsService/icons/me
-  '';
+  system.activationScripts.script.text = ''cp -f /home/me/.face /var/lib/AccountsService/icons/me'';
 
   ##################
   #-=# SECURITY #=-#
   ##################
   security.pam.services.me.enableGnomeKeyring = true;
-
-  ##################
-  #-=# SECURITY #=-#
-  ##################
-  services.displayManager.autoLogin = {
-    enable = false;
-    user = "me";
-  };
 
   ######################
   #-=# HOME-MANAGER #=-#
@@ -53,7 +51,7 @@
       autostart = {
         enable = true;
         readOnly = true;
-        # entries = [ "${pkgs.element-desktop}/share/applications/element-desktop.desktop"];
+        entries = []; # example: "${pkgs.element-desktop}/share/applications/element-desktop.desktop"
       };
       mime.enable = true;
       mimeApps = {
@@ -136,26 +134,36 @@
         "org.gnome.desktop.wm.preferences" = {
           button-layout = "minimize,maximize,close";
         };
-        # "org/gnome/desktop/background" = {
-        #   picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/vnc-l.png";
-        #   picture-uri-dark = "file:///run/current-system/sw/share/backgrounds/gnome/vnc-d.png";
-        # };
-        # "org/gnome/desktop/screensaver" = {
-        #   picture-uri = "file:///run/current-system/sw/share/backgrounds/gnome/vnc-d.png";
-        #   primary-color = "#3465a4";
-        #  secondary-color = "#000000";
-        # };
       };
     };
     programs = {
       onlyoffice = {
         enable = true;
-        # [General]
         settings = {
           editorWindowMode = "false";
           locale = "de-DE";
           maximized = true;
-          titlebar = "MyHomeOffice";
+          titlebar = "Start";
+        };
+      };
+      thunderbird = {
+        enable = true;
+        package = pkgs.thunderbird;
+        settings = infra.thunderbird.settings;
+        profiles.default = {
+          isDefault = true;
+          settings = infra.thunderbird.settings;
+        };
+      };
+      librewolf = {
+        enable = true;
+        languagePacks = ["de"];
+        settings = infra.firefox.settings;
+        package = pkgs.librewolf.override {nativeMessagingHosts = [pkgs.gnome-browser-connector];};
+        policies = lib.recursiveUpdate infra.firefox.policy bookmarks;
+        profiles.default = {
+          isDefault = true;
+          settings = infra.firefox.settings;
         };
       };
       alacritty = {

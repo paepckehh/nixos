@@ -30,6 +30,7 @@
   #####################
   environment = {
     systemPackages = with pkgs; [
+      bingrep
       clamav
       xurls
       yara

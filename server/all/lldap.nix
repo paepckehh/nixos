@@ -95,6 +95,7 @@ in {
     };
     lldap = {
       enable = true;
+      silenceForceUserPassResetWarning = true;
       settings = {
         # db
         database_url = "sqlite://./users.db?mode=rwc";

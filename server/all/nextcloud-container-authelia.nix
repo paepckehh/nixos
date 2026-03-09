@@ -20,7 +20,7 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks."user".addresses = [{Address = "${infra.nextcloud.ip}/32";}];
+  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.nextcloud.ip}/32";}];
 
   ##################
   #-=# SERVICES #=-#
@@ -115,9 +115,9 @@ in {
               ;
           };
           settings = {
-            allow_local_remote_servers = true; # check;
-            overwriteprotocol = "https"; # check
-            default_phone_region = "DE"; # check
+            allow_local_remote_servers = true;
+            overwriteprotocol = "https";
+            default_phone_region = "DE";
             auto_logout = false;
             allowed_admin_ranges = infra.cidr.admin;
             default_timezone = infra.locale.tz;
@@ -128,7 +128,7 @@ in {
             allow_user_to_change_display_name = false;
             lost_password_link = "disabled";
             oidc_create_groups = false;
-            hide_login_form = true;
+            hide_login_form = false;
             user_oidc = {
               allow_multiple_user_backends = false;
               clientid = infra.nextcloud.app;

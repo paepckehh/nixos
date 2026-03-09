@@ -132,6 +132,7 @@
       gnumake
       gnupg
       inetutils
+      igrep
       jq
       kmon
       libsmbios

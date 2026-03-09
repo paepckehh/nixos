@@ -162,6 +162,7 @@ in {
             ${infra.translate.hostname}          IN A  ${infra.translate.ip}
             ${infra.vault.hostname}              IN A  ${infra.vault.ip}
             ${infra.vaultls.hostname}            IN A  ${infra.vaultls.ip}
+            ${infra.vikunja.hostname}            IN A  ${infra.vikunja.ip}
             ${infra.webarchiv.hostname}          IN A  ${infra.webarchiv.ip}
             ${infra.webmail.hostname}            IN A  ${infra.webmail.ip}
             ${infra.websurfx.hostname}           IN A  ${infra.websurfx.ip}
@@ -202,6 +203,7 @@ in {
             ${infra.translate.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.translate.ip}"
             ${infra.vault.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.vault.ip}"
             ${infra.vaultls.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.vaultls.ip}"
+            ${infra.vikunja.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.vikunja.ip}"
             ${infra.webarchiv.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webarchiv.ip}"
             ${infra.webmail.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webmail.ip}"
             ${infra.websurfx.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.websurfx.ip}"
@@ -316,6 +318,7 @@ in {
             ${toString infra.translate.id}          IN PTR ${infra.translate.fqdn}.
             ${toString infra.vault.id}              IN PTR ${infra.vault.fqdn}.
             ${toString infra.vaultls.id}            IN PTR ${infra.vaultls.fqdn}.
+            ${toString infra.vikunja.id}            IN PTR ${infra.vikunja.fqdn}.
             ${toString infra.webarchiv.id}          IN PTR ${infra.webarchiv.fqdn}.
             ${toString infra.webmail.id}            IN PTR ${infra.webmail.fqdn}.
             ${toString infra.web-check.id}          IN PTR ${infra.webmail.fqdn}.

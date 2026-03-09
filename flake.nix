@@ -1,22 +1,14 @@
 {
   description = "nixos infra global config flake";
   inputs = {
-    ### source: github
     # nixpkgs.url      = "github:nixos/nixpkgs?ref=nixos-unstable";
     # agenix.url       = "github:ryantm/agenix?ref=main";
     # disko.url        = "github:nix-community/disko?ref=master";
     # home-manager.url = "github:nix-community/home-manager?ref=master";
-    ### source: git-mirror
     nixpkgs.url = "git+https://git-mirror.home.corp/nixos/nixpkgs?ref=nixos-unstable";
     agenix.url = "git+https://git-mirror.home.corp/ryantm/agenix?ref=main";
     disko.url = "git+https://git-mirror.home.corp/nix-community/disko?ref=master";
     home-manager.url = "git+https://git-mirror.home.corp/nix-community/home-manager?ref=master";
-    ### source: local storage
-    # nixpkgs.url = "git+file:///nix/persist/cache/git-mirror/nixos/nixpkgs?ref=nixos-unstable";
-    # agenix.url = "git+file:///nix/persist/cache/git-mirror/ryantm/agenix?ref=main";
-    # disko.url = "git+file:///nix/persist/cache/git-mirror/nix-community/disko?ref=master";
-    # home-manager.url = "git+file:///nix/persist/cache/git-mirror/nix-community/home-manager?ref=master";
-    ### shared
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
@@ -69,6 +61,7 @@
           ./client/addCache.nix
           ./openwrt/alias.nix
           ./person/desktop/mpaepcke.nix
+          ./user/desktop/add-thinkpad-me.nix
           ./packages/base.nix
           ./packages/devops-core.nix
           ./packages/desktop/gnome.nix
@@ -86,6 +79,8 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
+          ./server/todo/vikunja.nix
+          # ./server/cloud/nextcloud-container-authelia.nix
           # ./server/pki/vaultls-docker-authelia.nix
           # ./server/translate/libretranslate-container.nix
           # ./server/share/smbgate.nix
