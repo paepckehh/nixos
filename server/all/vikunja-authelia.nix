@@ -20,6 +20,16 @@ in {
   #################
   systemd. network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.vikunja.ip}/32";}];
 
+  #############
+  #-=# AGE #=-#
+  #############
+  age.secrets = {
+    "authelia-vikunja" = {
+      file = ../../modules/resources/authelia-vikunja.age;
+      owner = "root"; # XXX
+    };
+  };
+
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -35,13 +45,17 @@ in {
       frontendScheme = "https";
       frontendHostname = infra.vikunja.fqdn;
       settings = {
-        auth.openid = {
-          enabled = true;
-          providers.authelia = {
-            name = "Authelia";
-            authurl = infra.sso.fqdn;
-            clientid = infra.vikunka.app;
-            clientsecret = "insecure_secret";
+        auth = {
+          local.enabled = true;
+          openid = {
+            enabled = true;
+            providers.authelia = {
+              name = "Authelia";
+              authurl = infra.sso.url;
+              clientid = infra.vikunja.app;
+              clientsecret = "yLK274tKaRZ2Y58T_rPlaNHTcoGdqGIUgOFDMBCKckeHZnrJXNo9FJG5veIWTeh61.HQJVmG";
+              # clientsecret.file = config.age.secrets.authelia-vikunkja.path;
+            };
           };
         };
       };

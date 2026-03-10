@@ -690,6 +690,26 @@ let
       ];
       user_rules = [
         "@@||bahn.de^$important"
+        "@@||config.teams.microsoft.com^$important"
+        "@@||config.teams.trafficmanager.net^$important"
+        "||use-application-dns.net" # switch firefox doh off
+        "||skype.com"
+        "||footprintdns.com"
+        "||lenovo.com"
+        "||lenovomm.com"
+        "||chifsr.lenovomm.com"
+        "||ads.mozilla.org"
+        "||ipv6.msftncsi.com"
+        "||ipv6.msftconnecttest.com"
+        "||detectportal.firefox.com"
+        "||telemetry.firefox.com"
+        "||services.mozilla.com"
+        "||teamviewer.com"
+        "||adobe.com"
+        "||adobe.io"
+        "||mtalk.google.com"
+        "||trace.svc.ui.com"
+        "||ping.ui.com"
       ];
 
       upstream_dns = [

@@ -377,12 +377,6 @@
     power-profiles-daemon.enable = lib.mkForce false;
     logind.settings.Login.HandleHibernateKey = "ignore";
     libinput.enable = lib.mkForce true;
-    yubikey-agent.enable = true;
-    udev.packages = [pkgs.yubikey-personalization];
-    pcscd = {
-      enable = true;
-      plugins = [pkgs.ccid];
-    };
     journald = {
       audit = false;
       storage = "volatile"; # persistent

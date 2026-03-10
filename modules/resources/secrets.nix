@@ -1,3 +1,4 @@
+# nix-shell -p authelia --command 'authelia crypto hash generate pbkdf2 --variant sha512 --random --random.length 72 --random.charset rfc3986'
 let
   srv = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN95PYUMGYuzc+gsuxZ76p5eT2nocV8ckGUQtQ7T4Mn1 srv";
 in {
@@ -17,6 +18,7 @@ in {
   "authelia-session.age".publicKeys = [srv];
   "authelia-oidc-hmac.age".publicKeys = [srv];
   "authelia-oidc-issuer.age".publicKeys = [srv];
+  "authelia-vikunja.age".publicKeys = [srv];
   "mkcertweb.age".publicKeys = [srv];
   "vaultls.age".publicKeys = [srv];
   "matrix.age".publicKeys = [srv];

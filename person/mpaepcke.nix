@@ -13,10 +13,7 @@
   ###############
   #-=# USERS #=-#
   ###############
-  users.users.me = {
-    description = lib.mkForce "PAEPCKE, Michael";
-    openssh.authorizedKeys.keys = ["sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIAGsgOTEwxqUCKC49pwuQHXyhb+jjIBUzFdwRsjS9iMkAAAABHNzaDo= git@paepcke.de"];
-  };
+  users.users.me.description = lib.mkForce "PAEPCKE, Michael";
 
   ######################
   #-=# HOME-MANAGER #=-#
@@ -36,21 +33,6 @@
             wetter_lbc = "curl https://wttr.in/lbc";
             wetter_ber = "curl https://wttr.in/ber";
             wetter_tls = "curl https://wttr.in/tls";
-          };
-          file = {
-            # yubikey private key handle
-            ".ssh/id_ed25519_sk".text = ''
-              -----BEGIN OPENSSH PRIVATE KEY-----
-              b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAASgAAABpzay1zc2
-              gtZWQyNTUxOUBvcGVuc3NoLmNvbQAAACABrIDkxMMalAiguPacLkB18oW/o4yAVMxXcEbI
-              0vYjJAAAAARzc2g6AAAA8O6alwTumpcEAAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY2
-              9tAAAAIAGsgOTEwxqUCKC49pwuQHXyhb+jjIBUzFdwRsjS9iMkAAAABHNzaDoBAAAAgPqg
-              5evHnZf1UWKRiy5WFmRdS22284ElPmxMTNB+9AEx+gXyeA2bn/rn/m8hm5b+SOZOz/ZB6x
-              mrM5Iy0zbrPZGnPMlb3+/icOmaVbFodvH2EWAKHo9P8D2An7v+B0Etyh0aozewwX8O2mtS
-              SzNv89bI6B8a7UQcHxvjKYqTAv7rAAAAAAAAAA5naXRAcGFlcGNrZS5kZQECAw==
-              -----END OPENSSH PRIVATE KEY-----
-            '';
-            ".ssh/id_ed25519_sk.pub".text = ''sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIAGsgOTEwxqUCKC49pwuQHXyhb+jjIBUzFdwRsjS9iMkAAAABHNzaDo= git@paepcke.de'';
           };
         };
         programs = {

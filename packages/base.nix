@@ -5,6 +5,18 @@
   ...
 }: {
   ##################
+  #-=# SERVICES #=-#
+  ##################
+  services = {
+    pcscd = {
+      enable = true;
+      plugins = [pkgs.ccid];
+    };
+    udev.packages = [pkgs.yubikey-personalization];
+    yubikey-agent.enable = true;
+  };
+
+  ##################
   #-=# PROGRAMS #=-#
   ##################
   programs = {
@@ -16,8 +28,10 @@
     mtr.enable = true;
     vim.enable = true;
     yubikey-manager.enable = true;
-    gnupg.agent.enable = false;
+    # gnupg.agent = {
+    #  enable = true;
     #  enableSSHSupport = true;
+    # };
     ssh = {
       extraConfig = "AddKeysToAgent yes";
       hostKeyAlgorithms = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];

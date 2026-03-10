@@ -11,7 +11,7 @@
 - ente/timetrack 
 
 # finance
-- wallos: docker
+- wallos:docker
 
 # prometheus
 - AthennaMind/opnsense-exporter
@@ -32,7 +32,6 @@
 
 # pdf
 - fancy-cat: kitty
-- bentopdf: docker
 
 # sip
 - https://stuebinm.eu/posts/local-asterisk-nix-deployment.html
@@ -84,4 +83,7 @@
 - nocodb/nocodb 
 
 # devops, ide, vim
-# https://github.com/TabbyML/tabby - services.tabby
+- https://github.com/TabbyML/tabby - services.tabby
+
+# email, archive
+- https://github.com/LogicLabs-OU/OpenArchiver

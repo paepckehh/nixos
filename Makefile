@@ -17,7 +17,6 @@ ALLFLAKE:=$(REPO)/.\#srv-full
 PROFILE:="$(TARGET)-$(DTS)"
 TYPE:="nixos boot profile"
 USELUKS:=YES
-MIRROR:=/nix/persist/cache/git-mirror
 ifeq ($(origin LUKS),undefined)
       USELUKS:=NO
 endif
@@ -257,23 +256,12 @@ yubikey-generate-ssh:
 ##############
 # GIT MIRROR #
 ##############
-mirror-update:
-	$(SUDO) -v 
-	$(SUDO) chown -R 0:0 $(MIRROR)
-	$(SUDO) git -C $(MIRROR)/paepckehh/nixos            fetch 
-	$(SUDO) git -C $(MIRROR)/ryantm/agenix              fetch
-	$(SUDO) git -C $(MIRROR)/nix-community/disko        fetch
-	$(SUDO) git -C $(MIRROR)/nix-community/home-manager fetch
-	$(SUDO) git -C $(MIRROR)/nixos/nixpkgs              fetch
+git-mirror-gc:
+	$(SUDO) sh /etc/scripts/git-mirror-gc.sh
 
-mirror-compact:
-	$(SUDO) -v 
-	$(SUDO) chown -R 0:0 $(MIRROR)
-	$(SUDO) git -C $(MIRROR)/paepckehh/nixos            gc --aggressive
-	$(SUDO) git -C $(MIRROR)/ryantm/agenix              gc --aggressive
-	$(SUDO) git -C $(MIRROR)/nix-community/disko        gc --aggressive
-	$(SUDO) git -C $(MIRROR)/nix-community/home-manager gc --aggressive
-	$(SUDO) git -C $(MIRROR)/nixos/nixpkgs              gc --aggressive --keep-largest-pack
+git-mirror-fetch:
+	$(SUDO) sh /etc/scripts/git-mirror-fetch.sh
+
 
 #################
 # LITTLE HELPER #

@@ -79,14 +79,14 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
-          ./server/todo/vikunja.nix
-          # ./server/cloud/nextcloud-container-authelia.nix
-          # ./server/pki/vaultls-docker-authelia.nix
-          # ./server/translate/libretranslate-container.nix
-          # ./server/share/smbgate.nix
-          # ./server/mail/maddy-admin.nix
-          # ./server/office/onlyoffice-container.nix
-          # ./server/lora/meshtastic-web.nix
+          ./server/todo/vikunja-authelia.nix
+          ./server/cloud/nextcloud-container-authelia.nix
+          ./server/pki/vaultls-docker-authelia.nix
+          ./server/translate/libretranslate-container.nix
+          ./server/share/smbgate.nix
+          ./server/mail/maddy-admin.nix
+          ./server/office/onlyoffice-container.nix
+          ./server/lora/meshtastic-web.nix
         ];
       };
       srv2 = nixpkgs.lib.nixosSystem {

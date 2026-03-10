@@ -331,12 +331,12 @@ in {
               # Vikunja
               client_id = infra.vikunja.app;
               client_name = infra.vikunja.app;
-              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
-              consent_mode = infra.sso.oidc.consent;
-              public = false;
-              require_pkce = true;
-              authorization_policy = infra.sso.oidc.policy;
-              scopes = infra.sso.oidc.scopes;
+              client_secret = "$pbkdf2-sha512$310000$SKMKRKohzrDbQb6gX98F/Q$r.DNS6Az/XtsCHhin7XhyYIqUvvXOkQLj8NXDjOWEA8pU4KZ7/rH0XGyoVJuZKqM3hZmtBjtyL6uSBidpJmtZg";
+              # public = false;
+              # consent_mode = infra.sso.oidc.consent;
+              # authorization_policy = infra.sso.oidc.policy;
+              # scopes = infra.sso.oidc.scopes;
+              scopes = ["openid" "profile" "email"];
               redirect_uris = ["${infra.vikunja.url}/auth/openid/authelia"];
             }
           ];
