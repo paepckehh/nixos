@@ -77,7 +77,7 @@ in {
       services = {
         nextcloud = {
           enable = true;
-          package = pkgs.nextcloud32;
+          package = pkgs.nextcloud33;
           configureRedis = true;
           hostName = infra.nextcloud.hostname;
           database.createLocally = true;
@@ -104,7 +104,6 @@ in {
               groupfolders
               integration_paperless
               mail
-              news
               notes
               tasks
               user_oidc

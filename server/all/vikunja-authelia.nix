@@ -23,12 +23,12 @@ in {
   #############
   #-=# AGE #=-#
   #############
-  age.secrets = {
-    "authelia-vikunja" = {
-      file = ../../modules/resources/authelia-vikunja.age;
-      owner = "root"; # XXX
-    };
-  };
+  # age.secrets = {
+  #  "authelia-vikunja" = {
+  #    file = ../../modules/resources/authelia-vikunja.age;
+  #    owner = "root"; # XXX
+  #  };
+  # };
 
   ##################
   #-=# SERVICES #=-#
@@ -45,8 +45,46 @@ in {
       frontendScheme = "https";
       frontendHostname = infra.vikunja.fqdn;
       settings = {
+        log.eventslevel = "info"; # debug, info, error
+        defaultsettings.language = "de-DE";
+        service = {
+          JWTSecret = "g8-ZUMePGa59pYSytfoLaSO1EY6tkpH11NH3pzUbahxClMN1XpiW24vGxkbmAyvJyaMsf9f8";
+          jwtttl = 1209600; # seconds, 14 tage
+          jwtttlong = 2592000;
+          jwtttlshort = 1200;
+          puburl = infra.vikunja.url;
+          enabletotp = false;
+          enablepublicteams = true;
+          enableopenidteamusersearch = true;
+          # customlogourl = infra.brand.logo;
+          timezone = infra.locale.tz;
+          backgrounds = {
+            enabled = true;
+            providers = {
+              # upload = "";
+              provisers.unspash = {
+                enabled = false;
+                accesstoken = "";
+                applicationid = "";
+              };
+            };
+          };
+        };
+        mailer = {
+          enabled = true;
+          host = infra.smtp.user.ip;
+          port = infra.port.smtp;
+          skiptlsverify = true;
+          fromemail = infra.admin.email;
+        };
+        metrics = {
+          enabled = false;
+        };
+        plugins = {
+          enabled = false;
+        };
         auth = {
-          local.enabled = true;
+          local.enabled = false;
           openid = {
             enabled = true;
             providers.authelia = {

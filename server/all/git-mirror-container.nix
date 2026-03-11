@@ -125,8 +125,16 @@ in {
           enable = true;
           nginx.virtualHost = "${infra.git-mirror.name}";
           scanPath = infra.git-mirror.storage;
-          gitHttpBackend.enable = false;
-          settings.clone-url = "${infra.git-mirror.url}/$CGIT_REPO_URL";
+          settings = {
+            clone-url = "${infra.git-mirror.url}/$CGIT_REPO_URL";
+            snapshots = "all";
+            enable-remote-branches = true;
+            enable-git-config = true;
+          };
+          gitHttpBackend = {
+            enable = false;
+            checkExportOkFiles = false;
+          };
         };
       };
     };

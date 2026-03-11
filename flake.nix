@@ -58,6 +58,7 @@
           ./configuration.nix
           ./hardware/default.nix
           ./client/addrootCA.nix
+          ./client/addrootCA-ext.nix
           ./client/addCache.nix
           ./openwrt/alias.nix
           ./person/desktop/mpaepcke.nix
@@ -66,6 +67,7 @@
           ./packages/devops-core.nix
           ./packages/desktop/gnome.nix
           ./packages/desktop/add-onlyoffice.nix
+          ./packages/desktop/add-vikunja.nix
           ./server/ai/ollama01.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
