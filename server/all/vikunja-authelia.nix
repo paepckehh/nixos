@@ -56,22 +56,10 @@ in {
           enabletotp = false;
           enablepublicteams = true;
           enableopenidteamusersearch = true;
-          # customlogourl = infra.brand.logo;
           timezone = infra.locale.tz;
-          backgrounds = {
-            enabled = true;
-            providers = {
-              # upload = "";
-              provisers.unspash = {
-                enabled = false;
-                accesstoken = "";
-                applicationid = "";
-              };
-            };
-          };
         };
         mailer = {
-          enabled = true;
+          enabled = false;
           host = infra.smtp.user.ip;
           port = infra.port.smtp;
           skiptlsverify = true;
@@ -91,8 +79,7 @@ in {
               name = "Authelia";
               authurl = infra.sso.url;
               clientid = infra.vikunja.app;
-              clientsecret = "yLK274tKaRZ2Y58T_rPlaNHTcoGdqGIUgOFDMBCKckeHZnrJXNo9FJG5veIWTeh61.HQJVmG";
-              # clientsecret.file = config.age.secrets.authelia-vikunkja.path;
+              clientsecret = "yLK274tKaRZ2Y58T_rPlaNHTcoGdqGIUgOFDMBCKckeHZnrJXNo9FJG5veIWTeh61.HQJVmG"; # config.age.secrets.authelia-vikunkja.path;
             };
           };
         };

@@ -452,6 +452,7 @@ let
         "toolkit.telemetry.unified" = false;
         "toolkit.telemetry.unifiedIsOptIn" = false;
         "toolkit.telemetry.updatePing.enabled" = false;
+        "webgl.forbid-hardware" = true;
       };
     };
     smbgate = {

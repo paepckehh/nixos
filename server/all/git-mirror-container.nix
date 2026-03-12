@@ -28,7 +28,7 @@ in {
         ];
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = "sh /etc/scripts/git-mirror-gc.sh";
+          ExecStart = "/run/current-system/sw/bin/sh /etc/scripts/git-mirror-gc.sh";
         };
       };
       "git-mirror-fetch" = {
@@ -39,7 +39,7 @@ in {
         ];
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = "sh /etc/scripts/git-mirror-fetch.sh";
+          ExecStart = "/run/current-system/sw/bin/sh /etc/scripts/git-mirror-fetch.sh";
         };
       };
     };
@@ -51,25 +51,27 @@ in {
   environment.etc = {
     "scripts/git-mirror-gc.sh".text = ''
       #/bin/sh
+      export GIT="/run/current-system/sw/bin/git"
       export OPT1="--aggressive"
       export OPT2="--keep-largest"
       export MIRROR="/nix/persist/cache/git-mirror"
-      chown -R 0:0 "$MIRROR" || exit 1
-      git -C "$MIRROR/paepckehh/nixos" gc "$OPT1"
-      git -C "$MIRROR/ryantm/agenix" gc "$OPT1"
-      git -C "$MIRROR/nix-community/disko" gc "$OPT1"
-      git -C "$MIRROR/nix-community/home-manager" gc "$OPT1"
-      git -C "$MIRROR/nixos/nixpkgs" gc "$OPT1" "$OPT2"
+      /run/current-system/sw/bin/chown -R 0:0 "$MIRROR" || exit 1
+      $GIT -C "$MIRROR/paepckehh/nixos" gc "$OPT1"
+      $GIT -C "$MIRROR/ryantm/agenix" gc "$OPT1"
+      $GIT -C "$MIRROR/nix-community/disko" gc "$OPT1"
+      $GIT -C "$MIRROR/nix-community/home-manager" gc "$OPT1"
+      $GIT -C "$MIRROR/nixos/nixpkgs" gc "$OPT1" "$OPT2"
     '';
     "scripts/git-mirror-fetch.sh".text = ''
       #/bin/sh
+      export GIT="/run/current-system/sw/bin/git"
       export MIRROR="/nix/persist/cache/git-mirror"
-      chown -R 0:0 "$MIRROR" || exit 1
-      git -C "$MIRROR/paepckehh/nixos" fetch
-      git -C "$MIRROR/ryantm/agenix" fetch
-      git -C "$MIRROR/nix-community/disko" fetch
-      git -C "$MIRROR/nix-community/home-manager" fetch
-      git -C "$MIRROR/nixos/nixpkgs" fetch
+      /run/current-system/sw/bin/chown -R 0:0 "$MIRROR" || exit 1
+      $GIT -C "$MIRROR/paepckehh/nixos" fetch
+      $GIT -C "$MIRROR/ryantm/agenix" fetch
+      $GIT -C "$MIRROR/nix-community/disko" fetch
+      $GIT -C "$MIRROR/nix-community/home-manager" fetch
+      $GIT -C "$MIRROR/nixos/nixpkgs" fetch
     '';
   };
 
@@ -108,6 +110,34 @@ in {
       networking.hostName = infra.git-mirror.hostname;
 
       ##################
+      #-=# PROGRAMS #=-#
+      ##################
+      programs.git = {
+        enable = true;
+        prompt.enable = true;
+        config = {
+          branch.sort = "-committerdate";
+          commit.gpgsign = false;
+          init.defaultBranch = "main";
+          safe.directory = "*";
+          gpg.format = "ssh";
+          http = {
+            sslVerify = "true";
+            sslVersion = "tlsv1.3";
+            version = "HTTP/1.1";
+          };
+          protocol = {
+            allow = "always";
+            file.allow = "always";
+            git.allow = "never";
+            ssh.allow = "always";
+            http.allow = "never";
+            https.allow = "always";
+          };
+        };
+      };
+
+      ##################
       #-=# SERVICES #=-#
       ##################
       services = {
@@ -132,7 +162,7 @@ in {
             enable-git-config = true;
           };
           gitHttpBackend = {
-            enable = false;
+            enable = true;
             checkExportOkFiles = false;
           };
         };
