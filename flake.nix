@@ -5,6 +5,7 @@
     # agenix.url       = "github:ryantm/agenix?ref=main";
     # disko.url        = "github:nix-community/disko?ref=master";
     # home-manager.url = "github:nix-community/home-manager?ref=master";
+    nixpkgs-dev.url = "git+file:///nix/persist/cache/git-mirror/paepckehh/nixpkgs/.git?ref=vikunja-service";
     nixpkgs.url = "git+https://git-mirror.home.corp/nixos/nixpkgs?ref=nixos-unstable";
     agenix.url = "git+https://git-mirror.home.corp/ryantm/agenix?ref=main";
     disko.url = "git+https://git-mirror.home.corp/nix-community/disko?ref=master";
@@ -17,6 +18,7 @@
     disko,
     home-manager,
     nixpkgs,
+    nixpkgs-dev,
   }: {
     nixosConfigurations = {
       #########
@@ -48,7 +50,7 @@
       ##########
       # SERVER #
       ##########
-      srv = nixpkgs.lib.nixosSystem {
+      srv = nixpkgs-dev.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           agenix.nixosModules.default

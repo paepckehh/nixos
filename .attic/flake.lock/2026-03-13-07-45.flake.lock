@@ -123,10 +123,10 @@
     },
     "nixpkgs-dev": {
       "locked": {
-        "lastModified": 1773387815,
-        "narHash": "sha256-ojNGyWiK65yNC5U8ZzfBPIX3Qpd+ethqlKtxF8ZsRZg=",
+        "lastModified": 1773384424,
+        "narHash": "sha256-SoEmxfdf9NTau5DVT6EnBs3pfiCZvTkWJIlA0HID97U=",
         "ref": "vikunja-service",
-        "rev": "ffb6f29b45ba13def1542a87e45536b26d6fd15b",
+        "rev": "553ce82dece5551c43f6e0012783da641372ebb3",
         "revCount": 962780,
         "type": "git",
         "url": "file:///nix/persist/cache/git-mirror/paepckehh/nixpkgs/.git"

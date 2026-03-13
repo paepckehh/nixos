@@ -91,11 +91,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773367248,
-        "narHash": "sha256-FFMc1uAwy2GYasd0rdNDVxKyAgzuoJH2M+GglBQbqf0=",
+        "lastModified": 1773286336,
+        "narHash": "sha256-+yFtmhOHterllxWmV6YbdevTXpJdGS0mS0UmJ0k9fh0=",
         "ref": "master",
-        "rev": "be0c641a6a5564caa33982faa1fe2c60d92131c7",
-        "revCount": 6351,
+        "rev": "7d06e0cefe6e4a1e85b2b3274dcb0b3da242a557",
+        "revCount": 6346,
         "type": "git",
         "url": "https://git-mirror.home.corp/nix-community/home-manager"
       },
@@ -119,22 +119,6 @@
         "ref": "nixos-25.05",
         "repo": "nixpkgs",
         "type": "github"
-      }
-    },
-    "nixpkgs-dev": {
-      "locked": {
-        "lastModified": 1773387815,
-        "narHash": "sha256-ojNGyWiK65yNC5U8ZzfBPIX3Qpd+ethqlKtxF8ZsRZg=",
-        "ref": "vikunja-service",
-        "rev": "ffb6f29b45ba13def1542a87e45536b26d6fd15b",
-        "revCount": 962780,
-        "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/paepckehh/nixpkgs/.git"
-      },
-      "original": {
-        "ref": "vikunja-service",
-        "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/paepckehh/nixpkgs/.git"
       }
     },
     "nixpkgs_2": {
@@ -174,8 +158,7 @@
         "agenix": "agenix",
         "disko": "disko",
         "home-manager": "home-manager_2",
-        "nixpkgs": "nixpkgs_3",
-        "nixpkgs-dev": "nixpkgs-dev"
+        "nixpkgs": "nixpkgs_3"
       }
     },
     "systems": {

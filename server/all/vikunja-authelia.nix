@@ -23,12 +23,12 @@ in {
   #############
   #-=# AGE #=-#
   #############
-  # age.secrets = {
-  #  "authelia-vikunja" = {
-  #    file = ../../modules/resources/authelia-vikunja.age;
-  #    owner = "root"; # XXX
-  #  };
-  # };
+  age.secrets = {
+    "authelia-vikunja" = {
+      file = ../../modules/resources/authelia-vikunja.age;
+      owner = "vikunja";
+    };
+  };
 
   ##################
   #-=# SERVICES #=-#
@@ -41,6 +41,8 @@ in {
     vikunja = {
       enable = true;
       address = infra.localhost.ip;
+      user = "vikunja";
+      group = "vikunja";
       port = infra.vikunja.localbind.port.http;
       frontendScheme = "https";
       frontendHostname = infra.vikunja.fqdn;
