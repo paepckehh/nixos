@@ -50,6 +50,7 @@ in {
   #-=# VIRTUALISATION #=-#
   ########################
   virtualisation = {
+    docker.enable = true;
     oci-containers.backend = "docker";
     docker = {
       daemon.settings = {

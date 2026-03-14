@@ -50,7 +50,7 @@
       ##########
       # SERVER #
       ##########
-      srv = nixpkgs-dev.lib.nixosSystem {
+      srv = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           agenix.nixosModules.default
@@ -83,8 +83,8 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
-          ./server/todo/vikunja-authelia.nix
-          ./server/cloud/nextcloud-container-authelia.nix
+          # :./server/todo/vikunja-authelia.nix
+          # ./server/cloud/nextcloud-container-authelia.nix
           # ./server/pki/vaultls-docker-authelia.nix
           # ./server/translate/libretranslate-container.nix
           # ./server/share/smbgate.nix
