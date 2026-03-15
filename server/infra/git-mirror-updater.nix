@@ -1,0 +1,1 @@
+../all/git-mirror-updater.nix

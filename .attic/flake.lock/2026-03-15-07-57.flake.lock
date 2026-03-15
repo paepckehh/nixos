@@ -14,12 +14,12 @@
         "rev": "b027ee29d959fda4b60b57566d64c98a202e0feb",
         "revCount": 359,
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/ryantm/agenix"
+        "url": "https://git-mirror.home.corp/ryantm/agenix"
       },
       "original": {
         "ref": "main",
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/ryantm/agenix"
+        "url": "https://git-mirror.home.corp/ryantm/agenix"
       }
     },
     "darwin": {
@@ -49,18 +49,18 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1773506317,
-        "narHash": "sha256-qWKbLUJpavIpvOdX1fhHYm0WGerytFHRoh9lVck6Bh0=",
+        "lastModified": 1773025010,
+        "narHash": "sha256-khlHllTsovXgT2GZ0WxT4+RvuMjNeR5OW0UYeEHPYQo=",
         "ref": "master",
-        "rev": "878ec37d6a8f52c6c801d0e2a2ad554c75b9353c",
-        "revCount": 1350,
+        "rev": "7b9f7f88ab3b339f8142dc246445abb3c370d3d3",
+        "revCount": 1340,
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/nix-community/disko"
+        "url": "https://git-mirror.home.corp/nix-community/disko"
       },
       "original": {
         "ref": "master",
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/nix-community/disko"
+        "url": "https://git-mirror.home.corp/nix-community/disko"
       }
     },
     "home-manager": {
@@ -97,12 +97,12 @@
         "rev": "ef12a9a2b0f77c8fa3dda1e7e494fca668909056",
         "revCount": 6353,
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/nix-community/home-manager"
+        "url": "https://git-mirror.home.corp/nix-community/home-manager"
       },
       "original": {
         "ref": "master",
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/nix-community/home-manager"
+        "url": "https://git-mirror.home.corp/nix-community/home-manager"
       }
     },
     "nixpkgs": {
@@ -119,6 +119,22 @@
         "ref": "nixos-25.05",
         "repo": "nixpkgs",
         "type": "github"
+      }
+    },
+    "nixpkgs-dev": {
+      "locked": {
+        "lastModified": 1773390421,
+        "narHash": "sha256-ZmTvFf+XZD8diWxsPiSGFYmpTt5eko2BU07UUzNUejQ=",
+        "ref": "vikunja-service",
+        "rev": "249bb9fd0e4d05b6b76fba91bf3acf69950506a7",
+        "revCount": 962780,
+        "type": "git",
+        "url": "file:///nix/persist/cache/git-mirror/paepckehh/nixpkgs/.git"
+      },
+      "original": {
+        "ref": "vikunja-service",
+        "type": "git",
+        "url": "file:///nix/persist/cache/git-mirror/paepckehh/nixpkgs/.git"
       }
     },
     "nixpkgs_2": {
@@ -139,18 +155,18 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1773389992,
-        "narHash": "sha256-wvfdLLWJ2I9oEpDd9PfMA8osfIZicoQ5MT1jIwNs9Tk=",
+        "lastModified": 1773282481,
+        "narHash": "sha256-b/GV2ysM8mKHhinse2wz+uP37epUrSE+sAKXy/xvBY4=",
         "ref": "nixos-unstable",
-        "rev": "c06b4ae3d6599a672a6210b7021d699c351eebda",
-        "revCount": 962836,
+        "rev": "fe416aaedd397cacb33a610b33d60ff2b431b127",
+        "revCount": 962285,
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/nixos/nixpkgs"
+        "url": "https://git-mirror.home.corp/nixos/nixpkgs"
       },
       "original": {
         "ref": "nixos-unstable",
         "type": "git",
-        "url": "file:///nix/persist/cache/git-mirror/nixos/nixpkgs"
+        "url": "https://git-mirror.home.corp/nixos/nixpkgs"
       }
     },
     "root": {
@@ -158,7 +174,8 @@
         "agenix": "agenix",
         "disko": "disko",
         "home-manager": "home-manager_2",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_3",
+        "nixpkgs-dev": "nixpkgs-dev"
       }
     },
     "systems": {

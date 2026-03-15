@@ -12,7 +12,7 @@ ID:=$(shell id -u)
 GID:=$(shell id -g)
 NAME:=$(shell id -nu)
 REPO?=git+file://$(REPO)
-DISKOREPO?=git+file:///home/projects/nixos/disko.git
+DISKOREPO?=git+https://git-mirror.home.corp/nix-community/disko?ref=master
 TARGET?=$(shell hostname)
 TARGETDRIVE?=sdb
 PARALLEL?=0

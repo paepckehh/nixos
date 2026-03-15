@@ -1,15 +1,21 @@
 {
   description = "nixos infra global config flake";
   inputs = {
+    # ### online
     # nixpkgs.url      = "github:nixos/nixpkgs?ref=nixos-unstable";
     # agenix.url       = "github:ryantm/agenix?ref=main";
     # disko.url        = "github:nix-community/disko?ref=master";
     # home-manager.url = "github:nix-community/home-manager?ref=master";
-    nixpkgs-dev.url = "git+file:///nix/persist/cache/git-mirror/paepckehh/nixpkgs/.git?ref=vikunja-service";
-    nixpkgs.url = "git+https://git-mirror.home.corp/nixos/nixpkgs?ref=nixos-unstable";
-    agenix.url = "git+https://git-mirror.home.corp/ryantm/agenix?ref=main";
-    disko.url = "git+https://git-mirror.home.corp/nix-community/disko?ref=master";
-    home-manager.url = "git+https://git-mirror.home.corp/nix-community/home-manager?ref=master";
+    # ### private-cloud
+    # nixpkgs.url = "git+https://git-mirror.home.corp/nixos/nixpkgs?ref=nixos-unstable";
+    # agenix.url = "git+https://git-mirror.home.corp/ryantm/agenix?ref=main";
+    # disko.url = "git+https://git-mirror.home.corp/nix-community/disko?ref=master";
+    # home-manager.url = "git+https://git-mirror.home.corp/nix-community/home-manager?ref=master";
+    # ### local-fs
+    nixpkgs.url = "git+file:///nix/persist/cache/git-mirror/nixos/nixpkgs?ref=nixos-unstable";
+    agenix.url = "git+file:///nix/persist/cache/git-mirror/ryantm/agenix?ref=main";
+    disko.url = "git+file:///nix/persist/cache/git-mirror/nix-community/disko?ref=master";
+    home-manager.url = "git+file:///nix/persist/cache/git-mirror/nix-community/home-manager?ref=master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
@@ -18,7 +24,6 @@
     disko,
     home-manager,
     nixpkgs,
-    nixpkgs-dev,
   }: {
     nixosConfigurations = {
       #########
@@ -55,8 +60,8 @@
         modules = [
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
-          # ./storage/stateless-luks-sequence.nix
-          ./storage/stateless-luks-fixed-6F6B-6565.nix
+          ./storage/stateless-luks-sequence.nix
+          # ./storage/stateless-luks-fixed-6F6B-6565.nix
           ./configuration.nix
           ./hardware/default.nix
           ./client/addrootCA.nix
@@ -75,7 +80,7 @@
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix
           ./server/infra/ncps.nix
-          ./server/infra/git-mirror-container.nix
+          ./server/infra/git-mirror-updater.nix
           ./server/infra/syslog-ng.nix
           ./server/search/searx.nix
           ./server/pki/small-step.nix
@@ -83,8 +88,8 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
-          # :./server/todo/vikunja-authelia.nix
           # ./server/cloud/nextcloud-container-authelia.nix
+          # ./server/todo/vikunja-authelia.nix
           # ./server/pki/vaultls-docker-authelia.nix
           # ./server/translate/libretranslate-container.nix
           # ./server/share/smbgate.nix

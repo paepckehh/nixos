@@ -12,6 +12,7 @@
     blacklistedKernelModules = ["affs" "befs" "bfs" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb"];
     nixStoreMountOpts = lib.mkForce ["ro"];
     hardwareScan = true;
+    runSize = "85%";
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot = {
@@ -30,24 +31,15 @@
       availableKernelModules = ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [
-      "page_alloc.shuffle=1"
-      # "options ttm pages_limit=15728640"
-    ];
+    kernelParams = ["page_alloc.shuffle=1"];
     kernelModules = ["uas"];
     tmp = {
       cleanOnBoot = true;
       tmpfsHugeMemoryPages = "within_size";
       tmpfsSize = "85%";
-      useTmpfs = true;
-      useZram = false;
-      zramSettings = {
-        compression-algorithm = "zstd";
-        fs-type = "ext4";
-        zram-size = "ram * 0.85";
-      };
+      useTmpfs = lib.mkDefault true;
+      useZram = lib.mkDefault false;
     };
-    runSize = "85%";
     kernel.sysctl = lib.mkDefault {
       "kernel.kptr_restrict" = 2;
       "kernel.ftrace_enabled" = 0;
