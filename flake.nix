@@ -88,8 +88,8 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
-          # ./server/cloud/nextcloud-container-authelia.nix
-          # ./server/todo/vikunja-authelia.nix
+          ./server/cloud/nextcloud-container-authelia.nix
+          ./server/todo/vikunja-authelia.nix
           # ./server/pki/vaultls-docker-authelia.nix
           # ./server/translate/libretranslate-container.nix
           # ./server/share/smbgate.nix

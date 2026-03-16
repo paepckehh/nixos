@@ -39,7 +39,7 @@ in {
         startAt = ["*-*-* 00:00:00"];
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = "/run/current-system/sw/bin/sh /etc/scripts/syslog-ng-rotate.sh restart";
+          ExecStart = "/run/current-system/sw/bin/sh /etc/scripts/syslog-ng-rotate.sh";
         };
       };
       syslog-ng-shutdown = {
@@ -49,7 +49,7 @@ in {
         unitConfig.DefaultDependencies = false;
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = "/run/current-system/sw/bin/sh /etc/scripts/syslog-ng-rotate.sh";
+          ExecStart = "/run/current-system/sw/bin/sh /etc/scripts/syslog-ng-rotate.sh down";
         };
       };
     };
@@ -61,24 +61,30 @@ in {
   environment = {
     etc."scripts/syslog-ng-rotate.sh".text = ''
       #!/bin/sh
-      LOGDIR="/var/syslog-ng/"
-      LOGARCHIVE="/nix/persist/logs";
-      LOGFILES="console.txt console-err.txt console-crit.txt"
-      cd $LOGDIR || exit 1
-      /run/current-system/sw/bin/touch $LOGFILES
-      /run/current-system/sw/bin/chmod 640 $LOGFILES
-      /run/current-system/sw/bin/mkdir -p $LOGARCHIVE
-      /run/current-system/sw/bin/systemctl stop syslog-ng.service
-      for logfile in $LOGFILES; do
-          mv -f $logfile $LOGARCHIVE/$(date +%Y%m%d%H%M%S)-$logfile
+      LOGDIR="/var/syslog-ng"
+      ARCHIV="/nix/persist/archiv/logs";
+      FILES="console.txt console-err.txt console-crit.txt"
+      EXEC="/run/current-system/sw/bin"
+      DTS="$($EXEC/date +%Y-%m-%d-%H%M%S)"
+      SNAP="$LOGDIR/.$($EXEC/uuidgen)"
+      $EXEC/mkdir -p $SNAP $ARCHIV
+      $EXEC/chown -R 0:0 $SNAP $ARCHIV
+      $EXEC/chmod -R 700 $SNAP $ARCHIV
+      for file in $FILES; do
+          $EXEC/touch $LOGDIR/$file
+          $EXEC/link  $LOGDIR/$file $SNAP/$file
       done
-      if [ "$1" = "restart" ]; then /run/current-system/sw/bin/systemctl start syslog-ng.service; fi
-      /run/current-system/sw/bin/xz -9e $LOGARCHIVE/*.txt
-      /run/current-system/sw/bin/chown -R 0:0 $LOGARCHIVE
-      /run/current-system/sw/bin/chmod -R 700 $LOGARCHIVE
-      /run/current-system/sw/bin/sync
-      /run/current-system/sw/bin/sync
-      /run/current-system/sw/bin/sync
+      $EXEC/systemctl stop syslog-ng.service
+      for file in $FILES; do
+          $EXEC/unlink $LOGDIR/$file
+      done
+      if [ "$1" != "down" ]; then $EXEC/systemctl start syslog-ng.service; fi
+      for file in $FILES; do
+          $EXEC/cat $SNAP/$file | $EXEC/xz -9e --compress --stdout > $ARCHIV/$DTS.$file.xz
+          $EXEC/unlink $SNAP/$file
+          $EXEC/sync
+      done
+      $EXEC/rm -rf $SNAP
     '';
     shellAliases = {
       "console" = ''sudo tail -n 1500 -f /var/syslog-ng/console.txt           |  bat -f -l syslog --paging never'';
