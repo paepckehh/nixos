@@ -1,9 +1,4 @@
 {pkgs, ...}: {
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  # imports = [ ./neovim-nvf.nix];
-
   ##################
   #-=# PROGRAMS #=-#
   ##################
@@ -27,33 +22,17 @@
     systemPackages = with pkgs; [
       aria2
       certinfo-go
-      curlie
       cryptsetup
       binsider
-      doggo
-      doxx
       dmidecode
       file
       jqfmt
       gh
       gnumake
-      golangci-lint
-      go-tools
-      grafana-reporter
       httpie
       hyperfine
-      murex
       ncdu
-      nixfmt
-      nix-init
-      nixpkgs-review
-      nix-prefetch-scripts
-      nix-search-cli
-      nps
-      marmite
-      parted
       pciutils
-      powertop
       shellcheck
       shfmt
       s-tui

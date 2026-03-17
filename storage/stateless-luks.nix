@@ -15,7 +15,7 @@
         devices = {
           "nix" = {
             device = lib.mkDefault "/dev/disk/by-diskseq/1-part3";
-            allowDiscards = true;
+            allowDiscards = lib.mkForce true;
           };
         };
       };
@@ -37,39 +37,39 @@
       fsType = "ext4";
       depends = ["/"];
       neededForBoot = true;
-      options = ["noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit" "x-initrd.mount"];
+      options = ["discard" "noatime" "nodiratime" "commit=10" "nobarrier" "data=writeback" "journal_async_commit" "x-initrd.mount"];
     };
     "/var/lib" = lib.mkForce {
       device = "/nix/persist/var/lib";
       fsType = "none";
       depends = ["/nix"];
       neededForBoot = true;
-      options = ["bind" "x-initrd.mount"];
+      options = ["bind" "x-initrd.mount" "discard"];
     };
     "/etc/ssh" = lib.mkForce {
       device = "/nix/persist/etc/ssh";
       fsType = "none";
       depends = ["/nix"];
       neededForBoot = true;
-      options = ["bind" "x-initrd.mount"];
+      options = ["bind" "x-initrd.mount" "discard"];
     };
     "/root/.ssh" = lib.mkForce {
       device = "/nix/persist/root/.ssh";
       fsType = "none";
       depends = ["/nix"];
-      options = ["bind" "x-initrd.mount"];
+      options = ["bind" "x-initrd.mount" "discard"];
     };
     "/etc/nixos" = lib.mkForce {
       device = "/nix/persist/etc/nixos";
       fsType = "none";
       depends = ["/nix"];
-      options = ["bind"];
+      options = ["bind" "discard"];
     };
     "/home" = lib.mkForce {
       device = "/nix/persist/home";
       fsType = "none";
       depends = ["/nix"];
-      options = ["bind"];
+      options = ["bind" "discard"];
     };
   };
 }

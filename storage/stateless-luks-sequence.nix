@@ -7,7 +7,14 @@
   ##############
   #-=# BOOT #=-#
   ##############
-  boot.initrd.luks.devices."nix".device = lib.mkForce "/dev/disk/by-diskseq/1-part3";
+
+  ##############
+  #-=# BOOT #=-#
+  ##############
+  boot.initrd.luks.devices."nix" = {
+    devices."nix".device = lib.mkForce "/dev/disk/by-diskseq/1-part3";
+    allowDiscards = lib.mkForce true;
+  };
 
   ##################
   #-=# ZRAMSWAP #=-#

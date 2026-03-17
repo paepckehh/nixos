@@ -146,6 +146,7 @@ build-nixos-all:
 gc: git-gc 
 	nix-store --gc
 	nix-store --optimise
+	# fstrim /nix
 
 repair: store-gc
 	nix-store --verify --check-contents --repair

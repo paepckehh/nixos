@@ -134,7 +134,6 @@
       cliqr
       cryptsetup
       delta
-      disko
       dnsutils
       duf
       dust

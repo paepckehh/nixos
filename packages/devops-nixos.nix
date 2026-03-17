@@ -3,7 +3,14 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment.systemPackages = with pkgs; [
-    doxx
-    fancy-cat
+    disko
+    nixfmt
+    nix-init
+    nixpkgs-review
+    nix-prefetch-scripts
+    nix-search-cli
+    nfs-utils
+    parted
+    zfs
   ];
 }

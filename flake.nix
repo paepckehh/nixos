@@ -70,11 +70,10 @@
           ./openwrt/alias.nix
           ./person/desktop/mpaepcke.nix
           ./user/desktop/add-thinkpad-me.nix
-          ./packages/base.nix
           ./packages/devops-core.nix
           ./packages/desktop/gnome.nix
-          ./packages/desktop/add-onlyoffice.nix
-          ./packages/desktop/add-vikunja.nix
+          # ./packages/desktop/add-onlyoffice.nix
+          # ./packages/desktop/add-vikunja.nix
           ./server/ai/ollama01.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
@@ -88,11 +87,11 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
-          ./server/cloud/nextcloud-container-authelia.nix
+          ./server/share/smbgate.nix
+          # ./server/cloud/nextcloud-container-authelia.nix
           # ./server/todo/vikunja-authelia.nix
           # ./server/pki/vaultls-docker-authelia.nix
           # ./server/translate/libretranslate-container.nix
-          # ./server/share/smbgate.nix
           # ./server/mail/maddy-admin.nix
           # ./server/office/onlyoffice-container.nix
           # ./server/lora/meshtastic-web.nix

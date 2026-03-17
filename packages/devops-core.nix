@@ -3,11 +3,11 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
+    ./base.nix
     ./devops-base.nix
-    ./devops-db.nix
-    ./devops-office.nix
-    ./devops-ldap.nix
+    ./devops-go.nix
     ./devops-sec.nix
     ./devops-net.nix
+    ./devops-nixos.nix
   ];
 }

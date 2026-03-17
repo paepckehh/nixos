@@ -12,7 +12,10 @@ in {
   ##############
   #-=# BOOT #=-#
   ##############
-  boot.initrd.luks.devices."nix".device = lib.mkForce "/dev/disk/by-uuid/${disk.Id.nix}";
+  boot.initrd.luks.devices."nix" = {
+    device = lib.mkForce "/dev/disk/by-uuid/${disk.Id.nix}";
+    allowDiscards = lib.mkForce true;
+  };
 
   ##################
   #-=# ZRAMSWAP #=-#

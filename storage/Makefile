@@ -5,14 +5,16 @@
 ######################
 # SETUP ENV DEFAULTS #
 ######################
-# REPO?=https://github.com/paepckehh/nixos
 # DISKOREPO?=github:nix-community/disko/latest 
+# DISKOREPO?=git+https://git-mirror.home.corp/nix-community/disko?ref=master
+# DISKOREPO?=git+file:///nix/persist/cache/git-mirror/nix-community/disko?ref=master
+# REPO?=git+https://git-mirror.home.corp/paepckehh/nixos
+# REPO?=git+https://github.com/paepckehh/nixos
 REPO:=/etc/nixos
 ID:=$(shell id -u)
 GID:=$(shell id -g)
 NAME:=$(shell id -nu)
 REPO?=git+file://$(REPO)
-DISKOREPO?=git+https://git-mirror.home.corp/nix-community/disko?ref=master
 TARGET?=$(shell hostname)
 TARGETDRIVE?=sdb
 PARALLEL?=0
@@ -97,10 +99,12 @@ umount:
 
 format:
 	echo ${LUKS} > /tmp/luks
-	$(SUDO) nix run $(DISKOREPO) -- --mode format --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+	$(SUDO) disko --mode format --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+	# $(SUDO) nix run $(DISKOREPO) -- --mode format --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
 
 wipe:
-	$(SUDO) nix run $(DISKOREPO) -- --mode destroy --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+	$(SUDO) disko --mode destroy --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
+	# $(SUDO) nix run $(DISKOREPO) -- --mode destroy --argstr diskDevice /dev/$(TARGETDRIVE) $(DISKOFLAKE) || exit 1
 	ZERODRIVE=$(TARGETDRIVE) $(MAKE) trim 
 
 ###########

@@ -145,15 +145,15 @@
       ];
     };
     gc = {
-      automatic = true;
-      dates = "daily"; # "18:00"
+      automatic = false;
+      dates = "03:00";
       persistent = false;
       randomizedDelaySec = "15min";
       options = "--delete-older-than 12d";
     };
     optimise = {
-      automatic = true;
-      dates = "daily"; # "19:00"
+      automatic = false;
+      dates = "04:00";
       persistent = false;
       randomizedDelaySec = "15min";
     };
@@ -298,7 +298,7 @@
   #####################
   environment = {
     shells = [pkgs.bashInteractive];
-    systemPackages = with pkgs; [cryptsetup git libargon2 libsmbios lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
+    systemPackages = with pkgs; [cryptsetup git libargon2 libsmbios util-linux lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
   };
 
   ####################
@@ -376,7 +376,7 @@
     };
     fstrim = {
       enable = true;
-      interval = "daily";
+      interval = "weekly"; # weekly, daily, 05:00
     };
     tlp = {
       enable = true;
