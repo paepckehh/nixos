@@ -3,7 +3,12 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  ############################
+  #-=# GLOBAL SITE IMPORT #=-#
+  ############################
+  infra = (import ./siteconfig/config.nix).infra;
+in {
   ##############
   #-=# BOOT #=-#
   ##############
@@ -363,7 +368,7 @@
     gvfs.enable = lib.mkForce false;
     hardware.bolt.enable = true;
     udisks2.enable = lib.mkForce true;
-    fwupd.enable = lib.mkForce true;
+    fwupd.enable = lib.mkForce false;
     smartd.enable = lib.mkDefault true;
     power-profiles-daemon.enable = lib.mkForce false;
     logind.settings.Login.HandleHibernateKey = "ignore";

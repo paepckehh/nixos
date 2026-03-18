@@ -158,15 +158,6 @@ in {
               };
             };
           };
-          ghostty = {
-            enable = true;
-            installBatSyntax = true;
-            installVimSyntax = true;
-            systemd.enable = true;
-            settings = {
-              language = infra.locale.lang;
-            };
-          };
           go = {
             enable = true;
             package = pkgs.go_1_26;

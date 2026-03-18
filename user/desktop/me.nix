@@ -166,6 +166,16 @@ in {
           settings = infra.firefox.settings;
         };
       };
+
+      ghostty = {
+        enable = false;
+        installBatSyntax = true;
+        installVimSyntax = true;
+        systemd.enable = true;
+        settings = {
+          language = infra.locale.lang;
+        };
+      };
       alacritty = {
         enable = true;
         settings = {
