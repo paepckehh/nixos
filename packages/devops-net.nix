@@ -12,6 +12,7 @@
       grepcidr
       netscanner
       ngrep
+      # sngrep # sip
       stress
       tcping-go
       termshark

@@ -279,17 +279,17 @@
   #-=# I18N #=-#
   ##############
   i18n = {
-    defaultLocale = "C.UTF-8"; # "en_US.UTF-8" "de_DE.UTF-8;
+    defaultLocale = infra.locale.LC.global;
     extraLocaleSettings = {
-      LC_ADDRESS = "de_DE.UTF-8";
-      LC_IDENTIFICATION = "en_US.UTF-8";
-      LC_MEASUREMENT = "de_DE.UTF-8";
-      LC_MONETARY = "de_DE.UTF-8";
-      LC_NAME = "de_DE.UTF-8";
-      LC_NUMERIC = "C.UTF-8";
-      LC_PAPER = "de_DE.UTF-8";
-      LC_TELEPHONE = "de_DE.UTF-8";
-      LC_TIME = "de_DE.UTF-8";
+      LC_ADDRESS = infra.locale.LC.regional;
+      LC_IDENTIFICATION = infra.locale.LC.regional;
+      LC_MEASUREMENT = infra.locale.LC.regional;
+      LC_MONETARY = infra.locale.LC.regional;
+      LC_NAME = infra.locale.LC.regional;
+      LC_NUMERIC = infra.locale.LC.regional;
+      LC_PAPER = infra.locale.LC.regional;
+      LC_TELEPHONE = infra.locale.LC.regional;
+      LC_TIME = infra.locale.LC.regional;
     };
   };
 
@@ -363,8 +363,7 @@
     gvfs.enable = lib.mkForce false;
     hardware.bolt.enable = true;
     udisks2.enable = lib.mkForce true;
-    fwupd.enable = lib.mkForce false;
-    openssh.enable = lib.mkDefault false;
+    fwupd.enable = lib.mkForce true;
     smartd.enable = lib.mkDefault true;
     power-profiles-daemon.enable = lib.mkForce false;
     logind.settings.Login.HandleHibernateKey = "ignore";
@@ -392,6 +391,56 @@
         CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
         PLATFORM_PROFILE_ON_AC = "performance";
         PLATFORM_PROFILE_ON_BAT = "low-power";
+      };
+    };
+    openssh = {
+      enable = lib.mkDefault false;
+      authorizedKeysInHomedir = false;
+      authorizedKeysCommandUser = "nobody";
+      authorizedKeysCommand = "none";
+      allowSFTP = false;
+      startWhenNeeded = true;
+      generateHostKeys = true;
+      listenAddresses = [];
+      hostKeys = [
+        {
+          path = "/etc/ssh/ssh_host_ed25519_key";
+          type = "ed25519";
+        }
+      ];
+      settings = {
+        AddressFamily = "inet";
+        AllowAgentForwarding = false;
+        AllowGroups = null;
+        AllowUsers = ["me" "backup"];
+        AuthenticationMethods = ["publickey"];
+        AuthorizedPrincipalsFile = "none";
+        ChallengeResponseAuthentication = "no";
+        Ciphers = ["chacha20-poly1305@openssh.com"];
+        Compression = "no";
+        GSSAPIAuthentication = "no";
+        GatewayPorts = "no";
+        HostKey = "/etc/ssh/ssh_host_ed25519_key";
+        HostKeyAlgorithms = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
+        KbdInteractiveAuthentication = "no";
+        KerberosAuthentication = "no";
+        KexAlgorithms = ["curve25519-sha256" "curve25519-sha256@libssh.org"];
+        LogLevel = "INFO"; # INFO, VERBOSE, DEBUG
+        Macs = null; #
+        MaxStartups = "10:30:100";
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+        PrintMotd = false;
+        PubkeyAcceptedAlgorithms = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
+        PubkeyAuthOptions = "touch-required";
+        PubkeyAuthentication = "yes";
+        RekeyLimit = ["512M" "1h"];
+        StrictModes = true;
+        UseDns = false;
+        UsePAM = false;
+        X11Forwarding = false;
+        # Match.Address."192.168.0.0/24".AllowUsers = ["me"];
+        # Match.Address."10.21.0.0/24".AllowUsers = ["backup"];
       };
     };
   };

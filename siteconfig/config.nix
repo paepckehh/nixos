@@ -24,8 +24,12 @@ let
     };
     locale = {
       tz = "Europe/Berlin";
-      lang = "de";
-      defaultLocale = "C.UTF-8"; # "en_US.UTF-8" "de_DE.UTF-8;
+      lang = "en"; # de
+      LC = {
+        # "C.UTF-8" # "C.UTF-8" "en_US.UTF-8" "de_DE.UTF-8;
+        global = "C.UTF-8";
+        regional = "de_DE.UTF-8";
+      };
     };
     email.domain = {
       intern = infra.domain.user;

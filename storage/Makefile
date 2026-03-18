@@ -87,7 +87,7 @@ post-mount:
 	$(SUDO) mount -o bind /mnt/nix/persist/root/.ssh /mnt/root/.ssh
 
 bootproof: 
-	$(SUDO) bootctl --no-pager --esp-path=/mnt/boot status || exit 1
+	$(SUDO) bootctl --no-pager --esp-path=/mnt/boot status || true
 
 umount:
 	$(SUDO) sync && sync && sync

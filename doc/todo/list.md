@@ -59,6 +59,8 @@
 - dm-verity # sec, secure, store
 - https://blog.frankleonhardt.com freebsd, nix, network 
 - https://artemis.sh/2023/03/07/nixos-early-boot-running-from-ram.html # iso, boot, ram, stateless
+- https://www.monotux.tech/ # nix mix
+- https://bertptrs.nl/2021/09/05/securely-passing-secrets-to-dynamicuser-systemd-services.html # nix agenix systemd
 
 # osm 
 - https://wiki.openstreetmap.org/wiki/DE:Key:de:strassenschluessel
@@ -87,3 +89,6 @@
 
 # email, archive
 - https://github.com/LogicLabs-OU/OpenArchiver
+
+# zfs
+- https://blog.hofstede.it/ # zfs freebsd linux vim as bgp network

@@ -14,7 +14,7 @@ in {
   # NETWORKING #
   ##############
   networking = {
-    hostName = "srv-default";
+    hostName = "srv-default-hostname";
     usePredictableInterfaceNames = lib.mkForce true;
     nameservers = [infra.dns.ip];
     networkmanager = {
@@ -189,33 +189,6 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
-    openssh = {
-      enable = lib.mkDefault false;
-      listenAddresses = [];
-      settings = {
-        AllowGroups = null;
-        AllowUsers = ["me" "restic"];
-        AuthenticationMethods = ["publickey"];
-        AuthorizedPrincipalsFile = null;
-        Ciphers = ["chacha20-poly1305@openssh.com"];
-        ChallengeResponseAuthentication = "no";
-        Compression = "no";
-        GatewayPorts = "no";
-        GSSAPIAuthentication = "no";
-        HostKey = "/etc/ssh/ssh_host_ed25519_key";
-        KbdInteractiveAuthentication = "no";
-        KexAlgorithms = ["curve25519-sha256" "curve25519-sha256@libssh.org"];
-        LogLevel = "INFO"; # INFO, VERBOSE, DEBUG
-        Macs = null; # chacha20-poly1305 inherent
-        PasswordAuthentication = "no";
-        PermitRootLogin = "no";
-        PrintMotd = false;
-        StrictModes = true;
-        UseDns = false;
-        UsePAM = false;
-        X11Forwarding = false;
-      };
-    };
     caddy = {
       enable = lib.mkDefault false;
       logFormat = lib.mkForce "level INFO";

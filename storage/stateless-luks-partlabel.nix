@@ -7,8 +7,14 @@
   ##############
   #-=# BOOT #=-#
   ##############
-  boot.initrd.luks.devices."nix".device = lib.mkForce "/dev/disk/by-partlabel/disk-main-nix";
 
+  ##############
+  #-=# BOOT #=-#
+  ##############
+  boot.initrd.luks.devices."nix" = {
+    device = lib.mkForce "/dev/disk/by-partlabel/disk-main-nix";
+    allowDiscards = lib.mkForce true;
+  };
   ##################
   #-=# ZRAMSWAP #=-#
   ##################
