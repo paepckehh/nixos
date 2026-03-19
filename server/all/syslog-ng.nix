@@ -63,7 +63,7 @@ in {
       #!/bin/sh
       LOGDIR="/var/syslog-ng"
       ARCHIV="/nix/persist/archiv/logs";
-      FILES="console.txt console-err.txt console-crit.txt"
+      FILES="console.txt console-err.txt console-crit.txt console-hostwatch.txt console-newstation.txt"
       EXEC="/run/current-system/sw/bin"
       DTS="$($EXEC/date +%Y-%m-%d-%H%M%S)"
       SNAP="$LOGDIR/.$($EXEC/uuidgen)"
@@ -85,11 +85,16 @@ in {
           $EXEC/sync
       done
       $EXEC/rm -rf $SNAP
+      $EXEC/chown -R 0:0 $ARCHIV
+      $EXEC/chmod -R 700 $ARCHIV
+      $EXEC/ln -sf /nix/persist/archiv/logs /var/syslog-ng/ || true
     '';
     shellAliases = {
-      "console" = ''sudo tail -n 1500 -f /var/syslog-ng/console.txt           |  bat -f -l syslog --paging never'';
-      "console.err" = ''sudo tail -n 1500 -f /var/syslog-ng/console-err.txt   |  bat -f -l syslog --paging never'';
-      "console.crit" = ''sudo tail -n 1500 -f /var/syslog-ng/console-crit.txt |  bat -f -l syslog --paging never'';
+      "console" = ''sudo tail --lines 1000 -f /var/syslog-ng/console.txt | bat -f -l syslog --paging never'';
+      "console.err" = ''sudo tail --lines 1000 -f /var/syslog-ng/console-err.txt | bat -f -l syslog --paging never'';
+      "console.crit" = ''sudo tail --lines 1000 -f /var/syslog-ng/console-crit.txt | bat -f -l syslog --paging never'';
+      "console.hostwatch" = ''sudo tail --lines 1000 -f /var/syslog-ng/console-hostwatch.txt | bat -f -l syslog --paging never'';
+      "console.new-station" = ''sudo tail --lines 1000 -f /var/syslog-ng/console-newstation.txt | bat -f -l syslog --paging never'';
     };
   };
 
@@ -141,14 +146,18 @@ in {
                         so-reuseport(1)
                 );
         };
-        filter f_err  { level(err..emerg); };
+        filter f_not_spam { not message(" DPT=51008 LEN=") };
+        filter f_err { level(err..emerg); };
         filter f_crit { level(crit..emerg); };
-        destination d_log { file("/var/syslog-ng/console.txt");  };
-        destination d_log_err { file("/var/syslog-ng/console-err.txt");  };
-        destination d_log_crit { file("/var/syslog-ng/console-crit.txt");  };
-        log { source(s_local); source(s_net_tcp); source(s_net_udp); destination(d_log); };
+        filter f_hostwatch { program("hostwatch"); };
+        destination d_log { file("/var/syslog-ng/console.txt"); };
+        destination d_log_err { file("/var/syslog-ng/console-err.txt"); };
+        destination d_log_crit { file("/var/syslog-ng/console-crit.txt"); };
+        destination d_log_hostwatch { file("/var/syslog-ng/console-hostwatch.txt"); };
+        log { source(s_local); source(s_net_tcp); source(s_net_udp); filter(f_not_spam); destination(d_log); };
         log { source(s_local); source(s_net_tcp); source(s_net_udp); filter(f_err); destination(d_log_err); };
         log { source(s_local); source(s_net_tcp); source(s_net_udp); filter(f_crit); destination(d_log_crit); };
+        log { source(s_local); source(s_net_tcp); source(s_net_udp); filter(f_hostwatch); destination(d_log_hostwatch); };
       '';
     };
   };
