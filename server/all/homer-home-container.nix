@@ -153,6 +153,13 @@ in {
                     logo = infra.paperless.logo;
                   }
                   {
+                    name = "MailArchive [Bichon]";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.bichon.url;
+                    logo = infra.bichon.logo;
+                  }
+                  {
                     name = "WebArchiv [Readeck]";
                     tag = "app";
                     target = "_blank";

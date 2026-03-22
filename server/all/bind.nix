@@ -123,6 +123,7 @@ in {
                                                  IN NS ${infra.dns.fqdn}.
             ${infra.autoconfig.hostname}         IN A  ${infra.autoconfig.user.ip}
             ${infra.bentopdf.hostname}           IN A  ${infra.bentopdf.ip}
+            ${infra.bichon.hostname}             IN A  ${infra.bichon.ip}
             ${infra.cache.hostname}              IN A  ${infra.cache.ip}
             ${infra.chef.hostname}               IN A  ${infra.chef.ip}
             ${infra.coturn.hostname}             IN A  ${infra.coturn.ip}
@@ -171,6 +172,7 @@ in {
             ${infra.zipline.hostname}            IN A  ${infra.zipline.ip}
             ${infra.autoconfig.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.autoconfig.user.ip}"
             ${infra.bentopdf.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.bentopdf.ip}"
+            ${infra.bichon.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.bichon.ip}"
             ${infra.cache.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.cache.ip}"
             ${infra.chef.hostname}               IN HTTPS 1 . alpn="h3" ipv4hint="${infra.chef.ip}"
             ${infra.donetick.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.donetick.ip}"
@@ -294,6 +296,7 @@ in {
             ${infra.dns.fqdn}                       IN A   ${infra.dns.ip}
             ${toString infra.autoconfig.id}         IN PTR ${infra.autoconfig.user.fqdn}.
             ${toString infra.bentopdf.id}           IN PTR ${infra.bentopdf.fqdn}.
+            ${toString infra.bichon.id}             IN PTR ${infra.bichon.fqdn}.
             ${toString infra.cache.id}              IN PTR ${infra.cache.fqdn}.
             ${toString infra.chef.id}               IN PTR ${infra.chef.fqdn}.
             ${toString infra.ente.id}               IN PTR ${infra.ente.fqdn}.

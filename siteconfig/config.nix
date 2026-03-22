@@ -47,6 +47,7 @@ let
     storage = {
       persist = "/nix/persist";
       cache = "${infra.storage.persist}/cache";
+      state = "/var/lib";
     };
     sources = {
       prefix = infra.sources.mirror;
@@ -651,6 +652,13 @@ let
       ip = "${infra.net.user}.${toString infra.git.id}";
       localbind.port.http = infra.localhost.port.offset + infra.git-mirror.id;
       storage = "${infra.storage.cache}/${infra.git-mirror.name}";
+      mirror-repos = [
+        "nixos/nixpkgs#https://github.com/nixos/nixpkgs"
+        "nix-community/home-manager#https://github.com/nix-community/home-manger"
+        "nix-community/disko#https://github.com/nix-community/disko"
+        "ryantm/agenix#https://github.com/ryantm/agenix"
+        "paepckehh/nixos#https://github.com/paepckehh/nixos"
+      ];
       url = "https://${infra.git-mirror.fqdn}";
       logo = "${infra.res.url}/icon/png/git.png";
     };
@@ -1530,6 +1538,18 @@ let
       localbind.port.http = infra.localhost.port.offset + infra.vikunja.id;
       url = "https://${infra.vikunja.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.vikunja.app}.png";
+    };
+    bichon = {
+      id = 186;
+      app = "bichon";
+      name = infra.bichon.app;
+      hostname = infra.bichon.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.bichon.hostname}.${infra.bichon.domain}";
+      ip = "${infra.net.user}.${toString infra.bichon.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.bichon.id;
+      url = "https://${infra.bichon.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.bichon.app}.png";
     };
   };
 in {infra = infra;}
