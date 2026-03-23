@@ -1,8 +1,14 @@
 {
   config,
+  pkgs,
   lib,
   ...
-}: {
+}: let
+  ############################
+  #-=# GLOBAL SITE IMPORT #=-#
+  ############################
+  infra = (import ../siteconfig/config.nix).infra;
+in {
   #################
   #-=# IMPORTS #=-#
   #################

@@ -281,10 +281,12 @@ in {
       };
       backup = {
         hashedPassword = lib.mkForce null; # disable
+        isSystemUser = true;
+        group = "backup";
         openssh.authorizedKeys.keys = infra.backup.sshKeys;
       };
-      groups.backup.members = ["backup"];
     };
+    groups.backup.members = ["backup"];
   };
 
   ##############
