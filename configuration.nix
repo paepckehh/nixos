@@ -273,10 +273,17 @@ in {
   #-=# USERS #=-#
   ###############
   users = {
-    mutableUsers = false; # impermanence
-    users.root = {
-      hashedPassword = null; # disable root account
-      openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # disable pubkey auth
+    mutableUsers = false;
+    users = {
+      root = {
+        hashedPassword = lib.mkForce null; # disable
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
+      };
+      backup = {
+        hashedPassword = lib.mkForce null; # disable
+        openssh.authorizedKeys.keys = infra.backup.sshKeys;
+      };
+      groups.backup.members = ["backup"];
     };
   };
 
@@ -327,7 +334,12 @@ in {
     firewall = {
       enable = true;
       allowPing = true;
-      checkReversePath = lib.mkDefault true; # "loose";
+      checkReversePath = lib.mkDefault true;
+      allowedTCPPorts = (
+        if (config.services.openssh.enable == true)
+        then [infra.port.ssh]
+        else []
+      );
     };
   };
 
@@ -406,7 +418,12 @@ in {
       allowSFTP = false;
       startWhenNeeded = true;
       generateHostKeys = true;
-      listenAddresses = [];
+      listenAddresses = lib.mkDefault [
+        {
+          addr = "0.0.0.0";
+          port = infra.port.ssh-mgmt;
+        }
+      ];
       hostKeys = [
         {
           path = "/etc/ssh/ssh_host_ed25519_key";
@@ -422,12 +439,17 @@ in {
         AuthorizedPrincipalsFile = "none";
         ChallengeResponseAuthentication = "no";
         Ciphers = ["chacha20-poly1305@openssh.com"];
+        ClientAliveInterval = "30";
+        ClientAliveCountMax = "3";
+        PerSourceMaxStartups = "12";
+        PerSourceNetBlockSize = "32:128";
         Compression = "no";
         GatewayPorts = "no";
         HostKey = "/etc/ssh/ssh_host_ed25519_key";
         KbdInteractiveAuthentication = false;
         KexAlgorithms = ["curve25519-sha256" "curve25519-sha256@libssh.org"];
         LogLevel = "INFO"; # INFO, VERBOSE, DEBUG
+        LoginGraceTime = "2m";
         Macs = null; #
         MaxStartups = "10:30:100";
         PasswordAuthentication = false;
@@ -435,7 +457,7 @@ in {
         PrintMotd = false;
         PubkeyAuthOptions = "touch-required";
         PubkeyAuthentication = "yes";
-        RekeyLimit = "1G, 1h";
+        RekeyLimit = "512M, 1h";
         StrictModes = true;
         UseDns = false;
         UsePAM = false;

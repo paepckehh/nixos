@@ -26,7 +26,12 @@ in {
     caddy.enable = lib.mkForce infra.srv2.reverseproxy;
     openssh = {
       enable = lib.mkForce infra.srv2.sshd;
-      listenAddresses = [{addr = infra.srv2.admin.ip;}];
+      listenAddresses = lib.mkForce [
+        {
+          addr = infra.srv2.admin.ip;
+          port = infra.port.ssh-mgmt;
+        }
+      ];
     };
   };
 

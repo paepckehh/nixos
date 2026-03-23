@@ -15,10 +15,7 @@
   ###############
   users.users.me = {
     description = lib.mkForce "PAEPCKE, Michael";
-    openssh.authorizedKeys.keys = lib.mkForce [
-      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIAGsgOTEwxqUCKC49pwuQHXyhb+jjIBUzFdwRsjS9iMkAAAABHNzaDo= git@paepcke.de"
-      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIG50evljqeCBDwrkkB0FXf9A2BtCKYnDYHOnHZvpmRLNAAAABHNzaDo="
-    ];
+    openssh.authorizedKeys.keys = lib.mkForce infra.admin.sshKeys;
   };
 
   ######################

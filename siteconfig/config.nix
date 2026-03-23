@@ -43,6 +43,16 @@ let
         id = "it";
         pwd = "password";
       };
+      sshKeys = [
+        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIG50evljqeCBDwrkkB0FXf9A2BtCKYnDYHOnHZvpmRLNAAAABHNzaDo= me@ops"
+        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIAGsgOTEwxqUCKC49pwuQHXyhb+jjIBUzFdwRsjS9iMkAAAABHNzaDo= git@paepcke.de"
+      ];
+    };
+    backup = {
+      email = "backup@${infra.email.domain.intern}";
+      sshKeys = [
+        "ssh-ed25519@openssh.com [...] ="
+      ];
     };
     storage = {
       persist = "/nix/persist";
@@ -150,6 +160,7 @@ let
       https = 443;
       smtp = 25;
       ssh = 6622;
+      ssh-mgmt = 6623;
       http = 80;
       imap = 143;
       jmap = 143;
@@ -1549,7 +1560,7 @@ let
       ip = "${infra.net.user}.${toString infra.bichon.id}";
       localbind.port.http = infra.localhost.port.offset + infra.bichon.id;
       url = "https://${infra.bichon.fqdn}";
-      logo = "${infra.res.url}/icon/png/${infra.bichon.app}.png";
+      logo = "${infra.res.url}/icon/png/twake-mail.png";
     };
   };
 in {infra = infra;}
