@@ -8,6 +8,7 @@
       asn
       bandwhich
       dnstracer
+      dhcping
       gping
       grepcidr
       netscanner

@@ -183,9 +183,9 @@ in {
   ##################
   hardware = {
     acpilight.enable = true;
-    amdgpu.initrd.enable = true;
+    # amdgpu.initrd.enable = false;
+    # enableAllHardware = lib.mkForce false;
     enableAllFirmware = lib.mkForce true;
-    enableAllHardware = lib.mkForce true;
     enableRedistributableFirmware = lib.mkForce true;
     cpu = {
       amd = {

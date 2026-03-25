@@ -502,11 +502,29 @@ let
           extraGroups = ["users"];
           isNormalUser = true;
         };
-        "fa" = {
+        "fb" = {
+          initialHashedPassword = null;
+          openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
+          description = "samba user for fb share";
+          group = "fb";
+          createHome = false;
+          extraGroups = ["users"];
+          isNormalUser = true;
+        };
+        "fe" = {
           initialHashedPassword = null;
           openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
           description = "samba user for fa share";
-          group = "fa";
+          group = "fe";
+          createHome = false;
+          extraGroups = ["users"];
+          isNormalUser = true;
+        };
+        "op" = {
+          initialHashedPassword = null;
+          openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
+          description = "samba user for op share";
+          group = "op";
           createHome = false;
           extraGroups = ["users"];
           isNormalUser = true;
@@ -515,7 +533,9 @@ let
       groups = {
         "it".members = ["it"];
         "ti".members = ["it"];
-        "fa".members = ["fa"];
+        "fb".members = ["fb"];
+        "fe".members = ["fe"];
+        "op".members = ["op"];
       };
       shares = {
         "it" = {
@@ -544,24 +564,52 @@ let
           "force group" = "i";
           "valid users" = "ti";
         };
-        "fa" = {
+        "fb" = {
           "browseable" = "no";
-          "comment" = "FA DataExchange";
-          "path" = "/nix/persist/mnt/fa";
+          "comment" = "FB DataExchange";
+          "path" = "/nix/persist/mnt/fb";
           "writable" = "yes";
           "read only" = "no";
           "guest ok" = "no";
           "create mask" = "0644";
           "directory mask" = "0755";
-          "force user" = "fa";
-          "force group" = "fa";
-          "valid users" = "fa";
+          "force user" = "fb";
+          "force group" = "fb";
+          "valid users" = "fb";
+        };
+        "fe" = {
+          "browseable" = "no";
+          "comment" = "FE DataExchange";
+          "path" = "/nix/persist/mnt/fe";
+          "writable" = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "fe";
+          "force group" = "fe";
+          "valid users" = "fe";
+        };
+        "op" = {
+          "browseable" = "no";
+          "comment" = "OP DataExchange";
+          "path" = "/nix/persist/mnt/op";
+          "writable" = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "op";
+          "force group" = "op";
+          "valid users" = "op";
         };
       };
       mountpoints = [
         "d /nix/persist/mnt/it 0770 it it - -"
         "d /nix/persist/mnt/ti 0770 ti ti - -"
-        "d /nix/persist/mnt/fa 0770 fa fa - -"
+        "d /nix/persist/mnt/fa 0770 fe fe - -"
+        "d /nix/persist/mnt/fa 0770 fb fb - -"
+        "d /nix/persist/mnt/fa 0770 op op - -"
       ];
     };
     smtp = {
@@ -735,7 +783,6 @@ let
         "||trace.svc.ui.com"
         "||ping.ui.com"
       ];
-
       upstream_dns = [
         "sdns://AQcAAAAAAAAADjIzLjE0MC4yNDguMTAwIFa3zBQNs5jjEISHskpY7WSNK4sLj_qrbFiLk5tSBN1uGTIuZG5zY3J5cHQtY2VydC5kbnNjcnkucHQ"
         "sdns://AQcAAAAAAAAADzE0Ny4xODkuMTQwLjEzNiCL7wgLXnE-35sDhXk5N1RNpUfWmM2aUBcMFlst7FPdnRkyLmRuc2NyeXB0LWNlcnQuZG5zY3J5LnB0"
@@ -1064,6 +1111,8 @@ let
       url = "https://${infra.search.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.search.app}.png";
     };
+    ops2.id = 120;
+    ops3.id = 121;
     paperless = {
       id = 125;
       app = "paperless";
@@ -1076,6 +1125,7 @@ let
       url = "https://${infra.paperless.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.paperless.name}.png";
     };
+    ops4.id = 126;
     matrix = {
       id = 127;
       app = "tuwunnel";
@@ -1107,6 +1157,7 @@ let
       url = "https://${infra.vault.fqdn}";
       logo = "${infra.res.url}/icon/png/bitwarden.png";
     };
+    ops5.id = 129;
     webarchiv = {
       id = 130;
       app = "readeck";

@@ -166,7 +166,6 @@ in {
           settings = infra.firefox.settings;
         };
       };
-
       ghostty = {
         enable = false;
         installBatSyntax = true;
