@@ -43,6 +43,7 @@
       totem
       hitori
       tali
+      tinysparql
     ];
   };
 
@@ -51,6 +52,8 @@
   ##################
   services = {
     gvfs.enable = true;
+    speechd.enable = lib.mkForce false;
+    orca.enable = lib.mkForce false;
     gnome = {
       core-os-services.enable = true;
       core-shell.enable = true;
@@ -65,6 +68,9 @@
       gnome-remote-desktop.enable = lib.mkForce false;
       gnome-user-share.enable = lib.mkForce false;
       sushi.enable = lib.mkForce false;
+      localsearch.enable = lib.mkForce false;
+      tinysparql.enable = lib.mkForce false;
+      rygel.enable = lib.mkForce false;
     };
     desktopManager.gnome.enable = true;
     displayManager.gdm = {
