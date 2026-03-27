@@ -37,13 +37,12 @@ in {
     };
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = ["page_alloc.shuffle=1"];
-    kernelModules = ["uas"];
     tmp = {
       cleanOnBoot = true;
       tmpfsHugeMemoryPages = "within_size";
       tmpfsSize = "85%";
-      useTmpfs = lib.mkDefault true;
-      useZram = lib.mkDefault false;
+      useTmpfs = lib.mkForce true;
+      useZram = lib.mkForce false;
     };
     kernel.sysctl = lib.mkDefault {
       "kernel.kptr_restrict" = 2;
@@ -83,7 +82,7 @@ in {
   #-= TIME #=-#
   #############
   time = {
-    timeZone = null; # UTC, local: "Europe/Berlin";
+    timeZone = infra.locale.tz;
     hardwareClockInLocalTime = true;
   };
 
@@ -93,7 +92,7 @@ in {
   console = {
     enable = lib.mkForce true;
     earlySetup = lib.mkForce true;
-    keyMap = "us";
+    keyMap = infra.locale.keymap;
     font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
     packages = with pkgs; [powerline-fonts];
   };
@@ -149,19 +148,8 @@ in {
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
     };
-    gc = {
-      automatic = false;
-      dates = "03:00";
-      persistent = false;
-      randomizedDelaySec = "15min";
-      options = "--delete-older-than 12d";
-    };
-    optimise = {
-      automatic = false;
-      dates = "04:00";
-      persistent = false;
-      randomizedDelaySec = "15min";
-    };
+    gc.automatic = lib.mkDefault false;
+    optimise.automatic = lib.mkDefault false;
   };
 
   #######################
@@ -182,30 +170,9 @@ in {
   #-=# HARDWARE #=-#
   ##################
   hardware = {
-    acpilight.enable = true;
-    # amdgpu.initrd.enable = false;
-    # enableAllHardware = lib.mkForce false;
     enableAllFirmware = lib.mkForce true;
     enableRedistributableFirmware = lib.mkForce true;
-    cpu = {
-      amd = {
-        updateMicrocode = true;
-        ryzen-smu.enable = true;
-        sev.enable = true;
-      };
-      intel = {
-        updateMicrocode = true;
-        sgx.provision.enable = true;
-      };
-    };
-    # i2c.enable = true;
-    # intel-gpu-tools.enable = true;
     uinput.enable = true;
-    graphics = {
-      enable = lib.mkForce true;
-      enable32Bit = lib.mkForce true;
-      # extraPackages = with pkgs; [intel-media-driver vpl-gpu-rt]; # intel-compute-runtime
-    };
   };
 
   ##################
@@ -234,7 +201,7 @@ in {
       enable = true;
       execWheelOnly = lib.mkForce true;
       wheelNeedsPassword = lib.mkForce true;
-      extraConfig = "Defaults        env_reset,timestamp_timeout=30    # timeout in minutes";
+      extraConfig = "Defaults   env_reset,timestamp_timeout=40,!pwfeedback";
     };
     pam = {
       u2f = {

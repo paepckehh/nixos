@@ -46,6 +46,30 @@ in {
   ##############
   users.users.me.extraGroups = ["podman" "docker" "libvirtd"];
 
+  ##################
+  #-=# SECURITY #=-#
+  ##################
+  security.sudo-rs.wheelNeedsPassword = lib.mkForce true;
+
+  #############
+  #-=# NIX #=-#
+  #############
+  nix = {
+    gc = {
+      automatic = false;
+      dates = "03:00";
+      persistent = false;
+      randomizedDelaySec = "15min";
+      options = "--delete-older-than 12d";
+    };
+    optimise = {
+      automatic = false;
+      dates = "04:00";
+      persistent = false;
+      randomizedDelaySec = "15min";
+    };
+  };
+
   ########################
   #-=# VIRTUALISATION #=-#
   ########################

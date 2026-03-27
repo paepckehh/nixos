@@ -57,6 +57,7 @@ info-image:
 # nix-build -E 'with import <nixpkgs> {}; callPackage ./package.nix {}'
 boot: build 
 test: check
+world: git-mirror-fetch git-mirror-gc update boot gc
 test-all: check
 	  nix flake check 
 
@@ -257,11 +258,15 @@ yubikey-generate-ssh:
 ##############
 # GIT MIRROR #
 ##############
+git-mirror-fetch:
+	$(SUDO) sh /etc/scripts/git-mirror-fetch.sh
+
 git-mirror-gc:
 	$(SUDO) sh /etc/scripts/git-mirror-gc.sh
 
-git-mirror-fetch:
-	$(SUDO) sh /etc/scripts/git-mirror-fetch.sh
+git-mirror-gc-full:
+	$(SUDO) sh /etc/scripts/git-mirror-gc-full.sh
+
 
 
 #################
