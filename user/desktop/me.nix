@@ -137,8 +137,9 @@ in {
       };
     };
     programs = {
+      element-desktop.enable = false;
       onlyoffice = {
-        enable = true;
+        enable = false;
         settings = {
           editorWindowMode = "false";
           locale = "de-DE";
@@ -147,7 +148,7 @@ in {
         };
       };
       thunderbird = {
-        enable = true;
+        enable = false;
         package = pkgs.thunderbird;
         settings = infra.thunderbird.settings;
         profiles.default = {
@@ -217,10 +218,6 @@ in {
             startup_mode = "Fullscreen";
           };
         };
-      };
-      element-desktop = {
-        enable = false;
-        settings.default_country_code = "de";
       };
       keepassxc = {
         enable = true;

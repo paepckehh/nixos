@@ -71,10 +71,6 @@
           ./person/desktop/mpaepcke.nix
           ./packages/devops-core.nix
           ./packages/desktop/gnome.nix
-          # ./packages/desktop/add-matrix.nix
-          # ./packages/desktop/add-thunderbird.nix
-          # ./packages/desktop/add-onlyoffice.nix
-          # ./packages/desktop/firejail-librewolf.nix
           ./server/ai/ollama01.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
