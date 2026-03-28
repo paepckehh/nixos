@@ -10,23 +10,10 @@
   ############################
   infra = (import ../../siteconfig/config.nix).infra;
 in {
-  ################
-  #-=# IMPORT #=-#
-  ################
-  imports = [
-    ./git-mirror-scripts.nix
-    ./git-mirror-updater.nix
-  ];
-
   ####################
   #-=# NETWORKING #=-#
   ####################
   networking.extraHosts = "${infra.git-mirror.ip} ${infra.git-mirror.hostname} ${infra.git-mirror.fqdn}.";
-
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.git-mirror.ip}/32";}];
 
   ##################
   #-=# SERVICES #=-#
@@ -37,6 +24,19 @@ in {
       extraConfig = ''import intraproxy ${toString infra.git-mirror.localbind.port.http}'';
     };
   };
+
+  ################
+  #-=# IMPORT #=-#
+  ################
+  imports = [
+    ./git-mirror-scripts.nix
+    ./git-mirror-updater.nix
+  ];
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.git-mirror.ip}/32";}];
 
   ####################
   #-=# CONTAINERS #=-#

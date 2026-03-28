@@ -712,7 +712,7 @@ let
       ip = "${infra.net.user}.${toString infra.git.id}";
       localbind.port.http = infra.localhost.port.offset + infra.git-mirror.id;
       storage = "${infra.storage.cache}/${infra.git-mirror.name}";
-      mirror-repos = [
+      repos = [
         "nixos/nixpkgs#https://github.com/nixos/nixpkgs"
         "nix-community/home-manager#https://github.com/nix-community/home-manger"
         "nix-community/disko#https://github.com/nix-community/disko"

@@ -14,43 +14,45 @@ in {
   #-=# ENVIRONMENT #=-#
   #####################
   environment.etc = {
+    "scripts/git-mirror-config.sh".text = ''
+      export GIT="/run/current-system/sw/bin/git"
+      export MKDIR="/run/current-system/sw/bin/mkdir"
+      export MIRROR="${infra.git-mirror.storage}"
+      export REPOS="${lib.strings.concatLines infra.git-mirror.repos}"
+    '';
     "scripts/git-mirror-gc-full.sh".text = ''
       #/bin/sh
-      export GIT="/run/current-system/sw/bin/git"
-      export MIRROR="/nix/persist/cache/git-mirror"
-      /run/current-system/sw/bin/chown -R 0:0 "$MIRROR" || exit 1
-      $GIT -C "$MIRROR/paepckehh/nixos"            gc --aggressive --prune=now
-      $GIT -C "$MIRROR/ryantm/agenix"              gc --aggressive --prune=now
-      $GIT -C "$MIRROR/nix-community/disko"        gc --aggressive --prune=now
-      $GIT -C "$MIRROR/nix-community/home-manager" gc --aggressive --prune=now
-      $GIT -C "$MIRROR/nixos/nixpkgs"              gc --aggressive --prune=now
-      $GIT -C "$MIRROR/paepckehh/nixos"            fsck --full
-      $GIT -C "$MIRROR/ryantm/agenix"              fsck --full
-      $GIT -C "$MIRROR/nix-community/disko"        fsck --full
-      $GIT -C "$MIRROR/nix-community/home-manager" fsck --full
-      $GIT -C "$MIRROR/nixos/nixpkgs"              fsck --full
+      source /etc/scripts/git-mirror-config.sh
+      for repo in $REPOS; do
+      	dir="$MIRROR/$(echo $repo | tee | cut -d '#' -f 1)"
+      	echo "### git full maintenance: $dir"
+      	cd $dir && if [ -f config ]; then $GIT gc --aggressive --keep-largest --prune=now && $GIT fsck --full ; fi
+      done
     '';
     "scripts/git-mirror-gc.sh".text = ''
       #/bin/sh
-      export GIT="/run/current-system/sw/bin/git"
-      export MIRROR="/nix/persist/cache/git-mirror"
-      /run/current-system/sw/bin/chown -R 0:0 "$MIRROR" || exit 1
-      $GIT -C "$MIRROR/paepckehh/nixos"            gc --keep-largest
-      $GIT -C "$MIRROR/ryantm/agenix"              gc --keep-largest
-      $GIT -C "$MIRROR/nix-community/disko"        gc --keep-largest
-      $GIT -C "$MIRROR/nix-community/home-manager" gc --keep-largest
-      $GIT -C "$MIRROR/nixos/nixpkgs"              gc --keep-largest
+      source /etc/scripts/git-mirror-config.sh
+      for repo in $REPOS; do
+      	dir="$MIRROR/$(echo $repo | tee | cut -d '#' -f 1)"
+      	echo "### git maintenance: $dir"
+      	cd $dir && if [ -f config ]; then $GIT gc --keep-largest ; fi
+      done
     '';
     "scripts/git-mirror-fetch.sh".text = ''
       #/bin/sh
-      export GIT="/run/current-system/sw/bin/git"
-      export MIRROR="/nix/persist/cache/git-mirror"
-      /run/current-system/sw/bin/chown -R 0:0 "$MIRROR" || exit 1
-      $GIT -C "$MIRROR/paepckehh/nixos"            fetch
-      $GIT -C "$MIRROR/ryantm/agenix"              fetch
-      $GIT -C "$MIRROR/nix-community/disko"        fetch
-      $GIT -C "$MIRROR/nix-community/home-manager" fetch
-      $GIT -C "$MIRROR/nixos/nixpkgs"              fetch
+      source /etc/scripts/git-mirror-config.sh
+      for repo in $REPOS; do
+      	dir="$MIRROR/$(echo $repo | tee | cut -d '#' -f 1)"
+      	url="$(echo $repo | tee | cut -d '#' -f 2)"
+        echo "### fetch/update/check/mirror: $dir => $url"
+        $MKDIR -p $dir && cd $dir || exit 1
+        if [ -f config ]; then
+            $GIT fetch
+        else
+            $GIT clone --mirror $url .
+            $GIT gc --aggressive
+        fi
+      done
     '';
   };
 }
