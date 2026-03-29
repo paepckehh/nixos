@@ -370,6 +370,13 @@ in {
                     logo = infra.rackula.logo;
                   }
                   {
+                    name = "Matrix-Web [Element]";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.matrix-web.url;
+                    logo = infra.matrix-web.logo;
+                  }
+                  {
                     name = "BentoPDF";
                     tag = "app";
                     target = "_blank";

@@ -206,7 +206,7 @@ in {
               # Nextcloud
               client_id = infra.nextcloud.app;
               client_name = infra.nextcloud.app;
-              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+              client_secret = infra.sso.oidc.hash;
               consent_mode = infra.sso.oidc.consent;
               public = false;
               require_pkce = true;
@@ -224,7 +224,7 @@ in {
               # Vaultls
               client_id = infra.vaultls.app;
               client_name = infra.vaultls.app;
-              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+              client_secret = infra.sso.oidc.hash;
               consent_mode = infra.sso.oidc.consent;
               public = false;
               require_pkce = true;
@@ -242,7 +242,7 @@ in {
               # Miniflux
               client_id = infra.miniflux.app;
               client_name = infra.miniflux.app;
-              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+              client_secret = infra.sso.oidc.hash;
               consent_mode = infra.sso.oidc.consent;
               public = false;
               require_pkce = false;
@@ -260,7 +260,7 @@ in {
               # Immich
               client_id = infra.immich.app;
               client_name = infra.immich.app;
-              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+              client_secret = infra.sso.oidc.hash;
               consent_mode = infra.sso.oidc.consent;
               public = false;
               require_pkce = false; # XXX
@@ -277,7 +277,7 @@ in {
               # Jellyfin
               client_id = infra.jellyfin.app;
               client_name = infra.jellyfin.app;
-              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+              client_secret = infra.sso.oidc.hash;
               consent_mode = infra.sso.oidc.consent;
               public = false;
               require_pkce = true;
@@ -295,7 +295,7 @@ in {
               # Open-WebUI
               client_id = infra.ai.app;
               client_name = infra.ai.app;
-              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+              client_secret = infra.sso.oidc.hash;
               consent_mode = infra.sso.oidc.consent;
               public = false;
               require_pkce = true;
@@ -313,7 +313,7 @@ in {
               # Paperless-ngx
               client_id = infra.paperless.app;
               client_name = infra.paperless.app;
-              client_secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng"; # 'insecure_secret'
+              client_secret = infra.sso.oidc.hash;
               consent_mode = infra.sso.oidc.consent;
               public = false;
               require_pkce = true;
@@ -331,13 +331,31 @@ in {
               # Vikunja
               client_id = infra.vikunja.app;
               client_name = infra.vikunja.app;
-              client_secret = "$pbkdf2-sha512$310000$SKMKRKohzrDbQb6gX98F/Q$r.DNS6Az/XtsCHhin7XhyYIqUvvXOkQLj8NXDjOWEA8pU4KZ7/rH0XGyoVJuZKqM3hZmtBjtyL6uSBidpJmtZg";
+              client_secret = infra.sso.oidc.hash;
               # public = false;
               # consent_mode = infra.sso.oidc.consent;
               # authorization_policy = infra.sso.oidc.policy;
               # scopes = infra.sso.oidc.scopes;
               scopes = ["openid" "profile" "email"];
               redirect_uris = ["${infra.vikunja.url}/auth/openid/authelia"];
+            }
+            {
+              # Matrix
+              client_id = infra.matrix.name;
+              client_name = infra.matrix.name;
+              client_secret = infra.sso.oidc.hash;
+              public = false;
+              consent_mode = infra.sso.oidc.consent;
+              # authorization_policy = infra.sso.oidc.policy;
+              scopes = infra.sso.oidc.scopes;
+              token_endpoint_auth_method = infra.sso.oidc.auth.post;
+              redirect_uris = [
+                "${infra.matrix.url}/_matrix/client/v3/login/sso/redirect"
+                "${infra.matrix.url}/_matrix/client/unstable/login/sso/callback/${infra.matrix.name}"
+              ];
+              grant_types = ["refresh_token" "authorization_code"];
+              response_types = ["code"];
+              response_modes = ["form_post"];
             }
           ];
         };

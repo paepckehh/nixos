@@ -869,6 +869,7 @@ let
     sso = {
       id = 87;
       app = "authelia";
+      app2 = "Authelia";
       name = "sso";
       hostname = infra.sso.name;
       site = infra.site.name;
@@ -887,6 +888,8 @@ let
         policy = "two_factor";
         method = "S256";
         response.code = "code";
+        secret = "insecure_secret";
+        hash = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng";
         scope = "openid profile groups email";
         scopes = ["openid" "profile" "groups" "email"];
         discoveryUri = "${infra.sso.url}/.well-known/openid-configuration";
@@ -1114,6 +1117,18 @@ let
     };
     ops2.id = 120;
     ops3.id = 121;
+    vault = {
+      id = 124;
+      app = "vaultwarden";
+      name = "vault";
+      hostname = infra.vault.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.vault.hostname}.${infra.vault.domain}";
+      ip = "${infra.net.user}.${toString infra.vault.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.vault.id;
+      url = "https://${infra.vault.fqdn}";
+      logo = "${infra.res.url}/icon/png/bitwarden.png";
+    };
     paperless = {
       id = 125;
       app = "paperless";
@@ -1129,7 +1144,7 @@ let
     ops4.id = 126;
     matrix = {
       id = 127;
-      app = "tuwunnel";
+      app = "tuwunel";
       name = "matrix";
       ldap = false;
       self-register = {
@@ -1146,17 +1161,18 @@ let
       url = "https://${infra.matrix.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.matrix.app}.png";
     };
-    vault = {
+    matrix-web = {
       id = 128;
-      app = "vaultwarden";
-      name = "vault";
-      hostname = infra.vault.name;
+      app = "element";
+      name = "matrix-web";
+      hostname = infra.matrix-web.name;
       domain = infra.domain.user;
-      fqdn = "${infra.vault.hostname}.${infra.vault.domain}";
-      ip = "${infra.net.user}.${toString infra.vault.id}";
-      localbind.port.http = infra.localhost.port.offset + infra.vault.id;
-      url = "https://${infra.vault.fqdn}";
-      logo = "${infra.res.url}/icon/png/bitwarden.png";
+      fqdn = "${infra.matrix-web.hostname}.${infra.matrix-web.domain}";
+      ip = "${infra.net.user}.${toString infra.matrix-web.id}";
+      access.cidr = infra.cidr.user;
+      localbind.port.http = infra.localhost.port.offset + infra.matrix-web.id;
+      url = "https://${infra.matrix-web.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.matrix-web.app}.png";
     };
     ops5.id = 129;
     webarchiv = {
@@ -1171,6 +1187,7 @@ let
       url = "https://${infra.webarchiv.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.webarchiv.app}.png";
     };
+
     portal = {
       id = 135;
       app = "homer";

@@ -85,6 +85,8 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
+          ./server/message/tuwunel.nix
+          ./server/message/element-web.nix
           # ./server/translate/libretranslate-container.nix
           # ./server/share/smbgate.nix
           # ./server/mail/bichon.nix

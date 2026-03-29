@@ -137,7 +137,7 @@ in {
       };
     };
     programs = {
-      element-desktop.enable = false;
+      element-desktop.enable = true;
       onlyoffice = {
         enable = false;
         settings = {
