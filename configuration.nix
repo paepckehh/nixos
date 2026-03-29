@@ -13,7 +13,6 @@ in {
   #-=# BOOT #=-#
   ##############
   boot = {
-    consoleLogLevel = 4;
     blacklistedKernelModules = ["affs" "befs" "bfs" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb"];
     nixStoreMountOpts = lib.mkForce ["ro"];
     hardwareScan = true;
@@ -125,19 +124,23 @@ in {
     daemonCPUSchedPolicy = "idle";
     extraOptions = ''
       builders-use-substitutes = false
-      experimental-features = nix-command flakes'';
+      experimental-features = nix-command flakes
+    '';
     settings = {
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
-      trusted-users = lib.mkForce ["@wheel"];
-      http2 = lib.mkDefault true;
+      build-dir = "/run/build";
       sandbox = lib.mkForce true;
-      sandbox-build-dir = "/build";
+      sandbox-build-dir = "/run/build";
       sandbox-fallback = lib.mkForce false;
+      stalled-download-timeout = lib.mkDefault "10000";
+      trusted-users = lib.mkForce ["@wheel"];
       trace-verbose = true;
       restrict-eval = lib.mkForce false;
       require-sigs = lib.mkForce true;
       preallocate-contents = lib.mkDefault true;
+      keep-build-log = lib.mkDefault false;
+      max-jobs = lib.mkDefault "auto";
       allowed-uris = lib.mkDefault [
         "https://cache.nixos.org"
       ];

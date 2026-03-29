@@ -77,6 +77,7 @@
           ./server/iam/lldap.nix
           ./server/infra/ncps.nix
           ./server/infra/git-mirror-scripts.nix
+          ./server/infra/git-mirror-container.nix
           ./server/infra/syslog-ng.nix
           ./server/search/searx.nix
           ./server/pki/small-step.nix

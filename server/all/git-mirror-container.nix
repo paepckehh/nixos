@@ -25,14 +25,6 @@ in {
     };
   };
 
-  ################
-  #-=# IMPORT #=-#
-  ################
-  imports = [
-    ./git-mirror-scripts.nix
-    ./git-mirror-updater.nix
-  ];
-
   #################
   #-=# SYSTEMD #=-#
   #################
@@ -111,8 +103,6 @@ in {
           settings = {
             clone-url = "${infra.git-mirror.url}/$CGIT_REPO_URL";
             snapshots = "all";
-            enable-remote-branches = true;
-            enable-git-config = true;
           };
           gitHttpBackend = {
             enable = true;
