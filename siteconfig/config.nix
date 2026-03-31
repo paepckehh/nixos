@@ -1054,6 +1054,63 @@ let
       url = "https://${infra.wiki.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.wiki.app}.png";
     };
+    prometheus = {
+      id = 113;
+      app = "prometheus";
+      app2 = "Prometheus";
+      name = infra.prometheus.app;
+      hostname = infra.prometheus.name;
+      domain = infra.domain.admin;
+      fqdn = "${infra.prometheus.hostname}.${infra.prometheus.domain}";
+      ip = "${infra.net.admin}.${toString infra.prometheus.id}";
+      url = "https://${infra.prometheus.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.prometheus.app}.png";
+      localbind.port = {
+        http = infra.localhost.port.offset + infra.prometheus.id;
+        alertmananger = infra.localhost.port.offsetMetric + infra.prometheus.id;
+      };
+      storage = "${infra.storage.cache}/${infra.prometheus.app}";
+      db.retenetion = "365d";
+      exporter = {
+        node = {
+          port = 9100;
+          targets = [
+            "localhost:9100"
+          ];
+        };
+        smartctl = {
+          port = 9101;
+          devices = ["/dev/nvme0"];
+          targets = [
+            "localhost:9101"
+          ];
+        };
+      };
+    };
+    grafana = {
+      id = 114;
+      app = "grafana";
+      name = infra.grafana.app;
+      hostname = infra.grafana.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.grafana.hostname}.${infra.grafana.domain}";
+      ip = "${infra.net.user}.${toString infra.grafana.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.grafana.id;
+      url = "https://${infra.grafana.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.grafana.app}.png";
+    };
+    opnborg = {
+      id = 115;
+      name = "opnborg";
+      hostname = infra.opnborg.name;
+      domain = infra.domain.admin;
+      fqdn = "${infra.opnborg.hostname}.${infra.opnborg.domain}";
+      ip = "${infra.net.admin}.${toString infra.opnborg.id}";
+      access.cidr = infra.cidr.admin;
+      localbind.port.http = infra.localhost.port.offset + infra.opnborg.id;
+      url = "https://${infra.opnborg.fqdn}";
+      logo = "${infra.res.url}/icon/png/borgmatic.png";
+    };
     nextcloud = {
       id = 117;
       app = "nextcloud";

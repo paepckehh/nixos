@@ -1,88 +1,104 @@
-{config, ...}: let
-  infra = {
-    lan = {
-      domain = "lan";
-      network = "192.168.80.0/24";
-      namespace = "10-${infra.lan.domain}";
-      services = {
-        prometheus = {
-          enable = true;
-          hostname = "prometheus";
-          ip = "192.168.80.210";
-          ports.tcp = 443;
-          db.retenetion = "365d";
-          alertmanager.ports.tcp = 8443;
-          exporters = {
-            node = {
-              ports.tcp = 9100;
-              enabledCollectors = ["logind" "systemd"];
-              disabledCollectors = [];
-            };
-            smartctl = {
-              ports.tcp = 9101;
-              devices = ["/dev/sda"]; # /dev/nvme
-            };
-          };
-        };
-      };
-    };
-  };
+# prometheus monitoring alert management
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  ############################
+  #-=# GLOBAL SITE IMPORT #=-#
+  ############################
+  infra = (import ../../siteconfig/config.nix).infra;
 in {
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.network.networks.${infra.lan.namespace}.addresses = [{Address = "${infra.lan.services.prometheus.ip}/32";}];
-
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking = {
-    extraHosts = "${infra.lan.services.prometheus.ip} ${infra.lan.services.prometheus.hostname} ${infra.lan.services.prometheus.hostname}.${infra.lan.domain}";
-    firewall.allowedTCPPorts = [infra.lan.services.prometheus.ports.tcp infra.lan.services.prometheus.alertmanager.ports.tcp];
+  networking.extraHosts = "${infra.prometheus.ip} ${infra.prometheus.hostname} ${infra.prometheus.fqdn}";
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd = {
+    network.networks."${infra.namespace.admin}".addresses = [{Address = "${infra.prometheus.ip}/32";}];
+    tmpfiles.rules = ["d ${infra.prometheus.storage} 0700 prometheus prometheus"];
+  };
+
+  ###############
+  #-=# USERS #=-#
+  ###############
+  users = {
+    groups.prometheus = {};
+    users = {
+      prometheus = {
+        group = "prometheus";
+        isSystemUser = true;
+        hashedPassword = null; # disable ldap service account interactive logon
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
+      };
+    };
   };
 
   ##################
   #-=# SERVICES #=-#
   ##################
+  # systemd.services = {
+  #  prometheus = {
+  #    after = ["network-online.target"];
+  #    wants = ["network-online.target"];
+  #    wantedBy = ["multi-user.target"];
+  #  };
+  #  prometheus-node-exporter = {
+  #    after = ["network-online.target"];
+  #    wants = ["network-online.target"];
+  #    wantedBy = ["multi-user.target"];
+  #  };
+  #  prometheus-smartctl-exporter = {
+  #    after = ["network-online.target"];
+  #    wants = ["network-online.target"];
+  #    wantedBy = ["multi-user.target"];
+  #  };
+  # };
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
   services = {
+    caddy.virtualHosts."${infra.prometheus.fqdn}" = {
+      listenAddresses = [infra.prometheus.ip];
+      extraConfig = ''import adminproxy ${toString infra.prometheus.localbind.port.http}'';
+    };
     prometheus = {
-      enable = infra.lan.services.prometheus.enable;
-      port = infra.lan.services.prometheus.ports.tcp;
-      retentionTime = infra.lan.services.prometheus.db.retenetion;
-      alertmanager.port = infra.lan.services.prometheus-alertmanager.ports.tcp;
+      enable = true;
+      listenAddress = infra.localhost.ip;
+      port = infra.prometheus.localbind.port.http;
+      alertmanager.port = infra.prometheus.localbind.port.alertmanager;
+      retentionTime = infra.prometheus.db.retenetion;
+      webExternalUrl = infra.prometheus.url;
+      globalConfig = {
+        scrape_interval = "15m";
+        scrape_timeout = "30s";
+      };
       scrapeConfigs = [
         {
           job_name = "node";
-          static_configs = [
-            {
-              targets = [
-                "localhost:${toString config.services.prometheus.exporters.node.port}" # self
-              ];
-            }
-          ];
+          static_configs = [{targets = infra.prometheus.exporter.node.targets;}];
         }
         {
           job_name = "smartctl";
-          static_configs = [
-            {
-              targets = [
-                "localhost:${toString config.services.prometheus.exporters.smartctl.port}" # self
-              ];
-            }
-          ];
+          static_configs = [{targets = infra.prometheus.exporter.smartctl.targets;}];
         }
       ];
       exporters = {
         node = {
-          enable = infra.lan.services.prometheus.enable;
-          port = infra.lan.services.prometheus.exporters.node.ports.tcp;
-          enabledCollectors = infra.lan.services.prometheus.exporters.node.enabledCollectors;
-          disabledCollectors = infra.lan.services.prometheus.exporters.node.disabledCollectors;
+          enable = true;
+          port = infra.prometheus.exporter.node.port;
+          enabledCollectors = ["logind" "systemd" "zfs"];
+          disabledCollectors = [];
         };
         smartctl = {
-          enable = infra.lan.services.prometheus.enable;
-          port = infra.lan.services.prometheus.exporters.smartctl.ports.tcp;
-          devices = infra.lan.services.prometheus.exporters.smartctl.devices;
+          enable = true;
+          port = infra.prometheus.exporter.smartctl.port;
+          devices = infra.prometheus.exporter.smartctl.devices;
         };
       };
     };

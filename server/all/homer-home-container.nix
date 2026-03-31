@@ -202,6 +202,13 @@ in {
                     logo = infra.status.logo;
                   }
                   {
+                    name = "Prometheus [Alertmanagement]";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.prometheus.url;
+                    logo = infra.prometheus.logo;
+                  }
+                  {
                     name = "IT WikiPedia [Wikipedia]";
                     tag = "app";
                     target = "_blank";

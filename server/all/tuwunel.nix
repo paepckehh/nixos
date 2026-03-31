@@ -73,9 +73,10 @@ in {
           allow_registration = infra.matrix.self-register.enable;
           registration_token = infra.matrix.self-register.password;
           rocksdb_compression_algo = "zstd";
-          turn_allow_guests = true;
-          turn_secret_file = config.age.secrets.coturn-matrix.path;
-          turn_uris = [infra.coturn.fqdn];
+          new_user_displayname_suffix = "";
+          # turn_allow_guests = true;
+          # turn_secret_file = config.age.secrets.coturn-matrix.path;
+          # turn_uris = [infra.coturn.fqdn];
           identity_provider = [
             {
               brand = infra.sso.app2;

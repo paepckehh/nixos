@@ -15,19 +15,10 @@ in {
   ####################
   networking.extraHosts = "${infra.vault.ip} ${infra.vault.hostname} ${infra.vault.fqdn}";
 
-  #####################
-  #-=# ENVIRONMENT #=-#
-  #####################
-  environment.systemPackages = with pkgs; [libargon2 openssl];
-
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.services.vaultwarden = {
-    after = ["socket.target"];
-    wants = ["socket.target"];
-    wantedBy = ["multi-user.target"];
-  };
+  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.vault.ip}/32";}];
 
   #############
   #-=# AGE #=-#
@@ -59,6 +50,10 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
+    caddy.virtualHosts."${infra.vault.fqdn}" = {
+      listenAddresses = [infra.vault.ip];
+      extraConfig = ''import intraproxy ${toString infra.vault.localbind.port.http}'';
+    };
     vaultwarden = {
       enable = true;
       # ENV ADMIN_TOKEN, see https://github.com/dani-garcia/vaultwarden/wiki/Enabling-admin-page
@@ -76,10 +71,6 @@ in {
         # SIGNUPS_DOMAINS_WHITELIST = infra.smtp.domain;
         # HIBP_API_KEY = infra.vault.api_hibp;
       };
-    };
-    caddy.virtualHosts."${infra.vault.fqdn}" = {
-      listenAddresses = [infra.vault.ip];
-      extraConfig = ''import intraproxy ${toString infra.vault.localbind.port.http}'';
     };
   };
 }

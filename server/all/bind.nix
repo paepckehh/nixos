@@ -95,6 +95,7 @@ in {
             ${infra.smtp.hostname}               IN A  ${infra.smtp.admin.ip}
             ${infra.srv.hostname}                IN A  ${infra.srv.admin.ip}
             ${infra.pki.hostname}                IN A  ${infra.pki.ip}
+            ${infra.prometheus.hostname}         IN A  ${infra.prometheus.ip}
             ${infra.proxmox.hostname}            IN A  ${infra.proxmox.ip}
             ${infra.ollama01.hostname}           IN A  ${infra.ollama01.ip}
             ${infra.webacme.hostname}            IN A  ${infra.webacme.ip}

@@ -73,7 +73,6 @@ recover: check
 
 check: creds info
 	alejandra --quiet .
-	git add .
 	nom build ".#nixosConfigurations.$(TARGET).config.system.build.toplevel"
 	@$(SUDO) rm -rf result
 
