@@ -14,8 +14,8 @@
   ##################
   hardware = {
     bluetooth = {
-      enable = lib.mkDefault true;
-      powerOnBoot = lib.mkDefault false;
+      enable = lib.mkForce false;
+      powerOnBoot = lib.mkForce false;
     };
   };
 
@@ -62,7 +62,6 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    #  systemPackages = with pkgs; [alacritty];
     systemPackages = with pkgs; [alacritty gparted keepassxc wl-clipboard yubioath-flutter xclip];
     variables.TERMINAL = "alacritty";
   };

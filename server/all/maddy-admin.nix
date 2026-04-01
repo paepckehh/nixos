@@ -21,7 +21,10 @@ in {
   #-=# SYSTEMD #=-#
   #################
   systemd = {
-    network.networks."${infra.namespace.admin}".addresses = [{Address = "${infra.smtp.admin.ip}/32";}];
+    network.networks = {
+      "${infra.namespace.admin}".addresses = [{Address = "${infra.smtp.admin.ip}/32";}];
+      "${infra.namespace.admin}".addresses = [{Address = "${infra.imap.admin.ip}/32";}];
+    };
     services = {
       maddy = {
         after = ["socket.target"];

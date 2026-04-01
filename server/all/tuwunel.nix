@@ -71,12 +71,17 @@ in {
           allow_encryption = false;
           allow_federation = false;
           allow_registration = infra.matrix.self-register.enable;
+          # database_backup_path = "";
+          database_backups_to_keep = 2;
+          error_on_unknown_config_opts = true;
+          ip_lookup_strategy = 5; # ipv4 only
           registration_token = infra.matrix.self-register.password;
           rocksdb_compression_algo = "zstd";
           new_user_displayname_suffix = "";
           # turn_allow_guests = true;
           # turn_secret_file = config.age.secrets.coturn-matrix.path;
           # turn_uris = [infra.coturn.fqdn];
+          # livekit_url = infra.livekit.url;
           identity_provider = [
             {
               brand = infra.sso.app2;

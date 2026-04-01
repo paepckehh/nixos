@@ -18,17 +18,12 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd. network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.vikunja.ip}/32";}];
+  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.vikunja.ip}/32";}];
 
   #############
   #-=# AGE #=-#
   #############
-  age.secrets = {
-    "authelia-vikunja" = {
-      file = ../../modules/resources/authelia-vikunja.age;
-      owner = "vikunja";
-    };
-  };
+  age.secrets."authelia-vikunja".file = ../../modules/resources/authelia-vikunja.age;
 
   ##################
   #-=# SERVICES #=-#

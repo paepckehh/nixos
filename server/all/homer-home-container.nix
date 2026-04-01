@@ -163,8 +163,8 @@ in {
                     name = "WebArchiv [Readeck]";
                     tag = "app";
                     target = "_blank";
-                    url = infra.webarchiv.url;
-                    logo = infra.webarchiv.logo;
+                    url = infra.readeck.url;
+                    logo = infra.readeck.logo;
                   }
                   {
                     name = "Suche [SearX]";

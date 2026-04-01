@@ -153,6 +153,7 @@ in {
             ${infra.undb.hostname}               IN A  ${infra.undb.ip}
             ${infra.onlyoffice.hostname}         IN A  ${infra.onlyoffice.ip}
             ${infra.rackula.hostname}            IN A  ${infra.rackula.ip}
+            ${infra.readeck.hostname}            IN A  ${infra.readeck.ip}
             ${infra.res.hostname}                IN A  ${infra.res.ip}
             ${infra.search.hostname}             IN A  ${infra.search.ip}
             ${infra.sso.hostname}                IN A  ${infra.sso.ip}
@@ -165,7 +166,6 @@ in {
             ${infra.vault.hostname}              IN A  ${infra.vault.ip}
             ${infra.vaultls.hostname}            IN A  ${infra.vaultls.ip}
             ${infra.vikunja.hostname}            IN A  ${infra.vikunja.ip}
-            ${infra.webarchiv.hostname}          IN A  ${infra.webarchiv.ip}
             ${infra.webmail.hostname}            IN A  ${infra.webmail.ip}
             ${infra.websurfx.hostname}           IN A  ${infra.websurfx.ip}
             ${infra.web-check.hostname}          IN A  ${infra.web-check.ip}
@@ -198,6 +198,7 @@ in {
             ${infra.onlyoffice.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.onlyoffice.ip}"
             ${infra.portal.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.portal.ip}"
             ${infra.rackula.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.rackula.ip}"
+            ${infra.readeck.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.readeck.ip}"
             ${infra.res.hostname}                IN HTTPS 1 . alpn="h3" ipv4hint="${infra.res.ip}"
             ${infra.search.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.search.ip}"
             ${infra.sso.hostname}                IN HTTPS 1 . alpn="h3" ipv4hint="${infra.sso.ip}"
@@ -207,7 +208,6 @@ in {
             ${infra.vault.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.vault.ip}"
             ${infra.vaultls.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.vaultls.ip}"
             ${infra.vikunja.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.vikunja.ip}"
-            ${infra.webarchiv.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webarchiv.ip}"
             ${infra.webmail.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.webmail.ip}"
             ${infra.websurfx.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.websurfx.ip}"
             ${infra.web-check.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.web-check.ip}"
@@ -318,12 +318,13 @@ in {
             ${toString infra.smtp.id}               IN PTR ${infra.smtp.user.fqdn}.
             ${toString infra.test.id}               IN PTR ${infra.test.fqdn}.
             ${toString infra.portal.id}             IN PTR ${infra.portal.fqdn}.
+            ${toString infra.rackula.id}            IN PTR ${infra.rackula.fqdn}.
+            ${toString infra.readeck.id}            IN PTR ${infra.readeck.fqdn}.
             ${toString infra.res.id}                IN PTR ${infra.res.fqdn}.
             ${toString infra.translate.id}          IN PTR ${infra.translate.fqdn}.
             ${toString infra.vault.id}              IN PTR ${infra.vault.fqdn}.
             ${toString infra.vaultls.id}            IN PTR ${infra.vaultls.fqdn}.
             ${toString infra.vikunja.id}            IN PTR ${infra.vikunja.fqdn}.
-            ${toString infra.webarchiv.id}          IN PTR ${infra.webarchiv.fqdn}.
             ${toString infra.webmail.id}            IN PTR ${infra.webmail.fqdn}.
             ${toString infra.web-check.id}          IN PTR ${infra.webmail.fqdn}.
           '';

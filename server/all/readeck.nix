@@ -1,4 +1,4 @@
-# webarchiv, archiv, archive, wayback, bookmark
+# readeck, archiv, archive, wayback, bookmark
 {
   config,
   pkgs,
@@ -13,7 +13,12 @@ in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking.extraHosts = "${infra.webarchiv.ip} ${infra.webarchiv.hostname} ${infra.webarchiv.fqdn}";
+  networking.extraHosts = "${infra.readeck.ip} ${infra.readeck.hostname} ${infra.readeck.fqdn}";
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.readeck.ip}/32";}];
 
   #############
   #-=# AGE #=-#
@@ -56,6 +61,12 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
+    caddy = {
+      virtualHosts."${infra.readeck.fqdn}" = {
+        listenAddresses = [infra.readeck.ip];
+        extraConfig = ''import intraproxy ${toString infra.readeck.localbind.port.http}'';
+      };
+    };
     readeck = {
       enable = true;
       environmentFile = config.age.secrets.readeck.path; # secret env vars format
@@ -67,9 +78,9 @@ in {
         };
         server = {
           host = infra.localhost.ip;
-          port = infra.webarchiv.localbind.port.http;
+          port = infra.readeck.localbind.port.http;
           trusted_proxies = [infra.localhost.cidr];
-          base_url = infra.webarchiv.url;
+          base_url = infra.readeck.url;
         };
         email = {
           host = infra.smtp.admin.fqdn;
@@ -78,12 +89,6 @@ in {
           from = infra.admin.email;
           from_noreply = infra.admin.email;
         };
-      };
-    };
-    caddy = {
-      virtualHosts."${infra.webarchiv.fqdn}" = {
-        listenAddresses = [infra.webarchiv.ip];
-        extraConfig = ''import intraproxy ${toString infra.webarchiv.localbind.port.http}'';
       };
     };
   };

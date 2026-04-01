@@ -1232,19 +1232,18 @@ let
       logo = "${infra.res.url}/icon/png/${infra.matrix-web.app}.png";
     };
     ops5.id = 129;
-    webarchiv = {
+    readeck = {
       id = 130;
       app = "readeck";
-      name = "webarchiv";
-      hostname = infra.webarchiv.name;
+      name = infra.readeck.app;
+      hostname = infra.readeck.name;
       domain = infra.domain.user;
-      fqdn = "${infra.webarchiv.hostname}.${infra.webarchiv.domain}";
-      ip = "${infra.net.user}.${toString infra.webarchiv.id}";
-      localbind.port.http = infra.localhost.port.offset + infra.webarchiv.id;
-      url = "https://${infra.webarchiv.fqdn}";
-      logo = "${infra.res.url}/icon/png/${infra.webarchiv.app}.png";
+      fqdn = "${infra.readeck.hostname}.${infra.readeck.domain}";
+      ip = "${infra.net.user}.${toString infra.readeck.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.readeck.id;
+      url = "https://${infra.readeck.fqdn}";
+      logo = "${infra.res.url}/icon/png/${infra.readeck.app}.png";
     };
-
     portal = {
       id = 135;
       app = "homer";

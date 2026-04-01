@@ -86,6 +86,7 @@
           ./server/webapp/test.nix
           ./hosts/srv.nix
           ./server/secret/vaultwarden.nix
+          ./server/mail/maddy-admin.nix
           ./server/message/tuwunel.nix
           ./server/message/element-web.nix
           ./server/monitoring/prometheus.nix
@@ -96,7 +97,6 @@
           # ./server/cloud/nextcloud-container-authelia.nix
           # ./server/todo/vikunja-authelia.nix
           # ./server/pki/vaultls-docker-authelia.nix
-          # ./server/mail/maddy-admin.nix
           # ./server/office/onlyoffice-container.nix
           # ./server/lora/meshtastic-web.nix
         ];
