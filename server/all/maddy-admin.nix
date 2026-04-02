@@ -22,8 +22,10 @@ in {
   #################
   systemd = {
     network.networks = {
-      "${infra.namespace.admin}".addresses = [{Address = "${infra.smtp.admin.ip}/32";}];
-      "${infra.namespace.admin}".addresses = [{Address = "${infra.imap.admin.ip}/32";}];
+      "${infra.namespace.admin}".addresses = [
+        {Address = "${infra.smtp.admin.ip}/32";}
+        {Address = "${infra.imap.admin.ip}/32";}
+      ];
     };
     services = {
       maddy = {

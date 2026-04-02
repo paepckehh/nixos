@@ -25,7 +25,45 @@ in {
   ################
   #-=# SYSTEN #=-#
   ################
-  system.activationScripts.script.text = ''cp -f /home/me/.face /var/lib/AccountsService/icons/me'';
+  system.activationScripts.script.text = ''
+    #!/bin/sh
+    action() {
+            dir="$1"
+            ini="$dir/profiles.ini"
+            bck="$dir/profiles.ini.backup"
+            exe="/run/current-system/sw/bin"
+            echo "Check: $bck"
+            if [ -e $bck ]; then
+                    echo "Found: $bck, migrate: $dir"
+                    dts="$($exe/date +%Y%m%d%H%M%S)"
+                    wip="$dir/profiles.ini.wip.$dts"
+                    done="$dir/profiles.ini.done.$dts"
+                    $exe/mv $bck $wip
+                    $exe/cat $wip | while read line; do
+                            key=$(echo $line | $exe/cut -d '=' -f 1)
+                            value=$(echo $line | $exe/cut -d '=' -f 2)
+                            case $key in
+                            Path)
+                                    if [ -x $dir/$path ]; then
+                                            if [ -x "$dir/default" ]; then
+                                                    $exe/mv "$dir/default" "$dir/default.$dts"
+                                                    $exe/mv "$dir/$value" "$dir/default"
+                                                    $exe/mv "$wip" "$done"
+                                                    echo "Migration: $dir : done!"
+                                                    exit 0
+                                            fi
+                                    fi
+                                    ;;
+                            esac
+                    done
+            fi
+    }
+
+    # main
+    action "/home/me/.thunderbird"
+    action "/home/me/.librewolf"
+    if [ -r /home/me/.face ]; then cp -f /home/me/.face /var/lib/AccountsService/icons/me; fi
+  '';
 
   ##################
   #-=# SECURITY #=-#
