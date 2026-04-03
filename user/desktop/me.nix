@@ -62,6 +62,7 @@ in {
     # main
     action "/home/me/.thunderbird"
     action "/home/me/.librewolf"
+    action "/home/me/.mozilla"
     if [ -r /home/me/.face ]; then cp -f /home/me/.face /var/lib/AccountsService/icons/me; fi
   '';
 

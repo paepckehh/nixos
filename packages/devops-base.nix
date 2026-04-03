@@ -27,9 +27,7 @@
       dmidecode
       file
       jqfmt
-      gh
       gnumake
-      httpie
       hyperfine
       ncdu
       pciutils

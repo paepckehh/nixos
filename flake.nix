@@ -137,7 +137,6 @@
           ./openwrt/tftp.nix
           ./person/desktop/mpaepcke.nix
           ./packages/desktop/gnome.nix
-          ./packages/desktop/add-matrix.nix
           ./packages/desktop/add-onlyoffice.nix
           ./packages/desktop/add-av.nix
           ./packages/base.nix
