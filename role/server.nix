@@ -36,6 +36,11 @@ in {
   #######
   age.identityPaths = ["/nix/persist/etc/ssh/ssh_host_ed25519_key"];
 
+  ##############
+  #-=# BOOT #=-#
+  ##############
+  boot.enableContainers = true;
+
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
@@ -74,7 +79,8 @@ in {
   #-=# VIRTUALISATION #=-#
   ########################
   virtualisation = {
-    docker.enable = true;
+    containers.enable = true;
+    docker.enable = lib.mkDefault false;
     oci-containers.backend = "docker";
     docker = {
       daemon.settings = {

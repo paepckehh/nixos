@@ -8,68 +8,39 @@
   #-=# GLOBAL SITE IMPORT #=-#
   ############################
   infra = (import ../../siteconfig/config.nix).infra;
-  bookmarks = {
-    ManagedBookmarks = lib.importJSON ../../shared/bookmarks.json;
-  };
+  bookmarks.ManagedBookmarks = lib.importJSON ../../shared/bookmarks.json;
 in {
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [../me.nix];
+  imports = [
+    ../me.nix
+    ../../client/addHomeFix.nix
+  ];
 
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
   environment.systemPackages = with pkgs; [adwaita-icon-theme];
 
-  ################
-  #-=# SYSTEN #=-#
-  ################
-  system.activationScripts.script.text = ''
-    #!/bin/sh
-    action() {
-            dir="$1"
-            ini="$dir/profiles.ini"
-            bck="$dir/profiles.ini.backup"
-            exe="/run/current-system/sw/bin"
-            echo "Check: $bck"
-            if [ -e $bck ]; then
-                    echo "Found: $bck, migrate: $dir"
-                    dts="$($exe/date +%Y%m%d%H%M%S)"
-                    wip="$dir/profiles.ini.wip.$dts"
-                    done="$dir/profiles.ini.done.$dts"
-                    $exe/mv $bck $wip
-                    $exe/cat $wip | while read line; do
-                            key=$(echo $line | $exe/cut -d '=' -f 1)
-                            value=$(echo $line | $exe/cut -d '=' -f 2)
-                            case $key in
-                            Path)
-                                    if [ -x $dir/$path ]; then
-                                            if [ -x "$dir/default" ]; then
-                                                    $exe/mv "$dir/default" "$dir/default.$dts"
-                                                    $exe/mv "$dir/$value" "$dir/default"
-                                                    $exe/mv "$wip" "$done"
-                                                    echo "Migration: $dir : done!"
-                                                    exit 0
-                                            fi
-                                    fi
-                                    ;;
-                            esac
-                    done
-            fi
-    }
-
-    # main
-    action "/home/me/.thunderbird"
-    action "/home/me/.librewolf"
-    action "/home/me/.mozilla"
-    if [ -r /home/me/.face ]; then cp -f /home/me/.face /var/lib/AccountsService/icons/me; fi
-  '';
-
   ##################
   #-=# SECURITY #=-#
   ##################
   security.pam.services.me.enableGnomeKeyring = true;
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.services.home-fix-me = {
+    description = "fix home directory user me, run once at boot";
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      User = "root";
+      Type = "oneshot";
+      ExecStart = "/run/current-system/sw/bin/sh /etc/scripts/home-fix.sh me";
+      RemainAfterExit = true;
+    };
+  };
 
   ######################
   #-=# HOME-MANAGER #=-#
@@ -181,8 +152,8 @@ in {
         settings = {
           default_server_config = {
             "m.homeserver" = {
-              base_url = "https://matrix.home.corp";
-              server_name = "DebiTALK";
+              base_url = infra.matrix.url;
+              server_name = "${infra.site.name}TALK";
             };
             "m.identity_server" = {
               base_url = "https://vector.im";
@@ -202,7 +173,7 @@ in {
         enable = false;
         settings = {
           editorWindowMode = "false";
-          locale = "de-DE";
+          locale = infra.locale.lang;
           maximized = true;
           titlebar = "Start";
         };

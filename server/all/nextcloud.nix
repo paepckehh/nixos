@@ -1,6 +1,5 @@
 # nextcloud, cloud
-# cleanup: stop mysql, redis, php, /var/lib/nextcloud /var/lib/redis-nextcloud /var/lib/mysql
-# sso: discovery endpoint https://sso.<domain.tld>/.well-known/openid-configuration
+# user_oidc upstream is still flaky: if needed add parameter via gui again
 {
   config,
   pkgs,
@@ -47,9 +46,7 @@ in {
       #################
       #-=# IMPORTS #=-#
       #################
-      imports = [
-        ../../client/env.nix
-      ];
+      imports = [../../client/env.nix];
 
       ####################
       #-=# NETWORKING #=-#
@@ -59,8 +56,7 @@ in {
       #####################
       #-=# ENVIRONMENT #=-#
       #####################
-      # environment.etc."init".text = "ZDI1N$TE5AAAAIArbsvfd$vfvbbhbgf5gvfvd@dgvQC2gdtQ9qCC54Khfe";
-      environment.etc."init".text = "start";
+      environment.etc."init".text = "Next!26!Init";
 
       #################
       #-=# SYSTEMD #=-#
@@ -75,10 +71,21 @@ in {
       #-=# SERVICES #=-#
       ##################
       services = {
+        nginx.virtualHosts."${infra.nextcloud.hostname}" = {
+          forceSSL = false;
+          enableACME = false;
+          listen = [
+            {
+              addr = infra.localhost.ip;
+              port = infra.nextcloud.localbind.port.http;
+            }
+          ];
+        };
         nextcloud = {
           enable = true;
           package = pkgs.nextcloud33;
           configureRedis = true;
+          extraAppsEnable = true;
           hostName = infra.nextcloud.hostname;
           database.createLocally = true;
           settings = {
@@ -87,10 +94,9 @@ in {
             mail_smtpsecure = "";
           };
           config = {
-            adminpassFile = "/etc/init"; # fake init only, see oidc
+            adminpassFile = "/etc/init"; # fake init root within container, switch to oidc adm groups only
             dbtype = "mysql";
           };
-          extraAppsEnable = true;
           extraApps = {
             inherit
               (config.services.nextcloud.package.packages.apps)
@@ -106,36 +112,35 @@ in {
               mail
               notes
               tasks
-              user_oidc
               onlyoffice
               polls
               richdocuments
               tables
+              user_oidc
               ;
           };
           settings = {
             allow_local_remote_servers = true;
-            overwriteprotocol = "https";
-            default_phone_region = "DE";
-            auto_logout = false;
+            allow_user_to_change_display_name = false;
             allowed_admin_ranges = infra.cidr.admin;
+            auto_logout = false;
+            default_phone_region = infra.locale.lang;
             default_timezone = infra.locale.tz;
+            hide_login_form = false;
+            lost_password_link = false;
+            overwriteprotocol = "https";
             remember_login_cookie_lifetime = "60*60*24*90"; # 90 Tage
             session_lifetime = "60*60*24*7"; # 7 Tage
-            trusted_domains = ["home.corp" "nextcloud.home.corp" "sso.home.corp"];
-            trusted_proxies = [infra.localhost.cidr "10.20.6.0/23"];
-            allow_user_to_change_display_name = false;
-            lost_password_link = "disabled";
-            oidc_create_groups = false;
-            hide_login_form = false;
+            trusted_domains = [infra.nextcloud.fqdn];
+            trusted_proxies = [infra.localhost.cidr infra.cidr.user];
             user_oidc = {
               allow_multiple_user_backends = false;
               clientid = infra.nextcloud.app;
-              clientsecret = "insecure_secret";
-              default_token_endpoint_auth_method = infra.sso.oidc.discoveryUri;
+              clientsecret = infra.sso.oidc.secret;
+              default_token_endpoint_auth_method = infra.sso.oidc.auth.post;
               discoveryuri = infra.sso.oidc.discoveryUri;
               enrich_login_id_token_with_userinfo = true;
-              login_label' = "SSO Anmeldung [${infra.sso.app}]";
+              login_label = infra.sso.prefix;
               provider = infra.sso.app;
             };
             enabledPreviewProviders = [
@@ -150,16 +155,6 @@ in {
               "OC\\Preview\\HEIC"
             ];
           };
-        };
-        nginx.virtualHosts."${infra.nextcloud.hostname}" = {
-          forceSSL = false;
-          enableACME = false;
-          listen = [
-            {
-              addr = infra.localhost.ip;
-              port = infra.nextcloud.localbind.port.http;
-            }
-          ];
         };
       };
     };

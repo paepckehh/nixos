@@ -26,7 +26,9 @@ let
       tz = "Europe/Berlin";
       keymap = "us"; # de
       lang = "en"; # de
-      upper = "EN";
+      uppercase = "EN"; # DE
+      prefix = "en_EN";
+      prefix2 = "en-EN";
       LC = {
         global = "C.UTF-8"; # C.UTF-8 en_US.UTF-8 de_DE.UTF-8
         regional = "de_DE.UTF-8"; # adddress, phone, money
@@ -879,21 +881,22 @@ let
       localbind.port.http = infra.localhost.port.offset + infra.sso.id;
       url = "https://${infra.sso.fqdn}";
       logo = "${infra.res.url}/icon/png/${infra.sso.app}.png";
+      prefix = "Anmeldung ${infra.sso.app2}";
       oidc = {
-        auth = {
-          basic = "client_secret_basic"; # paperless, openweb-ui, miniflux
-          post = "client_secret_post"; # nextcloud
-        };
+        consent = "implicit";
+        discoveryUri = "${infra.sso.url}/.well-known/openid-configuration";
         grant = "authorization_code";
+        hash = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng";
         policy = "two_factor";
         method = "S256";
         response.code = "code";
         secret = "insecure_secret";
-        hash = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng";
         scope = "openid profile groups email";
         scopes = ["openid" "profile" "groups" "email"];
-        discoveryUri = "${infra.sso.url}/.well-known/openid-configuration";
-        consent = "implicit";
+        auth = {
+          basic = "client_secret_basic"; # paperless, openweb-ui, miniflux
+          post = "client_secret_post"; # nextcloud
+        };
       };
     };
     srv = {

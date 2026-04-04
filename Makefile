@@ -61,7 +61,7 @@ world: git-mirror-fetch git-mirror-gc update boot gc
 test-all: check
 	  nix flake check 
 
-build:  check   
+build:  check  
 	$(SUDO) nixos-rebuild boot --flake $(OSFLAKE) # --profile-name $(PROFILE)
 
 buildagain: check 
@@ -73,6 +73,7 @@ recover: check
 
 check: creds info
 	alejandra --quiet .
+	git add .
 	nom build ".#nixosConfigurations.$(TARGET).config.system.build.toplevel"
 	@$(SUDO) rm -rf result
 

@@ -85,12 +85,13 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
-          ./server/secret/vaultwarden.nix
-          ./server/mail/maddy-admin.nix
-          ./server/message/tuwunel.nix
-          ./server/message/element-web.nix
-          ./server/monitoring/prometheus.nix
-          ./server/bookmarks/readeck.nix
+          ./server/cloud/nextcloud.nix
+          # ./server/secret/vaultwarden.nix
+          # ./server/mail/maddy-admin.nix
+          # ./server/message/tuwunel.nix
+          # ./server/message/element-web.nix
+          # ./server/monitoring/prometheus.nix
+          # ./server/bookmarks/readeck.nix
           # ./server/translate/libretranslate-container.nix
           # ./server/share/smbgate.nix
           # ./server/mail/bichon.nix

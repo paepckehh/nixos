@@ -1,0 +1,181 @@
+# nextcloud, cloud
+# cleanup: stop mysql, redis, php, /var/lib/nextcloud /var/lib/redis-nextcloud /var/lib/mysql
+# sso: discovery endpoint https://sso.<domain.tld>/.well-known/openid-configuration
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  ############################
+  #-=# GLOBAL SITE IMPORT #=-#
+  ############################
+  infra = (import ../../siteconfig/config.nix).infra;
+in {
+  ####################
+  #-=# NETWORKING #=-#
+  ####################
+  networking.extraHosts = "${infra.nextcloud.ip} ${infra.nextcloud.hostname} ${infra.nextcloud.fqdn}";
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.nextcloud.ip}/32";}];
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+  services = {
+    caddy.virtualHosts."${infra.nextcloud.fqdn}" = {
+      listenAddresses = [infra.nextcloud.ip];
+      extraConfig = ''import intraproxy ${toString infra.nextcloud.localbind.port.http}'';
+    };
+  };
+
+  ####################
+  #-=# CONTAINERS #=-#
+  ####################
+  containers.nextcloud = {
+    autoStart = true;
+    privateNetwork = false;
+    config = {
+      config,
+      pkgs,
+      lib,
+      ...
+    }: {
+      #################
+      #-=# IMPORTS #=-#
+      #################
+      imports = [../../client/env.nix];
+
+      ####################
+      #-=# NETWORKING #=-#
+      ####################
+      networking.hostName = infra.nextcloud.hostname;
+
+      #####################
+      #-=# ENVIRONMENT #=-#
+      #####################
+      environment.etc."init".text = "Next!26!Init";
+
+      #################
+      #-=# SYSTEMD #=-#
+      #################
+      systemd.services.nextcloud-setup = {
+        after = ["socket.target"];
+        wants = ["socket.target"];
+        wantedBy = ["multi-user.target"];
+      };
+
+      ##################
+      #-=# SERVICES #=-#
+      ##################
+      services = {
+        nginx.virtualHosts."${infra.nextcloud.hostname}" = {
+          forceSSL = false;
+          enableACME = false;
+          listen = [
+            {
+              addr = infra.localhost.ip;
+              port = infra.nextcloud.localbind.port.http;
+            }
+          ];
+        };
+        nextcloud = {
+          enable = true;
+          package = pkgs.nextcloud33;
+          configureRedis = true;
+          extraAppsEnable = true;
+          hostName = infra.nextcloud.hostname;
+          database.createLocally = true;
+          settings = {
+            mail_smtpmode = "smtp";
+            mail_smtphost = infra.smtp.admin.fqdn;
+            mail_smtpsecure = "";
+          };
+          config = {
+            adminpassFile = "/etc/init"; # fake init, see oidc
+            dbtype = "mysql";
+          };
+          extraApps = {
+            inherit
+              (config.services.nextcloud.package.packages.apps)
+              bookmarks
+              calendar
+              contacts
+              cospend
+              deck
+              files_retention
+              forms
+              groupfolders
+              integration_paperless
+              mail
+              notes
+              tasks
+              onlyoffice
+              polls
+              richdocuments
+              tables
+              user_oidc
+              ;
+          };
+          settings = {
+            allow_local_remote_servers = true;
+            allow_user_to_change_display_name = false;
+            allowed_admin_ranges = infra.cidr.admin;
+            auto_logout = false;
+            default_phone_region = infra.locale.lang;
+            default_timezone = infra.locale.tz;
+            hide_login_form = false;
+            lost_password_link = false;
+            oidc_create_groups = false;
+            oidc_login_auto_redirect = false;
+            oidc_login_button_text = infra.sso.prefix;
+            oidc_login_client_id = infra.sso.app;
+            oidc_login_client_secret = infra.sso.oidc.secret;
+            oidc_login_code_challenge_method = infra.sso.oidc.method;
+            oidc_login_disable_registration = true;
+            oidc_login_end_session_redirect = true;
+            oidc_login_hide_password_form = false;
+            oidc_login_min_time_between_jwks_requests = 10;
+            oidc_login_password_authentication = false;
+            oidc_login_provider_url = infra.sso.url;
+            oidc_login_proxy_ldap = false;
+            oidc_login_public_key_caching_time = 86400;
+            oidc_login_redir_fallback = false;
+            oidc_login_scope = infra.sso.oidc.scope;
+            oidc_login_tls_verify = true;
+            oidc_login_update_avatar = true;
+            oidc_login_use_external_storage = false;
+            oidc_login_use_id_token = false;
+            oidc_login_webdav_enabled = false;
+            oidc_login_well_known_caching_time = 86400;
+            overwriteprotocol = "https";
+            remember_login_cookie_lifetime = "60*60*24*90"; # 90 Tage
+            session_lifetime = "60*60*24*7"; # 7 Tage
+            trusted_domains = [infra.nextcloud.fqdn];
+            trusted_proxies = [infra.localhost.cidr infra.cidr.user];
+            enabledPreviewProviders = [
+              "OC\\Preview\\Image"
+              "OC\\Preview\\Movie"
+              "OC\\Preview\\PDF"
+              "OC\\Preview\\MSOfficeDoc"
+              "OC\\Preview\\MSOffice"
+              "OC\\Preview\\Photoshop"
+              "OC\\Preview\\SVG"
+              "OC\\Preview\\TIFF"
+              "OC\\Preview\\HEIC"
+            ];
+            oidc_login_attributes = {
+              id = "email";
+              name = "name";
+              mail = "email";
+              groups = "groups";
+            };
+          };
+        };
+      };
+    };
+  };
+}

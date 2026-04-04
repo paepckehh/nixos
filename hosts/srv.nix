@@ -19,6 +19,11 @@ in {
   ##############
   networking.hostName = lib.mkForce "srv";
 
+  ########################
+  #-=# VIRTUALISATION #=-#
+  ########################
+  virtualisation.docker.enable = true;
+
   ##################
   #-=# SERVICES #=-#
   ##################
