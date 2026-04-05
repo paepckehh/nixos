@@ -160,6 +160,7 @@ let
     };
     port = {
       dns = 53;
+      cockpit = 6443;
       https = 443;
       smtp = 25;
       ssh = 6622;
@@ -904,6 +905,7 @@ let
       app = "nixos";
       name = "srv";
       hostname = infra.srv.name;
+      cockpit = false;
       sshd = false;
       reverseproxy = true;
       admin = {
@@ -932,6 +934,7 @@ let
       app = "nixos";
       name = "srv2";
       hostname = infra.srv2.name;
+      cockpit = true;
       sshd = true;
       reverseproxy = false;
       admin = {

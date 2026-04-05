@@ -219,6 +219,20 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
+    cockpit = {
+      enable = lib.mkDefault false;
+      plugins = [
+        pkgs.cockpit-files
+        pkgs.cockpit-zfs
+      ];
+      port = infra.port.cockpit;
+      settings = {
+        WebService = {
+          AllowUnencrypted = false;
+          LoginTo = false;
+        };
+      };
+    };
     caddy = {
       enable = lib.mkDefault false;
       logFormat = lib.mkForce "level INFO";

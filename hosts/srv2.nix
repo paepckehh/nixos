@@ -23,6 +23,7 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
+    cockpit.enable = lib.mkForce infra.srv2.cockpit;
     caddy.enable = lib.mkForce infra.srv2.reverseproxy;
     openssh = {
       enable = lib.mkForce infra.srv2.sshd;
