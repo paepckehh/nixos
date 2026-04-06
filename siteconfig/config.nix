@@ -1117,6 +1117,16 @@ let
       url = "https://${infra.opnborg.fqdn}";
       logo = "${infra.res.url}/icon/png/borgmatic.png";
     };
+    cloud = {
+      id = 117;
+      name = "cloud";
+      hostname = infra.cloud.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.cloud.hostname}.${infra.cloud.domain}";
+      ip = "${infra.net.user}.${toString infra.cloud.id}";
+      url = "https://${infra.cloud.fqdn}";
+      forward.url = infra.nextcloud.url;
+    };
     nextcloud = {
       id = 117;
       app = "nextcloud";

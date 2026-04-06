@@ -24,8 +24,12 @@ in {
   ##################
   #-=# SERVICES #=-#
   ##################
-  services = {
-    caddy.virtualHosts."${infra.nextcloud.fqdn}" = {
+  services.caddy.virtualHosts = {
+    "${infra.cloud.fqdn}" = {
+      listenAddresses = [infra.cloud.ip];
+      extraConfig = ''redir ${infra.cloud.forward.url}{uri} permanent }'';
+    };
+    "${infra.nextcloud.fqdn}" = {
       listenAddresses = [infra.nextcloud.ip];
       extraConfig = ''import intraproxy ${toString infra.nextcloud.localbind.port.http}'';
     };
@@ -56,7 +60,7 @@ in {
       #####################
       #-=# ENVIRONMENT #=-#
       #####################
-      environment.etc."init".text = "Next!26!Init";
+      environment.etc."init".text = "Fake!26!Init";
 
       #################
       #-=# SYSTEMD #=-#
@@ -109,7 +113,6 @@ in {
               forms
               groupfolders
               integration_paperless
-              mail
               notes
               tasks
               onlyoffice
@@ -143,6 +146,7 @@ in {
               login_label = infra.sso.prefix;
               provider = infra.sso.app;
             };
+            dashboard.layout = "calendar,files,activity";
             enabledPreviewProviders = [
               "OC\\Preview\\Image"
               "OC\\Preview\\Movie"
