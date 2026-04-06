@@ -27,7 +27,7 @@ in {
   services.caddy.virtualHosts = {
     "${infra.cloud.fqdn}" = {
       listenAddresses = [infra.cloud.ip];
-      extraConfig = ''redir ${infra.cloud.forward.url}{uri} permanent }'';
+      extraConfig = ''redir ${infra.cloud.forward.url}{uri} permanent'';
     };
     "${infra.nextcloud.fqdn}" = {
       listenAddresses = [infra.nextcloud.ip];
