@@ -85,6 +85,7 @@
           ./server/webapp/res.nix
           ./server/webapp/test.nix
           ./hosts/srv.nix
+          ./server/cloud/cloud.nix
           ./server/cloud/nextcloud.nix
           # ./server/secret/vaultwarden.nix
           # ./server/mail/maddy-admin.nix

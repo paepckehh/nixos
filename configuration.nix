@@ -359,12 +359,11 @@ in {
     libinput.enable = lib.mkForce true;
     journald = {
       audit = false;
-      storage = "volatile"; # persistent
-      upload.enable = false;
+      storage = "volatile";
     };
     fstrim = {
       enable = true;
-      interval = "weekly"; # weekly, daily, 05:00
+      interval = "weekly";
     };
     tlp = {
       enable = true;

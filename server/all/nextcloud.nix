@@ -24,15 +24,9 @@ in {
   ##################
   #-=# SERVICES #=-#
   ##################
-  services.caddy.virtualHosts = {
-    "${infra.cloud.fqdn}" = {
-      listenAddresses = [infra.cloud.ip];
-      extraConfig = ''redir ${infra.cloud.forward.url}{uri} permanent'';
-    };
-    "${infra.nextcloud.fqdn}" = {
-      listenAddresses = [infra.nextcloud.ip];
-      extraConfig = ''import intraproxy ${toString infra.nextcloud.localbind.port.http}'';
-    };
+  services.caddy.virtualHosts."${infra.nextcloud.fqdn}" = {
+    listenAddresses = [infra.nextcloud.ip];
+    extraConfig = ''import intraproxy ${toString infra.nextcloud.localbind.port.http}'';
   };
 
   ####################
