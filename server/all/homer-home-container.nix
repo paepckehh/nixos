@@ -440,6 +440,20 @@ in {
                     logo = infra.websurfx.logo;
                   }
                   {
+                    name = "winstart";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.winstart.url;
+                    logo = infra.winstart.logo;
+                  }
+                  {
+                    name = "winupdate";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.winupdate.url;
+                    logo = infra.winupdate.logo;
+                  }
+                  {
                     name = "Networking-Toolbox";
                     tag = "app";
                     target = "_blank";
