@@ -170,6 +170,8 @@ in {
             ${infra.webmail.hostname}            IN A  ${infra.webmail.ip}
             ${infra.websurfx.hostname}           IN A  ${infra.websurfx.ip}
             ${infra.web-check.hostname}          IN A  ${infra.web-check.ip}
+            ${infra.winstart.hostname}           IN A  ${infra.winstart.ip}
+            ${infra.winupdate.hostname}          IN A  ${infra.winupdate.ip}
             ${infra.wiki-go.hostname}            IN A  ${infra.wiki-go.ip}
             ${infra.zipline.hostname}            IN A  ${infra.zipline.ip}
             ${infra.autoconfig.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.autoconfig.user.ip}"
@@ -214,6 +216,8 @@ in {
             ${infra.websurfx.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.websurfx.ip}"
             ${infra.web-check.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.web-check.ip}"
             ${infra.wiki-go.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.wiki-go.ip}"
+            ${infra.winstart.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.winstart.ip}"
+            ${infra.winupdate.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.winupdate.ip}"
             ${infra.zipline.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.zipline.ip}"
             _autoupdate-it                       IN TXT "true"
             _autoupdate-ti                       IN TXT "false"

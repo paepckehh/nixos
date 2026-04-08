@@ -28,10 +28,6 @@
     mtr.enable = true;
     vim.enable = true;
     yubikey-manager.enable = true;
-    # gnupg.agent = {
-    #  enable = true;
-    #  enableSSHSupport = true;
-    # };
     ssh = {
       extraConfig = "AddKeysToAgent yes";
       hostKeyAlgorithms = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
@@ -162,6 +158,7 @@
       progress
       pwgen
       pv
+      rage
       ripgrep
       smartmontools
       tldr

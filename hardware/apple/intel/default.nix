@@ -23,15 +23,6 @@
   };
 
   ##################
-  #-=# HARDWARE #=-#
-  ##################
-  hardware = {
-    enableAllFirmware = lib.mkForce true;
-    facetimehd.enable = lib.mkForce false;
-    # graphics.extraPackages = with pkgs; [intel-vaapi-driver intel-ocl intel-media-driver];
-  };
-
-  ##################
   #-=# SERVICES #=-#
   ##################
   services.mbpfan.enable = true;
@@ -59,4 +50,13 @@
       AttrKeyboardIntegration=internal
     '';
   };
+
+  ##################
+  #-=# HARDWARE #=-#
+  ##################
+  # hardware = {
+  # enableAllFirmware = lib.mkForce true;
+  # facetimehd.enable = lib.mkForce true;
+  # graphics.extraPackages = with pkgs; [intel-vaapi-driver intel-ocl intel-media-driver];
+  # };
 }

@@ -64,6 +64,7 @@
           ./storage/stateless-luks-fixed-6F6B-6565.nix
           ./configuration.nix
           ./hardware/all.nix
+          ./hardware/apple/intel/default.nix
           ./client/addrootCA.nix
           ./client/addrootCA-ext.nix
           ./client/addCache.nix
@@ -83,10 +84,11 @@
           ./server/pki/small-step.nix
           ./server/portal/homer-home-container.nix
           ./server/webapp/res.nix
-          ./server/webapp/test.nix
+          ./server/win/winstart.nix
+          ./server/win/winupdate.nix
           ./hosts/srv.nix
-          ./server/cloud/cloud.nix
-          ./server/cloud/nextcloud.nix
+          # ./server/cloud/cloud.nix
+          # ./server/cloud/nextcloud.nix
           # ./server/secret/vaultwarden.nix
           # ./server/mail/maddy-admin.nix
           # ./server/message/tuwunel.nix
@@ -145,7 +147,8 @@
           ./packages/devops-all.nix
           ./server/bookmarks/readeck.nix
           ./server/cache/ncps.nix
-          ./server/cloud/nextcloud-container-authelia.nix
+          ./server/cloud/cloud.nix
+          ./server/cloud/nextcloud.nix
           ./server/dns/bind.nix
           ./server/dns/adguard.nix
           ./server/iam/authelia.nix
@@ -166,7 +169,7 @@
           ./server/portal/homer-home-container.nix
           ./server/webapp/res.nix
           ./server/webapp/test.nix
-          ./server/cloud/nextcloud-container-authelia.nix
+          ./server/cloud/nextcloud.nix
           ./server/rss/miniflux-container-authelia.nix
           ./server/media/immich-container-authelia.nix
           ./server/ocr/paperless-ngx-authelia.nix

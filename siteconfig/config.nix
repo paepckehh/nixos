@@ -693,6 +693,26 @@ let
       ip = "${infra.net.user}.${toString infra.webmail.id}";
       localbind.port.http = infra.localhost.port.offset + infra.webmail.id;
     };
+    winstart = {
+      id = 28;
+      name = "winstart";
+      hostname = infra.winstart.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.winstart.hostname}.${infra.winstart.domain}";
+      ip = "${infra.net.user}.${toString infra.winstart.id}";
+      url = "https://${infra.winstart.fqdn}";
+      logo = "${infra.res.url}/icon/png/microsoft-windows.png";
+    };
+    winupdate = {
+      id = 29;
+      name = "winupdate";
+      hostname = infra.winupdate.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.winupdate.hostname}.${infra.winupdate.domain}";
+      ip = "${infra.net.user}.${toString infra.winupdate.id}";
+      url = "https://${infra.winupdate.fqdn}";
+      logo = "${infra.res.url}/icon/png/microsoft-windows.png";
+    };
     git = {
       id = 30;
       app = "forgejo";
