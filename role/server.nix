@@ -273,23 +273,43 @@ in {
            }
            @not_intranet { not remote_ip ${infra.cidr.user} ${infra.cidr.container} }
            respond @not_intranet 403
-         }
+        }
         (adminproxy) {
            import admin
-           reverse_proxy ${infra.localhost.ip}:{args[0]}
-         }
+           reverse_proxy ${infra.localhost.ip}:{args[0]} {
+              transport http {
+                 compression off
+                 keepalive 8m
+              }
+           }
+        }
         (intraproxy) {
            import intra
-           reverse_proxy ${infra.localhost.ip}:{args[0]}
-         }
+           reverse_proxy ${infra.localhost.ip}:{args[0]} {
+              transport http {
+                 compression off
+                 keepalive 8m
+              }
+           }
+        }
         (admincontainer) {
            import admin
-           reverse_proxy {args[0]}:${toString infra.port.http}
-         }
+           reverse_proxy {args[0]}:${toString infra.port.http} {
+              transport http {
+                 compression off
+                 keepalive 8m
+              }
+           }
+        }
         (intracontainer) {
            import intra
-           reverse_proxy {args[0]}:{args[1]}
-         }
+           reverse_proxy {args[0]}:{args[1]} {
+              transport http {
+                 compression off
+                 keepalive 8m
+              }
+           }
+        }
       '';
     };
   };

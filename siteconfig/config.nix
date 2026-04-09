@@ -737,7 +737,7 @@ let
       storage = "${infra.storage.cache}/${infra.git-mirror.name}";
       repos = [
         "nixos/nixpkgs#https://github.com/nixos/nixpkgs"
-        "nix-community/home-manager#https://github.com/nix-community/home-manger"
+        "nix-community/home-manager#https://github.com/nix-community/home-manager"
         "nix-community/disko#https://github.com/nix-community/disko"
         "ryantm/agenix#https://github.com/ryantm/agenix"
         "paepckehh/nixos#https://github.com/paepckehh/nixos"

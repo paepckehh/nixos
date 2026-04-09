@@ -54,12 +54,16 @@ in {
       ####################
       networking.hostName = infra.git-mirror.hostname;
 
+      #################
+      #-=# SYSTEMD #=-#
+      #################
+      systemd.tmpfiles.rules = ["d /var/run/cgit 0775 cgit cgit"];
+
       ##################
       #-=# PROGRAMS #=-#
       ##################
       programs.git = {
         enable = true;
-        prompt.enable = true;
         config = {
           branch.sort = "-committerdate";
           commit.gpgsign = false;
@@ -69,14 +73,13 @@ in {
           http = {
             sslVerify = "true";
             sslVersion = "tlsv1.3";
-            version = "HTTP/1.1";
           };
           protocol = {
             allow = "always";
             file.allow = "always";
-            git.allow = "never";
+            git.allow = "always";
             ssh.allow = "always";
-            http.allow = "never";
+            http.allow = "always";
             https.allow = "always";
           };
         };
@@ -95,6 +98,11 @@ in {
               port = infra.git-mirror.localbind.port.http;
             }
           ];
+          extraConfig = ''
+            client_header_timeout  8m;
+            client_body_timeout    8m;
+            send_timeout           8m;
+          '';
         };
         cgit.${infra.git-mirror.name} = {
           enable = true;
@@ -103,6 +111,8 @@ in {
           settings = {
             clone-url = "${infra.git-mirror.url}/$CGIT_REPO_URL";
             snapshots = "all";
+            cache-root = "/var/run/cgit";
+            cache-size = 2000;
           };
           gitHttpBackend = {
             enable = true;

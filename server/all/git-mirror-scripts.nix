@@ -35,13 +35,14 @@ in {
         #/bin/sh
         source /etc/scripts/git-mirror-config.sh
         $GIT config --unset remote.origin.tagOpt
+        $GIT config --unset pack.indexVersion
+        $GIT config core.packedGitWindowSize 4g
         $GIT config pack.allowPackReuse true
         $GIT config pack.compression 6
-        $GIT config pack.depth 50
-        $GIT config pack.deltaCacheSize 256m
+        $GIT config pack.depth 40
+        $GIT config pack.deltaCacheSize 512m
         $GIT config pack.deltaCacheLimit 1000
         $GIT config pack.threads 0
-        $GIT config pack.indexVersion 2
         $GIT config pack.useBitmapBoundaryTraversal true
         $GIT config pack.useSparse true
         $GIT config pack.window 10
@@ -82,7 +83,7 @@ in {
         	echo "### git gc full maintenance: $dir"
           cd $dir && if [ -f config ]; then
               sh /etc/scripts/git-mirror-repo-config.sh
-              $GIT gc --aggressive --keep-largest --prune=now
+              $GIT gc --aggressive --keep-largest
           fi
         done
         $SH /etc/scripts/git-mirror-cache.sh
@@ -95,7 +96,7 @@ in {
         	echo "### git gc max maintenance: $dir"
           cd $dir && if [ -f config ]; then
               sh /etc/scripts/git-mirror-repo-config.sh
-              $GIT gc --aggressive --prune=now
+              $GIT gc --aggressive
               $GIT fsck --full
           fi
         done
@@ -110,12 +111,13 @@ in {
           echo "### fetch/update/check/mirror: $dir => $url"
           $MKDIR -p $dir && cd $dir || exit 1
           if [ -f config ]; then
+              sh /etc/scripts/git-mirror-repo-config.sh
               $GIT fetch --all --force --tags
           else
               $GIT clone --mirror $url .
               sh /etc/scripts/git-mirror-repo-config.sh
               $GIT fetch --all --force --tags
-              $GIT gc --aggressive --prune=now
+              $GIT gc --aggressive
           fi
         done
         $SH /etc/scripts/git-mirror-cache.sh

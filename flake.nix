@@ -60,11 +60,12 @@
         modules = [
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
+          ./hosts/srv.nix
+          ./role/server.nix
           # ./storage/stateless-luks-sequence.nix
           ./storage/stateless-luks-fixed-6F6B-6565.nix
           ./configuration.nix
           ./hardware/all.nix
-          ./hardware/apple/intel/default.nix
           ./client/addrootCA.nix
           ./client/addrootCA-ext.nix
           ./client/addCache.nix
@@ -86,7 +87,6 @@
           ./server/webapp/res.nix
           ./server/win/winstart.nix
           ./server/win/winupdate.nix
-          ./hosts/srv.nix
           # ./server/cloud/cloud.nix
           # ./server/cloud/nextcloud.nix
           # ./server/secret/vaultwarden.nix
