@@ -4,6 +4,14 @@
   lib,
   ...
 }: {
+  #################
+  #-=# IMPORTS #=-#
+  #################
+  imports = [
+    ../../intel.nix
+    # ../../intel-gpu.nix
+  ];
+
   ##############
   #-=# BOOT #=-#
   ##############
@@ -23,6 +31,11 @@
   };
 
   ##################
+  #-=# HARDWARE #=-#
+  ##################
+  hardware.facetimehd.enable = lib.mkForce false;
+
+  ##################
   #-=# SERVICES #=-#
   ##################
   services.mbpfan.enable = true;
@@ -33,6 +46,7 @@
   environment = {
     systemPackages = with pkgs; [libsmbios];
     etc."libinput/local-overrides.quirks".text = ''
+
       [MacBook(Pro) SPI Touchpads]
       MatchName=*Apple SPI Touchpad*
       ModelAppleTouchpad=1
@@ -48,15 +62,7 @@
       MatchVendor=0x05AC
       MatchProduct=0x8600
       AttrKeyboardIntegration=internal
+
     '';
   };
-
-  ##################
-  #-=# HARDWARE #=-#
-  ##################
-  # hardware = {
-  # enableAllFirmware = lib.mkForce true;
-  # facetimehd.enable = lib.mkForce true;
-  # graphics.extraPackages = with pkgs; [intel-vaapi-driver intel-ocl intel-media-driver];
-  # };
 }

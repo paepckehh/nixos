@@ -11,6 +11,14 @@
   #################
   systemd = {
     services = {
+      "git-mirror-cache" = {
+        description = "git-mirror-cache";
+        serviceConfig = {
+          User = "root";
+          Type = "oneshot";
+          ExecStart = "/run/current-system/sw/bin/sh /etc/scripts/git-mirror-cache.sh";
+        };
+      };
       "git-mirror-fetch" = {
         description = "git-mirror-fetch";
         serviceConfig = {
@@ -37,6 +45,15 @@
       };
     };
     timers = {
+      "git-mirror-cache-timer" = {
+        description = "git-mirror-cache-timer";
+        wantedBy = ["timers.target"];
+        timerConfig = {
+          Unit = "git-mirror-cache.service";
+          OnCalendar = "hourly";
+          Persistent = false;
+        };
+      };
       "git-mirror-fetch-timer" = {
         description = "git-mirror-fetch-timer";
         wantedBy = ["timers.target"];
@@ -64,8 +81,8 @@
           Persistent = false;
         };
       };
-      "git-mirror-gc-full" = {
-        description = "git-mirror-gc-full";
+      "git-mirror-gc-full-timer" = {
+        description = "git-mirror-gc-full-timer";
         wantedBy = ["timers.target"];
         timerConfig = {
           Unit = "git-mirror-gc-full.service";

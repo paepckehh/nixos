@@ -12,7 +12,7 @@
     # disko.url = "git+https://git-mirror.home.corp/nix-community/disko?ref=master";
     # home-manager.url = "git+https://git-mirror.home.corp/nix-community/home-manager?ref=master";
     # ### local-fs
-    nixpkgs.url = "git+file:///nix/persist/cache/git-mirror/nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "git+file:///nix/persist/cache/git-mirror/nixos/nixpkgs?ref=nixos-unstable-small";
     agenix.url = "git+file:///nix/persist/cache/git-mirror/ryantm/agenix?ref=main";
     disko.url = "git+file:///nix/persist/cache/git-mirror/nix-community/disko?ref=master";
     home-manager.url = "git+file:///nix/persist/cache/git-mirror/nix-community/home-manager?ref=master";
