@@ -85,7 +85,6 @@ let
       info = "info";
       warn = "warn";
     };
-    go.cache = "${infra.storage.cache}/go";
     localhost = {
       name = "localhost";
       ip = "127.0.0.1";
@@ -204,6 +203,32 @@ let
       app = "cups";
       url = "http://localhost:631/";
       logo = "${infra.res.url}/icon/png/printer.png";
+    };
+    go.cache = "${infra.storage.cache}/go";
+    git.client.conf = {
+      commit.gpgsign = false;
+      init.defaultBranch = "main";
+      safe.directory = "*";
+      gpg.format = "ssh";
+      http = {
+        sslVerify = true;
+        sslVersion = "tlsv1.3";
+        postBuffer = 1048576000;
+      };
+      core.compression = -1;
+      protocol = {
+        allow = "always";
+        file.allow = "always";
+        git.allow = "never";
+        ssh.allow = "always";
+        http.allow = "always";
+        https.allow = "always";
+      };
+      signing = {
+        format = "ssh";
+        signByDefault = false;
+        key = "~/.ssh/id_ed25519_sk";
+      };
     };
     thunderbird = {
       settings = infra.firefox.settings;
@@ -491,8 +516,8 @@ let
         "it" = {
           initialHashedPassword = null;
           openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
-          description = "samba user for ti share";
-          group = "ti";
+          description = "samba user for it share";
+          group = "it";
           createHome = false;
           extraGroups = ["users"];
           isNormalUser = true;
@@ -506,40 +531,10 @@ let
           extraGroups = ["users"];
           isNormalUser = true;
         };
-        "fb" = {
-          initialHashedPassword = null;
-          openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
-          description = "samba user for fb share";
-          group = "fb";
-          createHome = false;
-          extraGroups = ["users"];
-          isNormalUser = true;
-        };
-        "fe" = {
-          initialHashedPassword = null;
-          openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
-          description = "samba user for fa share";
-          group = "fe";
-          createHome = false;
-          extraGroups = ["users"];
-          isNormalUser = true;
-        };
-        "op" = {
-          initialHashedPassword = null;
-          openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
-          description = "samba user for op share";
-          group = "op";
-          createHome = false;
-          extraGroups = ["users"];
-          isNormalUser = true;
-        };
       };
       groups = {
         "it".members = ["it"];
         "ti".members = ["it"];
-        "fb".members = ["fb"];
-        "fe".members = ["fe"];
-        "op".members = ["op"];
       };
       shares = {
         "it" = {
@@ -568,52 +563,10 @@ let
           "force group" = "i";
           "valid users" = "ti";
         };
-        "fb" = {
-          "browseable" = "no";
-          "comment" = "FB DataExchange";
-          "path" = "/nix/persist/mnt/fb";
-          "writable" = "yes";
-          "read only" = "no";
-          "guest ok" = "no";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-          "force user" = "fb";
-          "force group" = "fb";
-          "valid users" = "fb";
-        };
-        "fe" = {
-          "browseable" = "no";
-          "comment" = "FE DataExchange";
-          "path" = "/nix/persist/mnt/fe";
-          "writable" = "yes";
-          "read only" = "no";
-          "guest ok" = "no";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-          "force user" = "fe";
-          "force group" = "fe";
-          "valid users" = "fe";
-        };
-        "op" = {
-          "browseable" = "no";
-          "comment" = "OP DataExchange";
-          "path" = "/nix/persist/mnt/op";
-          "writable" = "yes";
-          "read only" = "no";
-          "guest ok" = "no";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-          "force user" = "op";
-          "force group" = "op";
-          "valid users" = "op";
-        };
       };
       mountpoints = [
         "d /nix/persist/mnt/it 0770 it it - -"
         "d /nix/persist/mnt/ti 0770 ti ti - -"
-        "d /nix/persist/mnt/fa 0770 fe fe - -"
-        "d /nix/persist/mnt/fa 0770 fb fb - -"
-        "d /nix/persist/mnt/fa 0770 op op - -"
       ];
     };
     smtp = {

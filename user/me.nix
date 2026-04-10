@@ -139,22 +139,9 @@ in {
           };
           git = {
             settings = {
-              init.defaultBranch = "main";
               user = {
                 name = lib.mkDefault "me";
                 email = lib.mkDefault "me@localhost";
-              };
-              protocol = lib.mkForce {
-                file.allow = "always";
-                git.allow = "never";
-                ssh.allow = "always";
-                http.allow = "never";
-                https.allow = "always";
-              };
-              signing = {
-                format = "ssh";
-                signByDefault = lib.mkDefault false;
-                key = lib.mkDefault "~/.ssh/id_ed25519.pub";
               };
             };
           };

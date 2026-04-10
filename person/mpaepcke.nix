@@ -47,23 +47,13 @@ in {
         programs = {
           git = {
             settings = {
-              init.defaultBranch = "main";
               user = {
                 name = lib.mkForce "PAEPCKE, Michael";
                 email = lib.mkForce "git@paepcke.de";
-                signingkey = lib.mkForce "~/.ssh/id_ed25519_sk.pub";
-              };
-              protocol = lib.mkForce {
-                file.allow = "always";
-                git.allow = "never";
-                ssh.allow = "always";
-                http.allow = "never";
-                https.allow = "always";
               };
               signing = {
                 format = "ssh";
                 signByDefault = lib.mkForce false;
-                key = lib.mkForce "~/.ssh/id_ed25519_sk.pub";
               };
             };
           };

@@ -34,18 +34,18 @@ in {
       "scripts/git-mirror-repo-config.sh".text = ''
         #/bin/sh
         source /etc/scripts/git-mirror-config.sh
+        $GIT config pack.indexVersion 1
         $GIT config --unset remote.origin.tagOpt
-        $GIT config --unset pack.indexVersion
         $GIT config core.packedGitWindowSize 4g
         $GIT config pack.allowPackReuse true
-        $GIT config pack.compression 6
-        $GIT config pack.depth 40
+        $GIT config pack.compression -1
+        $GIT config pack.depth 32
         $GIT config pack.deltaCacheSize 512m
         $GIT config pack.deltaCacheLimit 1000
         $GIT config pack.threads 0
         $GIT config pack.useBitmapBoundaryTraversal true
         $GIT config pack.useSparse true
-        $GIT config pack.window 10
+        $GIT config pack.window 8
         $GIT config pack.windowMemory 0
         $GIT config pack.writeBitmapHashCache true
         $GIT config pack.writeBitmapLookupTable true

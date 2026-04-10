@@ -71,34 +71,27 @@ in {
       #-=# SERVICES #=-#
       ##################
       services = {
-        nginx.virtualHosts."${infra.git-mirror.name}" = {
-          forceSSL = false;
-          enableACME = false;
-          listen = [
-            {
-              addr = infra.localhost.ip;
-              port = infra.git-mirror.localbind.port.http;
-            }
-          ];
-          extraConfig = ''
-            client_header_timeout  600s;
-            client_body_timeout    600s;
-            send_timeout           600s;
-          '';
-        };
-        cgit.${infra.git-mirror.name} = {
+        gitweb.projectroot = infra.git-mirror.storage;
+        nginx = {
           enable = true;
-          nginx.virtualHost = "${infra.git-mirror.name}";
-          scanPath = infra.git-mirror.storage;
-          settings = {
-            clone-url = "${infra.git-mirror.url}/$CGIT_REPO_URL";
-            snapshots = "all";
-            cache-size = 2000;
-            cache-root = "/var/run/cgit";
+          gitweb = {
+            enable = true;
+            virtualHost = infra.git-mirror.name;
           };
-          gitHttpBackend = {
-            enable = false;
-            checkExportOkFiles = false;
+          virtualHosts."${infra.git-mirror.name}" = {
+            forceSSL = false;
+            enableACME = false;
+            listen = [
+              {
+                addr = infra.localhost.ip;
+                port = infra.git-mirror.localbind.port.http;
+              }
+            ];
+            extraConfig = ''
+              client_header_timeout  8m;
+              client_body_timeout    8m;
+              send_timeout           8m;
+            '';
           };
         };
       };

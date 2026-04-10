@@ -279,7 +279,6 @@ in {
            reverse_proxy ${infra.localhost.ip}:{args[0]} {
               transport http {
                  compression off
-                 keepalive 8m
               }
            }
         }
@@ -288,7 +287,6 @@ in {
            reverse_proxy ${infra.localhost.ip}:{args[0]} {
               transport http {
                  compression off
-                 keepalive 8m
               }
            }
         }
@@ -297,7 +295,6 @@ in {
            reverse_proxy {args[0]}:${toString infra.port.http} {
               transport http {
                  compression off
-                 keepalive 8m
               }
            }
         }
@@ -306,7 +303,6 @@ in {
            reverse_proxy {args[0]}:{args[1]} {
               transport http {
                  compression off
-                 keepalive 8m
               }
            }
         }

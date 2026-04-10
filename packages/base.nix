@@ -3,7 +3,12 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  ############################
+  #-=# GLOBAL SITE IMPORT #=-#
+  ############################
+  infra = (import ../siteconfig/config.nix).infra;
+in {
   ##################
   #-=# SERVICES #=-#
   ##################
@@ -55,27 +60,7 @@
     };
     git = {
       enable = true;
-      prompt.enable = true;
-      config = {
-        branch.sort = "-committerdate";
-        commit.gpgsign = false;
-        init.defaultBranch = "main";
-        safe.directory = "*";
-        gpg.format = "ssh";
-        http = {
-          sslVerify = "true";
-          sslVersion = "tlsv1.3";
-          version = "HTTP/1.1";
-        };
-        protocol = {
-          allow = "always";
-          file.allow = "always";
-          git.allow = "never";
-          ssh.allow = "always";
-          http.allow = "never";
-          https.allow = "always";
-        };
-      };
+      config = infra.git.client.conf;
     };
   };
 
