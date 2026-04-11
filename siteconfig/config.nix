@@ -194,6 +194,34 @@ let
       };
       logo = "${infra.res.url}/icon/png/borg.png";
     };
+    modem = {
+      tag = "internet terminator modem web gui";
+      logo = "${infra.res.url}/icon/png/avm-fritzbox.png";
+      m01 = {
+        name = "modem11.${infra.domain.admin}";
+        url = "https://${infra.modem.m01.name}/";
+        logo = infra.modem.logo;
+        tag = "[Glasfaser] [1&1] [Borg11]";
+      };
+      m02 = {
+        name = "modem12.${infra.domain.admin}";
+        url = "https://${infra.modem.m02.name}/";
+        logo = infra.modem.logo;
+        tag = "[Kabel] [Vodafone] [Borg12]";
+      };
+      m03 = {
+        name = "modem13.${infra.domain.admin}";
+        url = "https://${infra.modem.m03.name}/";
+        logo = infra.modem.logo;
+        tag = "[Glasfaser] [Vodafone] [Borg13]";
+      };
+      m04 = {
+        name = "modem14.${infra.domain.admin}";
+        url = "https://${infra.modem.m04.name}/";
+        logo = infra.modem.logo;
+        tag = "[DSL] [O2] [INCAS]";
+      };
+    };
     proxy = {
       one.uri = "${infra.net.user}.11:${toString infra.port.proxy}";
       two.uri = "${infra.net.user}.12:${toString infra.port.proxy}";
@@ -215,19 +243,35 @@ let
         sslVersion = "tlsv1.3";
         postBuffer = 1048576000;
       };
-      core.compression = -1;
       protocol = {
-        allow = "always";
         file.allow = "always";
         git.allow = "never";
         ssh.allow = "always";
-        http.allow = "always";
+        http.allow = "never";
         https.allow = "always";
       };
       signing = {
         format = "ssh";
         signByDefault = false;
         key = "~/.ssh/id_ed25519_sk";
+      };
+    };
+    ssh.knownHosts = {
+      github = {
+        extraHostNames = ["github.com" "api.github.com" "git.github.com"];
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+      };
+      gitlab = {
+        extraHostNames = ["gitlab.com" "api.gitlab.com" "git.gitlab.com"];
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfuCHKVTjquxvt6CM6tdG4SLp1Btn/nOeHHE5UOzRdf";
+      };
+      codeberg = {
+        extraHostNames = ["codeberg.org" "api.codeberg.org" "git.codeberg.org"];
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB";
+      };
+      sourcehut = {
+        extraHostNames = ["sr.ht" "api.sr.ht" "git.sr.ht"];
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZvRd4EtM7R+IHVMWmDkVU3VLQTSwQDSAvW0t2Tkj60";
       };
     };
     thunderbird = {

@@ -267,6 +267,9 @@ git-mirror-gc:
 git-mirror-gc-full:
 	$(SUDO) sh /etc/scripts/git-mirror-gc-full.sh
 
+git-mirror-gc-max:
+	$(SUDO) sh /etc/scripts/git-mirror-gc-max.sh
+
 
 
 #################

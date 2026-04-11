@@ -43,6 +43,14 @@
           ExecStart = "/run/current-system/sw/bin/sh /etc/scripts/git-mirror-gc-full.sh";
         };
       };
+      "git-mirror-gc-max" = {
+        description = "git-mirror-gc-max";
+        serviceConfig = {
+          User = "root";
+          Type = "oneshot";
+          ExecStart = "/run/current-system/sw/bin/sh /etc/scripts/git-mirror-gc-max.sh";
+        };
+      };
     };
     timers = {
       "git-mirror-cache-timer" = {
@@ -86,7 +94,16 @@
         wantedBy = ["timers.target"];
         timerConfig = {
           Unit = "git-mirror-gc-full.service";
-          OnCalendar = "*-*-01 00:00:00";
+          OnCalendar = "*-*-05 23:00:00";
+          Persistent = false;
+        };
+      };
+      "git-mirror-gc-max-timer" = {
+        description = "git-mirror-gc-max-timer";
+        wantedBy = ["timers.target"];
+        timerConfig = {
+          Unit = "git-mirror-gc-max.service";
+          OnCalendar = "*-01-20 23:00:00";
           Persistent = false;
         };
       };

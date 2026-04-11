@@ -142,6 +142,7 @@ in {
               user = {
                 name = lib.mkDefault "me";
                 email = lib.mkDefault "me@localhost";
+                signingkey = lib.mkDefault "~/.ssh/id_ed25519_sk";
               };
             };
           };
