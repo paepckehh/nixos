@@ -74,6 +74,7 @@ in {
         nginx.virtualHosts."${infra.git-mirror.name}" = {
           forceSSL = false;
           enableACME = false;
+          # locations."/".fastcgiParams = "";
           listen = [
             {
               addr = infra.localhost.ip;
@@ -81,9 +82,10 @@ in {
             }
           ];
           extraConfig = ''
-            client_header_timeout  600s;
-            client_body_timeout    600s;
-            send_timeout           600s;
+            fastcgi_read_timeout   1000s;
+            client_header_timeout  1000s;
+            client_body_timeout    1000s;
+            send_timeout           1000s;
           '';
         };
         cgit.${infra.git-mirror.name} = {
@@ -97,7 +99,7 @@ in {
             cache-root = "/var/run/cgit";
           };
           gitHttpBackend = {
-            enable = false;
+            enable = true;
             checkExportOkFiles = false;
           };
         };

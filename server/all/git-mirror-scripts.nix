@@ -69,7 +69,7 @@ in {
            dir="$MIRROR/$(echo $repo | tee | cut -d '#' -f 1)"
            echo "### git gc maintenance: $dir"
            cd $dir && if [ -f config ]; then
-              sh /etc/scripts/git-mirror-repo-config.sh
+              $SH /etc/scripts/git-mirror-repo-config.sh
               $GIT gc --keep-largest
            fi
         done
@@ -82,7 +82,7 @@ in {
         	dir="$MIRROR/$(echo $repo | tee | cut -d '#' -f 1)"
         	echo "### git gc full maintenance: $dir"
           cd $dir && if [ -f config ]; then
-              sh /etc/scripts/git-mirror-repo-config.sh
+              $SH /etc/scripts/git-mirror-repo-config.sh
               $GIT gc --aggressive --keep-largest
           fi
         done
@@ -95,7 +95,7 @@ in {
         	dir="$MIRROR/$(echo $repo | tee | cut -d '#' -f 1)"
         	echo "### git gc max maintenance: $dir"
           cd $dir && if [ -f config ]; then
-              sh /etc/scripts/git-mirror-repo-config.sh
+              $SH /etc/scripts/git-mirror-repo-config.sh
               $GIT gc --aggressive
               $GIT fsck --full
           fi
@@ -111,11 +111,11 @@ in {
           echo "### fetch/update/check/mirror: $dir => $url"
           $MKDIR -p $dir && cd $dir || exit 1
           if [ -f config ]; then
-              sh /etc/scripts/git-mirror-repo-config.sh
+              $SH /etc/scripts/git-mirror-repo-config.sh
               $GIT fetch --all --force --tags
           else
               $GIT clone --mirror $url .
-              sh /etc/scripts/git-mirror-repo-config.sh
+              $SH /etc/scripts/git-mirror-repo-config.sh
               $GIT fetch --all --force --tags
               $GIT gc --aggressive
           fi

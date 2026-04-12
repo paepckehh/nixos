@@ -89,7 +89,6 @@ in {
         programs = {
           btop.enable = true;
           home-manager.enable = true;
-          git.enable = true;
           starship.enable = true;
           ripgrep.enable = true;
           delta = {
@@ -138,11 +137,16 @@ in {
             enableZshIntegration = false;
           };
           git = {
+            enable = true;
             settings = {
               user = {
                 name = lib.mkDefault "me";
                 email = lib.mkDefault "me@localhost";
                 signingkey = lib.mkDefault "~/.ssh/id_ed25519_sk";
+              };
+              signing = {
+                format = "ssh";
+                signByDefault = lib.mkForce false;
               };
             };
           };

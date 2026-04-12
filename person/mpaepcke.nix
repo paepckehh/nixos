@@ -51,10 +51,6 @@ in {
                 name = lib.mkForce "PAEPCKE, Michael";
                 email = lib.mkForce "git@paepcke.de";
               };
-              signing = {
-                format = "ssh";
-                signByDefault = lib.mkForce false;
-              };
             };
           };
         };

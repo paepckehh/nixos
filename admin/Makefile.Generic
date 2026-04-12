@@ -1,0 +1,160 @@
+#!/usr/bin/make
+# add pkgs.gnumake to your nix base config!
+.ONESHELL:
+
+#################
+# -=# SETUP #=- #
+#################
+ADMIN_ROUTE_EXISTS?= $(shell ip route show $(ADMIN_ROUTE) 2>/dev/null | grep -q . && echo yes || echo no) 
+OFFICE_ROUTE_EXISTS?= $(shell ip route show $(OFFICE_ROUTE) 2>/dev/null | grep -q . && echo yes || echo no) 
+all: 
+	@echo "Admin Site : $(SITE) Network: $(ADMIN_ROUTE)"
+	@echo "Office Site: $(SITE) Network: $(OFFICE_ROUTE)"
+	@echo "Site Supported Commands: $(SUPPORT)"
+
+info: 
+	@echo "Current Working Admin Site: $(SITE) Network: $(ADMIN_ROUTE)"
+
+#####################################
+# -=# ACTION WEB ACCESS MAPPING #=- #
+#####################################
+adguard:
+	TID=$(ADGUARD_TID) LPORT=$(ADGUARD_PORT) RPORT=$(ADGUARD_PORT) PREFIX_URI=http make -s wormhole
+unifi:
+	TID=$(UNIFI_TID) LPORT=$(UNIFI_PORT) RPORT=$(UNIFI_PORT) make -s wormhole
+opnborg:
+	TID=$(OPNBORG_TID) LPORT=$(OPNBORG_PORT) RPORT=$(OPNBORG_PORT) make -s wormhole
+forgejo:
+	TID=$(FORGEJO_TID) LPORT=$(FORGEJO_PORT) RPORT=$(FORGEJO_PORT) make -s wormhole
+borg01: 
+	TID=01 make -s borgweb
+borg02: 
+	TID=02 make -s borgweb
+borg03: 
+	TID=03 make -s borgweb
+borg04: 
+	TID=04 make -s borgweb
+borg05: 
+	TID=05 make -s borgweb
+borg11: 
+	TID=11 make -s borgweb
+borg12: 
+	TID=12 make -s borgweb
+borg13: 
+	TID=13 make -s borgweb
+borg14: 
+	TID=14 make -s borgweb
+borg15: 
+	TID=15 make -s borgweb
+
+###################################
+# -=# ACTION CENTRAL LOG VIEW #=- #
+###################################
+log.console:
+	LOGCMD="'sudo tail --lines=250 -f /var/syslog-ng/console.txt' | bat -f -l syslog --paging never" make -s log
+log.console.err:
+	LOGCMD="'sudo tail --lines=250 -f /var/syslog-ng/console-err.txt' | bat -f -l syslog --paging never" make -s log
+log.console.crit:
+	LOGCMD="'sudo tail --lines=250 -f /var/syslog-ng/console-crit.txt' | bat -f -l syslog --paging never" make -s log
+log.hostwatch:
+	LOGCMD="'sudo tail --lines=2500 -f /var/syslog-ng/console-hostwatch.txt' | bat -f -l syslog --paging never" make -s log
+log.newstation:
+	LOGCMD="'sudo tail --lines=2500 -f /var/syslog-ng/console-newstation.txt' | bat -f -l syslog --paging never" make -s log
+
+##############################
+# -=# ACTION SSH SESSION #=- #
+##############################
+ssh.ops:
+	TID=$(OPS_TID) make -s opsssh
+ssh.ops1:
+	TID=$(OPS_TID) make -s opsssh
+ssh.ops2:
+	TID=$(OPS2_TID) make -s opsssh
+ssh.ops3:
+	TID=$(OPS3_TID) make -s opsssh
+ssh.ops4:
+	TID=$(OPS4_TID) make -s opsssh
+ssh.ops5:
+	TID=$(OPS5_TID) make -s opsssh
+ssh.ops6:
+	TID=$(OPS6_TID) make -s opsssh
+ssh.ops7:
+	TID=$(OPS7_TID) make -s opsssh
+ssh.ops8:
+	TID=$(OPS8_TID) make -s opsssh
+ssh.borg01: 
+	TID=01 make -s borgssh
+ssh.borg02: 
+	TID=02 make -s borgssh
+ssh.borg03: 
+	TID=03 make -s borgssh
+ssh.borg04: 
+	TID=04 make -s borgssh
+ssh.borg05: 
+	TID=05 make -s borgssh
+ssh.borg11: 
+	TID=11 make -s borgssh
+ssh.borg12: 
+	TID=12 make -s borgssh
+ssh.borg13: 
+	TID=13 make -s borgssh
+ssh.borg14: 
+	TID=14 make -s borgssh
+ssh.borg15: 
+	TID=15 make -s borgssh
+
+###################
+#-=# WIREGUARD #=-#
+###################
+wg-start: wg-start-admin wg-start-office
+wg-stop:  wg-stop-admin wg-stop-office
+wg-start-admin:
+	CHECK=ADMIN make -s  start-check-routing
+wg-start-office:
+	CHECK=OFFICE make -s start-check-routing
+wg-stop-admin:
+	CHECK=ADMIN  make -s stop-routing
+wg-stop-office:
+	CHECK=OFFICE make -s stop-routing
+
+##########################
+#-=# INTERNAL BACKEND #=-#
+##########################
+opsssh:
+	PORT=$(PORT_SSH) make -s ssh
+borgssh:
+	PORT=$(PORT_OPN_SSH) make -s ssh
+borgweb:
+	PORT_SSH=$(PORT_OPN_SSH) LPORT=$(PREFIX_BORG)$(TID) RPORT=$(OPN_WEB) ADMIN_ID=$(OPN_ADMIN_ID) make -s wormhole 
+log: 
+	CHECK=ADMIN make -s start-check-routing
+	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start LogSTREAM! \033[0m    <==========" && echo && echo && echo
+	ssh -p $(PORT_SSH) $(ADMIN_ID)@$(ADMIN_NET).$(LOG_TID) $(LOGCMD)
+ssh: 
+	CHECK=ADMIN make -s start-check-routing
+	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
+		echo -n .
+	done
+	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start SSH Session! \033[0m    <==========" && echo && echo && echo
+	ssh -p $(PORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID)
+wormhole: 
+	CHECK=ADMIN make -s start-check-routing
+	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
+		echo -n .
+	done
+	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW & Reload WebPage! \033[0m    <==========" && echo && echo && echo
+	(sleep 3 && xdg-open $(PREFIX_URI)://localhost:$(LPORT))&
+	ssh -p $(PORT_SSH) -N -T -L $(LPORT):localhost:$(RPORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID)
+stop-routing: info 
+	wg-quick down ./wg/$(CHECK).conf
+start-check-routing: info
+	sudo -v  || exit 1
+	ssh-add $(ADMIN_SSH_SMARTCARD)
+	if [ $($(CHECK)_ROUTE_EXISTS) == "yes" ] ; then
+		@echo "$(CHECK) Network Route exists ..."
+	else 
+		@echo && echo -e "==========>    \033[48;5;57m $(CHECK) Route does not exist, trying to active Office WireGUARD! \033[0m    <==========" && echo 
+		wg-quick down ./wg/$(CHECK).conf
+		wg-quick up ./wg/$(CHECK).conf
+		sudo systemctl restart systemd-resolved.service
+	fi 

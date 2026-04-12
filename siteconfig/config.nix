@@ -201,25 +201,25 @@ let
         name = "modem11.${infra.domain.admin}";
         url = "https://${infra.modem.m01.name}/";
         logo = infra.modem.logo;
-        tag = "[Glasfaser] [1&1] [Borg11]";
+        tag = "[Glasfaser] [TELEKOM DEUTSCHLAND LAN]";
       };
       m02 = {
         name = "modem12.${infra.domain.admin}";
         url = "https://${infra.modem.m02.name}/";
         logo = infra.modem.logo;
-        tag = "[Kabel] [Vodafone] [Borg12]";
+        tag = "[Glasfaser] [TELEKOM CORP LINK]";
       };
       m03 = {
         name = "modem13.${infra.domain.admin}";
         url = "https://${infra.modem.m03.name}/";
         logo = infra.modem.logo;
-        tag = "[Glasfaser] [Vodafone] [Borg13]";
+        tag = "[Glasfaser] [VODAFONE]";
       };
       m04 = {
         name = "modem14.${infra.domain.admin}";
         url = "https://${infra.modem.m04.name}/";
         logo = infra.modem.logo;
-        tag = "[DSL] [O2] [INCAS]";
+        tag = "[DSL] [O2]";
       };
     };
     proxy = {
@@ -238,6 +238,7 @@ let
       init.defaultBranch = "main";
       safe.directory = "*";
       gpg.format = "ssh";
+      pack.indexVersion = 1;
       http = {
         sslVerify = true;
         sslVersion = "tlsv1.3";
