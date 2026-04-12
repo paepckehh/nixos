@@ -5,8 +5,8 @@
 #################
 # -=# SETUP #=- #
 #################
-ADMIN_ROUTE_EXISTS?= $(shell ip route show $(ADMIN_ROUTE) 2>/dev/null | grep -q . && echo yes || echo no) 
-OFFICE_ROUTE_EXISTS?= $(shell ip route show $(OFFICE_ROUTE) 2>/dev/null | grep -q . && echo yes || echo no) 
+ADMIN_ROUTE_EXISTS?=$(shell ip route show $(ADMIN_ROUTE) 2>/dev/null | grep -q . && echo yes || echo no) 
+OFFICE_ROUTE_EXISTS?=$(shell ip route show $(OFFICE_ROUTE) 2>/dev/null | grep -q . && echo yes || echo no) 
 all: 
 	@echo "Admin Site : $(SITE) Network: $(ADMIN_ROUTE)"
 	@echo "Office Site: $(SITE) Network: $(OFFICE_ROUTE)"
@@ -109,13 +109,13 @@ ssh.borg15:
 wg-start: wg-start-admin wg-start-office
 wg-stop:  wg-stop-admin wg-stop-office
 wg-start-admin:
-	CHECK=ADMIN make -s  start-check-routing
-wg-start-office:
-	CHECK=OFFICE make -s start-check-routing
+	CHECK=ADMIN make -s intern-start-check-routing
 wg-stop-admin:
-	CHECK=ADMIN  make -s stop-routing
+	CHECK=ADMIN make -s intern-stop-routing
+wg-start-office:
+	CHECK=OFFICE make -s intern-start-check-routing
 wg-stop-office:
-	CHECK=OFFICE make -s stop-routing
+	CHECK=OFFICE make -s intern-stop-routing
 
 ##########################
 #-=# INTERNAL BACKEND #=-#
@@ -127,34 +127,53 @@ borgssh:
 borgweb:
 	PORT_SSH=$(PORT_OPN_SSH) LPORT=$(PREFIX_BORG)$(TID) RPORT=$(OPN_WEB) ADMIN_ID=$(OPN_ADMIN_ID) make -s wormhole 
 log: 
-	CHECK=ADMIN make -s start-check-routing
+	CHECK=ADMIN make -s intern-start-check-routing
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start LogSTREAM! \033[0m    <==========" && echo && echo && echo
 	ssh -p $(PORT_SSH) $(ADMIN_ID)@$(ADMIN_NET).$(LOG_TID) $(LOGCMD)
 ssh: 
-	CHECK=ADMIN make -s start-check-routing
+	CHECK=ADMIN make -s intern-start-check-routing
 	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
 		echo -n .
 	done
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start SSH Session! \033[0m    <==========" && echo && echo && echo
 	ssh -p $(PORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID)
 wormhole: 
-	CHECK=ADMIN make -s start-check-routing
+	CHECK=ADMIN make -s intern-start-check-routing
 	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
 		echo -n .
 	done
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW & Reload WebPage! \033[0m    <==========" && echo && echo && echo
 	(sleep 3 && xdg-open $(PREFIX_URI)://localhost:$(LPORT))&
 	ssh -p $(PORT_SSH) -N -T -L $(LPORT):localhost:$(RPORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID)
-stop-routing: info 
-	wg-quick down ./wg/$(CHECK).conf
-start-check-routing: info
+intern-stop-routing: info 
+	sudo -v  || exit 1
+	if [ ! -e $(WG_PATH)/$(CHECK).conf ]; then 
+		echo "WireGUARD STOP ERROR: unable to access config file $(WG_PATH)/$(CHECK).conf"
+		exit 1
+	fi
+	wg-quick down $(WG_PATH)/$(CHECK).conf > /dev/null 2>&1 
+	echo "WireGUARD Route $(CHECK) stopped via $(WG_PATH)/$(CHECK).conf" && echo
+
+UDIR?=wg
+intern-start-check-routing: info
 	sudo -v  || exit 1
 	ssh-add $(ADMIN_SSH_SMARTCARD)
 	if [ $($(CHECK)_ROUTE_EXISTS) == "yes" ] ; then
-		@echo "$(CHECK) Network Route exists ..."
-	else 
-		@echo && echo -e "==========>    \033[48;5;57m $(CHECK) Route does not exist, trying to active Office WireGUARD! \033[0m    <==========" && echo 
-		wg-quick down ./wg/$(CHECK).conf
-		wg-quick up ./wg/$(CHECK).conf
-		sudo systemctl restart systemd-resolved.service
-	fi 
+		@echo "$(CHECK) Network Route existis ..."
+		exit 0 
+	fi
+	@echo && echo -e "==========>    \033[48;5;57m $(CHECK) Route does not exist, trying to active WireGUARD Tunnnel via $(WG_PATH)/$(CHECK).conf \033[0m    <==========" && echo 
+	if [ ! -e $(WG_PATH)/$(CHECK).conf ]; then 
+			echo "WireGUARD START !!!ERROR!!! =>  unable to access config file $(WG_PATH)/$(CHECK).conf"
+			exit 1
+	fi
+	wg-quick down $(WG_PATH)/$(CHECK).conf > /dev/null 2>&1 
+	wg-quick up   $(WG_PATH)/$(CHECK).conf
+	sudo mkdir -p $(UDIR) && sudo chmod 700 -R $(UDIR)
+	ykman piv objects export $(WG_YUBI_$(CHECK)_PK) - --device $(WG_YUBIKEY_HW_SERIAL)  | sudo tee $(UDIR)/k > /dev/null
+	sudo wg set $(CHECK) private-key $(UDIR)/k
+	ykman piv objects export $(WG_YUBI_$(CHECK)_PSK) - --device $(WG_YUBIKEY_HW_SERIAL) | sudo tee  $(UDIR)/k > /dev/null
+	sudo wg set $(CHECK) peer $(WG_$(CHECK)_PUBLIC) preshared-key $(UDIR)/k
+	sudo rm -rf $(UDIR)
+	sudo systemctl restart systemd-resolved.service
+	echo && echo 
