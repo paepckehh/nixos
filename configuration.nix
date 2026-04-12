@@ -282,7 +282,7 @@ in {
   #####################
   environment = {
     shells = [pkgs.bashInteractive];
-    systemPackages = with pkgs; [cryptsetup git libargon2 libsmbios util-linux lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
+    systemPackages = with pkgs; [cryptsetup git libargon2 rage libsmbios util-linux lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
   };
 
   ####################
