@@ -126,7 +126,7 @@ wg-stop-office:
 opsssh:
 	PORT=$(PORT_SSH) make -s ssh
 borgssh:
-	PORT=$(PORT_OPN_SSH) make -s ssh
+	PORT=$(PORT_OPN_SSH) ADMIN_ID=$(ADMIN_OPN_USER) make -s ssh
 borgweb:
 	PORT_SSH=$(PORT_OPN_SSH) LPORT=$(PREFIX_BORG)$(TID) RPORT=$(OPN_WEB) ADMIN_ID=$(ADMIN_OPN_USER) make -s wormhole 
 log: 
