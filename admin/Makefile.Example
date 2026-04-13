@@ -5,28 +5,27 @@
 #################################
 # PERSONAL ADMIN SPECIFIC SETUP #
 #################################
-OPN_ADMIN_ID?=admin-mpaepcke
+ADMIN_OPN_USER?=admin-mpaepcke
 ADMIN_SSH_SMARTCARD?=~/.ssh/id_ed25519_sk_admin
+ADMIN_ID=222
 
-###################################
-# WIREGUARD YUBIKEY KEY-STORE-IDS #
-###################################
+###############################
+# WIREGUARD YUBIKEY KEY-STORE #
+###############################
 # needs: pkgs.yubikey-manager (setup and runtime)
 # needs: pkgs.wg-wireguard-tools (runtime)
 # ykman info | grep serial 
-# ykman piv objects import 0x5fc11a ./admin-wg-pk
-# ykman piv objects import 0x5fc11b ./admin-wg-psk
-# ykman piv objects import 0x5fc11c ./office-wg-pk
-# ykman piv objects import 0x5fc11d ./office-wg-psk
+# ykman piv objects import 0x5fc119 ./admin-wg-pk
+# ykman piv objects import 0x5fc118 ./admin-wg-psk
+# ykman piv objects import 0x5fc117 ./office-wg-pk
+# ykman piv objects import 0x5fc116 ./office-wg-psk
 
 WG_PATH?=~/debi/.wg
-WG_YUBIKEY_HW_SERIAL=84410123
-WG_YUBI_ADMIN_PK=0x5fc110
-WG_YUBI_ADMIN_PSK=0x5fc111
-WG_YUBI_OFFICE_PK=0x5fc112
-WG_YUBI_OFFICE_PSK=0x5fc113
-WG_ADMIN_PUBLIC=4ty[...]S+/n2N2frjc=
-WG_OFFICE_PUBLIC=Vb[...]sdccdwssS2v=
+WG_YUBIKEY_HW_SERIAL=32439020
+WG_YUBI_ADMIN_PK=0x5fc119
+WG_YUBI_ADMIN_PSK=0x5fc118
+WG_YUBI_OFFICE_PK=0x5fc117
+WG_YUBI_OFFICE_PSK=0x5fc116
 
-include /home/me/debi/nixos/admin/Makefile.Site.Debitor
+include /home/me/debi/nixos/admin/Makefile.Site.Home
 include /home/me/debi/nixos/admin/Makefile.Generic

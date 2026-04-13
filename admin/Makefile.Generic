@@ -125,7 +125,7 @@ opsssh:
 borgssh:
 	PORT=$(PORT_OPN_SSH) make -s ssh
 borgweb:
-	PORT_SSH=$(PORT_OPN_SSH) LPORT=$(PREFIX_BORG)$(TID) RPORT=$(OPN_WEB) ADMIN_ID=$(OPN_ADMIN_ID) make -s wormhole 
+	PORT_SSH=$(PORT_OPN_SSH) LPORT=$(PREFIX_BORG)$(TID) RPORT=$(OPN_WEB) ADMIN_ID=$(ADMIN_OPN_USER) make -s wormhole 
 log: 
 	CHECK=ADMIN make -s intern-start-check-routing
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start LogSTREAM! \033[0m    <==========" && echo && echo && echo
@@ -152,9 +152,8 @@ intern-stop-routing: info
 		exit 1
 	fi
 	wg-quick down $(WG_PATH)/$(CHECK).conf > /dev/null 2>&1 
-	echo "WireGUARD Route $(CHECK) stopped via $(WG_PATH)/$(CHECK).conf" && echo
-
-UDIR?=wg
+	echo "WireGUARD Route $(CHECK) stopped via $(WG_PATH)/$(CHECK).conf" && echo && echo
+UDIR?=/tmp/$(SITE)-keyguard
 intern-start-check-routing: info
 	sudo -v  || exit 1
 	ssh-add $(ADMIN_SSH_SMARTCARD)
@@ -168,12 +167,12 @@ intern-start-check-routing: info
 			exit 1
 	fi
 	wg-quick down $(WG_PATH)/$(CHECK).conf > /dev/null 2>&1 
-	wg-quick up   $(WG_PATH)/$(CHECK).conf
+	wg-quick up $(WG_PATH)/$(CHECK).conf
 	sudo mkdir -p $(UDIR) && sudo chmod 700 -R $(UDIR)
-	ykman piv objects export $(WG_YUBI_$(CHECK)_PK) - --device $(WG_YUBIKEY_HW_SERIAL)  | sudo tee $(UDIR)/k > /dev/null
-	sudo wg set $(CHECK) private-key $(UDIR)/k
-	ykman piv objects export $(WG_YUBI_$(CHECK)_PSK) - --device $(WG_YUBIKEY_HW_SERIAL) | sudo tee  $(UDIR)/k > /dev/null
-	sudo wg set $(CHECK) peer $(WG_$(CHECK)_PUBLIC) preshared-key $(UDIR)/k
+	ykman piv objects export $(WG_YUBI_$(CHECK)_PK) - --device $(WG_YUBIKEY_HW_SERIAL)  | sudo tee $(UDIR)/pk > /dev/null   
+	ykman piv objects export $(WG_YUBI_$(CHECK)_PSK) - --device $(WG_YUBIKEY_HW_SERIAL) | sudo tee  $(UDIR)/psk > /dev/null 
+	sudo wg set $(CHECK) private-key $(UDIR)/pk
+	sudo wg set $(CHECK) peer $($(CHECK)_WG_PUBLIC) preshared-key $(UDIR)/psk
 	sudo rm -rf $(UDIR)
 	sudo systemctl restart systemd-resolved.service
 	echo && echo 
