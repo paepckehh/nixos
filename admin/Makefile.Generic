@@ -108,6 +108,9 @@ ssh.borg15:
 ###################
 wg-start: wg-start-admin wg-start-office
 wg-stop:  wg-stop-admin wg-stop-office
+wg-status:
+	sudo -v || exit 1 
+	sudo wg show
 wg-start-admin:
 	CHECK=ADMIN make -s intern-start-check-routing
 wg-stop-admin:
@@ -127,10 +130,12 @@ borgssh:
 borgweb:
 	PORT_SSH=$(PORT_OPN_SSH) LPORT=$(PREFIX_BORG)$(TID) RPORT=$(OPN_WEB) ADMIN_ID=$(ADMIN_OPN_USER) make -s wormhole 
 log: 
+	sudo -v  || exit 1
 	CHECK=ADMIN make -s intern-start-check-routing
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start LogSTREAM! \033[0m    <==========" && echo && echo && echo
 	ssh -p $(PORT_SSH) $(ADMIN_ID)@$(ADMIN_NET).$(LOG_TID) $(LOGCMD)
 ssh: 
+	sudo -v  || exit 1
 	CHECK=ADMIN make -s intern-start-check-routing
 	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
 		echo -n .
@@ -138,6 +143,7 @@ ssh:
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start SSH Session! \033[0m    <==========" && echo && echo && echo
 	ssh -p $(PORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID)
 wormhole: 
+	sudo -v  || exit 1
 	CHECK=ADMIN make -s intern-start-check-routing
 	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
 		echo -n .
