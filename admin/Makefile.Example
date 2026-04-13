@@ -7,7 +7,7 @@
 #################################
 ADMIN_OPN_USER?=admin-mpaepcke
 ADMIN_SSH_SMARTCARD?=~/.ssh/id_ed25519_sk_admin
-ADMIN_ID=222
+ADMIN_IP=222
 
 ###############################
 # WIREGUARD YUBIKEY KEY-STORE #
@@ -21,11 +21,11 @@ ADMIN_ID=222
 # ykman piv objects import 0x5fc116 ./office-wg-psk
 
 WG_PATH?=~/debi/.wg
-WG_YUBIKEY_HW_SERIAL=32439020
+WG_YUBIKEY_HW_SERIAL=12399123
 WG_YUBI_ADMIN_PK=0x5fc119
 WG_YUBI_ADMIN_PSK=0x5fc118
 WG_YUBI_OFFICE_PK=0x5fc117
 WG_YUBI_OFFICE_PSK=0x5fc116
 
-include /home/me/debi/nixos/admin/Makefile.Site.Home
-include /home/me/debi/nixos/admin/Makefile.Generic
+include /etc/nixos/admin/Makefile.Site.Home
+include /etc/nixos/admin/Makefile.Generic
