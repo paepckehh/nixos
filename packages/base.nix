@@ -90,6 +90,7 @@ in {
     };
     systemPackages = with pkgs; [
       alejandra
+      age-plugin-yubikey
       bashmount
       bandwhich
       bc

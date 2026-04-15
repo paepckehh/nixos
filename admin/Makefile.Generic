@@ -151,15 +151,16 @@ wormhole:
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW & Reload WebPage! \033[0m    <==========" && echo && echo && echo
 	(sleep 3 && xdg-open $(PREFIX_URI)://localhost:$(LPORT))&
 	ssh -p $(PORT_SSH) -N -T -L $(LPORT):localhost:$(RPORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID)
+WGDIR?=~/.keyguard-$(SITE)
 intern-stop-routing: info 
 	sudo -v  || exit 1
-	if [ ! -e $(WG_PATH)/$(CHECK).conf ]; then 
-		echo "WireGUARD STOP ERROR: unable to access config file $(WG_PATH)/$(CHECK).conf"
+	if [ ! -e $(WGDIR)/$(CHECK).conf ]; then 
+		echo "WireGUARD STOP ERROR: unable to access config file $(WGDIR)/$(CHECK).conf"
 		exit 1
 	fi
-	wg-quick down $(WG_PATH)/$(CHECK).conf > /dev/null 2>&1 
-	echo "WireGUARD Route $(CHECK) stopped via $(WG_PATH)/$(CHECK).conf" && echo && echo
-UDIR?=/tmp/$(SITE)-keyguard
+	wg-quick down $(WGDIR)/$(CHECK).conf > /dev/null 2>&1 
+	rm -rf $(WGDIR)/$(CHECK).conf > /dev/null 2>&1
+	echo "WireGUARD Route $(CHECK) stopped via $(WGDIR)/$(CHECK).conf" && echo && echo
 intern-start-check-routing: info
 	sudo -v  || exit 1
 	ssh-add $(ADMIN_SSH_SMARTCARD)
@@ -167,18 +168,38 @@ intern-start-check-routing: info
 		@echo "$(CHECK) Network Route existis ..."
 		exit 0 
 	fi
-	@echo && echo -e "==========>    \033[48;5;57m $(CHECK) Route does not exist, trying to active WireGUARD Tunnnel via $(WG_PATH)/$(CHECK).conf \033[0m    <==========" && echo 
-	if [ ! -e $(WG_PATH)/$(CHECK).conf ]; then 
-			echo "WireGUARD START !!!ERROR!!! =>  unable to access config file $(WG_PATH)/$(CHECK).conf"
+	@echo && echo -e "==========>    \033[48;5;57m $(CHECK) Route does not exist, trying to active WireGUARD Tunnnel via $(WGDIR)/$(CHECK).conf \033[0m    <==========" && echo 
+	if [ -e $(WGDIR)/$(CHECK).conf ]; then 
+		wg-quick down $(WGDIR)/$(CHECK).conf > /dev/null 2>&1 
+	fi
+	make -s intern-generate-wg-conf
+	if [ ! -e $(WGDIR)/$(CHECK).conf ]; then 
+			echo "ERROR =>  unable to create/access config file $(WGDIR)/$(CHECK).conf"
 			exit 1
 	fi
-	wg-quick down $(WG_PATH)/$(CHECK).conf > /dev/null 2>&1 
-	wg-quick up $(WG_PATH)/$(CHECK).conf
-	sudo mkdir -p $(UDIR) && sudo chmod 700 -R $(UDIR)
-	ykman piv objects export $(WG_YUBI_$(CHECK)_PK) - --device $(WG_YUBIKEY_HW_SERIAL)  | sudo tee $(UDIR)/pk > /dev/null   
-	ykman piv objects export $(WG_YUBI_$(CHECK)_PSK) - --device $(WG_YUBIKEY_HW_SERIAL) | sudo tee  $(UDIR)/psk > /dev/null 
-	sudo wg set $(CHECK) private-key $(UDIR)/pk
-	sudo wg set $(CHECK) peer $($(CHECK)_WG_PUBLIC) preshared-key $(UDIR)/psk
-	sudo rm -rf $(UDIR)
+	wg-quick up $(WGDIR)/$(CHECK).conf
+	ykman piv objects export $(WG_YUBI_$(CHECK)_PK) - --device $(WG_YUBIKEY_HW_SERIAL)  | sudo tee $(WGDIR)/keys-$(CHECK)/pk > /dev/null   
+	ykman piv objects export $(WG_YUBI_$(CHECK)_PSK) - --device $(WG_YUBIKEY_HW_SERIAL) | sudo tee  $(WGDIR)/keys-$(CHECK)/psk > /dev/null 
+	sudo wg set $(CHECK) private-key $(WGDIR)/keys-$(CHECK)/pk
+	sudo wg set $(CHECK) peer $($(CHECK)_WG_PUBLIC) preshared-key $(WGDIR)/keys-$(CHECK)/psk
+	rm -rf $(WGDIR)/keys-$(CHECK)
 	sudo systemctl restart systemd-resolved.service
 	echo && echo 
+intern-generate-wg-conf:
+	if [ ! -e $(WGDIR)/.done ]; then 
+		sudo mount -t tmpfs tmpfs $(WGDIR)
+		sudo touch $(WGDIR)/.done
+	fi
+	sudo mkdir -p $(WGDIR)/keys-$(CHECK)
+	sudo chown -R $(ADMIN_ID):0 $(WGDIR)
+	sudo chmod 750 $(WGDIR)
+	sudo chmod 640 $(WGDIR)/*
+	echo "[Interface]" 					>  $(WGDIR)/$(CHECK).conf
+	echo "Address = $($(CHECK)_WG_NET).$(MYIP)/32" 		>> $(WGDIR)/$(CHECK).conf
+	echo "DNS = $($(CHECK)_WG_DNS)"				>> $(WGDIR)/$(CHECK).conf
+	echo 							>> $(WGDIR)/$(CHECK).conf
+	echo "[Peer]"						>> $(WGDIR)/$(CHECK).conf
+	echo "PublicKey = $($(CHECK)_WG_PUBLIC)"		>> $(WGDIR)/$(CHECK).conf
+	echo "Endpoint = $($(CHECK)_WG_ENDPOINT)"		>> $(WGDIR)/$(CHECK).conf
+	echo "AllowedIPs = $($(CHECK)_ROUTE)"			>> $(WGDIR)/$(CHECK).conf
+	sudo chmod 640 $(WGDIR)/*
