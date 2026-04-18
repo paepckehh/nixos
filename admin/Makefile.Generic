@@ -189,14 +189,14 @@ intern-start-check-routing: info
 	sudo -v  || exit 1
 	ssh-add $(ADMIN_SSH_SMARTCARD)
 	if [ $($(CHECK)_ROUTE_EXISTS) == "yes" ] ; then
-		@echo "$(CHECK) Network Route existis ..."
+		@echo "$(CHECK) Network Route exists ..."
 		exit 0 
 	fi
 	@echo && echo -e "==========>    \033[48;5;57m $(CHECK) Route does not exist, active WireGUARD Tunnnel via $(WGDIR)/$(CHECK).conf \033[0m    <==========" && echo 
 	if [ -e $(WGDIR)/$(CHECK).conf ]; then 
 		wg-quick down $(WGDIR)/$(CHECK).conf > /dev/null 2>&1 
 	fi
-	sudo mkdir -p $(WGDIR)/keys-$(CHECK)
+	sudo mkdir -p $(WGDIR)
 	sudo chmod 770 $(WGDIR)
 	sudo chmod -R 660 $(WGDIR)/*
 	sudo chown -R $(ADMIN_ID):0 $(WGDIR) 
@@ -215,10 +215,14 @@ intern-start-check-routing: info
 			exit 1
 	fi
 	wg-quick up $(WGDIR)/$(CHECK).conf
+	sudo mkdir -p $(WGDIR)/keys-$(CHECK)
+	sudo mount -t tmpfs tmpfs $(WGDIR)/keys-$(CHECK) || exit 1
+	sudo chmod -R 700 $(WGDIR)/keys-$(CHECK) || exit 1
 	$(STORE) export $(WG_YUBI_$(CHECK)_PK)  - --device $(YUBIKEY_SERIAL) | $(ENC) -d -a | $(ENC) -d -chacha20 -K $(SITE_UID) -iv $(WG_IV) | sudo tee $(WGDIR)/keys-$(CHECK)/pk > /dev/null   
 	$(STORE) export $(WG_YUBI_$(CHECK)_PSK) - --device $(YUBIKEY_SERIAL) | $(ENC) -d -a | $(ENC) -d -chacha20 -K $(SITE_UID) -iv $(WG_IV) | sudo tee $(WGDIR)/keys-$(CHECK)/psk > /dev/null 
 	sudo wg set $(CHECK) private-key $(WGDIR)/keys-$(CHECK)/pk
 	sudo wg set $(CHECK) peer $($(CHECK)_WG_PUBLIC) preshared-key $(WGDIR)/keys-$(CHECK)/psk
+	sudo umount -f $(WGDIR)/keys-$(CHECK) || echo "################ PANIC: unable to unmount in-memory keystore!"
 	sudo rm -rf $(WGDIR)/keys-$(CHECK)
 	sudo systemctl restart systemd-resolved.service
 	echo && echo 
