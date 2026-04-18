@@ -85,6 +85,7 @@ switch: check
 	$(SUDO) nixos-rebuild switch --flake $(OSFLAKE) # --profile-name $(PROFILE)
 
 update: creds 
+	$(SUDO) chown -R $(ID):$(GID) ~/.cache/nix
 	mkdir -p .attic/flake.lock
 	cp -f flake.lock .attic/flake.lock/$(DTS).flake.lock
 	nix flake update

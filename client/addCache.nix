@@ -16,9 +16,7 @@ in {
   #############
   nix = {
     settings = {
-      http2 = lib.mkForce true;
       require-sigs = lib.mkForce true;
-      preallocate-contents = true;
       allowed-uris = lib.mkForce [
         infra.cache.url
         "https://cache.nixos.org"

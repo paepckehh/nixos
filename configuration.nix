@@ -31,7 +31,7 @@ in {
         emergencyAccess = lib.mkDefault false;
       };
       luks.mitigateDMAAttacks = lib.mkForce true;
-      supportedFilesystems = ["ext4" "tmpfs" "vfat"]; # zfs
+      supportedFilesystems = ["ext4" "tmpfs" "vfat"];
       availableKernelModules = ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
     };
     kernelPackages = pkgs.linuxPackages_latest;
@@ -99,7 +99,7 @@ in {
   #############
   #-= SWAP #=-#
   #############
-  swapDevices = lib.mkForce []; # keep
+  swapDevices = lib.mkForce [];
   zramSwap = {
     enable = true;
     algorithm = "zstd";
@@ -130,6 +130,8 @@ in {
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
       build-dir = "/run/build";
+      http2 = lib.mkForce false;
+      http-connections = lib.mkForce 10; # default: 25
       sandbox = lib.mkForce true;
       sandbox-build-dir = "/run/build";
       sandbox-fallback = lib.mkForce false;
@@ -140,7 +142,9 @@ in {
       require-sigs = lib.mkForce true;
       preallocate-contents = lib.mkDefault true;
       keep-build-log = lib.mkDefault false;
-      max-jobs = lib.mkDefault "auto";
+      keep-derivations = lib.mkDefault false;
+      keep-failed = lib.mkDefault false;
+      max-jobs = lib.mkDefault "auto"; # default: 1
       allowed-uris = lib.mkDefault [
         "https://cache.nixos.org"
       ];
@@ -387,15 +391,10 @@ in {
       authorizedKeysCommandUser = "nobody";
       authorizedKeysCommand = "none";
       allowSFTP = false;
+      # port = infra.port.ssh-mgmt;
       startWhenNeeded = true;
       generateHostKeys = true;
-      listenAddresses = lib.mkDefault [
-        {
-          addr = "0.0.0.0";
-          port = infra.port.ssh-mgmt;
-        }
-      ];
-      hostKeys = [
+      hostKeys = lib.mkForce [
         {
           path = "/etc/ssh/ssh_host_ed25519_key";
           type = "ed25519";

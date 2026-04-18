@@ -6,26 +6,19 @@
 # PERSONAL ADMIN SPECIFIC SETUP #
 #################################
 ADMIN_OPN_USER?=admin-mpaepcke
-ADMIN_SSH_SMARTCARD?=~/.ssh/id_ed25519_sk_admin
-ADMIN_IP=222
+ADMIN_SSH_SMARTCARD?=~/.ssh/id_ed25519_sk
+MYIP=250
 
 ###############################
 # WIREGUARD YUBIKEY KEY-STORE #
 ###############################
 # needs: pkgs.yubikey-manager (setup and runtime)
 # needs: pkgs.wg-wireguard-tools (runtime)
-# ykman info | grep serial 
-# ykman piv objects import 0x5fc119 ./admin-wg-pk
-# ykman piv objects import 0x5fc118 ./admin-wg-psk
-# ykman piv objects import 0x5fc117 ./office-wg-pk
-# ykman piv objects import 0x5fc116 ./office-wg-psk
+# YUBIKEY_SERIAL: 	make yubikey.info
+# WG_IV: 		make rekey.iv
 
-WG_PATH?=~/debi/.wg
-WG_YUBIKEY_HW_SERIAL=12399123
-WG_YUBI_ADMIN_PK=0x5fc119
-WG_YUBI_ADMIN_PSK=0x5fc118
-WG_YUBI_OFFICE_PK=0x5fc117
-WG_YUBI_OFFICE_PSK=0x5fc116
+YUBIKEY_SERIAL=12399123 # example
+WG_IV=e7bf023cf77ba4bc38829765ca76eecc1 # example
 
 include /etc/nixos/admin/Makefile.Site.Home
 include /etc/nixos/admin/Makefile.Generic

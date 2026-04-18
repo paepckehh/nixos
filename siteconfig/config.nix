@@ -238,7 +238,6 @@ let
       init.defaultBranch = "main";
       safe.directory = "*";
       gpg.format = "ssh";
-      pack.indexVersion = 1;
       http = {
         sslVerify = true;
         sslVersion = "tlsv1.3";

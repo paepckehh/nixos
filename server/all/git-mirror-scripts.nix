@@ -34,14 +34,19 @@ in {
       "scripts/git-mirror-repo-config.sh".text = ''
         #/bin/sh
         source /etc/scripts/git-mirror-config.sh
-        $GIT config pack.indexVersion 1
         $GIT config --unset remote.origin.tagOpt
         $GIT config core.packedGitWindowSize 4g
+        $GIT config core.splitIndex true
+        $GIT config feature.manyFiles true
+        $GIT config gc.writeCommitGraph true
+        $GIT config index.skipHash true
+        $GIT config pack.useSparse true
         $GIT config pack.allowPackReuse true
         $GIT config pack.compression -1
         $GIT config pack.depth 50
         $GIT config pack.deltaCacheSize 512m
         $GIT config pack.deltaCacheLimit 1000
+        $GIT config pack.indexVersion 2
         $GIT config pack.threads 0
         $GIT config pack.useBitmapBoundaryTraversal true
         $GIT config pack.useSparse true
@@ -49,9 +54,31 @@ in {
         $GIT config pack.windowMemory 0
         $GIT config pack.writeBitmapHashCache true
         $GIT config pack.writeBitmapLookupTable true
+        $GIT config protocol.version 2
         $GIT config repack.useDeltaBaseOffset true
         $GIT config repack.useDeltaIslands false
         $GIT config repack.writeBitmaps true
+      '';
+      "scripts/git-mirror-nix-user-gc-max.sh".text = ''
+        #!/bin/sh
+        source /etc/scripts/git-mirror-config.sh
+        CDIR="/home/$1/.cache/nix/gitv3"
+        if [ ! -x $CDIR ]; then
+                echo "$CDIR not found, please specify target userid."
+                echo "Example: sudo sh /etc/nixos-git-mirror-nix-user-gc-max.sh me"
+                exit 1
+        fi
+        REPOS="$(ls $CDIR)"
+        for repo in $REPOS; do
+                RDIR=$CDIR/$repo
+                echo "### git gc max maintenance: $RDIR"
+                if [ -f "$RDIR/config" ]; then
+                        cd $RDIR || exit 1
+                        $SH /etc/scripts/git-mirror-repo-config.sh
+                        $GIT gc --aggressive
+                        $CHOWN -R $1:$1 $RDIR
+                fi
+        done
       '';
       "scripts/git-mirror-cache.sh".text = ''
         #!/bin/sh

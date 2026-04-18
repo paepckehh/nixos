@@ -77,6 +77,7 @@
         esac
         case $HOST in
         ops*) echo "oooops ... ops server detectd, exit!" && exit 1 ;; # emergency gate
+        srv*) echo "oooops ... ops server detectd, exit!" && exit 1 ;; # emergency gate
         esac
         cd /etc/nixos || exit 1
         /run/current-system/sw/bin/chown -R me:me /etc/nixos || exit 1

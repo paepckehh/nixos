@@ -15,93 +15,96 @@ all:
 info: 
 	@echo "Current Working Admin Site: $(SITE) Network: $(ADMIN_ROUTE)"
 
+yubikey.info:
+	ykman info	
+
 #####################################
 # -=# ACTION WEB ACCESS MAPPING #=- #
 #####################################
 adguard:
-	TID=$(ADGUARD_TID) LPORT=$(ADGUARD_PORT) RPORT=$(ADGUARD_PORT) PREFIX_URI=http make -s wormhole
+	TID=$(ADGUARD_TID) LPORT=$(ADGUARD_PORT) RPORT=$(ADGUARD_PORT) PREFIX_URI=http make -s intern-wormhole
 unifi:
-	TID=$(UNIFI_TID) LPORT=$(UNIFI_PORT) RPORT=$(UNIFI_PORT) make -s wormhole
+	TID=$(UNIFI_TID) LPORT=$(UNIFI_PORT) RPORT=$(UNIFI_PORT) make -s intern-wormhole
 opnborg:
-	TID=$(OPNBORG_TID) LPORT=$(OPNBORG_PORT) RPORT=$(OPNBORG_PORT) make -s wormhole
+	TID=$(OPNBORG_TID) LPORT=$(OPNBORG_PORT) RPORT=$(OPNBORG_PORT) make -s intern-wormhole
 forgejo:
-	TID=$(FORGEJO_TID) LPORT=$(FORGEJO_PORT) RPORT=$(FORGEJO_PORT) make -s wormhole
+	TID=$(FORGEJO_TID) LPORT=$(FORGEJO_PORT) RPORT=$(FORGEJO_PORT) make -s intern-wormhole
 borg01: 
-	TID=01 make -s borgweb
+	TID=01 make -s intern-borgweb
 borg02: 
-	TID=02 make -s borgweb
+	TID=02 make -s intern-borgweb
 borg03: 
-	TID=03 make -s borgweb
+	TID=03 make -s intern-borgweb
 borg04: 
-	TID=04 make -s borgweb
+	TID=04 make -s intern-borgweb
 borg05: 
-	TID=05 make -s borgweb
+	TID=05 make -s intern-borgweb
 borg11: 
-	TID=11 make -s borgweb
+	TID=11 make -s intern-borgweb
 borg12: 
-	TID=12 make -s borgweb
+	TID=12 make -s intern-borgweb
 borg13: 
-	TID=13 make -s borgweb
+	TID=13 make -s intern-borgweb
 borg14: 
-	TID=14 make -s borgweb
+	TID=14 make -s intern-borgweb
 borg15: 
-	TID=15 make -s borgweb
+	TID=15 make -s intern-borgweb
 
 ###################################
 # -=# ACTION CENTRAL LOG VIEW #=- #
 ###################################
 log.console:
-	LOGCMD="'sudo tail --lines=250 -f /var/syslog-ng/console.txt' | bat -f -l syslog --paging never" make -s log
+	LOGCMD="'sudo tail --lines=250 -f /var/syslog-ng/console.txt' | bat -f -l syslog --paging never" make -s intern-log
 log.console.err:
-	LOGCMD="'sudo tail --lines=250 -f /var/syslog-ng/console-err.txt' | bat -f -l syslog --paging never" make -s log
+	LOGCMD="'sudo tail --lines=250 -f /var/syslog-ng/console-err.txt' | bat -f -l syslog --paging never" make -s intern-log
 log.console.crit:
-	LOGCMD="'sudo tail --lines=250 -f /var/syslog-ng/console-crit.txt' | bat -f -l syslog --paging never" make -s log
+	LOGCMD="'sudo tail --lines=250 -f /var/syslog-ng/console-crit.txt' | bat -f -l syslog --paging never" make -s intern-log
 log.hostwatch:
-	LOGCMD="'sudo tail --lines=2500 -f /var/syslog-ng/console-hostwatch.txt' | bat -f -l syslog --paging never" make -s log
+	LOGCMD="'sudo tail --lines=2500 -f /var/syslog-ng/console-hostwatch.txt' | bat -f -l syslog --paging never" make -s intern-log
 log.newstation:
-	LOGCMD="'sudo tail --lines=2500 -f /var/syslog-ng/console-newstation.txt' | bat -f -l syslog --paging never" make -s log
+	LOGCMD="'sudo tail --lines=2500 -f /var/syslog-ng/console-newstation.txt' | bat -f -l syslog --paging never" make -s intern-log
 
 ##############################
 # -=# ACTION SSH SESSION #=- #
 ##############################
 ssh.ops:
-	TID=$(OPS_TID) make -s opsssh
+	TID=$(OPS_TID) make -s intern-opsssh
 ssh.ops1:
-	TID=$(OPS_TID) make -s opsssh
+	TID=$(OPS_TID) make -s intern-opsssh
 ssh.ops2:
-	TID=$(OPS2_TID) make -s opsssh
+	TID=$(OPS2_TID) make -s intern-opsssh
 ssh.ops3:
-	TID=$(OPS3_TID) make -s opsssh
+	TID=$(OPS3_TID) make -s intern-opsssh
 ssh.ops4:
-	TID=$(OPS4_TID) make -s opsssh
+	TID=$(OPS4_TID) make -s intern-opsssh
 ssh.ops5:
-	TID=$(OPS5_TID) make -s opsssh
+	TID=$(OPS5_TID) make -s intern-opsssh
 ssh.ops6:
-	TID=$(OPS6_TID) make -s opsssh
+	TID=$(OPS6_TID) make -s intern-opsssh
 ssh.ops7:
-	TID=$(OPS7_TID) make -s opsssh
+	TID=$(OPS7_TID) make -s intern-opsssh
 ssh.ops8:
-	TID=$(OPS8_TID) make -s opsssh
+	TID=$(OPS8_TID) make -s intern-opsssh
 ssh.borg01: 
-	TID=01 make -s borgssh
+	TID=01 make -s intern-borgssh
 ssh.borg02: 
-	TID=02 make -s borgssh
+	TID=02 make -s intern-borgssh
 ssh.borg03: 
-	TID=03 make -s borgssh
+	TID=03 make -s intern-borgssh
 ssh.borg04: 
-	TID=04 make -s borgssh
+	TID=04 make -s intern-borgssh
 ssh.borg05: 
-	TID=05 make -s borgssh
+	TID=05 make -s intern-borgssh
 ssh.borg11: 
-	TID=11 make -s borgssh
+	TID=11 make -s intern-borgssh
 ssh.borg12: 
-	TID=12 make -s borgssh
+	TID=12 make -s intern-borgssh
 ssh.borg13: 
-	TID=13 make -s borgssh
+	TID=13 make -s intern-borgssh
 ssh.borg14: 
-	TID=14 make -s borgssh
+	TID=14 make -s intern-borgssh
 ssh.borg15: 
-	TID=15 make -s borgssh
+	TID=15 make -s intern-borgssh
 
 ###################
 #-=# WIREGUARD #=-#
@@ -123,18 +126,18 @@ wg-stop-office:
 ##########################
 #-=# INTERNAL BACKEND #=-#
 ##########################
-opsssh:
-	PORT=$(PORT_SSH) make -s ssh
-borgssh:
-	PORT=$(PORT_OPN_SSH) ADMIN_ID=$(ADMIN_OPN_USER) make -s ssh
-borgweb:
-	PORT_SSH=$(PORT_OPN_SSH) LPORT=$(PREFIX_BORG)$(TID) RPORT=$(OPN_WEB) ADMIN_ID=$(ADMIN_OPN_USER) make -s wormhole 
-log: 
+intern-opsssh:
+	PORT=$(PORT_SSH) make -s intern-ssh
+intern-borgssh:
+	PORT=$(PORT_OPN_SSH) ADMIN_ID=$(ADMIN_OPN_USER) make -s intern-ssh
+intern-borgweb:
+	PORT_SSH=$(PORT_OPN_SSH) LPORT=$(PREFIX_BORG)$(TID) RPORT=$(OPN_WEB) ADMIN_ID=$(ADMIN_OPN_USER) make -s intern-wormhole 
+intern-log: 
 	sudo -v  || exit 1
 	CHECK=ADMIN make -s intern-start-check-routing
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start LogSTREAM! \033[0m    <==========" && echo && echo && echo
 	ssh -p $(PORT_SSH) $(ADMIN_ID)@$(ADMIN_NET).$(LOG_TID) $(LOGCMD)
-ssh: 
+intern-ssh: 
 	sudo -v  || exit 1
 	CHECK=ADMIN make -s intern-start-check-routing
 	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
@@ -142,7 +145,7 @@ ssh:
 	done
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start SSH Session! \033[0m    <==========" && echo && echo && echo
 	ssh -p $(PORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID)
-wormhole: 
+intern-wormhole: 
 	sudo -v  || exit 1
 	CHECK=ADMIN make -s intern-start-check-routing
 	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
@@ -150,7 +153,28 @@ wormhole:
 	done
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW & Reload WebPage! \033[0m    <==========" && echo && echo && echo
 	(sleep 3 && xdg-open $(PREFIX_URI)://localhost:$(LPORT))&
-	ssh -p $(PORT_SSH) -N -T -L $(LPORT):localhost:$(RPORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID)
+	ssh -v -p $(PORT_SSH) -N -T -L $(LPORT):localhost:$(RPORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID)
+rekey.iv:
+	dd if=/dev/urandom bs=1M count=10 status=none | openssl sha3-512 | cut -c 18-49
+rekey.site:
+	dd if=/dev/urandom bs=1M count=10 status=none | openssl sha3-512 | cut -c 18-81
+ENC?=openssl enc
+STORE?=ykman piv objects
+rekey.import:
+	if [ ! -e ./.wg/admin.pk ] || [ ! -e ./.wg/admin.psk ]; then 
+		echo "Please place all keys (admin.pk, admin.psk, office.pk, office.psk) into ./.wg "
+		exit
+	fi
+	cat ./.wg/admin-pk   | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > ./.wg/admin-e-pk
+	cat ./.wg/admin-psk  | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > ./.wg/admin-e-psk
+	cat ./.wg/office-pk  | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > ./.wg/office-e-pk
+	cat ./.wg/office-psk | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > ./.wg/office-e-psk
+	@echo "To import keys press 4x [enter] - or - if set 4x your pin!"	
+	$(STORE) import $(WG_YUBI_ADMIN_PK)   ./.wg/admin-e-pk   --device $(YUBIKEY_SERIAL)
+	$(STORE) import $(WG_YUBI_ADMIN_PSK)  ./.wg/admin-e-psk  --device $(YUBIKEY_SERIAL)
+	$(STORE) import $(WG_YUBI_OFFICE_PK)  ./.wg/office-e-pk  --device $(YUBIKEY_SERIAL)
+	$(STORE) import $(WG_YUBI_OFFICE_PSK) ./.wg/office-e-psk --device $(YUBIKEY_SERIAL)
+	@echo "Please test your keys and remove working dir! [rm -rf .wg]"	
 WGDIR?=~/.keyguard-$(SITE)
 intern-stop-routing: info 
 	sudo -v  || exit 1
@@ -168,38 +192,33 @@ intern-start-check-routing: info
 		@echo "$(CHECK) Network Route existis ..."
 		exit 0 
 	fi
-	@echo && echo -e "==========>    \033[48;5;57m $(CHECK) Route does not exist, trying to active WireGUARD Tunnnel via $(WGDIR)/$(CHECK).conf \033[0m    <==========" && echo 
+	@echo && echo -e "==========>    \033[48;5;57m $(CHECK) Route does not exist, active WireGUARD Tunnnel via $(WGDIR)/$(CHECK).conf \033[0m    <==========" && echo 
 	if [ -e $(WGDIR)/$(CHECK).conf ]; then 
 		wg-quick down $(WGDIR)/$(CHECK).conf > /dev/null 2>&1 
 	fi
-	make -s intern-generate-wg-conf
-	if [ ! -e $(WGDIR)/$(CHECK).conf ]; then 
-			echo "ERROR =>  unable to create/access config file $(WGDIR)/$(CHECK).conf"
-			exit 1
-	fi
-	wg-quick up $(WGDIR)/$(CHECK).conf
-	ykman piv objects export $(WG_YUBI_$(CHECK)_PK) - --device $(WG_YUBIKEY_HW_SERIAL)  | sudo tee $(WGDIR)/keys-$(CHECK)/pk > /dev/null   
-	ykman piv objects export $(WG_YUBI_$(CHECK)_PSK) - --device $(WG_YUBIKEY_HW_SERIAL) | sudo tee  $(WGDIR)/keys-$(CHECK)/psk > /dev/null 
-	sudo wg set $(CHECK) private-key $(WGDIR)/keys-$(CHECK)/pk
-	sudo wg set $(CHECK) peer $($(CHECK)_WG_PUBLIC) preshared-key $(WGDIR)/keys-$(CHECK)/psk
-	rm -rf $(WGDIR)/keys-$(CHECK)
-	sudo systemctl restart systemd-resolved.service
-	echo && echo 
-intern-generate-wg-conf:
-	if [ ! -e $(WGDIR)/.done ]; then 
-		sudo mount -t tmpfs tmpfs $(WGDIR)
-		sudo touch $(WGDIR)/.done
-	fi
 	sudo mkdir -p $(WGDIR)/keys-$(CHECK)
-	sudo chown -R $(ADMIN_ID):0 $(WGDIR)
-	sudo chmod 750 $(WGDIR)
-	sudo chmod 640 $(WGDIR)/*
+	sudo chmod 770 $(WGDIR)
+	sudo chmod -R 660 $(WGDIR)/*
+	sudo chown -R $(ADMIN_ID):0 $(WGDIR) 
 	echo "[Interface]" 					>  $(WGDIR)/$(CHECK).conf
 	echo "Address = $($(CHECK)_WG_NET).$(MYIP)/32" 		>> $(WGDIR)/$(CHECK).conf
-	echo "DNS = $($(CHECK)_WG_DNS)"				>> $(WGDIR)/$(CHECK).conf
+	echo "DNS = $($(CHECK)_DNS)"				>> $(WGDIR)/$(CHECK).conf
 	echo 							>> $(WGDIR)/$(CHECK).conf
 	echo "[Peer]"						>> $(WGDIR)/$(CHECK).conf
 	echo "PublicKey = $($(CHECK)_WG_PUBLIC)"		>> $(WGDIR)/$(CHECK).conf
 	echo "Endpoint = $($(CHECK)_WG_ENDPOINT)"		>> $(WGDIR)/$(CHECK).conf
 	echo "AllowedIPs = $($(CHECK)_ROUTE)"			>> $(WGDIR)/$(CHECK).conf
-	sudo chmod 640 $(WGDIR)/*
+	sudo chmod -R 660 $(WGDIR)/*
+	sudo chown -R $(ADMIN_ID):0 $(WGDIR) 
+	if [ ! -e $(WGDIR)/$(CHECK).conf ]; then 
+			echo "ERROR =>  unable to create/access config file $(WGDIR)/$(CHECK).conf"
+			exit 1
+	fi
+	wg-quick up $(WGDIR)/$(CHECK).conf
+	$(STORE) export $(WG_YUBI_$(CHECK)_PK)  - --device $(YUBIKEY_SERIAL) | $(ENC) -d -a | $(ENC) -d -chacha20 -K $(SITE_UID) -iv $(WG_IV) | sudo tee $(WGDIR)/keys-$(CHECK)/pk > /dev/null   
+	$(STORE) export $(WG_YUBI_$(CHECK)_PSK) - --device $(YUBIKEY_SERIAL) | $(ENC) -d -a | $(ENC) -d -chacha20 -K $(SITE_UID) -iv $(WG_IV) | sudo tee $(WGDIR)/keys-$(CHECK)/psk > /dev/null 
+	sudo wg set $(CHECK) private-key $(WGDIR)/keys-$(CHECK)/pk
+	sudo wg set $(CHECK) peer $($(CHECK)_WG_PUBLIC) preshared-key $(WGDIR)/keys-$(CHECK)/psk
+	sudo rm -rf $(WGDIR)/keys-$(CHECK)
+	sudo systemctl restart systemd-resolved.service
+	echo && echo 

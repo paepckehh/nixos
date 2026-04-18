@@ -46,7 +46,7 @@ init_urand() {
 	CKEY="$(echo "$(date +%N)$(date +%N)$(date)$(date +%N)$(date +%N)$(date)$(ps -aux)" | openssl sha3-512 | cut -c 18-81)"
         IV="$(echo "$(date)$(date +%N)$(date)$(date +%N)$(date +%N)$(ps -aux)" | openssl sha3-512 | cut -c 18-49)"
         STATE="$(ps -aux)$(date)$(date +%N)$(date +%N)$(ps -aux)$(date +%N)"
-	TOKEN="$(echo $STATE | openssl enc -a | sed ':a;N;$!ba;s/\n//g' | openssl enc -chacha20 -K $CKEY -iv $IV | openssl enc -a | sed ':a;N;$!ba;s/\n//g')"
+	TOKEN="$(echo $STATE | openssl enc -a | sed ':a;N;$!ba;s/\n//g' | openssl enc -e -chacha20 -K $CKEY -iv $IV | openssl enc -a | sed ':a;N;$!ba;s/\n//g')"
         FEED="$(echo $TOKEN | openssl sha3-256 | cut -c 18- | openssl enc -a | sed ':a;N;$!ba;s/\n//g')"
 	echo "$FEED" | tee -a /dev/urandom > /dev/null
         dd if=/dev/urandom of=/dev/null bs=64 count=1024 > /dev/null 2>&1 
