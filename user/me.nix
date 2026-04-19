@@ -36,9 +36,9 @@ in {
   users = {
     users = {
       me = {
-        # initialHashedPassword = null; # lockdown, use smardcard only
+        initialHashedPassword = null; # lockdown, use smardcard only
         # initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
-        hashedPasswordFile = lib.mkForce config.age.secrets."me".path;
+        # hashedPasswordFile = lib.mkForce config.age.secrets."me".path;
         description = "me";
         uid = 60100;
         group = "me";

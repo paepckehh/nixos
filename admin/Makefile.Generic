@@ -160,21 +160,50 @@ rekey.site:
 	dd if=/dev/urandom bs=1M count=10 status=none | openssl sha3-512 | cut -c 18-81
 ENC?=openssl enc
 STORE?=ykman piv objects
+KEYGEN=/etc/nixos/admin/keygen.sh
+KEYGENDIR=.wg
+rekey.yubikey:	
+	make -s rekey.keygen
+	make -s rekey.import
+rekey.keygen:
+	echo "Generate Keys via $(KEYGEN)"
+	sh $(KEYGEN) $(KEYGENDIR) admin $(SITE_VKEY)
+	sh $(KEYGEN) $(KEYGENDIR) office $(SITE_VKEY)
 rekey.import:
-	if [ ! -e ./.wg/admin.pk ] || [ ! -e ./.wg/admin.psk ]; then 
-		echo "Please place all keys (admin.pk, admin.psk, office.pk, office.psk) into ./.wg "
-		exit
+	if [ ! -e $(KEYGENDIR)/admin.pk ] || [ ! -e $(KEYGENDIR)/admin.psk ] || [ ! -e $(KEYGENDIR)/office.pk ] || [ ! -e $(KEYGENDIR)/office.psk ]; then 
+		echo "Please place all keys (admin.pk, admin.psk, office.pk, office.psk) into $(KEYGENDIR)"
+		exit 1
 	fi
-	cat ./.wg/admin-pk   | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > ./.wg/admin-e-pk
-	cat ./.wg/admin-psk  | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > ./.wg/admin-e-psk
-	cat ./.wg/office-pk  | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > ./.wg/office-e-pk
-	cat ./.wg/office-psk | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > ./.wg/office-e-psk
-	@echo "To import keys press 4x [enter] - or - if set 4x your pin!"	
-	$(STORE) import $(WG_YUBI_ADMIN_PK)   ./.wg/admin-e-pk   --device $(YUBIKEY_SERIAL)
-	$(STORE) import $(WG_YUBI_ADMIN_PSK)  ./.wg/admin-e-psk  --device $(YUBIKEY_SERIAL)
-	$(STORE) import $(WG_YUBI_OFFICE_PK)  ./.wg/office-e-pk  --device $(YUBIKEY_SERIAL)
-	$(STORE) import $(WG_YUBI_OFFICE_PSK) ./.wg/office-e-psk --device $(YUBIKEY_SERIAL)
-	@echo "Please test your keys and remove working dir! [rm -rf .wg]"	
+	cat $(KEYGENDIR)/admin.pk   | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > $(KEYGENDIR)/admin-e.pk
+	cat $(KEYGENDIR)/admin.psk  | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > $(KEYGENDIR)/admin-e.psk
+	cat $(KEYGENDIR)/office.pk  | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > $(KEYGENDIR)/office-e.pk
+	cat $(KEYGENDIR)/office.psk | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > $(KEYGENDIR)/office-e.psk
+	@echo "To import keys please enter all 4x times your yubikey PIV pin!"	
+	$(STORE) import $(WG_YUBI_ADMIN_PK)   $(KEYGENDIR)/admin-e.pk   --device $(YUBIKEY_SERIAL) || exit 1
+	$(STORE) import $(WG_YUBI_ADMIN_PSK)  $(KEYGENDIR)/admin-e.psk  --device $(YUBIKEY_SERIAL) || exit 1
+	$(STORE) import $(WG_YUBI_OFFICE_PK)  $(KEYGENDIR)/office-e.pk  --device $(YUBIKEY_SERIAL) || exit 1
+	$(STORE) import $(WG_YUBI_OFFICE_PSK) $(KEYGENDIR)/office-e.psk --device $(YUBIKEY_SERIAL) || exit 1
+	sudo rm -rf $(KEYGENDIR)/*.pk
+	@echo && echo && echo
+	@echo "# Private Key [PK] and PreShared Key [PSK] import done."
+	@echo "# YubiKey: $(YUBIKEY_SERIAL)"
+	@echo "===> Keyed for ID:$(MYIP) IV: $(WG_IV)"
+	@echo "===> Keyed for SITE: $(SITE) and SITE-KEY: $(SITE_UID)" 
+	@echo "# Here are your WireGUARD PreShared and Public Keys to configure the wg server peers:" && echo && echo 
+	@echo "#### Please add to WireGUARD ADMIN INSTANCE"
+	@echo "#### CLIENT PEER IP:$(ADMIN_NET).$(MYIP)\32"
+	@echo "# Admin PreShared Key [ADMIN-PSK]"
+	cat $(KEYGENDIR)/admin.psk && echo && echo
+	@echo "# Admin Public Key [ADMIN-PUB]"
+	cat $(KEYGENDIR)/admin.pub && echo && echo && echo
+	@echo "### Please add to WireGUARD ADMIN INSTANCE"
+	@echo "### CLIENT PEER IP:$(OFFICE_NET).$(MYIP)\32"
+	@echo "# Office PreShared Key [OFFICE-PSK]"
+	cat $(KEYGENDIR)/office.psk && echo && echo
+	@echo "# Office Public Key [OFFICE-PUB]"
+	cat $(KEYGENDIR)/office.pub && echo && echo
+	sudo rm -rf $(KEYGENDIR)/*
+	@echo && echo && echo && echo 
 WGDIR?=~/.keyguard-$(SITE)
 intern-stop-routing: info 
 	sudo -v  || exit 1
@@ -218,11 +247,13 @@ intern-start-check-routing: info
 	sudo mkdir -p $(WGDIR)/keys-$(CHECK)
 	sudo mount -t tmpfs tmpfs $(WGDIR)/keys-$(CHECK) || exit 1
 	sudo chmod -R 700 $(WGDIR)/keys-$(CHECK) || exit 1
-	$(STORE) export $(WG_YUBI_$(CHECK)_PK)  - --device $(YUBIKEY_SERIAL) | $(ENC) -d -a | $(ENC) -d -chacha20 -K $(SITE_UID) -iv $(WG_IV) | sudo tee $(WGDIR)/keys-$(CHECK)/pk > /dev/null   
+	$(STORE) export $(WG_YUBI_$(CHECK)_PK)  - --device $(YUBIKEY_SERIAL) | $(ENC) -d -a | $(ENC) -d -chacha20 -K $(SITE_UID) -iv $(WG_IV) | sudo tee $(WGDIR)/keys-$(CHECK)/pk > /dev/null  
 	$(STORE) export $(WG_YUBI_$(CHECK)_PSK) - --device $(YUBIKEY_SERIAL) | $(ENC) -d -a | $(ENC) -d -chacha20 -K $(SITE_UID) -iv $(WG_IV) | sudo tee $(WGDIR)/keys-$(CHECK)/psk > /dev/null 
 	sudo wg set $(CHECK) private-key $(WGDIR)/keys-$(CHECK)/pk
 	sudo wg set $(CHECK) peer $($(CHECK)_WG_PUBLIC) preshared-key $(WGDIR)/keys-$(CHECK)/psk
 	sudo umount -f $(WGDIR)/keys-$(CHECK) || echo "################ PANIC: unable to unmount in-memory keystore!"
+	sudo umount -f $(WGDIR)/keys-$(CHECK) > /dev/null 2>&1  # catch-all old
+	sudo rm -rf $(WGDIR)/keys-$(CHECK)/*
 	sudo rm -rf $(WGDIR)/keys-$(CHECK)
 	sudo systemctl restart systemd-resolved.service
 	echo && echo 

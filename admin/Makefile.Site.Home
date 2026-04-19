@@ -1,4 +1,4 @@
-#!/usr/bin/make
+
 .ONESHELL:
 
 ###############################
@@ -40,6 +40,7 @@ PREFIX_COCK?=6
 PREFIX_URI?=https
 PREFIX_WEB?=7
 SITE=HOMECLOUD
+SITE_VKEY=h
 SITE_UID=696b8be8d97e2bc2218a6adf25b5f4488bfb083fab1d7ae4fa735f2c3800986d # example
 SUPPORT?=adguard, unifi, opnborg, forgejo, borg[id], log.[filter], ssh.borg[id], ssh.ops[], wg-[stop|start]-[admin|office]
 UNIFI_PORT?=8443

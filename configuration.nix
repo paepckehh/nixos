@@ -127,6 +127,7 @@ in {
       experimental-features = nix-command flakes
     '';
     settings = {
+      # http3 = lib.mkForce true;
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
       build-dir = "/run/build";
@@ -135,7 +136,7 @@ in {
       sandbox = lib.mkForce true;
       sandbox-build-dir = "/run/build";
       sandbox-fallback = lib.mkForce false;
-      stalled-download-timeout = lib.mkDefault "10000";
+      stalled-download-timeout = lib.mkDefault "8000";
       trusted-users = lib.mkForce ["@wheel"];
       trace-verbose = true;
       restrict-eval = lib.mkForce false;
@@ -227,7 +228,7 @@ in {
           };
           logFailures = true;
           u2fAuth = true;
-          unixAuth = true;
+          unixAuth = false;
         };
         sudo = {
           failDelay = {
@@ -237,7 +238,7 @@ in {
           logFailures = true;
           requireWheel = true;
           u2fAuth = true;
-          unixAuth = true;
+          unixAuth = false;
         };
       };
     };
