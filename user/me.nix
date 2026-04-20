@@ -203,6 +203,11 @@ in {
               uname -a
             '';
           };
+          yazi = {
+            enable = true;
+            enableFishIntegration = true;
+            extraPackages = with pkgs.yaziPlugins; [chmod compress diff gvfs lsar ouch mediainfo mime-ext rsync starship time-travel];
+          };
         };
       };
     };

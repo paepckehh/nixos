@@ -116,6 +116,7 @@ in {
       libsmbios
       lsof
       moreutils
+      miller
       nix-output-monitor
       nvme-cli
       openssl
