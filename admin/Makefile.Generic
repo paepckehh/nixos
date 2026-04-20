@@ -18,6 +18,10 @@ info:
 yubikey.info:
 	ykman info	
 
+yubikey.rekey:
+	make -s rekey.keygen
+	make -s rekey.import
+
 #####################################
 # -=# ACTION WEB ACCESS MAPPING #=- #
 #####################################
@@ -162,9 +166,6 @@ ENC?=openssl enc
 STORE?=ykman piv objects
 KEYGEN=/etc/nixos/admin/keygen.sh
 KEYGENDIR=.wg
-rekey.yubikey:	
-	make -s rekey.keygen
-	make -s rekey.import
 rekey.keygen:
 	echo "Generate Keys via $(KEYGEN)"
 	sh $(KEYGEN) $(KEYGENDIR) admin $(SITE_VKEY)
