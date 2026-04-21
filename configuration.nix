@@ -197,7 +197,7 @@ in {
       rules = ["-a exit,always -F arch=b64 -S execve"];
     };
     apparmor = {
-      enable = lib.mkForce true;
+      # enable = lib.mkForce true;
       killUnconfinedConfinables = lib.mkForce true;
     };
     dhparams = {
@@ -392,7 +392,7 @@ in {
       authorizedKeysCommandUser = "nobody";
       authorizedKeysCommand = "none";
       allowSFTP = false;
-      # port = infra.port.ssh-mgmt;
+      ports = [infra.port.ssh-mgmt];
       startWhenNeeded = true;
       generateHostKeys = true;
       hostKeys = lib.mkForce [

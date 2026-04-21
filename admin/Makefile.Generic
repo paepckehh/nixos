@@ -18,9 +18,17 @@ info:
 yubikey.info:
 	ykman info	
 
-yubikey.rekey:
-	make -s rekey.keygen
-	make -s rekey.import
+yubikey.rekey.admin:
+	CHECK=ADMIN make -s rekey.keygen
+	CHECK=ADMIN make -s rekey.import
+
+yubikey.rekey.office:
+	CHECK=OFFICE make -s rekey.keygen
+	CHECK=OFFICE make -s rekey.import
+
+yubikey.rekey.legacy:
+	CHECK=LEGACY make -s rekey.keygen
+	CHECK=LEGACY make -s rekey.import
 
 #####################################
 # -=# ACTION WEB ACCESS MAPPING #=- #
@@ -126,6 +134,10 @@ wg-start-office:
 	CHECK=OFFICE make -s intern-start-check-routing
 wg-stop-office:
 	CHECK=OFFICE make -s intern-stop-routing
+wg-start-legacy:
+	CHECK=LEGACY make -s intern-start-check-routing
+wg-stop-legacy:
+	CHECK=LEGACY make -s intern-stop-routing
 
 ##########################
 #-=# INTERNAL BACKEND #=-#
@@ -167,42 +179,33 @@ STORE?=ykman piv objects
 KEYGEN=/etc/nixos/admin/keygen.sh
 KEYGENDIR=.wg
 rekey.keygen:
-	echo "Generate Keys via $(KEYGEN)"
-	sh $(KEYGEN) $(KEYGENDIR) admin $(SITE_VKEY)
-	sh $(KEYGEN) $(KEYGENDIR) office $(SITE_VKEY)
+	sudo -v || exit 1
+	echo "Generate Keys via $(KEYGEN) for site $(CHECK)"
+	sh $(KEYGEN) $(KEYGENDIR) $(CHECK) $(SITE_VKEY)
 rekey.import:
-	if [ ! -e $(KEYGENDIR)/admin.pk ] || [ ! -e $(KEYGENDIR)/admin.psk ] || [ ! -e $(KEYGENDIR)/office.pk ] || [ ! -e $(KEYGENDIR)/office.psk ]; then 
-		echo "Please place all keys (admin.pk, admin.psk, office.pk, office.psk) into $(KEYGENDIR)"
+	sudo -v || exit 1
+	if [ ! -e $(KEYGENDIR)/$(CHECK).pk ] || [ ! -e $(KEYGENDIR)/$(CHECK).psk ]; then 
+		echo "Please place all keys ($(CHECK).pk, $(CHECK).psk, office.pk) into $(KEYGENDIR)"
 		exit 1
 	fi
-	cat $(KEYGENDIR)/admin.pk   | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > $(KEYGENDIR)/admin-e.pk
-	cat $(KEYGENDIR)/admin.psk  | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > $(KEYGENDIR)/admin-e.psk
-	cat $(KEYGENDIR)/office.pk  | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > $(KEYGENDIR)/office-e.pk
-	cat $(KEYGENDIR)/office.psk | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > $(KEYGENDIR)/office-e.psk
+	cat $(KEYGENDIR)/$(CHECK).pk  | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > $(KEYGENDIR)/$(CHECK)-e.pk
+	cat $(KEYGENDIR)/$(CHECK).psk | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > $(KEYGENDIR)/$(CHECK)-e.psk
 	@echo "To import keys please enter all 4x times your yubikey PIV pin!"	
-	$(STORE) import $(WG_YUBI_ADMIN_PK)   $(KEYGENDIR)/admin-e.pk   --device $(YUBIKEY_SERIAL) || exit 1
-	$(STORE) import $(WG_YUBI_ADMIN_PSK)  $(KEYGENDIR)/admin-e.psk  --device $(YUBIKEY_SERIAL) || exit 1
-	$(STORE) import $(WG_YUBI_OFFICE_PK)  $(KEYGENDIR)/office-e.pk  --device $(YUBIKEY_SERIAL) || exit 1
-	$(STORE) import $(WG_YUBI_OFFICE_PSK) $(KEYGENDIR)/office-e.psk --device $(YUBIKEY_SERIAL) || exit 1
-	sudo rm -rf $(KEYGENDIR)/*.pk
+	$(STORE) import $(WG_YUBI_$(CHECK)_PK)   $(KEYGENDIR)/$(CHECK)-e.pk   --device $(YUBIKEY_SERIAL) || exit 1
+	$(STORE) import $(WG_YUBI_$(CHECK)_PSK)  $(KEYGENDIR)/$(CHECK)-e.psk  --device $(YUBIKEY_SERIAL) || exit 1
+	sudo rm -rf $(KEYGENDIR)/$(CHECK).pk
 	@echo && echo && echo
 	@echo "# Private Key [PK] and PreShared Key [PSK] import done."
 	@echo "# YubiKey: $(YUBIKEY_SERIAL)"
 	@echo "===> Keyed for ID:$(MYIP) IV: $(WG_IV)"
 	@echo "===> Keyed for SITE: $(SITE) and SITE-KEY: $(SITE_UID)" 
 	@echo "# Here are your WireGUARD PreShared and Public Keys to configure the wg server peers:" && echo && echo 
-	@echo "#### Please add to WireGUARD ADMIN INSTANCE"
-	@echo "#### CLIENT PEER IP:$(ADMIN_NET).$(MYIP)\32"
-	@echo "# Admin PreShared Key [ADMIN-PSK]"
-	cat $(KEYGENDIR)/admin.psk && echo && echo
-	@echo "# Admin Public Key [ADMIN-PUB]"
-	cat $(KEYGENDIR)/admin.pub && echo && echo && echo
-	@echo "### Please add to WireGUARD ADMIN INSTANCE"
-	@echo "### CLIENT PEER IP:$(OFFICE_NET).$(MYIP)\32"
-	@echo "# Office PreShared Key [OFFICE-PSK]"
-	cat $(KEYGENDIR)/office.psk && echo && echo
-	@echo "# Office Public Key [OFFICE-PUB]"
-	cat $(KEYGENDIR)/office.pub && echo && echo
+	@echo "#### Please add to WireGUARD $(CHECK) INSTANCE"
+	@echo "#### CLIENT PEER IP:$($(CHECK)_NET).$(MYIP)\32"
+	@echo "# $(CHECK) PreShared Key [$(CHECK)-PSK]"
+	cat $(KEYGENDIR)/$(CHECK).psk && echo && echo
+	@echo "# $(CHECK) Public Key [$(CHECK)-PUB]"
+	cat $(KEYGENDIR)/$(CHECK).pub && echo && echo && echo
 	sudo rm -rf $(KEYGENDIR)/*
 	@echo && echo && echo && echo 
 WGDIR?=~/.keyguard-$(SITE)
