@@ -198,7 +198,9 @@ in {
     };
     apparmor = {
       # enable = lib.mkForce true;
+      enableCache = true;
       killUnconfinedConfinables = lib.mkForce true;
+      packages = with pkgs; [apparmor-profiles];
     };
     dhparams = {
       enable = true;
@@ -287,7 +289,7 @@ in {
   #####################
   environment = {
     shells = [pkgs.bashInteractive];
-    systemPackages = with pkgs; [cryptsetup git libargon2 rage libsmbios util-linux lsof moreutils nix-output-monitor nvme-cli openssl pam_u2f smartmontools sbctl];
+    systemPackages = with pkgs; [cryptsetup git libargon2 libsmbios util-linux lsof moreutils nix-output-monitor nvme-cli openssl rage pam_u2f smartmontools sbctl];
   };
 
   ####################
@@ -373,9 +375,8 @@ in {
     tlp = {
       enable = true;
       settings = {
-        # use tlp-stat for more details, https://linrunner.de/tlp/
         USB_AUTOSUSPEND = "0";
-        WOL_DISABLE = "Y";
+        DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi wwan";
         START_CHARGE_THRESH_BAT0 = 45;
         STOP_CHARGE_THRESH_BAT0 = 85;
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
@@ -384,6 +385,7 @@ in {
         CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
         PLATFORM_PROFILE_ON_AC = "performance";
         PLATFORM_PROFILE_ON_BAT = "low-power";
+        WOL_DISABLE = "Y";
       };
     };
     openssh = {
@@ -434,7 +436,6 @@ in {
         UsePAM = false;
         X11Forwarding = false;
         # Match.Address."192.168.0.0/24".AllowUsers = ["me"];
-        # Match.Address."10.21.0.0/24".AllowUsers = ["backup"];
       };
     };
   };
