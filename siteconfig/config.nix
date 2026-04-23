@@ -1241,7 +1241,7 @@ let
         enable = true;
         password = "start";
       };
-      externalHostname = "matrix.${infra.site.external.domain}";
+      externalHostname = infra.matrix.fqdn;
       hostname = infra.matrix.name;
       domain = infra.domain.user;
       fqdn = "${infra.matrix.hostname}.${infra.matrix.domain}";

@@ -20,43 +20,12 @@ in {
   #################
   systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.matrix.ip}/32";}];
 
-  #############
-  #-=# AGE #=-#
-  #############
-  age = {
-    secrets = {
-      tuwunel = {
-        file = ../../modules/resources/matrix.age;
-        owner = "tuwunel";
-      };
-      coturn-matrix = {
-        file = ../../modules/resources/coturn-matrix.age;
-        owner = "tuwunel";
-      };
-    };
-  };
-
-  ###############
-  #-=# USERS #=-#
-  ###############
-  users = {
-    groups.tuwunel = {};
-    users = {
-      tuwunel = {
-        group = "tuwunel";
-        isSystemUser = true;
-        hashedPassword = null; # disable ldap service account interactive logon
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
-      };
-    };
-  };
-
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
     caddy = {
-      virtualHosts."${infra.matrix.fqdn}" = {
+      virtualHosts."${infra.matrix.externalHostname}" = {
         listenAddresses = [infra.matrix.ip];
         extraConfig = ''import intraproxy ${toString infra.matrix.localbind.port.http}'';
       };
@@ -67,21 +36,13 @@ in {
         global = {
           address = [infra.localhost.ip];
           port = [infra.matrix.localbind.port.http];
-          server_name = infra.matrix.fqdn;
-          allow_encryption = false;
+          server_name = infra.matrix.externalHostname;
+          allow_encryption = true;
           allow_federation = false;
           allow_registration = infra.matrix.self-register.enable;
-          # database_backup_path = "";
-          database_backups_to_keep = 2;
-          error_on_unknown_config_opts = true;
-          ip_lookup_strategy = 5; # ipv4 only
           registration_token = infra.matrix.self-register.password;
           rocksdb_compression_algo = "zstd";
           new_user_displayname_suffix = "";
-          # turn_allow_guests = true;
-          # turn_secret_file = config.age.secrets.coturn-matrix.path;
-          # turn_uris = [infra.coturn.fqdn];
-          # livekit_url = infra.livekit.url;
           identity_provider = [
             {
               brand = infra.sso.app2;
@@ -92,6 +53,10 @@ in {
               issuer_url = infra.sso.url;
               default = true;
               discovery = true;
+              trusted = true;
+              unique_id_fallbacks = false;
+              registration = true;
+              userid_claims = ["openid"]; # XXX
             }
           ];
         };
