@@ -1,5 +1,6 @@
 #!/usr/bin/make
-# add pkgs.gnumake to your nix base config!
+# add pkgs.gnumake to your nixos base config!
+# add with pkgs; [ openssl wireguard-tools yubikey-manager ] to your nixos base config!
 .ONESHELL:
 
 #################
@@ -13,29 +14,17 @@ all:
 	@echo "Site Supported Commands: $(SUPPORT)"
 
 info: 
+	sudo -v || exit 
 	@echo "Current Working Admin Site: $(SITE) Network: $($(CHECK)_ROUTE)"
 
 yubikey.info:
 	ykman info	
-
-yubikey.rekey.admin:
-	CHECK=ADMIN make -s rekey.keygen
-	CHECK=ADMIN make -s rekey.import
-
-yubikey.rekey.office:
-	CHECK=OFFICE make -s rekey.keygen
-	CHECK=OFFICE make -s rekey.import
-
-yubikey.rekey.legacy:
-	CHECK=LEGACY make -s rekey.keygen
-	CHECK=LEGACY make -s rekey.import
 
 kill.routes:
 	sudo -v || exit 1 
 	sudo ip r del $(ADMIN_ROUTE)  > /dev/null 2>&1 || true
 	sudo ip r del $(OFFICE_ROUTE) > /dev/null 2>&1 || true
 	sudo ip r del $(LEGACY_ROUTE) > /dev/null 2>&1 || true
-
 
 #####################################
 # -=# ACTION WEB ACCESS MAPPING #=- #
@@ -146,6 +135,21 @@ wg-start-legacy:
 wg-stop-legacy:
 	CHECK=LEGACY make -s intern-stop-routing
 
+#####################################
+# -=# PROVISION YUBIKEY WG KEYS #=- #
+#####################################
+yubikey.rekey.admin:
+	CHECK=ADMIN make -s rekey.keygen
+	CHECK=ADMIN make -s rekey.import
+
+yubikey.rekey.office:
+	CHECK=OFFICE make -s rekey.keygen
+	CHECK=OFFICE make -s rekey.import
+
+yubikey.rekey.legacy:
+	CHECK=LEGACY make -s rekey.keygen
+	CHECK=LEGACY make -s rekey.import
+
 ##########################
 #-=# INTERNAL BACKEND #=-#
 ##########################
@@ -216,8 +220,7 @@ rekey.import:
 	sudo rm -rf $(KEYGENDIR)/*
 	@echo && echo && echo && echo 
 WGDIR?=~/.keyguard-$(SITE)
-intern-stop-routing: info 
-	sudo -v  || exit 1
+intern-stop-routing: info
 	if [ ! -e $(WGDIR)/$(CHECK).conf ]; then 
 		echo "WireGUARD STOP ERROR: unable to access config file $(WGDIR)/$(CHECK).conf"
 	fi
@@ -225,7 +228,6 @@ intern-stop-routing: info
 	rm -rf $(WGDIR)/$(CHECK).conf > /dev/null 2>&1 || true
 	echo "WireGUARD Route $(CHECK) stopped via $(WGDIR)/$(CHECK).conf" && echo && echo
 intern-start-check-routing: info
-	sudo -v  || exit 1
 	ssh-add $(ADMIN_SSH_SMARTCARD)
 	if [ $($(CHECK)_ROUTE_EXISTS) == "yes" ] ; then
 		@echo "$(CHECK) Network Route exists ..."
@@ -235,6 +237,7 @@ intern-start-check-routing: info
 	if [ -e $(WGDIR)/$(CHECK).conf ]; then 
 		wg-quick down $(WGDIR)/$(CHECK).conf > /dev/null 2>&1 
 	fi
+	ykman info --device $(YUBIKEY_SERIAL) > /dev/null || exit 1
 	sudo mkdir -p $(WGDIR)
 	sudo chmod 770 $(WGDIR)
 	sudo chmod -R 660 $(WGDIR)/*

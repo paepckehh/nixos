@@ -7,7 +7,7 @@
 #################################
 ADMIN_OPN_USER?=admin-mpaepcke
 ADMIN_SSH_SMARTCARD?=~/.ssh/id_ed25519_sk
-MYIP=250
+MYIP=11
 
 ###############################
 # WIREGUARD YUBIKEY KEY-STORE #
@@ -17,8 +17,14 @@ MYIP=250
 # YUBIKEY_SERIAL: 	make yubikey.info
 # WG_IV: 		make rekey.iv
 
-YUBIKEY_SERIAL=12399123 # example
-WG_IV=e7bf023cf77ba4bc38829765ca76eecc1 # example
+# Examples (non-working, do not use!)
+# YUBIKEY_SERIAL=12399123
+# WG_IV=e9987644797ec072b8c59a54ca196ef2
+
+# Custom Routes
+# Do not permanently enable! 
+# Needs full path forward and back Infrastructure changes!
+# ADMIN_WG_ADD=192.168.254.0/23 # Printer VLAN254 
 
 include /etc/nixos/admin/Makefile.Site.Home
 include /etc/nixos/admin/Makefile.Generic
