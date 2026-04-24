@@ -94,8 +94,8 @@
           # ./server/cloud/nextcloud.nix
           # ./server/secret/vaultwarden.nix
           # ./server/mail/maddy-admin.nix
-          ./server/message/tuwunel.nix
-          ./server/message/element-web.nix
+          # ./server/message/tuwunel.nix
+          # ./server/message/element-web.nix
           # ./server/monitoring/prometheus.nix
           # ./server/bookmarks/readeck.nix
           # ./server/translate/libretranslate-container.nix

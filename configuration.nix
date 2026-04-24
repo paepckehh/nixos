@@ -197,8 +197,8 @@ in {
       rules = ["-a exit,always -F arch=b64 -S execve"];
     };
     apparmor = {
-      # enable = lib.mkForce true;
-      enableCache = true;
+      enable = lib.mkForce false;
+      enableCache = lib.mkDefault true;
       killUnconfinedConfinables = lib.mkForce true;
       packages = with pkgs; [apparmor-profiles];
     };
