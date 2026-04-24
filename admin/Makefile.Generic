@@ -220,10 +220,9 @@ intern-stop-routing: info
 	sudo -v  || exit 1
 	if [ ! -e $(WGDIR)/$(CHECK).conf ]; then 
 		echo "WireGUARD STOP ERROR: unable to access config file $(WGDIR)/$(CHECK).conf"
-		exit 1
 	fi
-	wg-quick down $(WGDIR)/$(CHECK).conf > /dev/null 2>&1 
-	rm -rf $(WGDIR)/$(CHECK).conf > /dev/null 2>&1
+	wg-quick down $(WGDIR)/$(CHECK).conf > /dev/null 2>&1  || true
+	rm -rf $(WGDIR)/$(CHECK).conf > /dev/null 2>&1 || true
 	echo "WireGUARD Route $(CHECK) stopped via $(WGDIR)/$(CHECK).conf" && echo && echo
 intern-start-check-routing: info
 	sudo -v  || exit 1
@@ -247,7 +246,7 @@ intern-start-check-routing: info
 	echo "[Peer]"						>> $(WGDIR)/$(CHECK).conf
 	echo "PublicKey = $($(CHECK)_WG_PUBLIC)"		>> $(WGDIR)/$(CHECK).conf
 	echo "Endpoint = $($(CHECK)_WG_ENDPOINT)"		>> $(WGDIR)/$(CHECK).conf
-	if [ $(CHECK)_WG_ADD == "" ]; then 
+	if [ -z $($(CHECK)_WG_ADD) ]; then 
 		echo "AllowedIPs = $($(CHECK)_ROUTE)"		>> $(WGDIR)/$(CHECK).conf
 	else 
 		echo "AllowedIPs = $($(CHECK)_ROUTE),$($(CHECK)_WG_ADD)" >> $(WGDIR)/$(CHECK).conf
