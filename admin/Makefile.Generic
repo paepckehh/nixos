@@ -13,7 +13,7 @@ all:
 	@echo "Site Supported Commands: $(SUPPORT)"
 
 info: 
-	@echo "Current Working Admin Site: $(SITE) Network: $(ADMIN_ROUTE)"
+	@echo "Current Working Admin Site: $(SITE) Network: $($(CHECK)_ROUTE)"
 
 yubikey.info:
 	ykman info	
@@ -29,6 +29,13 @@ yubikey.rekey.office:
 yubikey.rekey.legacy:
 	CHECK=LEGACY make -s rekey.keygen
 	CHECK=LEGACY make -s rekey.import
+
+kill.routes:
+	sudo -v || exit 1 
+	sudo ip r del $(ADMIN_ROUTE)  > /dev/null 2>&1 || true
+	sudo ip r del $(OFFICE_ROUTE) > /dev/null 2>&1 || true
+	sudo ip r del $(LEGACY_ROUTE) > /dev/null 2>&1 || true
+
 
 #####################################
 # -=# ACTION WEB ACCESS MAPPING #=- #
@@ -177,7 +184,7 @@ rekey.site:
 ENC?=openssl enc
 STORE?=ykman piv objects
 KEYGEN=/etc/nixos/admin/keygen.sh
-KEYGENDIR=.wg
+KEYGENDIR=~/.wg
 rekey.keygen:
 	sudo -v || exit 1
 	echo "Generate Keys via $(KEYGEN) for site $(CHECK)"
@@ -190,7 +197,7 @@ rekey.import:
 	fi
 	cat $(KEYGENDIR)/$(CHECK).pk  | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > $(KEYGENDIR)/$(CHECK)-e.pk
 	cat $(KEYGENDIR)/$(CHECK).psk | $(ENC) -e -chacha20 -K $(SITE_UID) -iv $(WG_IV) | $(ENC) -e -a > $(KEYGENDIR)/$(CHECK)-e.psk
-	@echo "To import keys please enter all 4x times your yubikey PIV pin!"	
+	@echo "Please enter 2x enter - or - if requested your yubikey pin"	
 	$(STORE) import $(WG_YUBI_$(CHECK)_PK)   $(KEYGENDIR)/$(CHECK)-e.pk   --device $(YUBIKEY_SERIAL) || exit 1
 	$(STORE) import $(WG_YUBI_$(CHECK)_PSK)  $(KEYGENDIR)/$(CHECK)-e.psk  --device $(YUBIKEY_SERIAL) || exit 1
 	sudo rm -rf $(KEYGENDIR)/$(CHECK).pk
@@ -240,7 +247,11 @@ intern-start-check-routing: info
 	echo "[Peer]"						>> $(WGDIR)/$(CHECK).conf
 	echo "PublicKey = $($(CHECK)_WG_PUBLIC)"		>> $(WGDIR)/$(CHECK).conf
 	echo "Endpoint = $($(CHECK)_WG_ENDPOINT)"		>> $(WGDIR)/$(CHECK).conf
-	echo "AllowedIPs = $($(CHECK)_ROUTE)"			>> $(WGDIR)/$(CHECK).conf
+	if [ $(CHECK)_WG_ADD == "" ]; then 
+		echo "AllowedIPs = $($(CHECK)_ROUTE)"		>> $(WGDIR)/$(CHECK).conf
+	else 
+		echo "AllowedIPs = $($(CHECK)_ROUTE),$($(CHECK)_WG_ADD)" >> $(WGDIR)/$(CHECK).conf
+	fi	
 	sudo chmod -R 660 $(WGDIR)/*
 	sudo chown -R $(ADMIN_ID):0 $(WGDIR) 
 	if [ ! -e $(WGDIR)/$(CHECK).conf ]; then 

@@ -264,5 +264,13 @@ in {
         };
       };
     };
+    services = {
+      remmina.enable = true;
+      network-manager-applet.enable = true;
+      nextcloud-client = {
+        enable = true;
+        startInBackground = false;
+      };
+    };
   };
 }

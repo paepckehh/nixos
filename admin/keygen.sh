@@ -44,18 +44,11 @@ gen_key_triple() {
 }
 
 init_store() {
-	STORE_EXIST=$WORKDIR/.done-volatile
-	if [ ! -e $STORE_EXISTS ]; then
-		mkdir -p $WORKDIR
-		sudo mount -t tmpfs tmpfs $WORKDIR
-		sudo chmod 770 $WORKDIR
-		sudo chown -R me:0 $WORKDIR
-		touch $STORE_EXISTS
-	fi
-	if [ ! -e $STORE_EXISTS ]; then
-		echo "keygen.sh: unable to create volatile keystore"
-		exit 1
-	fi
+	mkdir -p $WORKDIR
+	sudo mount -t tmpfs tmpfs $WORKDIR
+	sudo chmod 770 $WORKDIR
+	sudo chown -R me:0 $WORKDIR
+	echo "done $WORKDIR create"
 	echo "non-persistent, clean keystore: $WORKDIR"
 }
 
