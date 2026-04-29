@@ -63,10 +63,10 @@
         modules = [
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
-          ./hosts/srv.nix
-          ./role/server.nix
           # ./storage/stateless-luks-sequence.nix
           ./storage/stateless-luks-fixed-6F6B-6565.nix
+          ./role/server.nix
+          ./hosts/srv.nix
           ./configuration.nix
           ./hardware/all.nix
           ./client/addrootCA.nix
@@ -74,6 +74,7 @@
           ./client/addCache.nix
           ./openwrt/alias.nix
           ./person/desktop/mpaepcke.nix
+          ./packages/devops-db.nix
           ./packages/devops-core.nix
           ./packages/desktop/gnome.nix
           ./server/ai/ollama01.nix
@@ -90,6 +91,7 @@
           ./server/webapp/res.nix
           ./server/win/winstart.nix
           ./server/win/winupdate.nix
+          # ./server/db/undb.nix
           # ./server/cloud/cloud.nix
           # ./server/cloud/nextcloud.nix
           # ./server/secret/vaultwarden.nix

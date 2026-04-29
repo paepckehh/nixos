@@ -74,7 +74,7 @@ in {
       "time.status" = "timedatectl timesync-status";
       "info.nvme.extern" = "sudo smartctl --all /dev/sda";
       "info.nvme.intern" = "sudo smartctl --all /dev/nvme0";
-      "portal" = "xdg-open http://$(ip --oneline route get 1.1.1.1 | awk '{print $3}')";
+      "portal" = "sudo -v && xdg-open http://$(ip --oneline route get 1.1.1.1 | awk '{print $3}') && sudo systemctl restart systemd-resolved";
       "ventoy.gui" = "NIXPKGS_ALLOW_INSECURE=1 NIXPKGS_ALLOW_UNFREE=1 nix-shell -p ventoy-full-gtk --run ventoy-gui";
       "ll" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
       "la" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";

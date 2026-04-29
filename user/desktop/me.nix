@@ -97,6 +97,7 @@ in {
             "thunderbird.desktop"
             "onlyoffice-desktopeditors.desktop"
             "com.yubico.yubioath.desktop"
+            "org.remmina.Remmina.desktop"
           ];
         };
         "org/gnome.desktop/notifications" = {

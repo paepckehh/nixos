@@ -269,7 +269,7 @@ intern-start-check-routing: info
 	sudo wg set $(CHECK) private-key $(WGDIR)/keys-$(CHECK)/pk
 	sudo wg set $(CHECK) peer $($(CHECK)_WG_PUBLIC) preshared-key $(WGDIR)/keys-$(CHECK)/psk
 	sudo umount -f $(WGDIR)/keys-$(CHECK) || echo "################ PANIC: unable to unmount in-memory keystore!"
-	sudo umount -f $(WGDIR)/keys-$(CHECK) > /dev/null 2>&1  # catch-all old
+	sudo umount -f $(WGDIR)/keys-$(CHECK) > /dev/null 2>&1  # catch-all old layers 
 	sudo rm -rf $(WGDIR)/keys-$(CHECK)/*
 	sudo rm -rf $(WGDIR)/keys-$(CHECK)
 	sudo systemctl restart systemd-resolved.service

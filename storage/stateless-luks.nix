@@ -39,6 +39,13 @@
       neededForBoot = true;
       options = ["discard" "noatime" "nodiratime" "commit=10" "nobarrier" "data=writeback" "journal_async_commit" "x-initrd.mount"];
     };
+    "/var/cache" = lib.mkForce {
+      device = "/nix/persist/var/cache";
+      fsType = "none";
+      depends = ["/nix"];
+      neededForBoot = true;
+      options = ["bind" "x-initrd.mount"];
+    };
     "/var/lib" = lib.mkForce {
       device = "/nix/persist/var/lib";
       fsType = "none";

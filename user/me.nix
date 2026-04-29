@@ -36,7 +36,8 @@ in {
   users = {
     users = {
       me = {
-        initialHashedPassword = null; # lockdown, use smardcard only
+        # initialHashedPassword = null; # lockdown, use smardcard only
+        initialHashedPassword = "$y$j9T$kfoRrF1T9PXCFCcDceKWJ1$XBjoA6ExLE5rWFPh3HEx2OkHKSpgg8Tf/50zeM5MJOB";
         # initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
         # hashedPasswordFile = lib.mkForce config.age.secrets."me".path;
         description = "me";
@@ -85,7 +86,7 @@ in {
           };
         };
         fonts.fontconfig.enable = true;
-        services.ssh-agent.enable = true;
+        # services.ssh-agent.enable = true;
         programs = {
           btop.enable = true;
           home-manager.enable = true;
