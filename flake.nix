@@ -74,8 +74,13 @@
           ./client/addCache.nix
           ./openwrt/alias.nix
           ./person/desktop/mpaepcke.nix
+          ./packages/base.nix
+          ./packages/devops-base.nix
           ./packages/devops-db.nix
-          ./packages/devops-core.nix
+          ./packages/devops-go.nix
+          ./packages/devops-html.nix
+          ./packages/devops-net.nix
+          ./packages/devops-nixos.nix
           ./packages/desktop/gnome.nix
           ./server/ai/ollama01.nix
           ./server/dns/bind.nix

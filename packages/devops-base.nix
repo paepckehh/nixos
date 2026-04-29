@@ -16,13 +16,9 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    sessionVariables = {
-      NIX_PACKAGE_SEARCH_EXPERIMENTAL = "true";
-    };
     systemPackages = with pkgs; [
       aria2
       certinfo-go
-      cryptsetup
       binsider
       dmidecode
       file
@@ -36,7 +32,6 @@
       s-tui
       sysz
       tlsinfo
-      lazygit
       lazyjournal
       usbutils
       vale
