@@ -22,7 +22,6 @@
   ##################
   services = {
     tlp = {
-      enable = true;
       settings = {
         WOL_DISABLE = lib.mkForce "Y";
         USB_AUTOSUSPEND = lib.mkForce "0";

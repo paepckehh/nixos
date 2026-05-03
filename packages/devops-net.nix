@@ -16,9 +16,9 @@
       # sngrep # sip
       stress
       tcping-go
-      termshark
+      # termshark
       trippy
-      tshark
+      # tshark
       wireguard-tools
     ];
   };
@@ -27,6 +27,6 @@
   ##################
   programs = {
     iftop.enable = true;
-    wireshark.enable = true;
+    # wireshark.enable = true;
   };
 }

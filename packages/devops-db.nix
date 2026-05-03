@@ -14,7 +14,6 @@
       sqlite-utils
       sqlitebrowser
       sqldiff
-      sqlpkg-cli
       sqlitestudio
     ];
     shellAliases = {

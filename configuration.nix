@@ -13,7 +13,26 @@ in {
   #-=# BOOT #=-#
   ##############
   boot = {
-    blacklistedKernelModules = ["affs" "befs" "bfs" "freevxfs" "hpfs" "jfs" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "ssb"];
+    blacklistedKernelModules = [
+      "affs"
+      "befs"
+      "bfs"
+      "freevxfs"
+      "hpfs"
+      "jfs"
+      "minix"
+      "nilfs2"
+      "omfs"
+      "qnx4"
+      "qnx6"
+      "k10temp"
+      "ssb"
+      "af_alg"
+      "algif_hash"
+      "algif_skcipher"
+      "algif_rng"
+      "algif_aead"
+    ];
     nixStoreMountOpts = lib.mkForce ["ro"];
     hardwareScan = true;
     runSize = "85%";
@@ -202,11 +221,6 @@ in {
       killUnconfinedConfinables = lib.mkForce true;
       packages = with pkgs; [apparmor-profiles];
     };
-    dhparams = {
-      enable = true;
-      stateful = false;
-      defaultBitSize = "3072";
-    };
     sudo-rs = {
       enable = true;
       execWheelOnly = lib.mkForce true;
@@ -373,7 +387,7 @@ in {
       interval = "weekly";
     };
     tlp = {
-      enable = true;
+      enable = false;
       settings = {
         USB_AUTOSUSPEND = "0";
         DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi wwan";

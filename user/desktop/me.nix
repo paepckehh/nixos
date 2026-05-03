@@ -274,7 +274,7 @@ in {
       remmina.enable = true;
       network-manager-applet.enable = true;
       nextcloud-client = {
-        enable = true;
+        enable = false;
         startInBackground = false;
       };
     };
