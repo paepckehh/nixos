@@ -33,6 +33,7 @@ in {
       "algif_rng"
       "algif_aead"
     ];
+    extraModprobeConfig = "install algif_aead /bin/false";
     nixStoreMountOpts = lib.mkForce ["ro"];
     hardwareScan = true;
     runSize = "85%";
