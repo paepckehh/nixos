@@ -146,7 +146,6 @@ in {
       experimental-features = nix-command flakes
     '';
     settings = {
-      # http3 = lib.mkForce true;
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
       build-dir = "/run/build";

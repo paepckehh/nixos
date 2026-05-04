@@ -13,12 +13,12 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
+    udev.packages = [pkgs.yubikey-personalization];
+    yubikey-agent.enable = true;
     pcscd = {
       enable = true;
       plugins = [pkgs.ccid];
     };
-    udev.packages = [pkgs.yubikey-personalization];
-    yubikey-agent.enable = true;
   };
 
   ##################
@@ -86,7 +86,6 @@ in {
     variables = {
       EDITOR = "vim";
       VISUAL = "vim";
-      ROC_ENABLE_PRE_VEGA = "1";
     };
     systemPackages = with pkgs; [
       alejandra
@@ -100,7 +99,6 @@ in {
       cryptsetup
       delta
       dnsutils
-      duf
       dust
       eza
       fastfetch
@@ -131,6 +129,9 @@ in {
       rage
       ripgrep
       smartmontools
+      sqlite
+      sqlite-analyzer
+      sqlite-utils
       tldr
       tree
       tz

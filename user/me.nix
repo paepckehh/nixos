@@ -86,7 +86,6 @@ in {
           };
         };
         fonts.fontconfig.enable = true;
-        # services.ssh-agent.enable = true;
         programs = {
           btop.enable = true;
           home-manager.enable = true;
