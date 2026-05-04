@@ -66,6 +66,7 @@ in {
     kernel.sysctl = lib.mkDefault {
       "kernel.kptr_restrict" = 2;
       "kernel.ftrace_enabled" = 0;
+      "net.core.bpf_jit_enable" = 0;
       "net.core.rmem_max" = lib.mkForce 7500000;
       "net.core.wmem_max" = lib.mkForce 7500000;
       "net.ipv4.conf.all.accept_redirects" = 0;
