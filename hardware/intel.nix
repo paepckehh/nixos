@@ -6,8 +6,16 @@
 }: {
   ##############
   #-=# BOOT #=-#
+  #-=# boot #=-#
   ##############
-  boot.initrd.availableKernelModules = ["kvm-intel"];
+  boot = {
+    kernelModules = [
+      "kvm-intel"
+    ];
+    kernelParams = [
+      # "intel_iommu=strict"
+    ];
+  };
 
   ##################
   #-=# HARDWARE #=-#

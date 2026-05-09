@@ -32,10 +32,17 @@ in {
       "algif_skcipher"
       "algif_rng"
       "algif_aead"
+      "esp4"
+      "esp6"
+      "rxrpc"
     ];
-    extraModprobeConfig = "install algif_aead /bin/false";
+    extraModprobeConfig = ''
+      install algif_aead ${pkgs.coreutils}/bin/false"
+      install esp4 ${pkgs.coreutils}/bin/false
+      install esp6 ${pkgs.coreutils}/bin/false
+      install rxrpc ${pkgs.coreutils}/bin/false
+    '';
     nixStoreMountOpts = lib.mkForce ["ro"];
-    hardwareScan = true;
     runSize = "85%";
     loader = {
       efi.canTouchEfiVariables = true;
@@ -43,19 +50,48 @@ in {
         enable = lib.mkDefault true;
         consoleMode = "max";
         configurationLimit = 24;
+        editor = lib.mkForce false;
       };
     };
     initrd = {
       systemd = {
         enable = lib.mkDefault true;
-        emergencyAccess = lib.mkDefault false;
+        emergencyAccess = lib.mkForce false;
       };
       luks.mitigateDMAAttacks = lib.mkForce true;
-      supportedFilesystems = ["ext4" "tmpfs" "vfat"];
-      availableKernelModules = ["ahci" "dm_mod" "cryptd" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
+      supportedFilesystems = ["ext4" "tmpfs" "vfat" "ntfs"];
+      availableKernelModules = [
+        "ahci"
+        "cryptd"
+        "dm_mod"
+        "jitterentropy_rng"
+        "nvme"
+        "thunderbolt"
+        "sd_mod"
+        "uas"
+        "usbhid"
+        "usb_storage"
+        "xhci_pci"
+      ];
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = ["page_alloc.shuffle=1"];
+    kernelParams = [
+      "efi=disable_early_pci_dma"
+      "iommu.passthrough=0"
+      "iommu=force"
+      "iommu.strict=1"
+      "kernel.dmesg_restrict=1"
+      "kernel.kexec_load_disabled=1"
+      "kernel.kptr_restrict=2"
+      "kernel.sysrq=0"
+      "kernel.unprivileged_bpf_disabled=1"
+      "net.core.bpf_jit_harden=2"
+      "random.trust_cpu=off"
+      "randomize_kstack_offset=on"
+      "page_alloc.shuffle=1"
+      "vdso32=0"
+      "vsyscall=none"
+    ];
     tmp = {
       cleanOnBoot = true;
       tmpfsHugeMemoryPages = "within_size";
@@ -64,8 +100,13 @@ in {
       useZram = lib.mkForce false;
     };
     kernel.sysctl = lib.mkDefault {
-      "kernel.kptr_restrict" = 2;
+      "abi.vsyscall32" = 0;
       "kernel.ftrace_enabled" = 0;
+      "kernel.kptr_restrict" = 2;
+      "kernel.perf_event_paranoid" = "3";
+      "kernel.perf_cpu_time_max_percent" = "1";
+      "kernel.perf_event_max_sample_rate" = "1";
+      "kernel.unprivileged_bpf_disabled" = "1";
       "net.core.bpf_jit_enable" = 0;
       "net.core.rmem_max" = lib.mkForce 7500000;
       "net.core.wmem_max" = lib.mkForce 7500000;
@@ -89,6 +130,8 @@ in {
       "net.ipv6.conf.all.accept_redirects" = 0;
       "net.ipv6.conf.default.disable_ipv6" = 1;
       "net.ipv6.conf.default.accept_redirects" = 0;
+      "vm.dirty_writeback_interval" = 1000;
+      "vm.unprivileged_userfaultfd" = 0;
       "vm.overcommit_memory" = 1;
     };
   };
@@ -341,6 +384,11 @@ in {
   #-=# SYSTEMD #=-#
   #################
   systemd = {
+    enableEmergencyMode = lib.mkForce false;
+    coredump.settings.Coredump = {
+      Storage = "none";
+      ProcessSizeMax = 0;
+    };
     targets = {
       sleep.enable = true;
       suspend.enable = lib.mkForce false;
@@ -388,7 +436,7 @@ in {
       interval = "weekly";
     };
     tlp = {
-      enable = false;
+      enable = true;
       settings = {
         USB_AUTOSUSPEND = "0";
         DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi wwan";

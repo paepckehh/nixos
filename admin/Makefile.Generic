@@ -8,20 +8,23 @@
 #################
 ADMIN_ROUTE_EXISTS?=$(shell ip route show $(ADMIN_ROUTE) 2>/dev/null | grep -q . && echo yes || echo no) 
 OFFICE_ROUTE_EXISTS?=$(shell ip route show $(OFFICE_ROUTE) 2>/dev/null | grep -q . && echo yes || echo no) 
+
 all: 
+	make -s intern-hardening
 	@echo "Admin Site : $(SITE) Network: $(ADMIN_ROUTE)"
 	@echo "Office Site: $(SITE) Network: $(OFFICE_ROUTE)"
 	@echo "Site Supported Commands: $(SUPPORT)"
 
 info: 
-	sudo -v || exit 
+	make -s intern-hardening
 	@echo "Current Working Admin Site: $(SITE) Network: $($(CHECK)_ROUTE)"
 
 yubikey.info:
+	make -s intern-hardening
 	ykman info	
 
 kill.routes:
-	sudo -v || exit 1 
+	make -s intern-hardening
 	sudo ip r del $(ADMIN_ROUTE)  > /dev/null 2>&1 || true
 	sudo ip r del $(OFFICE_ROUTE) > /dev/null 2>&1 || true
 	sudo ip r del $(LEGACY_ROUTE) > /dev/null 2>&1 || true
@@ -153,6 +156,10 @@ yubikey.rekey.legacy:
 ##########################
 #-=# INTERNAL BACKEND #=-#
 ##########################
+intern-hardening:
+	sudo -v || exit 1 # check
+	sudo modprobe wireguard # may need this
+	echo 1 | sudo tee /proc/sys/kernel/modules_disabled > /dev/null # final, reboot to re-enable
 intern-opsssh:
 	PORT=$(PORT_SSH) make -s intern-ssh
 intern-borgssh:
@@ -160,12 +167,12 @@ intern-borgssh:
 intern-borgweb:
 	PORT_SSH=$(PORT_OPN_SSH) LPORT=$(PREFIX_BORG)$(TID) RPORT=$(OPN_WEB) ADMIN_ID=$(ADMIN_OPN_USER) make -s intern-wormhole 
 intern-log: 
-	sudo -v  || exit 1
+	make -s intern-hardening
 	CHECK=ADMIN make -s intern-start-check-routing
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start LogSTREAM! \033[0m    <==========" && echo && echo && echo
 	ssh -p $(PORT_SSH) $(ADMIN_ID)@$(ADMIN_NET).$(LOG_TID) $(LOGCMD)
 intern-ssh: 
-	sudo -v  || exit 1
+	make -s intern-hardening
 	CHECK=ADMIN make -s intern-start-check-routing
 	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
 		echo -n .
@@ -173,7 +180,7 @@ intern-ssh:
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start SSH Session! \033[0m    <==========" && echo && echo && echo
 	ssh -p $(PORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID)
 intern-wormhole: 
-	sudo -v  || exit 1
+	make -s intern-hardening
 	CHECK=ADMIN make -s intern-start-check-routing
 	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
 		echo -n .
@@ -190,11 +197,11 @@ STORE?=ykman piv objects
 KEYGEN=/etc/nixos/admin/keygen.sh
 KEYGENDIR=~/.wg
 rekey.keygen:
-	sudo -v || exit 1
+	make -s intern-hardening
 	echo "Generate Keys via $(KEYGEN) for site $(CHECK)"
 	sh $(KEYGEN) $(KEYGENDIR) $(CHECK) $(SITE_VKEY)
 rekey.import:
-	sudo -v || exit 1
+	make -s intern-hardening
 	if [ ! -e $(KEYGENDIR)/$(CHECK).pk ] || [ ! -e $(KEYGENDIR)/$(CHECK).psk ]; then 
 		echo "Please place all keys ($(CHECK).pk, $(CHECK).psk, office.pk) into $(KEYGENDIR)"
 		exit 1
@@ -228,6 +235,7 @@ intern-stop-routing: info
 	rm -rf $(WGDIR)/$(CHECK).conf > /dev/null 2>&1 || true
 	echo "WireGUARD Route $(CHECK) stopped via $(WGDIR)/$(CHECK).conf" && echo && echo
 intern-start-check-routing: info
+	make -s intern-hardening
 	ssh-add $(ADMIN_SSH_SMARTCARD)
 	if [ $($(CHECK)_ROUTE_EXISTS) == "yes" ] ; then
 		@echo "$(CHECK) Network Route exists ..."
