@@ -60,8 +60,10 @@ in {
       install rds_rdma ${pkgs.coreutils}/bin/false
       install rds_tcp ${pkgs.coreutils}/bin/false
       install rxrpc ${pkgs.coreutils}/bin/false
+      install rndis_host ${pkgs.coreutils}/bin/false
       install tipc ${pkgs.coreutils}/bin/false
       install tipc_diag ${pkgs.coreutils}/bin/false
+      install usb_f_rndis ${pkgs.coreutils}/bin/false
       install x25 ${pkgs.coreutils}/bin/false
     '';
     nixStoreMountOpts = lib.mkForce ["ro"];
