@@ -15,32 +15,54 @@ in {
   boot = {
     blacklistedKernelModules = [
       "affs"
+      "af_alg"
+      "algif_hash"
+      "algif_skcipher"
+      "algif_rng"
+      "algif_aead"
+      "bcm43xx"
+      "brcm80211"
       "befs"
       "bfs"
+      "esp4"
+      "esp6"
       "freevxfs"
       "hpfs"
       "jfs"
+      "ipx"
       "minix"
       "nilfs2"
       "omfs"
       "qnx4"
       "qnx6"
       "k10temp"
-      "ssb"
-      "af_alg"
-      "algif_hash"
-      "algif_skcipher"
-      "algif_rng"
-      "algif_aead"
-      "esp4"
-      "esp6"
       "rxrpc"
+      "sctp"
+      "sctp_diag"
+      "ssb"
+      "tipc"
+      "tipc_diag"
+      "rndis_host"
+      "rds"
+      "rds_rdma"
+      "rds_tcp"
+      "usb_f_rndis"
+      "x25"
     ];
     extraModprobeConfig = ''
       install algif_aead ${pkgs.coreutils}/bin/false"
       install esp4 ${pkgs.coreutils}/bin/false
       install esp6 ${pkgs.coreutils}/bin/false
+      install ipx ${pkgs.coreutils}/bin/false
+      install sctp ${pkgs.coreutils}/bin/false
+      install sctp_diag ${pkgs.coreutils}/bin/false
+      install rds ${pkgs.coreutils}/bin/false
+      install rds_rdma ${pkgs.coreutils}/bin/false
+      install rds_tcp ${pkgs.coreutils}/bin/false
       install rxrpc ${pkgs.coreutils}/bin/false
+      install tipc ${pkgs.coreutils}/bin/false
+      install tipc_diag ${pkgs.coreutils}/bin/false
+      install x25 ${pkgs.coreutils}/bin/false
     '';
     nixStoreMountOpts = lib.mkForce ["ro"];
     runSize = "85%";
