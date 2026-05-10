@@ -176,6 +176,7 @@ intern-ssh:
 	CHECK=ADMIN make -s intern-start-check-routing
 	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
 		echo -n .
+		sleep 1 
 	done
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start SSH Session! \033[0m    <==========" && echo && echo && echo
 	ssh -p $(PORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID)
@@ -184,6 +185,7 @@ intern-wormhole:
 	CHECK=ADMIN make -s intern-start-check-routing
 	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
 		echo -n .
+		sleep 1
 	done
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW & Reload WebPage! \033[0m    <==========" && echo && echo && echo
 	(sleep 3 && xdg-open $(PREFIX_URI)://localhost:$(LPORT))&
