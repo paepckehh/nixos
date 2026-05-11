@@ -18,16 +18,23 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.services.go-autoconfig = {
-    after = ["network-online.target"];
-    wants = ["network-online.target"];
-    wantedBy = ["multi-user.target"];
+  systemd = {
+    network.networks."${infra.namespace.admin}".addresses = [{Address = "${infra.autoconfig.admin.ip}/32";}];
+    services.go-autoconfig = {
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+    };
   };
 
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
+    caddy.virtualHosts."${infra.autoconfig.admin.fqdn}" = {
+      listenAddresses = [infra.autoconfig.admin.ip];
+      extraConfig = ''import intraproxy ${toString infra.autoconfig.localbind.port.http}'';
+    };
     go-autoconfig = {
       enable = true;
       settings = {
@@ -48,10 +55,6 @@ in {
           userid = infra.autoconfig.admin.auth.id;
         };
       };
-    };
-    caddy.virtualHosts."${infra.autoconfig.admin.fqdn}" = {
-      listenAddresses = [infra.autoconfig.admin.ip];
-      extraConfig = ''import intraproxy ${toString infra.autoconfig.localbind.port.http}'';
     };
   };
 }

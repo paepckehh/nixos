@@ -50,8 +50,8 @@ in {
       maddy = {
         group = "maddy";
         isSystemUser = true;
-        hashedPassword = null; # disable ldap service account interactive logon
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
+        hashedPassword = null;
+        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
     };
   };

@@ -96,6 +96,7 @@
           ./server/webapp/res.nix
           ./server/bookmarks/readeck.nix
           ./server/mail/maddy-admin.nix
+          ./server/mail/autoconfig-admin.nix
           # ./server/win/winstart.nix
           # ./server/win/winupdate.nix
           # ./server/db/undb.nix
@@ -234,7 +235,6 @@
           # ./server/message/element-web.nix
           # ./server/all/ente.nix
           # ./server/media/immich.nix
-          # ./server/mail/autoconfig-admin.nix
           # ./server/office/grist.nix
           # ./client/nixbit.nix
           # ./virtual/distrobox.nix
@@ -252,7 +252,7 @@
           # ./server/crm/wordpress.nix
           # ./server/share/wastebin.nix
           # ./server/share/mediawiki.nix
-          ./server/all/libretranslate-container.nix
+          # ./server/all/libretranslate-container.nix
           # ./server/cloud/nextcloud.nix
           # ./server/office/onlyoffice-docker.nix
           # ./server/ai/openweb-ui.nix

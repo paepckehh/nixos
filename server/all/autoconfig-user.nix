@@ -23,6 +23,18 @@ in {
     wantedBy = ["multi-user.target"];
   };
 
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd = {
+    network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.autoconfig.user.ip}/32";}];
+    services.go-autoconfig = {
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+    };
+  };
+
   ##################
   #-=# SERVICES #=-#
   ##################
