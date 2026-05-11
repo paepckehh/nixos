@@ -274,6 +274,13 @@ in {
            @not_intranet { not remote_ip ${infra.cidr.user} ${infra.cidr.container} }
            respond @not_intranet 403
         }
+        (auth) {
+          forward_auth ${infra.sso.url} {
+             uri /api/authz/forward-auth
+             uri /api/authz/forward-auth?authelia_url=${infra.sso.url}
+             copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+          }
+        }
         (adminproxy) {
            import admin
            reverse_proxy ${infra.localhost.ip}:{args[0]} {
@@ -284,6 +291,15 @@ in {
         }
         (intraproxy) {
            import intra
+           reverse_proxy ${infra.localhost.ip}:{args[0]} {
+              transport http {
+                 compression off
+              }
+           }
+        }
+        (intraauthproxy) {
+           import intra
+           import auth
            reverse_proxy ${infra.localhost.ip}:{args[0]} {
               transport http {
                  compression off

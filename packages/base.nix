@@ -13,8 +13,6 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
-    udev.packages = [pkgs.yubikey-personalization];
-    yubikey-agent.enable = true;
     pcscd = {
       enable = true;
       plugins = [pkgs.ccid];
@@ -32,13 +30,11 @@ in {
     nano.enable = true;
     mtr.enable = true;
     vim.enable = true;
-    yubikey-manager.enable = true;
     git = {
       enable = true;
       config = infra.git.client.conf;
     };
     ssh = {
-      # extraConfig = "AddKeysToAgent yes";
       hostKeyAlgorithms = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
       pubkeyAcceptedKeyTypes = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
       ciphers = ["chacha20-poly1305@openssh.com"];

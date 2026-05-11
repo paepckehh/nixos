@@ -94,17 +94,17 @@
           ./server/pki/small-step.nix
           ./server/portal/homer-home-container.nix
           ./server/webapp/res.nix
-          ./server/win/winstart.nix
-          ./server/win/winupdate.nix
+          ./server/bookmarks/readeck.nix
+          ./server/mail/maddy-admin.nix
+          # ./server/win/winstart.nix
+          # ./server/win/winupdate.nix
           # ./server/db/undb.nix
           # ./server/cloud/cloud.nix
           # ./server/cloud/nextcloud.nix
           # ./server/secret/vaultwarden.nix
-          # ./server/mail/maddy-admin.nix
           # ./server/message/tuwunel.nix
           # ./server/message/element-web.nix
           # ./server/monitoring/prometheus.nix
-          # ./server/bookmarks/readeck.nix
           # ./server/translate/libretranslate-container.nix
           # ./server/share/smbgate.nix
           # ./server/mail/bichon.nix

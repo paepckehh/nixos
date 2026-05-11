@@ -15,6 +15,12 @@ in {
   # imports = [];
 
   ##############
+  #-=# BOOT #=-#
+  ##############
+  # "fbcon=rotate:1", "fbcon=rotate:3"
+  # boot.kernelParams = [];
+
+  ##############
   # NETWORKING #
   ##############
   networking.hostName = lib.mkForce "srv";

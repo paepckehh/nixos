@@ -64,7 +64,7 @@ in {
     caddy = {
       virtualHosts."${infra.readeck.fqdn}" = {
         listenAddresses = [infra.readeck.ip];
-        extraConfig = ''import intraproxy ${toString infra.readeck.localbind.port.http}'';
+        extraConfig = ''import intraauthproxy ${toString infra.readeck.localbind.port.http}'';
       };
     };
     readeck = {
@@ -75,6 +75,10 @@ in {
         main = {
           log_level = "info";
           data_directory = "/var/lib/readeck";
+        };
+        auth.forwarded = {
+          enabled = true;
+          provisioning = true;
         };
         server = {
           host = infra.localhost.ip;

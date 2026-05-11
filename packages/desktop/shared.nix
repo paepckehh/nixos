@@ -22,10 +22,7 @@
   ##################
   #-=# PROGRAMS #=-#
   ##################
-  programs = {
-    yubikey-manager.enable = true;
-    yubikey-touch-detector.enable = true;
-  };
+  # programs = {};
 
   #############
   #-=# XDG #=-#
