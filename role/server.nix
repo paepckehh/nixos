@@ -277,8 +277,7 @@ in {
         (auth) {
           forward_auth ${infra.sso.url} {
              uri /api/authz/forward-auth
-             uri /api/authz/forward-auth?authelia_url=${infra.sso.url}
-             copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+             copy_headers Remote-User Remote-Email
           }
         }
         (adminproxy) {
@@ -304,6 +303,7 @@ in {
               transport http {
                  compression off
               }
+              header_up Remote-Groups user
            }
         }
         (admincontainer) {

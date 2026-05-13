@@ -45,6 +45,10 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
+    caddy.virtualHosts."${infra.paperless.fqdn}" = {
+      listenAddresses = [infra.paperless.ip];
+      extraConfig = ''import intraauthproxy ${toString infra.paperless.localbind.port.http}'';
+    };
     paperless = {
       enable = true;
       address = infra.localhost.ip;
@@ -55,10 +59,13 @@ in {
       domain = infra.paperless.fqdn;
       exporter.enable = true;
       settings = {
+        PAPERLESS_ENABLE_HTTP_REMOTE_USER = true;
+        PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME = "REMOTE-USER";
+        PAPERLESS_LOGOUT_REDIRECT_URL = "${infra.sso.url}/logout";
         PAPERLESS_ADMIN_EMAIL = infra.admin.email;
         PAPERLESS_ACCOUNT_ALLOW_SIGNUPS = true;
         PAPERLESS_ACCOUNT_EMAIL_VERIFICATION = false;
-        PAPERLESS_ACCOUNT_DEFAULT_GROUPS = "user"; # XXX create and configure group user !
+        PAPERLESS_ACCOUNT_DEFAULT_GROUPS = "user";
         PAPERLESS_TASK_WORKER = 2;
         PAPERLESS_THREADS_PER_WORKER = 6;
         PAPERLESS_TIME_ZONE = infra.locale.tz;
@@ -68,10 +75,6 @@ in {
           pdfa_image_compression = "lossless";
         };
       };
-    };
-    caddy.virtualHosts."${infra.paperless.fqdn}" = {
-      listenAddresses = [infra.paperless.ip];
-      extraConfig = ''import intraproxy ${toString infra.paperless.localbind.port.http}'';
     };
   };
 }

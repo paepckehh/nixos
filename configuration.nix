@@ -29,6 +29,7 @@ in {
       "freevxfs"
       "hpfs"
       "jfs"
+      "joydev"
       "ipx"
       "minix"
       "nilfs2"
@@ -86,9 +87,7 @@ in {
       supportedFilesystems = ["ext4" "tmpfs" "vfat" "ntfs"];
       availableKernelModules = [
         "ahci"
-        "cryptd"
-        "dm_mod"
-        "jitterentropy_rng"
+        "dm_crypt"
         "nvme"
         "thunderbolt"
         "sd_mod"
@@ -98,6 +97,15 @@ in {
         "xhci_pci"
       ];
     };
+    kernelModules = [
+      "dm_crypt"
+      "jitterentropy_rng"
+      "uas"
+      "usbhid"
+      "usb_storage"
+      "wireguard"
+      "zram"
+    ];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "efi=disable_early_pci_dma"
