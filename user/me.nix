@@ -12,22 +12,14 @@ in {
   #############
   #-=# AGE #=-#
   #############
-  age = {
-    secrets = {
-      "me" = {
-        file = ../modules/resources/me.age;
-        owner = "root";
-        group = "wheel";
-      };
-    };
-  };
+  age.secrets."${infra.admin.id}".file = ../modules/resources/${infra.admin.id}.age;
 
   #################
   #-=# SYSTEMD #=-#
   #################
   systemd.user.tmpfiles.rules = [
     "d ${infra.go.cache} 0770 root users"
-    "L /home/me/Mounts - - - - /var/run/user/60100/gvfs"
+    "L /home/me/Mounts - - - - /var/run/user/${toString infra.admin.uid}/gvfs"
   ];
 
   ###############
@@ -37,12 +29,12 @@ in {
     users = {
       me = {
         # initialHashedPassword = null; # lockdown, use smardcard only
-        initialHashedPassword = "$y$j9T$kfoRrF1T9PXCFCcDceKWJ1$XBjoA6ExLE5rWFPh3HEx2OkHKSpgg8Tf/50zeM5MJOB";
         # initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
-        # hashedPasswordFile = lib.mkForce config.age.secrets."me".path;
-        description = "me";
-        uid = 60100;
-        group = "me";
+        # initialHashedPassword = lib.mkForce config.age.secrets."me".path;
+        initialHashedPassword = "$y$j9T$kfoRrF1T9PXCFCcDceKWJ1$XBjoA6ExLE5rWFPh3HEx2OkHKSpgg8Tf/50zeM5MJOB";
+        description = infra.admin.id;
+        uid = infra.admin.uid;
+        group = infra.admin.id;
         createHome = true;
         isNormalUser = true;
         shell = pkgs.fish;
@@ -51,8 +43,8 @@ in {
       };
     };
     groups.me = {
-      gid = 60100;
-      members = ["me"];
+      gid = infra.admin.uid;
+      members = [infra.admin.id];
     };
   };
 

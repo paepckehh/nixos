@@ -84,10 +84,14 @@ in {
         emergencyAccess = lib.mkForce false;
       };
       luks.mitigateDMAAttacks = lib.mkForce true;
-      supportedFilesystems = ["ext4" "tmpfs" "vfat" "ntfs"];
+      supportedFilesystems = ["ext4" "tmpfs" "vfat" "ntfs" "overlay"];
       availableKernelModules = [
+        "aesni_intel"
         "ahci"
+        "ccm"
+        "cmac"
         "dm_crypt"
+        "dm_mod"
         "nvme"
         "thunderbolt"
         "sd_mod"
@@ -98,15 +102,20 @@ in {
       ];
     };
     kernelModules = [
+      "aesni_intel"
+      "ccm"
+      "cmac"
+      "cifs"
       "dm_crypt"
-      "jitterentropy_rng"
+      "dm_mod"
       "uas"
       "usbhid"
       "usb_storage"
+      "overlay"
+      "nls_utf8"
       "wireguard"
-      "zram"
     ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     kernelParams = [
       "efi=disable_early_pci_dma"
       "iommu.passthrough=0"

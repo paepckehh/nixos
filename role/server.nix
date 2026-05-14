@@ -10,6 +10,16 @@
   ############################
   infra = (import ../siteconfig/config.nix).infra;
 in {
+  #################
+  #-=# IMPORTS #=-#
+  #################
+  imports = [
+    ../configuration.nix
+    ../client/addrootCA.nix
+    ../client/addrootCA-ext.nix
+    ../client/addCache.nix
+  ];
+
   ##############
   # NETWORKING #
   ##############

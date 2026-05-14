@@ -192,7 +192,7 @@ in {
         enable = true;
         languagePacks = ["de"];
         settings = infra.firefox.settings;
-        package = pkgs.librewolf.override {nativeMessagingHosts = [pkgs.gnome-browser-connector];};
+        package = pkgs.librewolf;
         policies = lib.recursiveUpdate infra.firefox.policy bookmarks;
         profiles.default = {
           isDefault = true;

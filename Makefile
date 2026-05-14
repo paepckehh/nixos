@@ -25,6 +25,16 @@ PATH:=/run/current-system/sw/bin
 SUDO:=/run/wrappers/bin/sudo
 YUBIME:=/nix/persist/home/me/.config/Yubico
 
+########
+# WIKI #
+########
+# 
+# Lookup current system option:
+# nixos-option -r boot.blacklistedKernelModules
+#
+# Package build:
+# nix-build -E 'with import <nixpkgs> {}; callPackage ./package.nix {}'
+
 ###########
 # GENERIC #
 ###########
@@ -53,8 +63,6 @@ info-image:
 ####################
 # NIXOS OPERATIONS #
 ####################
-# TODO 
-# nix-build -E 'with import <nixpkgs> {}; callPackage ./package.nix {}'
 boot: build 
 test: check
 world: git-mirror-fetch git-mirror-gc update boot gc

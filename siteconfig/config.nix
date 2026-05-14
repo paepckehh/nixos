@@ -39,6 +39,8 @@ let
       extern = infra.site.domain.extern;
     };
     admin = {
+      id = "me";
+      uid = 60100;
       name = "admin";
       displayName = "IT-TEAM@${infra.site.site.cloudName.admin}";
       email = "it@${infra.email.domain.intern}";

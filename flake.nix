@@ -67,11 +67,7 @@
           ./storage/stateless-luks-fixed-6F6B-6565.nix
           ./role/server.nix
           ./hosts/srv.nix
-          ./configuration.nix
           ./hardware/all.nix
-          ./client/addrootCA.nix
-          ./client/addrootCA-ext.nix
-          ./client/addCache.nix
           ./openwrt/alias.nix
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix
@@ -82,7 +78,7 @@
           ./packages/devops-net.nix
           ./packages/devops-nixos.nix
           ./packages/desktop/gnome.nix
-          ./server/ai/ollama01.nix
+          # ./packages/opensnitch.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix
@@ -94,9 +90,10 @@
           ./server/pki/small-step.nix
           ./server/portal/homer-home-container.nix
           ./server/webapp/res.nix
-          ./server/bookmarks/readeck.nix
-          ./server/mail/maddy-admin.nix
-          ./server/mail/autoconfig-admin.nix
+          # ./server/mail/maddy-admin.nix
+          # ./server/ai/ollama01.nix
+          # ./server/mail/autoconfig-admin.nix
+          # ./server/bookmarks/readeck.nix
           # ./server/win/winstart.nix
           # ./server/win/winupdate.nix
           # ./server/db/undb.nix
@@ -166,7 +163,7 @@
           ./server/iam/lldap.nix
           ./server/log/syslog-ng.nix
           ./server/mail/maddy-admin.nix
-          ./server/message/tuwunel.nix
+          # ./server/message/tuwunel.nix
           # ./server/monitoring/grafana.nix
           ./server/monitoring/prometheus.nix
           ./server/ocr/paperless-ngx-authelia.nix
