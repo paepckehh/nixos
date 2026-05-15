@@ -12,7 +12,7 @@ in {
   #############
   #-=# AGE #=-#
   #############
-  age.secrets."${infra.admin.id}".file = ../modules/resources/${infra.admin.id}.age;
+  # age.secrets.me".file = ../modules/resources/${infra.admin.displayname}.age;
 
   #################
   #-=# SYSTEMD #=-#
@@ -32,9 +32,9 @@ in {
         # initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
         # initialHashedPassword = lib.mkForce config.age.secrets."me".path;
         initialHashedPassword = "$y$j9T$kfoRrF1T9PXCFCcDceKWJ1$XBjoA6ExLE5rWFPh3HEx2OkHKSpgg8Tf/50zeM5MJOB";
-        description = infra.admin.id;
+        description = "me - admin";
         uid = infra.admin.uid;
-        group = infra.admin.id;
+        group = "me";
         createHome = true;
         isNormalUser = true;
         shell = pkgs.fish;
@@ -42,10 +42,7 @@ in {
         openssh.authorizedKeys.keys = lib.mkDefault ["ssh-ed25519 AAA-#locked#-"];
       };
     };
-    groups.me = {
-      gid = infra.admin.uid;
-      members = [infra.admin.id];
-    };
+    groups.me = {};
   };
 
   ######################

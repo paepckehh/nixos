@@ -71,14 +71,9 @@
           ./openwrt/alias.nix
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix
-          ./packages/devops-base.nix
-          ./packages/devops-db.nix
-          ./packages/devops-go.nix
-          ./packages/devops-html.nix
-          ./packages/devops-net.nix
-          ./packages/devops-nixos.nix
+          ./packages/devops.nix
+          ./packages/opensnitch.nix
           ./packages/desktop/gnome.nix
-          # ./packages/opensnitch.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix

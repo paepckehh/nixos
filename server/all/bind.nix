@@ -14,8 +14,8 @@ in {
   #-=# NETWORKING #=-#
   ####################
   networking = {
-    nameservers = lib.mkForce [infra.dns.ip];
-    networkmanager.insertNameservers = [infra.dns.ip];
+    # nameservers = lib.mkForce [infra.dns.ip];
+    # networkmanager.insertNameservers = [infra.dns.ip];
     extraHosts = "${infra.dns.ip} ${infra.dns.hostname} ${infra.dns.fqdn}.";
     firewall = {
       allowedTCPPorts = [infra.port.dns];
@@ -39,6 +39,10 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
+    resolved = {
+      enable = lib.mkForce true;
+      settings.Resolve.DNS = lib.mkForce [infra.dns.ip];
+    };
     prometheus = {
       exporters = {
         bind = {

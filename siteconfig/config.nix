@@ -39,10 +39,9 @@ let
       extern = infra.site.domain.extern;
     };
     admin = {
-      id = "me";
       uid = 60100;
-      name = "admin";
-      displayName = "IT-TEAM@${infra.site.site.cloudName.admin}";
+      name = "me";
+      displayname = "admin";
       email = "it@${infra.email.domain.intern}";
       smtp = {
         id = "it";
@@ -56,7 +55,7 @@ let
     backup = {
       email = "backup@${infra.email.domain.intern}";
       sshKeys = [
-        "ssh-ed25519@openssh.com [...] ="
+        "ssh-ed25519@openssh.com [...]="
       ];
     };
     storage = {
@@ -1190,6 +1189,7 @@ let
     };
     search = {
       id = 119;
+      uid = 976;
       app = "searxng";
       label = "searX";
       name = "search";

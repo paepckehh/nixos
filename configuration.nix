@@ -251,10 +251,10 @@ in {
       keep-failed = lib.mkDefault false;
       max-jobs = lib.mkDefault "auto"; # default: 1
       allowed-uris = lib.mkDefault [
-        "https://cache.nixos.org"
+        # "https://cache.nixos.org"
       ];
       substituters = lib.mkDefault [
-        "https://cache.nixos.org"
+        # "https://cache.nixos.org"
       ];
       trusted-public-keys = lib.mkDefault [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -409,6 +409,8 @@ in {
         powersave = true;
       };
     };
+    nameservers = lib.mkDefault ["127.0.0.53"]; # resolved
+    timeServers = lib.mkDefault ["0.europe.pool.ntp.org" "1.europe.pool.ntp.org" "2.europe.pool.ntp.org" "3.europe.pool.ntp.org"];
     nftables.enable = true;
     firewall = {
       enable = true;
@@ -469,6 +471,7 @@ in {
     power-profiles-daemon.enable = lib.mkForce false;
     logind.settings.Login.HandleHibernateKey = "ignore";
     libinput.enable = lib.mkForce true;
+    resolved.enable = lib.mkForce true;
     journald = {
       audit = false;
       storage = "volatile";

@@ -1,4 +1,15 @@
 {pkgs, ...}: {
+  #################
+  #-=# IMPORTS #=-#
+  #################
+  imports = [
+    ./devops-db.nix
+    ./devops-go.nix
+    # ./devops-html.nix
+    ./devops-net.nix
+    ./devops-nixos.nix
+  ];
+
   ##################
   #-=# PROGRAMS #=-#
   ##################
@@ -22,6 +33,7 @@
       binsider
       dmidecode
       file
+      jq
       jqfmt
       gnumake
       hyperfine

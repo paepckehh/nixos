@@ -8,6 +8,7 @@
   #-=# GLOBAL SITE IMPORT #=-#
   ############################
   infra = (import ../siteconfig/config.nix).infra;
+  ts.create = "2026-05-14T00:00:00+00:00";
 in {
   ##############
   #-=# BOOT #=-#
@@ -51,295 +52,572 @@ in {
         ## EXPLICIT DENY ##
         ###################
         gvfs-http = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "gvfs-http";
           enabled = true;
           action = "deny";
           duration = "always";
           operator = {
+            data = "${lib.getBin pkgs.gvfs}/libexec/.gvfsd-http-wrapped";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin pkgs.gvfs}/libexec/.gvfsd-http-wrapped";
           };
         };
-        gsd-print-notifications = {
-          created = "2026-05-14T00:00:00+00:00";
-          name = "gvfs-http";
+        gnome = {
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
+          name = "gnome";
           enabled = true;
           action = "deny";
           duration = "always";
           operator = {
-            type = "simple";
-            sensitive = false;
+            data = "gnome";
+            list = null;
             operand = "process.path";
-            data = "${lib.getBin pkgs.gnome-settings-daemon}/libexec/.gsd-print-notifications-wrapped";
+            sensitive = false;
+            type = "regexp";
           };
         };
         ##################
         ## ALLOW SYSTEM ##
         ##################
         systemd-timesyncd = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "systemd-timesyncd";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
+            data = "${lib.getBin pkgs.systemd}/lib/systemd/systemd-timesyncd";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin pkgs.systemd}/lib/systemd/systemd-timesyncd";
           };
         };
         systemd-resolved = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "systemd-resolved";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
+            data = "${lib.getBin pkgs.systemd}/lib/systemd/systemd-resolved";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin pkgs.systemd}/lib/systemd/systemd-resolved";
           };
         };
         syslog-ng = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "syslog-ng";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
+            data = "${lib.getBin pkgs.syslogng}/bin/syslog-ng";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin pkgs.syslogng}/bin/syslog-ng";
           };
         };
         nsncd = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "nsncd";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
-            type = "simple";
-            sensitive = false;
-            operand = "process.path";
             data = "${lib.getBin pkgs.nsncd}/bin/nsncd";
-          };
-        };
-        nix-cli-bin = {
-          created = "2026-05-14T00:00:00+00:00";
-          name = "nix-cli-bin";
-          enabled = true;
-          action = "allow";
-          duration = "always";
-          operator = {
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getExe config.nix.package.nix-cli}/bin/nix";
-            # data = "${lib.getExe config.nix.package}/bin/nix";
-            # data = "${lib.getExe config.nix.package}/bin/nix";
-            # data = "${lib.getExe config.nix.package}/bin/nix";
           };
         };
         git-http = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "git-http";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
+            data = "${lib.getBin pkgs.git}/libexec/git-core/git-remote-http";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin pkgs.git}/libexec/git-core/git-remote-http";
+          };
+        };
+        nix-cli-https = {
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
+          name = "nix-cli-https";
+          enabled = true;
+          action = "allow";
+          duration = "always";
+          operator = {
+            data = "";
+            sensitive = false;
+            operand = "list";
+            type = "list";
+            list = [
+              {
+                operand = "dest.host";
+                data = "cache.home.corp";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "dest.port";
+                data = "443";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "user.id";
+                data = "0";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+            ];
+          };
+        };
+        nix-cli-dns = {
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
+          name = "nix-cli-dns";
+          enabled = true;
+          action = "allow";
+          duration = "always";
+          operator = {
+            data = "";
+            sensitive = false;
+            operand = "list";
+            type = "list";
+            list = [
+              {
+                operand = "dest.ip";
+                data = "127.0.0.53";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "dest.port";
+                data = "53";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "user.id";
+                data = "0";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+            ];
           };
         };
         ########################
         ## ALLOW DESKTOP APPS ##
         ########################
-        librewolf = {
-          created = "2026-05-14T00:00:00+00:00";
-          name = "librewolf";
+        librewolf-https = {
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
+          name = "librewolf-https";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
-            type = "simple";
+            data = "";
             sensitive = false;
-            operand = "process.path";
-            data = "${lib.getBin config.home-manager.users.me.programs.librewolf.finalPackage}/lib/librewolf/librewolf";
+            operand = "list";
+            type = "list";
+            list = [
+              {
+                operand = "process.path";
+                data = "${lib.getBin config.home-manager.users.me.programs.librewolf.finalPackage}/lib/librewolf/librewolf";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "dest.port";
+                data = "443";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "user.id";
+                data = "${toString infra.admin.uid}";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+            ];
+          };
+        };
+        librewolf-dns = {
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
+          name = "librewolf-dns";
+          enabled = true;
+          action = "allow";
+          duration = "always";
+          operator = {
+            data = "";
+            sensitive = false;
+            operand = "list";
+            type = "list";
+            list = [
+              {
+                operand = "process.path";
+                data = "${lib.getBin config.home-manager.users.me.programs.librewolf.finalPackage}/lib/librewolf/librewolf";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "dest.ip";
+                data = "127.0.0.53";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "dest.port";
+                data = "53";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "user.id";
+                data = "${toString infra.admin.uid}";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+            ];
           };
         };
         thunderbird = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "thunderbird";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
+            data = "${lib.getBin config.home-manager.users.me.programs.thunderbird.finalPackage}/lib/thunderbird/thunderbird";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin config.home-manager.users.me.programs.thunderbird.finalPackage}/lib/thunderbird/thunderbird";
           };
         };
         electron = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "electron";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
+            data = "${lib.getBin pkgs.electron}/libexec/electron/electron";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin pkgs.electron}/libexec/electron/electron";
           };
         };
         ##########################
         ## ALLOW DEV/ADMIN BASE ##
         ##########################
         curl = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "curl";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
+            data = "${lib.getBin pkgs.curl}/bin/curl";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin pkgs.curl}/bin/curl";
           };
         };
         openssh = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "openssh";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
+            data = "${lib.getBin pkgs.openssh}/bin/ssh";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin pkgs.openssh}/bin/ssh";
           };
         };
         #############################
         ## ALLOW DEV/ADMIN DESKTOP ##
         #############################
         remmina = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "remmina";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
+            data = "${lib.getBin pkgs.remmina}/bin/.remmina-wrapped";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin pkgs.remmina}/bin/.remmina-wrapped";
           };
         };
         ############################
         ## ALLOW DEV LOCAL SERVER ##
         ############################
         authelia = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "authelia";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
+            data = "${lib.getBin pkgs.authelia}/bin/authelia";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin pkgs.authelia}/bin/authelia";
           };
         };
         bind = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "bind";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
+            data = "${lib.getBin pkgs.bind}/bin/named";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin pkgs.bind}/bin/named";
           };
         };
         caddy = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "caddy";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
+            data = "${lib.getBin pkgs.caddy}/bin/caddy";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin pkgs.caddy}/bin/caddy";
           };
         };
         ncps = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "ncsp";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
+            data = "${lib.getBin pkgs.ncps}/bin/.ncps-wrapped";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin pkgs.ncps}/bin/.ncps-wrapped";
           };
         };
         maddy = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "maddy";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
+            data = "${lib.getBin pkgs.maddy}/bin/maddy";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin pkgs.maddy}/bin/maddy";
           };
         };
         ollama = {
-          created = "2026-05-14T00:00:00+00:00";
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
           name = "ollam";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
+            data = "${lib.getBin pkgs.ollama}/bin/ollama";
+            list = null;
             type = "simple";
             sensitive = false;
             operand = "process.path";
-            data = "${lib.getBin pkgs.ollama}/bin/ollama";
           };
         };
-        # searX, replace asap!
-        python3 = {
-          created = "2026-05-14T00:00:00+00:00";
-          name = "python3";
+        searX-https = {
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
+          name = "searX-https";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
-            type = "simple";
+            data = "";
             sensitive = false;
-            operand = "process.path";
-            data = "${lib.getBin pkgs.python3}/bin/python3";
+            operand = "list";
+            type = "list";
+            list = [
+              {
+                operand = "dest.port";
+                data = "443";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "user.id";
+                data = "${toString infra.search.uid}";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "process.path";
+                data = "python3";
+                type = "regexp";
+                list = null;
+                sensitive = false;
+              }
+            ];
+          };
+        };
+        searX-dns = {
+          created = ts.create;
+          updated = ts.create;
+          precedence = false;
+          nolog = false;
+          name = "searX-dns";
+          enabled = true;
+          action = "allow";
+          duration = "always";
+          operator = {
+            data = "";
+            sensitive = false;
+            operand = "list";
+            type = "list";
+            list = [
+              {
+                operand = "dest.port";
+                data = "53";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "dest.ip";
+                data = "127.0.0.53";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "user.id";
+                data = "${toString infra.search.uid}";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "process.path";
+                data = "python3";
+                type = "regexp";
+                list = null;
+                sensitive = false;
+              }
+            ];
           };
         };
       };
