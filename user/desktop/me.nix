@@ -14,6 +14,9 @@ in {
   #-=# IMPORTS #=-#
   #################
   imports = [
+    ./me-element.nix
+    ./me-librewolf.nix
+    ./me-thunderbird.nix
     ../me.nix
     ../../client/addHomeFix.nix
   ];
@@ -89,12 +92,9 @@ in {
             "kitty.desktop"
             "dss.desktop"
             "firefox.desktop"
-            "librewolf.desktop"
             "org.keepassxc.KeePassXC.desktop"
             "org.gnome.Nautilus.desktop"
             "bitwarden.desktop"
-            "element-desktop.desktop"
-            "thunderbird.desktop"
             "onlyoffice-desktopeditors.desktop"
             "com.yubico.yubioath.desktop"
             "org.remmina.Remmina.desktop"
@@ -179,26 +179,6 @@ in {
           titlebar = "Start";
         };
       };
-      thunderbird = {
-        enable = true;
-        package = pkgs.thunderbird;
-        settings = infra.thunderbird.settings;
-        profiles.default = {
-          isDefault = true;
-          settings = infra.thunderbird.settings;
-        };
-      };
-      librewolf = {
-        enable = true;
-        languagePacks = ["de"];
-        settings = infra.firefox.settings;
-        package = pkgs.librewolf;
-        policies = lib.recursiveUpdate infra.firefox.policy bookmarks;
-        profiles.default = {
-          isDefault = true;
-          settings = infra.firefox.settings;
-        };
-      };
       ghostty = {
         enable = false;
         installBatSyntax = true;
@@ -276,6 +256,101 @@ in {
       nextcloud-client = {
         enable = false;
         startInBackground = false;
+      };
+    };
+  };
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+  services = {
+    opensnitch = {
+      rules = {
+        librewolf-dns = {
+          created = infra.wg.ts.create;
+          updated = infra.wg.ts.create;
+          precedence = false;
+          nolog = false;
+          name = "librewolf-dns";
+          enabled = true;
+          action = "allow";
+          duration = "always";
+          operator = {
+            data = "";
+            sensitive = false;
+            operand = "list";
+            type = "list";
+            list = [
+              {
+                operand = "process.path";
+                data = "${lib.getBin config.home-manager.users.me.programs.librewolf.finalPackage}/lib/librewolf/librewolf";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "dest.ip";
+                data = "127.0.0.53";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "dest.port";
+                data = "53";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "user.id";
+                data = "${toString infra.me.uid}";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+            ];
+          };
+        };
+        librewolf-https = {
+          created = infra.wg.ts.create;
+          updated = infra.wg.ts.create;
+          precedence = false;
+          nolog = false;
+          name = "librewolf-https";
+          enabled = true;
+          action = "allow";
+          duration = "always";
+          operator = {
+            data = "";
+            sensitive = false;
+            operand = "list";
+            type = "list";
+            list = [
+              {
+                operand = "process.path";
+                data = "${lib.getBin config.home-manager.users.me.programs.librewolf.finalPackage}/lib/librewolf/librewolf";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "dest.port";
+                data = "443";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "user.id";
+                data = "${toString infra.me.uid}";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+            ];
+          };
+        };
       };
     };
   };

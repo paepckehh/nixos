@@ -65,14 +65,14 @@
           home-manager.nixosModules.home-manager
           # ./storage/stateless-luks-sequence.nix
           ./storage/stateless-luks-fixed-6F6B-6565.nix
+          ./hardware/all.nix
+          ./role/dev.nix
           ./role/server.nix
           ./hosts/srv.nix
-          ./hardware/all.nix
           ./openwrt/alias.nix
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix
           ./packages/devops.nix
-          ./packages/opensnitch.nix
           ./packages/desktop/gnome.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix

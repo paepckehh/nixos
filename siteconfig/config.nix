@@ -38,9 +38,13 @@ let
       intern = infra.domain.user;
       extern = infra.site.domain.extern;
     };
-    admin = {
+    me = {
       uid = 60100;
       name = "me";
+      displayname = "admin account me";
+    };
+    admin = {
+      name = "admin";
       displayname = "admin";
       email = "it@${infra.email.domain.intern}";
       smtp = {
@@ -63,6 +67,7 @@ let
       cache = "${infra.storage.persist}/cache";
       state = "/var/lib";
     };
+    wg.ts.create = "2026-05-14T00:00:00+00:00";
     sources = {
       prefix = infra.sources.mirror;
       github = "github:";

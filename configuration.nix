@@ -67,7 +67,7 @@ in {
       install usb_f_rndis ${pkgs.coreutils}/bin/false
       install x25 ${pkgs.coreutils}/bin/false
     '';
-    nixStoreMountOpts = lib.mkForce ["ro"];
+    nixStoreMountOpts = lib.mkForce ["ro" "nodev" "nosuid"];
     runSize = "85%";
     loader = {
       efi.canTouchEfiVariables = true;
@@ -113,7 +113,6 @@ in {
       "usb_storage"
       "overlay"
       "nls_utf8"
-      "wireguard"
     ];
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     kernelParams = [
@@ -142,12 +141,6 @@ in {
     };
     kernel.sysctl = lib.mkDefault {
       "abi.vsyscall32" = 0;
-      "kernel.ftrace_enabled" = 0;
-      "kernel.kptr_restrict" = 2;
-      "kernel.perf_event_paranoid" = "3";
-      "kernel.perf_cpu_time_max_percent" = "1";
-      "kernel.perf_event_max_sample_rate" = "1";
-      "kernel.unprivileged_bpf_disabled" = "1";
       "net.core.bpf_jit_enable" = 0;
       "net.core.rmem_max" = lib.mkForce 7500000;
       "net.core.wmem_max" = lib.mkForce 7500000;
@@ -171,6 +164,15 @@ in {
       "net.ipv6.conf.all.accept_redirects" = 0;
       "net.ipv6.conf.default.disable_ipv6" = 1;
       "net.ipv6.conf.default.accept_redirects" = 0;
+      "kernel.ftrace_enabled" = 0;
+      "kernel.kptr_restrict" = 2;
+      "kernel.perf_event_paranoid" = "3";
+      "kernel.perf_cpu_time_max_percent" = "1";
+      "kernel.perf_event_max_sample_rate" = "1";
+      "kernel.unprivileged_bpf_disabled" = "1";
+      "kernel.user_ptrace" = 0;
+      "kernel.user_ptrace_self" = 0;
+      "kernel.yama.ptrace_scope" = 3;
       "vm.dirty_writeback_interval" = 1000;
       "vm.unprivileged_userfaultfd" = 0;
       "vm.overcommit_memory" = 1;
@@ -227,14 +229,11 @@ in {
   nix = {
     enable = true;
     daemonCPUSchedPolicy = "idle";
-    extraOptions = ''
-      builders-use-substitutes = false
-      experimental-features = nix-command flakes
-    '';
     settings = {
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
       build-dir = "/run/build";
+      experimental-features = ["blake3-hashes" "local-overlay-store" "nix-command" "flakes" "verified-fetches"];
       http2 = lib.mkForce false;
       http-connections = lib.mkForce 10; # default: 25
       sandbox = lib.mkForce true;
@@ -293,7 +292,7 @@ in {
   security = {
     auditd.enable = false;
     allowSimultaneousMultithreading = true;
-    lockKernelModules = true;
+    lockKernelModules = lib.mkForce true;
     protectKernelImage = lib.mkForce true;
     audit = {
       enable = lib.mkForce false;
@@ -389,7 +388,7 @@ in {
   #####################
   environment = {
     shells = [pkgs.bashInteractive];
-    systemPackages = with pkgs; [cryptsetup git libargon2 libsmbios util-linux lsof moreutils nix-output-monitor nvme-cli openssl rage pam_u2f smartmontools sbctl];
+    systemPackages = with pkgs; [cryptsetup git libargon2 libsmbios util-linux lsof moreutils nix-output-monitor nvme-cli openssl rage ragenix pam_u2f smartmontools sbctl];
   };
 
   ####################
@@ -471,7 +470,16 @@ in {
     power-profiles-daemon.enable = lib.mkForce false;
     logind.settings.Login.HandleHibernateKey = "ignore";
     libinput.enable = lib.mkForce true;
-    resolved.enable = lib.mkForce true;
+    resolved = {
+      enable = lib.mkForce true;
+      settings.Resolve = {
+        LLMNR = lib.mkForce false;
+        MulticastDNS = lib.mkForce false;
+        DNSSEC = lib.mkDefault false;
+        RefuseRecordTypes = lib.mkForce "AAAA";
+        ReadEtcHosts = lib.mkForce true;
+      };
+    };
     journald = {
       audit = false;
       storage = "volatile";

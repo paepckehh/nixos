@@ -13,13 +13,11 @@
       grepcidr
       netscanner
       ngrep
-      # sngrep # sip
       stress
       tcping-go
       termshark
       trippy
       tshark
-      wireguard-tools
     ];
   };
   ##################

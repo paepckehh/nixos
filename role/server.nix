@@ -18,6 +18,7 @@ in {
     ../client/addrootCA.nix
     ../client/addrootCA-ext.nix
     ../client/addCache.nix
+    ../client/addOpenSnitch-addSrv.nix
   ];
 
   ##############
@@ -111,9 +112,6 @@ in {
   ###########
   systemd = {
     services = {
-      systemd-networkd = {
-        environment.SYSTEMD_LOG_LEVEL = "info";
-      };
       caddy = {
         after = ["sockets.target"];
         wants = ["sockets.target"];

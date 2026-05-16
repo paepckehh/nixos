@@ -19,7 +19,7 @@ in {
   #################
   systemd.user.tmpfiles.rules = [
     "d ${infra.go.cache} 0770 root users"
-    "L /home/me/Mounts - - - - /var/run/user/${toString infra.admin.uid}/gvfs"
+    "L /home/me/Mounts - - - - /var/run/user/${toString infra.me.uid}/gvfs"
   ];
 
   ###############
@@ -32,8 +32,8 @@ in {
         # initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
         # initialHashedPassword = lib.mkForce config.age.secrets."me".path;
         initialHashedPassword = "$y$j9T$kfoRrF1T9PXCFCcDceKWJ1$XBjoA6ExLE5rWFPh3HEx2OkHKSpgg8Tf/50zeM5MJOB";
-        description = "me - admin";
-        uid = infra.admin.uid;
+        description = infra.me.displayname;
+        uid = infra.me.uid;
         group = "me";
         createHome = true;
         isNormalUser = true;
