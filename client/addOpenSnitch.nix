@@ -297,8 +297,8 @@ in {
           type = "list";
           list = [
             {
-              operand = "dest.host";
-              data = "cache.home.corp";
+              operand = "dest.ip";
+              data = "${infra.cache.ip}";
               type = "simple";
               list = null;
               sensitive = false;
@@ -315,6 +315,13 @@ in {
               data = "0";
               type = "simple";
               list = null;
+              sensitive = false;
+            }
+            {
+              operand = "process.path";
+              data = "/bin/nix";
+              list = null;
+              type = "regexp";
               sensitive = false;
             }
           ];
@@ -354,6 +361,13 @@ in {
               data = "0";
               type = "simple";
               list = null;
+              sensitive = false;
+            }
+            {
+              operand = "process.path";
+              data = "/bin/nix";
+              list = null;
+              type = "regexp";
               sensitive = false;
             }
           ];

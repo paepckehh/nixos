@@ -120,6 +120,45 @@ in {
             ];
           };
         };
+        librewolf-local = {
+          created = infra.wg.ts.create;
+          updated = infra.wg.ts.create;
+          precedence = false;
+          nolog = false;
+          name = "librewolf-local";
+          enabled = true;
+          action = "allow";
+          duration = "always";
+          operator = {
+            data = "";
+            sensitive = false;
+            operand = "list";
+            type = "list";
+            list = [
+              {
+                operand = "process.path";
+                data = "${lib.getBin config.home-manager.users.me.programs.librewolf.finalPackage}/lib/librewolf/librewolf";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "dest.host";
+                data = "localhost";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "user.id";
+                data = "${toString infra.me.uid}";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+            ];
+          };
+        };
       };
     };
   };

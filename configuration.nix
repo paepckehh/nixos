@@ -84,7 +84,13 @@ in {
         emergencyAccess = lib.mkForce false;
       };
       luks.mitigateDMAAttacks = lib.mkForce true;
-      supportedFilesystems = ["ext4" "tmpfs" "vfat" "ntfs" "overlay"];
+      supportedFilesystems = [
+        "ext4"
+        "tmpfs"
+        "vfat"
+        "ntfs"
+        "overlay"
+      ];
       availableKernelModules = [
         "aesni_intel"
         "ahci"
@@ -182,7 +188,10 @@ in {
   ###############
   #-= SYSTEM #=-#
   ###############
-  system.stateVersion = "26.05"; # dummy target, do not modify
+  system = {
+    stateVersion = "26.05"; # dummy target
+    includeBuildDependencies = lib.mkForce false;
+  };
 
   #############
   #-= TIME #=-#
@@ -229,6 +238,8 @@ in {
   nix = {
     enable = true;
     daemonCPUSchedPolicy = "idle";
+    gc.automatic = lib.mkDefault false;
+    optimise.automatic = lib.mkDefault false;
     settings = {
       auto-optimise-store = true;
       allowed-users = lib.mkForce ["@wheel"];
@@ -259,8 +270,6 @@ in {
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
     };
-    gc.automatic = lib.mkDefault false;
-    optimise.automatic = lib.mkDefault false;
   };
 
   #######################
@@ -417,7 +426,7 @@ in {
       checkReversePath = lib.mkDefault true;
       allowedTCPPorts = (
         if (config.services.openssh.enable == true)
-        then [infra.port.ssh]
+        then [infra.port.ssh-mgmt]
         else []
       );
     };
