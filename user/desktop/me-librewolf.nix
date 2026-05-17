@@ -143,8 +143,8 @@ in {
                 sensitive = false;
               }
               {
-                operand = "dest.host";
-                data = "localhost";
+                operand = "dest.ip";
+                data = "127.0.0.1";
                 type = "simple";
                 list = null;
                 sensitive = false;

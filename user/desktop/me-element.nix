@@ -46,21 +46,50 @@ in {
   services = {
     opensnitch = {
       rules = {
-        electron = {
+        element = {
           created = infra.wg.ts.create;
           updated = infra.wg.ts.create;
           precedence = false;
           nolog = false;
-          name = "electron";
+          name = "element";
           enabled = true;
           action = "allow";
           duration = "always";
           operator = {
-            data = "${lib.getBin pkgs.electron}/libexec/electron/electron";
-            list = null;
-            type = "simple";
+            data = "";
             sensitive = false;
-            operand = "process.path";
+            operand = "list";
+            type = "list";
+            list = [
+              {
+                operand = "dest.ip";
+                data = infra.matrix.ip;
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "dest.port";
+                data = "443";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "user.id";
+                data = "${toString infra.me.uid}";
+                type = "simple";
+                list = null;
+                sensitive = false;
+              }
+              {
+                operand = "process.path";
+                data = "electron";
+                list = null;
+                type = "regexp";
+                sensitive = false;
+              }
+            ];
           };
         };
       };

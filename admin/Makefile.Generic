@@ -123,7 +123,6 @@ ssh.borg15:
 wg-start: wg-start-admin wg-start-office
 wg-stop:  wg-stop-admin wg-stop-office
 wg-status:
-	sudo -v || exit 1 
 	sudo wg show
 wg-start-admin:
 	CHECK=ADMIN make -s intern-start-check-routing
@@ -167,12 +166,10 @@ intern-borgssh:
 intern-borgweb:
 	PORT_SSH=$(PORT_OPN_SSH) LPORT=$(PREFIX_BORG)$(TID) RPORT=$(OPN_WEB) ADMIN_ID=$(ADMIN_OPN_USER) make -s intern-wormhole 
 intern-log: 
-	make -s intern-hardening
 	CHECK=ADMIN make -s intern-start-check-routing
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start LogSTREAM! \033[0m    <==========" && echo && echo && echo
 	ssh -p $(PORT_SSH) $(ADMIN_ID)@$(ADMIN_NET).$(LOG_TID) $(LOGCMD)
 intern-ssh: 
-	make -s intern-hardening
 	CHECK=ADMIN make -s intern-start-check-routing
 	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
 		echo -n .
@@ -181,7 +178,6 @@ intern-ssh:
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start SSH Session! \033[0m    <==========" && echo && echo && echo
 	ssh -p $(PORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID)
 intern-wormhole: 
-	make -s intern-hardening
 	CHECK=ADMIN make -s intern-start-check-routing
 	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
 		echo -n .
@@ -237,13 +233,13 @@ intern-stop-routing: info
 	rm -rf $(WGDIR)/$(CHECK).conf > /dev/null 2>&1 || true
 	echo "WireGUARD Route $(CHECK) stopped via $(WGDIR)/$(CHECK).conf" && echo && echo
 intern-start-check-routing: info
-	make -s intern-hardening
 	ssh-add $(ADMIN_SSH_SMARTCARD)
 	if [ $($(CHECK)_ROUTE_EXISTS) == "yes" ] ; then
 		@echo "$(CHECK) Network Route exists ..."
 		exit 0 
 	fi
 	@echo && echo -e "==========>    \033[48;5;57m $(CHECK) Route does not exist, activate WireGUARD Tunnnel via $(WGDIR)/$(CHECK).conf \033[0m    <==========" && echo 
+	make -s intern-hardening
 	if [ -e $(WGDIR)/$(CHECK).conf ]; then 
 		wg-quick down $(WGDIR)/$(CHECK).conf > /dev/null 2>&1 
 	fi
