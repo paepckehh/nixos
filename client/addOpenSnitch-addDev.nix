@@ -21,6 +21,34 @@ in {
   ##################
   services.opensnitch.rules = {
     ##########################
+    ## DENY DEV/ADMIN BASE ##
+    ##########################
+    deny-remmina = {
+      created = infra.wg.ts.create;
+      updated = infra.wg.ts.create;
+      precedence = false;
+      nolog = false;
+      name = "remmina";
+      enabled = true;
+      action = "deny";
+      duration = "always";
+      operator = {
+        data = "";
+        sensitive = false;
+        operand = "list";
+        type = "list";
+        list = [
+          {
+            operand = "process.path";
+            data = "remmina";
+            type = "regex";
+            list = null;
+            sensitive = false;
+          }
+        ];
+      };
+    };
+    ##########################
     ## ALLOW DEV/ADMIN BASE ##
     ##########################
     curl = {
@@ -57,19 +85,82 @@ in {
         operand = "process.path";
       };
     };
-    remmina = {
+    remmina-rdp = {
       created = infra.wg.ts.create;
       updated = infra.wg.ts.create;
       precedence = false;
       nolog = false;
-      name = "remmina";
+      name = "remmina-rdp";
       enabled = true;
       action = "allow";
       duration = "always";
       operator = {
-        data = "${lib.getBin pkgs.remmina}/bin/.remmina-wrapped";
-        list = null;
-        type = "simple";
+        data = "";
+        sensitive = false;
+        operand = "list";
+        type = "list";
+        list = [
+          {
+            operand = "process.path";
+            data = "remmina";
+            type = "regex";
+            list = null;
+            sensitive = false;
+          }
+          {
+            operand = "dest.port";
+            data = "${toString infra.port.rdp}";
+            type = "simple";
+            list = null;
+            sensitive = false;
+          }
+          {
+            operand = "user.id";
+            data = "${toString infra.me.uid}";
+            type = "simple";
+            list = null;
+            sensitive = false;
+          }
+        ];
+      };
+    };
+    remmina-vnc = {
+      created = infra.wg.ts.create;
+      updated = infra.wg.ts.create;
+      precedence = false;
+      nolog = false;
+      name = "remmina-vnc";
+      enabled = true;
+      action = "allow";
+      duration = "always";
+      operator = {
+        data = "";
+        sensitive = false;
+        operand = "list";
+        type = "list";
+        list = [
+          {
+            operand = "process.path";
+            data = "remmina";
+            type = "regex";
+            list = null;
+            sensitive = false;
+          }
+          {
+            operand = "dest.port";
+            data = "${toString infra.port.vnc}";
+            type = "simple";
+            list = null;
+            sensitive = false;
+          }
+          {
+            operand = "user.id";
+            data = "${toString infra.me.uid}";
+            type = "simple";
+            list = null;
+            sensitive = false;
+          }
+        ];
       };
     };
   };

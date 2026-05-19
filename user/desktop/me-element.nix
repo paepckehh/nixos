@@ -70,7 +70,7 @@ in {
               }
               {
                 operand = "dest.port";
-                data = "443";
+                data = "${toString infra.port.https}";
                 type = "simple";
                 list = null;
                 sensitive = false;
@@ -85,8 +85,8 @@ in {
               {
                 operand = "process.path";
                 data = "electron";
-                list = null;
                 type = "regexp";
+                list = null;
                 sensitive = false;
               }
             ];

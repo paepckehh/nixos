@@ -146,8 +146,11 @@ in {
       useZram = lib.mkForce false;
     };
     kernel.sysctl = lib.mkDefault {
+      # "net.core.bpf_jit_enable" = 0;
+      # "kernel.user_ptrace" = 0;
+      # "kernel.user_ptrace_self" = 0;
+      # "kernel.yama.ptrace_scope" = 3;
       "abi.vsyscall32" = 0;
-      "net.core.bpf_jit_enable" = 0;
       "net.core.rmem_max" = lib.mkForce 7500000;
       "net.core.wmem_max" = lib.mkForce 7500000;
       "net.ipv4.conf.all.accept_redirects" = 0;
@@ -176,9 +179,6 @@ in {
       "kernel.perf_cpu_time_max_percent" = "1";
       "kernel.perf_event_max_sample_rate" = "1";
       "kernel.unprivileged_bpf_disabled" = "1";
-      "kernel.user_ptrace" = 0;
-      "kernel.user_ptrace_self" = 0;
-      "kernel.yama.ptrace_scope" = 3;
       "vm.dirty_writeback_interval" = 1000;
       "vm.unprivileged_userfaultfd" = 0;
       "vm.overcommit_memory" = 1;
@@ -406,6 +406,7 @@ in {
   networking = {
     enableIPv6 = false;
     useNetworkd = true;
+    useHostResolvConf = lib.mkForce false;
     networkmanager = {
       enable = true;
       logLevel = "INFO";
@@ -417,7 +418,10 @@ in {
         powersave = true;
       };
     };
-    nameservers = lib.mkDefault ["127.0.0.53"]; # resolved
+    wireless = {
+      fallbackToWPA2 = false;
+      scanOnLowSignal = true;
+    };
     timeServers = lib.mkDefault ["0.europe.pool.ntp.org" "1.europe.pool.ntp.org" "2.europe.pool.ntp.org" "3.europe.pool.ntp.org"];
     nftables.enable = true;
     firewall = {
@@ -480,13 +484,14 @@ in {
     logind.settings.Login.HandleHibernateKey = "ignore";
     libinput.enable = lib.mkForce true;
     resolved = {
-      enable = lib.mkForce true;
+      enable = true;
       settings.Resolve = {
-        LLMNR = lib.mkForce false;
-        MulticastDNS = lib.mkForce false;
-        DNSSEC = lib.mkDefault false;
-        RefuseRecordTypes = lib.mkForce "AAAA";
-        ReadEtcHosts = lib.mkForce true;
+        DNSSEC = false;
+        LLMNR = false;
+        MulticastDNS = false;
+        Cache = "no-negative";
+        RefuseRecordTypes = "AAAA";
+        StaleRetentionSec = 600;
       };
     };
     journald = {

@@ -20,6 +20,7 @@ in {
     ../client/addCache.nix
     ../client/addWireguard.nix
     ../client/addOpenSnitch-addDev.nix
+    ../client/db.nix
     ../packages/devops.nix
   ];
 

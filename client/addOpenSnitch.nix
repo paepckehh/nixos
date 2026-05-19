@@ -49,7 +49,7 @@ in {
       ###################
       ## EXPLICIT DENY ##
       ###################
-      gvfs-http = {
+      deny-gvfs-http = {
         created = infra.wg.ts.create;
         updated = infra.wg.ts.create;
         precedence = false;
@@ -66,7 +66,7 @@ in {
           operand = "process.path";
         };
       };
-      gnome = {
+      deny-gnome = {
         created = infra.wg.ts.create;
         updated = infra.wg.ts.create;
         precedence = false;
