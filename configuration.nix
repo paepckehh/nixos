@@ -208,8 +208,8 @@ in {
     enable = lib.mkForce true;
     earlySetup = lib.mkForce true;
     keyMap = infra.locale.keymap;
-    font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
-    packages = with pkgs; [powerline-fonts];
+    # font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
+    # packages = with pkgs; [powerline-fonts];
   };
 
   #############

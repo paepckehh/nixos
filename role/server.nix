@@ -50,7 +50,32 @@ in {
   ##############
   #-=# BOOT #=-#
   ##############
-  boot.enableContainers = true;
+  boot = {
+    enableContainers = true;
+    kernelModules = [
+      "aesni_intel"
+      "ccm"
+      "cmac"
+      "cifs"
+      "dm_crypt"
+      "dm_mod"
+      "uas"
+      "usbhid"
+      "usb_storage"
+      "overlay"
+      "nls_utf8"
+      "bridge"
+      "loop"
+      "tap"
+      "tun"
+      "macvlan"
+      "uas"
+      "usbhid"
+      "usb_storage"
+      "ntfs"
+      "vfat"
+    ];
+  };
 
   #####################
   #-=# ENVIRONMENT #=-#
