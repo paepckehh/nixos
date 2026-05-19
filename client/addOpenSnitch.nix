@@ -86,7 +86,7 @@ in {
       ###########################
       ## ALLOW NIX BASE SYSTEM ##
       ###########################
-      systemd-timesyncd = {
+      systemd-timesyncd-ntp = {
         created = infra.wg.ts.create;
         updated = infra.wg.ts.create;
         precedence = false;
@@ -110,7 +110,53 @@ in {
             }
             {
               operand = "dest.port";
-              data = "123";
+              data = "${toString infra.port.ntp}";
+              type = "simple";
+              list = null;
+              sensitive = false;
+            }
+            {
+              operand = "user.id";
+              data = "154";
+              type = "simple";
+              list = null;
+              sensitive = false;
+            }
+          ];
+        };
+      };
+      systemd-timesyncd-dns = {
+        created = infra.wg.ts.create;
+        updated = infra.wg.ts.create;
+        precedence = false;
+        nolog = false;
+        name = "systemd-timesyncd";
+        enabled = true;
+        action = "allow";
+        duration = "always";
+        operator = {
+          data = "";
+          sensitive = false;
+          operand = "list";
+          type = "list";
+          list = [
+            {
+              operand = "process.path";
+              data = "${lib.getBin pkgs.systemd}/lib/systemd/systemd-timesyncd";
+              list = null;
+              type = "simple";
+              sensitive = false;
+            }
+            {
+              operand = "dest.ip";
+              data = "${infra.dns.resolver.local}";
+              type = "simple";
+              list = null;
+              sensitive = false;
+            }
+            {
+              operand = "dest.port";
+              data = "${toString infra.port.dns}";
               type = "simple";
               list = null;
               sensitive = false;
@@ -149,7 +195,7 @@ in {
             }
             {
               operand = "dest.port";
-              data = "53";
+              data = "${toString infra.port.dns}";
               type = "simple";
               list = null;
               sensitive = false;
@@ -187,8 +233,15 @@ in {
               sensitive = false;
             }
             {
+              operand = "dest.ip";
+              data = "${infra.syslog.user.ip}";
+              type = "simple";
+              list = null;
+              sensitive = false;
+            }
+            {
               operand = "dest.port";
-              data = "514";
+              data = "${toString infra.port.syslog}";
               type = "simple";
               list = null;
               sensitive = false;
@@ -227,14 +280,14 @@ in {
             }
             {
               operand = "dest.ip";
-              data = "127.0.0.53";
+              data = infra.dns.resolver.local;
               type = "simple";
               list = null;
               sensitive = false;
             }
             {
               operand = "dest.port";
-              data = "53";
+              data = "${toString infra.port.dns}";
               type = "simple";
               list = null;
               sensitive = false;
@@ -273,7 +326,7 @@ in {
             }
             {
               operand = "dest.port";
-              data = "443";
+              data = "${toString infra.port.https}";
               type = "simple";
               list = null;
               sensitive = false;
@@ -305,7 +358,7 @@ in {
             }
             {
               operand = "dest.port";
-              data = "443";
+              data = "${toString infra.port.https}";
               type = "simple";
               list = null;
               sensitive = false;
@@ -344,14 +397,14 @@ in {
           list = [
             {
               operand = "dest.ip";
-              data = "127.0.0.53";
+              data = infra.dns.resolver.local;
               type = "simple";
               list = null;
               sensitive = false;
             }
             {
               operand = "dest.port";
-              data = "53";
+              data = "${toString infra.port.dns}";
               type = "simple";
               list = null;
               sensitive = false;

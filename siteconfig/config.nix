@@ -508,7 +508,7 @@ let
         "network.dns.echconfig.enabled" = true;
         "network.dns.http3.echconfig.enabled" = true;
         "network.dns.preferIPv6" = false;
-        "network.proxy.type" = 4;
+        "network.proxy.type" = 0;
         "network.trr.mode" = 0;
         "network.wifi.scanning_period" = 0;
         "privacy.clearOnShutdown.cookies" = false;
@@ -752,6 +752,7 @@ let
       id = 53;
       name = "dns";
       resolver = {
+        local = "127.0.0.${infra.dns.id}";
         admin = {
           primary = "${infra.net.admin}.${toString infra.dns.id}";
           secondary = "${infra.net.admin}.${toString infra.dns.id}";

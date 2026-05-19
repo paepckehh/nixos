@@ -10,6 +10,15 @@
   infra = (import ../../siteconfig/config.nix).infra;
   bookmarks.ManagedBookmarks = lib.importJSON ../../shared/bookmarks.json;
 in {
+  ##################
+  #-=# PROGRAMS #=-#
+  ##################
+  programs.firefox = {
+    enable = false;
+    package = pkgs.librewolf;
+    policies = infra.firefox.policy;
+  };
+
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
@@ -21,7 +30,6 @@ in {
       enable = true;
       languagePacks = ["de"];
       settings = infra.firefox.settings;
-      package = pkgs.librewolf;
       policies = lib.recursiveUpdate infra.firefox.policy bookmarks;
       profiles.default = {
         isDefault = true;
@@ -29,9 +37,9 @@ in {
       };
     };
   };
-  ##################
-  #-=# SERVICES #=-#
-  ##################
+  ###############################
+  #-=# HOME-MANAGER SERVICES #=-#
+  ###############################
   services = {
     opensnitch = {
       rules = {
@@ -59,14 +67,14 @@ in {
               }
               {
                 operand = "dest.ip";
-                data = "127.0.0.53";
+                data = infra.dns.resolver.local;;
                 type = "simple";
                 list = null;
                 sensitive = false;
               }
               {
                 operand = "dest.port";
-                data = "53";
+                data = "${toString infra.port.dns}";
                 type = "simple";
                 list = null;
                 sensitive = false;
@@ -105,7 +113,7 @@ in {
               }
               {
                 operand = "dest.port";
-                data = "443";
+                data = "${infra.port.https}";
                 type = "simple";
                 list = null;
                 sensitive = false;
@@ -144,7 +152,7 @@ in {
               }
               {
                 operand = "dest.ip";
-                data = "127.0.0.1";
+                data = infra.localhost.ip;
                 type = "simple";
                 list = null;
                 sensitive = false;
