@@ -67,7 +67,7 @@ in {
               }
               {
                 operand = "dest.ip";
-                data = infra.dns.resolver.local;;
+                data = infra.dns.resolver.local;
                 type = "simple";
                 list = null;
                 sensitive = false;
@@ -113,7 +113,7 @@ in {
               }
               {
                 operand = "dest.port";
-                data = "${infra.port.https}";
+                data = "${toString infra.port.https}";
                 type = "simple";
                 list = null;
                 sensitive = false;

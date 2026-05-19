@@ -168,6 +168,7 @@ let
       cockpit = 6443;
       https = 443;
       smtp = 25;
+      ntp = 123;
       ssh = 6622;
       ssh-mgmt = 6623;
       http = 80;
@@ -752,7 +753,7 @@ let
       id = 53;
       name = "dns";
       resolver = {
-        local = "127.0.0.${infra.dns.id}";
+        local = "127.0.0.${toString infra.port.dns}";
         admin = {
           primary = "${infra.net.admin}.${toString infra.dns.id}";
           secondary = "${infra.net.admin}.${toString infra.dns.id}";
