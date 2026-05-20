@@ -151,6 +151,18 @@ in {
     network = {
       enable = true;
       netdevs = {
+        "br0" = {
+          netdevConfig = {
+            Kind = "bridge";
+            Name = "br0";
+          };
+        };
+        "dummy0" = {
+          netdevConfig = {
+            Kind = "dummy";
+            Name = "dummy0";
+          };
+        };
         "admin-vlan" = {
           vlanConfig.Id = infra.vlan.admin;
           netdevConfig = {
@@ -163,12 +175,6 @@ in {
           netdevConfig = {
             Kind = "vlan";
             Name = "user-vlan";
-          };
-        };
-        "80-br0" = {
-          netdevConfig = {
-            Kind = "bridge";
-            Name = infra.container.bridge.netdev;
           };
         };
       };
@@ -191,8 +197,33 @@ in {
             LinkLocalAddressing = "no";
           };
         };
+        "${infra.namespace.bridge}" = {
+          enable = true;
+          bridgeConfig = {};
+          vlan = ["admin-vlan" "user-vlan"];
+          matchConfig.Name = "br0";
+          linkConfig.ActivationPolicy = "always-up";
+          addresses = [{Address = "${infra.net.bridge}.1/${toString infra.cidr.netmask}";}];
+          networkConfig = {
+            ConfigureWithoutCarrier = true;
+            IPv6AcceptRA = "no";
+            LinkLocalAddressing = "no";
+          };
+        };
+        "${infra.namespace.bridge}-dummy0" = {
+          enable = true;
+          matchConfig.Name = "dummy0";
+          linkConfig.ActivationPolicy = "always-up";
+          addresses = [{Address = "${infra.net.bridge}.2/32";}];
+          networkConfig = {
+            Bridge = "br0";
+            ConfigureWithoutCarrier = true;
+            IPv6AcceptRA = "no";
+            LinkLocalAddressing = "no";
+          };
+        };
         "${infra.namespace.admin}" = {
-          enable = lib.mkDefault false;
+          enable = true;
           domains = [infra.domain.admin];
           matchConfig.Name = "admin-vlan";
           linkConfig.ActivationPolicy = "always-up";
@@ -203,20 +234,10 @@ in {
           };
         };
         "${infra.namespace.user}" = {
-          enable = lib.mkDefault false;
+          enable = true;
           domains = [infra.domain.user];
           matchConfig.Name = "user-vlan";
           linkConfig.ActivationPolicy = "always-up";
-          networkConfig = {
-            ConfigureWithoutCarrier = true;
-            IPv6AcceptRA = "no";
-            LinkLocalAddressing = "no";
-          };
-        };
-        "${infra.namespace.container}" = {
-          enable = lib.mkDefault false;
-          matchConfig.Name = infra.container.bridge.netdev;
-          address = ["${infra.container.bridge.ip}/${toString infra.cidr.netmask}"];
           networkConfig = {
             ConfigureWithoutCarrier = true;
             IPv6AcceptRA = "no";

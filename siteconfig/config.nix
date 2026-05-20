@@ -193,6 +193,10 @@ let
       name = "caldav";
       fqdn = "${infra.caldav.name}.${infra.domain.user}";
     };
+    container.bridge = {
+      ip = "${infra.net.container}.1";
+      netdev = "br0";
+    };
     opn = {
       standby = ["01"];
       infra = ["02" "03"];

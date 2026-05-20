@@ -52,8 +52,17 @@ in {
   ###########
   systemd = {
     network.networks = {
-      "${infra.namespace.admin}".addresses = [{Address = "${infra.srv.admin.ip}/${toString infra.cidr.netmask}";}];
-      "${infra.namespace.user}".addresses = [{Address = "${infra.srv.user.ip}/${toString infra.cidr.netmask}";}];
+      "${infra.namespace.admin}" = {
+        enable = lib.mkForce true;
+        addresses = [{Address = "${infra.srv.admin.ip}/${toString infra.cidr.netmask}";}];
+      };
+      "${infra.namespace.user}" = {
+        enable = lib.mkForce true;
+        addresses = [{Address = "${infra.srv.user.ip}/${toString infra.cidr.netmask}";}];
+      };
+      "${infra.namespace.container}" = {
+        enable = lib.mkForce true;
+      };
     };
   };
 }
