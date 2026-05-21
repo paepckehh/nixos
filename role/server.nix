@@ -28,7 +28,6 @@ in {
     enableContainers = true;
     kernelModules = infra.kernel.whitelist.server;
     kernelParams = infra.kernel.params.server;
-    kernel.sysctl = infra.kernel.sysctl.base;
   };
 
   ##############

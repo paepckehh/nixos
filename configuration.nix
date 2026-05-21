@@ -35,10 +35,10 @@ in {
         emergencyAccess = lib.mkForce false;
       };
     };
-    kernelModules = infra.kernel.whitelist.base;
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+    kernelModules = infra.kernel.whitelist.base;
     kernelParams = infra.kernel.params.base;
-    kernel.sysctl = infra.kernel.sysctl;
+    kernel.sysctl = lib.mkDefault infra.kernel.sysctl.base;
     tmp = {
       cleanOnBoot = true;
       tmpfsHugeMemoryPages = "within_size";

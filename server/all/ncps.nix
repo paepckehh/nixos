@@ -56,6 +56,7 @@ in {
       cache = {
         allowPutVerb = lib.mkForce false;
         allowDeleteVerb = lib.mkForce false;
+        cdc.enabled = true;
         hostName = infra.cache.hostname;
         lru.schedule = "10 10 * * *"; # cleanup cache daily 10:10
         maxSize = infra.cache.size;

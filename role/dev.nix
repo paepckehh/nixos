@@ -29,7 +29,6 @@ in {
   boot = {
     kernelModules = infra.kernel.whitelist.client;
     kernelParams = infra.kernel.params.client;
-    kernel.sysctl = infra.kernel.sysctl.base;
   };
 
   ##############
