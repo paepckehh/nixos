@@ -930,7 +930,7 @@ let
       storage = "${infra.storage.cache}/${infra.cache.app}";
       key = {
         url = "${infra.cache.url}/pubkey";
-        pub = "cache:aFde6/c1Vz93N1XGGrvt/7NlUNdAyV35CgBUXKzyhyU=";
+        pub = "cache:uAOykGHMvJ3Nw99phwQRDn3Ri0y2T73FTE8CNtN+ggA=";
       };
     };
     it = {

@@ -85,27 +85,22 @@
           ./server/pki/small-step.nix
           ./server/portal/homer-home-container.nix
           ./server/webapp/res.nix
-          # ./server/mail/maddy-admin.nix
-          # ./server/ai/ollama01.nix
-          # ./server/mail/autoconfig-admin.nix
-          # ./server/bookmarks/readeck.nix
-          # ./server/win/winstart.nix
-          # ./server/win/winupdate.nix
-          # ./server/db/undb.nix
-          # ./server/cloud/cloud.nix
-          # ./server/cloud/nextcloud.nix
-          # ./server/secret/vaultwarden.nix
-          # ./server/message/tuwunel.nix
-          # ./server/message/element-web.nix
-          # ./server/monitoring/prometheus.nix
-          # ./server/translate/libretranslate-container.nix
-          # ./server/share/smbgate.nix
-          # ./server/mail/bichon.nix
-          # ./server/cloud/nextcloud-container-authelia.nix
-          # ./server/todo/vikunja-authelia.nix
-          # ./server/pki/vaultls-docker-authelia.nix
-          # ./server/office/onlyoffice-container.nix
-          # ./server/lora/meshtastic-web.nix
+          ./server/mail/maddy-admin.nix
+          ./server/ai/ollama01.nix
+          ./server/mail/autoconfig-admin.nix
+          ./server/bookmarks/readeck.nix
+          ./server/win/winstart.nix
+          ./server/win/winupdate.nix
+          ./server/db/undb.nix
+          ./server/cloud/cloud.nix
+          ./server/cloud/nextcloud.nix
+          ./server/secret/vaultwarden.nix
+          ./server/message/tuwunel.nix
+          ./server/message/element-web.nix
+          ./server/monitoring/prometheus.nix
+          ./server/share/smbgate.nix
+          ./server/mail/bichon.nix
+          ./server/lora/meshtastic-web.nix
         ];
       };
       srv2 = nixpkgs.lib.nixosSystem {
