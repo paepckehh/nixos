@@ -22,6 +22,16 @@ in {
   ];
 
   ##############
+  #-=# BOOT #=-#
+  ##############
+  boot = {
+    enableContainers = true;
+    kernelModules = infra.kernel.whitelist.server;
+    kernelParams = infra.kernel.params.server;
+    kernel.sysctl = infra.kernel.sysctl.base;
+  };
+
+  ##############
   # NETWORKING #
   ##############
   networking = {
@@ -47,36 +57,6 @@ in {
   #######
   age.identityPaths = ["/nix/persist/etc/ssh/ssh_host_ed25519_key"];
 
-  ##############
-  #-=# BOOT #=-#
-  ##############
-  boot = {
-    enableContainers = true;
-    kernelModules = [
-      "aesni_intel"
-      "ccm"
-      "cmac"
-      "cifs"
-      "dm_crypt"
-      "dm_mod"
-      "uas"
-      "usbhid"
-      "usb_storage"
-      "overlay"
-      "nls_utf8"
-      "bridge"
-      "loop"
-      "tap"
-      "tun"
-      "macvlan"
-      "uas"
-      "usbhid"
-      "usb_storage"
-      "ntfs"
-      "vfat"
-    ];
-  };
-
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
@@ -85,7 +65,7 @@ in {
   ##############
   #-=# USER #=-#
   ##############
-  users.users.me.extraGroups = ["podman" "docker" "libvirtd"];
+  users.users.me.extraGroups = ["docker" "libvirtd"];
 
   ##################
   #-=# SECURITY #=-#
@@ -217,6 +197,7 @@ in {
           enable = lib.mkDefault false;
           matchConfig.Name = infra.container.bridge.netdev;
           address = ["${infra.container.bridge.ip}/${toString infra.cidr.netmask}"];
+          vlan = ["admin-vlan" "user-vlan"];
           networkConfig = {
             ConfigureWithoutCarrier = true;
             IPv6AcceptRA = "no";

@@ -19,7 +19,7 @@ let
       };
       cloudName = {
         admin = "IT-ADMIN-HOMECLOUD";
-        user = "HOMECLOUD";
+        user = "HOMECLOUD PAEPCKE";
       };
     };
     locale = {
@@ -58,14 +58,101 @@ let
     };
     backup = {
       email = "backup@${infra.email.domain.intern}";
-      sshKeys = [
-        "ssh-ed25519@openssh.com [...]="
-      ];
+      sshKeys = ["ssh-ed25519@openssh.com [...]="];
     };
     storage = {
       persist = "/nix/persist";
       cache = "${infra.storage.persist}/cache";
       state = "/var/lib";
+    };
+    kernel = {
+      params = {
+        base = [
+          "efi=disable_early_pci_dma"
+          "iommu.passthrough=0"
+          "iommu=force"
+          "iommu.strict=1"
+          "kernel.dmesg_restrict=1"
+          "kernel.kexec_load_disabled=1"
+          "kernel.kptr_restrict=2"
+          "kernel.sysrq=0"
+          "kernel.unprivileged_bpf_disabled=1"
+          "net.core.bpf_jit_harden=2"
+          "random.trust_cpu=off"
+          "randomize_kstack_offset=on"
+          "page_alloc.shuffle=1"
+          "vdso32=0"
+          "vsyscall=none"
+        ];
+        client = infra.kernel.params.base ++ ["ipv6.disable=1"];
+        server = infra.kernel.params.base ++ [];
+      };
+      modBlacklist = ''
+        install algif_aead /bin/false"
+        install esp4 /bin/false
+        install esp6 /bin/false
+        install ipx /bin/false
+        install sctp /bin/false
+        install sctp_diag /bin/false
+        install rds /bin/false
+        install rds_rdma /bin/false
+        install rds_tcp /bin/false
+        install rxrpc /bin/false
+        install rndis_host /bin/false
+        install tipc /bin/false
+        install tipc_diag /bin/false
+        install usb_f_rndis /bin/false
+        install x25 /bin/false
+      '';
+      blacklist = ["affs" "af_alg" "algif_hash" "algif_skcipher" "algif_rng" "algif_aead" "bcm43xx" "brcm80211" "befs" "bfs" "esp4" "esp6" "freevxfs" "hpfs" "jfs" "joydev" "ipx" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "rxrpc" "sctp" "sctp_diag" "ssb" "tipc" "tipc_diag" "rndis_host" "rds" "rds_rdma" "rds_tcp" "usb_f_rndis" "x25"];
+      whitelist = {
+        base = ["aesni_intel" "ahci" "ccm" "cmac" "dm_crypt" "dm_mod" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
+        client = infra.kernel.whitelist.base ++ ["cifs" "ntfs" "uas" "usb_storage" "usbhid" "vfat" "wireguard"]; # fat32 exfat
+        server = infra.kernel.whitelist.base ++ ["bridge" "loop" "macvlan"];
+      };
+      sysctl = {
+        base = {
+          "abi.vsyscall32" = 0;
+          "net.core.rmem_max" = 7500000;
+          "net.core.wmem_max" = 7500000;
+          "net.ipv4.conf.all.accept_redirects" = 0;
+          "net.ipv4.conf.all.secure_redirects" = 0;
+          "net.ipv4.conf.all.rp_filter" = 1;
+          "net.ipv4.conf.all.accept_source_route" = 0;
+          "net.ipv4.conf.all.send_redirects" = 0;
+          "net.ipv4.conf.default.send_redirects" = 0;
+          "net.ipv4.conf.default.accept_redirects" = 0;
+          "net.ipv4.conf.default.secure_redirects" = 0;
+          "net.ipv4.conf.default.rp_filter" = 1;
+          "net.ipv4.icmp_echo_ignore_broadcasts" = 1;
+          "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
+          "net.ipv4.ip_forward" = 1;
+          "net.ipv4.tcp_fastopen" = 3;
+          "net.ipv4.tcp_rfc1337" = 1;
+          "net.ipv4.tcp_syncookies" = 1;
+          "net.ipv6.conf.all.disable_ipv6" = 1;
+          "net.ipv6.conf.all.accept_source_route" = 0;
+          "net.ipv6.conf.all.accept_redirects" = 0;
+          "net.ipv6.conf.default.disable_ipv6" = 1;
+          "net.ipv6.conf.default.accept_redirects" = 0;
+          "kernel.ftrace_enabled" = 0;
+          "kernel.kptr_restrict" = 2;
+          "kernel.perf_event_paranoid" = "3";
+          "kernel.perf_cpu_time_max_percent" = "1";
+          "kernel.perf_event_max_sample_rate" = "1";
+          "kernel.unprivileged_bpf_disabled" = "1";
+          "vm.dirty_writeback_interval" = 1000;
+          "vm.unprivileged_userfaultfd" = 0;
+          "vm.overcommit_memory" = 1;
+        };
+        server = {
+          "net.core.bpf_jit_enable" = 0;
+          "kernel.user_ptrace" = 0;
+          "kernel.user_ptrace_self" = 0;
+          "kernel.yama.ptrace_scope" = 3;
+        };
+        client = {};
+      };
     };
     wg.ts.create = "2026-05-14T00:00:00+00:00";
     sources = {

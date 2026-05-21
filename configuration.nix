@@ -13,60 +13,8 @@ in {
   #-=# BOOT #=-#
   ##############
   boot = {
-    blacklistedKernelModules = [
-      "affs"
-      "af_alg"
-      "algif_hash"
-      "algif_skcipher"
-      "algif_rng"
-      "algif_aead"
-      "bcm43xx"
-      "brcm80211"
-      "befs"
-      "bfs"
-      "esp4"
-      "esp6"
-      "freevxfs"
-      "hpfs"
-      "jfs"
-      "joydev"
-      "ipx"
-      "minix"
-      "nilfs2"
-      "omfs"
-      "qnx4"
-      "qnx6"
-      "k10temp"
-      "rxrpc"
-      "sctp"
-      "sctp_diag"
-      "ssb"
-      "tipc"
-      "tipc_diag"
-      "rndis_host"
-      "rds"
-      "rds_rdma"
-      "rds_tcp"
-      "usb_f_rndis"
-      "x25"
-    ];
-    extraModprobeConfig = ''
-      install algif_aead ${pkgs.coreutils}/bin/false"
-      install esp4 ${pkgs.coreutils}/bin/false
-      install esp6 ${pkgs.coreutils}/bin/false
-      install ipx ${pkgs.coreutils}/bin/false
-      install sctp ${pkgs.coreutils}/bin/false
-      install sctp_diag ${pkgs.coreutils}/bin/false
-      install rds ${pkgs.coreutils}/bin/false
-      install rds_rdma ${pkgs.coreutils}/bin/false
-      install rds_tcp ${pkgs.coreutils}/bin/false
-      install rxrpc ${pkgs.coreutils}/bin/false
-      install rndis_host ${pkgs.coreutils}/bin/false
-      install tipc ${pkgs.coreutils}/bin/false
-      install tipc_diag ${pkgs.coreutils}/bin/false
-      install usb_f_rndis ${pkgs.coreutils}/bin/false
-      install x25 ${pkgs.coreutils}/bin/false
-    '';
+    blacklistedKernelModules = infra.kernel.blacklist;
+    extraModprobeConfig = infra.kernel.modBlacklist;
     nixStoreMountOpts = lib.mkForce ["ro" "nodev" "nosuid"];
     runSize = "85%";
     loader = {
@@ -79,109 +27,24 @@ in {
       };
     };
     initrd = {
+      availableKernelModules = infra.kernel.whitelist.base;
+      supportedFilesystems = ["ext4" "overlay" "tmpfs" "vfat"];
+      luks.mitigateDMAAttacks = lib.mkForce true;
       systemd = {
         enable = lib.mkDefault true;
         emergencyAccess = lib.mkForce false;
       };
-      luks.mitigateDMAAttacks = lib.mkForce true;
-      supportedFilesystems = [
-        "ext4"
-        "tmpfs"
-        "vfat"
-        "ntfs"
-        "overlay"
-      ];
-      availableKernelModules = [
-        "aesni_intel"
-        "ahci"
-        "ccm"
-        "cmac"
-        "dm_crypt"
-        "dm_mod"
-        "nvme"
-        "thunderbolt"
-        "sd_mod"
-        "uas"
-        "usbhid"
-        "usb_storage"
-        "xhci_pci"
-      ];
     };
-    kernelModules = [
-      "aesni_intel"
-      "ccm"
-      "cmac"
-      "cifs"
-      "dm_crypt"
-      "dm_mod"
-      "uas"
-      "usbhid"
-      "usb_storage"
-      "overlay"
-      "nls_utf8"
-    ];
+    kernelModules = infra.kernel.whitelist.base;
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-    kernelParams = [
-      "efi=disable_early_pci_dma"
-      "iommu.passthrough=0"
-      "iommu=force"
-      "iommu.strict=1"
-      "kernel.dmesg_restrict=1"
-      "kernel.kexec_load_disabled=1"
-      "kernel.kptr_restrict=2"
-      "kernel.sysrq=0"
-      "kernel.unprivileged_bpf_disabled=1"
-      "net.core.bpf_jit_harden=2"
-      "random.trust_cpu=off"
-      "randomize_kstack_offset=on"
-      "page_alloc.shuffle=1"
-      "vdso32=0"
-      "vsyscall=none"
-    ];
+    kernelParams = infra.kernel.params.base;
+    kernel.sysctl = infra.kernel.sysctl;
     tmp = {
       cleanOnBoot = true;
       tmpfsHugeMemoryPages = "within_size";
       tmpfsSize = "85%";
       useTmpfs = lib.mkForce true;
       useZram = lib.mkForce false;
-    };
-    kernel.sysctl = lib.mkDefault {
-      # "net.core.bpf_jit_enable" = 0;
-      # "kernel.user_ptrace" = 0;
-      # "kernel.user_ptrace_self" = 0;
-      # "kernel.yama.ptrace_scope" = 3;
-      "abi.vsyscall32" = 0;
-      "net.core.rmem_max" = lib.mkForce 7500000;
-      "net.core.wmem_max" = lib.mkForce 7500000;
-      "net.ipv4.conf.all.accept_redirects" = 0;
-      "net.ipv4.conf.all.secure_redirects" = 0;
-      "net.ipv4.conf.all.rp_filter" = 1;
-      "net.ipv4.conf.all.accept_source_route" = 0;
-      "net.ipv4.conf.all.send_redirects" = 0;
-      "net.ipv4.conf.default.send_redirects" = 0;
-      "net.ipv4.conf.default.accept_redirects" = 0;
-      "net.ipv4.conf.default.secure_redirects" = 0;
-      "net.ipv4.conf.default.rp_filter" = 1;
-      "net.ipv4.icmp_echo_ignore_broadcasts" = 1;
-      "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
-      "net.ipv4.ip_forward" = 1;
-      "net.ipv4.tcp_fastopen" = 3;
-      "net.ipv4.tcp_rfc1337" = 1;
-      "net.ipv4.tcp_syncookies" = 1;
-      "net.ipv6.conf.all.disable_ipv6" = 1;
-      "net.ipv6.conf.all.accept_source_route" = 0;
-      "net.ipv6.conf.all.accept_redirects" = 0;
-      "net.ipv6.conf.default.disable_ipv6" = 1;
-      "net.ipv6.conf.default.accept_redirects" = 0;
-      "kernel.ftrace_enabled" = 0;
-      "kernel.kptr_restrict" = 2;
-      "kernel.perf_event_paranoid" = "3";
-      "kernel.perf_cpu_time_max_percent" = "1";
-      "kernel.perf_event_max_sample_rate" = "1";
-      "kernel.unprivileged_bpf_disabled" = "1";
-      "vm.dirty_writeback_interval" = 1000;
-      "vm.unprivileged_userfaultfd" = 0;
-      "vm.overcommit_memory" = 1;
     };
   };
 
@@ -208,8 +71,6 @@ in {
     enable = lib.mkForce true;
     earlySetup = lib.mkForce true;
     keyMap = infra.locale.keymap;
-    # font = "${pkgs.powerline-fonts}/share/consolefonts/ter-powerline-v18b.psf.gz";
-    # packages = with pkgs; [powerline-fonts];
   };
 
   #############

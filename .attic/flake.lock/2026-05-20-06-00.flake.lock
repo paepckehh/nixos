@@ -53,11 +53,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779226674,
-        "narHash": "sha256-wuOkjI6pRiN4sEn/EPBRnNW5cmcpvd7xtIM8y5LooAs=",
+        "lastModified": 1779135526,
+        "narHash": "sha256-glCununz6lmaK5fs2X946HA3EkNxB2JagdAAvInuRYU=",
         "ref": "master",
-        "rev": "65fb947964bd44fc0008faf77d1fcb7a9f40bb32",
-        "revCount": 1373,
+        "rev": "d405a179887d52b24c0ddd31e09a150bd1f66779",
+        "revCount": 1365,
         "type": "git",
         "url": "https://git-mirror.home.corp/nix-community/disko"
       },
@@ -95,11 +95,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779213149,
-        "narHash": "sha256-Cf+p/T4Z3n9Sw0TiR3kQaIwQI+/hfvLJcoTzeq6yS3E=",
+        "lastModified": 1779202205,
+        "narHash": "sha256-UFt7q51IIhBzo1L+4MqNNljIrMOtrrjiT4vrOmz+wDA=",
         "ref": "master",
-        "rev": "bd868f769a69d3b6091a1da68a75cb83a181033c",
-        "revCount": 6781,
+        "rev": "16663cb13826d6aa519fb8c622460e3ce2a04dc1",
+        "revCount": 6767,
         "type": "git",
         "url": "https://git-mirror.home.corp/nix-community/home-manager"
       },
