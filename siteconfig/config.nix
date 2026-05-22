@@ -77,6 +77,7 @@ let
           "iommu.passthrough=0"
           "iommu=force"
           "iommu.strict=1"
+          "init_on_alloc=0"
           "kernel.dmesg_restrict=1"
           "kernel.kexec_load_disabled=1"
           "kernel.kptr_restrict=2"
