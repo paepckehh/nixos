@@ -210,6 +210,45 @@ in {
           ];
         };
       };
+      systemd-networkd = {
+        created = infra.wg.ts.create;
+        updated = infra.wg.ts.create;
+        precedence = false;
+        nolog = false;
+        name = "systemd-networkd";
+        enabled = true;
+        action = "allow";
+        duration = "always";
+        operator = {
+          data = "";
+          sensitive = false;
+          operand = "list";
+          type = "list";
+          list = [
+            {
+              operand = "process.path";
+              data = "${lib.getBin pkgs.systemd}/lib/systemd/systemd-networkd";
+              list = null;
+              type = "simple";
+              sensitive = false;
+            }
+            {
+              operand = "dest.port";
+              data = "${toString infra.port.dhcp}";
+              type = "simple";
+              list = null;
+              sensitive = false;
+            }
+            {
+              operand = "user.id";
+              data = "152";
+              type = "simple";
+              list = null;
+              sensitive = false;
+            }
+          ];
+        };
+      };
       syslog-ng = {
         created = infra.wg.ts.create;
         updated = infra.wg.ts.create;

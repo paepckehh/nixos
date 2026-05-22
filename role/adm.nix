@@ -27,9 +27,32 @@ in {
   #-=# BOOT #=-#
   ##############
   boot = {
-    kernelModules = infra.kernel.whitelist.client;
+    kernelModules = infra.kernel.whitelist.client ++ ["wireguard"];
     kernelParams = infra.kernel.params.client;
+    supportedFilesystems = infra.kernel.fs.client;
+    initrd.availableKernelModules = infra.kernel.whitelist.client;
   };
+
+  #######
+  # AGE #
+  #######
+  age.identityPaths = ["/nix/persist/etc/ssh/ssh_host_ed25519_key"];
+
+  ##################
+  #-=# SECURITY #=-#
+  ##################
+  security = {
+    sudo-rs.wheelNeedsPassword = lib.mkForce true;
+    pam.services = {
+      login.unixAuth = lib.mkForce true;
+      sudo.unixAuth = lib.mkForce false;
+    };
+  };
+
+  ##################
+  #-=# SERVICES #=-#
+  ##################
+  services.openssh.enable = lib.mkForce false;
 
   ##############
   # NETWORKING #
@@ -42,16 +65,17 @@ in {
       unmanaged = ["enp" "enp*"];
     };
   };
-
-  #######
-  # AGE #
-  #######
-  age.identityPaths = ["/nix/persist/etc/ssh/ssh_host_ed25519_key"];
-
-  ##################
-  #-=# SECURITY #=-#
-  ##################
-  security.sudo-rs.wheelNeedsPassword = lib.mkForce true;
+  ###############
+  #-=# USERS #=-#
+  ###############
+  users = {
+    users = {
+      me = {
+        # initialHashedPassword = lib.mkForce null; # disable password login, XXX TODO: fix SDDM userID login screen
+        initialHashedPassword = lib.mkForce "$y$j9T$kfoRrF1T9PXCFCcDceKWJ1$XBjoA6ExLE5rWFPh3HEx2OkHKSpgg8Tf/50zeM5MJOB";
+      };
+    };
+  };
 
   ###########
   # SYSTEMD #
@@ -60,18 +84,18 @@ in {
     network = {
       enable = true;
       netdevs = {
-        "admin-vlan" = {
+        "01-admin-vlan" = {
           vlanConfig.Id = infra.vlan.admin;
           netdevConfig = {
             Kind = "vlan";
-            Name = "admin-vlan";
+            Name = "01-admin-vlan";
           };
         };
-        "user-vlan" = {
+        "02-user-vlan" = {
           vlanConfig.Id = infra.vlan.user;
           netdevConfig = {
             Kind = "vlan";
-            Name = "user-vlan";
+            Name = "02-user-vlan";
           };
         };
       };
@@ -97,7 +121,7 @@ in {
         "${infra.namespace.admin}" = {
           enable = true;
           domains = [infra.domain.admin];
-          matchConfig.Name = "admin-vlan";
+          matchConfig.Name = "01-admin-vlan";
           linkConfig.ActivationPolicy = "always-up";
           networkConfig = {
             ConfigureWithoutCarrier = true;
@@ -108,7 +132,7 @@ in {
         "${infra.namespace.user}" = {
           enable = true;
           domains = [infra.domain.user];
-          matchConfig.Name = "user-vlan";
+          matchConfig.Name = "02-user-vlan";
           linkConfig.ActivationPolicy = "always-up";
           networkConfig = {
             ConfigureWithoutCarrier = true;

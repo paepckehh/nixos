@@ -9,17 +9,6 @@
   ############################
   infra = (import ../siteconfig/config.nix).infra;
 in {
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  # imports = [];
-
-  ##############
-  #-=# BOOT #=-#
-  ##############
-  # "fbcon=rotate:1", "fbcon=rotate:3"
-  # boot.kernelParams = [];
-
   ##############
   # NETWORKING #
   ##############
@@ -61,6 +50,9 @@ in {
         addresses = [{Address = "${infra.srv.user.ip}/${toString infra.cidr.netmask}";}];
       };
       "${infra.namespace.container}" = {
+        enable = lib.mkForce true;
+      };
+      "${infra.namespace.container}-dummy0" = {
         enable = lib.mkForce true;
       };
     };

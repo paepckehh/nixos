@@ -9,22 +9,21 @@
 ADMIN_ROUTE_EXISTS?=$(shell ip route show $(ADMIN_ROUTE) 2>/dev/null | grep -q . && echo yes || echo no) 
 OFFICE_ROUTE_EXISTS?=$(shell ip route show $(OFFICE_ROUTE) 2>/dev/null | grep -q . && echo yes || echo no) 
 
-all: 
-	make -s intern-hardening
+all:
+	@make -s help
+
+help: 
 	@echo "Admin Site : $(SITE) Network: $(ADMIN_ROUTE)"
 	@echo "Office Site: $(SITE) Network: $(OFFICE_ROUTE)"
 	@echo "Site Supported Commands: $(SUPPORT)"
 
 info: 
-	make -s intern-hardening
 	@echo "Current Working Admin Site: $(SITE) Network: $($(CHECK)_ROUTE)"
 
 yubikey.info:
-	make -s intern-hardening
 	ykman info	
 
 kill.routes:
-	make -s intern-hardening
 	sudo ip r del $(ADMIN_ROUTE)  > /dev/null 2>&1 || true
 	sudo ip r del $(OFFICE_ROUTE) > /dev/null 2>&1 || true
 	sudo ip r del $(LEGACY_ROUTE) > /dev/null 2>&1 || true

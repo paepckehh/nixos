@@ -25,9 +25,10 @@ in {
   #-=# BOOT #=-#
   ##############
   boot = {
-    enableContainers = true;
     kernelModules = infra.kernel.whitelist.server;
     kernelParams = infra.kernel.params.server;
+    supportedFilesystems = infra.kernel.fs.server;
+    initrd.availableKernelModules = infra.kernel.whitelist.server;
   };
 
   ##############
@@ -107,102 +108,6 @@ in {
             size = 23;
           }
         ];
-      };
-    };
-  };
-
-  ###########
-  # SYSTEMD #
-  ###########
-  systemd = {
-    services = {
-      caddy = {
-        after = ["sockets.target"];
-        wants = ["sockets.target"];
-        wantedBy = ["multi-user.target"];
-      };
-      nginx = {
-        after = ["sockets.target"];
-        wants = ["sockets.target"];
-        wantedBy = ["multi-user.target"];
-      };
-    };
-    network = {
-      enable = true;
-      netdevs = {
-        "admin-vlan" = {
-          vlanConfig.Id = infra.vlan.admin;
-          netdevConfig = {
-            Kind = "vlan";
-            Name = "admin-vlan";
-          };
-        };
-        "user-vlan" = {
-          vlanConfig.Id = infra.vlan.user;
-          netdevConfig = {
-            Kind = "vlan";
-            Name = "user-vlan";
-          };
-        };
-        "80-br0" = {
-          netdevConfig = {
-            Kind = "bridge";
-            Name = infra.container.bridge.netdev;
-          };
-        };
-      };
-      networks = {
-        "55-link" = {
-          enable = true;
-          DHCP = "ipv4";
-          matchConfig.Name = "enp1s0f0"; # t640
-          networkConfig = {
-            IPv6AcceptRA = "no";
-            LinkLocalAddressing = "no";
-          };
-        };
-        "56-link" = {
-          enable = true;
-          DHCP = "ipv4";
-          matchConfig.Name = "enp1s0f4u2u1"; # usb
-          networkConfig = {
-            IPv6AcceptRA = "no";
-            LinkLocalAddressing = "no";
-          };
-        };
-        "${infra.namespace.admin}" = {
-          enable = lib.mkDefault false;
-          domains = [infra.domain.admin];
-          matchConfig.Name = "admin-vlan";
-          linkConfig.ActivationPolicy = "always-up";
-          networkConfig = {
-            ConfigureWithoutCarrier = true;
-            IPv6AcceptRA = "no";
-            LinkLocalAddressing = "no";
-          };
-        };
-        "${infra.namespace.user}" = {
-          enable = lib.mkDefault false;
-          domains = [infra.domain.user];
-          matchConfig.Name = "user-vlan";
-          linkConfig.ActivationPolicy = "always-up";
-          networkConfig = {
-            ConfigureWithoutCarrier = true;
-            IPv6AcceptRA = "no";
-            LinkLocalAddressing = "no";
-          };
-        };
-        "${infra.namespace.container}" = {
-          enable = lib.mkDefault false;
-          matchConfig.Name = infra.container.bridge.netdev;
-          address = ["${infra.container.bridge.ip}/${toString infra.cidr.netmask}"];
-          vlan = ["admin-vlan" "user-vlan"];
-          networkConfig = {
-            ConfigureWithoutCarrier = true;
-            IPv6AcceptRA = "no";
-            LinkLocalAddressing = "no";
-          };
-        };
       };
     };
   };
@@ -315,6 +220,120 @@ in {
            }
         }
       '';
+    };
+  };
+
+  ###########
+  # SYSTEMD #
+  ###########
+  systemd = {
+    services = {
+      caddy = {
+        after = ["sockets.target"];
+        wants = ["sockets.target"];
+        wantedBy = ["multi-user.target"];
+      };
+      nginx = {
+        after = ["sockets.target"];
+        wants = ["sockets.target"];
+        wantedBy = ["multi-user.target"];
+      };
+    };
+    network = {
+      enable = true;
+      netdevs = {
+        "01-admin-vlan" = {
+          vlanConfig.Id = infra.vlan.admin;
+          netdevConfig = {
+            Kind = "vlan";
+            Name = "01-admin-vlan";
+          };
+        };
+        "02-user-vlan" = {
+          vlanConfig.Id = infra.vlan.user;
+          netdevConfig = {
+            Kind = "vlan";
+            Name = "02-user-vlan";
+          };
+        };
+        "80-br0" = {
+          netdevConfig = {
+            Kind = "bridge";
+            Name = "80-br0";
+          };
+        };
+        "90-dummy0" = {
+          netdevConfig = {
+            Kind = "dummy";
+            Name = "90-dummy0";
+          };
+        };
+      };
+      networks = {
+        "55-link" = {
+          enable = true;
+          DHCP = "ipv4";
+          matchConfig.Name = "enp1s0f0"; # t640
+          networkConfig = {
+            IPv6AcceptRA = "no";
+            LinkLocalAddressing = "no";
+          };
+        };
+        "56-link" = {
+          enable = true;
+          DHCP = "ipv4";
+          matchConfig.Name = "enp1s0f4u2u1"; # usb
+          networkConfig = {
+            IPv6AcceptRA = "no";
+            LinkLocalAddressing = "no";
+          };
+        };
+        "${infra.namespace.admin}" = {
+          enable = lib.mkDefault false;
+          domains = [infra.domain.admin];
+          matchConfig.Name = "01-admin-vlan";
+          linkConfig.ActivationPolicy = "always-up";
+          networkConfig = {
+            ConfigureWithoutCarrier = true;
+            IPv6AcceptRA = "no";
+            LinkLocalAddressing = "no";
+          };
+        };
+        "${infra.namespace.user}" = {
+          enable = lib.mkDefault false;
+          domains = [infra.domain.user];
+          matchConfig.Name = "02-user-vlan";
+          linkConfig.ActivationPolicy = "always-up";
+          networkConfig = {
+            ConfigureWithoutCarrier = true;
+            IPv6AcceptRA = "no";
+            LinkLocalAddressing = "no";
+          };
+        };
+        "${infra.namespace.container}" = {
+          enable = lib.mkDefault false;
+          matchConfig.Name = "80-br0";
+          address = ["${infra.container.bridge.ip}/${toString infra.cidr.netmask}"];
+          vlan = ["01-admin-vlan" "02-user-vlan"];
+          networkConfig = {
+            ConfigureWithoutCarrier = true;
+            IPv6AcceptRA = "no";
+            LinkLocalAddressing = "no";
+          };
+        };
+        "${infra.namespace.container}-dummy0" = {
+          enable = lib.mkDefault false;
+          matchConfig.Name = "90-dummy0";
+          linkConfig.ActivationPolicy = "always-up";
+          addresses = [{Address = "${infra.net.container}.253/32";}];
+          networkConfig = {
+            Bridge = "80-br0";
+            ConfigureWithoutCarrier = true;
+            IPv6AcceptRA = "no";
+            LinkLocalAddressing = "no";
+          };
+        };
+      };
     };
   };
 }

@@ -66,7 +66,7 @@
           # ./storage/stateless-luks-sequence.nix
           ./storage/stateless-luks-fixed-6F6B-6565.nix
           ./hardware/all.nix
-          ./role/dev.nix
+          ./role/adm.nix
           ./role/server.nix
           ./hosts/srv.nix
           ./openwrt/alias.nix
@@ -87,20 +87,20 @@
           ./server/webapp/res.nix
           ./server/mail/maddy-admin.nix
           ./server/ai/ollama01.nix
-          ./server/mail/autoconfig-admin.nix
-          ./server/bookmarks/readeck.nix
-          ./server/win/winstart.nix
-          ./server/win/winupdate.nix
-          ./server/db/undb.nix
-          ./server/cloud/cloud.nix
-          ./server/cloud/nextcloud.nix
-          ./server/secret/vaultwarden.nix
-          ./server/message/tuwunel.nix
-          ./server/message/element-web.nix
-          ./server/monitoring/prometheus.nix
-          ./server/share/smbgate.nix
-          ./server/mail/bichon.nix
-          ./server/lora/meshtastic-web.nix
+          # ./server/bookmarks/readeck.nix
+          # ./server/mail/autoconfig-admin.nix
+          # ./server/win/winstart.nix
+          # ./server/win/winupdate.nix
+          # ./server/db/undb.nix
+          # ./server/cloud/cloud.nix
+          # ./server/cloud/nextcloud.nix
+          # ./server/secret/vaultwarden.nix
+          # ./server/message/tuwunel.nix
+          # ./server/message/element-web.nix
+          # ./server/monitoring/prometheus.nix
+          # ./server/share/smbgate.nix
+          # ./server/mail/bichon.nix
+          # ./server/lora/meshtastic-web.nix
         ];
       };
       srv2 = nixpkgs.lib.nixosSystem {

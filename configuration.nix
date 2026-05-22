@@ -17,6 +17,16 @@ in {
     extraModprobeConfig = infra.kernel.modBlacklist;
     nixStoreMountOpts = lib.mkForce ["ro" "nodev" "nosuid"];
     runSize = "85%";
+    supportedFilesystems = infra.kernel.fs.base;
+    initrd = {
+      availableKernelModules = infra.kernel.whitelist.base;
+      supportedFilesystems = infra.kernel.fs.base;
+      luks.mitigateDMAAttacks = lib.mkForce true;
+      systemd = {
+        enable = lib.mkDefault true;
+        emergencyAccess = lib.mkForce false;
+      };
+    };
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot = {
@@ -26,19 +36,6 @@ in {
         editor = lib.mkForce false;
       };
     };
-    initrd = {
-      availableKernelModules = infra.kernel.whitelist.base;
-      supportedFilesystems = ["ext4" "overlay" "tmpfs" "vfat"];
-      luks.mitigateDMAAttacks = lib.mkForce true;
-      systemd = {
-        enable = lib.mkDefault true;
-        emergencyAccess = lib.mkForce false;
-      };
-    };
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-    kernelModules = infra.kernel.whitelist.base;
-    kernelParams = infra.kernel.params.base;
-    kernel.sysctl = lib.mkDefault infra.kernel.sysctl.base;
     tmp = {
       cleanOnBoot = true;
       tmpfsHugeMemoryPages = "within_size";
