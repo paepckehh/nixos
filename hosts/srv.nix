@@ -12,7 +12,10 @@ in {
   ##############
   # NETWORKING #
   ##############
-  networking.hostName = lib.mkForce "srv";
+  networking = {
+    hostName = lib.mkForce infra.srv.name;
+    hostId = lib.mkForce infra.srv.hostID;
+  };
 
   ########################
   #-=# VIRTUALISATION #=-#

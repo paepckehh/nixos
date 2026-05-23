@@ -75,7 +75,6 @@
       enable = true;
       autoSuspend = false;
       banner = ''hardened nixos gnome desktop '';
-      wayland = true;
     };
   };
 }

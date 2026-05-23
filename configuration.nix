@@ -148,7 +148,7 @@ in {
   #-=# HARDWARE #=-#
   ##################
   hardware = {
-    enableAllFirmware = lib.mkForce true;
+    enableAllFirmware = lib.mkForce false;
     enableRedistributableFirmware = lib.mkForce true;
     uinput.enable = true;
   };

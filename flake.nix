@@ -65,6 +65,7 @@
           home-manager.nixosModules.home-manager
           # ./storage/stateless-luks-sequence.nix
           ./storage/stateless-luks-fixed-6F6B-6565.nix
+          ./storage/zfs.nix
           ./hardware/all.nix
           ./role/adm.nix
           ./role/server.nix

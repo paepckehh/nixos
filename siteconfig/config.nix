@@ -1030,6 +1030,8 @@ let
       app = "nixos";
       name = "srv";
       hostname = infra.srv.name;
+      hostID = "20f1f3ac";
+      interface.main = "enp3s0";
       cockpit = false;
       sshd = false;
       reverseproxy = true;

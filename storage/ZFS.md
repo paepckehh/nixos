@@ -25,7 +25,10 @@ sudo zfs destroy tank/samba  # just in case ...
 sudo zfs destroy tank/backup # just in case ...
 sudo zfs set com.sun:auto-snapshot=true tank
 sudo zfs set com.sun:auto-snapshot:frequent=false tank
-sudo zfs set com.sun:auto-snapshot:hourly=false tank
+sudo zfs set com.sun:auto-snapshot:hourly=true tank
+sudo zfs set com.sun:auto-snapshot:daily=true tank
+sudo zfs set com.sun:auto-snapshot:weekly=true tank
+sudo zfs set com.sun:auto-snapshot:monthly=true tank
 sudo zfs set aclinherit=passthrough tank
 sudo zfs set acltype=posixacl tank
 sudo zfs set xattr=sa tank
