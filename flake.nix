@@ -64,8 +64,8 @@
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
           # ./storage/stateless-luks-sequence.nix
+          # ./storage/zfs.nix
           ./storage/stateless-luks-fixed-6F6B-6565.nix
-          ./storage/zfs.nix
           ./hardware/all.nix
           ./role/adm.nix
           ./role/server.nix
@@ -86,8 +86,8 @@
           ./server/pki/small-step.nix
           ./server/portal/homer-home-container.nix
           ./server/webapp/res.nix
-          ./server/mail/maddy-admin.nix
-          ./server/ai/ollama01.nix
+          # ./server/mail/maddy-admin.nix
+          # ./server/ai/ollama01.nix
           # ./server/bookmarks/readeck.nix
           # ./server/mail/autoconfig-admin.nix
           # ./server/win/winstart.nix
