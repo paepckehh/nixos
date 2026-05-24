@@ -36,7 +36,7 @@ sudo zfs set sync=disabled tank
 sudo zfs set exec=off tank
 sudo zfs set devices=off tank
 sudo zfs set snapdir=visible tank
-sudo zfs create tank/backup
-sudo zfs create -o casesensitivity=insensitive tank/samba
+sudo zfs create -o mountpoint=legacy tank/backup
+sudo zfs create -o mountpoint=legacy -o casesensitivity=insensitive tank/samba
 sudo zfs list
 '''

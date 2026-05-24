@@ -31,6 +31,10 @@ in {
     kernelParams = infra.kernel.params.client;
     supportedFilesystems = infra.kernel.fs.client;
     initrd.availableKernelModules = infra.kernel.whitelist.client;
+    loader.systemd-boot.memtest86 = {
+      enable = true;
+      sortKey = "z_hardware_test_memtest86";
+    };
   };
 
   #######

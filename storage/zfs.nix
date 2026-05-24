@@ -35,24 +35,25 @@ in {
       devNodes = "/dev/disk/by-id";
       forceImportAll = false;
       forceImportRoot = false;
-      passwordTimeout = 0;
+      passwordTimeout = 30;
+    };
   };
 
   #####################
   #-=# FILESYSTEMS #=-#
   #####################
-  fileSystems = lib.mkForce {
-    "/mnt/tank" = lib.mkForce {
-      device = "zpool/tank";
-      fsType = "zfs";
-      neededForBoot = false;
-      # options = ["noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit" "x-initrd.mount"];
-   };
-  
-  #####################
-  #-=# ENVIRONMENT #=-#
-  #####################
-  environment.systemPackages = with pkgs; [zfsutil];
+  # fileSystems = {
+  #  "/mnt/tank" = lib.mkForce {
+  #    device = "zpool/tank";
+  #    fsType = "zfs";
+  #    options = ["zfsutil" "noatime" "noexec" "nodev" "nosuid"];
+  #  };
+  #};
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.services.zfs-mount.enable = lib.mkForce false;
 
   ##################
   #-=# SERVICES #=-#

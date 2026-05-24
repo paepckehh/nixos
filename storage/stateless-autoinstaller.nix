@@ -16,7 +16,7 @@
       fsType = "ext4";
       depends = ["/"];
       neededForBoot = true;
-      options = ["noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit" "x-initrd.mount"];
+      options = ["noatime" "nodiratime" "discard" "commit=600" "nobarrier" "data=writeback" "journal_async_commit" "x-initrd.mount"];
     };
     "/var/cache" = lib.mkForce {
       device = "/nix/persist/var/cache";

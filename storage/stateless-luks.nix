@@ -2,7 +2,12 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  # imports = [./disko/stateless-luks.nix];
+  imports = [./stateless.nix];
+
+  #####################
+  #-=# FILESYSTEMS #=-#
+  #####################
+  fileSystems."/nix".device = lib.mkForce "/dev/mapper/nix";
 
   ##############
   #-=# BOOT #=-#
@@ -14,69 +19,11 @@
         mitigateDMAAttacks = lib.mkForce true;
         devices = {
           "nix" = {
-            device = lib.mkDefault "/dev/disk/by-diskseq/1-part3";
+            device = "/dev/disk/by-diskseq/1-part3";
             allowDiscards = lib.mkForce true;
           };
         };
       };
-    };
-  };
-
-  #####################
-  #-=# FILESYSTEMS #=-#
-  #####################
-  fileSystems = {
-    "/" = lib.mkForce {
-      device = "tmpfs";
-      fsType = "tmpfs";
-      neededForBoot = true;
-      options = ["mode=755" "size=80%" "huge=within_size" "x-initrd.mount"];
-    };
-    "/nix" = lib.mkForce {
-      device = "/dev/mapper/nix";
-      fsType = "ext4";
-      depends = ["/"];
-      neededForBoot = true;
-      options = ["discard" "noatime" "nodiratime" "commit=10" "nobarrier" "data=writeback" "journal_async_commit" "x-initrd.mount"];
-    };
-    "/var/cache" = lib.mkForce {
-      device = "/nix/persist/var/cache";
-      fsType = "none";
-      depends = ["/nix"];
-      neededForBoot = true;
-      options = ["bind" "x-initrd.mount"];
-    };
-    "/var/lib" = lib.mkForce {
-      device = "/nix/persist/var/lib";
-      fsType = "none";
-      depends = ["/nix"];
-      neededForBoot = true;
-      options = ["bind" "x-initrd.mount" "discard"];
-    };
-    "/etc/ssh" = lib.mkForce {
-      device = "/nix/persist/etc/ssh";
-      fsType = "none";
-      depends = ["/nix"];
-      neededForBoot = true;
-      options = ["bind" "x-initrd.mount" "discard"];
-    };
-    "/root/.ssh" = lib.mkForce {
-      device = "/nix/persist/root/.ssh";
-      fsType = "none";
-      depends = ["/nix"];
-      options = ["bind" "x-initrd.mount" "discard"];
-    };
-    "/etc/nixos" = lib.mkForce {
-      device = "/nix/persist/etc/nixos";
-      fsType = "none";
-      depends = ["/nix"];
-      options = ["bind" "discard"];
-    };
-    "/home" = lib.mkForce {
-      device = "/nix/persist/home";
-      fsType = "none";
-      depends = ["/nix"];
-      options = ["bind" "discard"];
     };
   };
 }
