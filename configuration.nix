@@ -15,7 +15,7 @@ in {
   boot = {
     blacklistedKernelModules = infra.kernel.blacklist;
     extraModprobeConfig = infra.kernel.modBlacklist;
-    kernelPackages = pkgs.latestKernelPackage;
+    kernelPackages = pkgs.linuxPackages_latest;
     nixStoreMountOpts = lib.mkForce ["ro" "nodev" "nosuid"];
     runSize = "85%";
     supportedFilesystems = infra.kernel.fs.base;
