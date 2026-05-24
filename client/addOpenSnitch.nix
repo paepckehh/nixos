@@ -12,7 +12,6 @@ in {
   ##############
   #-=# BOOT #=-#
   ##############
-  # boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.linuxPackages_latest.extend (
     lfinal: lprev: {
       opensnitch-ebpf = lprev.opensnitch-ebpf.overrideAttrs (
