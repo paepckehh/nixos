@@ -36,19 +36,9 @@ in {
       forceImportAll = false;
       forceImportRoot = false;
       passwordTimeout = 30;
+      extraPools = [];
     };
   };
-
-  #####################
-  #-=# FILESYSTEMS #=-#
-  #####################
-  # fileSystems = {
-  #  "/mnt/tank" = lib.mkForce {
-  #    device = "zpool/tank";
-  #    fsType = "zfs";
-  #    options = ["zfsutil" "noatime" "noexec" "nodev" "nosuid"];
-  #  };
-  #};
 
   #################
   #-=# SYSTEMD #=-#
