@@ -11,7 +11,7 @@ ls -la /dev/disk/by-id
 
 '''
 sudo zpool destroy tank > /dev/null 2>&1 # just in case ...
-sudo zpool create -f -m /mnt/tank -o ashift=12 -o autotrim=on tank raidz ata-* # see ls -la /dev/disk/by-id output, do not include os disk
+sudo zpool create -f -m legacy -o ashift=12 -o autotrim=on tank raidz ata-* # see ls -la /dev/disk/by-id output, do not include os disk
 sudo zpool status -v 
 sudo zpool list -v 
 '''

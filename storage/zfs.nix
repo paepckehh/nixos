@@ -36,9 +36,23 @@ in {
       forceImportAll = false;
       forceImportRoot = false;
       passwordTimeout = 0;
-      extraPools = [];
-    };
   };
+
+  #####################
+  #-=# FILESYSTEMS #=-#
+  #####################
+  fileSystems = lib.mkForce {
+    "/mnt/tank" = lib.mkForce {
+      device = "zpool/tank";
+      fsType = "zfs";
+      neededForBoot = false;
+      # options = ["noatime" "nodiratime" "discard" "commit=10" "nobarrier" "data=writeback" "journal_async_commit" "x-initrd.mount"];
+   };
+  
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment.systemPackages = with pkgs; [zfsutil];
 
   ##################
   #-=# SERVICES #=-#
