@@ -67,7 +67,7 @@ let
     };
     kernel = {
       fs = {
-        base = ["ext4" "overlay" "tmpfs"];
+        base = ["ext4" "overlayfs" "tmpfs"];
         client = infra.kernel.fs.base ++ ["exfat" "vfat"];
         server = infra.kernel.fs.base ++ [];
       };
@@ -114,7 +114,7 @@ let
       whitelist = {
         base = ["aesni_intel" "ahci" "ccm" "cmac" "dm_crypt" "dm_mod" "nvme" "thunderbolt" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
         client = infra.kernel.whitelist.base ++ ["cifs" "exfat" "uas" "usb_storage" "usbhid" "vfat"];
-        server = infra.kernel.whitelist.base ++ ["bridge" "loop" "macvlan"];
+        server = infra.kernel.whitelist.base ++ ["bridge" "loop" "macvlan" "overlay"];
       };
       sysctl = {
         base = {
