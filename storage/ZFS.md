@@ -10,9 +10,8 @@ ls -la /dev/disk/by-id
 ### create tank 
 
 '''
-sudo zfs destroy tank/backup # just in case ...
-sudo zpool destroy tank      # just in case ...
-sudo zpool create -f -m /mnt/tank -o ashift=12 -o autotrim=on tank draid ata-ST4000VN008-2DR166_XXXXXXX ata-ST4000VN008-2DR166_XXXXXX ata-ST4000VN008-2DR166_XXXXXX
+sudo zpool destroy tank > /dev/null 2>&1 # just in case ...
+sudo zpool create -f -m /mnt/tank -o ashift=12 -o autotrim=on tank raidz ata-* # see ls -la /dev/disk/by-id output, do not include os disk
 sudo zpool status -v 
 sudo zpool list -v 
 '''
@@ -21,8 +20,6 @@ sudo zpool list -v
 
 shared:
 '''
-sudo zfs destroy tank/samba  # just in case ...
-sudo zfs destroy tank/backup # just in case ...
 sudo zfs set com.sun:auto-snapshot=true tank
 sudo zfs set com.sun:auto-snapshot:frequent=false tank
 sudo zfs set com.sun:auto-snapshot:hourly=true tank

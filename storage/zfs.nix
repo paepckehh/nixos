@@ -61,7 +61,7 @@ in {
       autoSnapshot = {
         enable = true;
         frequent = 0;
-        hourly = 48;
+        hourly = 24;
         daily = 7;
         weekly = 4;
         monthly = 4;
