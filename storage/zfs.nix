@@ -36,14 +36,9 @@ in {
       forceImportAll = false;
       forceImportRoot = false;
       passwordTimeout = 30;
-      extraPools = [];
+      extraPools = ["tank"];
     };
   };
-
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.services.zfs-mount.enable = lib.mkForce false;
 
   ##################
   #-=# SERVICES #=-#
@@ -74,6 +69,55 @@ in {
       trim = {
         enable = true;
         interval = "weekly";
+      };
+    };
+  };
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd = {
+    services = {
+      zfs-mount.enable = lib.mkForce true;
+      "zfs-cache-meta-samba" = {
+        description = "zfs samba metadata cache";
+        serviceConfig = {
+          User = "root";
+          Type = "oneshot";
+          ExecStart = "/run/current-system/sw/bin/fd --quiet --hidden --no-ignore --threads 1 --base-directory /mnt/tank/samba > /dev/null 2>&1";
+        };
+      };
+      "zfs-cache-meta-backup" = {
+        description = "zfs backup metadata cache";
+        serviceConfig = {
+          User = "root";
+          Type = "oneshot";
+          ExecStart = "/run/current-system/sw/bin/fd --quiet --hidden --no-ignore --base-directory /mnt/tank/backup > /dev/null 2>&1";
+        };
+      };
+    };
+    timers = {
+      "zfs-cache-meta-samba-timer" = {
+        description = "git-mirror-cache-samba-timer";
+        wantedBy = ["timers.target"];
+        timerConfig = {
+          Unit = "zfs-cache-meta-samba.service";
+          Persistent = false;
+          OnCalendar = [
+            "*-*-* *:12:00"
+            "*-*-* *:32:00"
+            "*-*-* *:52:00"
+          ];
+        };
+      };
+      "zfs-cache-meta-backup-timer" = {
+        description = "zfs-cache-meta-backup-time";
+        wantedBy = ["timers.target"];
+        timerConfig = {
+          Persistent = false;
+          Unit = "zfs-cache-meta-backup.service";
+          OnCalendar = ["*-*-* 22:55:00"];
+        };
       };
     };
   };

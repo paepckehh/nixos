@@ -59,7 +59,7 @@ in {
         isNormalUser = true;
         isSystemUser = false;
         group = "backup";
-        openssh.authorizedKeys.keys = [''command="${pkgs.rrsync}/bin/rrsync /mnt/tank/backup/",restrict ssh-ed25519 ***locked***''];
+        openssh.authorizedKeys.keys = [''command="${pkgs.rrsync}/bin/rrsync /mnt/tank/backup/",restrict ${infra.backup.sshKey}''];
       };
       samba = {
         uid = infra.samba.uid;

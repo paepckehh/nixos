@@ -44,7 +44,10 @@ let
       name = "me";
       displayname = "admin account me";
     };
-    backup.uid = 50100;
+    backup = {
+      uid = 50100;
+      sshKey = "ssh-ed25519 ***locked***";
+    };
     samba.uid = 50200;
     admin = {
       name = "admin";
