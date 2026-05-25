@@ -21,6 +21,21 @@ in {
     ../client/addOpenSnitch-addSrv.nix
   ];
 
+  #######
+  # AGE #
+  #######
+  age.identityPaths = ["/nix/persist/etc/ssh/ssh_host_ed25519_key"];
+
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment.systemPackages = with pkgs; [ragenix rsync rrsync];
+
+  ##############
+  #-=# I18N #=-#
+  ##############
+  i18n.defaultLocale = lib.mkForce infra.locale.LC.server;
+
   ##############
   #-=# BOOT #=-#
   ##############
@@ -30,6 +45,40 @@ in {
     supportedFilesystems = infra.kernel.fs.server;
     initrd.availableKernelModules = infra.kernel.whitelist.server;
   };
+
+  ##############
+  #-=# USER #=-#
+  ##############
+  users = {
+    users = {
+      me = {
+        extraGroups = ["docker" "libvirtd"];
+      };
+      backup = {
+        uid = infra.backup.uid;
+        isNormalUser = true;
+        isSystemUser = false;
+        group = "backup";
+        openssh.authorizedKeys.keys = [''command="${pkgs.rrsync}/bin/rrsync /mnt/tank/backup/",restrict ssh-ed25519 ***locked***''];
+      };
+      samba = {
+        uid = infra.samba.uid;
+        isNormalUser = true;
+        isSystemUser = false;
+        group = "samba";
+        openssh.authorizedKeys.keys = [''ssh-ed25519 ***locked**''];
+      };
+    };
+    groups = {
+      backup.gid = infra.backup.uid;
+      samba.gid = infra.samba.uid;
+    };
+  };
+
+  ##################
+  #-=# SECURITY #=-#
+  ##################
+  security.sudo-rs.wheelNeedsPassword = lib.mkForce true;
 
   ##############
   # NETWORKING #
@@ -52,26 +101,6 @@ in {
     };
   };
 
-  #######
-  # AGE #
-  #######
-  age.identityPaths = ["/nix/persist/etc/ssh/ssh_host_ed25519_key"];
-
-  #####################
-  #-=# ENVIRONMENT #=-#
-  #####################
-  environment.systemPackages = with pkgs; [ragenix];
-
-  ##############
-  #-=# USER #=-#
-  ##############
-  users.users.me.extraGroups = ["docker" "libvirtd"];
-
-  ##################
-  #-=# SECURITY #=-#
-  ##################
-  security.sudo-rs.wheelNeedsPassword = lib.mkForce true;
-
   #############
   #-=# NIX #=-#
   #############
@@ -91,23 +120,47 @@ in {
     };
   };
 
+  ####################
+  #-=# CONTAINERS #=-#
+  ####################
+  containers.rsync-backup = {
+    autoStart = false;
+    bindMounts."/var/lib".isReadOnly = true;
+    ephemeral = true;
+    privateNetwork = false;
+    config = {
+      config,
+      pkgs,
+      lib,
+      ...
+    }: {
+      imports = [../client/env.nix];
+      networking.hostName = "rsync-backup";
+      environment.systemPackages = with pkgs; [rsync];
+    };
+  };
+
   ########################
   #-=# VIRTUALISATION #=-#
   ########################
   virtualisation = {
-    containers.enable = true;
-    docker.enable = lib.mkDefault false;
     oci-containers.backend = "docker";
     docker = {
       daemon.settings = {
         experimental = true;
-        dns = [infra.dns.ip];
+        dns = [infra.dns.resolver.user.primary infra.dns.resolver.user.secondary];
+        log-driver = "journald";
+        storage-driver = "overlay2";
         default-address-pools = [
           {
             base = infra.cidr.container;
-            size = 23;
+            size = infra.cidr.netmask;
           }
         ];
+      };
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
       };
     };
   };
@@ -227,6 +280,10 @@ in {
   # SYSTEMD #
   ###########
   systemd = {
+    tmpfiles.rules = [
+      "d /mnt/tank/backup 0770 backup backup"
+      "d /mnt/tank/samba  0770 samba samba"
+    ];
     services = {
       caddy = {
         after = ["sockets.target"];

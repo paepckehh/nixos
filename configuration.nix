@@ -177,7 +177,7 @@ in {
     sudo-rs = {
       enable = true;
       execWheelOnly = lib.mkForce true;
-      wheelNeedsPassword = lib.mkForce true;
+      wheelNeedsPassword = lib.mkDefault true;
       extraConfig = "Defaults   env_reset,timestamp_timeout=40,!pwfeedback";
     };
     pam = {
@@ -223,14 +223,7 @@ in {
         hashedPassword = lib.mkForce null; # disable
         openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"];
       };
-      backup = {
-        hashedPassword = lib.mkForce null; # disable
-        isSystemUser = true;
-        group = "backup";
-        openssh.authorizedKeys.keys = infra.backup.sshKeys;
-      };
     };
-    groups.backup.members = ["backup"];
   };
 
   ##############

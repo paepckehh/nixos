@@ -33,6 +33,7 @@
       binsider
       dmidecode
       file
+      gh
       jq
       jqfmt
       gnumake

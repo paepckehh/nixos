@@ -30,8 +30,9 @@ let
       prefix = "en_EN";
       prefix2 = "en-EN";
       LC = {
-        global = "C.UTF-8"; # C.UTF-8 en_US.UTF-8 de_DE.UTF-8
-        regional = "de_DE.UTF-8"; # adddress, phone, money
+        global = "C.UTF-8";
+        regional = "de_DE.UTF-8";
+        server = "C.UTF-8";
       };
     };
     email.domain = {
@@ -43,6 +44,8 @@ let
       name = "me";
       displayname = "admin account me";
     };
+    backup.uid = 50100;
+    samba.uid = 50200;
     admin = {
       name = "admin";
       displayname = "admin";
@@ -114,7 +117,7 @@ let
       whitelist = {
         base = ["aesni_intel" "ahci" "ccm" "cmac" "dm_crypt" "dm_mod" "nvme" "thunderbolt" "overlay" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
         client = infra.kernel.whitelist.base ++ ["cifs" "exfat" "uas" "usb_storage" "usbhid" "vfat"];
-        server = infra.kernel.whitelist.base ++ ["bridge" "loop" "macvlan" ];
+        server = infra.kernel.whitelist.base ++ ["bridge" "loop" "macvlan"];
       };
       sysctl = {
         base = {

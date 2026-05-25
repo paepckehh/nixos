@@ -26,7 +26,7 @@
       fsType = "none";
       depends = ["/nix"];
       neededForBoot = true;
-      options = ["bind" "noatime" "noexec" "nodev" "nosuid" "x-initrd.mount"];
+      options = ["bind" "noatime" "noexec" "nodev" "x-initrd.mount"];
     };
     "/var/lib" = lib.mkForce {
       device = "/nix/persist/var/lib";
@@ -58,7 +58,7 @@
       device = "/nix/persist/home";
       fsType = "none";
       depends = ["/nix"];
-      options = ["bind" "noatime" "noexec" "nodev" "nosuid"];
+      options = ["bind" "noatime" "noexec" "nodev"];
     };
   };
 }
