@@ -63,6 +63,8 @@ let
       ];
     };
     backup = {
+      one = "ops4";
+      two = "ops5";
       email = "backup@${infra.email.domain.intern}";
       sshKeys = ["ssh-ed25519@openssh.com [...]="];
     };
