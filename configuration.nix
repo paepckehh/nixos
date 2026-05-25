@@ -373,8 +373,8 @@ in {
     openssh = {
       enable = lib.mkDefault false;
       authorizedKeysInHomedir = false;
-      authorizedKeysCommandUser = "nobody";
-      authorizedKeysCommand = "none";
+      # authorizedKeysCommandUser = "nobody";
+      # authorizedKeysCommand = "none";
       allowSFTP = false;
       ports = [infra.port.ssh-mgmt];
       startWhenNeeded = true;

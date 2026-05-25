@@ -34,6 +34,9 @@ YUBIME:=/nix/persist/home/me/.config/Yubico
 #
 # Package build:
 # nix-build -E 'with import <nixpkgs> {}; callPackage ./package.nix {}'
+#
+# # sudo rsync -Pav -c -e "ssh -p 6623 -i /home/backup/.ssh/id_ed25519" --exclude='lib/containers' --exclude='lib/.attic' --exclude='lib/docker' --exclude='lib/nixos' --exclude='lib/nixos-containers' /var/lib backup@ops5.adm.corp:ops
+
 
 ###########
 # GENERIC #
