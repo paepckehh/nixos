@@ -4,12 +4,6 @@ This repo is for rapid prototyping, wild tests.
 Feel free to copy code, take inspiration.  
 Do not use anything in production without review!
 
-# nixos
-- nixos flakes 
-- nixos hardware config files 
-- nixos env config files
-- nixos home-manager files
-
 # Manage Nixos via make (requires pkgs.gnumake)
 ## => manage and update current boot profiles <=
 - make switch                       # switches to a new boot profile for current host/profile
@@ -17,7 +11,7 @@ Do not use anything in production without review!
 - make update                       # updates the flake.lock via flake.nix upstream repos
 - make clean                        # garbage collect the nix store and unused store data / profiles (older than >12days), make boot
 - make clean-profiles               # removes ALL boot profiles, build a new clean one for current host/profile
-- [...]                             # see Makefile, make allows to chain tasks, eg.: make update switch
+- [...]                             # see Makefile, make allows to chain tasks, eg.: make update switch, just type make [tab]
 
 ## => add new nixos boot profiles on current disk (requires compatible disk layout) <=
 - TARGET=client make build          # builds a new boot profile for targetos 'client'  
@@ -26,3 +20,6 @@ Do not use anything in production without review!
 ## => build new os on target-disk device <=
 - TARGET=kiosk make sdb                   # builds a new bootable disk for profile 'kiosk' on disk sdb
 - TARGET=client LUKS=secret make sdb      # builds a new bootable disk for profile 'client' on disk sdb with fulldisk encryption (LUKS)
+
+## for ZFS see [storage/ZFS.md](./storage/ZFS.md)
+## for BACKUP see [storage/BACKUP.md](./storage/BACKUP.md)

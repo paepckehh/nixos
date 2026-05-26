@@ -19,7 +19,7 @@ in {
     ../client/addrootCA-ext.nix
     ../client/addCache.nix
     ../client/addOpenSnitch-addSrv.nix
-    # ../server/backup/backup.nix
+    # ../storage/backup.nix
   ];
 
   #######

@@ -7,7 +7,7 @@
   ############################
   #-=# GLOBAL SITE IMPORT #=-#
   ############################
-  infra = (import ../../siteconfig/config.nix).infra;
+  infra = (import ../siteconfig/config.nix).infra;
 in {
   ##############
   #-=# USER #=-#
@@ -72,12 +72,14 @@ in {
     etc."scripts/rsync-backup.sh".text = ''
       #!/bin/sh
       if [ "$EUID" -ne 0 ]; then echo "Backup-rsync: please run this script as root!" && exit 1 ; fi
-      if [ ! -e /nix/persit/home/backup/id_ed25519 ]; then echo "Backup-rsync: ssh rsync key not found" && exit 1 ; fi
+      if [ ! -e /nix/persit/home/backup/id_ed25519 ]; then echo "Backup-rsync: ssh rsync key not found, exit" && exit 1 ; fi
       TOUCH=/run/current-system/sw/bin/touch
       RM=/run/current-system/sw/bin/rm
       NIXC=/run/current-system/sw/bin/nixos-container
       STATE=/var/run/backup
       if [ -e $STATE/init ]; then echo "Rsync-Backup: init lockfile exists, backup running already" && exit 1; fi
+      /run/current-system/sw/bin/mkdir -p $STATE
+      $RM $STATE/* >/dev/null 2>&1 || true
       $TOUCH $STATE/init
       $NIXC start rsync-backup
       until [ -e $STATE/first.done ]; do sleep 1; done;
@@ -86,8 +88,8 @@ in {
       for c in $CLIST; do $NIXC stop "$c"; done
       until [ -e $STATE/done ]; do sleep 1; done;
       for c in $CLIST; do $NIXC start "$c"; done
-      $NIXC stop rsync-backup >/dev/null 2>&1
-      $RM $STATE/*
+      $RM $STATE/* >/dev/null 2>&1 || true
+      $NIXC stop rsync-backup >/dev/null 2>&1 || true
     '';
   };
 
