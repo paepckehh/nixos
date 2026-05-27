@@ -1326,6 +1326,19 @@ let
     };
     ops2.id = 120;
     ops3.id = 121;
+    paperless-ai = {
+      id = 123;
+      app = "paperless-ai";
+      name = infra.paperless-ai.app;
+      hostname = infra.paperless-ai.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.paperless-ai.hostname}.${infra.paperless-ai.domain}";
+      ip = "${infra.net.user}.${toString infra.paperless-ai.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.paperless-ai.id;
+      access.cidr = infra.cidr.user;
+      logo = "${infra.res.url}/icon/png/${infra.paperless-ai.name}.png";
+      url = "https://${infra.paperless-ai.fqdn}";
+    };
     vault = {
       id = 124;
       app = "vaultwarden";

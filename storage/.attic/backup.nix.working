@@ -30,7 +30,7 @@ in {
         isNormalUser = true;
         isSystemUser = false;
         group = "samba";
-        hashedPassword = lib.mkForce null;
+        hashedPassword = lib.mkForce "$y$j9T$YMyUhScE6LiNjm4XIxHKp/$LZLms7WzjfyK3USuEX3MFf.NHcDDkXkJafZhY96Oaa4"; # disable password login
         openssh.authorizedKeys.keys = [''ssh-ed25519 ***locked**''];
       };
     };
@@ -58,7 +58,7 @@ in {
       timerConfig = {
         Unit = "rsync-backup.service";
         Persistent = false;
-        OnCalendar = "*-*-* 22:15:00";
+        OnCalendar = "2028-01-01 22:15:00";
       };
     };
     tmpfiles.rules = [
@@ -91,8 +91,7 @@ in {
       if [ -e $STATE/exit ]; then echo "Rsync-Backup: nothing todo, exit" && exit 0; fi
       CLIST=$($NIXC list | grep -v '^rsync-backup$' | grep -v '^$')
       for c in $CLIST; do $NIXC stop "$c"; done
-      $TOUCH $STATE/container.down
-      until [ -e $STATE/container.done ]; do sleep 1; done;
+      until [ -e $STATE/done ]; do sleep 1; done;
       for c in $CLIST; do $NIXC start "$c"; done
       $RM $STATE/* >/dev/null 2>&1 || true
       $NIXC stop rsync-backup >/dev/null 2>&1 || true
@@ -103,35 +102,33 @@ in {
   #-=# CONTAINERS #=-#
   ####################
   containers.rsync-backup = {
-    autoStart = false;
+    autoStart = true;
     ephemeral = true;
     privateNetwork = false;
-    bindMounts = {
-      "/var/run/backup".isReadOnly = false;
-      "/nix/persist/home/backup/.ssh/id_ed25519".isReadOnly = true;
-      "hostname" = {
-        isReadOnly = true;
-        hostPath = "/etc/hostname";
-        mountPoint = "/etc/hostname-hostOS";
-      };
-      "lib" = {
-        isReadOnly = true;
-        hostPath = "/var/lib";
-        mountPoint = "/mnt/var/lib";
-      };
-    };
+    # bindMounts = {
+    # "/etc/hostname" = {
+    #   isReadOnly = true;
+    #   hostPath = "/etc/hostname";
+    #   mountPoint = "/etc/hostname-hostOS";
+    # };
+    # "/var/lib".isReadOnly = true;
+    # "/var/run/backup".isReadOnly = false;
+    # "/nix/persist/home/backup/.ssh/id_ed25519".isReadOnly = true;
+    # };
     config = {
       config,
       pkgs,
       lib,
       ...
     }: {
-      imports = [../client/env.nix];
+      system.stateVersion = "26.05";
+      networking.hostName = "rsync-backup";
+      # users = {
+      #   mutableUsers = lib.mkForce false;
+      #   users.root.hashedPassword = lib.mkForce "$y$j9T$YMyUhScE6LiNjm4XIxHKp/$LZLms7WzjfyK3USuEX3MFf.NHcDDkXkJafZhY96Oaa4"; # disable password login
+      # };
       systemd.services."rsync-backup-container" = {
         description = "rsync-backup-container";
-          after = ["sockets.target"];
-          wants = ["sockets.target"];
-          wantedBy = ["multi-user.target"];
         serviceConfig = {
           User = "root";
           Type = "oneshot";
@@ -146,7 +143,6 @@ in {
           if [ "$EUID" -ne 0 ]; then echo "Backup-rsync: please run this script as root!" && exit 1 ; fi
           if [ ! -e $KEY ]; then echo "Backup-rsync: ssh rsync key not found: $KEY , exit" && exit 1 ; fi
           if [ "$EUID" -ne 0 ]; then echo "Please run this script as root!" && exit 1 ; fi
-          SELF="--exclude='nixos-containers/rsync-backup'"
           EXCLUDE="--exclude='lib/containers' --exclude='lib/.attic' --exclude='lib/docker' --exclude='lib/nixos' --exclude='lib/nixos-containers'"
           RSYNC=/run/current-system/sw/bin/rsync
           TOUCH=/run/current-system/sw/bin/touch
@@ -162,15 +158,12 @@ in {
           esac
           if [ $TARGET = "none"  ]; then echo "Rsync-Backup: no action => $HOST:$WEEKDAY" && $TOUCH $STATE/exit $TATE/first.done && exit 0; fi
           if [ -e $STATE/running ]; then echo "Rsync-Backup: lockfile exists, backup running already" && $TOUCH $STATE/exit $TATE/first.done && exit 1; fi
-          $TOUCH $STATE/running.main
-          $RSYNC -a --checksum --delete --dry-run -e "ssh -p 6623 -i $KEY" $EXCLUDE /mnt/var/lib backup@$TARGET.adm.corp:$HOSTNAME || true
+          $TOUCH $STATE/running
+          $RSYNC -a --checksum --delete --dry-run -e "ssh -p 6623 -i $KEY" $EXCLUDE /var/lib backup@$TARGET.adm.corp:$HOSTNAME
           $TOUCH $STATE/first.done
-          until [ -e $STATE/container.down ]; do sleep 1; done;
-          $TOUCH $STATE/running.container
-          $RSYNC -a --checksum --delete --dry-run -e "ssh -p 6623 -i $KEY" $SELF /mnt/var/lib/nixos-containers backup@$TARGET.adm.corp:$HOSTNAME || true
-          $TOUCH $STATE/container.done
+          until [ -e /var/run/backup/container.down ]; do sleep 1; done;
+          $RSYNC -a --checksum --delete --dry-run -e "ssh -p 6623 -i $KEY" /var/lib/nixos-containers backup@$TARGET.adm.corp:$HOSTNAME
           $TOUCH $STATE/done
-          /run/current-system/sw/bin/sleep 3
           /run/current-system/sw/bin/poweroff
         '';
       };
