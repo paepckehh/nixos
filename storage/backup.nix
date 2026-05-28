@@ -67,7 +67,7 @@ in {
       timerConfig = {
         Unit = "rsync-backup.service";
         Persistent = false;
-        OnCalendar = "2028-*-* 22:15:00";
+        OnCalendar = "*-*-* 23:15:00";
       };
     };
     tmpfiles.rules = [
@@ -103,31 +103,35 @@ in {
       ops2:Tuesday|ops2:Friday) TARGET="backup@${infra.backup.one}.adm.corp:$HOST";;
       esac
       $RM /var/lib/.last-backup.* >/dev/null 2>&1  || true
-      $TOUCH /var/lib/.last-backup."$( $DATE '+%Y-%m-%dT%H:%M:%S' )"
-      if [ $TARGET = "none" ]; then
+      $TOUCH /var/lib/.last-backup.startup."$( $DATE '+%Y-%m-%dT%H:%M:%S' )"
+      if [ $TARGET != "none" ]; then
+        KEY=${ssh.key}
+        if [ ! -e $KEY ]; then echo "Backup-rsync: ssh rsync key not found: $KEY, exit" && exit 1 ; fi
+        RSYNOPT="-a --checksum --delete --stats"
+        SRC="/mnt/ro/var/lib"
+        RSYNC=/run/current-system/sw/bin/rsync
+        echo "Start Backup: /var/lib"
+        $RSYNC $RSYNOPT -e "ssh -p 6623 -i $KEY" $SRC $TARGET || true
+        echo "End Backup: /var/lib"
+        NIXC=/run/current-system/sw/bin/nixos-container
+        CLIST=$($NIXC list | grep -v '^$')
+        for co in $CLIST; do
+          echo "Start Backup: Container: $co"
+          $NIXC stop $co
+          $RSYNC $RSYNOPT -e "ssh -p 6623 -i $KEY" $SRC/nixos-containers/$co $TARGET/lib/nixos-containers/$co || true
+          $NIXC start $co
+          echo "End Backup: Container: $co"
+        done
+        $TOUCH /var/lib/.last-backup.finish."$( $DATE '+%Y-%m-%dT%H:%M:%S' )"
+      else
         echo "Rsync-Backup: no action => $HOST:$WEEKDAY"
         $TOUCH /var/lib/.last-backup.finish-without-action."$( $DATE '+%Y-%m-%dT%H:%M:%S' )"
-        exit 0
       fi
-      KEY=${ssh.key}
-      if [ ! -e $KEY ]; then echo "Backup-rsync: ssh rsync key not found: $KEY, exit" && exit 1 ; fi
-      RSYNOPT="-a --checksum --delete --stats"
-      SRC="/mnt/ro/var/lib"
-      RSYNC=/run/current-system/sw/bin/rsync
-      echo "Start Backup: /var/lib"
-      $RSYNC $RSYNOPT -e "ssh -p 6623 -i $KEY" --exclude={'lib/containers','lib/.attic','lib/docker','lib/nixos','lib/nixos-containers/*'} $SRC $TARGET || true
-      echo "End Backup: /var/lib"
-      NIXC=/run/current-system/sw/bin/nixos-container
-      CLIST=$($NIXC list | grep -v '^$')
-      for co in $CLIST; do
-        echo "Start Backup: Container: $co"
-        $NIXC stop $co
-        $RSYNC $RSYNOPT -e "ssh -p 6623 -i $KEY" $SRC/nixos-containers/$co $TARGET/lib/nixos-containers/$co || true
-        $NIXC start $co
-        echo "End Backup: Container: $co"
-      done
-      $TOUCH /var/lib/.last-backup.finish."$( $DATE '+%Y-%m-%dT%H:%M:%S' )"
       $RM $STATE/* >/dev/null 2>&1 || true
+      /run/current-system/sw/bin/sync
+      /run/current-system/sw/bin/sync
+      /run/current-system/sw/bin/sync
+      exit 0
     '';
   };
 }
