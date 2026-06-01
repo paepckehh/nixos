@@ -24,6 +24,7 @@ in {
   ##################
   programs = {
     command-not-found.enable = lib.mkForce false;
+    gnupg.agent.enable = true;
     htop.enable = true;
     kbdlight.enable = true;
     fish.enable = true;

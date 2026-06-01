@@ -63,7 +63,7 @@
         modules = [
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
-          # ./storage/zfs.nix
+          ./storage/zfs.nix
           # ./storage/stateless-luks.nix
           ./storage/stateless-luks-fixed-6F6B-6565.nix
           ./hardware/all.nix

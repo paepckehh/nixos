@@ -1,0 +1,1 @@
+../all/zdash.nix

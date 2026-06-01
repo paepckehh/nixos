@@ -857,6 +857,12 @@ let
       url = "https://${infra.git-mirror.fqdn}";
       logo = "${infra.res.url}/icon/png/git.png";
     };
+    zdash = {
+      id = 32;
+      app = "zdash";
+      name = "zdash";
+      localbind.port.http = infra.localhost.port.offset + infra.zdash.id;
+    };
     dns = {
       id = 53;
       name = "dns";
