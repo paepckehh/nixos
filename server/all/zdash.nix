@@ -24,21 +24,17 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.services.opnborg = {
+  systemd.services.zdash = {
     after = ["network.target"];
     wantedBy = ["multi-user.target"];
     description = "zDash Service";
-    environment.BIND_ADDR = "${infra.localhost.ip}:${toString infra.zdash.localbind.port.http}";
+    environment = {
+      BIND_ADDR = "${infra.localhost.ip}:${toString infra.zdash.localbind.port.http}";
+    };
     serviceConfig = {
       ExecStart = "/nix/persist/root/bin/zdash";
       KillMode = "process";
       Restart = "always";
-      MemoryDenyWriteExecute = true;
-      NoNewPrivileges = true;
-      RestrictAddressFamilies = [
-        "AF_INET"
-        "AF_INET6"
-      ];
     };
   };
 }
