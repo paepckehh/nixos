@@ -94,7 +94,6 @@ in {
             "firefox.desktop"
             "org.keepassxc.KeePassXC.desktop"
             "org.gnome.Nautilus.desktop"
-            "bitwarden.desktop"
             "onlyoffice-desktopeditors.desktop"
             "com.yubico.yubioath.desktop"
             "org.remmina.Remmina.desktop"

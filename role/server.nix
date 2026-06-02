@@ -127,12 +127,12 @@ in {
         dns = [infra.dns.resolver.user.primary infra.dns.resolver.user.secondary];
         log-driver = "journald";
         storage-driver = "overlay2";
-        default-address-pools = [
-          {
-            base = infra.cidr.container;
-            size = infra.cidr.netmask;
-          }
-        ];
+        # default-address-pools = [
+        #  {
+        #    base = infra.cidr.container;
+        #    size = infra.cidr.netmask;
+        #  }
+        # ];
       };
       rootless = {
         enable = true;

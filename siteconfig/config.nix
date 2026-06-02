@@ -1858,5 +1858,25 @@ let
       url = "https://${infra.bichon.fqdn}";
       logo = "${infra.res.url}/icon/png/twake-mail.png";
     };
+    rdpgate = {
+      id = 187;
+      app = "rdpgw";
+      name = "rdpgate";
+      hostname = infra.rdpgate.name;
+      admin = {
+        domain = infra.domain.admin;
+        fqdn = "${infra.rdpgate.hostname}.${infra.rdpgate.admin.domain}";
+        ip = "${infra.net.admin}.${toString infra.rdpgate.id}";
+        url = "https://${infra.rdpgate.admin.fqdn}";
+      };
+      user = {
+        domain = infra.domain.user;
+        fqdn = "${infra.rdpgate.hostname}.${infra.rdpgate.user.domain}";
+        ip = "${infra.net.user}.${toString infra.rdpgate.id}";
+        url = "https://${infra.rdpgate.user.fqdn}";
+      };
+      localbind.port.http = infra.localhost.port.offset + infra.rdpgw.id;
+      logo = "${infra.res.url}/icon/png/rdp.png";
+    };
   };
 in {infra = infra;}
