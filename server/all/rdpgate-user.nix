@@ -12,13 +12,13 @@ in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking.extraHosts = "${infra.rdpgw.ip} ${infra.rdpgw.hostname} ${infra.rdpgw.fqdn}";
+  networking.extraHosts = "${infra.rdpgate.user.ip} ${infra.rdpgate.user.hostname} ${infra.rdpgate.user.fqdn}";
 
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.rdpgw.ip}/32";}];
-  
+  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.rdpgate.user.ip}/32";}];
+
   ####################
   #-=# ENVIROMENT #=-#
   ####################
@@ -28,9 +28,9 @@ in {
   #-=# SERVICES #=-#
   ##################
   services = {
-    caddy.virtualHosts."${infra.rdpgw.fqdn}" = {
+    caddy.virtualHosts."${infra.rdpgate.user.fqdn}" = {
       listenAddresses = [infra.rdpgw.ip];
-      extraConfig = ''import intraproxy ${toString infra.rdpgw.localbind.port.http}'';
+      extraConfig = ''import intraproxy ${toString infra.rdpgate.localbind.port.http}'';
     };
   };
 
@@ -41,7 +41,7 @@ in {
     after = ["network.target"];
     wantedBy = ["multi-user.target"];
     description = "zDash Service";
-    environment.BIND_ADDR = "${infra.localhost.ip}:${toString infra.zdash.localbind.port.http}";
+    environment.BIND_ADDR = "${infra.localhost.ip}:${toString infra.rdpgate.localbind.port.http}";
     serviceConfig = {
       ExecStart = "${pkgs.rdpgw}/bin/rdpgw";
       KillMode = "process";
