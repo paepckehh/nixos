@@ -12,7 +12,7 @@ in {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking.extraHosts = "${infra.rdpgate.user.ip} ${infra.rdpgate.user.hostname} ${infra.rdpgate.user.fqdn}";
+  networking.extraHosts = "${infra.rdpgate.user.ip} ${infra.rdpgate.user.fqdn}";
 
   #################
   #-=# SYSTEMD #=-#
@@ -27,21 +27,18 @@ in {
   ##################
   #-=# SERVICES #=-#
   ##################
-  services = {
-    caddy.virtualHosts."${infra.rdpgate.user.fqdn}" = {
-      listenAddresses = [infra.rdpgw.ip];
-      extraConfig = ''import intraproxy ${toString infra.rdpgate.localbind.port.http}'';
-    };
+  services.caddy.virtualHosts."${infra.rdpgate.user.fqdn}" = {
+    listenAddresses = [infra.rdpgate.user.ip];
+    extraConfig = ''import intraproxy ${toString infra.rdpgate.user.localbind.port.http}'';
   };
 
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.services.rdpgate = {
+  systemd.services.rdpgate-user = {
     after = ["network.target"];
     wantedBy = ["multi-user.target"];
-    description = "zDash Service";
-    environment.BIND_ADDR = "${infra.localhost.ip}:${toString infra.rdpgate.localbind.port.http}";
+    description = "rdpgate-user";
     serviceConfig = {
       ExecStart = "${pkgs.rdpgw}/bin/rdpgw";
       KillMode = "process";

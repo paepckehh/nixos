@@ -8,7 +8,6 @@
   #-=# GLOBAL SITE IMPORT #=-#
   ############################
   infra = (import ../siteconfig/config.nix).infra;
-
   zfsCompatibleKernelPackages =
     lib.filterAttrs (
       name: kernelPackages:
@@ -41,7 +40,7 @@ in {
       forceImportAll = false;
       forceImportRoot = false;
       passwordTimeout = 30;
-      extraPools = ["tank"];
+      # extraPools = ["tank"];
     };
   };
 

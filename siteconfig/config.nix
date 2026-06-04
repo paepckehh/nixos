@@ -195,9 +195,12 @@ let
     localhost = {
       name = "localhost";
       ip = "127.0.0.1";
-      cidr = "127.0.0.0/24";
-      port.offset = 7000;
-      metric.offset = 9000;
+      cidr = "127.0.0.1/32";
+      port = {
+        offset = 7000;
+        offset2 = 8000;
+        metric = 9000;
+      };
     };
     container.interface = "br0";
     id = {
