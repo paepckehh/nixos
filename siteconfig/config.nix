@@ -63,8 +63,8 @@ let
       ];
     };
     backup = {
-      one = "ops4";
-      two = "ops5";
+      one = "ops4.${infra.domain.admin}";
+      two = "ops5.${infra.domain.admin}";
       email = "backup@${infra.email.domain.intern}";
       sshKeys = ["ssh-ed25519@openssh.com [...]="];
     };
@@ -620,6 +620,7 @@ let
         "network.dns.echconfig.enabled" = true;
         "network.dns.http3.echconfig.enabled" = true;
         "network.dns.preferIPv6" = false;
+        "network.dns.prefetch_via_proxy" = true;
         "network.proxy.type" = 0;
         "network.trr.mode" = 0;
         "network.wifi.scanning_period" = 0;

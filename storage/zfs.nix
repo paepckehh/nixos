@@ -81,6 +81,10 @@ in {
   #-=# SYSTEMD #=-#
   #################
   systemd = {
+    tmpfiles.rules = [
+      "d /mnt/tank/backup 0775 root wheel"
+      "d /mnt/tank/samba 0775 root wheel"
+    ];
     services = {
       zfs-mount.enable = lib.mkForce true;
       "zfs-cache-meta-samba" = {

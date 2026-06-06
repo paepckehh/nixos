@@ -1,1 +1,0 @@
-../all/homer-home-container.nix

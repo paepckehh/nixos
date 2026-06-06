@@ -71,8 +71,6 @@ in {
       };
     };
     tmpfiles.rules = [
-      "d /mnt/tank/backup 0770 backup backup"
-      "d /mnt/tank/samba  0770 samba samba"
       "d /var/run/backup  0770 root wheel"
     ];
   };
@@ -95,37 +93,39 @@ in {
       HOST="$(cat /etc/hostname)"
       DATE=/run/current-system/sw/bin/date
       WEEKDAY="$(LC_ALL=C $DATE '+%A')"
+      KEY="$(LC_ALL=C $DATE '+%A' | cut -c 1)"
       TARGET=none
-      case $HOST:$WEEKDAY in
-      ops:Monday|ops:Wednesday|ops:Friday) TARGET="backup@${infra.backup.one}.adm.corp:$HOST";;
-      ops:Tuesday|ops:Thursday) TARGET="backup@${infra.backup.two}.adm.corp:$HOST";;
-      ops2:Monday|ops2:Wednesday|ops2:Thursday) TARGET="backup@${infra.backup.two}.adm.corp:$HOST";;
-      ops2:Tuesday|ops2:Friday) TARGET="backup@${infra.backup.one}.adm.corp:$HOST";;
+      case $HOST:$KEY in
+          *:S) ;;
+          ops:T)  TARGET="backup@${infra.backup.two}:$HOST";;
+          ops2:T) TARGET="backup@${infra.backup.one}:$HOST";;
+          ops:*)  TARGET="backup@${infra.backup.one}:$HOST";;
+          ops2:*) TARGET="backup@${infra.backup.two}:$HOST";;
       esac
       $RM /var/lib/.last-backup.* >/dev/null 2>&1  || true
-      $TOUCH /var/lib/.last-backup.startup."$( $DATE '+%Y-%m-%dT%H:%M:%S' )"
+      $TOUCH /var/lib/.last-backup.startup.$HOST.$TARGET.$WEEKDAY."$( $DATE '+%Y-%m-%dT%H:%M:%S' )"
       if [ $TARGET != "none" ]; then
         KEY=${ssh.key}
         if [ ! -e $KEY ]; then echo "Backup-rsync: ssh rsync key not found: $KEY, exit" && exit 1 ; fi
         RSYNOPT="-a --checksum --delete --stats"
         SRC="/mnt/ro/var/lib"
         RSYNC=/run/current-system/sw/bin/rsync
-        echo "Start Backup: /var/lib"
+        echo "Start Backup: $HOST/var/lib => $TARGET ($WEEKDAY)"
         $RSYNC $RSYNOPT -e "ssh -p 6623 -i $KEY" $SRC $TARGET || true
-        echo "End Backup: /var/lib"
+        echo "End Backup: $HOST/var/lib"
         NIXC=/run/current-system/sw/bin/nixos-container
         CLIST=$($NIXC list | grep -v '^$')
         for co in $CLIST; do
-          echo "Start Backup: Container: $co"
+          echo "Start Backup: Container: $HOST/$co => $TARGET ($WEEKDAY)"
           $NIXC stop $co
           $RSYNC $RSYNOPT -e "ssh -p 6623 -i $KEY" $SRC/nixos-containers/$co $TARGET/lib/nixos-containers/$co || true
           $NIXC start $co
-          echo "End Backup: Container: $co"
+          echo "End Backup: Container: $HOST/$co"
         done
-        $TOUCH /var/lib/.last-backup.finish."$( $DATE '+%Y-%m-%dT%H:%M:%S' )"
+        $TOUCH /var/lib/.last-backup.finish.$HOST.$TARGET.$WEEKDAY."$( $DATE '+%Y-%m-%dT%H:%M:%S' )"
       else
-        echo "Rsync-Backup: no action => $HOST:$WEEKDAY"
-        $TOUCH /var/lib/.last-backup.finish-without-action."$( $DATE '+%Y-%m-%dT%H:%M:%S' )"
+        echo "Rsync-Backup: no action => $HOST:$WEEKDAY ($KEY:$TARGET)"
+        $TOUCH /var/lib/.last-backup.finish-without-action.$HOST.$TARGET.$WEEKDAY."$( $DATE '+%Y-%m-%dT%H:%M:%S' )"
       fi
       $RM $STATE/* >/dev/null 2>&1 || true
       /run/current-system/sw/bin/sync

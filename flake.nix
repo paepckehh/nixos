@@ -84,7 +84,7 @@
           ./server/infra/syslog-ng.nix
           ./server/search/searx.nix
           ./server/pki/small-step.nix
-          ./server/portal/homer-home-container.nix
+          ./server/portal/portal-start.nix
           ./server/webapp/res.nix
           # ./server/mail/maddy-admin.nix
           # ./server/ai/ollama01.nix
