@@ -13,6 +13,8 @@
   #-=# HARDWARE #=-#
   ##################
   hardware = {
+    acpilight.enable = true;
+    i2c.enable = true;
     bluetooth = {
       enable = lib.mkForce false;
       powerOnBoot = lib.mkForce false;
@@ -22,7 +24,6 @@
   ##################
   #-=# PROGRAMS #=-#
   ##################
-  # programs = {};
 
   #############
   #-=# XDG #=-#
@@ -41,7 +42,23 @@
   ##################
   services = {
     autosuspend.enable = lib.mkForce false;
+    ddccontrol.enable = true;
     speechd.enable = lib.mkForce false;
+    actkbd = {
+      enable = true;
+      bindings = [
+        {
+          keys = [224];
+          events = ["key"];
+          command = "/run/current-system/sw/bin/light -A 10";
+        }
+        {
+          keys = [225];
+          events = ["key"];
+          command = "/run/current-system/sw/bin/light -U 10";
+        }
+      ];
+    };
     xserver = {
       enable = true;
       autoRepeatDelay = 150;
@@ -59,7 +76,17 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    systemPackages = with pkgs; [alacritty gparted keepassxc wl-clipboard yubioath-flutter xclip];
     variables.TERMINAL = "alacritty";
+    systemPackages = with pkgs; [
+      alacritty
+      ddcutil
+      filezilla
+      gparted
+      keepassxc
+      notepad-next
+      wl-clipboard
+      yubioath-flutter
+      xclip
+    ];
   };
 }

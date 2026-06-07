@@ -121,7 +121,7 @@ let
       blacklist = ["affs" "af_alg" "algif_hash" "algif_skcipher" "algif_rng" "algif_aead" "bcm43xx" "brcm80211" "befs" "bfs" "esp4" "esp6" "freevxfs" "hpfs" "jfs" "joydev" "ipx" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "rxrpc" "sctp" "sctp_diag" "ssb" "tipc" "tipc_diag" "rndis_host" "rds" "rds_rdma" "rds_tcp" "usb_f_rndis" "x25"];
       whitelist = {
         base = ["aesni_intel" "ahci" "ccm" "cmac" "dm_crypt" "dm_mod" "nvme" "thunderbolt" "overlay" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
-        client = infra.kernel.whitelist.base ++ ["cifs" "exfat" "uas" "usb_storage" "usbhid" "vfat"];
+        client = infra.kernel.whitelist.base ++ ["cifs" "exfat" "uas" "usb_storage" "usbhid" "vfat" "i2c-dev" "ddcci-backlight"];
         server = infra.kernel.whitelist.base ++ ["bridge" "loop" "macvlan"];
       };
       sysctl = {

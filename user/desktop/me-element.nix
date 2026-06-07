@@ -10,6 +10,11 @@
   infra = (import ../../siteconfig/config.nix).infra;
   bookmarks.ManagedBookmarks = lib.importJSON ../../shared/bookmarks.json;
 in {
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment.systemPackages = with pkgs; [element-desktop];
+
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
@@ -18,7 +23,7 @@ in {
       "element-desktop.desktop"
     ];
     programs.element-desktop = {
-      enable = true;
+      enable = false;
       settings = {
         default_server_config = {
           "m.homeserver" = {

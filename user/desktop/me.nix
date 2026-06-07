@@ -14,10 +14,10 @@ in {
   #-=# IMPORTS #=-#
   #################
   imports = [
+    ../me.nix
     ./me-element.nix
     ./me-librewolf.nix
     ./me-thunderbird.nix
-    ../me.nix
     ../../client/addHomeFix.nix
   ];
 
@@ -29,7 +29,7 @@ in {
   ##################
   #-=# SECURITY #=-#
   ##################
-  security.pam.services.me.enableGnomeKeyring = true;
+  security.pam.services.me.enableGnomeKeyring = lib.mkForce false;
 
   #################
   #-=# SYSTEMD #=-#
@@ -50,15 +50,17 @@ in {
   ######################
   home-manager.users.me = {
     home = {
+      file.".face".source = ../../shared/brand/me.jpg;
       sessionVariables = {
         NIXOS_OZONE_WL = "1";
         MOZ_USE_XINPUT2 = "1";
       };
       packages = with pkgs; [
-        gnomeExtensions.dash-to-panel
+        gnomeExtensions.brightness-control-using-ddcutil
         gnomeExtensions.clipboard-indicator
+        gnomeExtensions.dash-to-panel
+        gnomeExtensions.vitals
       ];
-      file.".face".source = ../../shared/brand/me.jpg;
     };
     xdg = {
       autostart = {
@@ -83,8 +85,10 @@ in {
         "org/gnome/shell" = {
           disable-user-extensions = false;
           enabled-extensions = with pkgs.gnomeExtensions; [
-            dash-to-panel.extensionUuid
+            brightness-control-using-ddcutil.extensionUuid
             clipboard-indicator.extensionUuid
+            dash-to-panel.extensionUuid
+            vitals.extensionUuid
           ];
           favorite-apps = [
             "Alacritty.desktop"
@@ -147,28 +151,6 @@ in {
       };
     };
     programs = {
-      element-desktop = {
-        enable = true;
-        settings = {
-          default_server_config = {
-            "m.homeserver" = {
-              base_url = infra.matrix.url;
-              server_name = "${infra.site.name}TALK";
-            };
-            "m.identity_server" = {
-              base_url = "https://vector.im";
-            };
-          };
-          disable_custom_urls = false;
-          disable_guests = false;
-          disable_login_language_selector = false;
-          disable_3pid_login = false;
-          force_verification = false;
-          brand = "Element";
-          integrations_ui_url = "https://scalar.vector.im/";
-          integrations_rest_url = "https://scalar.vector.im/api";
-        };
-      };
       onlyoffice = {
         enable = false;
         settings = {
@@ -243,11 +225,6 @@ in {
           };
         };
       };
-      yazi = {
-        enable = true;
-        enableFishIntegration = true;
-        # extraPackages = with pkgs.yaziPlugins; [chmod compress diff gvfs lsar ouch mediainfo mime-ext rsync starship time-travel];
-      };
     };
     services = {
       remmina.enable = true;
@@ -255,101 +232,6 @@ in {
       nextcloud-client = {
         enable = false;
         startInBackground = false;
-      };
-    };
-  };
-
-  ##################
-  #-=# SERVICES #=-#
-  ##################
-  services = {
-    opensnitch = {
-      rules = {
-        librewolf-dns = {
-          created = infra.wg.ts.create;
-          updated = infra.wg.ts.create;
-          precedence = false;
-          nolog = false;
-          name = "librewolf-dns";
-          enabled = true;
-          action = "allow";
-          duration = "always";
-          operator = {
-            data = "";
-            sensitive = false;
-            operand = "list";
-            type = "list";
-            list = [
-              {
-                operand = "process.path";
-                data = "${lib.getBin config.home-manager.users.me.programs.librewolf.finalPackage}/lib/librewolf/librewolf";
-                type = "simple";
-                list = null;
-                sensitive = false;
-              }
-              {
-                operand = "dest.ip";
-                data = "127.0.0.53";
-                type = "simple";
-                list = null;
-                sensitive = false;
-              }
-              {
-                operand = "dest.port";
-                data = "53";
-                type = "simple";
-                list = null;
-                sensitive = false;
-              }
-              {
-                operand = "user.id";
-                data = "${toString infra.me.uid}";
-                type = "simple";
-                list = null;
-                sensitive = false;
-              }
-            ];
-          };
-        };
-        librewolf-https = {
-          created = infra.wg.ts.create;
-          updated = infra.wg.ts.create;
-          precedence = false;
-          nolog = false;
-          name = "librewolf-https";
-          enabled = true;
-          action = "allow";
-          duration = "always";
-          operator = {
-            data = "";
-            sensitive = false;
-            operand = "list";
-            type = "list";
-            list = [
-              {
-                operand = "process.path";
-                data = "${lib.getBin config.home-manager.users.me.programs.librewolf.finalPackage}/lib/librewolf/librewolf";
-                type = "simple";
-                list = null;
-                sensitive = false;
-              }
-              {
-                operand = "dest.port";
-                data = "443";
-                type = "simple";
-                list = null;
-                sensitive = false;
-              }
-              {
-                operand = "user.id";
-                data = "${toString infra.me.uid}";
-                type = "simple";
-                list = null;
-                sensitive = false;
-              }
-            ];
-          };
-        };
       };
     };
   };
