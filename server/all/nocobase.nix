@@ -74,7 +74,7 @@ in {
             TZ = infra.locale.tz;
             APP_KEY = "your-secret-key-BGFBsvdgsbgdBGsbgS"; # XXX poc only rage it
             DB_DIALECT = "mariadb";
-            DB_HOST = "localhost`";
+            DB_HOST = "127.0.0.1";
             DB_PORT = "3306";
             DB_DATABASE = "nocobase";
             DB_USER = "nocobase";
