@@ -170,6 +170,14 @@ in {
               GOWORK = lib.mkForce "";
             };
           };
+          neovim = {
+            enable = true;
+            plugins = with pkgs.vimPlugins; [
+              opencode-nvim
+              go-nvim
+              vim-nix
+            ];
+          };
           vim = {
             enable = true;
             defaultEditor = true;
