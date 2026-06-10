@@ -75,6 +75,7 @@
           ./packages/base.nix
           ./packages/devops.nix
           ./packages/desktop/gnome.nix
+          ./server/db/nocobase.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix

@@ -18,24 +18,23 @@ in {
   #-=# SYSTEMD #=-#
   #################
   systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.nocobase.ip}/32";}];
- 
+
   #####################
   #-=# ENVIRONMENT #=-#
-  #####################  
-  environment.systemPackages = [ pkgs.mycli ];
+  #####################
+  environment.systemPackages = [pkgs.mycli];
 
   ##############
   #-=# USER #=-#
   ##############
   users = {
-    users = {
-      nocobase = {
-        createHome = true;
-        isNormalUser = false;
-        isSystemUser = true;
-        group = "nocobase";
-        hashedPassword = lib.mkForce "$y$j9T$YMyUhScE6LiNjm4XIxHKp/$LZLms7WzjfyK3USuEX3MFf.NHcDDkXkJafZhY96Oaa4";  # XXX poc only, rage it
-      };
+    groups.nocobase = {};
+    users.nocobase = {
+      createHome = true;
+      isNormalUser = false;
+      isSystemUser = true;
+      group = "nocobase";
+      hashedPassword = lib.mkForce "$y$j9T$YMyUhScE6LiNjm4XIxHKp/$LZLms7WzjfyK3USuEX3MFf.NHcDDkXkJafZhY96Oaa4"; # XXX poc only, rage it
     };
   };
 
@@ -50,7 +49,7 @@ in {
     mysql = {
       enable = true;
       package = pkgs.mariadb;
-      ensureDatabases = [ "nocodb" ];
+      ensureDatabases = ["nocodb"];
       ensureUsers = [
         {
           name = "nocodb";
@@ -75,12 +74,12 @@ in {
             TZ = infra.locale.tz;
             APP_KEY = "your-secret-key-BGFBsvdgsbgdBGsbgS"; # XXX poc only rage it
             DB_DIALECT = "mariadb";
-            DB_HOST = "mariadb";
+            DB_HOST = "localhost`";
             DB_PORT = "3306";
             DB_DATABASE = "nocobase";
             DB_USER = "nocobase";
-            DB_PASSWORD = "nocobase-FsD5549"; # XXX poc only, rage it
-            DB_UNDERSCORED = true;
+            DB_PASSWORD = infra.nocobase.initpwd;
+            DB_UNDERSCORED = "true";
           };
         };
       };

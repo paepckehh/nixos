@@ -154,6 +154,7 @@ in {
             ${infra.networking-toolbox.hostname} IN A  ${infra.networking-toolbox.ip}
             ${infra.nextcloud.hostname}          IN A  ${infra.nextcloud.ip}
             ${infra.miniflux.hostname}           IN A  ${infra.miniflux.ip}
+            ${infra.nocobase.hostname}           IN A  ${infra.nocobase.ip}
             ${infra.portal.hostname}             IN A  ${infra.portal.ip}
             ${infra.undb.hostname}               IN A  ${infra.undb.ip}
             ${infra.onlyoffice.hostname}         IN A  ${infra.onlyoffice.ip}
@@ -202,6 +203,7 @@ in {
             ${infra.meshtastic-web.hostname}     IN HTTPS 1 . alpn="h3" ipv4hint="${infra.meshtastic-web.ip}"
             ${infra.networking-toolbox.hostname} IN HTTPS 1 . alpn="h3" ipv4hint="${infra.networking-toolbox.ip}"
             ${infra.nextcloud.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.nextcloud.ip}"
+            ${infra.nocobase.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.nocobase.ip}"
             ${infra.miniflux.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.miniflux.ip}"
             ${infra.onlyoffice.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.onlyoffice.ip}"
             ${infra.portal.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.portal.ip}"

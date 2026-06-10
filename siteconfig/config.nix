@@ -1882,5 +1882,18 @@ let
       localbind.port.http = infra.localhost.port.offset + infra.rdpgw.id;
       logo = "${infra.res.url}/icon/png/rdp.png";
     };
+    nocobase = {
+      id = 188;
+      app = "nocobase";
+      name = infra.nocobase.app;
+      hostname = infra.nocobase.name;
+      domain = infra.domain.user;
+      initpwd = "nocobase-FsD5549";
+      fqdn = "${infra.nocobase.hostname}.${infra.nocobase.domain}";
+      ip = "${infra.net.user}.${toString infra.nocobase.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.nocobase.id;
+      url = "https://${infra.nocobase.fqdn}";
+      logo = "${infra.res.url}/icon/png/nocobase.png";
+    };
   };
 in {infra = infra;}

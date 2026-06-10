@@ -7,7 +7,6 @@
       csvs-to-sqlite
       litecli
       litestream
-      sqlar
       sqlit-tui
       sqlite
       sqlite-analyzer
