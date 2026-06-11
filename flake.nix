@@ -75,6 +75,7 @@
           ./packages/base.nix
           ./packages/devops.nix
           ./packages/desktop/gnome.nix
+          ./packages/desktop/opencode.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix
@@ -86,8 +87,8 @@
           ./server/pki/small-step.nix
           ./server/portal/portal-start.nix
           ./server/webapp/res.nix
+          ./server/ai/ollama01.nix
           # ./server/mail/maddy-admin.nix
-          # ./server/ai/ollama01.nix
           # ./server/bookmarks/readeck.nix
           # ./server/mail/autoconfig-admin.nix
           # ./server/win/winstart.nix

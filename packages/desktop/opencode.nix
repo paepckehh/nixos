@@ -15,7 +15,7 @@
   #####################
   environment = {
     systemPackages = with pkgs; [
-        opencode-desktop
+      opencode-desktop
     ];
   };
 }
