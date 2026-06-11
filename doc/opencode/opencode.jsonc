@@ -1,0 +1,18 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+     "ollama": {
+       "npm": "@ai-sdk/openai-compatible",
+       "name": "Ollama (qwen)",
+       "options": {
+         "baseURL": "http://aiworker02.dbt.corp:11434/v1",
+         "num_ctx": "262144"
+       },
+       "models": {
+         "qwen3.6:35b-a3b-coding-mxfp8": {
+           "name": "qwen3.6:35b-a3b-coding-mxfp8"
+         }
+       }
+     }
+  }
+}
