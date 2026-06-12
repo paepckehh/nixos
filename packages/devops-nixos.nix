@@ -4,6 +4,7 @@
   #####################
   environment.systemPackages = with pkgs; [
     disko
+    nil
     nixfmt
     nix-init
     nixpkgs-review

@@ -174,6 +174,7 @@ in {
             enable = true;
             plugins = with pkgs.vimPlugins; [
               opencode-nvim
+              coc-nvim
               go-nvim
               vim-nix
             ];
@@ -190,6 +191,8 @@ in {
               set hlsearch
               set nocompatible
               set nobackup
+              if executable('nil')
+              autocmd User lsp_setup call lsp#register_server({ 'name': 'nil', 'cmd': {server_info->['nil']}, 'whitelist': ['nix'],}) endif
             '';
           };
           fish = {
