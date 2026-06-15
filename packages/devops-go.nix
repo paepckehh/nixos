@@ -6,6 +6,7 @@
     systemPackages = with pkgs; [
       golangci-lint
       gopls
+      gofumpt
       go-tools
     ];
   };

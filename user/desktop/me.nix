@@ -152,7 +152,7 @@ in {
     };
     programs = {
       onlyoffice = {
-        enable = false;
+        enable = true;
         settings = {
           editorWindowMode = "false";
           locale = infra.locale.lang;

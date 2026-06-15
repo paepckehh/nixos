@@ -6,6 +6,7 @@
     systemPackages = with pkgs; [
       crush
       opencode
+      python3
     ];
   };
 }

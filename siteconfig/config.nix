@@ -1895,5 +1895,41 @@ let
       url = "https://${infra.nocobase.fqdn}";
       logo = "${infra.res.url}/icon/png/nocobase.png";
     };
+    auftraggeber = {
+      id = 200;
+      app = "auftraggeber";
+      name = infra.auftraggeber.app;
+      hostname = infra.auftraggeber.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.auftraggeber.hostname}.${infra.auftraggeber.domain}";
+      ip = "${infra.net.user}.${toString infra.auftraggeber-portal.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.auftraggeber.id;
+      url = "https://${infra.auftraggeber.fqdn}";
+      logo = "${infra.res.url}/icon/png/protondb.png";
+    };
+    agent = {
+      id = 201;
+      app = "agent";
+      name = infra.agent.app;
+      hostname = infra.agent.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.agent.hostname}.${infra.agent.domain}";
+      ip = "${infra.net.user}.${toString infra.agent.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.agent.id;
+      url = "https://${infra.agent.fqdn}";
+      logo = "${infra.res.url}/icon/png/protondb.png";
+    };
+    contact = {
+      id = 202;
+      app = "contact";
+      name = infra.contact.app;
+      hostname = infra.contact.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.contact.hostname}.${infra.contact.domain}";
+      ip = "${infra.net.user}.${toString infra.contat.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.contact.id;
+      url = "https://${infra.contact.fqdn}";
+      logo = "${infra.res.url}/icon/png/protondb.png";
+    };
   };
 in {infra = infra;}
