@@ -142,6 +142,7 @@ in {
             ${infra.git-mirror.hostname}         IN A  ${infra.git-mirror.ip}
             ${infra.grist.hostname}              IN A  ${infra.grist.ip}
             ${infra.glance.hostname}             IN A  ${infra.glance.ip}
+            ${infra.guacamole.hostname}          IN A  ${infra.guacamole.ip}
             ${infra.iam.hostname}                IN A  ${infra.iam.ip}
             ${infra.it.hostname}                 IN A  ${infra.it.ip}
             ${infra.kimai.hostname}              IN A  ${infra.kimai.ip}
@@ -193,6 +194,7 @@ in {
             ${infra.git-mirror.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.git-mirror.ip}"
             ${infra.grist.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.grist.ip}"
             ${infra.glance.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.glance.ip}"
+            ${infra.guacamole.hostname}          IN HTTPS 1 . alpn="h3" ipv4hint="${infra.guacamole.ip}"
             ${infra.iam.hostname}                IN HTTPS 1 . alpn="h3" ipv4hint="${infra.iam.ip}"
             ${infra.immich.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.immich.ip}"
             ${infra.it.hostname}                 IN HTTPS 1 . alpn="h3" ipv4hint="${infra.it.ip}"

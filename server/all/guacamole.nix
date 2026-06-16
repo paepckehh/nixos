@@ -30,8 +30,14 @@ in {
         extraConfig = ''import intraproxy ${toString infra.guacamole.localbind.port.http}'';
       };
     };
-    guacamole = {
+    guacamole-client = {
       enable = true;
+      enableWebserver = true;
+      userMappingXML = null;
+      settings = {
+        guacd-hostname = infra.localhost.name;
+        guacd-port = infra.guacamole.localbind.port.http;
+      };
     };
   };
 }
