@@ -25,7 +25,7 @@ in {
   ##################
   services = {
     caddy = {
-      virtualHosts."${infra.guacamole.externalHostname}" = {
+      virtualHosts."${infra.guacamole.fqdn}" = {
         listenAddresses = [infra.guacamole.ip];
         extraConfig = ''import intraproxy ${toString infra.guacamole.localbind.port.http}'';
       };

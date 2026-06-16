@@ -461,6 +461,13 @@ in {
                     logo = infra.networking-toolbox.logo;
                   }
                   {
+                    name = "Guacamole";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.guacamole.url;
+                    logo = infra.guacamole.logo;
+                  }
+                  {
                     name = "Freifunk Status";
                     tag = "external web";
                     target = "_blank";
