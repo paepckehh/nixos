@@ -69,6 +69,7 @@ in {
       "log.system" = "sudo journalctl --follow --priority=7 --lines=2500";
       "log.time" = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
       "time.status" = "timedatectl timesync-status";
+      "info" = "fastfetch -c /etc/nixos/doc/fastfetch/ff.jsonc";
       "info.nvme.extern" = "sudo smartctl --all /dev/sda";
       "info.nvme.intern" = "sudo smartctl --all /dev/nvme0";
       "portal" = "sudo -v && xdg-open http://$(ip --oneline route get 1.1.1.1 | awk '{print $3}') && sudo systemctl restart systemd-resolved";

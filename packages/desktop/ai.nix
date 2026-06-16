@@ -8,14 +8,14 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ../opencode.nix
+    ../ai.nix
   ];
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
     systemPackages = with pkgs; [
-      opencode-desktop
+      # opencode-desktop
     ];
   };
 }

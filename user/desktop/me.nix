@@ -114,12 +114,11 @@ in {
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
-            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/"
           ];
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-          name = "alacritty terminal";
-          command = "alacritty";
+          name = "ghostty terminal";
+          command = "ghostty";
           binding = "<Super>Return";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
@@ -133,11 +132,6 @@ in {
           binding = "<Super>b";
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
-          name = "[p]asswordmanager";
-          command = "vaultwarden";
-          binding = "<Super>p";
-        };
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4" = {
           name = "[k]eepassxc passwordmanager";
           command = "keepassxc";
           binding = "<Super>k";
@@ -161,12 +155,48 @@ in {
         };
       };
       ghostty = {
-        enable = false;
+        enable = true;
         installBatSyntax = true;
         installVimSyntax = true;
         systemd.enable = true;
         settings = {
-          language = infra.locale.lang;
+          theme = "clean"; # Argonout
+          cursor-style = "block";
+          cursor-style-blink = "false";
+          background = "#000000";
+          fullscreen = "true";
+          font-size = "11";
+          notify-on-command-finish-action = "bell,notify";
+          notify-on-command-finish-after = "30s";
+          shell-integration = "fish";
+          shell-integration-features = "ssh-env,ssh-terminfo,no-cursor";
+        };
+        themes = {
+          clean = {
+            background = "#000000";
+            cursor-color = "#f5e0dc";
+            foreground = "#cdd6f4";
+            selection-background = "353749";
+            selection-foreground = "cdd6f4";
+            palette = [
+              "0=#000000"
+              "1=#eb4129"
+              "2=#abe047"
+              "3=#f6c744"
+              "4=#47a0f3"
+              "5=#7b5cb0"
+              "6=#64dbed"
+              "7=#e5e9f0"
+              "8=#565656"
+              "9=#ec5357"
+              "10=#c0e17d"
+              "11=#f9da6a"
+              "12=#49a4f8"
+              "13=#a47de9"
+              "14=#99faf2"
+              "15=#ffffff"
+            ];
+          };
         };
       };
       alacritty = {

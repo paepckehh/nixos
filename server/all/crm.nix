@@ -25,7 +25,7 @@
       gid = 6969;
     };
   };
-  
+
   ####################
   #-=# NETWORKING #=-#
   ####################
@@ -46,19 +46,19 @@
   services = {
     caddy.virtualHosts = {
       "${infra.auftraggeber.fqdn}" = {
-         listenAddresses = [infra.auftraggeber.ip];
-         extraConfig = ''import intraproxy ${toString infra.auftraggeber.localbind.port.http}'';
-    };
+        listenAddresses = [infra.auftraggeber.ip];
+        extraConfig = ''import intraproxy ${toString infra.auftraggeber.localbind.port.http}'';
+      };
       "${infra.agent.fqdn}" = {
-         listenAddresses = [infra.agent.ip];
-         extraConfig = ''import intraauthproxy ${toString infra.auftraggeber.agent.port.http}'';
-    };
+        listenAddresses = [infra.agent.ip];
+        extraConfig = ''import intraauthproxy ${toString infra.auftraggeber.agent.port.http}'';
+      };
       "${infra.contact.fqdn}" = {
-         listenAddresses = [infra.contact.ip];
-         extraConfig = ''import intraauthproxy ${toString infra.auftraggeber.contact.port.http}'';
+        listenAddresses = [infra.contact.ip];
+        extraConfig = ''import intraauthproxy ${toString infra.auftraggeber.contact.port.http}'';
+      };
     };
   };
-};
 
   #################
   #-=# SYSTEMD #=-#

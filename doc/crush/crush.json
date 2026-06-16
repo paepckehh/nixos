@@ -1,0 +1,35 @@
+{
+  "$schema": "https://charm.land/crush.json",
+  "providers": {
+    "ollama": {
+      "name": "Ollama",
+      "base_url": "http://aiworker02.dbt.corp:11434/v1/",
+      "type": "openai",
+      "models": [
+        {
+          "name": "qwen3.6:35b-a3b-coding-mxfp8",
+          "id": "qwen3.6:35b-a3b-coding-mxfp8",
+          "context_window": 256000,
+          "default_max_tokens": 20000
+        }
+      ]
+    }
+  },
+  "lsp": {
+    "go": {
+      "command": "/run/current-system/sw/bin/gopls",
+      "env": {
+        "GOTOOLCHAIN": "go1.26.3"
+      }
+    },
+    "typescript": {
+      "command": "/run/current-system/sw/bin/typescript-language-server",
+      "args": ["--stdio"]
+    },
+    "nix": {
+      "command": "/run/current-system/sw/bin/nil"
+    }
+  }
+,"options":{"tui":{"transparent":true}}
+,"models":{"large":{"model":"qwen3.6:35b-a3b-coding-mxfp8","provider":"ollama","max_tokens":20000}}
+,"recent_models":{"large":[{"model":"qwen3.6:35b-a3b-coding-mxfp8","provider":"ollama"},{"model":"qwen3.6/35b-a3b-coding-mxfp8","provider":"ollama"}]}}

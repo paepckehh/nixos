@@ -74,8 +74,8 @@
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix
           ./packages/devops.nix
+          ./packages/desktop/ai.nix
           ./packages/desktop/gnome.nix
-          ./packages/desktop/opencode.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix

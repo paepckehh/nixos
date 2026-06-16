@@ -1,0 +1,29 @@
+{
+  "projects": [
+    {
+      "path": "/home/me/vetter",
+      "data_dir": "/home/me/vetter/.crush",
+      "last_accessed": "2026-06-15T10:24:15.002604421Z"
+    },
+    {
+      "path": "/home/me/debi/debAI/vetter",
+      "data_dir": "/home/me/debi/debAI/vetter/.crush",
+      "last_accessed": "2026-06-14T18:31:17.999963644Z"
+    },
+    {
+      "path": "/home/me",
+      "data_dir": "/home/me/.crush",
+      "last_accessed": "2026-06-14T06:19:39.117595879Z"
+    },
+    {
+      "path": "/home/me/debi/debAI/debbyCheck",
+      "data_dir": "/home/me/debi/debAI/debbyCheck/.crush",
+      "last_accessed": "2026-06-13T20:28:59.287873229Z"
+    },
+    {
+      "path": "/home/me/debi/debAI/debbyAdd",
+      "data_dir": "/home/me/debi/debAI/debbyAdd/.crush",
+      "last_accessed": "2026-06-12T04:15:01.356401017Z"
+    }
+  ]
+}
