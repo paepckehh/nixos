@@ -33,7 +33,7 @@ in {
     guacamole-client = {
       enable = true;
       enableWebserver = true;
-      userMappingXML = null;
+      userMappingXml = null;
       settings = {
         guacd-hostname = infra.localhost.name;
         guacd-port = infra.guacamole.localbind.port.http;
