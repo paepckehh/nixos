@@ -22,7 +22,10 @@ in {
   ####################
   #-=# ENVIROMENT #=-#
   ####################
-  environment.systemPackages = [pkgs.rdpgw];
+  environment = {
+    etc."rdpgw/adm".text = '''';
+    systemPackages = [pkgs.rdpgw];
+  };
 
   ##################
   #-=# SERVICES #=-#

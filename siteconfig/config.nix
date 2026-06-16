@@ -1882,8 +1882,20 @@ let
       localbind.port.http = infra.localhost.port.offset + infra.rdpgw.id;
       logo = "${infra.res.url}/icon/png/rdp.png";
     };
-    nocobase = {
+    guacamole = {
       id = 188;
+      app = "guacamole";
+      name = infra.guacamole.app;
+      hostname = infra.guacamole.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.guacamole.hostname}.${infra.guacamole.domain}";
+      ip = "${infra.net.user}.${toString infra.guacamole.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.guacamole.id;
+      url = "https://${infra.guacamole.fqdn}";
+      logo = "${infra.res.url}/icon/png/guacamole.png";
+    };
+    nocobase = {
+      id = 189;
       app = "nocobase";
       name = infra.nocobase.app;
       hostname = infra.nocobase.name;

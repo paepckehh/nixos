@@ -91,7 +91,6 @@ in {
             vitals.extensionUuid
           ];
           favorite-apps = [
-            "Alacritty.desktop"
             "com.mitchellh.ghostty.desktop"
             "kitty.desktop"
             "dss.desktop"
@@ -101,6 +100,7 @@ in {
             "onlyoffice-desktopeditors.desktop"
             "com.yubico.yubioath.desktop"
             "org.remmina.Remmina.desktop"
+            "Alacritty.desktop"
           ];
         };
         "org/gnome.desktop/notifications" = {
