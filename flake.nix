@@ -76,6 +76,7 @@
           ./packages/devops.nix
           ./packages/desktop/ai.nix
           ./packages/desktop/gnome.nix
+          ./server/ai/crush.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix

@@ -24,7 +24,7 @@ in {
   #-=# CONTAINERS #=-#
   ####################
   containers.crush = {
-    autoStart = true;
+    autoStart = false;
     privateNetwork = false;
     config = {
       config,
@@ -37,9 +37,13 @@ in {
       #################
       imports = [
         ../../client/env.nix
-        ../../user/me.nix
+        ../../packages/ai.nix
+        ../../packages/base.nix
+        ../../packages/devops-go.nix
+        ../../packages/devops-python.nix
+        ../../packages/devops-html.nix
+        ../../packages/devops-nixos.nix
       ];
-
       ####################
       #-=# NETWORKING #=-#
       ####################
@@ -49,11 +53,21 @@ in {
       #-=# ENVIRONMENT #=-#
       #####################
       environment = {
-        systemPackages = with pkgs; [ 
+        systemPackages = with pkgs; [
           tsshd
           crush
         ];
         etc."ssh/sshd_config".text = "...";
+      };
+
+      #################
+      #-=# NIXPKGS #=-#
+      #################
+      nixpkgs = {
+        config = {
+          allowBroken = true;
+          allowUnfree = true;
+        };
       };
 
       #################

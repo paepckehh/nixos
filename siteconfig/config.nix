@@ -1914,7 +1914,7 @@ let
       id = 191;
       app = "crush";
       name = infra.crush.app;
-      hostname = infra.crus.name;
+      hostname = infra.crush.name;
       domain = infra.domain.user;
       fqdn = "${infra.crush.hostname}.${infra.crush.domain}";
       ip = "${infra.net.user}.${toString infra.crush.id}";

@@ -93,6 +93,7 @@ in {
       bc
       bmon
       btop
+      bttf
       cliqr
       cryptsetup
       delta

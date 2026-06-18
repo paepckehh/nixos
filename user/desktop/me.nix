@@ -24,7 +24,7 @@ in {
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.systemPackages = with pkgs; [adwaita-icon-theme];
+  environment.systemPackages = with pkgs; [adwaita-icon-theme rustdesk-flutter];
 
   ##################
   #-=# SECURITY #=-#
@@ -199,7 +199,6 @@ in {
           };
         };
       };
-      # "7=#e5e9f0"
       alacritty = {
         enable = true;
         settings = {
