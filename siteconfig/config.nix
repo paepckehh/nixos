@@ -43,6 +43,7 @@ let
       uid = 60100;
       name = "me";
       displayname = "admin account me";
+      projects = "/nix/persist/projects";
     };
     backup = {
       uid = 50100;

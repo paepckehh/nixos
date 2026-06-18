@@ -26,6 +26,7 @@ in {
   containers.crush = {
     autoStart = false;
     privateNetwork = false;
+    bindMounts."${infra.me.projects}".isReadOnly = false;
     config = {
       config,
       pkgs,

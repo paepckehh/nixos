@@ -1,4 +1,4 @@
-# -= warning =-
+# -= WARNING =-
 
 This repo is for rapid prototyping, wild tests.
 Feel free to copy code, take inspiration.  
