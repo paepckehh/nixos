@@ -186,7 +186,7 @@ in {
               "4=#47a0f3"
               "5=#7b5cb0"
               "6=#64dbed"
-              "7=#e5e9f0"
+              "7=#ffffff"
               "8=#565656"
               "9=#ec5357"
               "10=#c0e17d"
@@ -199,6 +199,7 @@ in {
           };
         };
       };
+      # "7=#e5e9f0"
       alacritty = {
         enable = true;
         settings = {

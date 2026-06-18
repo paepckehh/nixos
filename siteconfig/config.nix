@@ -1894,8 +1894,11 @@ let
       url = "https://${infra.guacamole.fqdn}";
       logo = "${infra.res.url}/icon/png/guacamole.png";
     };
-    nocobase = {
+    occamy = {
       id = 189;
+    };
+    nocobase = {
+      id = 190;
       app = "nocobase";
       name = infra.nocobase.app;
       hostname = infra.nocobase.name;
@@ -1906,6 +1909,18 @@ let
       localbind.port.http = infra.localhost.port.offset + infra.nocobase.id;
       url = "https://${infra.nocobase.fqdn}";
       logo = "${infra.res.url}/icon/png/nocobase.png";
+    };
+    crush = {
+      id = 191;
+      app = "crush";
+      name = infra.crush.app;
+      hostname = infra.crus.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.crush.hostname}.${infra.crush.domain}";
+      ip = "${infra.net.user}.${toString infra.crush.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.crush.id;
+      url = "https://${infra.crush.fqdn}";
+      logo = "${infra.res.url}/icon/png/crush.png";
     };
     auftraggeber = {
       id = 200;

@@ -133,6 +133,7 @@ in {
             ${infra.chef.hostname}               IN A  ${infra.chef.ip}
             ${infra.cloud.hostname}              IN A  ${infra.cloud.ip}
             ${infra.coturn.hostname}             IN A  ${infra.coturn.ip}
+            ${infra.crush.hostname}              IN A  ${infra.crush.ip}
             ${infra.dns.hostname}                IN A  ${infra.dns.ip}
             ${infra.donetick.hostname}           IN A  ${infra.donetick.ip}
             ${infra.dumbdrop.hostname}           IN A  ${infra.dumbdrop.ip}
@@ -186,6 +187,7 @@ in {
             ${infra.cache.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.cache.ip}"
             ${infra.cloud.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.cloud.ip}"
             ${infra.chef.hostname}               IN HTTPS 1 . alpn="h3" ipv4hint="${infra.chef.ip}"
+            ${infra.crush.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.crush.ip}"
             ${infra.donetick.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.donetick.ip}"
             ${infra.dumbdrop.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.dumbdrop.ip}"
             ${infra.ente.hostname}               IN HTTPS 1 . alpn="h3" ipv4hint="${infra.ente.ip}"
