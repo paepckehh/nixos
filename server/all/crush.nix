@@ -48,62 +48,12 @@ in {
       ####################
       #-=# NETWORKING #=-#
       ####################
-      networking = {
-        hostName = infra.crush.hostname;
-        firewall = {
-          allowedUDPPortRanges = [
-            {
-              from = 61001;
-              to = 61999;
-            }
-          ];
-        };
-      };
+      networking.hostName = infra.crush.hostname;
 
       #####################
       #-=# ENVIRONMENT #=-#
       #####################
-      environment = {
-        systemPackages = with pkgs; [
-          tsshd
-          crush
-        ];
-        etc."ssh/sshd_config".text = ''
-          AddressFamily inet
-          AllowAgentForwarding no
-          AllowUsers me
-          AuthenticationMethods publickey
-          AuthorizedPrincipalsFile none
-          ChallengeResponseAuthentication no
-          Ciphers chacha20-poly1305@openssh.com
-          ClientAliveCountMax 3
-          ClientAliveInterval 30
-          Compression no
-          GatewayPorts no
-          HostKey /etc/ssh/ssh_host_ed25519_key
-          KbdInteractiveAuthentication no
-          KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org
-          LogLevel INFO
-          LoginGraceTime 2m
-          MaxStartups 10:30:100
-          PasswordAuthentication no
-          PerSourceMaxStartups 12
-          PerSourceNetBlockSize 32:128
-          PermitRootLogin no
-          PrintMotd no
-          PubkeyAuthOptions touch-required
-          PubkeyAuthentication yes
-          RekeyLimit 512M, 1h
-          StrictModes yes
-          UseDns no
-          UsePAM no
-          X11Forwarding no
-          AddressFamily inet
-          ListenAddress 10.20.0.100:6623
-          AuthorizedKeysFile /etc/ssh/authorized_keys.d/%u
-          HostKey /etc/ssh/ssh_host_ed25519_key
-        '';
-      };
+      environment.systemPackages = with pkgs; [crush];
 
       #################
       #-=# NIXPKGS #=-#
@@ -115,27 +65,34 @@ in {
         };
       };
 
-      #################
-      #-=# SYSTEMD #=-#
-      #################
-      systemd = {
-        services.tsshd = {
-          after = ["network.target"];
-          wantedBy = ["multi-user.target"];
-          description = "modern resumeable sshd replacement";
-          serviceConfig = {
-            ExecStart = "${pkgs.tsshd}/bin/tsshd";
-            KillMode = "process";
-            Restart = "always";
-            MemoryDenyWriteExecute = true;
-            NoNewPrivileges = true;
-            RestrictAddressFamilies = [
-              "AF_INET"
-              "AF_INET6"
-              "AF_UNIX"
-            ];
-          };
-        };
+      ##################
+      #-=# PROGRAMS #=-#
+      ##################
+      programs.mosh.enable = true;
+
+      ##################
+      #-=# SERVICES #=-#
+      ##################
+      services.openssh = {
+        enable = lib.mkDefault true;
+        settings = infra.ssh.settings;
+        authorizedKeysInHomedir = false;
+        allowSFTP = false;
+        ports = [infra.port.ssh-mgmt];
+        startWhenNeeded = true;
+        generateHostKeys = true;
+        hostKeys = lib.mkForce [
+          {
+            path = "/etc/ssh/ssh_host_ed25519_key";
+            type = "ed25519";
+          }
+        ];
+        listenAddresses = lib.mkForce [
+          {
+            addr = infra.crush.ip;
+            port = infra.port.ssh-mgmt;
+          }
+        ];
       };
     };
   };

@@ -372,9 +372,8 @@ in {
     };
     openssh = {
       enable = lib.mkDefault false;
+      settings = infra.ssh.settings;
       authorizedKeysInHomedir = false;
-      # authorizedKeysCommandUser = "nobody";
-      # authorizedKeysCommand = "none";
       allowSFTP = false;
       ports = [infra.port.ssh-mgmt];
       startWhenNeeded = true;
@@ -385,40 +384,6 @@ in {
           type = "ed25519";
         }
       ];
-      settings = {
-        AddressFamily = "inet";
-        AllowAgentForwarding = false;
-        AllowGroups = null;
-        AllowUsers = ["me" "backup"];
-        AuthenticationMethods = "publickey";
-        AuthorizedPrincipalsFile = "none";
-        ChallengeResponseAuthentication = "no";
-        Ciphers = ["chacha20-poly1305@openssh.com"];
-        ClientAliveInterval = "30";
-        ClientAliveCountMax = "3";
-        PerSourceMaxStartups = "12";
-        PerSourceNetBlockSize = "32:128";
-        Compression = "no";
-        GatewayPorts = "no";
-        HostKey = "/etc/ssh/ssh_host_ed25519_key";
-        KbdInteractiveAuthentication = false;
-        KexAlgorithms = ["curve25519-sha256" "curve25519-sha256@libssh.org"];
-        LogLevel = "INFO"; # INFO, VERBOSE, DEBUG
-        LoginGraceTime = "2m";
-        Macs = null; #
-        MaxStartups = "10:30:100";
-        PasswordAuthentication = false;
-        PermitRootLogin = "no";
-        PrintMotd = false;
-        PubkeyAuthOptions = "touch-required";
-        PubkeyAuthentication = "yes";
-        RekeyLimit = "512M, 1h";
-        StrictModes = true;
-        UseDns = false;
-        UsePAM = false;
-        X11Forwarding = false;
-        # Match.Address."192.168.0.0/24".AllowUsers = ["me"];
-      };
     };
   };
 }

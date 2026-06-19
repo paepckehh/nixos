@@ -113,6 +113,7 @@ in {
       libsmbios
       lsof
       moreutils
+      mosh
       miller
       nix-output-monitor
       nvme-cli
@@ -132,7 +133,6 @@ in {
       sqlite-analyzer
       sqlite-utils
       tldr
-      trzsz-ssh
       tree
       tz
       unzip
