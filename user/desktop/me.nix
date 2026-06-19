@@ -16,7 +16,8 @@ in {
   imports = [
     ../me.nix
     ./me-element.nix
-    ./me-librewolf.nix
+    ./me-firefox.nix
+    # ./me-librewolf.nix
     ./me-thunderbird.nix
     ../../client/addHomeFix.nix
   ];

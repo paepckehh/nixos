@@ -47,6 +47,8 @@
     action "$USERHOME/.thunderbird"
     action "$USERHOME/.librewolf"
     action "$USERHOME/.mozilla"
+    action "$USERHOME/.config/mozilla/firefox"
+    action "$USERHOME/.config/librewolf"
     if [ -r $USERHOME/.face ]; then cp -af $USERHOME/.face /var/lib/AccountsService/icons/$USERNAME; fi
   '';
 }

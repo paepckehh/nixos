@@ -15,7 +15,7 @@ in {
   ##################
   programs.firefox = {
     enable = false;
-    package = pkgs.librewolf;
+    # package = pkgs.firefox;
     policies = infra.firefox.policy;
   };
 
@@ -24,12 +24,11 @@ in {
   ######################
   home-manager.users.me = {
     dconf.settings."org/gnome/shell".favorite-apps = [
-      "librewolf.desktop"
+      "firefox.desktop"
     ];
-    programs.librewolf = {
+    programs.firefox = {
       enable = true;
       languagePacks = ["de"];
-      settings = infra.firefox.settings;
       policies = lib.recursiveUpdate infra.firefox.policy bookmarks;
       profiles.default = {
         isDefault = true;
@@ -44,12 +43,12 @@ in {
   services = {
     opensnitch = {
       rules = {
-        librewolf-dns = {
+        firefox-dns = {
           created = infra.wg.ts.create;
           updated = infra.wg.ts.create;
           precedence = false;
           nolog = false;
-          name = "librewolf-dns";
+          name = "firefox-dns";
           enabled = true;
           action = "allow";
           duration = "always";
@@ -61,7 +60,7 @@ in {
             list = [
               {
                 operand = "process.path";
-                data = "${lib.getBin config.home-manager.users.me.programs.librewolf.finalPackage}/lib/librewolf/librewolf";
+                data = "${lib.getBin config.home-manager.users.me.programs.firefox.finalPackage}/lib/firefox/firefox";
                 type = "simple";
                 list = null;
                 sensitive = false;
@@ -90,12 +89,12 @@ in {
             ];
           };
         };
-        librewolf-https = {
+        firefox-https = {
           created = infra.wg.ts.create;
           updated = infra.wg.ts.create;
           precedence = false;
           nolog = false;
-          name = "librewolf-https";
+          name = "firefox-https";
           enabled = true;
           action = "allow";
           duration = "always";
@@ -107,7 +106,7 @@ in {
             list = [
               {
                 operand = "process.path";
-                data = "${lib.getBin config.home-manager.users.me.programs.librewolf.finalPackage}/lib/librewolf/librewolf";
+                data = "${lib.getBin config.home-manager.users.me.programs.firefox.finalPackage}/lib/firefox/firefox";
                 type = "simple";
                 list = null;
                 sensitive = false;
@@ -129,12 +128,12 @@ in {
             ];
           };
         };
-        librewolf-local = {
+        firefox-local = {
           created = infra.wg.ts.create;
           updated = infra.wg.ts.create;
           precedence = false;
           nolog = false;
-          name = "librewolf-local";
+          name = "firefox-local";
           enabled = true;
           action = "allow";
           duration = "always";
@@ -146,7 +145,7 @@ in {
             list = [
               {
                 operand = "process.path";
-                data = "${lib.getBin config.home-manager.users.me.programs.librewolf.finalPackage}/lib/librewolf/librewolf";
+                data = "${lib.getBin config.home-manager.users.me.programs.firefox.finalPackage}/lib/firefox/firefox";
                 type = "simple";
                 list = null;
                 sensitive = false;

@@ -36,7 +36,7 @@ adguard:
 unifi:
 	TID=$(UNIFI_TID) LPORT=$(UNIFI_PORT) RPORT=$(UNIFI_PORT) make -s intern-wormhole
 opnborg:
-	TID=$(OPNBORG_TID) LPORT=$(OPNBORG_PORT) RPORT=$(OPNBORG_PORT) make -s intern-wormhole
+	TID=$(OPNBORG_TID) LPORT=$(OPNBORG_PORT) RPORT=$(OPNBORG_PORT) PREFIX_URI=http make -s intern-wormhole
 forgejo:
 	TID=$(FORGEJO_TID) LPORT=$(FORGEJO_PORT) RPORT=$(FORGEJO_PORT) make -s intern-wormhole
 prometheus:

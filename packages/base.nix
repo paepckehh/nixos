@@ -132,6 +132,7 @@ in {
       sqlite-analyzer
       sqlite-utils
       tldr
+      trzsz-ssh
       tree
       tz
       unzip
