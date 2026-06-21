@@ -397,7 +397,7 @@ let
       AddressFamily = "inet";
       AllowAgentForwarding = false;
       AllowGroups = null;
-      AllowUsers = ["me" "backup"];
+      AllowUsers = ["me" "backup" "mp"];
       AuthenticationMethods = "publickey";
       AuthorizedPrincipalsFile = "none";
       ChallengeResponseAuthentication = "no";

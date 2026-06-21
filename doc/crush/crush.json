@@ -9,8 +9,14 @@
         {
           "name": "qwen3.6:35b-a3b-coding-mxfp8",
           "id": "qwen3.6:35b-a3b-coding-mxfp8",
-          "context_window": 256000,
-          "default_max_tokens": 20000
+          "cost_per_1m_in": 30,
+          "cost_per_1m_out": 150,
+          "cost_per_1m_in_cached": 3.750,
+          "cost_per_1m_out_cached": 0.30,
+          "context_window": 200000,
+          "default_max_tokens": 50000,
+          "can_reason": true,
+          "supports_attachments": true
         }
       ]
     }
@@ -24,12 +30,31 @@
     },
     "typescript": {
       "command": "/run/current-system/sw/bin/typescript-language-server",
-      "args": ["--stdio"]
+      "args": [
+        "--stdio"
+      ]
     },
     "nix": {
       "command": "/run/current-system/sw/bin/nil"
     }
+  },
+  "permissions": {
+    "allowed_tools": [
+      "view",
+      "edit",
+      "write",
+      "multiedit",
+      "ls",
+      "grep",
+      "jq",
+      "bash",
+      "python",
+      "python3",
+      "fetch",
+      "agentic_fetch"
+    ]
+  },
+    "options": {
+    "disable_metrics": true
   }
-,"options":{"tui":{"transparent":true}}
-,"models":{"large":{"model":"qwen3.6:35b-a3b-coding-mxfp8","provider":"ollama","max_tokens":20000}}
-,"recent_models":{"large":[{"model":"qwen3.6:35b-a3b-coding-mxfp8","provider":"ollama"},{"model":"qwen3.6/35b-a3b-coding-mxfp8","provider":"ollama"}]}}
+}

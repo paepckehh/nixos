@@ -24,7 +24,7 @@ in {
   #-=# CONTAINERS #=-#
   ####################
   containers.crush = {
-    autoStart = false;
+    autoStart = true;
     privateNetwork = false;
     bindMounts."${infra.me.projects}".isReadOnly = false;
     config = {
@@ -58,17 +58,33 @@ in {
       #################
       #-=# NIXPKGS #=-#
       #################
-      nixpkgs = {
-        config = {
-          allowBroken = true;
-          allowUnfree = true;
-        };
-      };
+      nixpkgs.config.allowUnfree = true;
 
       ##################
       #-=# PROGRAMS #=-#
       ##################
       programs.mosh.enable = true;
+
+      ###############
+      #-=# USERS #=-#
+      ###############
+      users = {
+        groups.mp = {};
+        users = {
+          mp = {
+            initialHashedPassword = null; # lockdown, use smardcard only
+            description = "mp crush user";
+            group = "mp";
+            createHome = true;
+            isNormalUser = true;
+            shell = pkgs.fish;
+            extraGroups = ["users" "wheel"];
+            openssh.authorizedKeys.keys = lib.mkForce [
+              "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIG50evljqeCBDwrkkB0FXf9A2BtCKYnDYHOnHZvpmRLNAAAABHNzaDo= me@ops"
+            ];
+          };
+        };
+      };
 
       ##################
       #-=# SERVICES #=-#

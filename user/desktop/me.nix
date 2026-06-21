@@ -170,7 +170,8 @@ in {
           notify-on-command-finish-action = "bell,notify";
           notify-on-command-finish-after = "30s";
           shell-integration = "fish";
-          shell-integration-features = "ssh-env,ssh-terminfo,no-cursor";
+          shell-integration-features = "no-cursor";
+          # shell-integration-features = "ssh-env,ssh-terminfo,no-cursor";
         };
         themes = {
           clean = {

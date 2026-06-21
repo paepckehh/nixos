@@ -10,17 +10,15 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.shellAliases = {
-    # "crush" = "CGO_ENABLED=0 go run github.com/charmbracelet/crush@latest";
-  };
+  environment.systemPackages = with pkgs; [jq];
 
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment = {
-    systemPackages = with pkgs; [
-      crush
-      # opencode
-    ];
+  environment.shellAliases = {
+    "codescore" = "go run paepcke.de/codescore/cmd/codescore@latest";
+    "crush" = "go run github.com/charmbracelet/crush@latest"; # upstream original
+    "crushIT" = "/nix/persist/projects/_external/crush/crush"; # local modified derivate
+    "codescoreIT" = "/nix/persist/projects/codescore/cmd/codescore/codescore"; # local modified derivate
   };
 }
