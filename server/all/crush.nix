@@ -53,12 +53,12 @@ in {
       #####################
       #-=# ENVIRONMENT #=-#
       #####################
-      environment.systemPackages = with pkgs; [crush];
+      # environment.systemPackages = with pkgs; [];
 
       #################
       #-=# NIXPKGS #=-#
       #################
-      nixpkgs.config.allowUnfree = true;
+      # nixpkgs.config.allowUnfree = true;
 
       ##################
       #-=# PROGRAMS #=-#
@@ -69,18 +69,19 @@ in {
       #-=# USERS #=-#
       ###############
       users = {
-        groups.mp = {};
+        groups.mp.gid = infra.me.uid;
         users = {
           mp = {
-            initialHashedPassword = null; # lockdown, use smardcard only
             description = "mp crush user";
             group = "mp";
+            uid = infra.mp.uid;
             createHome = true;
             isNormalUser = true;
             shell = pkgs.fish;
             extraGroups = ["users" "wheel"];
+            hashedPassword = lib.mkForce "$y$j9T$--fail--"; # enable user, disable password login hash match
             openssh.authorizedKeys.keys = lib.mkForce [
-              "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIG50evljqeCBDwrkkB0FXf9A2BtCKYnDYHOnHZvpmRLNAAAABHNzaDo= me@ops"
+              ''sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIG50evljqeCBDwrkkB0FXf9A2BtCKYnDYHOnHZvpmRLNAAAABHNzaDo= me@ops''
             ];
           };
         };
@@ -91,11 +92,11 @@ in {
       ##################
       services.openssh = {
         enable = lib.mkDefault true;
-        settings = infra.ssh.settings;
+        settings = infra.sshd.settings;
         authorizedKeysInHomedir = false;
         allowSFTP = false;
         ports = [infra.port.ssh-mgmt];
-        startWhenNeeded = true;
+        startWhenNeeded = false;
         generateHostKeys = true;
         hostKeys = lib.mkForce [
           {

@@ -88,8 +88,8 @@
           ./server/pki/small-step.nix
           ./server/portal/portal-start.nix
           ./server/webapp/res.nix
-          ./server/ai/ollama01.nix
-          ./server/remote/guacamole.nix
+          # ./server/ai/ollama01.nix
+          # ./server/remote/guacamole.nix
           # ./server/mail/maddy-admin.nix
           # ./server/bookmarks/readeck.nix
           # ./server/mail/autoconfig-admin.nix

@@ -45,6 +45,7 @@ let
       displayname = "admin account me";
       projects = "/nix/persist/projects";
     };
+    mp.uid = 60110;
     backup = {
       uid = 50100;
       sshKey = "ssh-ed25519 ***locked***";
@@ -375,25 +376,27 @@ let
         key = "~/.ssh/id_ed25519_sk";
       };
     };
-    ssh.knownHosts = {
-      github = {
-        extraHostNames = ["github.com" "api.github.com" "git.github.com"];
-        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
-      };
-      gitlab = {
-        extraHostNames = ["gitlab.com" "api.gitlab.com" "git.gitlab.com"];
-        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfuCHKVTjquxvt6CM6tdG4SLp1Btn/nOeHHE5UOzRdf";
-      };
-      codeberg = {
-        extraHostNames = ["codeberg.org" "api.codeberg.org" "git.codeberg.org"];
-        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB";
-      };
-      sourcehut = {
-        extraHostNames = ["sr.ht" "api.sr.ht" "git.sr.ht"];
-        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZvRd4EtM7R+IHVMWmDkVU3VLQTSwQDSAvW0t2Tkj60";
+    ssh = {
+      knownHosts = {
+        github = {
+          extraHostNames = ["github.com" "api.github.com" "git.github.com"];
+          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+        };
+        gitlab = {
+          extraHostNames = ["gitlab.com" "api.gitlab.com" "git.gitlab.com"];
+          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfuCHKVTjquxvt6CM6tdG4SLp1Btn/nOeHHE5UOzRdf";
+        };
+        codeberg = {
+          extraHostNames = ["codeberg.org" "api.codeberg.org" "git.codeberg.org"];
+          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB";
+        };
+        sourcehut = {
+          extraHostNames = ["sr.ht" "api.sr.ht" "git.sr.ht"];
+          publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMZvRd4EtM7R+IHVMWmDkVU3VLQTSwQDSAvW0t2Tkj60";
+        };
       };
     };
-    ssh.settings = {
+    sshd.settings = {
       AddressFamily = "inet";
       AllowAgentForwarding = false;
       AllowGroups = null;
@@ -423,7 +426,7 @@ let
       RekeyLimit = "512M, 1h";
       StrictModes = true;
       UseDns = false;
-      UsePAM = false;
+      # UsePAM = false;
       X11Forwarding = false;
     };
     thunderbird = {

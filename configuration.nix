@@ -372,7 +372,7 @@ in {
     };
     openssh = {
       enable = lib.mkDefault false;
-      settings = infra.ssh.settings;
+      settings = infra.sshd.settings;
       authorizedKeysInHomedir = false;
       allowSFTP = false;
       ports = [infra.port.ssh-mgmt];
