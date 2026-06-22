@@ -72,9 +72,25 @@ in {
             extraGroups = ["users" "wheel"];
             hashedPassword = lib.mkForce "$y$j9T$--fail--"; # enable user, disable password login hash match
             openssh.authorizedKeys.keys = lib.mkForce [
-              ''command="run/current-system/sw/bin/go run github.com/charmbracelet/crush@latest",sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIG50evljqeCBDwrkkB0FXf9A2BtCKYnDYHOnHZvpmRLNAAAABHNzaDo= me@ops''
+              ''sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIG50evljqeCBDwrkkB0FXf9A2BtCKYnDYHOnHZvpmRLNAAAABHNzaDo= me@ops''
             ];
           };
+        };
+      };
+
+      ##################
+      #-=# PROGRAMS #=-#
+      ##################
+      programs = {
+        fish.enable = true;
+        vim.enable = true;
+        git = {
+          enable = true;
+          config = infra.git.client.conf;
+        };
+        tmux = {
+          enable = true;
+          clock24 = true;
         };
       };
 

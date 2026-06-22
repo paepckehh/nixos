@@ -35,6 +35,10 @@ in {
       enable = true;
       config = infra.git.client.conf;
     };
+    tmux = {
+      enable = true;
+      clock24 = true;
+    };
     ssh = {
       hostKeyAlgorithms = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
       pubkeyAcceptedKeyTypes = ["ssh-ed25519" "sk-ssh-ed25519@openssh.com"];
