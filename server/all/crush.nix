@@ -27,6 +27,7 @@ in {
     autoStart = true;
     privateNetwork = false;
     bindMounts."${infra.me.projects}".isReadOnly = false;
+    bindMounts."${infra.storage.cache}".isReadOnly = false;
     config = {
       config,
       pkgs,
@@ -50,16 +51,6 @@ in {
       ####################
       networking.hostName = infra.crush.hostname;
 
-      #####################
-      #-=# ENVIRONMENT #=-#
-      #####################
-      # environment.systemPackages = with pkgs; [];
-
-      #################
-      #-=# NIXPKGS #=-#
-      #################
-      # nixpkgs.config.allowUnfree = true;
-
       ##################
       #-=# PROGRAMS #=-#
       ##################
@@ -81,7 +72,7 @@ in {
             extraGroups = ["users" "wheel"];
             hashedPassword = lib.mkForce "$y$j9T$--fail--"; # enable user, disable password login hash match
             openssh.authorizedKeys.keys = lib.mkForce [
-              ''sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIG50evljqeCBDwrkkB0FXf9A2BtCKYnDYHOnHZvpmRLNAAAABHNzaDo= me@ops''
+              ''command="run/current-system/sw/bin/go run github.com/charmbracelet/crush@latest",sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIG50evljqeCBDwrkkB0FXf9A2BtCKYnDYHOnHZvpmRLNAAAABHNzaDo= me@ops''
             ];
           };
         };
@@ -110,6 +101,38 @@ in {
             port = infra.port.ssh-mgmt;
           }
         ];
+      };
+
+      #####################
+      #-=# ENVIRONMENT #=-#
+      #####################
+      environment = {
+        variables = {
+          CGO_ENABLED = "0";
+          GOAMD64 = "v3";
+          GOARCH = "amd64";
+          GOAUTH = lib.mkForce "";
+          GOCACHE = lib.mkForce "/nix/persist/cache/go/cache";
+          GOEXPERIMENT = "";
+          GOFIPS140 = "off";
+          GOHOSTARCH = "amd64";
+          GOHOSTOS = "linux";
+          GOINSECURE = lib.mkForce "";
+          GOMOD = lib.mkForce "/dev/null";
+          GOMODCACHE = lib.mkForce "/nix/persist/cache/go/pkg/mod";
+          GONOPROXY = lib.mkForce "";
+          GONOSUMDB = lib.mkForce "";
+          GOOS = "linux";
+          GOPATH = lib.mkForce ["/nix/persist/cache/go/go-path"];
+          GOPRIVATE = lib.mkForce "";
+          GOPROXY = lib.mkForce "https://proxy.golang.org"; # direct
+          GOSUMDB = lib.mkForce "sum.golang.org+033de0ae+Ac4zctda0e5eza+HJyk9SxEdh+s3Ux18htTTAD8OuAn8";
+          GOTELEMETRY = lib.mkForce "off";
+          GOTELEMETRYDIR = lib.mkForce "/dev/null";
+          GOTOOLCHAIN = lib.mkForce "auto";
+          GOVCS = lib.mkForce "";
+          GOWORK = lib.mkForce "";
+        };
       };
     };
   };
