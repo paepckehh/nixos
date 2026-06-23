@@ -3,6 +3,7 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
+    ./tmux.nix
     ./devops-db.nix
     ./devops-go.nix
     ./devops-html.nix

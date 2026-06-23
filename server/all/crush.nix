@@ -40,6 +40,7 @@ in {
       imports = [
         ../../client/env.nix
         ../../packages/ai.nix
+        ../../packages/tmux.nix
         ../../packages/base.nix
         ../../packages/devops-go.nix
         ../../packages/devops-python.nix
@@ -50,11 +51,6 @@ in {
       #-=# NETWORKING #=-#
       ####################
       networking.hostName = infra.crush.hostname;
-
-      ##################
-      #-=# PROGRAMS #=-#
-      ##################
-      programs.mosh.enable = true;
 
       ###############
       #-=# USERS #=-#
@@ -72,7 +68,7 @@ in {
             extraGroups = ["users" "wheel"];
             hashedPassword = lib.mkForce "$y$j9T$--fail--"; # enable user, disable password login hash match
             openssh.authorizedKeys.keys = lib.mkForce [
-              ''sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIG50evljqeCBDwrkkB0FXf9A2BtCKYnDYHOnHZvpmRLNAAAABHNzaDo= me@ops''
+              ''sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIG50evljqeCBDwrkkB0FXf9A2BtCKYnDYHOnHZvpmRLNAAAABHNzaDo=''
             ];
           };
         };
@@ -82,15 +78,19 @@ in {
       #-=# PROGRAMS #=-#
       ##################
       programs = {
-        fish.enable = true;
+        bat.enable = true;
         vim.enable = true;
+        fish = {
+          enable = true;
+          shellInit = "TERM=xterm-256color /run/current-system/sw/bin/tmux attach-session -t ssh_tmux || TERM=xterm-256color /run/current-system/sw/bin/tmux new-session -s ssh_tmux";
+        };
+        starship = {
+          enable = true;
+          transientPrompt.enable = true;
+        };
         git = {
           enable = true;
           config = infra.git.client.conf;
-        };
-        tmux = {
-          enable = true;
-          clock24 = true;
         };
       };
 
@@ -122,34 +122,7 @@ in {
       #####################
       #-=# ENVIRONMENT #=-#
       #####################
-      environment = {
-        variables = {
-          CGO_ENABLED = "0";
-          GOAMD64 = "v3";
-          GOARCH = "amd64";
-          GOAUTH = lib.mkForce "";
-          GOCACHE = lib.mkForce "/nix/persist/cache/go/cache";
-          GOEXPERIMENT = "";
-          GOFIPS140 = "off";
-          GOHOSTARCH = "amd64";
-          GOHOSTOS = "linux";
-          GOINSECURE = lib.mkForce "";
-          GOMOD = lib.mkForce "/dev/null";
-          GOMODCACHE = lib.mkForce "/nix/persist/cache/go/pkg/mod";
-          GONOPROXY = lib.mkForce "";
-          GONOSUMDB = lib.mkForce "";
-          GOOS = "linux";
-          GOPATH = lib.mkForce ["/nix/persist/cache/go/go-path"];
-          GOPRIVATE = lib.mkForce "";
-          GOPROXY = lib.mkForce "https://proxy.golang.org"; # direct
-          GOSUMDB = lib.mkForce "sum.golang.org+033de0ae+Ac4zctda0e5eza+HJyk9SxEdh+s3Ux18htTTAD8OuAn8";
-          GOTELEMETRY = lib.mkForce "off";
-          GOTELEMETRYDIR = lib.mkForce "/dev/null";
-          GOTOOLCHAIN = lib.mkForce "auto";
-          GOVCS = lib.mkForce "";
-          GOWORK = lib.mkForce "";
-        };
-      };
+      environment.variables = infra.go.env;
     };
   };
 }

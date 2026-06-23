@@ -429,6 +429,32 @@ let
       # UsePAM = false;
       X11Forwarding = false;
     };
+    go.env = {
+      CGO_ENABLED = "0";
+      GOAMD64 = "v3";
+      GOARCH = "amd64";
+      GOAUTH = "";
+      GOCACHE = "/nix/persist/cache/go/cache";
+      GOEXPERIMENT = "";
+      GOFIPS140 = "off";
+      GOHOSTARCH = "amd64";
+      GOHOSTOS = "linux";
+      GOINSECURE = "";
+      GOMOD = "/dev/null";
+      GOMODCACHE = "/nix/persist/cache/go/pkg/mod";
+      GONOPROXY = "";
+      GONOSUMDB = "";
+      GOOS = "linux";
+      GOPATH = ["/nix/persist/cache/go/go-path"];
+      GOPRIVATE = "";
+      GOPROXY = "https://proxy.golang.org"; # direct
+      GOSUMDB = "sum.golang.org+033de0ae+Ac4zctda0e5eza+HJyk9SxEdh+s3Ux18htTTAD8OuAn8";
+      GOTELEMETRY = "off";
+      GOTELEMETRYDIR = "/dev/null";
+      GOTOOLCHAIN = "auto";
+      GOVCS = "";
+      GOWORK = "";
+    };
     thunderbird = {
       settings = infra.firefox.settings;
       policy = {
