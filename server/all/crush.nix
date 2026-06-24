@@ -55,24 +55,7 @@ in {
       ###############
       #-=# USERS #=-#
       ###############
-      users = {
-        groups.mp.gid = infra.me.uid;
-        users = {
-          mp = {
-            description = "mp crush user";
-            group = "mp";
-            uid = infra.mp.uid;
-            createHome = true;
-            isNormalUser = true;
-            shell = pkgs.fish;
-            extraGroups = ["users" "wheel"];
-            hashedPassword = lib.mkForce "$y$j9T$--fail--"; # enable user, disable password login hash match
-            openssh.authorizedKeys.keys = lib.mkForce [
-              ''sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIG50evljqeCBDwrkkB0FXf9A2BtCKYnDYHOnHZvpmRLNAAAABHNzaDo=''
-            ];
-          };
-        };
-      };
+      users = infra.admin.users;
 
       ##################
       #-=# PROGRAMS #=-#

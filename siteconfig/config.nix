@@ -45,24 +45,34 @@ let
       displayname = "admin account me";
       projects = "/nix/persist/projects";
     };
-    mp.uid = 60110;
     backup = {
       uid = 50100;
       sshKey = "ssh-ed25519 ***locked***";
     };
     samba.uid = 50200;
     admin = {
+      users = {
+        groups.mp.gid = infra.admin.users.users.mp.uid;
+        users = {
+          mp = {
+            description = "mp";
+            group = "mp";
+            uid = 60110;
+            createHome = true;
+            isNormalUser = true;
+            extraGroups = ["users" "wheel"];
+            hashedPassword = "$y$j9T$--fail--";
+            openssh.authorizedKeys.keys = [
+              "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIG50evljqeCBDwrkkB0FXf9A2BtCKYnDYHOnHZvpmRLNAAAABHNzaDo= me@ops"
+              "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIAGsgOTEwxqUCKC49pwuQHXyhb+jjIBUzFdwRsjS9iMkAAAABHNzaDo= git@paepcke.de"
+            ];
+          };
+        };
+      };
       name = "admin";
       displayname = "admin";
+      sshKeys = infra.admin.users.users.mp.openssh.authorizedKeys.keys;
       email = "it@${infra.email.domain.intern}";
-      smtp = {
-        id = "it";
-        pwd = "password";
-      };
-      sshKeys = [
-        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIG50evljqeCBDwrkkB0FXf9A2BtCKYnDYHOnHZvpmRLNAAAABHNzaDo= me@ops"
-        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIAGsgOTEwxqUCKC49pwuQHXyhb+jjIBUzFdwRsjS9iMkAAAABHNzaDo= git@paepcke.de"
-      ];
     };
     backup = {
       one = "ops4.${infra.domain.admin}";
