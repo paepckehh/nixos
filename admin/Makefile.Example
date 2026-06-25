@@ -5,7 +5,8 @@
 #################################
 # PERSONAL ADMIN SPECIFIC SETUP #
 #################################
-ADMIN_OPN_USER?=admin-mpaepcke
+USR=mpapepcke
+ADMIN_OPN_USER?=admin-$(USR)
 ADMIN_SSH_SMARTCARD?=~/.ssh/id_ed25519_sk
 MYIP=11
 

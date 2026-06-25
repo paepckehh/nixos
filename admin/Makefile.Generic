@@ -33,6 +33,10 @@ kill.routes:
 #####################################
 adguard:
 	TID=$(ADGUARD_TID) LPORT=$(ADGUARD_PORT) RPORT=$(ADGUARD_PORT) PREFIX_URI=http make -s intern-wormhole
+crush:
+	TID=$(CRUSH) ADMIN_ID=$(USR) make -s intern-opsssh
+skynet:
+	TID=$(SKYNET) make -s intern-opsssh
 unifi:
 	TID=$(UNIFI_TID) LPORT=$(UNIFI_PORT) RPORT=$(UNIFI_PORT) make -s intern-wormhole
 opnborg:
@@ -79,6 +83,8 @@ log.newstation:
 ##############################
 # -=# ACTION SSH SESSION #=- #
 ##############################
+ssh.skynet:
+	TID=$(SKYNET) make -s intern-opsssh
 ssh.ops:
 	TID=$(OPS_TID) make -s intern-opsssh
 ssh.ops1:
