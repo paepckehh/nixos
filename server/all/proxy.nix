@@ -49,5 +49,5 @@ in {
   ##################
   #-=# NIXPKGS #=-#
   ##################
-  nixpkgs.config.permittedInsecurePackages = ["squid-7.0.1"];
+  # nixpkgs.config.permittedInsecurePackages = ["squid-7.0.1"];
 }

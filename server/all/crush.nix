@@ -57,16 +57,23 @@ in {
       ###############
       users = infra.admin.users;
 
+      #####################
+      #-=# ENVIRONMENT #=-#
+      #####################
+      environment = {
+        # systemPackages = with pkgs; [];
+        interactiveShellInit = "TERM=xterm-256color /run/current-system/sw/bin/tmux attach-session -t ssh_tmux || TERM=xterm-256color /run/current-system/sw/bin/tmux new-session -s ssh_tmux";
+        shells = [pkgs.bashInteractive pkgs.fish];
+        shellAliases = infra.shellAliases;
+        variables = infra.go.env;
+      };
+
       ##################
       #-=# PROGRAMS #=-#
       ##################
       programs = {
         bat.enable = true;
         vim.enable = true;
-        fish = {
-          enable = true;
-          shellInit = "TERM=xterm-256color /run/current-system/sw/bin/tmux attach-session -t ssh_tmux || TERM=xterm-256color /run/current-system/sw/bin/tmux new-session -s ssh_tmux";
-        };
         starship = {
           enable = true;
           transientPrompt.enable = true;
@@ -101,11 +108,6 @@ in {
           }
         ];
       };
-
-      #####################
-      #-=# ENVIRONMENT #=-#
-      #####################
-      environment.variables = infra.go.env;
     };
   };
 }

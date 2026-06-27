@@ -76,7 +76,6 @@
           ./packages/devops.nix
           ./packages/desktop/ai.nix
           ./packages/desktop/gnome.nix
-          ./server/ai/crush.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix
           ./server/iam/lldap.nix
@@ -88,6 +87,7 @@
           ./server/pki/small-step.nix
           ./server/portal/portal-start.nix
           ./server/webapp/res.nix
+          # ./server/ai/crush.nix
           # ./server/ai/ollama01.nix
           # ./server/remote/guacamole.nix
           # ./server/mail/maddy-admin.nix

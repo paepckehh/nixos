@@ -50,6 +50,36 @@ let
       sshKey = "ssh-ed25519 ***locked***";
     };
     samba.uid = 50200;
+    shellAliases = {
+      "e" = "vim";
+      "b" = "sudo btop";
+      "d" = "sudo dmesg";
+      "l" = "ls -la";
+      "n" = "cd /etc/nixos && ls -la";
+      "h" = "htop --tree --highlight-changes";
+      "cron.list" = "systemctl list-timers --all";
+      "service.log.clean" = "sudo journalctl --vacuum-time=1d";
+      "service.log.follow" = "sudo journalctl --follow -u $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.log.today" = "sudo journalctl --pager-end --since today -u $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.start" = "sudo systemctl start $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.stop" = "sudo systemctl stop $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.status" = "sudo systemctl status $(systemctl list-units --type=service | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "service.restart" = "sudo systemctl restart $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
+      "log.boot" = "sudo dmesg --follow --human --kernel --userspace";
+      "log.system" = "sudo journalctl --follow --priority=7 --lines=2500";
+      "log.time" = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
+      "time.status" = "timedatectl timesync-status";
+      "info" = "fastfetch -c /etc/nixos/doc/fastfetch/ff.jsonc";
+      "info.nvme.extern" = "sudo smartctl --all /dev/sda";
+      "info.nvme.intern" = "sudo smartctl --all /dev/nvme0";
+      "portal" = "sudo -v && xdg-open http://$(ip --oneline route get 1.1.1.1 | awk '{print $3}') && sudo systemctl restart systemd-resolved";
+      "ll" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
+      "la" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
+      "lg" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --group";
+      "lt" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --tree";
+      "lo" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename --octal-permissions";
+      "li" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=inode --inode";
+    };
     admin = {
       users = {
         groups.mp.gid = infra.admin.users.users.mp.uid;
@@ -1035,6 +1065,10 @@ let
       key = {
         url = "${infra.cache.url}/pubkey";
         pub = "cache:uAOykGHMvJ3Nw99phwQRDn3Ri0y2T73FTE8CNtN+ggA=";
+      };
+      up = {
+        url = "https://cache.dbt.corp";
+        pub = "cache:mL2YcFgIlzAMAsMzHXYXc3YjPJuI8+AFTtmjcr0Og+o=";
       };
     };
     it = {

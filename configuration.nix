@@ -9,6 +9,49 @@
   ############################
   infra = (import ./siteconfig/config.nix).infra;
 in {
+  #############
+  #-=# NIX #=-#
+  #############
+  nix = {
+    enable = true;
+    daemonCPUSchedPolicy = "idle";
+    gc.automatic = lib.mkDefault false;
+    optimise.automatic = lib.mkDefault false;
+    settings = {
+      auto-optimise-store = true;
+      allowed-users = lib.mkForce ["@wheel"];
+      build-dir = "/run/build";
+      experimental-features = ["blake3-hashes" "local-overlay-store" "nix-command" "flakes" "verified-fetches"];
+      http2 = lib.mkForce false;
+      http-connections = lib.mkForce 10; # default: 25
+      sandbox = lib.mkForce true;
+      sandbox-build-dir = "/run/build";
+      sandbox-fallback = lib.mkForce false;
+      stalled-download-timeout = lib.mkDefault "8000";
+      trusted-users = lib.mkForce ["@wheel"];
+      trace-verbose = true;
+      restrict-eval = lib.mkForce false;
+      require-sigs = lib.mkForce true;
+      preallocate-contents = lib.mkDefault true;
+      keep-build-log = lib.mkDefault false;
+      keep-derivations = lib.mkDefault false;
+      keep-failed = lib.mkDefault false;
+      max-jobs = lib.mkDefault "auto"; # default: 1
+      allowed-uris = lib.mkDefault []; # "https://cache.nixos.org" # see client/addCache.nix for site specific local binary cache
+      substituters = lib.mkDefault []; # "https://cache.nixos.org" # see client/addCache.nix for site specific local binary cache
+      trusted-public-keys = lib.mkDefault ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
+    };
+  };
+
+  #################
+  #-=# NIXPKGS #=-#
+  #################
+  nixpkgs.config = {
+    allowBroken = lib.mkDefault false;
+    allowUnfree = lib.mkDefault true;
+    permittedInsecurePackages = [];
+  };
+
   ##############
   #-=# BOOT #=-#
   ##############
@@ -50,7 +93,7 @@ in {
   #-= SYSTEM #=-#
   ###############
   system = {
-    stateVersion = "26.05"; # dummy target
+    stateVersion = "26.11"; # dummy target
     includeBuildDependencies = lib.mkForce false;
   };
 
@@ -79,56 +122,6 @@ in {
     enable = true;
     algorithm = "zstd";
     writebackDevice = lib.mkDefault "/dev/disk/by-partlabel/disk-main-swap";
-  };
-
-  #################
-  #-=# NIXPKGS #=-#
-  #################
-  nixpkgs = {
-    config = {
-      allowBroken = true;
-      allowUnfree = true;
-    };
-  };
-
-  #############
-  #-=# NIX #=-#
-  #############
-  nix = {
-    enable = true;
-    daemonCPUSchedPolicy = "idle";
-    gc.automatic = lib.mkDefault false;
-    optimise.automatic = lib.mkDefault false;
-    settings = {
-      auto-optimise-store = true;
-      allowed-users = lib.mkForce ["@wheel"];
-      build-dir = "/run/build";
-      experimental-features = ["blake3-hashes" "local-overlay-store" "nix-command" "flakes" "verified-fetches"];
-      http2 = lib.mkForce false;
-      http-connections = lib.mkForce 10; # default: 25
-      sandbox = lib.mkForce true;
-      sandbox-build-dir = "/run/build";
-      sandbox-fallback = lib.mkForce false;
-      stalled-download-timeout = lib.mkDefault "8000";
-      trusted-users = lib.mkForce ["@wheel"];
-      trace-verbose = true;
-      restrict-eval = lib.mkForce false;
-      require-sigs = lib.mkForce true;
-      preallocate-contents = lib.mkDefault true;
-      keep-build-log = lib.mkDefault false;
-      keep-derivations = lib.mkDefault false;
-      keep-failed = lib.mkDefault false;
-      max-jobs = lib.mkDefault "auto"; # default: 1
-      allowed-uris = lib.mkDefault [
-        # "https://cache.nixos.org"
-      ];
-      substituters = lib.mkDefault [
-        # "https://cache.nixos.org"
-      ];
-      trusted-public-keys = lib.mkDefault [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      ];
-    };
   };
 
   #######################

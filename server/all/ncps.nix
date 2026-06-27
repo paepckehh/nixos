@@ -66,8 +66,14 @@ in {
         upstream = {
           dialerTimeout = lib.mkForce "4m";
           responseHeaderTimeout = lib.mkForce "30s";
-          urls = lib.mkForce ["https://cache.nixos.org"];
-          publicKeys = lib.mkForce ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
+          urls = lib.mkForce [
+            "https://cache.nixos.org"
+            infra.cache.up.url
+          ];
+          publicKeys = lib.mkForce [
+            "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+            infra.cache.up.pub
+          ];
         };
       };
     };

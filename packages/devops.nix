@@ -35,6 +35,7 @@
       dmidecode
       file
       gh
+      hackernews-tui
       jq
       jqfmt
       gnumake

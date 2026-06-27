@@ -16,9 +16,7 @@ in {
   imports = [
     ../me.nix
     ./me-element.nix
-    ./me-firefox.nix
-    # ./me-librewolf.nix
-    ./me-thunderbird.nix
+    ./me-librewolf.nix
     ../../client/addHomeFix.nix
   ];
 
@@ -94,14 +92,13 @@ in {
           favorite-apps = [
             "com.mitchellh.ghostty.desktop"
             "kitty.desktop"
-            "dss.desktop"
             "firefox.desktop"
+            "librewolf.desktop"
             "org.keepassxc.KeePassXC.desktop"
             "org.gnome.Nautilus.desktop"
             "onlyoffice-desktopeditors.desktop"
             "com.yubico.yubioath.desktop"
             "org.remmina.Remmina.desktop"
-            "Alacritty.desktop"
           ];
         };
         "org/gnome.desktop/notifications" = {
@@ -198,49 +195,6 @@ in {
               "14=#99faf2"
               "15=#ffffff"
             ];
-          };
-        };
-      };
-      alacritty = {
-        enable = true;
-        settings = {
-          selection = {
-            save_to_clipboard = true;
-          };
-          scrolling = {
-            history = 100000;
-          };
-          font.size = 11;
-          colors = {
-            primary = {
-              background = "#000000";
-              foreground = "#fffbf6";
-            };
-            normal = {
-              black = "#000000";
-              red = "#eb4129";
-              green = "#abe047";
-              yellow = "#f6c744";
-              blue = "#47a0f3";
-              magenta = "#7b5cb0";
-              cyan = "#64dbed";
-              white = "#e5e9f0";
-            };
-            bright = {
-              black = "#565656";
-              red = "#ec5357";
-              green = "#c0e17d";
-              yellow = "#f9da6a";
-              blue = "#49a4f8";
-              magenta = "#a47de9";
-              cyan = "#99faf2";
-              white = "#ffffff";
-            };
-            draw_bold_text_with_bright_colors = true;
-          };
-          window = {
-            decorations = "none";
-            startup_mode = "Fullscreen";
           };
         };
       };
