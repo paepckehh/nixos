@@ -1,0 +1,40 @@
+version: "2"
+linters:
+  enable:
+    # Minimum recommended
+    - errcheck
+    - govet
+    - revive
+    - staticcheck
+    # Additional recommended
+    - bodyclose
+    - gocyclo
+    - gosec
+    - ineffassign
+    - misspell
+  settings:
+    revive:
+      rules:
+        - name: exported
+    gocyclo:
+      min-complexity: 15
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+formatters:
+  enable:
+    - goimports
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
