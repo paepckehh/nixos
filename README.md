@@ -40,6 +40,7 @@ Yes, this is a **single git repo** that controls:
 | Host profiles | **5** |
 | Storage layouts | **6+** (stateless, stateless-luks, ZFS, ISO installer variants) |
 | Git mirror mirrors | **4 flakes** mirrored locally (`nixpkgs`, `agenix`, `disko`, `home-manager`) |
+| Subdirectory READMEs | **13** (one per major directory) |
 
 No Kubernetes. No Helm. No Terraform. Just Nix. That's the aesthetic.
 
@@ -81,27 +82,28 @@ Each service is a self-contained NixOS module. Import into a profile's `modules`
 
 ## 📂 Directory Layout
 
-| Path | Purpose |
-|---|---|
-| `flake.nix` | Flake entry point — the one file that ties everything together |
-| `configuration.nix` | Global defaults for all profiles (Nix, boot, security, network, users) |
-| `siteconfig/config.nix` | Centralized infra config (site IDs, domains, shell aliases, kernel params) |
-| `modules/` | Custom & nixpkgs modules: hardening profiles, SOPS/agenix setup, logging |
-| `hardware/` | Hardware-specific modules (amd, intel, all, all-gpu) |
-| `storage/` | Disk layouts via **disko**: stateless, stateless-luks, zfs, ISO, auto-installer |
-| `hosts/` | Host-specific configuration overrides (`srv.nix`, `srv2.nix`) |
-| `role/` | Role-based profiles (admin, server) |
-| `person/` | Per-user personal config (`mpaepcke.nix`) |
-| `user/` | Home Manager user-level configs (`me.nix`, `desktop/`) |
-| `packages/` | Package collections: `base.nix`, `devops.nix`, `desktop/` (kiosk, browser, GNOME, AI, AV, OnlyOffice) |
-| `server/` | **355 service modules**, organized by category (see Services table below) |
-| `client/` | Client configs: backup, WireGuard, binary caches, RootCA |
-| `iot/` | IoT device configs (DAB, Ecoflow, HomeAssistant, Tibber, Moode) |
-| `openwrt/` | Router configs (Glinet, D-Link, RPi, AXT) |
-| `guard/` | OpenWRT/ESP32 security guard |
-| `shared/` | Shared assets (branding, YARA rules, repo scripts) |
-| `doc/` | Documentation (ZFS notes, TODO, fastfetch config, images) |
-| `.attic/` | Deprecated/legacy configs and archived flake.lock snapshots |
+Each directory has its own README — click through for deep dives:
+
+| Directory | Purpose | [Read More](./) |
+|---|---|---|
+| `admin/` | 🔑 Makefiles, keygen scripts & admin tooling | [→](./admin/README.md) |
+| `.attic/` | 🗄️ Archive of deprecated configs & flake.lock snapshots | [→](./.attic/README.md) |
+| `client/` | 🖥️ WireGuard, backup clients, firewalls, RootCA setup | [→](./client/README.md) |
+| `doc/` | 📝 Documentation, skills, theme factory, todo lists | [→](./doc/README.md) |
+| `guard/` | 🛡️ Hardened OpenWRT guard nodes + ESP32 mesh gateways | [→](./guard/README.md) |
+| `hardware/` | 🔌 CPU/GPU/device profiles (MacBook, ThinkPad, HP, Intel, AMD) | [→](./hardware/README.md) |
+| `hosts/` | 🏠 Per-server NixOS configs (`srv`, `srv2`) | [→](./hosts/README.md) |
+| `iot/` | 🏠 Smart devices (EcoFlow, HomeAssistant, Tibber, Moode, DAB) | [→](./iot/README.md) |
+| `modules/` | 🔐 Hardening profiles, SOPS/agenix, logging pipeline | [→](./modules/README.md) |
+| `openwrt/` | 📡 OpenWRT firmware builder (GL-inet, D-Link, Pi) | [→](./openwrt/README.md) |
+| `packages/` | 📦 Package sets: base, devops, desktop, AI, wine | [→](./packages/README.md) |
+| `person/` | 👤 Per-user configs & smartcard SSH keys | [→](./person/README.md) |
+| `role/` | 🎭 Role definitions (admin, server baselines) | [→](./role/README.md) |
+| `server/` | ⚡ **355 service modules** across 40+ categories | [→](./server/README.md) |
+| `shared/` | 📦 Branding assets, YARA rules, repo scripts, bookmarks | [→](./shared/README.md) |
+| `siteconfig/` | ⚙️ Central infra config (IDs, domains, networks, aliases) | [→](./siteconfig/README.md) |
+| `storage/` | 💾 Disk layouts (ZFS, disko), backup, ZFS runbooks | [→](./storage/README.md) |
+| `user/` | 👤 Home Manager: shell, browsers, desktop, dotfiles | [→](./user/README.md) |
 
 ---
 
@@ -331,12 +333,37 @@ Target a different profile: `TARGET=kiosk make build`
 
 ---
 
-## 📖 Additional Documentation
+## 📖 Documentation Hub
 
-- [Storage / ZFS](./storage/ZFS.md)
-- [Storage / Backup](./storage/BACKUP.md)
-- [Guard README](./guard/README.md)
-- [OpenWRT README](./openwrt/README.md)
+### Directory Readmes (click through for deep dives)
+
+| Directory | Topics Covered |
+|---|---|
+| [admin/](./admin/README.md) | Makefile targets, key generation scripts, admin tooling |
+| [.attic/](./.attic/README.md) | Archive of retired configs, flake.lock snapshots, legacy modules |
+| [client/](./client/README.md) | WireGuard, backup, caching, OpenSnitch firewall, YubiLock |
+| [doc/](./doc/README.md) | ZFS notes, ESP32 how-tos, Crush skills, theme factory |
+| [guard/](./guard/README.md) | Hardened OpenWRT gateways, ESP32 mesh, secure remote access |
+| [hardware/](./hardware/README.md) | MacBook, ThinkPad, HP, AMD/Intel GPU profiles |
+| [hosts/](./hosts/README.md) | Per-server NixOS configs (`srv`, `srv2`) |
+| [iot/](./iot/README.md) | EcoFlow, HomeAssistant, Tibber, Moode audio, DAB radio |
+| [modules/](./modules/README.md) | Hardening profiles, agenix, logging pipeline |
+| [openwrt/](./openwrt/README.md) | OpenWRT firmware build system (GL-inet, D-Link, Pi) |
+| [packages/](./packages/README.md) | Package sets: base, devops, desktop, AI, wine |
+| [person/](./person/README.md) | Per-user configs & smartcard SSH keys |
+| [role/](./role/README.md) | Role definitions (admin, server baselines) |
+| [server/](./server/README.md) | 355 service modules across 40+ categories |
+| [shared/](./shared/README.md) | Branding assets, YARA rules, repo scripts, bookmarks |
+| [siteconfig/](./siteconfig/README.md) | Central infra config (IDs, domains, networks, aliases) |
+| [storage/](./storage/README.md) | Disk layouts (ZFS, disko), backup, ZFS runbooks |
+| [user/](./user/README.md) | Home Manager: shell, browsers, desktop, dotfiles |
+
+### Storage Runbooks
+
+| Topic | Link |
+|---|---|
+| ZFS pool management | [ZFS.md](./storage/ZFS.md) |
+| Backup & restore workflows | [BACKUP.md](./storage/BACKUP.md) |
 
 ---
 
