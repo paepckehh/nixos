@@ -1,5 +1,12 @@
+# -= WARNING =-
 
-> Your entire company — server, services, cloud, client, and network — managed through a single NixOS configuration repo. 355+ NixOS modules across 50+ service categories. Stateless root, declarative deployments, secrets via agenix + YubiKey.
+- This repo is for rapid prototyping, wild tests.
+- Feel free to copy code, take inspiration.  
+- Do not use anything in production without review!
+
+## TLDR;
+> Your entire company as a service: server, services, cloud, client, and network — managed through a single NixOS configuration repo. 
+> 355+ NixOS modules across 50+ service categories. Stateless root, declarative deployments, secrets via agenix + YubiKey.
 
 ## Table of Contents
 
