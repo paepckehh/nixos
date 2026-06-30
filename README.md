@@ -1,10 +1,8 @@
-# Home Lab Infrastructure
 
 > Your entire company — server, services, cloud, client, and network — managed through a single NixOS configuration repo. 355+ NixOS modules across 50+ service categories. Stateless root, declarative deployments, secrets via agenix + YubiKey.
 
 ## Table of Contents
 
-- [Quick Start](#quick-start)
 - [Architecture](#architecture)
 - [Directory Layout](#directory-layout)
 - [Profiles](#profiles)
@@ -14,55 +12,20 @@
 - [Design Philosophy](#design-philosophy)
 - [Additional Documentation](#additional-documentation)
 
-## Quick Start
-
-Add this repo as a flake input:
-
-```nix
-{
-  inputs.nixpkgs.url = "git+https://git-mirror.home.corp/nixos/nixpkgs?ref=nixos-unstable";
-  inputs.home-manager.url = "git+https://git-mirror.home.corp/nix-community/home-manager?ref=master";
-  inputs.nixpkgs.follows = "nixpkgs";
-  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
-}
-```
-
-Build and deploy:
-
-```bash
-# For the current host's profile
-make switch        # build + switch to new generation
-make rollback      # roll back to previous generation
-
-# For a different profile
-TARGET=kiosk make build
-make check         # type-check without installing
-```
-
-Or directly:
-
-```bash
-nixos-rebuild switch --flake .#srv
-nix flake check
-```
-
 ## Architecture
 
 ```
 flake.nix                    ← Entry point: defines all nixosConfigurations
 ├── configuration.nix        ← Global defaults (Nix, boot, security, network, users)
 ├── siteconfig/config.nix    ← Centralized infra config (IDs, domains, shell aliases, kernel params)
-│
 ├── modules/                 ← Custom & nixpkgs modules (hardening, SOPS/agenix, logging)
 ├── hardware/                ← Hardware-specific modules (amd, intel, all)
 ├── storage/                 ← Disk layouts (stateless, stateless-luks, zfs, ISO, auto-installer)
-│
 ├── hosts/                   ← Host-specific overrides
 ├── role/                    ← Role profiles (adm, server)
 ├── person/                  ← Per-user configurations
 ├── user/                    ← Home Manager configurations
 ├── packages/                ← Package collections (base, devops, desktop)
-│
 ├── server/                  ← 355+ service definitions, organized by category (see below)
 ├── client/                  ← Client-side configs (wireguard, caches, backup, rootCA)
 ├── iot/                     ← IoT device configs (DAB, Ecoflow, HomeAssistant, Tibber, Moode)
