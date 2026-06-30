@@ -9,6 +9,7 @@ Do not use anything in production without review!
 
 # Manage Nixos via make (requires pkgs.gnumake)
 
+
 | Target | Description |
 |--------|-------------|
 | `make switch` | Switch to a new boot profile for the current host/profile |
