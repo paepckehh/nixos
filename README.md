@@ -52,25 +52,25 @@ Think of it as three layers, stacked like a really secure lasagna:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  flake.nix           ← Entry point. Defines everything.  │
-│                        Your single pane of god-like INF. │
+│  flake.nix           ← Entry point. Defines everything. │
+│                        Your single pane of god-like INF.│
 ├─────────────────────────────────────────────────────────┤
-│  configuration.nix     ← Global defaults (Nix, boot,     │
-│  siteconfig/config.nix   security, networking, users).   │
-│  hardware/             ← Hardware-specific modules.      │
-│  storage/              ← Disk layouts via disko.         │
-│  modules/              ← Custom modules (hardening,       │
-│                         SOPS/agenix, logging).            │
+│  configuration.nix     ← Global defaults (Nix, boot,    │
+│  siteconfig/config.nix   security, networking, users).  │
+│  hardware/             ← Hardware-specific modules.     │
+│  storage/              ← Disk layouts via disko.        │
+│  modules/              ← Custom modules (hardening,     │
+│                         SOPS/agenix, logging).          │
 ├─────────────────────────────────────────────────────────┤
-│  hosts/                ← Per-host overrides.             │
-│  role/                 ← Role profiles (adm, server).    │
-│  person/               ← Per-person configs (mpaepcke).  │
-│  user/                 ← Home Manager (me, desktop/).    │
-│  packages/             ← Package sets (base, devops,     │
-│                         desktop/).                        │
-│  server/               ← 355 service modules by category │
-│  client/               ← WireGuard, caches, backup,      │
-│                         RootCA.                           │
+│  hosts/                ← Per-host overrides.            │
+│  role/                 ← Role profiles (adm, server).   │
+│  person/               ← Per-person configs (mpaepcke). │
+│  user/                 ← Home Manager (me, desktop/).   │
+│  packages/             ← Package sets (base, devops,    │
+│                         desktop/).                      │
+│  server/               ← 355 service modules by cat.    │
+│  client/               ← WireGuard, caches, backup,     │
+│                         RootCA.                         │
 │  iot/ openwrt/ guard/  ← IoT, routers, ESP32 guards.    │
 │  shared/ doc/          ← Branding, YARA rules, docs.    │
 └─────────────────────────────────────────────────────────┘
@@ -312,22 +312,22 @@ Target a different profile: `TARGET=kiosk make build`
 ## 🔮 System Overview (ASCII, Because Old School)
 
 ```
-┌─────────────┐       ┌───────────────┐       ┌──────────────────┐
-│  flake.nix  │──────>│ config.nix     │──────>│  profiles         │
-│   (entry)    │       │ (site config)  │       │  srv, srv2,      │
-└─────────────┘       └───────────────┘       │  kiosk, internet  │
-        │                                        └──────────────────┘
+┌─────────────┐       ┌───────────────┐         ┌──────────────────┐
+│  flake.nix  │──────>│ config.nix    │──────>  │  profiles        │
+│   (entry)    │      │ (site config) │         │  srv, srv2,      │
+└─────────────┘       └───────────────┘         │  kiosk, internet │
+        │                                       └──────────────────┘
         │           ┌───────────────┐               │
-        ├────────>  │  modules/      │               │
-        │           │  hardening,    │               │
-        │           │  SOPS/agenix,  │               │
-        │           │  logging       │               │
+        ├────────>  │  modules/     │               │
+        │           │  hardening,   │               │
+        │           │  SOPS/agenix, │               │
+        │           │  logging      │               │
         │           └───────────────┘               │
-        │                                            │
-        │     ┌───────────────┐                      │
-        └────>│  server/       │<───────────────────┘
-              │  355 services  │
-              │  40+ categories│
+        │                                           │
+        │     ┌───────────────┐                     │
+        └────>│  server/      │ <───────────────────┘
+              │  355 services │
+              │  40+ cat.     │
               └───────────────┘
 ```
 
