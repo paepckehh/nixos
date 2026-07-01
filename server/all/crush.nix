@@ -18,7 +18,7 @@ in {
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.crush.ip}/32";}];
+  systemd.network.networks."${infra.namespace.admin}".addresses = [{Address = "${infra.crush.ip}/32";}];
 
   ####################
   #-=# CONTAINERS #=-#
@@ -26,7 +26,8 @@ in {
   containers.crush = {
     autoStart = true;
     privateNetwork = false;
-    bindMounts."${infra.me.projects}".isReadOnly = false;
+    bindMounts."/etc/nixos".isReadOnly = true;
+    bindMounts."${infra.storage.projects}".isReadOnly = false;
     bindMounts."${infra.storage.cache}".isReadOnly = false;
     config = {
       config,
@@ -50,7 +51,15 @@ in {
       ####################
       #-=# NETWORKING #=-#
       ####################
-      networking.hostName = infra.crush.hostname;
+      networking = {
+        hostName = infra.crush.hostname;
+        firewall = {
+          enable = lib.mkForce true;
+          allowPing = lib.mkForce true;
+          allowedTCPPorts = [infra.port.ssh-mgmt infra.port.smb.tcp];
+          allowedUDPPorts = [infra.port.smb.quic];
+        };
+      };
 
       ###############
       #-=# USERS #=-#
@@ -61,10 +70,10 @@ in {
       #-=# ENVIRONMENT #=-#
       #####################
       environment = {
-        # systemPackages = with pkgs; [];
+        systemPackages = [pkgs.cifs-utils];
         interactiveShellInit = "TERM=xterm-256color /run/current-system/sw/bin/tmux attach-session -t ssh_tmux || TERM=xterm-256color /run/current-system/sw/bin/tmux new-session -s ssh_tmux";
-        shells = [pkgs.bashInteractive pkgs.fish];
-        shellAliases = infra.shellAliases;
+        shells = [pkgs.bashInteractive];
+        shellAliases = infra.shell.alias;
         variables = infra.go.env;
       };
 
@@ -74,10 +83,6 @@ in {
       programs = {
         bat.enable = true;
         vim.enable = true;
-        starship = {
-          enable = true;
-          transientPrompt.enable = true;
-        };
         git = {
           enable = true;
           config = infra.git.client.conf;
@@ -87,26 +92,50 @@ in {
       ##################
       #-=# SERVICES #=-#
       ##################
-      services.openssh = {
-        enable = lib.mkDefault true;
-        settings = infra.sshd.settings;
-        authorizedKeysInHomedir = false;
-        allowSFTP = false;
-        ports = [infra.port.ssh-mgmt];
-        startWhenNeeded = false;
-        generateHostKeys = true;
-        hostKeys = lib.mkForce [
-          {
-            path = "/etc/ssh/ssh_host_ed25519_key";
-            type = "ed25519";
-          }
-        ];
-        listenAddresses = lib.mkForce [
-          {
-            addr = infra.crush.ip;
-            port = infra.port.ssh-mgmt;
-          }
-        ];
+      services = {
+        openssh = {
+          enable = lib.mkDefault true;
+          settings = infra.sshd.settings;
+          authorizedKeysInHomedir = false;
+          allowSFTP = false;
+          ports = [infra.port.ssh-mgmt];
+          startWhenNeeded = false;
+          generateHostKeys = true;
+          hostKeys = lib.mkForce [
+            {
+              path = "/etc/ssh/ssh_host_ed25519_key";
+              type = "ed25519";
+            }
+          ];
+          listenAddresses = lib.mkForce [
+            {
+              addr = infra.crush.ip;
+              port = infra.port.ssh-mgmt;
+            }
+          ];
+        };
+        samba-wsdd.enable = lib.mkForce false;
+        samba = {
+          enable = true;
+          smbd.enable = true;
+          nmbd.enable = lib.mkForce false;
+          nsswins = lib.mkForce false;
+          usershares.enable = lib.mkForce false;
+          winbindd.enable = lib.mkForce false;
+          settings = {
+            global = infra.smb.global;
+            "projects" = {
+              "path" = "/nix/persist/projects";
+              "browseable" = "yes";
+              "read only" = "no";
+              "guest ok" = "no";
+              "create mask" = "0644";
+              "directory mask" = "0755";
+              "force user" = "me";
+              "force group" = "me";
+            };
+          };
+        };
       };
     };
   };
