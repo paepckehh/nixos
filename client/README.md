@@ -13,8 +13,6 @@ Client-side NixOS modules for **configuring individual workstations, laptops, an
 | File | Purpose |
 |---|---|
 | `addWireguard.nix` | WireGuard client setup with automated persistent peers |
-| `addBackupClient.nix` | Backup client — pushes host state to backup server |
-| `addBackupServer.nix` | Backup server — receives and stores rsync snapshots |
 | `addCache.nix` | Nix binary cache client — pulls from NCPS |
 | `addCacheUp.nix` | Nix binary cache builder/publisher |
 | `addEndlessh.nix` | Endlessh ( SSH honeypot ) for SSH hardening |

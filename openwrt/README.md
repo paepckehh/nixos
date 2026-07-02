@@ -86,9 +86,9 @@ Every firmware image includes:
 │  GL-AXT1800  │         │  GL-B3000    │         │  D-Link DAP  │
 │  Office GW   │         │  Branch-1    │         │  Branch-2    │
 └──────┬───────┘         └──────┬───────┘         └──────┬───────┘
-       │ WG mesh                 │ WG mesh                │ WG mesh
-       │                         │                        │
-       └───────────┬─────────────┴────────────────────────┘
+       │ WG mesh                │ WG mesh                │ WG mesh
+       │                        │                        │
+       └───────────┬────────────┴────────────────────────┘
                    │
           ┌────────▼────────┐
           │  HQ Router      │

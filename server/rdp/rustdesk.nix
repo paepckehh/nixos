@@ -1,0 +1,1 @@
+../all/rustdesk.nix

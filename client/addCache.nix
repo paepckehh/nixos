@@ -18,16 +18,19 @@ in {
     settings = {
       require-sigs = lib.mkForce true;
       allowed-uris = lib.mkForce [
-        infra.cache.url
-        # "https://cache.nixos.org"
+        infra.nix.cache.local.url
+        # infra.nix.cache.internal.url
+        # infra.nix.cache.external.url
       ];
       substituters = lib.mkForce [
-        infra.cache.url
-        # "https://cache.nixos.org"
+        infra.nix.cache.local.url
+        # infra.nix.cache.internal.url
+        # infra.nix.cache.external.url
       ];
       trusted-public-keys = lib.mkForce [
-        infra.cache.key.pub
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        infra.nix.cache.local.key
+        infra.nix.cache.internal.key
+        infra.nix.cache.external.key
       ];
     };
   };

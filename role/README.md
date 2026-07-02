@@ -64,15 +64,6 @@ Roles are **composable baselines** — they set defaults and capabilities but do
 ## 🧬 Role Composition
 
 Think of roles as **trait types** in a type system:
-
-```
-Admin + Server = Full infra control + service running
-
-No Role + Server = Pure service (no admin tooling, minimal attack surface)
-
-Admin + No Server = Admin workstation (no server service running)
-```
-
 This makes it possible to **mix and match** different capability sets without duplicating configurations.
 
 ---

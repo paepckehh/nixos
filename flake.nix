@@ -86,6 +86,7 @@
           ./server/search/searx.nix
           ./server/pki/small-step.nix
           ./server/portal/portal-start.nix
+          ./server/remote/rustdesk.nix
           ./server/webapp/res.nix
           # ./server/ai/crush.nix
           # ./server/ai/ollama01.nix

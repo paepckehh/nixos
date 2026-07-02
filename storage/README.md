@@ -49,7 +49,7 @@ Everything is declarative — no manual configuration drift.
 │      └───────────┴─────┬─────┘           │                      │
 │                        │                 │                      │
 │              rsync  ←──┘     nixos-   ←──┘                      │
-│              (23:15 daily) container │  │                       │
+│              (23:15 daily) container │                          │
 └───────────────┬───────────────────┬──┴──┘───────────────────────┘
                 │                   │
       ┌─────────▼────────┐  ┌──────▼──────┐

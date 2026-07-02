@@ -64,10 +64,10 @@ IoT devices often need API keys, tokens, or credentials. These are stored as enc
 │ Power       │──>──│ Assistant    │──>──│ Smart Meter       │
 │ Station     │     │ (Hub)        │     │                   │
 └─────────────┘     └──────────────┘     └───────────────────┘
-                           │                      │
+                          │                      │
                      ┌────▼──────┐         ┌─────▼───────┐
-                     │ NixOS     │         │ Prometheus   │
-                     │ Monitor  │         │ + Grafana    │
+                     │ NixOS     │         │ Prometheus  │
+                     │ Monitor   │         │ + Grafana   │
                      └───────────┘         └─────────────┘
 ```
 

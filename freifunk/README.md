@@ -1,4 +1,4 @@
-# Freifunk Lübeck (FFHL)
+# Freifunk
 
 <div align="center">
 
@@ -43,7 +43,7 @@ Freifunk is a **citizen-initiated project** to build a community-wide, wireless 
 We provide automated NixOS-based firmware builds for supported router hardware.
 
 ```bash
-curl https://res.dbt.corp/freifunk/latest
+curl https://res.<brand>.corp/freifunk/<model>.latest
 ```
 
-📦 **Download images:** [res.dbt.corp/freifunk](https://res.dbt.corp/freifunk)
+📦 **Download images:** [res.home.corp/freifunk](https://res.home.corp/freifunk)

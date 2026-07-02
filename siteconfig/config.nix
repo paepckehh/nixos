@@ -35,6 +35,22 @@ let
         server = "C.UTF-8";
       };
     };
+    nix = {
+      cache = {
+        local = {
+          url = infra.cache.url;
+          key = infra.cache.key.pub;
+        };
+        internal = {
+          url = "https://cache.nixos.org";
+          key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";
+        };
+        external = {
+          url = "https://cache.dbt.corp";
+          key = "cache:mL2YcFgIlzAMAsMzHXYXc3YjPJuI8+AFTtmjcr0Og+o=";
+        };
+      };
+    };
     email.domain = {
       intern = infra.domain.user;
       extern = infra.site.domain.extern;
@@ -1117,10 +1133,6 @@ let
         url = "${infra.cache.url}/pubkey";
         pub = "cache:uAOykGHMvJ3Nw99phwQRDn3Ri0y2T73FTE8CNtN+ggA=";
       };
-      up = {
-        url = "https://cache.dbt.corp";
-        pub = "cache:mL2YcFgIlzAMAsMzHXYXc3YjPJuI8+AFTtmjcr0Og+o=";
-      };
     };
     it = {
       id = 56;
@@ -2058,21 +2070,17 @@ let
       url = "https://${infra.guacamole.fqdn}";
       logo = "${infra.res.url}/icon/png/guacamole.png";
     };
-    occamy = {
-      id = 189;
-    };
-    nocobase = {
+    rustdesk = {
       id = 190;
-      app = "nocobase";
-      name = infra.nocobase.app;
-      hostname = infra.nocobase.name;
+      app = "rustdesk";
+      name = infra.rustdesk.app;
+      hostname = infra.rustdesk.name;
       domain = infra.domain.user;
-      initpwd = "nocobase-FsD5549";
-      fqdn = "${infra.nocobase.hostname}.${infra.nocobase.domain}";
-      ip = "${infra.net.user}.${toString infra.nocobase.id}";
-      localbind.port.http = infra.localhost.port.offset + infra.nocobase.id;
-      url = "https://${infra.nocobase.fqdn}";
-      logo = "${infra.res.url}/icon/png/nocobase.png";
+      fqdn = "${infra.rustdesk.hostname}.${infra.rustdesk.domain}";
+      ip = "${infra.net.user}.${toString infra.rustdesk.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.rustdesk.id;
+      url = "https://${infra.rustdesk.fqdn}";
+      logo = "${infra.res.url}/icon/png/rustdesk.png";
     };
     crush = {
       id = 191;
