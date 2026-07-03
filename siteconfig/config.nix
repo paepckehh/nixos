@@ -2094,6 +2094,30 @@ let
       url = "https://${infra.crush.fqdn}";
       logo = "${infra.res.url}/icon/png/crush.png";
     };
+    dssync = {
+      id = 192;
+      app = "dssync";
+      name = infra.dssync.app;
+      hostname = infra.dssync.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.dssync.hostname}.${infra.dssync.domain}";
+      ip = "${infra.net.user}.${toString infra.dssync.id}";
+      remote.url = "https://192.168.22.101:8443";
+      url = "https://${infra.dssync.fqdn}";
+      logo = "${infra.res.url}/icon/png/dssync.png";
+    };
+    openpaq = {
+      id = 193;
+      app = "openpaq";
+      name = infra.openpaq.app;
+      hostname = infra.openpaq.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.openpaq.hostname}.${infra.openpaq.domain}";
+      ip = "${infra.net.user}.${toString infra.openpaq.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.openpaq.id;
+      url = "https://${infra.openpaq.fqdn}";
+      logo = "${infra.res.url}/icon/png/osm.png";
+    };
     auftraggeber = {
       id = 200;
       app = "auftraggeber";
