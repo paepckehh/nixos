@@ -95,11 +95,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783024095,
-        "narHash": "sha256-oE+TNK98Pl7nHW4VU1oBvUKD5JR45U+py/NJmLoTNHI=",
+        "lastModified": 1782749631,
+        "narHash": "sha256-slFTUgDy0KTPA4LBAmC/9SngDq8GCPdX+ZR0yQHHN1E=",
         "ref": "master",
-        "rev": "a4d410db95a6416d1008049330bd86b85b5db45a",
-        "revCount": 7020,
+        "rev": "5d72a29fc36ac21adae6ae35568fe5ee6700850f",
+        "revCount": 7003,
         "type": "git",
         "url": "https://git-mirror.home.corp/nix-community/home-manager"
       },
