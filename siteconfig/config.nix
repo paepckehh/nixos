@@ -2115,8 +2115,20 @@ let
       fqdn = "${infra.openpaq.hostname}.${infra.openpaq.domain}";
       ip = "${infra.net.user}.${toString infra.openpaq.id}";
       localbind.port.http = infra.localhost.port.offset + infra.openpaq.id;
-      url = "https://${infra.openpaq.fqdn}";
-      logo = "${infra.res.url}/icon/png/osm.png";
+      url = "https://${infra.openpaq.fqdn}/version";
+      logo = "${infra.res.url}/icon/png/osmapp.png";
+    };
+    osm = {
+      id = 194;
+      app = "osp";
+      name = infra.osm.app;
+      hostname = infra.osm.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.osm.hostname}.${infra.osm.domain}";
+      ip = "${infra.net.user}.${toString infra.osm.id}";
+      localbind.port.http = infra.localhost.port.offset + infra.osm.id;
+      url = "https://${infra.osm.fqdn}/search";
+      logo = "${infra.res.url}/icon/png/osmapp.png";
     };
     auftraggeber = {
       id = 200;

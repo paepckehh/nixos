@@ -88,7 +88,8 @@
           ./server/portal/portal-start.nix
           ./server/remote/rustdesk.nix
           ./server/webapp/res.nix
-          ./server/api/openpaq.nix
+          # ./server/api/openpaq.nix
+          # ./server/api/osm.nix
           # ./server/ai/crush.nix
           # ./server/ai/ollama01.nix
           # ./server/remote/guacamole.nix

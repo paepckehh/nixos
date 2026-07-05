@@ -40,13 +40,13 @@ in {
           ports = ["${infra.localhost.ip}:${toString infra.openpaq.localbind.port.http}:8001"];
           environment = {
             CACHE_ENABLED = "false";
-            VERSION = "testing";
+            VERSION = "deniceg/openpaq:latest";
             CLICKHOUSE_ENABLED = "false";
             USE_TLS = "false";
             USE_JWT = "false";
-            NOMINATIM_ADDRESS = "https://nominatim.openstreetmap.org/search";
-            LOG_LEVEL = "debug";
-            WEBSERVER_LISTEN_ADDRESS = "8001";
+            NOMINATIM_ADDRESS = "https://osm.dbt.corp/search";
+            LOG_LEVEL = "release"; # debug
+            WEBSERVER_LISTEN_ADDRESS = "0.0.0.0:8001";
           };
         };
       };

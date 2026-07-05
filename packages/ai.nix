@@ -17,8 +17,9 @@
   #####################
   environment.shellAliases = {
     "codescore" = "go run paepcke.de/codescore/cmd/codescore@latest";
-    "crush" = "go run github.com/charmbracelet/crush@latest"; # upstream original
-    "crushIT" = "/nix/persist/projects/_external/crush/crush"; # local modified derivate
-    "codescoreIT" = "/nix/persist/projects/codescore/cmd/codescore/codescore"; # local modified derivate
+    "crush.release" = "go run github.com/charmbracelet/crush@latest"; # upstream release
+    "crush.main" = "go run github.com/charmbracelet/crush@main"; # upstream main-last-commit
+    "crush.local" = "/nix/persist/projects/_external/crush/crush"; # local modified derivate
+    "codescore.local" = "/nix/persist/projects/codescore/cmd/codescore/codescore"; # local modified derivate
   };
 }

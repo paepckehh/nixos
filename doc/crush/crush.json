@@ -33,9 +33,6 @@
       "args": [
         "--stdio"
       ]
-    },
-    "nix": {
-      "command": "/run/current-system/sw/bin/nil"
     }
   },
   "permissions": {
@@ -51,6 +48,7 @@
       "python",
       "python3",
       "fetch",
+      "git",
       "agentic_fetch"
     ]
   },

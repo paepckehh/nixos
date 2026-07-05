@@ -468,6 +468,20 @@ in {
                     logo = infra.guacamole.logo;
                   }
                   {
+                    name = "OSM : DATA : API (Nomination))";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.osm.url;
+                    logo = infra.osm.logo;
+                  }
+                  {
+                    name = "OSM : SEARCH : API (OpenPAQ)";
+                    tag = "app";
+                    target = "_blank";
+                    url = infra.openpaq.url;
+                    logo = infra.openpaq.logo;
+                  }
+                  {
                     name = "Freifunk Status";
                     tag = "external web";
                     target = "_blank";

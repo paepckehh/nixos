@@ -160,6 +160,7 @@ in {
             ${infra.undb.hostname}               IN A  ${infra.undb.ip}
             ${infra.onlyoffice.hostname}         IN A  ${infra.onlyoffice.ip}
             ${infra.openpaq.hostname}            IN A  ${infra.openpaq.ip}
+            ${infra.osm.hostname}                IN A  ${infra.osm.ip}
             ${infra.rackula.hostname}            IN A  ${infra.rackula.ip}
             ${infra.readeck.hostname}            IN A  ${infra.readeck.ip}
             ${infra.res.hostname}                IN A  ${infra.res.ip}
@@ -211,6 +212,7 @@ in {
             ${infra.miniflux.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.miniflux.ip}"
             ${infra.onlyoffice.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.onlyoffice.ip}"
             ${infra.openpaq.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.openpaq.ip}"
+            ${infra.osm.hostname}                IN HTTPS 1 . alpn="h3" ipv4hint="${infra.osm.ip}"
             ${infra.portal.hostname}             IN HTTPS 1 . alpn="h3" ipv4hint="${infra.portal.ip}"
             ${infra.rackula.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.rackula.ip}"
             ${infra.readeck.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.readeck.ip}"
