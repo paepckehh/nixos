@@ -21,7 +21,7 @@ in {
   ###############
   users.users.me = {
     description = lib.mkForce "PAEPCKE, Michael";
-    openssh.authorizedKeys.keys = lib.mkForce infra.admin.sshKeys;
+    openssh.authorizedKeys.keys = lib.mkForce infra.users.mp.openssh.authorizedKeys.keys;
   };
 
   ######################
@@ -38,7 +38,7 @@ in {
             daylight_ber = "IATA=BER go run paepcke.de/daylight/cmd/daylight@latest";
             daylight_tls = "IATA=TLS go run paepcke.de/daylight/cmd/daylight@latest";
             wetter_fxl = "curl https://wttr.in/fxl";
-            wetter_ham = "curl https://wttr.in/ham";
+            wetter_ham = "curl https://wttr.in/hamburg";
             wetter_lbc = "curl https://wttr.in/lbc";
             wetter_ber = "curl https://wttr.in/ber";
             wetter_tls = "curl https://wttr.in/tls";
