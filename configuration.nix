@@ -153,7 +153,7 @@ in {
   security = {
     auditd.enable = false;
     allowSimultaneousMultithreading = true;
-    lockKernelModules = lib.mkForce true;
+    # lockKernelModules = lib.mkForce true;
     protectKernelImage = lib.mkForce true;
     audit = {
       enable = lib.mkForce false;

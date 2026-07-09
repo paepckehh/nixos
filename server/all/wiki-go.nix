@@ -18,7 +18,7 @@ in {
   #-=# SYSTEMD #=-#
   #################
   systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.wiki-go.ip}/32";}];
-  
+
   ####################
   #-=# ENVIROMENT #=-#
   ####################

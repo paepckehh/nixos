@@ -159,6 +159,7 @@ let
         client = infra.kernel.params.base ++ ["ipv6.disable=1"];
         server = infra.kernel.params.base ++ [];
       };
+
       modBlacklist = ''
         install algif_aead /bin/false"
         install esp4 /bin/false
@@ -170,13 +171,14 @@ let
         install rds_rdma /bin/false
         install rds_tcp /bin/false
         install rxrpc /bin/false
-        install rndis_host /bin/false
         install tipc /bin/false
         install tipc_diag /bin/false
-        install usb_f_rndis /bin/false
         install x25 /bin/false
       '';
-      blacklist = ["affs" "af_alg" "algif_hash" "algif_skcipher" "algif_rng" "algif_aead" "bcm43xx" "brcm80211" "befs" "bfs" "esp4" "esp6" "freevxfs" "hpfs" "jfs" "joydev" "ipx" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "rxrpc" "sctp" "sctp_diag" "ssb" "tipc" "tipc_diag" "rndis_host" "rds" "rds_rdma" "rds_tcp" "usb_f_rndis" "x25"];
+      # install usb_f_rndis /bin/false
+      # install rndis_host /bin/false
+      # "usb_f_rndis" "rndis_host"
+      blacklist = ["affs" "af_alg" "algif_hash" "algif_skcipher" "algif_rng" "algif_aead" "bcm43xx" "brcm80211" "befs" "bfs" "esp4" "esp6" "freevxfs" "hpfs" "jfs" "joydev" "ipx" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "rxrpc" "sctp" "sctp_diag" "ssb" "tipc" "tipc_diag" "rds" "rds_rdma" "rds_tcp" "x25"];
       whitelist = {
         base = ["aesni_intel" "ahci" "ccm" "cmac" "dm_crypt" "dm_mod" "nvme" "thunderbolt" "overlay" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];
         client = infra.kernel.whitelist.base ++ ["cifs" "exfat" "uas" "usb_storage" "usbhid" "vfat" "i2c-dev" "ddcci-backlight"];

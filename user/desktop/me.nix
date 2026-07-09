@@ -23,7 +23,12 @@ in {
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.systemPackages = with pkgs; [adwaita-icon-theme rustdesk-flutter];
+  environment.systemPackages = with pkgs; [
+    adwaita-icon-theme
+    libreoffice-fresh
+    hyphenDicts.en_US
+    hyphenDicts.de_DE
+  ];
 
   ##################
   #-=# SECURITY #=-#

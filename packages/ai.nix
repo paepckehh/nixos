@@ -10,7 +10,7 @@
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.systemPackages = with pkgs; [jq];
+  environment.systemPackages = with pkgs; [herdr];
 
   #####################
   #-=# ENVIRONMENT #=-#

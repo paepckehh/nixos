@@ -25,7 +25,7 @@
     "go": {
       "command": "/run/current-system/sw/bin/gopls",
       "env": {
-        "GOTOOLCHAIN": "go1.26.3"
+        "GOTOOLCHAIN": "go1.26.4"
       }
     },
     "typescript": {
