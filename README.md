@@ -19,7 +19,7 @@
 
 ## ✨ What Is This, Exactly
 
-Welcome to a **fully declarative, stateless, self-hosted infrastructure empire** — all described idempotently in Nix, all reproducible on demand, all version-controlled to within an inch of its life.
+Welcome to a **fully declarative, stateless, cloud infrastructure empire** — all described idempotently in Nix, all reproducible on demand, all version-controlled to within an inch of its life.
 
 Yes, this is a **single git repo** that controls:
 
