@@ -22,7 +22,8 @@ in {
       allowed-users = lib.mkForce ["@wheel"];
       build-dir = "/run/build";
       experimental-features = ["blake3-hashes" "local-overlay-store" "nix-command" "flakes" "verified-fetches"];
-      http2 = lib.mkForce false;
+      http2 = lib.mkForce true;
+      # http3 = lib.mkForce true;
       http-connections = lib.mkForce 10; # default: 25
       sandbox = lib.mkForce true;
       sandbox-build-dir = "/run/build";

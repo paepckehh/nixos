@@ -41,13 +41,21 @@ let
           url = infra.cache.url;
           key = infra.cache.key.pub;
         };
-        internal = {
+        internet = {
           url = "https://cache.nixos.org";
           key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";
         };
         external = {
           url = "https://cache.dbt.corp";
           key = "cache:mL2YcFgIlzAMAsMzHXYXc3YjPJuI8+AFTtmjcr0Og+o=";
+        };
+        external1 = {
+          url = "https://cache1.dbt.corp";
+          key = "cache1:J1lI6NHgXPSPTzRhc1ahmIo/xA5ZOgYcZVhul2uAzPU=";
+        };
+        external2 = {
+          url = "https://cache2.dbt.corp";
+          key = "cache2:WaC36EGol4K7+6JGKxWzM0E0LJDRXM5CidhJQqYhlaw=";
         };
       };
     };

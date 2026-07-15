@@ -67,12 +67,16 @@ in {
           dialerTimeout = lib.mkForce "4m";
           responseHeaderTimeout = lib.mkForce "30s";
           urls = lib.mkForce [
-            infra.nix.cache.internal.url
+            infra.nix.cache.external2.url
+            infra.nix.cache.external1.url
             infra.nix.cache.external.url
+            infra.nix.cache.internet.url
           ];
           publicKeys = lib.mkForce [
-            infra.nix.cache.internal.key
+            infra.nix.cache.external2.key
+            infra.nix.cache.external1.key
             infra.nix.cache.external.key
+            infra.nix.cache.internet.key
           ];
         };
       };
