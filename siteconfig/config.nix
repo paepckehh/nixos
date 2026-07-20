@@ -91,7 +91,6 @@ let
       "service.restart" = "sudo systemctl restart $(systemctl list-units --type=service --all | fzf | sed 's/●/ /g' | cut --fields 3 --delimiter ' ')";
       "log.boot" = "sudo dmesg --follow --human --kernel --userspace";
       "log.system" = "sudo journalctl --follow --priority=7 --lines=2500";
-      "log.time" = "systemctl status chronyd ; chronyc tracking ; chronyc sources ; chronyc sourcestats ; sudo chronyc authdata ; sudo chronyc serverstats";
       "time.status" = "timedatectl timesync-status";
       "info" = "fastfetch -c /etc/nixos/doc/fastfetch/ff.jsonc";
       "info.nvme.extern" = "sudo smartctl --all /dev/sda";

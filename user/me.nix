@@ -19,7 +19,7 @@ in {
   #################
   systemd.user.tmpfiles.rules = [
     "d ${infra.go.cache} 0770 root users"
-    "L /home/me/Mounts - - - - /var/run/user/${toString infra.me.uid}/gvfs"
+    "L /home/me/Netz - - - - /var/run/user/${toString infra.me.uid}/gvfs"
   ];
 
   ###############

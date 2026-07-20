@@ -35,6 +35,10 @@ YUBIME:=/nix/persist/home/me/.config/Yubico
 # Package build:
 # nix-build -E 'with import <nixpkgs> {}; callPackage ./package.nix {}'
 #
+# nixos boot profiles:
+# cd /nix/var/nix/profiles 
+# gitops:
+# ls | xargs -I{} git -C {} gc --aggressive
 
 ###########
 # GENERIC #
