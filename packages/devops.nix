@@ -47,6 +47,7 @@
       s-tui
       sysz
       tlsinfo
+      onefetch
       lazyjournal
       usbutils
       vale

@@ -37,8 +37,11 @@ YUBIME:=/nix/persist/home/me/.config/Yubico
 #
 # nixos boot profiles:
 # cd /nix/var/nix/profiles 
+#
 # gitops:
 # ls | xargs -I{} git -C {} gc --aggressive
+#
+#
 
 ###########
 # GENERIC #

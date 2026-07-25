@@ -12,6 +12,7 @@
     nix-search-cli
     nfs-utils
     parted
+    pedantix
     zfs
   ];
 }
