@@ -163,7 +163,7 @@ in {
         installVimSyntax = true;
         systemd.enable = true;
         settings = {
-          theme = "clean"; # Argonout
+          theme = "clean"; 
           cursor-style = "block";
           cursor-style-blink = "false";
           background = "#000000";
@@ -172,8 +172,7 @@ in {
           notify-on-command-finish-action = "bell,notify";
           notify-on-command-finish-after = "30s";
           shell-integration = "fish";
-          shell-integration-features = "no-cursor";
-          # shell-integration-features = "ssh-env,ssh-terminfo,no-cursor";
+          shell-integration-features = "ssh-env,ssh-terminfo,no-cursor";
         };
         themes = {
           clean = {
@@ -221,7 +220,7 @@ in {
       keepassxc = {
         enable = true;
         settings = {
-          Browser.Enabled = true;
+          Browser.Enabled = false;
           SSHAgent.Enabled = false;
           GUI = {
             AdvancedSettings = true;
