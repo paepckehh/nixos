@@ -163,7 +163,7 @@ in {
         installVimSyntax = true;
         systemd.enable = true;
         settings = {
-          theme = "clean"; 
+          theme = "clean";
           cursor-style = "block";
           cursor-style-blink = "false";
           background = "#000000";
