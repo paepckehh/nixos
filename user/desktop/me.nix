@@ -96,7 +96,7 @@ in {
           ];
           favorite-apps = [
             "com.mitchellh.ghostty.desktop"
-            "kitty.desktop"
+            "Alacritty.desktop"
             "firefox.desktop"
             "librewolf.desktop"
             "org.keepassxc.KeePassXC.desktop"
@@ -200,6 +200,21 @@ in {
               "14=#99faf2"
               "15=#ffffff"
             ];
+          };
+        };
+      };
+      alacritty = {
+        enable = true;
+        package = pkgs.alacritty-graphics;
+        themePackage = pkgs.alacritty-theme;
+        theme = "github_light";
+        settings = {
+          font.size = 10;
+          selection.save_to_clipboard = true;
+          scrolling.history = 100000;
+          window = {
+            decorations = "none";
+            startup_mode = "Fullscreen";
           };
         };
       };

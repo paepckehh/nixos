@@ -44,12 +44,14 @@
       "ls",
       "lsp",
       "lsp_replace",
+      "lsp_replace_symbol",
       "grep",
       "jq",
       "bash",
       "python",
       "python3",
       "fetch",
+      "curl",
       "agentic_fetch"
     ]
   },

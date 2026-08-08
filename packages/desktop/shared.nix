@@ -4,11 +4,6 @@
   lib,
   ...
 }: {
-  ###############
-  #-=# FONTS #=-#
-  ###############
-  fonts.packages = [pkgs.nerd-fonts.fira-code];
-
   ##################
   #-=# HARDWARE #=-#
   ##################
@@ -21,9 +16,25 @@
     };
   };
 
-  ##################
-  #-=# PROGRAMS #=-#
-  ##################
+  ###############
+  #-=# FONTS #=-#
+  ###############
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [noto-fonts noto-fonts-color-emoji nerd-fonts.fira-code];
+    fontconfig = {
+      antialias = true;
+      hinting = {
+        enable = true;
+        style = "full";
+        autohint = true;
+      };
+      subpixel = {
+        rgba = "rgb"; # "rgb", "bgr", "vrgb", "vbgr", "none"
+        lcdfilter = "default";
+      };
+    };
+  };
 
   #############
   #-=# XDG #=-#
