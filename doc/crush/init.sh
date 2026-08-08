@@ -1,8 +1,6 @@
 #!/bin/sh
 set -x -e
-mkdir -p ~/.agents/skills ~/.config
-cp -af /etc/nixos/doc/crush/.crushrc ~/
-cp -af /etc/nixos/doc/crush/AGENTS.md ~/.config/AGENTS.md
+cp -af /etc/nixos/doc/crush/.agents /etc/nixos/doc/crush/.crushrc ~/
 if [ "$1" == "skills" ]; then
 	mkdir -p /tmp/skills
 	cd /tmp/skills || exit 1
