@@ -16,7 +16,6 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment.shellAliases = {
-    "ocommit" = "go run paepcke.de/ocommit/cmd/ocommit@latest";
     "codescore" = "go run paepcke.de/codescore/cmd/codescore@latest";
     "codescore.local" = "/nix/persist/projects/codescore/cmd/codescore/codescore"; # local sonic extended derivate
     "crush.local" = "/nix/persist/projects/_external/crush/crush"; # local sonic derivate

@@ -95,6 +95,7 @@ let
       "info" = "fastfetch -c /etc/nixos/doc/fastfetch/ff.jsonc";
       "info.nvme.extern" = "sudo smartctl --all /dev/sda";
       "info.nvme.intern" = "sudo smartctl --all /dev/nvme0";
+      "ocommit" = "go run paepcke.de/ocommit/cmd/ocommit@latest";
       "portal" = "sudo -v && xdg-open http://$(ip --oneline route get 1.1.1.1 | awk '{print $3}') && sudo systemctl restart systemd-resolved";
       "ll" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=filename";
       "la" = "eza --all --long --total-size --group-directories-first --header --git --git-repos --sort=size";
@@ -1046,11 +1047,22 @@ let
       url = "https://${infra.git-mirror.fqdn}";
       logo = "${infra.res.url}/icon/png/git.png";
     };
+    # git mirror 1/2/3 31; 32; 33;
     zdash = {
-      id = 32;
+      id = 34;
       app = "zdash";
       name = "zdash";
       localbind.port.http = infra.localhost.port.offset + infra.zdash.id;
+    };
+    go-mod-proxy = {
+      id = 35;
+      name = "go-mod-proxy";
+      hostname = infra.go-mod-proxy.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.go-mod-proxy.hostname}.${infra.go-mod-proxy.domain}";
+      ip = "${infra.net.user}.${toString infra.go-mod-proxy.id}";
+      url = "https://${infra.go-mod-proxy.fqdn}";
+      logo = "${infra.res.url}/icon/png/golang.png";
     };
     dns = {
       id = 53;

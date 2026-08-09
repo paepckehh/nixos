@@ -139,6 +139,7 @@ in {
             ${infra.dumbdrop.hostname}           IN A  ${infra.dumbdrop.ip}
             ${infra.ente.hostname}               IN A  ${infra.ente.ip}
             ${infra.erpnext.hostname}            IN A  ${infra.erpnext.ip}
+            ${infra.go-mod-proxy.hostname}       IN A  ${infra.go-mod-proxy.ip}
             ${infra.git.hostname}                IN A  ${infra.git.ip}
             ${infra.git-mirror.hostname}         IN A  ${infra.git-mirror.ip}
             ${infra.grist.hostname}              IN A  ${infra.grist.ip}
@@ -194,6 +195,7 @@ in {
             ${infra.dumbdrop.hostname}           IN HTTPS 1 . alpn="h3" ipv4hint="${infra.dumbdrop.ip}"
             ${infra.ente.hostname}               IN HTTPS 1 . alpn="h3" ipv4hint="${infra.ente.ip}"
             ${infra.erpnext.hostname}            IN HTTPS 1 . alpn="h3" ipv4hint="${infra.erpnext.ip}"
+            ${infra.go-mod-proxy.hostname}       IN HTTPS 1 . alpn="h3" ipv4hint="${infra.go-mod-proxy.ip}"
             ${infra.git.hostname}                IN HTTPS 1 . alpn="h3" ipv4hint="${infra.git.ip}"
             ${infra.git-mirror.hostname}         IN HTTPS 1 . alpn="h3" ipv4hint="${infra.git-mirror.ip}"
             ${infra.grist.hostname}              IN HTTPS 1 . alpn="h3" ipv4hint="${infra.grist.ip}"
@@ -321,6 +323,7 @@ in {
             ${toString infra.chef.id}               IN PTR ${infra.chef.fqdn}.
             ${toString infra.ente.id}               IN PTR ${infra.ente.fqdn}.
             ${toString infra.erpnext.id}            IN PTR ${infra.erpnext.fqdn}.
+            ${toString infra.go-mod-proxy.id}       IN PTR ${infra.go-mod-proxy.fqdn}.
             ${toString infra.iam.id}                IN PTR ${infra.iam.fqdn}.
             ${toString infra.it.id}                 IN PTR ${infra.it.fqdn}.
             ${toString infra.imap.id}               IN PTR ${infra.imap.user.fqdn}.
