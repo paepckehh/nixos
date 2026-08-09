@@ -63,7 +63,7 @@ in {
             EDITOR = "vim";
             STARSHIP_LOG = "error";
             OLLAMA_DESC_URL = "http://aiworker02.dbt.corp:11434";
-            OLLAMA_DESC_MODE = "gpt-oss:latest";
+            OLLAMA_DESC_MODEL = "gpt-oss:latest";
             OCOMMIT_KEY_PATH = "~/.ssh/agent";
             OCOMMIT_NAME = "PAECPKE, Michael";
             OCOMMIT_EMAIL = "git@paepcke.de";
