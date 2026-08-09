@@ -14,7 +14,7 @@ permissions allow view ls grep edit write multiedit bash
 permissions allow rg jq python python3 fetch curl agentic_fetch
 permissions allow lsp lsp_replace lsp_replace_symbol 
 #
-lsp add go --command "/run/current-system/sw/bin/gopls" --env "GOTOOLCHAIN go1.24.5"
+lsp add go --command "/run/current-system/sw/bin/gopls" --env "GOTOOLCHAIN" "go1.24.5"
 lsp add typescript --command "/run/current-system/sw/bin/typescript-language-server" --args --stdio
 lsp add nix --command "/run/current-system/sw/bin/nil"
 #
