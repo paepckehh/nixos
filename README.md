@@ -1,8 +1,6 @@
-# -= WARNING =-
-
-- This repo is for rapid prototyping and wild tests only!
-- Feel free to copy code, take inspiration!
-- Do not use anything in production without review!
+# -= INFO =-
+- This repo is for rapid prototyping and wild tests!
+- Feel free to copy code, take inspiration, but review before push into prod!
 
 ## TLDR;
 - Your entire company as a service! 
