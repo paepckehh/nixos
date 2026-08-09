@@ -1,15 +1,2 @@
 #!/bin/sh
-source /etc/nixos/doc/go/go.env
-source /etc/nixos/doc/crush/crush.env
-provider add ollama --type ollama --base-url "http://aiworker02.dbt.corp:11434/v1"
-provider add ollamaX --type ollama --base-url "http://aiworker02.dbt.corp:44444/v1"
-provider add ollamaBATCH --type ollama --base-url "http://aiworker01.dbt.corp:11434/v1"
-permissions allow view edit write multiedit ls lsp lsp_replace lsp_replace_symbol grep rg jq bash sh go python python3 fetch curl agentic_fetch
-lsp add go --command /run/current-system/sw/bin/gopls
-lsp add typescript --command /run/current-system/sw/bin/typescript-language-server
-option ui compact true
-option ui diff unified
-option ui transparent true
-option ui scrollbar always
-option ui completions-max-depth 4
-option ui completions-max-items 200
+source "/etc/nixos/doc/crush/crush.crushrc"

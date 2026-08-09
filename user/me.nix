@@ -59,11 +59,14 @@ in {
           homeDirectory = "/home/me";
           keyboard.layout = "us,de";
           sessionVariables = {
-            # SSL_CERT_FILE = infra.pki.certs.rootCA.path;
             PAGER = "bat";
             EDITOR = "vim";
             STARSHIP_LOG = "error";
-            CGO_ENABLED = "0";
+            OLLAMA_DESC_URL = "http://aiworker02.dbt.corp:11434";
+            OLLAMA_DESC_MODE = "gpt-oss:latest";
+            OCOMMIT_KEY_PATH = "~/.ssh/agent";
+            OCOMMIT_NAME = "PAECPKE, Michael";
+            OCOMMIT_EMAIL = "git@paepcke.de";
           };
           shellAliases = {
             "man" = "batman";
@@ -173,8 +176,8 @@ in {
           fish = {
             enable = true;
             interactiveShellInit = ''
-              set fish_greeting # Disable greeting
-              set fish_history "" # Disable history
+              set fish_greeting "" # Disable greeting
+              set fish_history  "" # Disable history
               uname -a
             '';
           };

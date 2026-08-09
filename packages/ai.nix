@@ -16,10 +16,12 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment.shellAliases = {
+    "ocommit" = "go run paepcke.de/ocommit/cmd/ocommit@latest";
     "codescore" = "go run paepcke.de/codescore/cmd/codescore@latest";
+    "codescore.local" = "/nix/persist/projects/codescore/cmd/codescore/codescore"; # local sonic extended derivate
+    "crush.local" = "/nix/persist/projects/_external/crush/crush"; # local sonic derivate
     "crush.release" = "go run github.com/charmbracelet/crush@latest"; # upstream release
     "crush.main" = "go run github.com/charmbracelet/crush@main"; # upstream main-last-commit
-    "crush.local" = "/nix/persist/projects/_external/crush/crush"; # local modified derivate
-    "codescore.local" = "/nix/persist/projects/codescore/cmd/codescore/codescore"; # local modified derivate
+    "trainer" = "go run github.com/makesometh-ing/trainer/cmd/trainer@latest";
   };
 }
