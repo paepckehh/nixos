@@ -470,7 +470,6 @@ let
       AuthenticationMethods = "publickey";
       AuthorizedPrincipalsFile = "none";
       ChallengeResponseAuthentication = "no";
-      Ciphers = ["chacha20-poly1305@openssh.com"];
       ClientAliveInterval = "30";
       ClientAliveCountMax = "3";
       PerSourceMaxStartups = "12";
@@ -479,6 +478,7 @@ let
       GatewayPorts = "no";
       HostKey = "/etc/ssh/ssh_host_ed25519_key";
       KbdInteractiveAuthentication = false;
+      Ciphers = ["chacha20-poly1305@openssh.com"];
       KexAlgorithms = ["curve25519-sha256" "curve25519-sha256@libssh.org"];
       LogLevel = "INFO"; # INFO, VERBOSE, DEBUG
       LoginGraceTime = "2m";

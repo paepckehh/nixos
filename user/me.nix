@@ -72,7 +72,7 @@ in {
           shellAliases = {
             "man" = "batman";
             "cat" = "bat --paging=never";
-            "omc" = "go run paepcke.de/omc/cmd/omc@latest"
+            "omc" = "go run paepcke.de/omc/cmd/omc@latest";
           };
           file = {
             ".npmrc".text = ''prefix=~/.npm-packages'';
