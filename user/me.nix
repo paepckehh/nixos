@@ -64,13 +64,15 @@ in {
             STARSHIP_LOG = "error";
             OLLAMA_DESC_URL = "http://aiworker02.dbt.corp:11434";
             OLLAMA_DESC_MODEL = "gpt-oss:latest";
-            OCOMMIT_KEY_PATH = "~/.ssh/agent";
-            OCOMMIT_NAME = "PAECPKE, Michael";
-            OCOMMIT_EMAIL = "git@paepcke.de";
+            OMC_SIGN_KEY_PATH = "~/.ssh/agent";
+            OMC_PUSH_KEY_PATH = "~/.ssh/id_ed25519_sk";
+            OMC_NAME = "PAECPKE, Michael";
+            OMC_EMAIL = "git@paepcke.de";
           };
           shellAliases = {
             "man" = "batman";
             "cat" = "bat --paging=never";
+            "omc" = "go run paepcke.de/omc/cmd/omc@latest"
           };
           file = {
             ".npmrc".text = ''prefix=~/.npm-packages'';
