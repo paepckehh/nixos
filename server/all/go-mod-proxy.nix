@@ -19,7 +19,7 @@ in {
   #-=# SYSTEMD #=-#
   #################
   systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.go-mod-proxy.ip}/32";}];
-  
+
   ##################
   #-=# SERVICES #=-#
   ##################
