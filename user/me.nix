@@ -65,7 +65,7 @@ in {
             OLLAMA_DESC_URL = "http://aiworker02.dbt.corp:11434";
             OLLAMA_DESC_MODEL = "latest:latest";
             OMC_SIGN_KEY_PATH = "~/.ssh/agent";
-            OMC_PUSH_KEY_PATH = "~/.ssh/id_ed25519_adm_sk";
+            OMC_PUSH_KEY_PATH = "~/.ssh/id_ed25519_sk_adm";
             OMC_NAME = "PAECPKE, Michael";
             OMC_EMAIL = "git@paepcke.de";
           };
