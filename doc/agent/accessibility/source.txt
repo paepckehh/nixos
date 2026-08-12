@@ -1,0 +1,3 @@
+https://github.com/wshobson/agents/tree/main/plugins/ui-design/skills/accessibility-compliance
+https://github.com/affaan-m/ECC/tree/main/skills/accessibility
+https://github.com/wshobson/agents/tree/main/plugins/accessibility-compliance/skills/wcag-audit-patterns
