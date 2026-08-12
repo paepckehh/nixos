@@ -20,7 +20,7 @@ in {
       allowedUDPPorts = [infra.port.dns];
     };
   };
-  
+
   #################
   #-=# SYSTEMD #=-#
   #################

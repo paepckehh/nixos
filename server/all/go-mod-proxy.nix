@@ -32,5 +32,6 @@ in {
       enable = true;
       host = infra.localhost.ip;
       port = infra.go-mod-proxy.localbind.port.http;
+    };
   };
 }
