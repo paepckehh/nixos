@@ -195,8 +195,8 @@ let
       sysctl = {
         base = {
           "abi.vsyscall32" = 0;
-          "net.core.rmem_max" = 7500000;
-          "net.core.wmem_max" = 7500000;
+          "net.core.rmem_max" = 16777216;
+          "net.core.wmem_max" = 16777216;
           "net.ipv4.conf.all.accept_redirects" = 0;
           "net.ipv4.conf.all.secure_redirects" = 0;
           "net.ipv4.conf.all.rp_filter" = 1;
@@ -212,6 +212,8 @@ let
           "net.ipv4.tcp_fastopen" = 3;
           "net.ipv4.tcp_rfc1337" = 1;
           "net.ipv4.tcp_syncookies" = 1;
+          "net.ipv4.tcp_rmem" = 16777216;
+          "net.ipv4.tcp_wmem" = 16777216;
           "net.ipv6.conf.all.disable_ipv6" = 1;
           "net.ipv6.conf.all.accept_source_route" = 0;
           "net.ipv6.conf.all.accept_redirects" = 0;
