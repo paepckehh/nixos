@@ -258,6 +258,7 @@ intern-start-check-routing: info
 	echo "[Interface]" 					>  $(WGDIR)/$(CHECK).conf
 	echo "Address = $($(CHECK)_WG_NET).$(MYIP)/32" 		>> $(WGDIR)/$(CHECK).conf
 	echo "DNS = $($(CHECK)_DNS)"				>> $(WGDIR)/$(CHECK).conf
+	echo "MTU = 1280"				        >> $(WGDIR)/$(CHECK).conf
 	echo 							>> $(WGDIR)/$(CHECK).conf
 	echo "[Peer]"						>> $(WGDIR)/$(CHECK).conf
 	echo "PublicKey = $($(CHECK)_WG_PUBLIC)"		>> $(WGDIR)/$(CHECK).conf
