@@ -21,6 +21,7 @@ in {
     ../client/addWireguard.nix
     ../client/addOpenSnitch-addDev.nix
     ../packages/devops.nix
+    ../user/mp.nix
   ];
 
   ##############
@@ -72,14 +73,7 @@ in {
   ###############
   #-=# USERS #=-#
   ###############
-  users = {
-    users = {
-      me = {
-        # initialHashedPassword = lib.mkForce null; # disable password login, XXX TODO: fix SDDM userID login screen
-        initialHashedPassword = lib.mkForce "$y$j9T$kfoRrF1T9PXCFCcDceKWJ1$XBjoA6ExLE5rWFPh3HEx2OkHKSpgg8Tf/50zeM5MJOB";
-      };
-    };
-  };
+  # users.users.me.initialHashedPassword = lib.mkForce null; # disable password login, XXX TODO: fix SDDM userID login screen
 
   ###########
   # SYSTEMD #

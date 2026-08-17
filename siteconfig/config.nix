@@ -77,7 +77,7 @@ let
     shellAliases = {
       "e" = "vim";
       "b" = "sudo btop";
-      "d" = "sudo dmesg";
+      "d" = "sudo dmesg --follow";
       "l" = "ls -la";
       "n" = "cd /etc/nixos && ls -la";
       "h" = "htop --tree --highlight-changes";

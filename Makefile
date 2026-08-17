@@ -24,6 +24,7 @@ LUKS?=start
 PATH:=/run/current-system/sw/bin
 SUDO:=/run/wrappers/bin/sudo
 YUBIME:=/nix/persist/home/me/.config/Yubico
+YUBIMP:=/nix/persist/home/mp/.config/Yubico
 
 ########
 # WIKI #
@@ -251,12 +252,20 @@ yubi-print:
 	pamu2fcfg 
 
 yubi-me:
-	@echo "Add u2f key to me user, asking for pin and touch now!"
+	@echo "Add u2f key to ** me ** user, asking for pin and touch now!"
 	mkdir -p $(YUBIME)   
 	touch $(YUBIME)/u2f_keys
 	rm -rf $(YUBIME)/u2f_keys || true 
 	pamu2fcfg | tee $(YUBIME)/u2f_keys
 	chmod 640 $(YUBIME)/u2f_keys
+
+yubi-mp:
+	@echo "Add u2f key to ** mp ** user, asking for pin and touch now!"
+	mkdir -p $(YUBIMP)   
+	touch $(YUBIMP)/u2f_keys
+	rm -rf $(YUBIMP)/u2f_keys || true 
+	pamu2fcfg | tee $(YUBIMP)/u2f_keys
+	chmod 640 $(YUBIMP)/u2f_keys
 
 yubikey-generate-ssh:
 	echo "Please verify your PIN, Default Factory PIN: 123456"
