@@ -53,7 +53,7 @@
   ##################
   services = {
     autosuspend.enable = lib.mkForce false;
-    ddccontrol.enable = true;
+    # ddccontrol.enable = true;
     speechd.enable = lib.mkForce false;
     xserver = {
       enable = true;

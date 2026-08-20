@@ -65,6 +65,7 @@ in {
       btop
       bttf
       cliqr
+      cowsay
       cryptsetup
       delta
       dnsutils
@@ -79,6 +80,7 @@ in {
       inetutils
       igrep
       jq
+      kittysay
       kmon
       libsmbios
       lsof
