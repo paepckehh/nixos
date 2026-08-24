@@ -504,7 +504,6 @@ let
       GOARCH = "amd64";
       GOAUTH = "";
       GOCACHE = "/nix/persist/cache/go/cache";
-      GOEXPERIMENT = "";
       GOFIPS140 = "off";
       GOHOSTARCH = "amd64";
       GOHOSTOS = "linux";
