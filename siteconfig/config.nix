@@ -523,6 +523,7 @@ let
       GOTOOLCHAIN = "auto";
       GOVCS = "";
       GOWORK = "";
+      GOEXPERIMENT = "simd";
     };
     thunderbird = {
       settings = infra.firefox.settings;
@@ -1366,6 +1367,7 @@ let
         proto = infra.localhost.proto;
         port.http = infra.localhost.port.offset + infra.ai.id;
       };
+      token = "!!Start!!Fake!!"; # internal fake init, replace in app context with real (r)age
       url = "https://${infra.ai.fqdn}";
       logo = "${infra.res.url}/icon/png/ollama.png";
     };

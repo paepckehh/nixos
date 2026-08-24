@@ -63,8 +63,9 @@ in {
             PAGER = "bat";
             EDITOR = "vim";
             STARSHIP_LOG = "error";
-            OLLAMA_DESC_URL = "http://aiworker02.dbt.corp:11434";
-            OLLAMA_DESC_MODEL = "latest:latest";
+            OPENAPI_DESC_URL = "http://10.20.6.244:11434/v1";
+            OPENAPI_DESC_MODEL = "gpt-oss-120b-MXFP4-Q8";
+            OPENAPI_DESC_TOKEN = infra.ai.token;
             OMC_SIGN_KEY_PATH = "~/.ssh/agent";
             OMC_PUSH_KEY_PATH = "~/.ssh/id_ed25519_sk_adm";
             OMC_NAME = "PAECPKE, Michael";
