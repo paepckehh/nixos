@@ -97,6 +97,8 @@ in {
       progress
       pwgen
       pv
+      pcsclite
+      pcsc-tools
       rage
       ripgrep
       smartmontools

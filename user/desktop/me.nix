@@ -24,10 +24,12 @@ in {
   #-=# ENVIRONMENT #=-#
   #####################
   environment.systemPackages = with pkgs; [
-    adwaita-icon-theme
-    libreoffice-fresh
+    officecli
+    libreoffice
+    hunspell
     hyphenDicts.en_US
     hyphenDicts.de_DE
+    hyphenDicts.de-de
   ];
 
   ##################
