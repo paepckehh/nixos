@@ -86,8 +86,9 @@
           ./server/search/searx.nix
           ./server/pki/small-step.nix
           ./server/portal/portal-start.nix
-          ./server/remote/rustdesk.nix
           ./server/webapp/res.nix
+          ./server/lora/meshtastic-web.nix
+          # ./server/remote/rustdesk.nix
           # ./server/api/openpaq.nix
           # ./server/api/osm.nix
           # ./server/ai/crush.nix
@@ -107,7 +108,6 @@
           # ./server/monitoring/prometheus.nix
           # ./server/share/smbgate.nix
           # ./server/mail/bichon.nix
-          # ./server/lora/meshtastic-web.nix
         ];
       };
       srv2 = nixpkgs.lib.nixosSystem {

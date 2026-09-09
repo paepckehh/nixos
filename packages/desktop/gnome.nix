@@ -29,7 +29,6 @@
     gnome.excludePackages = with pkgs; [
       gnome-calendar
       gnome-contacts
-      gnome-photos
       gnome-tour
       gnome-music
       atomix
