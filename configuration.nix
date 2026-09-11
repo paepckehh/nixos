@@ -339,9 +339,9 @@ in {
         StaleRetentionSec = 600;
       };
     };
-    journald = {
-      audit = false;
-      storage = "volatile";
+    journald.settings.Journal = {
+      Audit = false;
+      Storage = "volatile";
     };
     fstrim = {
       enable = true;

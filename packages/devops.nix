@@ -3,12 +3,13 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./tmux.nix
-    ./devops-db.nix
+    ./nfc.nix
     ./devops-go.nix
-    ./devops-html.nix
-    ./devops-net.nix
     ./devops-nixos.nix
+    # ./tmux.nix
+    # ./devops-db.nix
+    # ./devops-html.nix
+    # ./devops-net.nix
   ];
 
   ##################

@@ -15,7 +15,7 @@ in {
   services = {
     pcscd = {
       enable = true;
-      plugins = [pkgs.ccid];
+      plugins = with pkgs; [ccid pcsc-cyberjack];
     };
   };
 
@@ -57,6 +57,7 @@ in {
     };
     systemPackages = with pkgs; [
       alejandra
+      ausweisapp
       age-plugin-yubikey
       bashmount
       bandwhich

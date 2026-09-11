@@ -74,7 +74,6 @@
           ./person/desktop/mpaepcke.nix
           ./packages/base.nix
           ./packages/devops.nix
-          ./packages/desktop/ai.nix
           ./packages/desktop/gnome.nix
           ./server/dns/bind.nix
           ./server/iam/authelia.nix

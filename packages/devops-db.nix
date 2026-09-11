@@ -13,7 +13,7 @@
       sqlite-utils
       sqlitebrowser
       sqldiff
-      sqlitestudio
+      letsos
     ];
     shellAliases = {
       "dblab" = "CGO_ENABLED=0 go run github.com/danvergara/dblab@latest";
