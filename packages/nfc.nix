@@ -8,6 +8,8 @@
       libnfc
       neard
       pcsc-tools
+      vsmartcard-vpcd
+      vsmartcard-pcsc-relay
     ];
   };
   ##################
