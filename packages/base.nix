@@ -14,8 +14,8 @@ in {
   ##################
   services = {
     pcscd = {
-      enable = true;
-      plugins = with pkgs; [ccid pcsc-cyberjack];
+      enable = false;
+      # plugins = with pkgs; [ccid pcsc-cyberjack];
     };
   };
 
@@ -23,8 +23,8 @@ in {
   #-=# PROGRAMS #=-#
   ##################
   programs = {
+    # gnupg.agent.enable = true;
     command-not-found.enable = lib.mkForce false;
-    gnupg.agent.enable = true;
     htop.enable = true;
     kbdlight.enable = true;
     fish.enable = true;
@@ -57,7 +57,6 @@ in {
     };
     systemPackages = with pkgs; [
       alejandra
-      ausweisapp
       age-plugin-yubikey
       bashmount
       bandwhich
@@ -77,7 +76,6 @@ in {
       fzf
       grc
       gnumake
-      gnupg
       inetutils
       igrep
       jq
@@ -98,14 +96,9 @@ in {
       progress
       pwgen
       pv
-      pcsclite
-      pcsc-tools
       rage
       ripgrep
       smartmontools
-      sqlite
-      sqlite-analyzer
-      sqlite-utils
       tldr
       tree
       tz

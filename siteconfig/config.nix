@@ -186,6 +186,7 @@ let
       # install usb_f_rndis /bin/false
       # install rndis_host /bin/false
       # "usb_f_rndis" "rndis_host"
+      # "pn533" "pn533_usb" "nfc"
       blacklist = ["affs" "af_alg" "algif_hash" "algif_skcipher" "algif_rng" "algif_aead" "bcm43xx" "brcm80211" "befs" "bfs" "esp4" "esp6" "freevxfs" "hpfs" "jfs" "joydev" "ipx" "minix" "nilfs2" "omfs" "qnx4" "qnx6" "k10temp" "rxrpc" "sctp" "sctp_diag" "ssb" "tipc" "tipc_diag" "rds" "rds_rdma" "rds_tcp" "x25"];
       whitelist = {
         base = ["aesni_intel" "ahci" "ccm" "cmac" "dm_crypt" "dm_mod" "nvme" "thunderbolt" "overlay" "sd_mod" "uas" "usbhid" "usb_storage" "xhci_pci"];

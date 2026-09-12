@@ -57,7 +57,7 @@ in {
   #-=# BOOT #=-#
   ##############
   boot = {
-    blacklistedKernelModules = infra.kernel.blacklist;
+    blacklistedKernelModules = lib.mkDefault infra.kernel.blacklist;
     extraModprobeConfig = infra.kernel.modBlacklist;
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     nixStoreMountOpts = lib.mkForce ["ro" "nodev" "nosuid"];
