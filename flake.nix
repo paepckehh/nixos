@@ -76,8 +76,6 @@
           ./packages/devops.nix
           ./packages/desktop/gnome.nix
           ./server/dns/bind.nix
-          ./server/iam/authelia.nix
-          ./server/iam/lldap.nix
           ./server/infra/ncps.nix
           ./server/infra/git-mirror-scripts.nix
           ./server/infra/git-mirror-container.nix
@@ -86,7 +84,9 @@
           ./server/pki/small-step.nix
           ./server/portal/portal-start.nix
           ./server/webapp/res.nix
-          ./server/lora/meshtastic-web.nix
+          ./server/iam/authelia.nix
+          ./server/iam/lldap.nix
+          # ./server/lora/meshtastic-web.nix
           # ./server/remote/rustdesk.nix
           # ./server/api/openpaq.nix
           # ./server/api/osm.nix

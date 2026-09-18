@@ -24,7 +24,7 @@ in {
   #-=# ENVIRONMENT #=-#
   #####################
   environment.systemPackages = with pkgs; [
-    officecli
+    krita
     libreoffice
     hunspell
     hyphenDicts.en_US
