@@ -27,13 +27,14 @@
     disko,
     home-manager,
     nixpkgs,
-  }: {
+  } @ inputs: {
     nixosConfigurations = {
       #########
       # KIOSK #
       #########
       kiosk = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {inherit self inputs;};
         modules = [
           ./configuration.nix
           ./hardware/all.nix
@@ -47,6 +48,7 @@
       ############
       internet = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {inherit self inputs;};
         modules = [
           ./configuration.nix
           ./hardware/all.nix
@@ -60,6 +62,7 @@
       ##########
       srv = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {inherit self inputs;};
         modules = [
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
@@ -111,6 +114,7 @@
       };
       srv2 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {inherit self inputs;};
         modules = [
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
@@ -127,6 +131,7 @@
       };
       srv-full = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {inherit self inputs;};
         modules = [
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
@@ -268,6 +273,7 @@
       ##################
       client = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {inherit self inputs;};
         modules = [
           home-manager.nixosModules.home-manager
           ./configuration.nix

@@ -2,6 +2,8 @@
   config,
   pkgs,
   lib,
+  inputs,
+  self,
   ...
 }: let
   ############################
@@ -244,6 +246,17 @@ in {
   environment = {
     shells = [pkgs.bashInteractive];
     systemPackages = with pkgs; [cryptsetup git libargon2 libsmbios util-linux lsof moreutils nix-output-monitor nvme-cli openssl rage ragenix pam_u2f smartmontools sbctl];
+    shellAliases = {
+      "l" = "ls -la";
+      "e" = "vim";
+    };
+    etc = {
+      "build/nixpkgs-url".text = "${inputs.nixpkgs.outPath or "unknown"}\n";
+      "build/branch".text = "${self.sourceInfo.branch or "main"}\n";
+      "build/version".text = "${self.shortRev or self.dirtyShortRev or "dirty-uncommitted"}\n";
+      "build/system".text = "${config.networking.hostName}\n";
+      "fastfetch/config.jsonc".source = doc/fastfetch/ff.jsonc;
+    };
   };
 
   ####################
@@ -325,7 +338,7 @@ in {
     udisks2.enable = lib.mkForce true;
     fwupd.enable = lib.mkForce false;
     smartd.enable = lib.mkDefault true;
-    power-profiles-daemon.enable = lib.mkForce false;
+    power-profiles-daemon.enable = true;
     logind.settings.Login.HandleHibernateKey = "ignore";
     libinput.enable = lib.mkForce true;
     resolved = {
@@ -348,7 +361,7 @@ in {
       interval = "weekly";
     };
     tlp = {
-      enable = true;
+      enable = false;
       settings = {
         USB_AUTOSUSPEND = "0";
         DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi wwan";

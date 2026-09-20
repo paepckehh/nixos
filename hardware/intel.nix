@@ -13,7 +13,7 @@
       "kvm-intel"
     ];
     kernelParams = [
-      # "intel_iommu=strict"
+      #  "intel_iommu=strict"
     ];
   };
 

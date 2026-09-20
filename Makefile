@@ -39,7 +39,7 @@ YUBIMP:=/nix/persist/home/mp/.config/Yubico
 # nixos boot profiles:
 # cd /nix/var/nix/profiles 
 #
-# gitops:
+# gitops subdirs:
 # ls | xargs -I{} git -C {} gc --aggressive
 #
 #

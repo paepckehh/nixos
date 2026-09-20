@@ -92,7 +92,7 @@ let
       "log.boot" = "sudo dmesg --follow --human --kernel --userspace";
       "log.system" = "sudo journalctl --follow --priority=7 --lines=2500";
       "time.status" = "timedatectl timesync-status";
-      "info" = "fastfetch -c /etc/nixos/doc/fastfetch/ff.jsonc";
+      "info" = "fastfetch";
       "info.nvme.extern" = "sudo smartctl --all /dev/sda";
       "info.nvme.intern" = "sudo smartctl --all /dev/nvme0";
       "ocommit" = "go run paepcke.de/ocommit/cmd/ocommit@latest";

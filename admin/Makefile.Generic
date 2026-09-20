@@ -8,17 +8,18 @@
 #################
 ADMIN_ROUTE_EXISTS?=$(shell ip route show $(ADMIN_ROUTE) 2>/dev/null | grep -q . && echo yes || echo no) 
 OFFICE_ROUTE_EXISTS?=$(shell ip route show $(OFFICE_ROUTE) 2>/dev/null | grep -q . && echo yes || echo no) 
+FASTFETCH=fastfetch
 
 all:
 	@make -s help
+
+info: intern-init-info
+	$(FASTFETCH)
 
 help: 
 	@echo "Admin Site : $(SITE) Network: $(ADMIN_ROUTE)"
 	@echo "Office Site: $(SITE) Network: $(OFFICE_ROUTE)"
 	@echo "Site Supported Commands: $(SUPPORT)"
-
-info: 
-	@echo "Current Working Admin Site: $(SITE) Network: $($(CHECK)_ROUTE)"
 
 yubikey.info:
 	ykman info	
@@ -28,15 +29,21 @@ kill.routes:
 	sudo ip r del $(OFFICE_ROUTE) > /dev/null 2>&1 || true
 	sudo ip r del $(LEGACY_ROUTE) > /dev/null 2>&1 || true
 
-#####################################
-# -=# ACTION WEB ACCESS MAPPING #=- #
-#####################################
+####################################
+# -=# ACTION SPECIAL SHORTCUTS #=- #
+####################################
 adguard:
 	TID=$(ADGUARD_TID) LPORT=$(ADGUARD_PORT) RPORT=$(ADGUARD_PORT) PREFIX_URI=http make -s intern-wormhole
 crush:
 	TID=$(CRUSH) ADMIN_ID=$(USR) make -s intern-opsssh
 skynet:
 	TID=$(SKYNET) make -s intern-opsssh
+boje01:
+	TID=$(BOJE01) ADMIN_NET=$(USER_NET) make -s intern-opsssh
+boje02:
+	TID=$(BOJE02) ADMIN_NET=$(USER_NET) make -s intern-opsssh
+boje03:
+	TID=$(BOJE03) ADMIN_NET=$(USER_NET) make -s intern-opsssh
 unifi:
 	TID=$(UNIFI_TID) LPORT=$(UNIFI_PORT) RPORT=$(UNIFI_PORT) make -s intern-wormhole
 opnborg:
@@ -55,6 +62,8 @@ borg04:
 	TID=04 make -s intern-borgweb
 borg05: 
 	TID=05 make -s intern-borgweb
+borg10: 
+	TID=10 make -s intern-borgweb
 borg11: 
 	TID=11 make -s intern-borgweb
 borg12: 
@@ -83,8 +92,6 @@ log.newstation:
 ##############################
 # -=# ACTION SSH SESSION #=- #
 ##############################
-ssh.skynet:
-	TID=$(SKYNET) make -s intern-opsssh
 ssh.ops:
 	TID=$(OPS_TID) make -s intern-opsssh
 ssh.ops1:
@@ -113,6 +120,8 @@ ssh.borg04:
 	TID=04 make -s intern-borgssh
 ssh.borg05: 
 	TID=05 make -s intern-borgssh
+ssh.borg10: 
+	TID=11 make -s intern-borgssh
 ssh.borg11: 
 	TID=11 make -s intern-borgssh
 ssh.borg12: 
@@ -123,6 +132,26 @@ ssh.borg14:
 	TID=14 make -s intern-borgssh
 ssh.borg15: 
 	TID=15 make -s intern-borgssh
+
+##############################
+# -=# SERVER STATUS INFO #=- #
+##############################
+info.ops:
+	TID=$(OPS_TID) make -s intern-info
+info.ops1:
+	TID=$(OPS1_TID) make -s intern-info
+info.ops2:
+	TID=$(OPS2_TID) make -s intern-info
+info.ops3:
+	TID=$(OPS3_TID) make -s intern-info
+info.ops4:
+	TID=$(OPS4_TID) make -s intern-info
+info.ops5:
+	TID=$(OPS5_TID) make -s intern-info
+info.ops6:
+	TID=$(OPS6_TID) make -s intern-info
+info.ops7:
+	TID=$(OPS7_TID) make -s intern-info
 
 ###################
 #-=# WIREGUARD #=-#
@@ -162,6 +191,10 @@ yubikey.rekey.legacy:
 ##########################
 #-=# INTERNAL BACKEND #=-#
 ##########################
+intern-init-info: 
+	@echo "Current Working Admin Site: $(SITE) Network: $($(CHECK)_ROUTE)"
+intern-info:
+	PORT=$(PORT_SSH) RCMD=$(FASTFETCH) make -s intern-ssh
 intern-hardening:
 	sudo -v || exit 1 # check
 	sudo modprobe wireguard # may need this
@@ -183,7 +216,7 @@ intern-ssh:
 		sleep 1 
 	done
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start SSH Session! \033[0m    <==========" && echo && echo && echo
-	ssh -p $(PORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID)
+	ssh -p $(PORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID) '$(RCMD)'
 intern-wormhole: 
 	CHECK=ADMIN make -s intern-start-check-routing
 	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
@@ -232,14 +265,14 @@ rekey.import:
 	sudo rm -rf $(KEYGENDIR)/*
 	@echo && echo && echo && echo 
 WGDIR?=~/.keyguard-$(SITE)
-intern-stop-routing: info
+intern-stop-routing: intern-init-info
 	if [ ! -e $(WGDIR)/$(CHECK).conf ]; then 
 		echo "WireGUARD STOP ERROR: unable to access config file $(WGDIR)/$(CHECK).conf"
 	fi
 	wg-quick down $(WGDIR)/$(CHECK).conf > /dev/null 2>&1  || true
 	rm -rf $(WGDIR)/$(CHECK).conf > /dev/null 2>&1 || true
 	echo "WireGUARD Route $(CHECK) stopped via $(WGDIR)/$(CHECK).conf" && echo && echo
-intern-start-check-routing: info
+intern-start-check-routing: intern-init-info
 	ssh-add $(ADMIN_SSH_SMARTCARD)
 	if [ $($(CHECK)_ROUTE_EXISTS) == "yes" ] ; then
 		@echo "$(CHECK) Network Route exists ..."

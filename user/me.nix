@@ -152,7 +152,7 @@ in {
             env = infra.go.env;
           };
           neovim = {
-            enable = true;
+            enable = false;
             plugins = with pkgs.vimPlugins; [
               opencode-nvim
               coc-nvim
