@@ -14,8 +14,8 @@ in {
   ##################
   services = {
     pcscd = {
-      enable = false;
-      # plugins = with pkgs; [ccid pcsc-cyberjack];
+      enable = true;
+      plugins = with pkgs; [ccid pcsc-cyberjack];
     };
   };
 
