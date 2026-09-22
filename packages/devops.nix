@@ -3,13 +3,9 @@
   #-=# IMPORTS #=-#
   #################
   imports = [
-    ./nfc.nix
+    ./base.nix
     ./devops-go.nix
     ./devops-nixos.nix
-    # ./tmux.nix
-    # ./devops-db.nix
-    # ./devops-html.nix
-    # ./devops-net.nix
   ];
 
   ##################
@@ -23,7 +19,7 @@
   ##################
   #-=# SERVICES #=-#
   ##################
-  services.sysprof.enable = false;
+  # services.sysprof.enable = false;
 
   #####################
   #-=# ENVIRONMENT #=-#
@@ -34,15 +30,15 @@
       certinfo-go
       binsider
       dmidecode
+      fido2-manage
       file
       gh
-      hackernews-tui
       jq
       jqfmt
       gnumake
       hyperfine
-      ncdu
       pciutils
+      pcsc-tools
       shellcheck
       shfmt
       s-tui
@@ -50,6 +46,7 @@
       tlsinfo
       onefetch
       lazyjournal
+      libfido2
       usbutils
       vale
       yamlfmt

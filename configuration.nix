@@ -336,7 +336,7 @@ in {
     geoclue2.enable = lib.mkForce false;
     hardware.bolt.enable = true;
     udisks2.enable = lib.mkForce true;
-    fwupd.enable = lib.mkForce false;
+    fwupd.enable = lib.mkForce true;
     smartd.enable = lib.mkDefault true;
     power-profiles-daemon.enable = true;
     logind.settings.Login.HandleHibernateKey = "ignore";

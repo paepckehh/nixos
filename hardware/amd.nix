@@ -9,14 +9,8 @@
   ##############
   boot = {
     extraModulePackages = [config.boot.kernelPackages.zenpower];
-    kernelParams = [
-      "amd_pstate=active"
-      # "amd_iommu=force_isolation"
-    ];
-    kernelModules = [
-      "amd-pstate"
-      "kvm-amd"
-    ];
+    # kernelParams = [ "amd_pstate=active" "amd_iommu=force_isolation"];
+    # kernelModules = [ "amd-pstate" "kvm-amd" ];
   };
 
   ##################

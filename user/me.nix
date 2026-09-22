@@ -148,6 +148,7 @@ in {
           };
           go = {
             enable = true;
+            package = pkgs.go_latest;
             telemetry.mode = "off";
             env = infra.go.env;
           };
