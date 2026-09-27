@@ -100,7 +100,12 @@ in {
   #############
   #-= SWAP #=-#
   #############
-  swapDevices = lib.mkForce [{device = "/dev/disk/by-partlabel/disk-main-swap";}];
+  swapDevices = lib.mkForce [
+    {
+      device = "/dev/disk/by-partlabel/disk-main-swap";
+      randomEncryption.enable = true;
+    }
+  ];
 
   ###############
   #-= SYSTEM #=-#
