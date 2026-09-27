@@ -40,8 +40,8 @@ in {
       keep-derivations = lib.mkDefault false;
       keep-failed = lib.mkDefault false;
       max-jobs = lib.mkDefault "auto"; # default: 1
-      allowed-uris = lib.mkDefault []; # "https://cache.nixos.org" # see client/addCache.nix for site specific local binary cache
-      substituters = lib.mkDefault []; # "https://cache.nixos.org" # see client/addCache.nix for site specific local binary cache
+      allowed-uris = lib.mkDefault [];
+      substituters = lib.mkDefault [];
       trusted-public-keys = lib.mkDefault ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
     };
   };
@@ -52,7 +52,7 @@ in {
   nixpkgs.config = {
     allowBroken = lib.mkDefault false;
     allowUnfree = lib.mkDefault true;
-    permittedInsecurePackages = [];
+    permittedInsecurePackages = lib.mkDefault [];
   };
 
   ##############
@@ -79,7 +79,7 @@ in {
       systemd-boot = {
         enable = lib.mkDefault true;
         consoleMode = "max";
-        configurationLimit = 24;
+        configurationLimit = 16;
         editor = lib.mkForce false;
       };
     };
@@ -90,13 +90,23 @@ in {
       useTmpfs = lib.mkForce true;
       useZram = lib.mkForce false;
     };
+    zswap = {
+      enable = true;
+      compressor = "zstd";
+      maxPoolPercent = 33;
+    };
   };
+
+  #############
+  #-= SWAP #=-#
+  #############
+  swapDevices = lib.mkForce [{device = "/dev/disk/by-partlabel/disk-main-swap";}];
 
   ###############
   #-= SYSTEM #=-#
   ###############
   system = {
-    stateVersion = "26.11"; # dummy target
+    stateVersion = infra.nix.version; # fixed dummy target
     includeBuildDependencies = lib.mkForce false;
   };
 
@@ -115,16 +125,6 @@ in {
     enable = lib.mkForce true;
     earlySetup = lib.mkForce true;
     keyMap = infra.locale.keymap;
-  };
-
-  #############
-  #-= SWAP #=-#
-  #############
-  swapDevices = lib.mkForce [];
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-    writebackDevice = lib.mkDefault "/dev/disk/by-partlabel/disk-main-swap";
   };
 
   #######################
@@ -156,7 +156,7 @@ in {
   security = {
     auditd.enable = false;
     allowSimultaneousMultithreading = true;
-    # lockKernelModules = lib.mkForce true;
+    lockKernelModules = lib.mkForce false;
     protectKernelImage = lib.mkForce true;
     audit = {
       enable = lib.mkForce false;
@@ -336,7 +336,7 @@ in {
     geoclue2.enable = lib.mkForce false;
     hardware.bolt.enable = true;
     udisks2.enable = lib.mkForce true;
-    fwupd.enable = lib.mkForce true;
+    fwupd.enable = lib.mkForce false;
     smartd.enable = lib.mkDefault true;
     power-profiles-daemon.enable = true;
     logind.settings.Login.HandleHibernateKey = "ignore";

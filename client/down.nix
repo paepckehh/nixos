@@ -1,15 +1,19 @@
 {
+  lib,
+  pkgs,
+  ...
+}: {
   ################
   #-= SYSTEMD #=-#
   ################
   systemd = {
-    user.services = {
+    services = {
       poweroff = {
         description = "Poweroff Service";
-        startAt = ["*-*-* 20:00:00"];
+        startAt = "*-*-* 20:00:00";
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = "/run/current-system/sw/bin/poweroff";
+          ExecStart = "${pkgs.systemd}/bin/poweroff --force";
         };
       };
     };
