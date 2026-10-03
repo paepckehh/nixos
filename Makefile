@@ -69,6 +69,7 @@ info-iso-installer:
 info-image:
 	$(SUDO) nixos-rebuild build-image --flake $(OSFLAKE)  || true
 
+
 ####################
 # NIXOS OPERATIONS #
 ####################
@@ -349,6 +350,8 @@ nvme1-luks-change-pwd:
 
 creds :
 	$(SUDO) -v || exit 1
+boo:
+	ghostty +boo
 trim:
 	${MAKE} -C storage trim
 zero: 

@@ -23,11 +23,11 @@ in {
     ../packages/devops.nix
     ../user/mp.nix
   ];
-
   ##############
   #-=# BOOT #=-#
   ##############
   boot = {
+    blacklistedKernelModules = infra.kernel.blacklist ++ ["pn533" "pn533_usb"]; # nfc
     kernelModules = infra.kernel.whitelist.client ++ ["wireguard"];
     kernelParams = infra.kernel.params.client;
     supportedFilesystems = infra.kernel.fs.client;

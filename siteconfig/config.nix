@@ -1147,7 +1147,7 @@ let
       localbind.port.http = infra.localhost.port.offset + infra.cache.id;
       url = "https://${infra.cache.fqdn}";
       processor = "cpu"; # cpu, rocm, cuda, vulcan
-      size = "256G";
+      size = "64G";
       storage = "${infra.storage.cache}/${infra.cache.app}";
       key = {
         url = "${infra.cache.url}/pubkey";
