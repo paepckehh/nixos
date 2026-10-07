@@ -10,7 +10,6 @@
   #################
   imports = [
     ./addrootCA.nix
-    ./addCache.nix
   ];
   ###############
   #-= SYSTEM #=-#
