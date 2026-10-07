@@ -32,8 +32,6 @@ kill.routes:
 ####################################
 # -=# ACTION SPECIAL SHORTCUTS #=- #
 ####################################
-adguard:
-	TID=$(ADGUARD_TID) LPORT=$(ADGUARD_PORT) RPORT=$(ADGUARD_PORT) PREFIX_URI=http make -s intern-wormhole
 crush:
 	TID=$(CRUSH) ADMIN_ID=$(USR) make -s intern-opsssh
 skynet:
@@ -44,6 +42,8 @@ boje02:
 	TID=$(BOJE02) ADMIN_NET=$(USER_NET) make -s intern-opsssh
 boje03:
 	TID=$(BOJE03) ADMIN_NET=$(USER_NET) make -s intern-opsssh
+adguard:
+	TID=$(ADGUARD_TID) LPORT=$(ADGUARD_PORT) RPORT=$(ADGUARD_PORT) PREFIX_URI=http make -s intern-wormhole
 unifi:
 	TID=$(UNIFI_TID) LPORT=$(UNIFI_PORT) RPORT=$(UNIFI_PORT) make -s intern-wormhole
 opnborg:
@@ -88,6 +88,8 @@ log.hostwatch:
 	LOGCMD="'sudo tail --lines=2500 -f /var/syslog-ng/console-hostwatch.txt' | bat -f -l syslog --paging never" make -s intern-log
 log.newstation:
 	LOGCMD="'sudo tail --lines=2500 -f /var/syslog-ng/console-newstation.txt' | bat -f -l syslog --paging never" make -s intern-log
+log.keycard:
+	LOGCMD="'sudo tail --lines=2500 -f /var/syslog-ng/console.txt' | grep pcscid | bat -f -l syslog --paging never" make -s intern-log
 
 ##############################
 # -=# ACTION SSH SESSION #=- #
@@ -136,6 +138,16 @@ ssh.borg15:
 ##############################
 # -=# SERVER STATUS INFO #=- #
 ##############################
+info.crush:
+	TID=$(CRUSH)  ADMIN_NET=$(USER_NET) ADMIN_ID=$(USR) make -s intern-info
+info.skynet:
+	TID=$(SKYNET) ADMIN_NET=$(USER_NET) make -s intern-info
+info.boje01:
+	TID=$(BOJE01) ADMIN_NET=$(USER_NET) make -s intern-info
+info.boje02:
+	TID=$(BOJE02) ADMIN_NET=$(USER_NET) make -s intern-info
+info.boje03:
+	TID=$(BOJE03) ADMIN_NET=$(USER_NET) make -s intern-info
 info.ops:
 	TID=$(OPS_TID) make -s intern-info
 info.ops1:

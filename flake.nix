@@ -27,7 +27,12 @@
     disko,
     home-manager,
     nixpkgs,
-  } @ inputs: {
+  } @ inputs: let
+    ############################
+    #-=# GLOBAL SITE IMPORT #=-#
+    ############################
+    infra = (import siteconfig/config.nix).infra;
+  in {
     nixosConfigurations = {
       #########
       # KIOSK #
@@ -62,7 +67,7 @@
       ##########
       srv = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {inherit self inputs;};
+        specialArgs = {inherit self inputs infra;};
         modules = [
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager

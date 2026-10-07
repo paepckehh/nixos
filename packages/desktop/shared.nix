@@ -53,8 +53,14 @@
   ##################
   services = {
     autosuspend.enable = lib.mkForce false;
-    # ddccontrol.enable = true;
+    ddccontrol.enable = true;
     speechd.enable = lib.mkForce false;
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
     xserver = {
       enable = true;
       autoRepeatDelay = 150;
@@ -80,6 +86,7 @@
       gparted
       keepassxc
       notepad-next
+      so
       wl-clipboard
       yubioath-flutter
       xclip

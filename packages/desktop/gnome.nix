@@ -27,8 +27,6 @@
       gnome-firmware
     ];
     gnome.excludePackages = with pkgs; [
-      gnome-calendar
-      gnome-contacts
       gnome-tour
       gnome-music
       atomix
@@ -49,7 +47,6 @@
   ##################
   services = {
     gvfs.enable = true;
-    speechd.enable = lib.mkForce false;
     orca.enable = lib.mkForce false;
     gnome = {
       core-os-services.enable = true;

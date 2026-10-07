@@ -2,5 +2,88 @@
   ##################
   #-=# SECURITY #=-#
   ##################
-  security.pki.certificates = [''''];
+  security = {
+    pki = {
+      certificates = [
+        ''
+          -----BEGIN CERTIFICATE-----
+          MIIBmjCCAUGgAwIBAgIQeLqiGJEfATE/LpKT96khmTAKBggqhkjOPQQDAjAsMRAw
+          DgYDVQQKEwdob21lbGFiMRgwFgYDVQQDEw9ob21lbGFiIFJvb3QgQ0EwHhcNMjUx
+          MDI2MTQzMTM1WhcNMzUxMDI0MTQzMTM1WjAsMRAwDgYDVQQKEwdob21lbGFiMRgw
+          FgYDVQQDEw9ob21lbGFiIFJvb3QgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNC
+          AAT8NzCaCOOl+prX8pXGZp1aXDlSjz5RH31abVHSGgekUuqmnWnF6wrDKvMPWDs+
+          eunAe2ZJ3aoQB1Xr15AdY6Mgo0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/
+          BAgwBgEB/wIBATAdBgNVHQ4EFgQUVN0IqQWKArSXQdFVfQaNTv0bZg8wCgYIKoZI
+          zj0EAwIDRwAwRAIge0ClrJ/YZJLxecEKjp809KtTlUDymQyXZ8TYP4wPm9ECIBkd
+          L/owkMWcN/LnN3FrW0iwkgQpl4yADI2+vKa2dL2o
+          -----END CERTIFICATE-----
+          -----BEGIN CERTIFICATE-----
+          MIIBxTCCAWugAwIBAgIRAKxVlg78eCf58Ba3r73FGlEwCgYIKoZIzj0EAwIwLDEQ
+          MA4GA1UEChMHaG9tZWxhYjEYMBYGA1UEAxMPaG9tZWxhYiBSb290IENBMB4XDTI1
+          MTAyNjE0MzEzNloXDTM1MTAyNDE0MzEzNlowNDEQMA4GA1UEChMHaG9tZWxhYjEg
+          MB4GA1UEAxMXaG9tZWxhYiBJbnRlcm1lZGlhdGUgQ0EwWTATBgcqhkjOPQIBBggq
+          hkjOPQMBBwNCAASVJBygcOAfZiTaZTseRHL08PAXiMOQUA7paFtaPPSTe1dxtrfx
+          eE1RWXGyDGP/K/bk40nn8Bt1WzOxNaD0863zo2YwZDAOBgNVHQ8BAf8EBAMCAQYw
+          EgYDVR0TAQH/BAgwBgEB/wIBADAdBgNVHQ4EFgQUDlq5Y5iQjxhIr5ss76WQf5U9
+          EkYwHwYDVR0jBBgwFoAUVN0IqQWKArSXQdFVfQaNTv0bZg8wCgYIKoZIzj0EAwID
+          SAAwRQIhAN+hzks0Z09eZK/YWztpdkJSSVRPdtgGKQ7C8uan3pOLAiBqO3gyD4ed
+          ZkeKuMa4+VYkM9XkV9vdfBupx6HHCBRXqg==
+          -----END CERTIFICATE-----
+        ''
+      ];
+    };
+  };
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment.etc = {
+    "rootCA.crt".text = ''
+      -----BEGIN CERTIFICATE-----
+      MIIBmjCCAUGgAwIBAgIQeLqiGJEfATE/LpKT96khmTAKBggqhkjOPQQDAjAsMRAw
+      DgYDVQQKEwdob21lbGFiMRgwFgYDVQQDEw9ob21lbGFiIFJvb3QgQ0EwHhcNMjUx
+      MDI2MTQzMTM1WhcNMzUxMDI0MTQzMTM1WjAsMRAwDgYDVQQKEwdob21lbGFiMRgw
+      FgYDVQQDEw9ob21lbGFiIFJvb3QgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNC
+      AAT8NzCaCOOl+prX8pXGZp1aXDlSjz5RH31abVHSGgekUuqmnWnF6wrDKvMPWDs+
+      eunAe2ZJ3aoQB1Xr15AdY6Mgo0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/
+      BAgwBgEB/wIBATAdBgNVHQ4EFgQUVN0IqQWKArSXQdFVfQaNTv0bZg8wCgYIKoZI
+      zj0EAwIDRwAwRAIge0ClrJ/YZJLxecEKjp809KtTlUDymQyXZ8TYP4wPm9ECIBkd
+      L/owkMWcN/LnN3FrW0iwkgQpl4yADI2+vKa2dL2o
+      -----END CERTIFICATE-----
+      -----BEGIN CERTIFICATE-----
+      MIIBxTCCAWugAwIBAgIRAKxVlg78eCf58Ba3r73FGlEwCgYIKoZIzj0EAwIwLDEQ
+      MA4GA1UEChMHaG9tZWxhYjEYMBYGA1UEAxMPaG9tZWxhYiBSb290IENBMB4XDTI1
+      MTAyNjE0MzEzNloXDTM1MTAyNDE0MzEzNlowNDEQMA4GA1UEChMHaG9tZWxhYjEg
+      MB4GA1UEAxMXaG9tZWxhYiBJbnRlcm1lZGlhdGUgQ0EwWTATBgcqhkjOPQIBBggq
+      hkjOPQMBBwNCAASVJBygcOAfZiTaZTseRHL08PAXiMOQUA7paFtaPPSTe1dxtrfx
+      eE1RWXGyDGP/K/bk40nn8Bt1WzOxNaD0863zo2YwZDAOBgNVHQ8BAf8EBAMCAQYw
+      EgYDVR0TAQH/BAgwBgEB/wIBADAdBgNVHQ4EFgQUDlq5Y5iQjxhIr5ss76WQf5U9
+      EkYwHwYDVR0jBBgwFoAUVN0IqQWKArSXQdFVfQaNTv0bZg8wCgYIKoZIzj0EAwID
+      SAAwRQIhAN+hzks0Z09eZK/YWztpdkJSSVRPdtgGKQ7C8uan3pOLAiBqO3gyD4ed
+      ZkeKuMa4+VYkM9XkV9vdfBupx6HHCBRXqg==
+      -----END CERTIFICATE-----'';
+    "ca-mtls-user.pem".text = ''
+      -----BEGIN CERTIFICATE-----
+      MIIBfjCCASOgAwIBAgIIeDKVJ/Kkg+0wCgYIKoZIzj0EAwIwFDESMBAGA1UEAwwJ
+      aG9tZS5jb3JwMCAXDTI1MTEyMTA3MTMyN1oYDzIwNTAxMTE1MDcxMzI3WjAUMRIw
+      EAYDVQQDDAlob21lLmNvcnAwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQvEhbP
+      m3AZvpYQF9gt7ijxY5XkNWPtbYc9U8d34JduzCAU+h4k2kpBIASDMusDkxCtUlTc
+      GN/ipOqaFLCKpE1jo10wWzAMBgNVHRMEBTADAQH/MAsGA1UdDwQEAwIBBjAdBgNV
+      HQ4EFgQUIr/LvbFdJb8Pxp49A/ajpllN2ZkwHwYDVR0jBBgwFoAUIr/LvbFdJb8P
+      xp49A/ajpllN2ZkwCgYIKoZIzj0EAwIDSQAwRgIhAPdykeZblaN6sHgqwY1b1Msw
+      SPGnZV9qnCAleqkFRkPCAiEAsTygiUiUa6w/U6wDcW7ydcRzAKha23Ad7kfhicw8
+      BII=
+      -----END CERTIFICATE-----'';
+    "ca-mtls-admin.pem".text = ''
+      -----BEGIN CERTIFICATE-----
+      MIIBgDCCASagAwIBAgIJALR6LjTz4+aOMAoGCCqGSM49BAMCMBUxEzARBgNVBAMM
+      CmFkbWluLmNvcnAwIBcNMjUxMTIxMDcxMzQwWhgPMjA1MDExMTUwNzEzNDBaMBUx
+      EzARBgNVBAMMCmFkbWluLmNvcnAwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASv
+      +cYocQ2bH2hcSD8iZHLXs7pojexZ2WclEovt3/9/kw/BCKK5ABOPKLUqtjVE7STX
+      ptSYcJDmuljYNrIJbM0ao10wWzAMBgNVHRMEBTADAQH/MAsGA1UdDwQEAwIBBjAd
+      BgNVHQ4EFgQUH9f4ByqC5kyG3EIpKZg3FgPUZxMwHwYDVR0jBBgwFoAUH9f4ByqC
+      5kyG3EIpKZg3FgPUZxMwCgYIKoZIzj0EAwIDSAAwRQIgB8TjhcvKYZzudaIBx0dt
+      dOCGqXyUmdml52lMrlZ9elgCIQDoQxLL4lMsByZyXE40D4T23K//gXkInhkz1M9X
+      FDIe/A==
+      -----END CERTIFICATE-----'';
+  };
 }

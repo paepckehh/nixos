@@ -7,13 +7,22 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [./intel.nix];
+  imports = [
+    ./intel.nix
+  ];
+
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  # intel gpu audio
+  environment.systemPackages = with pkgs; [
+    sof-firmware
+  ];
 
   ##################
   #-=# HARDWARE #=-#
   ##################
   hardware = {
-    acpilight.enable = true;
     intel-gpu-tools.enable = true;
     graphics = {
       enable = lib.mkForce true;

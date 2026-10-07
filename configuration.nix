@@ -3,14 +3,10 @@
   pkgs,
   lib,
   inputs,
+  infra,
   self,
   ...
-}: let
-  ############################
-  #-=# GLOBAL SITE IMPORT #=-#
-  ############################
-  infra = (import ./siteconfig/config.nix).infra;
-in {
+}: {
   #############
   #-=# NIX #=-#
   #############
@@ -150,6 +146,7 @@ in {
   #-=# HARDWARE #=-#
   ##################
   hardware = {
+    acpilight.enable = true;
     enableAllFirmware = lib.mkForce false;
     enableRedistributableFirmware = lib.mkForce true;
     uinput.enable = true;

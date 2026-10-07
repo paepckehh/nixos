@@ -61,29 +61,5 @@
       SAAwRQIhAN+hzks0Z09eZK/YWztpdkJSSVRPdtgGKQ7C8uan3pOLAiBqO3gyD4ed
       ZkeKuMa4+VYkM9XkV9vdfBupx6HHCBRXqg==
       -----END CERTIFICATE-----'';
-    "ca-mtls-user.pem".text = ''
-      -----BEGIN CERTIFICATE-----
-      MIIBfjCCASOgAwIBAgIIeDKVJ/Kkg+0wCgYIKoZIzj0EAwIwFDESMBAGA1UEAwwJ
-      aG9tZS5jb3JwMCAXDTI1MTEyMTA3MTMyN1oYDzIwNTAxMTE1MDcxMzI3WjAUMRIw
-      EAYDVQQDDAlob21lLmNvcnAwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQvEhbP
-      m3AZvpYQF9gt7ijxY5XkNWPtbYc9U8d34JduzCAU+h4k2kpBIASDMusDkxCtUlTc
-      GN/ipOqaFLCKpE1jo10wWzAMBgNVHRMEBTADAQH/MAsGA1UdDwQEAwIBBjAdBgNV
-      HQ4EFgQUIr/LvbFdJb8Pxp49A/ajpllN2ZkwHwYDVR0jBBgwFoAUIr/LvbFdJb8P
-      xp49A/ajpllN2ZkwCgYIKoZIzj0EAwIDSQAwRgIhAPdykeZblaN6sHgqwY1b1Msw
-      SPGnZV9qnCAleqkFRkPCAiEAsTygiUiUa6w/U6wDcW7ydcRzAKha23Ad7kfhicw8
-      BII=
-      -----END CERTIFICATE-----'';
-    "ca-mtls-admin.pem".text = ''
-      -----BEGIN CERTIFICATE-----
-      MIIBgDCCASagAwIBAgIJALR6LjTz4+aOMAoGCCqGSM49BAMCMBUxEzARBgNVBAMM
-      CmFkbWluLmNvcnAwIBcNMjUxMTIxMDcxMzQwWhgPMjA1MDExMTUwNzEzNDBaMBUx
-      EzARBgNVBAMMCmFkbWluLmNvcnAwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASv
-      +cYocQ2bH2hcSD8iZHLXs7pojexZ2WclEovt3/9/kw/BCKK5ABOPKLUqtjVE7STX
-      ptSYcJDmuljYNrIJbM0ao10wWzAMBgNVHRMEBTADAQH/MAsGA1UdDwQEAwIBBjAd
-      BgNVHQ4EFgQUH9f4ByqC5kyG3EIpKZg3FgPUZxMwHwYDVR0jBBgwFoAUH9f4ByqC
-      5kyG3EIpKZg3FgPUZxMwCgYIKoZIzj0EAwIDSAAwRQIgB8TjhcvKYZzudaIBx0dt
-      dOCGqXyUmdml52lMrlZ9elgCIQDoQxLL4lMsByZyXE40D4T23K//gXkInhkz1M9X
-      FDIe/A==
-      -----END CERTIFICATE-----'';
   };
 }

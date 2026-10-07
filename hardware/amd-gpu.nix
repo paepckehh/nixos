@@ -7,18 +7,21 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [./amd.nix];
+  imports = [
+    ./amd.nix
+  ];
 
   ##############
   #-=# BOOT #=-#
   ##############
-  boot.kernelModules = ["amdgpu"];
+  boot.kernelModules = [
+    "amdgpu"
+  ];
 
   ##################
   #-=# HARDWARE #=-#
   ##################
   hardware = {
-    acpilight.enable = true;
     amdgpu.opencl.enable = true;
     firmware = [pkgs.linux-firmware];
   };

@@ -2,9 +2,13 @@
   config,
   pkgs,
   lib,
-  intra,
   ...
-}: {
+}: let
+  ############################
+  #-=# GLOBAL SITE IMPORT #=-#
+  ############################
+  infra = (import ../../siteconfig/config.nix).infra;
+in {
   ####################
   #-=# NETWORKING #=-#
   ####################
