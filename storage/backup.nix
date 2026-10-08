@@ -2,14 +2,9 @@
   config,
   pkgs,
   lib,
+  infra,
   ...
-}: let
-  ############################
-  #-=# GLOBAL SITE IMPORT #=-#
-  ############################
-  infra = (import ../siteconfig/config.nix).infra;
-  ssh.key = "/nix/persist/home/backup/.ssh/id_ed25519";
-in {
+}: {
   #####################
   #-=# FILESYSTEMS #=-#
   #####################
@@ -105,7 +100,7 @@ in {
       $RM /var/lib/.last-backup.* >/dev/null 2>&1  || true
       $TOUCH /var/lib/.last-backup.startup.$HOST.$TARGET.$WEEKDAY."$( $DATE '+%Y-%m-%dT%H:%M:%S' )"
       if [ $TARGET != "none" ]; then
-        KEY=${ssh.key}
+        KEY="/nix/persist/home/backup/.ssh/id_ed25519"
         if [ ! -e $KEY ]; then echo "Backup-rsync: ssh rsync key not found: $KEY, exit" && exit 1 ; fi
         RSYNOPT="-a --checksum --delete --stats"
         SRC="/mnt/ro/var/lib"

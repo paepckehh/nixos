@@ -26,10 +26,7 @@ Each file is a **complete NixOS configuration for one physical server**. They're
 Each host file follows a **modular stacking pattern**:
 
 ```nix
-{ config, pkgs, ... }:
-let
-  infra = (import ../siteconfig/config.nix).infra;
-in {
+{ config, pkgs, infra, ... }: {
   imports = [
     # Hardware
     ../hardware/all.nix

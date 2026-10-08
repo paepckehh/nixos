@@ -42,10 +42,7 @@ Home Manager configurations for **individual user accounts**. Everything from sh
 Each user config follows the Home Manager pattern:
 
 ```nix
-{ config, pkgs, lib, ... }:
-let
-  infra = (import ../siteconfig/config.nix).infra;
-in {
+{ config, pkgs, lib, infra, ... }: {
   imports = [
     ./desktop/me.nix
     ./desktop/me-firefox.nix
