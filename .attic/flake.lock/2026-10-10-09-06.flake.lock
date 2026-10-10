@@ -1,0 +1,93 @@
+{
+  "nodes": {
+    "agenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790734419,
+        "narHash": "sha256-n7wew722m1OTBT9DOIMxNX/NF4zfsSUABAO5eW3wikE=",
+        "ref": "main",
+        "rev": "3daa710894355fa2fad8243380af373a2b4046ef",
+        "revCount": 385,
+        "type": "git",
+        "url": "https://git-mirror.home.corp/ryantm/agenix"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "https://git-mirror.home.corp/ryantm/agenix"
+      }
+    },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789770686,
+        "narHash": "sha256-uZkBR7yHdIKUFB5SZdfgh1qkGfI3XmYmI/lTiquxbck=",
+        "ref": "master",
+        "rev": "725ea35e410ad83be4931d1bff7e090eacaf3563",
+        "revCount": 1394,
+        "type": "git",
+        "url": "https://git-mirror.home.corp/nix-community/disko"
+      },
+      "original": {
+        "ref": "master",
+        "type": "git",
+        "url": "https://git-mirror.home.corp/nix-community/disko"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791163078,
+        "narHash": "sha256-DiuwfdoZtEqVRsWuAhXcHa+cfvkr0t/xWW8ugkcxNyI=",
+        "ref": "master",
+        "rev": "f53f3267f5d009dd8f99443505e609389d7ff267",
+        "revCount": 7447,
+        "type": "git",
+        "url": "https://git-mirror.home.corp/nix-community/home-manager"
+      },
+      "original": {
+        "ref": "master",
+        "type": "git",
+        "url": "https://git-mirror.home.corp/nix-community/home-manager"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1791048980,
+        "narHash": "sha256-KgItSKML8Xvte0B7/uGnBDsYzSnnKHcOaiUbgWBXLXw=",
+        "ref": "nixos-unstable",
+        "rev": "a7868a727837f3c09cee2ce0ca671c76b1589fed",
+        "revCount": 1084968,
+        "type": "git",
+        "url": "https://git-mirror.home.corp/nixos/nixpkgs"
+      },
+      "original": {
+        "ref": "nixos-unstable",
+        "type": "git",
+        "url": "https://git-mirror.home.corp/nixos/nixpkgs"
+      }
+    },
+    "root": {
+      "inputs": {
+        "agenix": "agenix",
+        "disko": "disko",
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

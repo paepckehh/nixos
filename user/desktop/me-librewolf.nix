@@ -25,7 +25,8 @@
       enable = true;
       languagePacks = ["de"];
       settings = infra.firefox.settings;
-      policies = lib.recursiveUpdate infra.firefox.policy bookmarks;
+      policies = infra.firefox.policy;
+      # policies = lib.recursiveUpdate infra.firefox.policy bookmarks;
       profiles.default = {
         isDefault = true;
         id = 0;

@@ -92,8 +92,8 @@
           ./server/pki/small-step.nix
           ./server/portal/portal-start.nix
           ./server/webapp/res.nix
-          ./server/iam/authelia.nix
-          ./server/iam/lldap.nix
+          # ./server/iam/authelia.nix
+          # ./server/iam/lldap.nix
           # ./server/lora/meshtastic-web.nix
           # ./server/remote/rustdesk.nix
           # ./server/api/openpaq.nix

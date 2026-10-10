@@ -29,7 +29,8 @@
       action = "allow";
       duration = "always";
       operator = {
-        data = "${lib.getBin pkgs.authelia}/bin/authelia";
+        data = "authelia";
+        # data = "${lib.getBin pkgs.authelia}/bin/authelia";
         list = null;
         type = "simple";
         sensitive = false;

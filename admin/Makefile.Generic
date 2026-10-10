@@ -6,9 +6,10 @@
 #################
 # -=# SETUP #=- #
 #################
+TARGET_NET=$(ADMIN_NET)
+FASTFETCH=fastfetch
 ADMIN_ROUTE_EXISTS?=$(shell ip route show $(ADMIN_ROUTE) 2>/dev/null | grep -q . && echo yes || echo no) 
 OFFICE_ROUTE_EXISTS?=$(shell ip route show $(OFFICE_ROUTE) 2>/dev/null | grep -q . && echo yes || echo no) 
-FASTFETCH=fastfetch
 
 all:
 	@make -s help
@@ -32,16 +33,6 @@ kill.routes:
 ####################################
 # -=# ACTION SPECIAL SHORTCUTS #=- #
 ####################################
-crush:
-	TID=$(CRUSH) ADMIN_ID=$(USR) make -s intern-opsssh
-skynet:
-	TID=$(SKYNET) make -s intern-opsssh
-boje01:
-	TID=$(BOJE01) ADMIN_NET=$(USER_NET) make -s intern-opsssh
-boje02:
-	TID=$(BOJE02) ADMIN_NET=$(USER_NET) make -s intern-opsssh
-boje03:
-	TID=$(BOJE03) ADMIN_NET=$(USER_NET) make -s intern-opsssh
 adguard:
 	TID=$(ADGUARD_TID) LPORT=$(ADGUARD_PORT) RPORT=$(ADGUARD_PORT) PREFIX_URI=http make -s intern-wormhole
 unifi:
@@ -91,26 +82,36 @@ log.newstation:
 log.keycard:
 	LOGCMD="'sudo tail --lines=2500 -f /var/syslog-ng/console.txt' | grep pcscid | bat -f -l syslog --paging never" make -s intern-log
 
-##############################
-# -=# ACTION SSH SESSION #=- #
-##############################
-ssh.ops:
+#################################
+# -=# SSH SESSION SHORTCUTS #=- #
+#################################
+crush:
+	TID=$(CRUSH) ADMIN_ID=$(USR) make -s intern-opsssh
+skynet:
+	TID=$(SKYNET) make -s intern-opsssh
+boje01:
+	TID=$(BOJE01) TARGET_NET=$(USER_NET) make -s intern-opsssh
+boje02:
+	TID=$(BOJE02) TARGET_NET=$(USER_NET) make -s intern-opsssh
+boje03:
+	TID=$(BOJE03) TARGET_NET=$(USER_NET) make -s intern-opsssh
+ops:
 	TID=$(OPS_TID) make -s intern-opsssh
-ssh.ops1:
+ops1:
 	TID=$(OPS_TID) make -s intern-opsssh
-ssh.ops2:
+ops2:
 	TID=$(OPS2_TID) make -s intern-opsssh
-ssh.ops3:
+ops3:
 	TID=$(OPS3_TID) make -s intern-opsssh
-ssh.ops4:
+ops4:
 	TID=$(OPS4_TID) make -s intern-opsssh
-ssh.ops5:
+ops5:
 	TID=$(OPS5_TID) make -s intern-opsssh
-ssh.ops6:
+ops6:
 	TID=$(OPS6_TID) make -s intern-opsssh
-ssh.ops7:
+ops7:
 	TID=$(OPS7_TID) make -s intern-opsssh
-ssh.ops8:
+ops8:
 	TID=$(OPS8_TID) make -s intern-opsssh
 ssh.borg01: 
 	TID=01 make -s intern-borgssh
@@ -136,18 +137,36 @@ ssh.borg15:
 	TID=15 make -s intern-borgssh
 
 ##############################
+# -=# LEGACY ALIAS TABLE #=- #
+##############################
+ssh.ops:  ops
+ssh.ops1: ops1
+ssh.ops2: ops2
+ssh.ops3: ops3
+ssh.ops4: ops4
+ssh.ops5: ops5
+ssh.ops6: ops6
+ssh.ops7: ops7
+ssh.ops8: ops8
+ssh.crush:  crush
+ssh.skynet: skynet
+ssh.boje01: boje01
+ssh.boje02: boje02
+ssh.boje03: boje03
+
+##############################
 # -=# SERVER STATUS INFO #=- #
 ##############################
 info.crush:
-	TID=$(CRUSH)  ADMIN_NET=$(USER_NET) ADMIN_ID=$(USR) make -s intern-info
+	TID=$(CRUSH)  TARGET_NET=$(USER_NET) ADMIN_ID=$(USR) make -s intern-info
 info.skynet:
-	TID=$(SKYNET) ADMIN_NET=$(USER_NET) make -s intern-info
+	TID=$(SKYNET) TARGET_NET=$(USER_NET) make -s intern-info
 info.boje01:
-	TID=$(BOJE01) ADMIN_NET=$(USER_NET) make -s intern-info
+	TID=$(BOJE01) TARGET_NET=$(USER_NET) make -s intern-info
 info.boje02:
-	TID=$(BOJE02) ADMIN_NET=$(USER_NET) make -s intern-info
+	TID=$(BOJE02) TARGET_NET=$(USER_NET) make -s intern-info
 info.boje03:
-	TID=$(BOJE03) ADMIN_NET=$(USER_NET) make -s intern-info
+	TID=$(BOJE03) TARGET_NET=$(USER_NET) make -s intern-info
 info.ops:
 	TID=$(OPS_TID) make -s intern-info
 info.ops1:
@@ -164,6 +183,8 @@ info.ops6:
 	TID=$(OPS6_TID) make -s intern-info
 info.ops7:
 	TID=$(OPS7_TID) make -s intern-info
+info.ops8:
+	TID=$(OPS8_TID) make -s intern-info
 
 ###################
 #-=# WIREGUARD #=-#
@@ -220,24 +241,25 @@ intern-borgweb:
 intern-log: 
 	CHECK=ADMIN make -s intern-start-check-routing
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start LogSTREAM! \033[0m    <==========" && echo && echo && echo
-	ssh -p $(PORT_SSH) $(ADMIN_ID)@$(ADMIN_NET).$(LOG_TID) $(LOGCMD)
+	ssh -p $(PORT_SSH) $(ADMIN_ID)@$(TARGET_NET).$(LOG_TID) $(LOGCMD)
 intern-ssh: 
+	sudo -v || exit 1 # check
 	CHECK=ADMIN make -s intern-start-check-routing
-	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
+	while ! ping -c 1 -n -w 1 $(TARGET_NET).$(TID) &> /dev/null; do
 		echo -n .
 		sleep 1 
 	done
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW to start SSH Session! \033[0m    <==========" && echo && echo && echo
-	ssh -p $(PORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID) '$(RCMD)'
+	ssh -p $(PORT) $(ADMIN_ID)@$(TARGET_NET).$(TID) '$(RCMD)'
 intern-wormhole: 
 	CHECK=ADMIN make -s intern-start-check-routing
-	while ! ping -c 1 -n -w 1 $(ADMIN_NET).$(TID) &> /dev/null; do
+	while ! ping -c 1 -n -w 1 $(TARGET_NET).$(TID) &> /dev/null; do
 		echo -n .
 		sleep 1
 	done
 	@echo && echo && echo && echo -e "==========>    \033[48;5;57m Touch YubiKey NOW & Reload WebPage! \033[0m    <==========" && echo && echo && echo
 	(sleep 3 && xdg-open $(PREFIX_URI)://localhost:$(LPORT))&
-	ssh -v -p $(PORT_SSH) -N -T -L $(LPORT):localhost:$(RPORT) $(ADMIN_ID)@$(ADMIN_NET).$(TID)
+	ssh -v -p $(PORT_SSH) -N -T -L $(LPORT):localhost:$(RPORT) $(ADMIN_ID)@$(TARGET_NET).$(TID)
 rekey.iv:
 	dd if=/dev/urandom bs=1M count=10 status=none | openssl sha3-512 | cut -c 18-49
 rekey.site:
@@ -280,6 +302,7 @@ WGDIR?=~/.keyguard-$(SITE)
 intern-stop-routing: intern-init-info
 	if [ ! -e $(WGDIR)/$(CHECK).conf ]; then 
 		echo "WireGUARD STOP ERROR: unable to access config file $(WGDIR)/$(CHECK).conf"
+		exit 1
 	fi
 	wg-quick down $(WGDIR)/$(CHECK).conf > /dev/null 2>&1  || true
 	rm -rf $(WGDIR)/$(CHECK).conf > /dev/null 2>&1 || true
@@ -328,7 +351,7 @@ intern-start-check-routing: intern-init-info
 	sudo wg set $(CHECK) private-key $(WGDIR)/keys-$(CHECK)/pk
 	sudo wg set $(CHECK) peer $($(CHECK)_WG_PUBLIC) preshared-key $(WGDIR)/keys-$(CHECK)/psk
 	sudo umount -f $(WGDIR)/keys-$(CHECK) || echo "################ PANIC: unable to unmount in-memory keystore!"
-	sudo umount -f $(WGDIR)/keys-$(CHECK) > /dev/null 2>&1  # catch-all old
+	sudo umount -f $(WGDIR)/keycs-$(CHECK) > /dev/null 2>&1  # catch-all old
 	sudo rm -rf $(WGDIR)/keys-$(CHECK)/*
 	sudo rm -rf $(WGDIR)/keys-$(CHECK)
 	sudo systemctl restart systemd-resolved.service
