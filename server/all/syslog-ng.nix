@@ -66,7 +66,7 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    journald.storage = "volatile";
+    journald.settings.Journal.Storage = "volatile";
     syslog-ng = {
       enable = true;
       extraConfig = lib.mkForce ''
