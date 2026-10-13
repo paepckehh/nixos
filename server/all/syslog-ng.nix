@@ -2,13 +2,23 @@
   config,
   pkgs,
   lib,
+  infra,
   ...
-}: let
-  ############################
-  #-=# GLOBAL SITE IMPORT #=-#
-  ############################
-  infra = (import ../../siteconfig/config.nix).infra;
-in {
+}: {
+  #####################
+  #-=# ENVIRONMENT #=-#
+  #####################
+  environment = {
+    etc."scripts/syslog-ng-rotate.sh".text = builtins.readFile ./resources/syslog-ng-rotate.sh;
+    shellAliases = {
+      "console" = ''sudo tail --lines 1000 -f /var/syslog-ng/console.txt | bat -f -l syslog --paging never'';
+      "console.err" = ''sudo tail --lines 1000 -f /var/syslog-ng/console-err.txt | bat -f -l syslog --paging never'';
+      "console.crit" = ''sudo tail --lines 1000 -f /var/syslog-ng/console-crit.txt | bat -f -l syslog --paging never'';
+      "console.hostwatch" = ''sudo tail --lines 1000 -f /var/syslog-ng/console-hostwatch.txt | bat -f -l syslog --paging never'';
+      "console.new-station" = ''sudo tail --lines 1000 -f /var/syslog-ng/console-newstation.txt | bat -f -l syslog --paging never'';
+    };
+  };
+
   ####################
   #-=# NETWORKING #=-#
   ####################
@@ -127,49 +137,4 @@ in {
       '';
     };
   };
-
-  #####################
-  #-=# ENVIRONMENT #=-#
-  #####################
-  environment = {
-    etc."scripts/syslog-ng-rotate.sh".text = ''
-      #!/bin/sh
-      LOGDIR="/var/syslog-ng"
-      ARCHIV="/nix/persist/archiv/logs";
-      FILES="console.txt console-err.txt console-crit.txt console-hostwatch.txt console-newstation.txt"
-      EXEC="/run/current-system/sw/bin"
-      DTS="$($EXEC/date +%Y-%m-%d-%H%M%S)"
-      SNAP="$LOGDIR/.$($EXEC/uuidgen)"
-      $EXEC/mkdir -p $SNAP $ARCHIV
-      $EXEC/chown -R 0:0 $SNAP $ARCHIV
-      $EXEC/chmod -R 700 $SNAP $ARCHIV
-      for file in $FILES; do
-          $EXEC/touch $LOGDIR/$file
-          $EXEC/link  $LOGDIR/$file $SNAP/$file
-      done
-      $EXEC/systemctl stop syslog-ng.service
-      for file in $FILES; do
-          $EXEC/unlink $LOGDIR/$file
-      done
-      if [ "$1" != "down" ]; then $EXEC/systemctl start syslog-ng.service; fi
-      for file in $FILES; do
-          $EXEC/cat $SNAP/$file | $EXEC/xz -9e --compress --stdout > $ARCHIV/$DTS.$file.xz
-          $EXEC/unlink $SNAP/$file
-          $EXEC/sync
-      done
-      $EXEC/rm -rf $SNAP
-      $EXEC/chown -R 0:0 $ARCHIV
-      $EXEC/chmod -R 700 $ARCHIV
-      $EXEC/ln -sf /nix/persist/archiv/logs /var/syslog-ng/ || true
-    '';
-    shellAliases = {
-      "console" = ''sudo tail --lines 1000 -f /var/syslog-ng/console.txt | bat -f -l syslog --paging never'';
-      "console.err" = ''sudo tail --lines 1000 -f /var/syslog-ng/console-err.txt | bat -f -l syslog --paging never'';
-      "console.crit" = ''sudo tail --lines 1000 -f /var/syslog-ng/console-crit.txt | bat -f -l syslog --paging never'';
-      "console.hostwatch" = ''sudo tail --lines 1000 -f /var/syslog-ng/console-hostwatch.txt | bat -f -l syslog --paging never'';
-      "console.new-station" = ''sudo tail --lines 1000 -f /var/syslog-ng/console-newstation.txt | bat -f -l syslog --paging never'';
-    };
-  };
 }
-# destination d_mail_uni { smtp(host("10.20.6.102") port(25) from("it@debitor.de" "it@debitor.de") to("it@debitor.de" "it@debitor.de") subject("[ALERT] NEW UNIFI Honeypot Tripwire-Trigger") body("$\{MSG\}\n")); };
-

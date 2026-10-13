@@ -59,9 +59,19 @@
             PAGER = "bat";
             EDITOR = "vim";
             STARSHIP_LOG = "error";
-            OPENAPI_DESC_URL = "http://10.20.6.244:11434/v1";
-            OPENAPI_DESC_MODEL = "gpt-oss-120b-MXFP4-Q8";
-            OPENAPI_DESC_TOKEN = infra.ai.token;
+            # ai classic / compatible
+            OPENAPI_URL = "http://10.20.6.244:11434/v1";
+            OPENAPI_MODEL = "gpt-oss-120b-MXFP4-Q8";
+            OPENAPI_TOKEN = infra.ai.token;
+            # ai jev / decision
+            OPENAPI_JEV_URL = infra.ai.worker.one;
+            OPENAPI_JEV_TOKEN = infra.ai.token;
+            OPENAPI_JEV_MODEL = "fishaudio-s2-pro-8bit-mlx";
+            # ai speech generation
+            OPENAPI_SPEECH_URL = infra.ai.worker.one;
+            OPENAPI_SPEECH_TOKEN = infra.ai.token;
+            OPENAPI_SPEECH_MODEL = "fishaudio-s2-pro-8bit-mlx";
+            # OMC
             OMC_SIGN_KEY_PATH = "~/.ssh/agent";
             OMC_PUSH_KEY_PATH = "~/.ssh/id_ed25519_sk_adm";
             OMC_NAME = "PAECPKE, Michael";
