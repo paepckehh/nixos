@@ -62,6 +62,38 @@
           {networking.hostName = "internet";}
         ];
       };
+      ##################
+      # ISO LIVE IMAGE #
+      ##################
+      client = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit self inputs;};
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./storage/base.nix
+          ./user/desktop/me.nix
+          ./packages/base.nix
+          ./packages/desktop/gnome.nix
+          {networking.hostName = "client";}
+        ];
+      };
+      iso = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs.targetSystem = self.nixosConfigurations."client";
+        modules = [
+          ./storage/iso-live.nix
+        ];
+      };
+      iso-installer = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs.targetSystem = self.nixosConfigurations."nixos-luks";
+        modules = [
+          disko.nixosModules.disko
+          ./storage/basic.nix
+          ./storage/iso-autoinstaller.nix
+        ];
+      };
       ##########
       # SERVER #
       ##########
@@ -271,38 +303,6 @@
           # ./server/dns/unbound.nix
           # ./server/soc/netalertx.nix
           # ./server/soc/wazuh.nix
-        ];
-      };
-      ##################
-      # ISO LIVE IMAGE #
-      ##################
-      client = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit self inputs;};
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./storage/base.nix
-          ./user/desktop/me.nix
-          ./packages/base.nix
-          ./packages/desktop/gnome.nix
-          {networking.hostName = "client";}
-        ];
-      };
-      iso = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs.targetSystem = self.nixosConfigurations."client";
-        modules = [
-          ./storage/iso-live.nix
-        ];
-      };
-      iso-installer = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs.targetSystem = self.nixosConfigurations."nixos-luks";
-        modules = [
-          disko.nixosModules.disko
-          ./storage/basic.nix
-          ./storage/iso-autoinstaller.nix
         ];
       };
     };

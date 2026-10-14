@@ -17,7 +17,6 @@
     ../client/addWireguard.nix
     ../client/addOpenSnitch-addDev.nix
     ../packages/devops.nix
-    ../user/mp.nix
   ];
   ##############
   #-=# BOOT #=-#

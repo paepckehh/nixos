@@ -43,9 +43,6 @@
   ##############
   users = {
     users = {
-      me = {
-        extraGroups = ["docker" "libvirtd"];
-      };
       backup = {
         uid = infra.backup.uid;
         isNormalUser = true;
@@ -112,49 +109,10 @@
     };
   };
 
-  ########################
-  #-=# VIRTUALISATION #=-#
-  ########################
-  virtualisation = {
-    oci-containers.backend = "docker";
-    docker = {
-      daemon.settings = {
-        experimental = true;
-        dns = [infra.dns.resolver.user.primary infra.dns.resolver.user.secondary];
-        log-driver = "journald";
-        storage-driver = "overlay2";
-        # default-address-pools = [
-        #  {
-        #    base = infra.cidr.container;
-        #    size = infra.cidr.netmask;
-        #  }
-        # ];
-      };
-      rootless = {
-        enable = true;
-        setSocketVariable = true;
-      };
-    };
-  };
-
   ##################
   #-=# SERVICES #=-#
   ##################
   services = {
-    cockpit = {
-      enable = lib.mkDefault false;
-      plugins = [
-        pkgs.cockpit-files
-        pkgs.cockpit-zfs
-      ];
-      port = infra.port.cockpit;
-      settings = {
-        WebService = {
-          AllowUnencrypted = false;
-          LoginTo = false;
-        };
-      };
-    };
     caddy = {
       enable = lib.mkDefault false;
       logFormat = lib.mkForce "level INFO";

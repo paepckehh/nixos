@@ -19,7 +19,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment.systemPackages = with pkgs; [
-    krita
+    # krita
     libreoffice
     hunspell
     hyphenDicts.en_US
@@ -93,12 +93,11 @@
           ];
           favorite-apps = [
             "com.mitchellh.ghostty.desktop"
-            "Alacritty.desktop"
             "firefox.desktop"
             "librewolf.desktop"
             "org.keepassxc.KeePassXC.desktop"
             "org.gnome.Nautilus.desktop"
-            "onlyoffice-desktopeditors.desktop"
+            "org.gnome.Calendar.desktop"
             "com.yubico.yubioath.desktop"
             "org.remmina.Remmina.desktop"
           ];
@@ -231,10 +230,6 @@
     services = {
       remmina.enable = true;
       network-manager-applet.enable = true;
-      nextcloud-client = {
-        enable = false;
-        startInBackground = false;
-      };
     };
   };
 }
