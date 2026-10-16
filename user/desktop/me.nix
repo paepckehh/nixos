@@ -95,7 +95,6 @@
             "com.mitchellh.ghostty.desktop"
             "firefox.desktop"
             "librewolf.desktop"
-            "org.keepassxc.KeePassXC.desktop"
             "org.gnome.Nautilus.desktop"
             "org.gnome.Calendar.desktop"
             "com.yubico.yubioath.desktop"
@@ -112,7 +111,6 @@
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
-            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
           ];
         };
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -130,11 +128,6 @@
           command = "librewolf";
           binding = "<Super>b";
         };
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
-          name = "[k]eepassxc passwordmanager";
-          command = "keepassxc";
-          binding = "<Super>k";
-        };
         "org/gnome/desktop/interface" = {
           clock-show-weekday = true;
         };
@@ -144,15 +137,6 @@
       };
     };
     programs = {
-      onlyoffice = {
-        enable = false;
-        settings = {
-          editorWindowMode = "false";
-          locale = infra.locale.lang;
-          maximized = true;
-          titlebar = "Start";
-        };
-      };
       ghostty = {
         enable = true;
         installBatSyntax = true;

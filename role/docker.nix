@@ -17,6 +17,7 @@
   virtualisation = {
     oci-containers.backend = "docker";
     docker = {
+      enable = true;
       daemon.settings = {
         experimental = true;
         dns = [infra.dns.resolver.user.primary infra.dns.resolver.user.secondary];

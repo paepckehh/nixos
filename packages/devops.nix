@@ -12,7 +12,6 @@
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    iotop.enable = true;
     usbtop.enable = true;
   };
 

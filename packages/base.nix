@@ -74,12 +74,12 @@ in {
       fastfetch
       fd
       fzf
+      ghostty
       grc
       gnumake
       inetutils
       igrep
       jq
-      kittysay
       kmon
       libsmbios
       lsof
@@ -101,6 +101,8 @@ in {
       smartmontools
       tldr
       tree
+      tuios
+      tmux
       tz
       unzip
       yq

@@ -7,9 +7,6 @@
 # ai
 - https://github.com/ItzCrazyKns/Perplexica
 
-# timesheets
-- ente/timetrack 
-
 # finance
 - wallos:docker
 
@@ -31,7 +28,7 @@
 - https://dwd.api.bund.dev
 
 # pdf
-- fancy-cat: kitty
+- fancy-cat 
 
 # sip
 - https://stuebinm.eu/posts/local-asterisk-nix-deployment.html

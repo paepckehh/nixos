@@ -22,7 +22,7 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    variables.GIO_USE_NETWORK_MONITOR = "base";
+    variables.GIO_USE_NETWORK_MONITOR = "base"; # fake online
     systemPackages = with pkgs; [
       gnome-decoder
       gnome-firmware
@@ -47,7 +47,7 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    # gvfs.enable = true;
+    # gvfs.enable = lib.mkForce false;
     orca.enable = lib.mkForce false;
     gnome = {
       core-os-services.enable = true;

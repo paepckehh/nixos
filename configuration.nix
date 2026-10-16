@@ -247,7 +247,23 @@
   #####################
   environment = {
     shells = [pkgs.bashInteractive];
-    systemPackages = with pkgs; [cryptsetup git libargon2 libsmbios util-linux lsof ghostty moreutils nix-output-monitor nvme-cli openssl rage ragenix pam_u2f smartmontools sbctl];
+    systemPackages = with pkgs; [
+      cryptsetup
+      git
+      libargon2
+      libsmbios
+      util-linux
+      lsof
+      moreutils
+      nix-output-monitor
+      nvme-cli
+      openssl
+      rage
+      ragenix
+      pam_u2f
+      smartmontools
+      sbctl
+    ];
     shellAliases = {
       "l" = "ls -la";
       "e" = "vim";

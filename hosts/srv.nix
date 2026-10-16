@@ -13,11 +13,6 @@
     hostId = lib.mkForce infra.srv.hostID;
   };
 
-  ########################
-  #-=# VIRTUALISATION #=-#
-  ########################
-  virtualisation.docker.enable = true;
-
   ##################
   #-=# SERVICES #=-#
   ##################

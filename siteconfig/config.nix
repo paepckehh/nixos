@@ -602,7 +602,6 @@ let
         };
         NetworkPrediction = false;
         NewTabPage = false;
-        NoDefaultBookmarks = false;
         OfferToSaveLogins = false;
         OfferToSaveLoginsDefault = false;
         OverrideFirstRunPage = "";
@@ -669,8 +668,6 @@ let
         "browser.ai.control.smartTabGroups" = "blocked";
         "browser.ai.control.smartWindow" = "blocked";
         "browser.aboutConfig.showWarning" = false;
-        "browser.bookmarks.restore_default_bookmarks" = true;
-        "browser.bookmarks.showMobileBookmarks" = true;
         "browser.cache.disk.enable" = false;
         "browser.cache.disk_cache_ssl" = false;
         "browser.compactmode.show" = true;
@@ -1053,14 +1050,24 @@ let
       name = "zdash";
       localbind.port.http = infra.localhost.port.offset + infra.zdash.id;
     };
-    go-mod-proxy = {
-      id = 35;
-      name = "go-mod-proxy";
-      hostname = infra.go-mod-proxy.name;
+    go-mod-proxy01 = {
+      id = 40;
+      name = "go-mod-proxy01";
+      hostname = infra.go-mod-proxy01.name;
       domain = infra.domain.user;
-      fqdn = "${infra.go-mod-proxy.hostname}.${infra.go-mod-proxy.domain}";
-      ip = "${infra.net.user}.${toString infra.go-mod-proxy.id}";
-      url = "https://${infra.go-mod-proxy.fqdn}";
+      fqdn = "${infra.go-mod-proxy01.hostname}.${infra.go-mod-proxy01.domain}";
+      ip = "${infra.net.user}.${toString infra.go-mod-proxy01.id}";
+      url = "https://${infra.go-mod-proxy01.fqdn}";
+      logo = "${infra.res.url}/icon/png/golang.png";
+    };
+    go-mod-proxy02 = {
+      id = 41;
+      name = "go-mod-proxy02";
+      hostname = infra.go-mod-proxy02.name;
+      domain = infra.domain.user;
+      fqdn = "${infra.go-mod-proxy02.hostname}.${infra.go-mod-proxy02.domain}";
+      ip = "${infra.net.user}.${toString infra.go-mod-proxy02.id}";
+      url = "https://${infra.go-mod-proxy02.fqdn}";
       logo = "${infra.res.url}/icon/png/golang.png";
     };
     dns = {

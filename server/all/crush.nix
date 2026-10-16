@@ -70,8 +70,9 @@ in {
       #-=# ENVIRONMENT #=-#
       #####################
       environment = {
-        systemPackages = [pkgs.cifs-utils];
-        interactiveShellInit = "TERM=xterm-256color /run/current-system/sw/bin/tmux attach-session -t ssh_tmux || TERM=xterm-256color /run/current-system/sw/bin/tmux new-session -s ssh_tmux";
+        systemPackages = with pkgs; [cifs-utils ghostty tuios];
+        interactiveShellInit = "TERM=xterm-ghostty /run/current-system/sw/bin/tmux attach-session -t ssh_tmux || TERM=xterm-ghostty /run/current-system/sw/bin/tmux new-session -s ssh_tmux";
+        # interactiveShellInit = "TERM=xterm-256color /run/current-system/sw/bin/tmux attach-session -t ssh_tmux || TERM=xterm-256color /run/current-system/sw/bin/tmux new-session -s ssh_tmux";
         shells = [pkgs.bashInteractive];
         shellAliases = infra.shell.alias;
         variables = infra.go.env;
