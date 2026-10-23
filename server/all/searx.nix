@@ -1,63 +1,18 @@
-# SEARCH => SEARX, use https://${infra.dns.fqdn/search?q=%s  or https://${infra.dns.fqdn/search?q=<searchterm>
 {
-  config,
-  pkgs,
   lib,
+  infra,
   ...
-}: let
-  ############################
-  #-=# GLOBAL SITE IMPORT #=-#
-  ############################
-  infra = (import ../../siteconfig/config.nix).infra;
-in {
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking.extraHosts = "${infra.search.ip} ${infra.search.hostname} ${infra.search.fqdn}";
-
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd = {
-    network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.search.ip}/32";}];
-    services = {
-      searx-init = {
-        after = ["sockets.target"];
-        wants = ["sockets.target"];
-        wantedBy = ["multi-user.target"];
-      };
-      searx = {
-        after = ["network-online.target"];
-        wants = ["network-online.target"];
-        wantedBy = ["multi-user.target"];
-      };
-    };
-  };
-
-  ###############
-  #-=# USERS #=-#
-  ###############
-  users = {
-    groups.searx = {};
-    users = {
-      searx = {
-        group = "searx";
-        isSystemUser = true;
-        hashedPassword = null; # disable ldap service account interactive logon
-        openssh.authorizedKeys.keys = ["ssh-ed25519 AAA-#locked#-"]; # lock-down ssh authentication
-      };
-    };
-  };
-
-  ##################
-  #-=# SERVICES #=-#
-  ##################
-  services = {
-    caddy.virtualHosts."${infra.search.fqdn}" = {
-      listenAddresses = [infra.search.ip];
-      extraConfig = ''import intraproxy ${toString infra.search.localbind.port.http}'';
-    };
-    searx = {
+}:
+lib.mkMerge [
+  (import ../../lib/proxy.nix {
+    inherit infra;
+    name = "searx";
+  })
+  {
+    ##################
+    #-=# SERVICES #=-#
+    ##################
+    services.searx = {
       enable = true;
       redisCreateLocally = false; # bot protection
       configureUwsgi = false;
@@ -93,5 +48,5 @@ in {
         };
       };
     };
-  };
-}
+  }
+]

@@ -9,6 +9,7 @@
   # NETWORKING #
   ##############
   networking = {
+    extraHosts = "${infra.srv.user.ip} ${infra.srv.hostname} ${infra.srv.user.fqdn}";
     hostName = lib.mkForce infra.srv.name;
     hostId = lib.mkForce infra.srv.hostID;
   };
@@ -17,7 +18,6 @@
   #-=# SERVICES #=-#
   ##################
   services = {
-    cockpit.enable = lib.mkForce infra.srv.cockpit;
     caddy.enable = lib.mkForce infra.srv.reverseproxy;
     openssh = {
       enable = lib.mkForce infra.srv.sshd;

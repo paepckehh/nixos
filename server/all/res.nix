@@ -1,32 +1,17 @@
-# res.nix => caddy resources (portal images, certs, ...)
 {
-  config,
-  pkgs,
   lib,
   infra,
   ...
 }: {
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking.extraHosts = "${infra.res.ip} ${infra.res.hostname} ${infra.res.fqdn}.";
-
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.res.ip}/32";}];
-
-  ##################
-  #-=# SERVICES #=-#
-  ##################
-  services = {
-    caddy.virtualHosts."${infra.res.fqdn}" = {
-      listenAddresses = [infra.res.ip];
-      extraConfig = ''
+  imports = [
+    (import ../../lib/proxy.nix {
+      inherit infra;
+      name = "res";
+      caddy = ''
         import intra
         root * /var/lib/caddy/res
         file_server browse
       '';
-    };
-  };
+    })
+  ];
 }

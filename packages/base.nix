@@ -75,6 +75,7 @@ in {
       fd
       fzf
       ghostty
+      gping
       grc
       gnumake
       inetutils
