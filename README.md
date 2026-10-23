@@ -20,6 +20,7 @@ down to the last byte.
 [![Stateless](https://img.shields.io/badge/root-tmpfs-0d9488)](https://github.com/paepckehh/nixos/tree/main/storage)
 [![Secrets](https://img.shields.io/badge/secrets-51%20sealed-7c3aed)](https://github.com/paepckehh/nixos/tree/main/modules/resources)
 [![Commits](https://img.shields.io/badge/commits-3.6k%2B-f59e0b)](https://github.com/paepckehh/nixos/commits/main)
+[![License](https://img.shields.io/badge/license-MIT-0d9488)](LICENSE)
 
 `TARGET=srv make switch`
 
@@ -232,16 +233,22 @@ Found a vulnerability or a leaked secret? Report it privately to the maintainer,
 
 ## ⚖️ License
 
-**Internal. All rights reserved.**
+**MIT.** See [LICENSE](LICENSE).
 
-No `LICENSE` file is present in this repository, so no open-source license is
-granted. This configuration describes a private fleet and carries
-infrastructure-specific addresses, identities and encrypted material. Take
-inspiration from the patterns; do not redistribute the repository, its secrets,
-or its site values without written permission.
+Copyright (c) 2024-2026 Michael Paepcke.
 
-If this repository is ever opened up, add a `LICENSE` at the root and update
-this section in the same change.
+You may use, copy, modify, merge, publish, distribute, sublicense and sell
+copies of this repository, provided the copyright notice and permission notice
+are included. The software is provided "as is", without warranty of any kind.
+
+Scope notes:
+
+- The license covers the code, configuration and documentation in this repository.
+- Encrypted secrets (`.age`) remain useless without their keys and are not
+  intended for reuse. Do not deploy anyone else's site values.
+- Third-party components, trademarks and brand assets keep their own terms.
+
+If you build on this fleet, keep the notice and consider linking back.
 
 ## 📖 Citation
 
