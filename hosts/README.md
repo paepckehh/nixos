@@ -1,80 +1,83 @@
-# 🏠 Hosts — Per-Machine NixOS Configurations
+<div align="center">
 
-> The top-level declarations that stack every module together for each physical server.
+# 🖥️ Hosts
+
+**The last stacking layer: identity, network addresses, and host-specific switches.**
+
+[![Targets](https://img.shields.io/badge/server%20hosts-2-5277C3)](../flake.nix)
+[![Pattern](https://img.shields.io/badge/stack%20hardware%20→%20role%20→%20host-0891b2)](../README.md)
+
+`TARGET=srv make switch`
+
+</div>
 
 ---
 
-## 🗂️ What's In Here
-
-Each file is a **complete NixOS configuration for one physical server**. They're the final stacking layer that glues together hardware modules, storage layouts, server services, and host-specific overrides.
+## 🗂️ What's in here
 
 | File | Purpose |
 |---|---|
-| `srv.nix` | **Primary server** — full production build with admins, services, stateless+LUKS storage |
-| `srv2.nix` | **Secondary server** — alternate storage layout, devops services, GNOME desktop |
+| `srv.nix` | Primary server identity: hostname, host ID, SSH listen address, Caddy and service switches. Receives `infra` via `specialArgs`. |
+| `srv2.nix` | Secondary server identity. Imports `role/server.nix` and reads `infra` from the module args. |
 
-### Archived
+Other targets (`kiosk`, `internet`, `client`, `iso`, `iso-installer`,
+`srv-full`) are assembled directly in [`flake.nix`](../flake.nix) and have no
+file in this directory.
 
-| Directory | Contents |
-|---|---|
-| `.attic/` | Previous versions & decommissioned host configs |
+## 🚀 How a host is assembled
 
----
-
-## 🚀 How Hosts Work
-
-Each host file follows a **modular stacking pattern**:
+A host file is not a full system. It is the final override layer on top of
+hardware, storage, roles, packages and modules:
 
 ```nix
-{ config, pkgs, infra, ... }: {
-  imports = [
-    # Hardware
-    ../hardware/all.nix
-    ../hardware/amd.nix
+{ config, pkgs, lib, infra, ... }: {
+  networking = {
+    hostName = lib.mkForce infra.srv.name;
+    hostId = lib.mkForce infra.srv.hostID;
+    extraHosts = "${infra.srv.user.ip} ${infra.srv.hostname} ${infra.srv.user.fqdn}";
+  };
 
-    # Storage
-    ../storage/zfs.nix
-
-    # Services
-    ../server/dns/bind.nix
-    ../server/mail/maddy-admin.nix
-    ../server/monitoring/prometheus.nix
-
-    # Roles & users
-    ../role/adm.nix
-    ../person/mpaepcke.nix
-  ];
-
-  # Host-specific overrides
-  networking.hostName = "srv";
-  networking.interfaces.eno1.ipv4.addresses = [ ... ];
+  services = {
+    caddy.enable = lib.mkForce infra.srv.reverseproxy;
+    openssh = {
+      enable = lib.mkForce infra.srv.sshd;
+      listenAddresses = lib.mkForce [{
+        addr = infra.srv.admin.ip;
+        port = infra.port.ssh-mgmt;
+      }];
+    };
+  };
 }
 ```
 
-**Key files it depends on:**
+Every value comes from [`siteconfig/config.nix`](../siteconfig/config.nix).
+`lib.mkForce` is intentional: hosts must win over role defaults.
 
-| Dependency | Role |
-|---|---|
-| `../siteconfig/config.nix` | Centralized infrastructure config (IDs, domains, network) |
-| `../hardware/*.nix` | CPU/GPU/firmware settings |
-| `../storage/*.nix` | Disk layout, partitions, ZFS pools |
-| `../server/**/*.nix` | Service modules |
-| `../role/*.nix` | Admin/server role definitions |
-| `../person/*.nix` | Per-user configurations |
+### Stack order
 
----
-
-## 🔧 Build Targets
-
-```bash
-# Build & deploy to srv
-TARGET=srv make boot
-
-# Rollback if something breaks
-make rollback
+```text
+configuration.nix  →  storage  →  hardware  →  role  →  host  →  services
 ```
 
+`role/server.nix` sets the agenix identity path and the baseline hardening.
+`hosts/srv.nix` is the only host that currently receives `infra` via
+`specialArgs`; the other targets import it directly instead.
+
+## 🔧 Build
+
+```bash
+TARGET=srv make boot       # build and install a boot entry
+TARGET=srv make switch     # build and activate now
+make rollback              # previous generation
+```
+
+## ⚠️ Known state
+
+`srv2` and `srv-full` reference files that do not exist today
+(`packages/devops-core.nix`, `storage/stateless-luks-partlabel.nix`). They fail
+evaluation until those are added. Prefer fixing the target you were asked about
+over mass-repairing the flake.
+
 ---
 
-*For service definitions → [Server](../server/)*
-*For site config → [Siteconfig](../siteconfig/)*
+<p align="right"><sub><a href="../README.md">← main README</a> · <a href="../role/README.md">role</a> · <a href="../siteconfig/README.md">siteconfig</a></sub></p>

@@ -1,169 +1,128 @@
+<div align="center">
+
 # 💾 Backup & Restore
 
-> Your data's safety net — auto-powered by rsync, ZFS snapshots, and two redundant backup servers (ops4 + ops5).
+**rsync from a read-only view of `/var/lib`, routed daily to one of two ZFS backup servers.**
+
+[![Engine](https://img.shields.io/badge/engine-rsync%20%2B%20rrsync-5277C3)](../storage/backup.nix)
+[![Schedule](https://img.shields.io/badge/schedule-daily%2023%3A15-0891b2)](../storage/backup.nix)
+[![Targets](https://img.shields.io/badge/targets-ops4%20%2B%20ops5-0d9488)](./ZFS.md)
+
+`systemctl start rsync-backup.service`
+
+</div>
 
 ---
 
-## 🚀 Quick Overview
+## 🚀 What the service does
 
-| Feature | Details |
+`storage/backup.nix` defines `rsync-backup.service` and `rsync-backup-timer`.
+The script lives inline as `/etc/scripts/rsync-backup.sh`.
+
+| Property | Value |
 |---|---|
-| **Backup Engine** | `rsync` + `rrsync` (restricted, chroot-style) |
-| **Schedule** | Daily at **23:15** via systemd timer |
-| **Source** | `/mnt/ro/var/lib` (read-only bind mount of `/nix/persist/var`) |
-| **Targets** | `backup@ops4` (backup.one) and `backup@ops5` (backup.two) |
-| **SSH Port** | `6623` |
-| **ZFS Snapshots** | Daily 22:15 on backup hosts — 7 days / 4 weeks / 4 months retention |
-| **Containers Backed Up** | All `nixos-container` instances (e.g., nextcloud, paperless, …) |
-| **Databases Backed Up** | `postgresql`, `mysql` (stopped during backup for consistency) |
-| **ACL Preservation** | Full recursive ACLs backed up via `getfacl` → `/var/lib/.acl-map` |
+| Engine | `rsync -a --checksum --delete --stats` over SSH |
+| Schedule | Daily at `23:15` (`Persistent = false`) |
+| Source | `/mnt/ro/var/lib`, a read-only bind mount of `/nix/persist/var` |
+| Targets | `backup@ops4` or `backup@ops5`, port `6623` |
+| Containers | Every `nixos-container` listed, stopped, copied, restarted |
+| SSH key | `/nix/persist/home/backup/.ssh/id_ed25519` |
+| Lock | `/var/run/backup/global.up` |
+| Logs | `/var/lib/.last-backup.{startup,finish,finish-without-action}.*` |
 
----
+## ⚙️ Routing
 
-## ⚙️ How It Works (Under the Hood)
+The script derives a key from the first letter of the weekday and routes by
+host name:
 
-### Architecture
-
-```
-┌──────────────┐    rsync + SSH (6623)     ┌──────────────┐
-│   ops / ops2 │ ──────────────────────►   │  ops4 ─┐     │
-│   ops3/4/5   │  (backup@ ops4 or ops5)   │              │
-└──────────────┘                           │ ZFS snaps    │
-                                           │ 7d/4w/4m     │
-                                     ┌─────┘          ◄───┘
-                                     │
-                                     │
-                                ┌──────────┐
-                                │  Backup   │
-                                │  Hosts    │
-                                └──────────┘
-```
-
-### The Backup Script (`rsync-backup.sh`)
-
-1. 🚫 **Root check** — exits immediately if not run as root
-2. 🔒 **Locking** — creates `/var/run/backup/global.lock` (exits if lock exists; no concurrent overlap)
-3. 🧹 **Cleanup** — removes any leftover temp files from previous runs
-4. 📅 **Day-based routing** — determines which backup host to send data to based on hostname + weekday:
-
-| Host | Mon / Wed / Fri | Tue / Thu / Sat / Sun |
+| Host | Key | Target |
 |---|---|---|
-| `ops*` | `backup@ops4` | `backup@ops5` |
-| `ops2*` | `backup@ops4` | `backup@ops5` |
-| `*` (any other, `S` day) | ❌ no backup | ❌ no backup |
+| `ops` | `S` (Sunday) | no backup |
+| `ops` | `T` (Tuesday) | `backup@ops5` |
+| `ops` | any other | `backup@ops4` |
+| `ops2` | `T` (Tuesday) | `backup@ops4` |
+| `ops2` | any other | `backup@ops5` |
+| anything else | any | no backup |
 
-5. 📋 **ACL snapshot** — runs `getfacl --recursive` on `/var/lib` and saves to `.acl-map`
-6. 💾 **Main backup** — rsyncs `/mnt/ro/var/lib` to target with `--checksum --delete --numeric-ids`
-7. 🐳 **Container backup** — iterates all running `nixos-container` instances, stops each, backs up, then restarts
-8. 🗄️ **Database backup** — stops `postgresql` / `mysql` (if present), backs up, starts back up
-9. 🔄 **Three `sync` calls** — flush all write caches to disk before exit
+So `ops` alternates between the two targets across the week, and `ops2` uses
+the opposite target on the same day. Other host names are skipped explicitly.
 
-### Systemd Timer
-
-```nix
-timerConfig = {
-  OnCalendar = "*-*-* 23:15:00";
-  Persistent = false;       # won't catch up missed runs
-  Unit = "rsync-backup.service";
-};
-```
-
----
-
-## 👤 Users & Access
-
-### `backup` user
-- **UID**: from `infra.backup.uid`
-- **Password**: disabled (`hashedPassword = "$y$j9T$--fail--"`)
-- **SSH**: restricted to `rrsync /mnt/tank/backup/` — can **only push** backups there, no reads
-- **Key**: loaded from `/nix/persist/home/backup/.ssh/id_ed25519`
-
-### `samba` user
-- **UID**: from `infra.samba.uid`
-- **SSH key**: locked (`***locked**`) — placeholder for future use
-
-### Filesystem
-- `/mnt/ro/var` → read-only bind mount of `/nix/persist/var` (with `noexec`, `nosuid`, `nodev`)
-- Ensures backups are taken from a **consistent, unmodified** view of `/var/lib`
-
----
-
-## 🔄 Restore Guide
-
-### Restore a Full Server (ops1 / ops2)
+## 🚀 Run it now
 
 ```bash
-# 1. Connect new NVME via USB as /dev/sda on your admin PC → move to server → boot
-cd /etc/nixos && TARGET=ops[1|2] make sda   # assemble & restart
+sudo systemctl start rsync-backup.service
+systemctl status rsync-backup.service
+journalctl -u rsync-backup.service --since today
+ls -l /var/lib/.last-backup.*
+```
 
-# 2. Restore lib from backup (ops4/ops5)
-cd && make ssh.ops[1|2]
-sudo ssh -p 6623 me@ops[4|5] 'tar -C /mnt/tank/backup/[optional:.zfs/@snapshot]/ops[1|2] -cf - lib' | tar -C /var/lib -xvf -
+The service is `oneshot`; it returns when the rsync run finishes.
 
-# 3. Restore ACLs & reboot
-sudo setfacl --restore=/var/lib/.acl-map
+## 🔄 Restore
+
+### Full server
+
+```bash
+# 1. Provision the machine from the storage Makefile
+cd /etc/nixos
+TARGET=ops1 make sda
+
+# 2. Pull lib back from a backup host
+sudo ssh -p 6623 me@ops4 \
+  'tar -C /mnt/tank/backup/ops1 -cf - lib' \
+  | sudo tar -C /var/lib -xvf -
+
+# 3. Reboot
 sudo reboot
 ```
 
-### Restore ops3 / ops4 / ops5
+Add a snapshot path (for example `.../ops1/.zfs/snapshot/<name>`) to restore an
+older point in time.
+
+### Single container
 
 ```bash
-cd /etc/nixos && TARGET=ops[3|4|5] make sda   # assemble & restart
-# (data lives on ZFS storage — see [ZFS.md](./ZFS.md))
-```
-
-### Restore a Single Container (e.g., nextcloud)
-
-```bash
-make ssh.ops2
 sudo nixos-container stop nextcloud
-sudo mv -f /var/lib/container/nextcloud /var/lib/container/nextcloud.$(date '+%Y-%m-%dT%H:%M:%S')
+sudo mv -f /var/lib/nixos-containers/nextcloud \
+  /var/lib/nixos-containers/nextcloud.$(date '+%Y-%m-%dT%H:%M:%S')
 
-sudo ssh -p 6623 me@ops[4|5] \
-  'tar -C /mnt/tank/backup/ops2/lib/nixos-container/.zfs/@<snapshot> -cf - nextcloud' \
-  | tar -C /var/lib/nixos-container -xvf -
+sudo ssh -p 6623 me@ops4 \
+  'tar -C /mnt/tank/backup/ops1/lib/nixos-containers -cf - nextcloud' \
+  | sudo tar -C /var/lib/nixos-containers -xvf -
 
 sudo nixos-container start nextcloud
 ```
 
-> 🔍 Always verify file ownership against `/var/lib/.acl-map` before rebooting!
+## 👤 Access model
 
----
+| User | Purpose |
+|---|---|
+| `backup` | rsync receiver. SSH key is restricted with `rrsync /mnt/tank/backup/`; it can write there and cannot read elsewhere. |
+| `samba` | SMB share owner. SSH key is a locked placeholder. |
 
-## 📊 Backup Schedule Matrix
-
-| Machine | Monday | Wednesday | Friday | Tuesday | Thursday | Weekend |
-|---|---|---|---|---|---|---|
-| **ops** (ops4 route) | ✅ ops4 | ✅ ops4 | ✅ ops4 | ❌ | ❌ | ❌ |
-| **ops2** (ops4 route) | ✅ ops4 | ✅ ops4 | ✅ ops4 | ❌ | ❌ | ❌ |
-| **ops** (ops5 route) | ❌ | ❌ | ❌ | ✅ ops5 | ✅ ops5 | ❌ |
-| **ops2** (ops5 route) | ❌ | ❌ | ❌ | ✅ ops5 | ✅ ops5 | ❌ |
-
----
+The backup source is mounted read-only (`ro`, `noexec`, `nosuid`, `nodev`) so a
+compromised backup job cannot modify live state.
 
 ## 🛠️ Troubleshooting
 
-| Problem | Fix |
-|---|---|
-| Lockfile prevents backup | `rm -f /var/run/backup/global.lock` |
-| SSH key missing | Check `/nix/persist/home/backup/.ssh/id_ed25519` exists |
-| Backup runs but nothing transferred | See `.last-backup.run-without-action.*` log files |
-| Permission errors on restored files | `sudo setfacl --restore=/var/lib/.acl-map` |
-| Container won't start after restore | Check containers with `sudo nixos-container list` and verify ACLs |
+| Problem | Check | Fix |
+|---|---|---|
+| Script exits immediately | `EUID` | Run through the systemd service or as root |
+| `global lock, exit` | `/var/run/backup/global.up` | Wait for the running job or remove a stale lock |
+| SSH key missing | `/nix/persist/home/backup/.ssh/id_ed25519` | Restore the key from persist |
+| Nothing transferred | `/var/lib/.last-backup.finish-without-action.*` | The host or weekday is not routed |
+| Container copy fails | `nixos-container list` | Check the container name and that it stops cleanly |
 
----
-
-## 📁 Key Files & Paths
+## 📁 Key paths
 
 | Path | Purpose |
 |---|---|
-| `/etc/scripts/rsync-backup.sh` | Main backup orchestration script |
-| `/var/run/backup/` | Runtime lock & temp files |
-| `/var/lib/.acl-map` | Saved ACL map for restore |
-| `/var/lib/.last-backup.*` | Timestamped logs (start / finish / noop) |
-| `/mnt/ro/var/lib` | Read-only view of backing-store for consistent backups |
-| `/nix/persist/home/backup/.ssh/` | SSH key for backup destination auth |
+| `/etc/scripts/rsync-backup.sh` | Generated script from `backup.nix` |
+| `/mnt/ro/var/lib` | Read-only backed-up view |
+| `/var/run/backup/` | Lock directory |
+| `/var/lib/.last-backup.*` | Run markers |
+| `/mnt/tank/backup/<host>` | Receive target on ops4/ops5 |
 
 ---
 
-> ⚡ *Powered by rsync + ZFS + systemd — all fully automatic. Just monitor and restore when needed.*
+<p align="right"><sub><a href="../README.md">← main README</a> · <a href="./ZFS.md">ZFS</a> · <a href="./README.md">storage</a></sub></p>

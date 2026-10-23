@@ -1,87 +1,63 @@
-# 👤 Person — Per-User NixOS Configurations
+<div align="center">
 
-> Personalized desktop environments, user-level dotfiles, security keys, and per-person infrastructure access.
+# 👤 Person
 
----
+**Per-person NixOS identity: Home Manager, shell, smartcard SSH keys.**
 
-## 🗂️ What's In Here
+[![Users](https://img.shields.io/badge/people-mpaepcke-5277C3)](./mpaepcke.nix)
+[![Smartcard](https://img.shields.io/badge/SSH-ed25519--sk-7c3aed)](./resources/smartcard/mpaepcke/.ssh)
+[![Home Manager](https://img.shields.io/badge/Home%20Manager-me.nix-0d9488)](../user/me.nix)
 
-User-specific NixOS and Home Manager configurations. Each person gets their own identity: dotfiles, desktop environment, shell config, browser prefs, SSH keys, and infrastructure access.
+`imports = [ ../person/mpaepcke.nix ];`
 
-| File | Purpose |
-|---|---|
-| `mpaepcke.nix` | Full NixOS user profile for mpaepcke — shell, packages, desktop |
-
-### Desktop Configs
-
-| Directory | Contents |
-|---|---|
-| `desktop/mpaepcke.nix` | User-specific desktop overrides (window manager, themes, shortcuts) |
-
-### Archived
-
-| Directory | Contents |
-|---|---|
-| `.attic/` | Legacy user configurations, old LUKS profiles |
-
-### Smartcard Resources
-
-| Directory | Contents |
-|---|---|
-| `resources/smartcard/mpaepcke/.ssh/` | Ed25519-sk SSH keys (YubiKey-backed, FIDO2/U2F) |
-| `resources/smartcard/mpaepcke/.ssh/install.sh` | Script to install smartcard SSH keys to authorized_keys |
+</div>
 
 ---
 
-## 🔐 Smartcard Integration
+## 🗂️ What's in here
 
-The user's YubiKey generates SSH Ed25519-sk keys:
+| Path | Purpose |
+|---|---|
+| `mpaepcke.nix` | Full NixOS person profile: imports `user/me.nix`, sets the user description, SSH authorized keys and Home Manager shell aliases |
+| `desktop/mpaepcke.nix` | Desktop layer: imports the person profile and `user/desktop/me.nix` |
+| `resources/smartcard/mpaepcke/.ssh/id_ed25519_sk` | YubiKey-backed SSH key (FIDO2/U2F) |
+| `resources/smartcard/mpaepcke/.ssh/id_ed25519_sk.pub` | Matching public key |
+| `resources/smartcard/mpaepcke/.ssh/install.sh` | Install key material into the user's home |
+| `.attic/` | Retired person configs |
+
+The NixOS account is `me`; the directory is named after the person. Keep that
+distinction: `users.users.me` in Nix, `person/mpaepcke/` on disk.
+
+## 🔐 Smartcard keys
+
+The key is `sk-ssh-ed25519@openssh.com`. Authentication requires the physical
+YubiKey to be present and touched.
 
 ```bash
-# Deploy smartcard keys for this user
-bash resources/smartcard/mpaepcke/.ssh/install.sh
+sudo bash person/resources/smartcard/mpaepcke/.ssh/install.sh
 ```
 
-These keys appear as `sk-ssh-ed25519@openssh.com` type — you must have the physical YubiKey plugged in to authenticate.
+The script copies the key pair to `/home/me/.ssh`, fixes ownership and sets
+`600`/`644` permissions. It does not add the key to `authorized_keys`; that is
+driven declaratively by `infra.users.mp.openssh.authorizedKeys.keys`.
 
----
-
-## 🎨 Desktop Configuration
-
-User desktop configs follow the Home Manager pattern:
+## 🚀 Use the profile
 
 ```nix
-{ config, pkgs, ... }:
-let
-  infra = (import ../siteconfig/config.nix).infra;
-in {
-  home.username = "mpaepcke";
-  home.homeDirectory = "/home/mpaepcke";
-
-  imports = [
-    ./desktop/mpaepcke.nix
-  ];
-
-  # Package selection
-  home.packages = with pkgs; [
-    # ... dev tools, browsers, editors
-  ];
-
-  # Shell & dotfiles
-  programs.zsh.enable = true;
-  programs.git.enable = true;
-}
+# hosts/srv.nix or a host module list
+./person/desktop/mpaepcke.nix
 ```
 
+The person profile provides identity and user-level config. It does not decide
+which services run; that belongs to the host and the service modules.
+
+## 📐 Rules
+
+- Never commit a private key. The smartcard key is generated on the YubiKey.
+- Keep `install.sh` idempotent and non-destructive.
+- Authorized keys come from `siteconfig/config.nix`, not from this directory.
+- Format with `alejandra`.
+
 ---
 
-## 👥 Known Users
-
-| User | Notes |
-|---|---|
-| `mpaepcke` | Primary user — full desktop + admin infrastructure access |
-
----
-
-*For desktop packages → [Packages/desktop](../packages/desktop/)*
-*For Home Manager configs → [User](../user/)*
+<p align="right"><sub><a href="../README.md">← main README</a> · <a href="../user/README.md">user</a> · <a href="../role/README.md">role</a></sub></p>

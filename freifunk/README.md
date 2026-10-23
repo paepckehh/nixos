@@ -1,49 +1,63 @@
-# Freifunk
-
 <div align="center">
 
-**A community-run, decentralized wireless mesh network for Lübeck**
+# 📶 Freifunk
 
-[![Mesh Map](https://img.shields.io/badge/📍_Mesh_Map-Live-43B02A?style=for-the-badge)](https://map.luebeck.freifunk.net)
-[![Monitoring](https://img.shields.io/badge/📊_Monitoring-Live-43B02A?style=for-the-badge)](https://monitoring.freifunknord.de)
-[![IRC](https://img.shields.io/badge/💬_IRC-hackint%20%23ffhl-43B02A?style=for-the-badge&logo=irc)](irc://irc.hackint.org/#ffhl)
+**A community-run, decentralized wireless mesh network for Lübeck.**
+
+[![Mesh Map](https://img.shields.io/badge/🗺️%20mesh%20map-live-43B02A?logo=openstreetmap&logoColor=white)](https://map.luebeck.freifunk.net)
+[![Monitoring](https://img.shields.io/badge/📊%20monitoring-live-43B02A)](https://monitoring.freifunknord.de)
+[![Chat](https://img.shields.io/badge/💬%20chat-hackint%20%23ffhl-43B02A)](irc://irc.hackint.org/#ffhl)
 
 </div>
 
-## What is Freifunk?
+---
 
-Freifunk is a **citizen-initiated project** to build a community-wide, wireless mesh network using commodity WLAN routers. Volunteers install and operate nodes throughout the city, creating a **free, decentralized, community-run network** that anyone can connect to with a Wi-Fi device.
+## 🌐 What is Freifunk?
 
-> Freifunk operates on the principle of **[network commons](https://wiki.luebeck.freifunk.net)** — voluntary giving and receiving as described in the [Pico Peering Agreement](https://picopeering.org/).
+Freifunk is a citizen-initiated project that builds a community-wide wireless
+mesh network from commodity WLAN routers. Volunteers install and operate nodes
+across the city, creating a free, decentralized network anyone nearby can join.
 
-### How It Works
+> Freifunk follows the principle of the
+> [network commons](https://wiki.luebeck.freifunk.net): voluntary giving and
+> receiving, described by the
+> [Pico Peering Agreement](https://picopeering.org/).
 
-1. 📡 **Install** — A volunteer sets up a Freifunk router at their location
-2. 🌐 **Mesh** — Nodes connect to each other wirelessly, forming an overlay network
-3. 🔓 **Connect** — Anyone nearby can join the network for free
-4. 🌍 **Peer** — Through our [national peering agreement](https://wiki.freifunk.net), we share internet access with other Freifunk communities
+### How it works
 
-## Resources
+1. 📡 **Install** — a volunteer sets up a Freifunk router.
+2. 🌐 **Mesh** — nodes connect to each other wirelessly.
+3. 🔓 **Connect** — anyone nearby can join for free.
+4. 🌍 **Peer** — communities share internet access through a national peering
+   agreement.
+
+## 🔗 Resources
 
 | Resource | Link |
-| --- | --- |
+|---|---|
 | 🌐 National Freifunk | [freifunk.net](https://freifunk.net) · [wiki.freifunk.net](https://wiki.freifunk.net) |
 | 🏘️ Freifunk Lübeck | [luebeck.freifunk.net](https://luebeck.freifunk.net) · [wiki.luebeck.freifunk.net](https://wiki.luebeck.freifunk.net) |
-| 📍 Community Map | [map.luebeck.freifunk.net](https://map.luebeck.freifunk.net) |
-| 📊 Network Monitoring | [monitoring.freifunknord.de](https://monitoring.freifunknord.de) |
+| 🗺️ Community map | [map.luebeck.freifunk.net](https://map.luebeck.freifunk.net) |
+| 📊 Network monitoring | [monitoring.freifunknord.de](https://monitoring.freifunknord.de) |
 
-## Get Involved
+## 🤝 Get involved
 
-- 💬 **Chat:** Join us on [Matrix](https://matrix.to/#/#freifunk-luebeck:matrix.org) or [IRC](irc://irc.hackint.org/#ffhl)
-- 🤝 **Meetups:** Monthly meetups at [Nobreakspace / Chaotikum e.V.](https://chaotikum.de), Lübeck
-- 🛠️ **Contribute:** Help us improve our [NixOS router images](#nixos-images)
+- 💬 **Chat:** [Matrix](https://matrix.to/#/#freifunk-luebeck:matrix.org) or
+  [IRC](irc://irc.hackint.org/#ffhl)
+- 🤝 **Meetups:** monthly at [Nobreakspace / Chaotikum e.V.](https://chaotikum.de),
+  Lübeck
+- 🛠️ **Contribute:** help with the NixOS router images below
 
-## NixOS Images
+## 📦 NixOS images
 
-We provide automated NixOS-based firmware builds for supported router hardware.
+This repository builds automated NixOS-based firmware for supported routers.
 
 ```bash
 curl https://res.<brand>.corp/freifunk/<model>.latest
 ```
 
-📦 **Download images:** [res.home.corp/freifunk](https://res.home.corp/freifunk)
+📦 Download images: [res.home.corp/freifunk](https://res.home.corp/freifunk)
+
+---
+
+<p align="right"><sub><a href="../README.md">← main README</a> · <a href="../openwrt/README.md">openwrt</a> · <a href="../guard/README.md">guard</a></sub></p>

@@ -1,110 +1,99 @@
-# 📦 Packages — Nix Package Collections
+<div align="center">
 
-> Every package set in one place: AI tools, devops, desktop apps, wine runners — organized by use case.
+# 📦 Packages
 
----
+**Package sets by use case: base, devops, desktop, AI, security, wine.**
 
-## 🗂️ What's In Here
+[![Sets](https://img.shields.io/badge/sets-20%2B-5277C3)](../packages)
+[![Desktop](https://img.shields.io/badge/desktop-19%20modules-0891b2)](../packages/desktop)
+[![Nix](https://img.shields.io/badge/plain%20Nix-modules-0d9488)](https://nixos.org)
 
-The **package definition layer** — flake packages that define what software is available to each profile. Organized by category so you can pick and choose what to enable.
+`./packages/base.nix`
 
-### Core Package Sets
-
-| File | Purpose |
-|---|---|
-| `base.nix` | Essential packages — core utilities, CLI tools, shell, text editors |
-| `devops.nix` | Devops toolkit: Go, Docker, NixOS tooling, security scanners |
-| `devops-go.nix` | Go development environment (toolchain, linters, IDE tooling) |
-| `devops-python.nix` | Python ecosystem (venv tools, data science, web frameworks) |
-| `devops-nixos.nix` | NixOS-specific tooling (nixpkgs tools, nix-review, cachix) |
-| `devops-docker.nix` | Docker ecosystem (compose, buildx, registry tools) |
-| `devops-sec.nix` | Security tools (nmap, wireshark, Burp, scanners) |
-| `devops-db.nix` | Database tools (CLI clients, migration tools, ORM wrappers) |
-| `devops-office.nix` | Office automation (PDF tools, document converters) |
-| `devops-html.nix` | HTML/CSS/JS toolchain (bundler, linters, formatters) |
-| `devops-iot.nix` | IoT development (esptool, platformio, MQTT clients) |
-| `devops-lora.nix` | LoRa development stack (meshtastic, semtech SDK) |
-| `devops-net.nix` | Networking tools (tcpdump, scapy, speedtest) |
-| `devops-ldap.nix` | LDAP tooling (OpenLDAP clients, admin tools) |
-| `devops-lora.nix` | LoRa/Meshtastic development tools |
-| `devops-guidev.nix` | Guide/Documentation tooling |
-| `devops-ventoy.nix` | Ventoy bootable USB creation tools |
-| `devops-wine.nix` | Wine & Windows app compatibility layer |
-| `tmux.nix` | Tmux configuration + plugins |
-
-### Desktop Packages
-
-| Directory | Contents |
-|---|---|
-| `desktop/` | Desktop environment packages, applications, and extensions |
-
-#### Desktop Subpackages
-
-| File | Purpose |
-|---|---|
-| `desktop/gnome.nix` | GNOME desktop environment + extensions |
-| `desktop/hyprland.nix` | Hyprland (hyrpy compositor) setup |
-| `desktop/kde.nix` | KDE Plasma desktop environment |
-| `desktop/cosmic.nix` | COSMIC desktop (Elementary OS desktop) |
-| `desktop/kiosk.nix` | Kiosk mode — single-app, locked-down desktop |
-| `desktop/browser.nix` | Web browsers (Firefox, Librewolf, Chrome) |
-| `desktop/ai.nix` | AI tools for desktop (local LLM GUIs, inference) |
-| `desktop/shared.nix` | Common desktop packages (file managers, file pickers) |
-| `desktop/add-av.nix` | AV/antivirus desktop apps |
-| `desktop/add-chrome.nix` | Google Chrome browser |
-| `desktop/add-mindmap.nix` | Mind mapping tools (FreePlane, XMind) |
-| `desktop/add-onlyoffice.nix` | OnlyOffice suite for desktop use |
-| `desktop/add-rdp.nix` | RDP client (remmina, FreeRDP, xfreerdp) |
-| `desktop/add-rss.nix` | RSS readers (Miniflux, FreshRSS desktop apps) |
-| `desktop/add-sound.nix` | Audio tools (Audacity, LMMS, fluidsynth) |
-| `desktop/add-vikunja.nix` | Vikunja task manager desktop client |
-| `desktop/artist.nix` | Art creation tools (Krita, GIMP, Blender) |
-| `desktop/dss-portal.nix` | DSS Portal application |
-| `desktop/firejail-librewolf.nix` | Sandboxed Librewolf via Firejail |
-
-#### Desktop Resources
-
-| Directory | Contents |
-|---|---|
-| `desktop/resources/` | Desktop files (`.desktop`), JNLP webstart configs, icons |
-
-#### Archived
-
-| Directory | Contents |
-|---|---|
-| `desktop/.attic/` | Old desktop package configs, retired app profiles |
-| `.attic/` | Legacy package definitions |
+</div>
 
 ---
 
-## 🚀 How Packages Work
+## 🗂️ What's in here
 
-Each `.nix` file exports a Nix package set via `pkgs`:
+Package sets are **plain NixOS modules**, not option-bearing modules. Import the
+set you want into a host or profile.
+
+### Base and devops
+
+| File | Purpose |
+|---|---|
+| `base.nix` | Core utilities, CLI tools, shell, editors |
+| `devops.nix` | The general devops toolkit |
+| `devops-go.nix` | Go toolchain, linters, tooling |
+| `devops-python.nix` | Python, venv tools, data science |
+| `devops-nixos.nix` | NixOS and nixpkgs tooling |
+| `devops-docker.nix` | Docker, compose, buildx |
+| `devops-db.nix` | Database clients and migration tools |
+| `devops-sec.nix` | Security scanners and network analysis |
+| `devops-net.nix` | tcpdump, scapy, speedtest |
+| `devops-ldap.nix` | LDAP clients and admin tools |
+| `devops-iot.nix` | esptool, platformio, MQTT |
+| `devops-lora.nix` | LoRa and Meshtastic tooling |
+| `devops-fido2.nix` | FIDO2 and security-key tooling |
+| `devops-nfc.nix` | NFC tooling |
+| `devops-html.nix` | HTML/CSS/JS toolchain |
+| `devops-office.nix` | PDF and document conversion |
+| `devops-guidev.nix` | Documentation and guide tooling |
+| `devops-ventoy.nix` | Ventoy USB creation |
+| `devops-wine.nix` | Wine and Windows compatibility |
+| `add-smb.nix` | SMB client packages |
+| `ai.nix` | AI and local inference tooling |
+| `tmux.nix` | tmux configuration and plugins |
+
+### Desktop (`packages/desktop/`)
+
+| File | Purpose |
+|---|---|
+| `gnome.nix` | GNOME environment and extensions |
+| `kde.nix` | KDE Plasma |
+| `hyprland.nix` | Hyprland compositor |
+| `cosmic.nix` | COSMIC desktop |
+| `kiosk.nix` | Single-app locked-down desktop |
+| `browser.nix` | Firefox, Librewolf, Chrome |
+| `ai.nix` | Local LLM GUIs and inference |
+| `shared.nix` | Common desktop packages |
+| `add-av.nix` | AV and antivirus apps |
+| `add-chrome.nix` | Google Chrome |
+| `add-mindmap.nix` | Mind mapping tools |
+| `add-onlyoffice.nix` | OnlyOffice suite |
+| `add-rss.nix` | RSS readers |
+| `add-vikunja.nix` | Vikunja client |
+| `artist.nix` | Krita, GIMP, Blender |
+| `dss-portal.nix` | DSS portal |
+| `firejail-librewolf.nix` | Sandboxed Librewolf |
+| `hid.nix` | HID and input devices |
+| `resources/` | `.desktop` files, JNLP configs, icons |
+| `.attic/` | Retired desktop sets |
+
+## 🚀 Use a set
 
 ```nix
-# In flake.nix or a host config
-{
-  environment.systemPackages = with pkgs; [
-    (import ./packages/base.nix).myPackages
-    (import ./packages/devops.nix).goTools
-    (import ./packages/desktop/gnome.nix).gnomePackages
-  ];
-}
+imports = [
+  ./packages/base.nix
+  ./packages/devops.nix
+  ./packages/desktop/gnome.nix
+];
 ```
 
-## 📊 Quick Reference
+## ⚠️ Known state
 
-| Category | File | # of packages |
-|---|---|---|
-| Core | `base.nix` | ~50 essentials |
-| Devops general | `devops.nix` | ~100+ tools |
-| Go | `devops-go.nix` | Golang toolchain |
-| Python | `devops-python.nix` | Python + data science stack |
-| Nix | `devops-nixos.nix` | NixOS tooling |
-| Desktop | `desktop/*.nix` | ~40+ apps |
-| Security | `devops-sec.nix` | Sec tools + scanners |
+The flake references `packages/devops-core.nix` (for `srv2`) and
+`packages/devops-all.nix` (for `srv-full`). Neither file exists today. Add the
+intended set or adjust the host import before relying on those targets.
+
+## 📐 Rules
+
+- One use case per file.
+- No options, no host identity: just packages and program config.
+- Do not add a formatter or linter here; `alejandra` is the only formatter.
+- Format with `alejandra`.
 
 ---
 
-*For user desktop configs → [User/desktop](../user/desktop/)*
-*For dev services → [Server/devops](../server/devops/)*
+<p align="right"><sub><a href="../README.md">← main README</a> · <a href="../user/README.md">user</a> · <a href="../person/README.md">person</a></sub></p>

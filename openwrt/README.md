@@ -1,127 +1,95 @@
-# 📡 OpenWRT — Firmware Builder & Router Fleet
+<div align="center">
 
-> Declarative OpenWRT firmware for a fleet of consumer routers — GL-Inet, D-Link, Raspberry Pi. Mesh VPN, monitoring, and automated provisioning.
+# 📡 OpenWrt
+
+**Declarative firmware for a router fleet: GL.iNet, D-Link, Raspberry Pi.**
+
+[![Firmware](https://img.shields.io/badge/firmware-OpenWrt-5277C3)](https://openwrt.org)
+[![Boards](https://img.shields.io/badge/boards-3-0891b2)](./Makefile)
+[![VPN](https://img.shields.io/badge/mesh-WireGuard-0d9488)](../server/vpn)
+
+`make axt`
+
+</div>
 
 ---
 
-## 🔥 What Is This?
+## 🗂️ What's in here
 
-A **firmware build system** for OpenWRT that compiles custom router images for different hardware targets. Each build includes:
-
-- **WireGuard client** — connects to the HQ WireGuard overlay
-- **Prometheus node exporter** — monitors router CPU/memory/network stats
-- **Grafana agent** — ships metrics to the central Grafana instance
-- **OpenWRT admin password** — stored as encrypted `.age` file
-- **Custom wireless config** — SSID, channel, band, security per-board
-
-## 📂 What's In Here
-
-| File / Dir | Purpose |
+| Path | Purpose |
 |---|---|
-| `README.md` | This file — firmware build guide |
-| `Makefile` | Build system with per-target firmware compilation |
-| `config/` | OpenWRT configuration files (network, wireless, packages) |
-| `prometheus/` | Prometheus node_exporter + grafana-agent configs |
-| `tftp/` | TFTP/PXE boot configuration for headless provisioning |
+| `Makefile` | Fleet build entry point: `axt`, `dap`, `rpi2`, `b3000`, images, updates, backups |
+| `openwrt.nix` | Shared NixOS-side router config |
+| `alias.nix` | Shell aliases for the router fleet |
+| `prometheus-grafana.nix` | Metrics shipping for routers |
+| `tftp.nix` | TFTP/PXE provisioning |
+| `manual.txt` | Operator notes |
+| `glinet/gl-axt1800/` | GL-AXT1800 board flake and Makefile |
+| `dlink/dap-x1860-a1/` | D-Link DAP-X1860-A1 board flake and Makefile |
+| `rpi/rpi2/` | Raspberry Pi 2/3/4 board flake and Makefile |
+| `resources/` | Board inputs and shared assets |
 
-### Router Targets
+`b3000` exists as a Makefile target but has no board directory yet.
 
-| Target | Board | Specs |
-|---|---|---|
-| `dap` | **D-Link DAP-X1860-A1** | AC1900 dual-band, 3 ant, 128 MB flash |
-| `axt` | **GL-AXT1800** (Bramble) | AC1800 WiFi 5, 256 MB flash, USB |
-| `b3000` | **GL-B3000** (Mesa) | WiFi 6 AX3000, 256 MB flash, 2xGB RAM |
-| `rpi2` | **Raspberry Pi 2/3/4** | ARM64, SD/USB boot, flexible deployments |
-
-## 🚀 Building Firmware
-
-### Build a Single Target
+## 🚀 Build
 
 ```bash
 cd /etc/nixos/openwrt
 
-# Build GL-AXT1800 firmware
-make axt
-
-# Build GL-B3000 firmware
-make b3000
-
-# Build D-Link DAP-X1860-A1 firmware
-make dap
+make axt        # GL-AXT1800
+make dap        # D-Link DAP-X1860-A1
+make rpi2       # Raspberry Pi
+make images     # all three boards
+make update     # refresh board flakes
+make clean      # clean build output
 ```
 
-### Build All Targets
+Per-board operations are also available:
 
 ```bash
-make all    # Builds every target at once
+make axt.luci       # LuCI web UI bundle
+make axt.dns        # DNS setup
+make axt.backup     # back up router config
+make axt.update     # update packages
 ```
 
-### Custom Configurations
-
-```bash
-# Build with custom OpenWRT admin password
-make axt OPENWRT_ADMIN_PWD='<your-password>'
-
-# Build with a specific kernel version
-make b3000 KERNEL_VERSION='<branch>'
-```
-
-## 🔧 What Gets Included
-
-Every firmware image includes:
+## 🔧 What ships in an image
 
 | Component | Purpose |
 |---|---|
-| OpenWRT base | Latest OpenWRT snapshot for each board |
-| WireGuard | Encrypted tunnel client for mesh VPN |
-| Prometheus node_exporter | Hardware metrics (CPU, RAM, temp, net) |
-| Grafana agent | Pushes metrics to central Grafana |
-| LuCI admin | Web UI for router management |
-| OpenWRT admin password | Pre-configured via encrypted config |
+| OpenWrt base | Board-specific firmware |
+| WireGuard | Encrypted tunnel into the HQ mesh |
+| `node_exporter` | CPU, memory, temperature, network metrics |
+| Grafana agent | Ships metrics to the central instance |
+| LuCI | Router web UI |
+| Admin password | Pre-provisioned from an encrypted secret |
+| Wireless config | SSID, channel, band and security per board |
 
-## 📊 Network Topology
+## 📊 Monitoring
 
-```
-┌──────────────┐         ┌──────────────┐         ┌──────────────┐
-│  GL-AXT1800  │         │  GL-B3000    │         │  D-Link DAP  │
-│  Office GW   │         │  Branch-1    │         │  Branch-2    │
-└──────┬───────┘         └──────┬───────┘         └──────┬───────┘
-       │ WG mesh                │ WG mesh                │ WG mesh
-       │                        │                        │
-       └───────────┬────────────┴────────────────────────┘
-                   │
-          ┌────────▼────────┐
-          │  HQ Router      │
-          │  (Main LAN)     │
-          └─────────────────┘
-```
+Routers report through Prometheus `node_exporter`:
+
+| Metric | Meaning |
+|---|---|
+| `node_cpu_seconds_total` | CPU usage per core |
+| `node_memory_*` | Memory and swap |
+| `node_temperature_*` | SoC temperature |
+| `node_network_*` | Throughput and errors |
+| `wireguard_peers_*` | Peer status and bytes |
 
 ## 🔐 Credentials
 
-The OpenWRT admin password is stored encrypted:
+The admin password is stored in
+[`modules/resources/openwrt-admin-pwd.age`](../modules/resources) and injected at
+build time. Never put a plaintext password in a board file.
 
-- **Location**: `modules/resources/openwrt-admin-pwd.age`
-- **Key**: YubiKey via age-plugin
-- **Build-time**: Injected by the Makefile during firmware compilation
+## 📐 Rules
 
-> ⚠️ Never store plaintext passwords. Always use the `.age` encrypted variant.
-
-## 📈 Monitoring
-
-Each router reports metrics via Prometheus node_exporter:
-
-| Metric | Label |
-|---|---|
-| `node_cpu_seconds_total` | CPU usage per core |
-| `node_memory_*` | RAM & swap utilization |
-| `node_temperature_*` | SoC temperature |
-| `node_network_*` | RX/TX throughput, packet errors |
-| `wireguard_peers_*` | WireGuard peer status & bytes |
-
-All metrics flow to the central Grafana instance for dashboard visualization.
+- One board, one directory, one flake.
+- Per-board Makefiles stay runnable on their own.
+- Never commit build output or `result`.
+- Keep router config declarative; no manual LuCI drift.
 
 ---
 
-*For guard/security gateways → [Guard](../guard/README.md)*
-*For Prometheus monitoring → [Server/Monitoring](../server/monitoring/)*
-*For main infrastructure overview → [Main README](../README.md)*
+<p align="right"><sub><a href="../README.md">← main README</a> · <a href="../guard/README.md">guard</a> · <a href="../freifunk/README.md">freifunk</a></sub></p>

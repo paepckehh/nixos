@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 380" width="1200" height="380" role="img" aria-label="paepckehh/nixos: your entire company as a service, one flake for every machine">
+  <title>paepckehh/nixos - your entire company as a service</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7faff"/>
+      <stop offset="0.55" stop-color="#eaf2fe"/>
+      <stop offset="1" stop-color="#e1ebfb"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.14" cy="0.16" r="0.74">
+      <stop offset="0" stop-color="#5277c3" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#5277c3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.9" cy="0.92" r="0.7">
+      <stop offset="0" stop-color="#06b6d4" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#06b6d4" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#7d97bd" stroke-opacity="0.15" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5277c3"/>
+      <stop offset="0.55" stop-color="#0891b2"/>
+      <stop offset="1" stop-color="#0d9488"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.98"/>
+      <stop offset="1" stop-color="#f6faff" stop-opacity="0.98"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5277c3" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#5277c3" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#0d9488" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#7f9cc0" flood-opacity="0.30"/>
+    </filter>
+    <style>
+      .sans { font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="380" rx="24" fill="url(#bg)"/>
+  <rect width="1200" height="380" rx="24" fill="url(#grid)"/>
+  <rect width="1200" height="380" rx="24" fill="url(#glowA)"/>
+  <rect width="1200" height="380" rx="24" fill="url(#glowB)"/>
+  <rect x="0.5" y="0.5" width="1199" height="379" rx="23.5" fill="none" stroke="#b9cde8"/>
+  <rect x="56" y="0" width="470" height="2" fill="url(#edge)"/>
+
+  <g>
+    <path d="M94 44 L156 44 Q168 44 168 56 L168 118 Q168 130 156 130 L94 130 Q82 130 82 118 L82 56 Q82 44 94 44 Z" fill="url(#mark)"/>
+    <text x="125" y="105" class="sans" font-size="46" font-weight="700" text-anchor="middle" fill="#ffffff">&#955;</text>
+    <circle cx="154" cy="58" r="5" fill="#a7f3d0"/>
+  </g>
+
+  <text x="196" y="98" class="sans" font-size="46" font-weight="700" letter-spacing="-1.3" fill="#0b1220">paepckehh/nixos</text>
+  <text x="198" y="138" class="sans" font-size="21" font-weight="600" fill="#243b5e">Your entire company, as a service.</text>
+  <text x="198" y="164" class="mono" font-size="13.5" fill="#5b6b82">one flake &#183; every machine &#183; zero drift</text>
+
+  <g class="mono" font-size="12">
+    <rect x="198" y="186" width="86" height="27" rx="13.5" fill="#ffffff" stroke="#5277c3" stroke-opacity="0.45"/>
+    <text x="241" y="204" text-anchor="middle" fill="#3c5a9a">STATELESS</text>
+    <rect x="292" y="186" width="104" height="27" rx="13.5" fill="#ffffff" stroke="#0891b2" stroke-opacity="0.45"/>
+    <text x="344" y="204" text-anchor="middle" fill="#0e7490">DECLARATIVE</text>
+    <rect x="404" y="186" width="70" height="27" rx="13.5" fill="#ffffff" stroke="#0d9488" stroke-opacity="0.45"/>
+    <text x="439" y="204" text-anchor="middle" fill="#0f766e">SEALED</text>
+    <rect x="482" y="186" width="82" height="27" rx="13.5" fill="#ffffff" stroke="#7c3aed" stroke-opacity="0.40"/>
+    <text x="523" y="204" text-anchor="middle" fill="#6d28d9">OFFLINE</text>
+  </g>
+
+  <text x="198" y="248" class="mono" font-size="13" fill="#64748b">nixos &#183; flakes &#183; disko &#183; agenix &#183; home-manager</text>
+
+  <g class="mono" font-size="12.5">
+    <text x="198" y="300" fill="#3c5a9a" font-size="20" font-weight="700">8</text>
+    <text x="198" y="318" fill="#74849a">host targets</text>
+    <text x="330" y="300" fill="#0e7490" font-size="20" font-weight="700">58</text>
+    <text x="330" y="318" fill="#74849a">service categories</text>
+    <text x="486" y="300" fill="#0f766e" font-size="20" font-weight="700">51</text>
+    <text x="486" y="318" fill="#74849a">sealed secrets</text>
+  </g>
+
+  <g filter="url(#soft)">
+    <rect x="640" y="50" width="512" height="280" rx="16" fill="url(#card)" stroke="#cfdff2"/>
+    <rect x="640" y="50" width="512" height="280" rx="16" fill="none" stroke="#5277c3" stroke-opacity="0.10"/>
+    <circle cx="668" cy="76" r="5" fill="#f87171"/>
+    <circle cx="688" cy="76" r="5" fill="#fbbf24"/>
+    <circle cx="708" cy="76" r="5" fill="#34d399"/>
+    <text x="1128" y="81" class="mono" font-size="11.5" text-anchor="end" fill="#64748b">srv &#183; production</text>
+    <line x1="640" y1="96" x2="1152" y2="96" stroke="#e2e8f0"/>
+  </g>
+
+  <g class="mono" font-size="13.5">
+    <text x="668" y="128" fill="#3c5a9a">$ TARGET=srv make switch</text>
+
+    <text x="668" y="160" fill="#0f766e">&#10003;</text>
+    <text x="692" y="160" fill="#334155">flake evaluated</text>
+    <text x="1128" y="160" text-anchor="end" fill="#64748b">.#srv</text>
+
+    <text x="668" y="190" fill="#0f766e">&#10003;</text>
+    <text x="692" y="190" fill="#334155">157 services wired</text>
+    <text x="1128" y="190" text-anchor="end" fill="#64748b">server/all</text>
+
+    <text x="668" y="220" fill="#0f766e">&#10003;</text>
+    <text x="692" y="220" fill="#334155">52 secrets sealed</text>
+    <text x="1128" y="220" text-anchor="end" fill="#64748b">agenix</text>
+
+    <text x="668" y="250" fill="#0f766e">&#10003;</text>
+    <text x="692" y="250" fill="#334155">root mounted on tmpfs</text>
+    <text x="1128" y="250" text-anchor="end" fill="#64748b">stateless</text>
+
+    <text x="668" y="280" fill="#0f766e">&#10003;</text>
+    <text x="692" y="280" fill="#334155">lock pinned</text>
+    <text x="1128" y="280" text-anchor="end" fill="#64748b">flake.lock</text>
+
+    <line x1="668" y1="298" x2="1128" y2="298" stroke="#e2e8f0"/>
+    <text x="668" y="318" fill="#0e7490">&#8594; switched. rollback is one command away.</text>
+  </g>
+</svg>

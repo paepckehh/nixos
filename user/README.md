@@ -1,115 +1,77 @@
-# 👤 User — Home Manager Configurations
+<div align="center">
 
-> Per-user desktop environments, apps, shells, browsers, and dotfiles via Home Manager.
+# 👤 User
+
+**Home Manager for humans: shell, prompt, browsers, mail, desktop.**
+
+[![Home Manager](https://img.shields.io/badge/Home%20Manager-declarative-5277C3)](https://github.com/nix-community/home-manager)
+[![Shell](https://img.shields.io/badge/shell-zsh%20%2B%20starship-0891b2)](./resources/starship/gruvbox-rainbow.toml)
+[![Desktop](https://img.shields.io/badge/desktop-GNOME%20%7C%20apps-0d9488)](../packages/desktop)
+
+`./user/me.nix`
+
+</div>
 
 ---
 
-## 🗂️ What's In Here
-
-Home Manager configurations for **individual user accounts**. Everything from shell prompt to browser extensions — declared declaratively in Nix.
+## 🗂️ What's in here
 
 | File | Purpose |
 |---|---|
-| `me.nix` | Full Home Manager config for the primary user — shell, IDE, browser, desktop, packages |
+| `me.nix` | Primary Home Manager entry point: shell, packages, desktop imports |
+| `desktop/me.nix` | Desktop environment base |
+| `desktop/me-firefox.nix` | Firefox policies, extensions, theme |
+| `desktop/me-librewolf.nix` | Librewolf profile |
+| `desktop/me-element.nix` | Element (Matrix) setup |
+| `desktop/me-thunderbird.nix` | Thunderbird accounts and extensions |
+| `resources/starship/gruvbox-rainbow.toml` | Starship prompt theme |
+| `.attic/` | Retired Home Manager configs |
 
-### Desktop Configs
-
-| Directory | Contents |
-|---|---|
-| `desktop/me.nix` | Base desktop environment configuration |
-| `desktop/me-element.nix` | Element (Matrix client) setup |
-| `desktop/me-firefox.nix` | Firefox profile — extensions, policies, themes |
-| `desktop/me-librewolf.nix` | Librewolf (privacy-focused Firefox fork) profile |
-| `desktop/me-thunderbird.nix` | Thunderbird email client — accounts, extensions, templates |
-
-### Resources
-
-| Directory | Contents |
-|---|---|
-| `resources/starship/` | Starship prompt theme configs |
-| `resources/starship/gruvbox-rainbow.toml` | Starship theme — colorful rainbow gruvbox aesthetic |
-
-### Archived
-
-| Directory | Contents |
-|---|---|
-| `.attic/` | Old Home Manager configs, retired desktop profiles |
-
----
-
-## 🚀 User Config Structure
-
-Each user config follows the Home Manager pattern:
+## 🚀 Structure
 
 ```nix
 { config, pkgs, lib, infra, ... }: {
-  imports = [
-    ./desktop/me.nix
-    ./desktop/me-firefox.nix
-  ];
+  imports = [ ./desktop/me.nix ];
 
-  home = {
-    username = "me";
-    homeDirectory = "/home/me";
-    stateVersion = "26.11";
+  home-manager.users.me = {
+    home = {
+      stateVersion = config.system.nixos.release;
+      homeDirectory = "/home/me";
+    };
+
+    programs = {
+      zsh.enable = true;
+      starship.enable = true;
+      git.enable = true;
+      neovim.enable = true;
+    };
   };
-
-  programs = {
-    zsh.enable = true;
-    starship.enable = true;
-    git.enable = true;
-    neovim.enable = true;
-  };
-
-  home.packages = with pkgs; [
-    # Dev tools
-    # Browsers
-    # Editors
-    # Media
-  ];
 }
 ```
 
----
+`home.stateVersion` follows `config.system.nixos.release`. It is a
+compatibility pin, not a package version.
 
-## 🎨 Browser Profile
+## 🎨 Prompt
 
-Multiple browser profiles allow testing different configurations:
+The `gruvbox-rainbow.toml` theme adds time, user and host, git status,
+language versions and a Gruvbox gradient. It is loaded through
+`programs.starship.settings` or a copied config, depending on the host.
 
-| Browser | File | Purpose |
-|---|---|---|
-| Firefox | `desktop/me-firefox.nix` | Main browsing with policies + extensions |
-| Librewolf | `desktop/me-librewolf.nix` | Privacy-focused browsing |
-| Element | `desktop/me-element.nix` | Matrix communication client |
-| Thunderbird | `desktop/me-thunderbird.nix` | Email — accounts, extensions, templates |
-
----
-
-## 🖌️ Starship Prompt
-
-The `gruvbox-rainbow.toml` theme gives the shell a colorful, vibrant prompt with:
-
-- Time, user, hostname indicator
-- Git branch + status overlay
-- Python/Go/Rust version indicators
-- Custom gradient colors from the Gruvbox palette
-
-```toml
-# resources/starship/gruvbox-rainbow.toml
-[character]
-success_symbol = "[➜](bold green)"
-error_symbol = "[✗](bold red)"
-```
-
----
-
-## 👥 Known Users
+## 👥 Users
 
 | User | Config | Role |
 |---|---|---|
-| `me` | `me.nix` | Primary user |
+| `me` | `me.nix` | Primary desktop user |
+| `mpaepcke` | [`person/mpaepcke.nix`](../person/README.md) | Full NixOS profile plus smartcard access |
+
+## 📐 Rules
+
+- Home Manager only. Do not enable system services here.
+- Keep browser and mail profiles in `desktop/`, not in `me.nix`.
+- No secrets. Use agenix and reference `config.age.secrets.<name>.path`.
+- Format with `alejandra`.
 
 ---
 
-*For the Home Manager version → [main README](../README.md)*
-*For desktop packages → [Packages/desktop](../packages/desktop/)*
+<p align="right"><sub><a href="../README.md">← main README</a> · <a href="../person/README.md">person</a> · <a href="../packages/README.md">packages</a></sub></p>

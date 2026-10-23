@@ -1,87 +1,105 @@
-# ⚙️ Siteconfig — Central Infrastructure Configuration
+<div align="center">
 
-> The single source of truth for site-wide infrastructure values: IDs, domains, networks, shell aliases, and global defaults.
+# ⚙️ Siteconfig
+
+**One attrset for the whole company: IDs, IPs, domains, ports, users, hardening.**
+
+[![Source of truth](https://img.shields.io/badge/source-of%20truth-5277C3)](./config.nix)
+[![Values](https://img.shields.io/badge/one%20file-2.2k%20lines-0891b2)](./config.nix)
+[![Consumers](https://img.shields.io/badge/every%20module-imports%20it-0d9488)](../server)
+
+`let infra = (import ../../siteconfig/config.nix).infra; in`
+
+</div>
 
 ---
 
-## 🗂️ What's In Here
-
-Centralized configuration that all other modules import to get a **consistent view** of the infrastructure topology.
+## 🗂️ What's in here
 
 | File | Purpose |
 |---|---|
-| `config.nix` | **Main infra config** — the primary NixOS expression that exports all infrastructure values |
-| `base.nix` | Base site config — infrastructure IDs, network ranges, DNS zones |
-| `home.nix` | Home directory & personal infrastructure config |
-| `paepcke.nix` | User-specific config for `mpaepcke` (person-level settings) |
-| `example.nix` | Example/scaffold config for new sites |
-| `sample1.nix` | Sample configuration (dev/testing) |
-| `sample2.nix` | Sample configuration (alternative layout) |
-| `sample3.nix` | Sample configuration (additional scenario) |
-| `smbgate-mounts.nix` | SMB gate mount points configuration |
+| `config.nix` | The live source of truth. Exports the `infra` attrset used everywhere. |
+| `base.nix` | Base site values |
+| `home.nix` | Home and personal infrastructure values |
+| `paepcke.nix` | User-level settings |
+| `example.nix` | Scaffold for a new site |
+| `sample1.nix` … `sample3.nix` | Sample layouts for experiments |
+| `smbgate-mounts.nix` | SMB gate mount points |
+| `.attic/` | Retired site layouts |
 
-### Archived
+## 🌍 The `infra` shape
 
-| Directory | Contents |
+`config.nix` is a plain Nix expression: `let infra = { … }; in { inherit infra; }`.
+It is not a NixOS module and defines no options.
+
+Top-level keys include:
+
+| Key | Holds |
 |---|---|
-| `.attic/` | Old site configurations, deprecated layout variants |
+| `site` | Site id (`50`), name (`home`), domain (`corp`, `paepcke.de`), network range (`10.50.0.0/16`) |
+| `locale` | Timezone, keymap, language, locale prefixes |
+| `nix` | NixOS version and binary cache URLs and keys |
+| `me` / `admin` / `backup` | Identity, UIDs |
+| `storage` / `kernel` | Disk and kernel policy, supported filesystems |
+| `localhost` | Loopback conventions (`port.offset`) |
+| `vlan` / `net` / `cidr` | Network scopes: `net.user`, `net.admin`, … |
+| `domain` / `zonename` / `namespace` | DNS zones and container namespaces |
+| `port` | Well-known ports (`ssh-mgmt = 6623`, …) |
+| `proxy` / `proxies` / `opn` / `modem` | Reverse proxy and edge devices |
+| `ssh` / `firefox` / `thunderbird` / `smtp` / `autoconfig` / `webmail` | Client defaults |
+| `dns` / `adguard` / `cache` / `pki` / `iam` / `sso` | Platform services |
+| `srv` / `srv2` | Per-host identity, addresses, feature switches |
+| `<service>` | One block per service, see below |
 
----
+### Service block convention
 
-## 🚀 How It Works
+```nix
+crush = {
+  id = 191;                     # last IPv4 octet and port offset
+  app = "crush";
+  name = infra.crush.app;
+  hostname = infra.crush.name;
+  domain = infra.domain.user;
+  fqdn = "${infra.crush.hostname}.${infra.crush.domain}";
+  ip = "${infra.net.user}.${toString infra.crush.id}";
+  localbind.port.http = infra.localhost.port.offset + infra.crush.id;
+  url = "https://${infra.crush.fqdn}";
+  logo = "${infra.res.url}/icon/png/crush.png";
+};
+```
 
-Siteconfig exports a **structured Nix attrset** that other modules import:
+- `id` is both the last IPv4 octet and the loopback port offset (`7000 + id`).
+- `net.user` is for user-facing services, `net.admin` for admin services.
+- Pick an unused `id`. Duplicates already exist (`erpnext` and
+  `networking-toolbox` are both `176`); do not add more.
+
+## 🚀 Consume it
+
+Direct import works on every host and is the safest choice:
 
 ```nix
 { config, pkgs, lib, ... }:
 let
-  infra = (import ./config.nix).infra;
+  infra = (import ../../siteconfig/config.nix).infra;
 in {
-  # Use infrastructure values
-  networking.hostName = infra.hostname;
-  networking.networking.interfaces.eth0.ipv4.addresses = [
-    {
-      address = infra.networks.management.address;
-      prefixLength = infra.networks.management.prefix;
-    }
-  ];
-  # ...
+  networking.hostName = infra.srv.name;
+  services.openssh.listenAddresses = [{
+    addr = infra.srv.admin.ip;
+    port = infra.port.ssh-mgmt;
+  }];
 }
 ```
 
-### Config Structure
+Some newer modules take `infra` as a function argument instead. That only works
+on targets whose `specialArgs` pass it; today only `srv` does.
 
-The `infra` attrset typically contains:
-- **`hostname`** — current machine identifier
-- **`siteId`** — site/group identifier for multi-location infra
-- **`domains`** — DNS domain names and zones
-- **`networks`** — Subnet definitions (management, storage, guest, IoT)
-- **`users`** — Known user accounts and attributes
-- **`ssh`** — SSH host key paths, authorized keys
-- **`aliases`** — Shell command aliases for infrastructure ops
+## 📐 Rules
 
----
-
-## 📐 Design Philosophy
-
-- **Single source of truth** — no hardcoded values anywhere
-- **Composable** — sample files show how to combine pieces
-- **Declarative** — everything is Nix expressions, not shell variables
-- **Portable** — swap in a different `config.nix` for a different site
+- Never hardcode an IP, port, domain or UID outside this file.
+- Adding a service means adding an `infra.<name>` block first.
+- Do not rename existing keys without updating every consumer.
+- Values here are data, not behaviour; keep modules declarative.
 
 ---
 
-## 🔗 Relationships
-
-| Imports From | Purpose |
-|---|---|
-| `person/*.nix` | User definitions |
-| `hosts/*.nix` | Host identity |
-| `role/*.nix` | Role capabilities |
-| `server/**/*.nix` | Service configurations |
-| `hardware/*.nix` | Device settings |
-
----
-
-*For the full config reference → [config.nix](./config.nix)*
-*For host configs → [Hosts](../hosts/)*
+<p align="right"><sub><a href="../README.md">← main README</a> · <a href="../hosts/README.md">hosts</a> · <a href="../server/README.md">server</a></sub></p>

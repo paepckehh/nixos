@@ -1,207 +1,127 @@
+<div align="center">
+
 # 💿 ZFS
 
-> The dual-server ZFS backup fleet — two hosts (ops4 + ops5), ZFS RAIDZ with 4–6 TB drives, daily/weekly/monthly snapshots, auto-trim, and full declarative config via NixOS.
+**Two backup servers, RAIDZ pools, snapshots, scrub, trim and metadata warming.**
+
+[![Pool](https://img.shields.io/badge/pool-tank-5277C3)](../storage/zfs.nix)
+[![RAID](https://img.shields.io/badge/raid-RAIDZ-0891b2)](./ZFS.md)
+[![Snapshots](https://img.shields.io/badge/snapshots-24h%20%2F%207d%20%2F%204w%20%2F%204m-0d9488)](../storage/zfs.nix)
+
+`ssh -p 6623 me@ops4 'zpool status -v && zfs list'`
+
+</div>
 
 ---
 
 ## 🚀 Overview
 
-| Feature | ops4 (Primary) | ops5 (Secondary) |
+| Feature | `ops4` (primary) | `ops5` (secondary) |
 |---|---|---|
-| **Role** | Main ZFS backup target (backup.one) | Secondary backup target (backup.two) |
-| **Drives** | 3× 4 TB (ST4000VN008) | 3× 6 TB (ST6000VN0033) |
-| **Pool** | `tank` | `tank` |
-| **RAID** | RAIDZ | RAIDZ |
-| **ZFS Version** | Declarative (NixOS modules) | Declarative (NixOS modules) |
-| **SSH Port** | `6623` | `6623` |
+| Role | Main backup target | Redundant backup target |
+| Disks | 3× 4 TB (ST4000VN008) | 3× 6 TB (ST6000VN0033) |
+| Pool | `tank` | `tank` |
+| RAID | RAIDZ | RAIDZ |
+| SSH | port `6623` | port `6623` |
+| Datasets | `tank/backup`, `tank/samba` | `tank/backup` |
 
----
+## 🏗️ Layout
 
-## 🏗️ Architecture
-
-```
-┌─────────────┐           ZFS Pool "tank"           ┌────────────┐
-│   ops       │  ──rsync──►  ops4 (primary) 💾  ──  │ ops5 (sec) │
-│   ops2      │           /mnt/tank/backup/         │ /mnt/tank/ │
-│   ops3      │  ──rsync──►  ops5 (secondary) ──  ──► backup.one │
-└─────────────┘                                     └────────────┘
-                                                      backup.two
+```text
+ops / ops2 ──rsync──► ops4 (backup.one) ──► /mnt/tank/backup/<host>
+                   └► ops5 (backup.two) ──► /mnt/tank/backup/<host>
 ```
 
-**Pool Layout:**
-
-| Dataset | Mount | Permissions | Notes |
+| Dataset | Mount | Owner | Notes |
 |---|---|---|---|
-| `tank` | `/mnt/tank` | root | Root dataset, compress=zstd-4, recordsize=1M, atime=off |
-| `tank/backup` | `/mnt/tank/backup` | `backup:backup` (0770) | rsync receive target, metadata-cache warmed hourly |
-| `tank/samba` | `/mnt/tank/samba` | `samba:samba` (0770) | Case-insensitive (Windows clients), metadata-cache warmed via systemd |
+| `tank` | `/mnt/tank` | root | Root dataset, `recordsize=1M`, `atime=off` |
+| `tank/backup` | `/mnt/tank/backup` | `backup:backup` | rsync receive target, metadata warmed nightly |
+| `tank/samba` | `/mnt/tank/samba` | `samba:samba` | Case-insensitive for Windows clients, metadata warmed frequently |
 
-### Key Systemd Services
+## ⚙️ Declarative config
 
-| Service | Description | Schedule |
-|---|---|---|
-| `zfs-cache-meta-samba-timer` | Warms filesystem metadata cache on samba dataset | Hourly |
-| `zfs-cache-meta-backup-timer` | Warms filesystem metadata cache on backup dataset | Daily at 22:55 |
-| `zfs-auto-snapshot.timer` | Auto-snapshots (hourly/daily/weekly/monthly) | Per-retention policy |
-| `zfs-auto-scrub.timer` | Pool scrub (check for silent corruption) | Weekly |
-| `zfs-trim.timer` | Trim unused blocks on SSDs | Weekly |
-| `fstrim.timer` | Filesystem trim via systemctl | Weekly |
-
-### Snapshot Retention Policy
-
-| Frequency | Keep |
-|---|---|
-| Frequent | 0 (disabled) |
-| Hourly | 24 |
-| Daily | 7 |
-| Weekly | 4 |
-| Monthly | 4 |
-
----
-
-## ⚙️ Declarative Configuration
-
-All ZFS settings on ops4/ops5 are defined in `storage/zfs.nix` — this is the **single source of truth**. Do not manually set pool/dataset properties outside of this file.
+[`storage/zfs.nix`](../storage/zfs.nix) is the source of truth for the NixOS
+side: ZFS module, snapshot policy, timers and exporters.
 
 ```nix
-# storage/zfs.nix
-{
-  # Boot: kernel params for ZFS tuning
-  boot.kernelParams = [
-    "zfs.zfs_arc_max=0"                    # auto-arc (unlimited)
-    "zfs.zfs_compressed_arc_enabled=1"     # compressed ARC
-    "zfs.zfs_dirty_data_max__max_percent=50"
-    "zfs.zfs_dirty_data_max_percent=45"
-    "zfs.zfs_txg_timeout=600"              # TXG flush interval (10 min)
-  ];
+boot.zfs = {
+  devNodes = "/dev/disk/by-id";
+  forceImportAll = false;
+  forceImportRoot = false;
+  passwordTimeout = 30;
+};
 
-  # ZFS module
-  boot.zfs = {
-    devNodes = "/dev/disk/by-id";
-    forceImportAll = false;
-    forceImportRoot = false;
-    extraPools = ["tank"];
+services.zfs = {
+  expandOnBoot = "all";
+  autoScrub = { enable = true; interval = "weekly"; };
+  trim = { enable = true; interval = "weekly"; };
+  autoSnapshot = {
+    enable = true;
+    frequent = 0; hourly = 24;
+    daily = 7; weekly = 4; monthly = 4;
   };
-
-  # Auto-snapshot + scrub + trim
-  services.zfs = {
-    expandOnBoot = "all";
-    autoSnapshot = {
-      enable = true;
-      frequent = 0; hourly = 24;
-      daily = 7; weekly = 4; monthly = 4;
-    };
-    autoScrub = { enable = true; interval = "weekly"; };
-    trim = { enable = true; interval = "weekly"; };
-  };
-}
+};
 ```
 
-### Key Dataset Properties
+Dataset properties (`compress`, `recordsize`, `aclinherit`, `xattr`, `sync`,
+`exec`, `devices`, `snapdir`) are applied with `zfs set` when a pool is created.
+They are not declared in `zfs.nix`; keep the commands below as the record.
 
-| Property | Value | Rationale |
+### Systemd timers
+
+| Timer | Schedule | Purpose |
 |---|---|---|
-| `compress` | `zstd-4` | Great balance of speed & ratio |
-| `recordsize` | `1M` | Optimized for large backup files |
-| `atime` | `off` | Reduces write amplification |
-| `sync` | `disabled` | Best-effort I/O (acceptable for backups) |
-| `acltype` | `posixacl` | Full POSIX ACL support |
-| `aclinherit` | `passthrough` | Preserve ACLs during copy/clone |
-| `xattr` | `sa` | Extended attrs stored in inode (faster) |
-| `exec` | `off` | Prevent executable code on backup |
-| `devices` | `off` | Block device nodes not stored |
-| `snapdir` | `visible` | Snapshots visible in listings |
+| `zfs-auto-snapshot.timer` | per retention policy | Hourly/daily/weekly/monthly snapshots |
+| `zfs-auto-scrub.timer` | weekly | Detect silent corruption |
+| `zfs-trim.timer` | weekly | TRIM for SSDs |
+| `fstrim.timer` | weekly | Filesystem-level trim |
+| `zfs-cache-meta-samba-timer` | `*:12`, `*:32`, `*:52` | Warm metadata on `tank/samba` |
+| `zfs-cache-meta-backup-timer` | daily `22:55` | Warm metadata on `tank/backup` |
 
----
+The metadata timers run `fd` over the datasets and discard output, which pulls
+directory entries into the ARC.
 
-## 📊 Monitoring & Reporting
-
-### Quick Overview
+## 📊 Monitoring
 
 ```bash
-echo "########## OPS4 ZFS REPORT: press YubiKey ##########"
+# Pool and datasets
 ssh -p 6623 me@ops4 'zpool status -v && zfs list'
-echo "########## OPS5 ZFS REPORT: press YubiKey ##########"
 ssh -p 6623 me@ops5 'zpool status -v && zfs list'
-```
 
-### JSON Output (with jq)
-
-```bash
-# Pool status + dataset list
-ssh -p 6623 me@ops4 'zpool status -v --json' | jq
-ssh -p 6623 me@ops4 'zfs list --json' | jq
-
-# Full property dump
-ssh -p 6623 me@ops4 'zfs get all --json' | jq
-```
-
-### Snapshot Inventory
-
-```bash
+# Snapshot inventory
 ssh -p 6623 me@ops4 'zfs list -t snapshot -o name,creation,used'
-ssh -p 6623 me@ops5 'zfs list -t snapshot -o name,creation,used'
-```
 
-### Disk Health (SMART)
-
-```bash
-# ops4 (4 TB Seagate drives)
+# SMART
 ssh -p 6623 me@ops4 'sudo smartctl --all /dev/sda'
-ssh -p 6623 me@ops4 'sudo smartctl --all /dev/sdb'
-ssh -p 6623 me@ops4 'sudo smartctl --all /dev/sdc'
-
-# ops5 (6 TB Seagate drives)
-ssh -p 6623 me@ops5 'sudo smartctl --all /dev/sda'
-ssh -p 6623 me@ops5 'sudo smartctl --all /dev/sdb'
-ssh -p 6623 me@ops5 'sudo smartctl --all /dev/sdc'
 ```
 
-> 💡 **Tip**: SMART data is also exported via Prometheus (`node_exporter` + `smartctl` collector) on `/dev/nvme0` + all SATA disks.
+`zfs.nix` also enables the Prometheus node `zfs` collector and SMART devices
+`["/dev/nvme0" "/dev/sda" "/dev/sdb" "/dev/sdc"]`.
 
----
+## 🔨 Recreate a pool
 
-## 🔨 Pool Operations
-
-### Prerequisites
-
-List available disks by ID:
+> Destructive. This erases every disk in the pool.
 
 ```bash
 ls -la /dev/disk/by-id
-```
 
-### Recreate the Pool (Destructive — Only for Fresh Setup)
-
-⚠️ **WARNING**: This destroys all data on the target disks.
-
-**ops4** (3× 4 TB):
-
-```bash
-sudo zpool destroy tank > /dev/null 2>&1
+# ops4
+sudo zpool destroy tank
 sudo zpool create -f -m /mnt/tank -o ashift=12 -o autotrim=on \
   tank raidz \
   ata-ST4000VN008-2DR166_ZM40X8TA \
   ata-ST4000VN008-2DR166_ZM40XDSE \
   ata-ST4000VN008-2DR166_ZM40XVH0
-sudo zpool status -v
-sudo zpool list -v
-```
 
-**ops5** (3× 6 TB):
-
-```bash
-sudo zpool destroy tank > /dev/null 2>&1
+# ops5
 sudo zpool create -f -m /mnt/tank -o ashift=12 -o autotrim=on \
   tank raidz \
   ata-ST6000VN0033-2EE110_ZAD9WLLC \
   ata-ST6000VN0033-2EE110_ZAD9WLED \
   ata-ST6000VN0033-2EE110_ZAD9T708
-sudo zpool status -v
-sudo zpool list -v
 ```
 
-### Create Datasets
+### Dataset properties
 
 ```bash
 sudo zfs set com.sun:auto-snapshot=true tank
@@ -223,36 +143,30 @@ sudo zfs set snapdir=visible tank
 
 sudo zfs create tank/backup
 sudo zfs create -o casesensitivity=insensitive tank/samba
-sudo zfs list
 ```
-
----
 
 ## 🔍 Troubleshooting
 
 | Problem | Check | Fix |
 |---|---|---|
-| Pool won't import | `zpool status` / `zpool import` | Check `/dev/disk/by-id` links exist after reboots |
-| Scrub running too long | `zpool status` | Normal for large RAIDZ; scrub is weekly via systemd |
-| High ARC memory pressure | `zpool list` (USED column) | Check `zfs.zfs_arc_max` kernel param; set to fixed size if needed |
-| Pool degraded | `zpool status -v` | Replace failed disk: `zpool replace tank <old> <new>` then `zpool replace tank <degraded>` |
-| Snapshots consuming space | `zfs list -t snapshot` | `zfs snapshot -r tank@dontneed` then `zfs destroy -r tank@dontneed` |
-| `zfs-auto-snapshot` not running | `systemctl status zfs-auto-snapshot.timer` | Enable with `make switch` — timer is declared in `zfs.nix` |
-| Auto-trim not working | `systemctl status zfs-trim.timer` | Ensure `autotrim=on` was set at pool creation time |
+| Pool won't import | `zpool status`, `zpool import` | Verify `/dev/disk/by-id` links |
+| Scrub takes long | `zpool status` | Normal for large RAIDZ |
+| ARC pressure | `zpool list`, `arc_summary` | Set `zfs.zfs_arc_max` if needed |
+| Degraded pool | `zpool status -v` | `zpool replace tank <old> <new>` |
+| Snapshots fill the pool | `zfs list -t snapshot` | Destroy old snapshots deliberately |
+| Trim not running | `systemctl status zfs-trim.timer` | Requires `autotrim=on` at creation |
 
----
-
-## 📁 Key Paths & Files
+## 📁 Key paths
 
 | Path | Purpose |
 |---|---|
-| `storage/zfs.nix` | Full declarative ZFS config — pool params, datasets, systemd timers |
-| `storage/zdash.nix` | Imported sub-config (ZFS dash helpers) |
-| `/etc/scripts/rsync-backup.sh` | rsync backup orchestration target |
-| `/mnt/tank/backup` | rsync receive target — where backups land |
-| `/mnt/tank/samba` | Windows-compatible share storage |
-| `/dev/disk/by-id` | Persistent device symlinks used for pool creation |
+| `storage/zfs.nix` | Declarative ZFS config and timers |
+| `storage/backup.nix` | rsync target configuration |
+| `server/storage/zdash.nix` | ZFS dashboard module |
+| `/mnt/tank/backup` | Backup receive target |
+| `/mnt/tank/samba` | Windows share storage |
+| `/dev/disk/by-id` | Persistent device names |
 
 ---
 
-> ⚡ *Two servers, three drives each, fully declarative. If a disk dies, replace it and run `make switch` to re-apply the config.*
+<p align="right"><sub><a href="../README.md">← main README</a> · <a href="./BACKUP.md">backup</a> · <a href="./README.md">storage</a></sub></p>

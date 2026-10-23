@@ -1,214 +1,111 @@
-# State Storage Infrastructure
+<div align="center">
 
-> Declarative, stateless NixOS storage with ZFS-backed redundancy, automated backups, and impermanence-driven configurations — all managed through a single flake source of truth.
+# 💾 Storage
 
-[![NixOS](https://img.shields.io/badge/NixOS-24.11-blue)](https://nixos.org)
-[![ZFS](https://img.shields.io/badge/ZFS-RaidZ-green)](https://openzfs.org)
-[![NixOS Containers](https://img.shields.io/badge/Containers-NixOS-orange)](https://nixos.org/manual/nixos/stable/#sec-nixos-containers)
-[![rsync](https://img.shields.io/badge/Backup-rsync-blueviolet)](https://rsync.samba.org)
+**Stateless root, LUKS, disko and ZFS. Reboot is a factory reset; `/nix/persist` is the only memory.**
 
----
+[![Stateless](https://img.shields.io/badge/root-tmpfs-0d9488)](../storage/stateless.nix)
+[![Disko](https://img.shields.io/badge/disko-declarative-5277C3)](https://github.com/nix-community/disko)
+[![ZFS](https://img.shields.io/badge/ZFS-RAIDZ-0891b2)](./ZFS.md)
+[![Backup](https://img.shields.io/badge/backup-rsync%20%2B%20snapshots-7c3aed)](./BACKUP.md)
 
-## Table of Contents
+`./storage/stateless-luks.nix`
 
-- [Overview](#overview)
-- [Architecture](#architecture)
-- [Storage Nodes](#storage-nodes)
-- [Stateless Client Configurations](#stateless-client-configurations)
-- [Backup & Restore](#backup--restore)
-- [Disko Disk Layouts](#disko-disk-layouts)
-- [ISO / Auto-Installer](#iso--auto-installer)
-- [Monitoring & Maintenance](#monitoring--maintenance)
-- [Quick Links](#quick-links)
+</div>
 
 ---
 
-## Overview
+## 🗂️ What's in here
 
-This repository contains all NixOS storage infrastructure definitions for our server fleet and client machines. It covers:
+| File | Purpose |
+|---|---|
+| `stateless.nix` | Stateless root on tmpfs with `/nix/persist` bind mounts |
+| `stateless-luks.nix` | Stateless root plus LUKS encryption |
+| `stateless-luks-fixed-6F6B-6565.nix` | Stateless + LUKS with fixed LUKS UUIDs (used by `srv`) |
+| `stateless-luks-sequence.nix` | Stateless + LUKS sequence variant (used by `srv2`) |
+| `stateless-autoinstaller.nix` | Stateless layout for automated installs |
+| `stateless-luks-autoinstaller.nix` | Encrypted stateless layout for automated installs |
+| `basic.nix` | Conventional stateful disk layout (reference / installer) |
+| `zfs.nix` | ZFS pool, datasets, scrub, trim and snapshot policy for the backup fleet |
+| `backup.nix` | rsync backup service and timer |
+| `iso-live.nix` / `iso-autoinstaller.nix` / `iso.nix` | Live and installer ISO definitions |
+| `disko/` | Reusable disko layouts (`basic`, `stateless`, `stateless-luks`, autoinstaller variants) |
+| `disko-legacy.nix` / `disko-luks-legacy.nix` | Retained legacy layouts |
+| `Makefile` | Destructive provisioning pipeline (`usb`, `wipe`, `format`, `migrate-persist`, …) |
+| `.attic/` | Old layouts and working copies, never imported |
 
-- **ZFS storage pools** on dedicated backup servers (ops4, ops5) with RAIDZ protection
-- **Stateless (impermanence) configurations** for NixOS clients — system state is ephemeral; only `/nix/persist` survives reboots
-- **Automated rsync + ZFS snapshot backups** with daily scheduling and dual-target redundancy
-- **Disko-driven disk layouts** for fresh provisioning, auto-installers, and USB boot media
+> The flake references `storage/base.nix` (for `client`) and
+> `storage/stateless-luks-partlabel.nix` (for `internet` and `srv-full`). Neither
+> file exists today; those targets fail evaluation until it is added.
 
-Everything is declarative — no manual configuration drift.
+## 🧊 Impermanence
 
----
+Root is a tmpfs. Only the persisted paths survive a reboot:
 
-## Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                     NixOS Client Fleet                          │
-│  ┌────────┐  ┌────────┐  ┌────────┐  ┌────────┐                 │
-│  │  ops   │  │ ops2   │  │ ops3   │  │ ops4/5 │                 │
-│  │ [RO]   │  │ [RO]   │  │ [RO]   │  │ [RO]   │                 │
-│  └───┬────┘  └───┬────┘  └───┬────┘  └───┬────┘                 │
-│      │           │           │           │                      │
-│      └───────────┴─────┬─────┘           │                      │
-│                        │                 │                      │
-│              rsync  ←──┘     nixos-   ←──┘                      │
-│              (23:15 daily) container │                          │
-└───────────────┬───────────────────┬──┴──┘───────────────────────┘
-                │                   │
-      ┌─────────▼────────┐  ┌──────▼──────┐
-      │   ops4 (Primary) │  │  ops5 (Sec) │
-      │   backup.one     │  │ backup.two  │
-      │   3× 4 TB RAIDZ  │  │ 3× 6 TB R.  │
-      │ /mnt/tank/backup │  │ /mnt/tank/  │
-      └──────────────────┘  └─────────────┘
-```
-
----
-
-## Storage Nodes
-
-Two dedicated ZFS storage servers (`ops4` and `ops5`) serve as the backup backend for the entire fleet.
-
-| Feature | ops4 (Primary) | ops5 (Secondary) |
-|---|---|---|
-| Role | Main ZFS backup target | Redundant backup target |
-| Pool | `tank` | `tank` |
-| Disks | 3× 4 TB (ST4000VN008) | 3× 6 TB (ST6000VN0033) |
-| RAID | RAIDZ | RAIDZ |
-| SSH Port | `6623` | `6623` |
-| Datasets | `tank/backup`, `tank/samba` | `tank/backup` |
-
-### Dataset Properties
-
-| Property | Value | Rationale |
-|---|---|---|
-| `compress` | `zstd-4` | Speed/ratio balance |
-| `recordsize` | `1M` | Large backup files |
-| `atime` | `off` | Reduce write amplification |
-| `sync` | `disabled` | Best-effort I/O for backups |
-| `exec` | `off` | Block code execution on storage |
-
-> **Full ZFS documentation**: [ZFS.md](./ZFS.md) — pool layout, snapshot retention, monitoring, and pool operations.
-
----
-
-## Stateless Root (!) Configurations
-
-All client and server machines use **impermanence** — the root filesystem is read-only, and only selected paths survive across reboots in `/nix/persist`.
-
-### Available Configurations
-
-| Config | File | LUKS Encrypted | Description |
-|---|---|---|---|
-| Stateless (plain) | [disko/impermanence.nix](./disko/impermanence.nix) | No | Base stateless layout |
-| Stateless (LUKS) | [disko/impermanence-luks.nix](./disko/impermanence-luks.nix) | Yes | Stateless with disk encryption |
-| Basic | [basic.nix](./basic.nix) | No | Traditional stateful layout (reference) |
-| Basic (LUKS) | [stateless-luks.nix](./stateless-luks.nix) | Yes | Stateful with disk encryption |
-
-### Persisted Paths
-
-```
+```text
 /nix/persist/
-├── home/       → bind-mounted to /home
-├── var/lib/    → bind-mounted to /var/lib
-├── etc/nixos/  → bind-mounted to /etc/nixos
-└── etc/ssh/    → host keys
+├── home/       → /home
+├── var/lib/    → /var/lib
+├── etc/nixos/  → /etc/nixos
+└── etc/ssh/    → host keys, agenix identity
 ```
 
-See also the legacy configurations in [`.attic/`](./.attic/) for historical reference.
+The persisted host key at
+`/nix/persist/etc/ssh/ssh_host_ed25519_key` is also the agenix decryption
+identity for servers.
 
----
+## 💿 Disk layouts
 
-## Backup & Restore
+Disko turns a Nix expression into partitions, filesystems and mounts. The
+boot-critical layouts live under `storage/disko/`.
 
-Automated daily backups via rsync to dual targets, with ZFS snapshot-based retention.
-
-| Parameter | Value |
-|---|---|
-| Engine | rsync + rrsync (restricted chroot) |
-| Schedule | Daily at 23:15 via systemd timer |
-| Source | `/mnt/ro/var/lib` (read-only bind mount) |
-| Targets | `backup@ops4` (mon/wed/fri), `backup@ops5` (tue/thu/sat/sun) |
-| Container Backup | All `nixos-container` instances (stopped, backed up, restarted) |
-| Database Backup | PostgreSQL, MySQL (stopped for consistency) |
-| ACL Preservation | Full recursive ACLs via `getfacl` → `.acl-map` |
-
-> **Full backup documentation**: [BACKUP.md](./BACKUP.md) — restore procedures, troubleshooting, key paths.
-
----
-
-## Disko Disk Layouts
-
-Disko definitions declaratively format and mount disks for new or rebuilt machines.
-
-| Layout | Path | Description |
+| Layout | File | Encryption |
 |---|---|---|
-| Basic | [disko/basic.nix](./disko/basic.nix) | Standard disk layout (reference) |
-| Stateless | [disko/impermanence.nix](./disko/impermanence.nix) | Stateless root + persist bind mounts |
-| Stateless + LUKS | [disko/impermanence-luks.nix](./disko/impermanence-luks.nix) | Encrypted stateless layout |
+| Basic | [`disko/basic.nix`](./disko/basic.nix) | No |
+| Stateless | [`disko/stateless.nix`](./disko/stateless.nix) | No |
+| Stateless + LUKS | [`disko/stateless-luks.nix`](./disko/stateless-luks.nix) | Yes |
+| Stateless autoinstaller | [`disko/stateless-autoinstaller.nix`](./disko/stateless-autoinstaller.nix) | No |
+| Stateless + LUKS autoinstaller | [`disko/stateless-luks-autoinstaller.nix`](./disko/stateless-luks-autoinstaller.nix) | Yes |
 
-### Provisioning (Makefile)
+## 🚀 Provisioning
+
+The `storage/Makefile` is destructive. Read it before running anything.
 
 ```bash
-# Format and install a new machine (LUKS mode)
-make TARGET=ops1 TARGETDRIVE=sda
-
-# Wipe and re-provision
-make TARGET=ops1 wipe
-
-# USB boot media
-make TARGET=ops1 usb
+make -C storage info          # show assumptions and variables
+make -C storage usb           # full pipeline: wipe → format → mount → install
+make -C storage wipe          # wipe the target device
+make -C storage migrate-persist
 ```
 
----
-
-## ISO / Auto-Installer
-
-Automated NixOS installer images for zero-touch provisioning.
-
-| ISO | Path | Description |
+| Variable | Default | Meaning |
 |---|---|---|
-| Auto-installer | [iso-autoinstaller.nix](./iso-autoinstaller.nix) | Automated fresh install with disko |
-| Live USB | [iso-live.nix](./iso-live.nix) | Rescue/debug live environment |
+| `REPO` | `/etc/nixos` | Flake location |
+| `TARGET` | hostname | `nixosConfigurations.<TARGET>` |
+| `TARGETDRIVE` | — | Block device to provision (e.g. `sda`) |
+| `USELUKS` | `YES` | Use the LUKS layout |
+| `DISKOFLAKE` | `disko/stateless-luks.nix` | disko file to apply |
 
----
+## 🛡️ Backups and ZFS
 
-## Monitoring & Maintenance
+Two dedicated ZFS backup servers (`ops4`, `ops5`) receive daily rsync backups
+and keep snapshots. See:
 
-### Quick Status Check
+- [`BACKUP.md`](./BACKUP.md) — schedule, restore procedures, ACL handling.
+- [`ZFS.md`](./ZFS.md) — pool layout, datasets, retention, monitoring.
 
 ```bash
-# ZFS pool health
 ssh -p 6623 me@ops4 'zpool status -v && zfs list'
-ssh -p 6623 me@ops5 'zpool status -v && zfs list'
-
-# Snapshot inventory
-ssh -p 6623 me@ops4 'zfs list -t snapshot -o name,creation,used'
-
-# Disk health (via Prometheus node_exporter + smartctl)
-ssh -p 6623 me@ops4 'sudo smartctl --all /dev/sda'
+systemctl status rsync-backup.timer
 ```
 
-### Automated Jobs
+## ⚠️ Safety
 
-| Service | Schedule | Purpose |
-|---|---|---|
-| `zfs-auto-snapshot.timer` | Hourly/daily/weekly/monthly | Auto-snapshots (retention in ZFS.md) |
-| `zfs-auto-scrub.timer` | Weekly | Pool scrub for silent corruption |
-| `zfs-trim.timer` | Weekly | Trim unused SSD blocks |
-| `zfs-cache-meta-backup-timer` | Daily 22:55 | Warm metadata cache on backup dataset |
-| `zfs-cache-meta-samba-timer` | Hourly | Warm metadata cache on samba dataset |
-| `rsync-backup.timer` | Daily 23:15 | Automated backup via rsync |
+- `make sda`, `make sdb`, `make sdc`, `make usb`, `make wipe-home`, `make zero`
+  erase data. Never run them unattended.
+- Never edit a `.age` secret or replace it with plaintext.
+- Verify the target device twice before formatting.
 
 ---
 
-## Quick Links
-
-| Document | Description |
-|---|---|
-| [**ZFS.md**](./ZFS.md) | ZFS pool architecture, config, monitoring, pool operations |
-| [**BACKUP.md**](./BACKUP.md) | Backup engine, restore guides, schedule matrix, troubleshooting |
-| [**Makefile**](./Makefile) | Provisioning commands for disk layouts and USB media |
-| [**disko/basic.nix**](./disko/basic.nix) | Reference disk layout |
-| [**disko/impermanence.nix**](./disko/impermanence.nix) | Stateless disk layout (no encryption) |
-| [**disko/impermanence-luks.nix**](./disko/impermanence-luks.nix) | Stateless disk layout with LUKS encryption |
-| [**zfs.nix**](./zfs.nix) | Declarative ZFS configuration (single source of truth) |
-| [**backup.nix**](./backup.nix) | Declarative backup service & timer definitions |
-| [**.attic/**](./.attic/) | Legacy/discontinued configurations for reference |
+<p align="right"><sub><a href="../README.md">← main README</a> · <a href="./ZFS.md">ZFS</a> · <a href="./BACKUP.md">backup</a></sub></p>

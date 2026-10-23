@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 140" width="1200" height="140" role="img" aria-label="paepckehh/nixos: since June 2024, 3670 commits, 36 releases, zero drift">
+  <title>paepckehh/nixos - since June 2024, 3670 commits, 36 releases</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#070b14"/>
+      <stop offset="0.55" stop-color="#0b1424"/>
+      <stop offset="1" stop-color="#0f1b31"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.1" cy="0.5" r="0.62">
+      <stop offset="0" stop-color="#7cb3ff" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#7cb3ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7cb3ff"/>
+      <stop offset="0.55" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#2dd4bf"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7cb3ff" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+    <style>
+      .sans { font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="140" rx="20" fill="url(#bg)"/>
+  <rect width="1200" height="140" rx="20" fill="url(#glow)"/>
+  <rect x="0.5" y="0.5" width="1199" height="139" rx="19.5" fill="none" stroke="#22d3ee" stroke-opacity="0.18"/>
+  <rect x="40" y="0" width="540" height="2" fill="url(#edge)"/>
+
+  <path d="M74 32 L106 44 V72 C106 92 91 104 74 110 C57 104 42 92 42 72 V44 Z" fill="url(#mark)"/>
+  <path d="M59 71 L70 82 L90 60" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="130" y="46" class="mono" font-size="12" letter-spacing="2.8" fill="#8fc2ff">SINCE JUNE 2024</text>
+  <text x="130" y="79" class="sans" font-size="26" font-weight="700" letter-spacing="-0.5" fill="#eef4ff">3,670 commits. 36 releases. Zero drift.</text>
+  <text x="130" y="105" class="mono" font-size="12.5" fill="#8fa2c4">one flake &#183; 500+ Nix files &#183; 58 service categories &#183; 51 sealed secrets</text>
+
+  <g filter="url(#soft)">
+    <rect x="768" y="30" width="392" height="80" rx="14" fill="#11203a" stroke="#1e2b45"/>
+    <path d="M796 52 L799.7 60.7 L809 61.5 L801.9 67.8 L804 76.9 L796 72.1 L788 76.9 L790.1 67.8 L783 61.5 L792.3 60.7 Z" fill="#fbbf24"/>
+    <text x="824" y="62" class="mono" font-size="14" fill="#eef4ff">github.com/paepckehh/nixos</text>
+    <text x="824" y="85" class="mono" font-size="11.5" fill="#7f93b5">v0.1.1031 &#183; main &#183; shipping daily</text>
+  </g>
+</svg>

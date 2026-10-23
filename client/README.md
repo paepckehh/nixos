@@ -1,92 +1,75 @@
-# 🖥️ Client — Machine Setup & Integration
+<div align="center">
 
-> One machine at a time. WireGuard, backup clients, caching layers, endpoint firewalls, and root CA trust — all declarative.
+# 🖥️ Client
+
+**Client-side modules: WireGuard, caches, firewall, USB blocking, root CA trust.**
+
+[![Modules](https://img.shields.io/badge/modules-17-5277C3)](../client)
+[![Flexible](https://img.shields.io/badge/import-cherry%20pick-0891b2)](../client)
+[![Nix](https://img.shields.io/badge/plain%20Nix-modules-0d9488)](https://nixos.org)
+
+`imports = [ ./client/addWireguard.nix ];`
+
+</div>
 
 ---
 
-## 🗂️ What's In Here
-
-Client-side NixOS modules for **configuring individual workstations, laptops, and servers** that connect to this infrastructure. Every module is designed to be cherry-picked into any profile's `imports` array.
-
-### Core Modules
+## 🗂️ What's in here
 
 | File | Purpose |
 |---|---|
-| `addWireguard.nix` | WireGuard client setup with automated persistent peers |
-| `addCache.nix` | Nix binary cache client — pulls from NCPS |
-| `addCacheUp.nix` | Nix binary cache builder/publisher |
-| `addEndlessh.nix` | Endlessh ( SSH honeypot ) for SSH hardening |
-| `addOpenSnitch.nix` | OpenSnitch firewall — packet-level application firewall |
-| `addOpenSnitch-addDev.nix` | OpenSnitch rules & profiles for dev environments |
-| `addOpenSnitch-addSrv.nix` | OpenSnitch rules & profiles for server environments |
-| `addUsblock.nix` | USB device blocking via udev rules |
-| `addYubilock.nix` | YubiKey-based system lock (suspend-on-remove) |
-| `addrootCA.nix` | Root CA certificate trust setup |
-| `addrootCA-ext.nix` | Extended root CA (custom extensions) |
-| `autoupdate.nix` | Automatic NixOS update scheduling |
-| `down.nix` | System shutdown & safe-offline profiles |
-| `env.nix` | Global environment variables & PATH configuration |
-| `forward-journald.nix` | Systemd journald remote log forwarding |
-| `forward-syslog-ng.nix` | Syslog-ng remote forwarding |
+| `addWireguard.nix` | WireGuard client with persistent peers |
+| `addCache.nix` | Nix binary cache client pointing at NCPS |
+| `addCacheUp.nix` | Binary cache builder and publisher |
+| `addEndlessh.nix` | SSH honeypot |
+| `addOpenSnitch.nix` | Application-level packet firewall |
+| `addOpenSnitch-addDev.nix` | OpenSnitch rules for dev machines |
+| `addOpenSnitch-addSrv.nix` | OpenSnitch rules for servers |
+| `addUsblock.nix` | USB device blocking via udev |
+| `addYubilock.nix` | Suspend when the YubiKey is removed |
+| `addrootCA.nix` | Root CA trust |
+| `addrootCA-ext.nix` | Extended root CA setup |
+| `addHomeFix.nix` | Home permission and ownership fixes |
+| `autoupdate.nix` | Scheduled NixOS updates |
+| `down.nix` | Safe shutdown and offline profiles |
+| `env.nix` | Global environment variables and PATH |
+| `forward-journald.nix` | Remote journald forwarding |
+| `forward-syslog-ng.nix` | Remote syslog-ng forwarding |
 
-### Resources
+`resources/` holds keyring archives (`.kra`) and avatars for admin and office
+machines. `.attic/` holds retired client layouts.
 
-| Directory | Contents |
-|---|---|
-| `resources/` | Keyring archives (`.kra`), PGP keys (`.png`) for admin & development PCs |
-
-### Archived
-
-| Directory | Contents |
-|---|---|
-| `.attic/` | Legacy client configurations (old wireguard layouts, deprecated modules) |
-
----
-
-## 🚀 Usage
-
-### Add WireGuard to a Profile
-
-```nix
-{
-  imports = [
-    ./client/addWireguard.nix
-  ];
-
-  networking.wireguard.enable = true;
-}
-```
-
-### Add Backup Client
-
-```nix
-{
-  imports = [
-    ./client/addBackupClient.nix
-  ];
-}
-```
-
-### Deploy Environment Vars
+## 🚀 Use a module
 
 ```nix
 {
   imports = [
     ./client/env.nix
+    ./client/addWireguard.nix
+    ./client/addCache.nix
+    ./client/addrootCA.nix
   ];
 }
 ```
 
+Modules are independent. Import only what the machine needs; each one sets its
+own options and does not assume a role or a host.
+
+## 🔐 Security notes
+
+- **Endlessh** — passive SSH defense; slows down scanners.
+- **OpenSnitch** — default-deny outbound connections; allow explicitly.
+- **YubiLock** — physical-presence lock; removal suspends the machine.
+- **USB block** — stops unauthorized storage and HID devices.
+- **root CA** — trust the internal CA and nothing you cannot name.
+
+## 📐 Rules
+
+- No host identity, no site values. Read `infra` yourself if a module needs it.
+- Keep modules cherry-pickable; do not add hidden cross-imports.
+- Never place plaintext key material in `resources/`.
+- Format with `alejandra`.
+
 ---
 
-## 🔐 Security Notes
-
-- **Endlessh** — SSH honeypot for passive defense; deters brute-force scanning
-- **OpenSnitch** — Whitelist-based firewall; only explicitly allowed connections proceed
-- **YubiLock** — Physical access defense; system suspends when your YubiKey is removed
-- **USB block** — Prevents unauthorized USB storage / HID devices (think: RubberDucky)
-
----
-
-*For client service modules → [Server](../server/)*
-*For root CA certs → [modules/resources/](../modules/resources/)*
+<p align="right"><sub><a href="../README.md">← main README</a> · <a href="../user/README.md">user</a> · <a href="../modules/README.md">modules</a></sub></p>

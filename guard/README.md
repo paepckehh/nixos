@@ -1,138 +1,105 @@
-# Guard
+<div align="center">
 
-[![OpenWrt](https://img.shields.io/badge/OpenWrt-23.05-brightgreen?style=flat-square)](https://openwrt.org/)
-[![Raspberry Pi](https://img.shields.io/badge/Hardware-Raspberry%20Pi%204-blue?style=flat-square)](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/)
-[![WireGuard](https://img.shields.io/badge/VPN-WireGuard-green?style=flat-square)](https://wireguard.com/)
+# 🛡️ Guard
 
-A hardened, zero-touch OpenWrt base-image deployment toolkit for building secure wireless guard nodes on Raspberry Pi 4 devices. Provisions hardened WireGuard tunnel based client corporate access devices with minimal manual configuration.
+**Zero-touch OpenWrt images for hardened Raspberry Pi 4 guard nodes.**
 
-## Features
+[![OpenWrt](https://img.shields.io/badge/OpenWrt-25.12-5277C3)](https://openwrt.org)
+[![Hardware](https://img.shields.io/badge/hardware-Raspberry%20Pi%204-0891b2)](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/)
+[![VPN](https://img.shields.io/badge/VPN-WireGuard-0d9488)](https://wireguard.com)
 
-- **Pre-configured OpenWrt base image** — zero-touch deployment via SD card
-- **WireGuard VPN** — server and client support with auto-generated configs
-- **Firewall (nftables)** — custom filter chains with drop/policy defaults
-- **Bulk provisioning** — generate restore configs for multiple nodes at once
+`ID=100 WPK='…' PSK='…' make config`
 
-## Quick Start
+</div>
 
-### Prerequisites
+---
 
-- `make` (GNU Make)
-- `curl`, `xz`, `gzip`, `tar`
-- `sudo` or a user with passwordless root access
-- A Raspberry Pi 4 (4/8 GB)
-- SD card and card reader
+## 🗂️ What's in here
 
-### Write an Image to SD Card
+| Path | Purpose |
+|---|---|
+| `Makefile` | Image writing and config generation: `all`, `config`, `gen`, `sdcard` |
+| `genall.sh` | Bulk restore-config generator |
+| `secure.img.xz` | Base image deployed to SD cards |
+| `openwrt-25.12.0-rc4-…-rpi-4-squashfs-factory.img.xz` | Pinned upstream factory image |
+| `config.txt` / `config-wifi.txt` | Raspberry Pi boot config, Wi-Fi off / on |
+| `distroconfig.txt` | Distro overlay |
+| `manual.txt` | Operator notes |
+| `etc/` | OpenWrt UCI config, dropbear keys, nftables, crontabs, profile scripts |
+| `.attic/` | Archived backups, not for deployment |
+
+## 🚀 Write an image
 
 ```bash
-# Write to /dev/sda (default)
-make sdcard
-
-# Write to a specific device
-TARGET=sdb make sdcard
+make sdcard                 # /dev/sda, with a 5 second cancel window
+TARGET=sdb make sdcard      # specific block device
 ```
 
-> ⚠️ This will **wipe the entire disk**. You have 5 seconds to cancel before `dd` begins.
+> This wipes the whole disk. There is a five second delay before `dd` starts.
 
-### Generate a Node Config
+## 🚀 Generate node configs
 
 ```bash
+# One node
 ID=100 WPK='<wireguard-private-key>' PSK='<pre-shared-key>' make config
-```
 
-Output: `~/Downloads/RestoreME-<site>guard100-<timestamp>.tar.gz`
-
-### Bulk Provisioning
-
-```bash
+# Bulk: nodes 100 through 109
 ID=100 NEXT=10 WPK='<key>' PSK='<psk>' WIFI=0 make gen
 ```
 
-Generates restore configs for nodes `100` through `109`. Set `WIFI=1` to keep Wi‑Fi and the LuCI web GUI enabled.
+Output lands in `TARGETDIR` (default `~/Downloads`) as
+`RestoreME-<site>guard<id>-<timestamp>.tar.gz`.
 
-## Make Targets
+## ⚙️ Targets and variables
 
-| Target | Description |
-| --- | --- |
-| `make sdcard` | Write the base image to `/dev/sda` |
-| `TARGET=sdb make sdcard` | Write to a specific block device |
-| `make config` | Generate a single node restore tarball |
-| `make gen` | Bulk-generate restore configs (requires `NEXT` or `ID`) |
-| `make all` | Show all available targets and env vars |
+| Target | Result |
+|---|---|
+| `make sdcard` | Write the base image |
+| `make config` | One restore tarball |
+| `make gen` | Bulk restore configs |
+| `make all` | Show targets and variables |
 
-## Environment Variables
+| Variable | Default | Meaning |
+|---|---|---|
+| `TARGET` | `sda` | Block device |
+| `ID` | — | Node IP suffix and hostname |
+| `NEXT` | — | Number of bulk nodes |
+| `WPK` | — | WireGuard private key |
+| `PSK` | — | WireGuard pre-shared key |
+| `NETWORK` | `10.20.66` | Node subnet |
+| `BRAND` | `<site>guard` | Name embedded in configs |
+| `WIFI` | `0` | `1` keeps Wi-Fi and LuCI enabled |
+| `INSTANCE` | `turbo` | Instance profile |
+| `TARGETDIR` | `~/Downloads` | Output directory |
 
-| Variable | Default | Description |
-| --- | --- | --- |
-| `TARGET` | `sda` | Target block device (e.g. `sda`, `sdb`) |
-| `ID` | — | Node IP suffix and hostname identifier (required) |
-| `WPK` | — | WireGuard private key (required for `config`) |
-| `PSK` | — | WireGuard pre-shared key (required for `config`) |
-| `NETWORK` | `10.20.66` | Subnet for the node's primary network |
-| `BRAND` | `<site>guard` | Brand/organization name embedded in configs |
-| `WIFI` | `0` | Set to `1` to enable Wi‑Fi and LuCI GUI |
-| `INSTANCE` | `turbo` | Instance profile identifier |
-| `TARGETDIR` | `~/Downloads` | Output directory for generated configs |
+## 🧱 Updating the base image
 
-## Updating the Base Image
+1. Open the [OpenWrt firmware selector](https://firmware-selector.openwrt.org/).
+2. Select **Raspberry Pi 4B / 400 / CM4 (64-bit)**.
+3. Enable **Customize installed packages** and add, without removing defaults:
 
-To update the Raspberry Pi OpenWrt firmware for Wi‑Fi client deployments:
-
-1. Visit [OpenWrt Firmware Selector](https://firmware-selector.openwrt.org/)
-2. Select **Raspberry Pi 4B / 400 / CM4 (64-bit)**
-3. Choose the desired firmware version
-4. Enable **Customize installed packages**
-5. Add the following packages (do not remove defaults):
-
-```
+```text
 luci-ssl luci-mod-dashboard bind-dig vim-fuller fish whereis curl mtr btop \
 kmod-lib-zstd kmod-wireguard luci-proto-wireguard wireguard-tools \
 kmod-usb-net-asix kmod-usb-net-asix-ax88179 kmod-usb-net-cdc-ether \
 kmod-usb-net-cdc-mbim kmod-mt7921-firmware kmod-mt7921u kmod-rtw88
 ```
 
-6. Click **REQUEST BUILD** and wait for status: *Build Successful*
-7. Download **Factory Squashfs**
-8. Decompress and recompress:
+4. Build, download **Factory Squashfs**, decompress and recompress:
 
 ```bash
 gunzip image-name.img.gz
 xz -9e image-name.img
-```
-
-9. Replace the image in the project:
-
-```bash
 ln -fs image-name.img.xz secure.img.xz
 ```
 
-## Project Structure
+## 🔐 Security
 
-```
-guard/
-├── Makefile              # Deployment & provisioning targets
-├── genall.sh             # Bulk config generator script
-├── secure.img.xz         # OpenWrt base image (deployed via IMGSRC)
-├── config.txt            # Raspberry Pi config (Wi‑Fi disabled)
-├── config-wifi.txt       # Raspberry Pi config (Wi‑Fi enabled)
-├── distroconfig.txt      # Distro-specific overlay
-├── etc/                  # OpenWrt uci configs & SSH keys
-│   ├── config/           # network, firewall, wireless, etc.
-│   ├── dropbear/         # SSH host keys
-│   ├── nftables.d/       # netfilter rules
-│   ├── profile.d/        # Shell init scripts
-│   └── crontabs/         # Scheduled tasks
-└── .attic/               # Archived backups (not for deployment)
-```
+- Root access uses passwordless SSH through dropbear with Ed25519 keys.
+- nftables chains default to drop.
+- Bluetooth and Wi-Fi are disabled by default (`config.txt`).
+- Disk writes include a five second safety delay.
 
-## Security Notes
+---
 
-- Root access is via passwordless SSH (`dropbear`) with Ed25519 keys
-- Firewall uses `nftables` drop chains as the default policy
-- The base image disables Bluetooth and Wi‑Fi by default (`config.txt`)
-- All disk writes include a 5-second safety delay before `dd` begins
-
-## License
-
-Internal
+<p align="right"><sub><a href="../README.md">← main README</a> · <a href="../openwrt/README.md">openwrt</a> · <a href="../iot/README.md">iot</a></sub></p>

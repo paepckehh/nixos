@@ -1,67 +1,59 @@
-# 🔌 Hardware — Device-Specific NixOS Profiles
+<div align="center">
 
-> From MacBooks to ThinkPads, HP towers to Intel mini-PCs — every machine gets its own NixOS config.
+# 🔌 Hardware
+
+**CPU, GPU and device profiles. One import per machine family.**
+
+[![CPU](https://img.shields.io/badge/CPU-amd%20%7C%20intel-5277C3)](../hardware)
+[![GPU](https://img.shields.io/badge/GPU-amd%20%7C%20intel-0891b2)](../hardware/all-gpu.nix)
+[![Format](https://img.shields.io/badge/formatter-alejandra-0d9488)](../Makefile)
+
+`imports = [ ./hardware/all.nix ./hardware/amd-gpu.nix ];`
+
+</div>
 
 ---
 
-## 🗂️ What's In Here
-
-Hardware abstraction layer. Each module configures the right kernel modules, firmware, GPU drivers, and power settings for a specific device or family.
-
-### By Manufacturer
-
-| Directory | Devices |
-|---|---|
-| `apple/` | MacBook (Intel-based) profiles with proper ACPI, trackpad, and power management |
-| `hp/` | HP servers & workstations — Dell OptiPlex T640 and related hardware |
-| `lenovo/` | ThinkPad family — X1 Carbon Gen7, T490, and more |
-
-### By GPU
-
-| File | GPU Vendor |
-|---|---|
-| `amd-gpu.nix` | AMD Radeon (open-source drivers) |
-| `intel-gpu.nix` | Intel Iris / UHD integrated graphics |
-| `all-gpu.nix` | Catch-all: enables all GPU drivers (for mixed/hardware-agnostic builds) |
-
-### Core Defaults
+## 🗂️ What's in here
 
 | File | Purpose |
 |---|---|
-| `all.nix` | Universal hardware module — CPU/firmware defaults for all x86_64 hosts |
-| `amd.nix` | AMD CPU-level config (power scheduling, microcode) |
-| `intel.nix` | Intel CPU-level config (Turbo boost, power management, microcode) |
+| `all.nix` | Universal hardware defaults: CPU, firmware and kernel basics for every x86_64 host |
+| `all-gpu.nix` | Catch-all GPU module for mixed or hardware-agnostic builds |
+| `amd.nix` | AMD CPU settings (microcode, power scheduling) |
+| `amd-gpu.nix` | AMD Radeon graphics |
+| `intel.nix` | Intel CPU settings (microcode, power management) |
+| `intel-gpu.nix` | Intel Iris / UHD integrated graphics |
+| `apple/intel/default.nix` | Intel MacBook profile: ACPI, trackpad, power management |
+| `.attic/` | Retired device and GPU profiles |
 
-### Resources
+There are no HP or Lenovo profiles in this tree today. Device support is limited
+to the files above; add a new module beside them if you bring in new hardware.
 
-| Directory | Contents |
-|---|---|
-| `resources/bios/` | UEFI BIOS configuration exports (JSON) for ThinkPad & HP devices |
-
-### Archived
-
-| Directory | Contents |
-|---|---|
-| `.attic/` | Legacy hardware configs, deprecated GPU modules, old BIOS profiles |
-
----
-
-## 🚀 How It Works
-
-Hardware modules auto-detect your CPU/GPU via NixOS's `lib.mkIf` guards:
+## 🚀 Use a profile
 
 ```nix
 {
   imports = [
     ./hardware/all.nix
+    ./hardware/amd.nix
     ./hardware/amd-gpu.nix
-    ./hardware/hp/t640/all.nix
+    ./hardware/apple/intel/default.nix
   ];
 }
 ```
 
-The system automatically picks the right microcode, kernel params, and device drivers.
+Most modules guard their settings with `lib.mkIf`, so importing a profile on the
+wrong machine is usually harmless. Kernel and microcode choices still come from
+the CPU module (`amd.nix` or `intel.nix`).
+
+## 📐 Rules
+
+- One device family per file.
+- Guard with `lib.mkIf` when a setting only makes sense on matching hardware.
+- Do not hardcode host names or sites here.
+- Format with `alejandra`.
 
 ---
 
-*For full system config → [Hosts](../hosts/) → [Main README](../README.md)*
+<p align="right"><sub><a href="../README.md">← main README</a> · <a href="../hosts/README.md">hosts</a> · <a href="../storage/README.md">storage</a></sub></p>

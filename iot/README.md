@@ -1,77 +1,85 @@
-# 🏠 IoT — Smart Device Integrations
+<div align="center">
 
-> EcoFlow power stations, Home Assistant hubs, Tibber energy monitors, Moode audio players, DAB receivers — all managed through NixOS module definitions.
+# 🏠 IoT
+
+**Power stations, energy meters, smart-home hubs and audio players, declared in Nix.**
+
+[![Devices](https://img.shields.io/badge/integrations-5-5277C3)](../iot)
+[![Hub](https://img.shields.io/badge/hub-Home%20Assistant-0891b2)](./homeassistant.nix)
+[![Secrets](https://img.shields.io/badge/API%20keys-agenix-7c3aed)](../modules/resources)
+
+`./iot/homeassistant.nix`
+
+</div>
 
 ---
 
-## 🗂️ What's In Here
-
-IoT module definitions that integrate physical devices with the infrastructure. Each file describes one device family as a NixOS service profile.
+## 🗂️ What's in here
 
 | File | Device | Purpose |
 |---|---|---|
-| `dab.nix` | DAB Radio Receiver | DAB/DAB+ digital radio streaming & control |
-| `ecoflow-mqtt.nix` | EcoFlow Power Station | MQTT-based telemetry: battery, solar input, device status |
-| `ecoflow-rest.nix` | EcoFlow Power Station | REST API integration: email notifications, access keys, device management |
-| `homeassistant.nix` | Home Assistant | Smart home hub — Home Assistant integration & automation |
-| `tibber.nix` | Tibber Energy Monitor | Smart meter integration: real-time energy prices, consumption tracking |
+| `homeassistant.nix` | Home Assistant | Smart-home hub and automations |
+| `ecoflow-mqtt.nix` | EcoFlow power station | MQTT telemetry: battery, solar input, status |
+| `ecoflow-rest.nix` | EcoFlow power station | REST integration: notifications, access keys, devices |
+| `tibber.nix` | Tibber | Real-time prices and consumption |
+| `dab.nix` | DAB receiver | DAB/DAB+ radio streaming and control |
+| `moode/` | Moode Audio | Player image, stream aliases, manual notes |
 
-### Audio
+`moode/` is a subproject with its own Makefile and `alias.nix`; it is not a
+regular NixOS module.
 
-| Directory | Contents |
-|---|---|
-| `moode/` | Moode Audio player — Makefile, stream aliases, manual notes |
+## 🚀 Integration pattern
 
----
-
-## 🔌 Integration Pattern
-
-Each IoT module defines:
+IoT modules follow the same shape as server modules: import `infra`, enable the
+service, and reference agenix secrets by path.
 
 ```nix
 { config, pkgs, lib, ... }:
 let
   infra = (import ../siteconfig/config.nix).infra;
 in {
-  # Service definition
-  services.<device> = {
+  services.home-assistant = {
     enable = true;
-    settings = { ... };
+    config = { /* ... */ };
   };
 
-  # Secrets from modules/resources/
-  secrets = import ../modules/resources/<device>.age;
+  age.secrets.tibber.file = ../modules/resources/tibber.age;
 }
 ```
 
 ## 🔐 Secrets
 
-IoT devices often need API keys, tokens, or credentials. These are stored as encrypted `.age` files:
+| File | Purpose |
+|---|---|
+| `ecoflow-email.age` | EcoFlow account email |
+| `ecoflow-password.age` | EcoFlow account password |
+| `ecoflow-access-key.age` | API access key |
+| `ecoflow-secret-key.age` | API secret key |
+| `ecoflow-devices.age` | Device registry |
+| `tibber.age` | Tibber API token |
 
-- `ecoflow-email.age` — EcoFlow account email
-- `ecoflow-access-key.age` — API access key
-- `ecoflow-secret-key.age` — API secret key
-- `ecoflow-devices.age` — Device registry
-- `tibber.age` — Tibber API token
+Never inline a token in a module. Reference the decrypted path instead.
+
+## 📊 Data flow
+
+```text
+EcoFlow  ──MQTT/REST──►  Home Assistant  ◄──Tibber
+                              │
+                              ▼
+                     Prometheus + Grafana
+```
+
+Devices publish into the hub; the hub and Prometheus expose the resulting state
+and metrics.
+
+## 📐 Rules
+
+- One device family per file.
+- Read site values from `infra`, never hardcode an address.
+- Secrets only through agenix.
+- Keep `moode/` build steps in its own Makefile.
+- Format with `alejandra`.
 
 ---
 
-## 📊 Data Flow
-
-```
-┌─────────────┐     ┌──────────────┐     ┌───────────────────┐
-│ EcoFlow     │     │ Home         │     │ Tibber            │
-│ Power       │──>──│ Assistant    │──>──│ Smart Meter       │
-│ Station     │     │ (Hub)        │     │                   │
-└─────────────┘     └──────────────┘     └───────────────────┘
-                          │                      │
-                     ┌────▼──────┐         ┌─────▼───────┐
-                     │ NixOS     │         │ Prometheus  │
-                     │ Monitor   │         │ + Grafana   │
-                     └───────────┘         └─────────────┘
-```
-
----
-
-*For monitoring services → [Server/monitoring](../server/monitoring/)*
-*For secrets → [modules/resources](../modules/resources/)*
+<p align="right"><sub><a href="../README.md">← main README</a> · <a href="../server/README.md">server</a> · <a href="../guard/README.md">guard</a></sub></p>
