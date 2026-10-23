@@ -193,4 +193,79 @@ product. Read the diff before you deploy it. Wild ideas and sharp PRs welcome.
 
 **Code:** humans. **Docs:** CrushAI. **Review:** both.
 
+## 📚 Documentation
+
+This README is the map; the directory READMEs are the territory. Pick a trail:
+
+| You want to… | Read in this order |
+|---|---|
+| **Ship a host** | [Profiles](#-profiles) → [Command deck](#-command-deck) → [`hosts/`](hosts/README.md) |
+| **Add a service** | [`server/`](server/README.md) → [`siteconfig/`](siteconfig/README.md) → [`modules/`](modules/README.md) |
+| **Understand storage** | [`storage/`](storage/README.md) → [`ZFS.md`](storage/ZFS.md) → [`BACKUP.md`](storage/BACKUP.md) |
+| **Extend the edge** | [`openwrt/`](openwrt/README.md) → [`guard/`](guard/README.md) → [`iot/`](iot/README.md) → [`freifunk/`](freifunk/README.md) |
+
+Reference shelf:
+
+- 🧩 **Service catalog** — 157 modules in 58 categories: [`server/README.md`](server/README.md)
+- ⚙️ **Single source of truth** — IDs, IPs, domains, ports: [`siteconfig/README.md`](siteconfig/README.md)
+- 🔐 **Secrets and trust** — 51 sealed files, rotation rules: [`modules/README.md`](modules/README.md)
+- 💾 **Disks and restores** — impermanence, ZFS, rsync: [`storage/README.md`](storage/README.md)
+- 📝 **Runbooks** — SSH, syslog-ng, ESP32, Crush: [`doc/README.md`](doc/README.md)
+- 🎨 **Visual identity** — hand-built SVGs: [`docs/`](docs/) ([light](docs/hero-light.svg) · [dark](docs/hero-dark.svg))
+
+> Every markdown file follows the same GitHub style on purpose: badges, compact
+> tables, working links, verified counts. If a doc disagrees with the code, the
+> code wins and the doc is a bug.
+
+## 🤝 Contributing
+
+This is a live lab, not a museum. Sharp PRs, reproductions and wild ideas are welcome.
+
+1. Read [`flake.nix`](flake.nix) and the relevant `infra.<name>` block before touching a service.
+2. Run `ls -l` on any `server/<category>/file.nix`. It is probably a symlink into `server/all/`.
+3. Format with `alejandra --quiet .`. It is the only accepted formatter; do not add another.
+4. Verify with `nix-instantiate --parse <file>` at minimum. Full evaluation needs the Nix daemon and the private mirror.
+5. Never commit a `.age` file, a plaintext secret, or a "cleanup" of commented-out feature flags.
+
+One topic per PR. Fix the target you came for; leave unrelated breakage for its own change.
+Found a vulnerability or a leaked secret? Report it privately to the maintainer, not in a public issue.
+
+## ⚖️ License
+
+**Internal. All rights reserved.**
+
+No `LICENSE` file is present in this repository, so no open-source license is
+granted. This configuration describes a private fleet and carries
+infrastructure-specific addresses, identities and encrypted material. Take
+inspiration from the patterns; do not redistribute the repository, its secrets,
+or its site values without written permission.
+
+If this repository is ever opened up, add a `LICENSE` at the root and update
+this section in the same change.
+
+## 📖 Citation
+
+If you reference this fleet in a talk, an article or another repository:
+
+```bibtex
+@misc{paepckehh-nixos,
+  author       = {Michael Paepcke},
+  title        = {paepckehh/nixos: your entire company as a service},
+  year         = {2024},
+  publisher    = {GitHub},
+  journal      = {GitHub repository},
+  howpublished = {\url{https://github.com/paepckehh/nixos}},
+  note         = {NixOS fleet: servers, desktops, routers and IoT; stateless root, disko, agenix}
+}
+```
+
+Plain text: Paepcke, M. (2024). *paepckehh/nixos: your entire company as a service*.
+GitHub. <https://github.com/paepckehh/nixos>
+
+For reproducibility, cite the tag you actually deployed:
+
+```bash
+git describe --tags --abbrev=0   # e.g. v0.1.1032
+```
+
 <p align="right"><sub>Built with Nix, caffeine and a healthy distrust of snowflake servers.</sub></p>
