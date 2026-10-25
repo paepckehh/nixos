@@ -544,7 +544,7 @@ let
       GOOS = "linux";
       GOPATH = ["/nix/persist/cache/go/go-path"];
       GOPRIVATE = "";
-      GOPROXY = "https://proxy.dbt.corp,https://proxy.golang.org"; # direct
+      GOPROXY = "https://goproxy.dbt.corp,https://proxy.golang.org"; # direct
       GOSUMDB = "sum.golang.org+033de0ae+Ac4zctda0e5eza+HJyk9SxEdh+s3Ux18htTTAD8OuAn8";
       GOTELEMETRY = "off";
       GOTELEMETRYDIR = "/dev/null";

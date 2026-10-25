@@ -6,7 +6,7 @@
 lib.mkMerge [
   (import ../../lib/proxy.nix {
     inherit infra;
-    name = "searx";
+    name = "search";
   })
   {
     ##################

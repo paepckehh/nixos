@@ -65,10 +65,7 @@
       availableKernelModules = infra.kernel.whitelist.base;
       supportedFilesystems = infra.kernel.fs.base;
       luks.mitigateDMAAttacks = lib.mkForce true;
-      systemd = {
-        enable = lib.mkDefault true;
-        emergencyAccess = lib.mkForce false;
-      };
+      systemd.emergencyAccess = lib.mkForce false;
     };
     loader = {
       efi.canTouchEfiVariables = true;
