@@ -8,7 +8,7 @@
 
 # ⚡ paepckehh/nixos
 
-**Your entire company, as a service.**
+**Your entire company, as ONE NixOS Flake **
 
 Servers, desktops, routers, IoT, cloud services, secrets and network.
 One flake. Every machine. Declared in Nix, sealed with agenix, reproducible
