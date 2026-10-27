@@ -1,51 +1,31 @@
-# nixos/cache => services.ncps nixos binary cache (build/sign/cache)
-# generated pubkey url = "https://${infra.cache.fqdn}/pubkey"
 {
-  config,
-  pkgs,
   lib,
+  infra,
   ...
-}: let
-  ############################
-  #-=# GLOBAL SITE IMPORT #=-#
-  ############################
-  infra = (import ../../siteconfig/config.nix).infra;
-in {
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking.extraHosts = "${infra.cache.ip} ${infra.cache.hostname} ${infra.cache.fqdn}.";
+}:
+lib.mkMerge [
+  (import ../../lib/proxy.nix {
+    inherit infra;
+    name = "cache";
+  })
+  {
+    #################
+    #-=# SYSTEMD #=-#
+    #################
+    systemd.tmpfiles.rules = ["d ${infra.cache.storage} 0700 ncps ncps"];
 
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd = {
-    network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.cache.ip}/32";}];
-    tmpfiles.rules = ["d ${infra.cache.storage} 0700 ncps ncps"];
-  };
-
-  #################
-  #-=# IMPORTS #=-#
-  #################
-  imports = [../../client/addCache.nix];
-
-  #############
-  #-=# AGE #=-#
-  #############
-  age.secrets.ncps = {
-    file = ../../modules/resources/ncps.age;
-    owner = "ncps";
-  };
-
-  ##################
-  #-=# SERVICES #=-#
-  ##################
-  services = {
-    caddy.virtualHosts."${infra.cache.fqdn}" = {
-      listenAddresses = [infra.cache.ip];
-      extraConfig = ''import intraproxy ${toString infra.cache.localbind.port.http}'';
+    #############
+    #-=# AGE #=-#
+    #############
+    age.secrets.ncps = {
+      file = ../../modules/resources/ncps.age;
+      owner = "ncps";
     };
-    ncps = {
+
+    ##################
+    #-=# SERVICES #=-#
+    ##################
+    services.ncps = {
       enable = true;
       analytics.reporting.enable = lib.mkForce false;
       logLevel = "warn"; # "trace", "debug", "info", "warn", "error", "fatal", "panic"
@@ -58,28 +38,18 @@ in {
         allowDeleteVerb = lib.mkForce false;
         cdc.enabled = true;
         hostName = infra.cache.hostname;
-        lru.schedule = "10 10 * * *"; # cleanup cache daily 10:10
-        maxSize = infra.cache.size;
-        secretKeyPath = null;
+        lru.schedule = "04 00 * * *";
+        maxSize = infra.cache.cacheSize;
+        secretKeyPath = config.age.secrets.ncps.path;
         signNarinfo = lib.mkForce true;
         storage.local = lib.mkForce infra.cache.storage;
         upstream = {
           dialerTimeout = lib.mkForce "4m";
           responseHeaderTimeout = lib.mkForce "30s";
-          urls = lib.mkForce [
-            infra.nix.cache.external2.url
-            infra.nix.cache.external1.url
-            infra.nix.cache.external.url
-            infra.nix.cache.internet.url
-          ];
-          publicKeys = lib.mkForce [
-            infra.nix.cache.external2.key
-            infra.nix.cache.external1.key
-            infra.nix.cache.external.key
-            infra.nix.cache.internet.key
-          ];
+          urls = lib.mkForce ["https://cache.nixos.org"];
+          publicKeys = lib.mkForce ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
         };
       };
     };
-  };
-}
+  }
+]

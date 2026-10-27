@@ -1,42 +1,27 @@
 {
-  config,
-  pkgs,
   lib,
-  intra,
+  infra,
   ...
-}: {
-  ####################
-  #-=# NETWORKING #=-#
-  ####################
-  networking.extraHosts = "${infra.chef.ip} ${infra.chef.hostname} ${infra.chef.fqdn}";
-
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.network.networks."${infra.namespace.user}".addresses = [{Address = "${infra.chef.ip}/32";}];
-
-  ##################
-  #-=# SERVICES #=-#
-  ##################
-  services = {
-    caddy.virtualHosts."${infra.chef.fqdn}" = {
-      listenAddresses = [infra.chef.ip];
-      extraConfig = ''import intraproxy ${toString infra.chef.localbind.port.http}'';
-    };
-  };
-
-  ########################
-  #-=# VIRTUALISATION #=-#
-  ########################
-  virtualisation = {
-    oci-containers = {
-      containers = {
-        chef = {
-          image = "ghcr.io/gchq/cyberchef:latest";
-          ports = ["${infra.localhost.ip}:${toString infra.chef.localbind.port.http}:80"];
-          environment.SET_SERVER_NAME = "${infra.chef.fqdn}";
+}:
+lib.mkMerge [
+  (import ../../lib/proxy.nix {
+    inherit infra;
+    name = "chef";
+  })
+  {
+    ########################
+    #-=# VIRTUALISATION #=-#
+    ########################
+    virtualisation = {
+      oci-containers = {
+        containers = {
+          chef = {
+            image = "ghcr.io/gchq/cyberchef:latest";
+            ports = ["${infra.localhost.ip}:${toString infra.chef.localbind.port.http}:8080"];
+            environment.SET_SERVER_NAME = "${infra.chef.fqdn}";
+          };
         };
       };
     };
-  };
-}
+  }
+]
