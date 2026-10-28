@@ -531,8 +531,6 @@ let
       CGO_ENABLED = "0";
       GOAMD64 = "v3";
       GOARCH = "amd64";
-      GOPATH = "~/.go";
-      GOCACHE = "~/.go-build-cache";
       GOMODCACHE = "/tmp/.go-mod-cache";
       GOFIPS140 = "off";
       GOHOSTARCH = "amd64";
@@ -1171,7 +1169,7 @@ let
       localbind.port.http = infra.localhost.port.offset + infra.cache.id;
       url = "https://${infra.cache.fqdn}";
       processor = "cpu"; # cpu, rocm, cuda, vulcan
-      size = "64G";
+      cacheSize = "32G";
       storage = "${infra.storage.cache}/${infra.cache.app}";
       key = {
         url = "${infra.cache.url}/pubkey";
