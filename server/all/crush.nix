@@ -3,22 +3,30 @@
   config,
   pkgs,
   lib,
+  infra,
   ...
-}: let
-  ############################
-  #-=# GLOBAL SITE IMPORT #=-#
-  ############################
-  infra = (import ../../siteconfig/config.nix).infra;
-in {
+}: {
   ####################
   #-=# NETWORKING #=-#
   ####################
-  networking.extraHosts = "${infra.crush.ip} ${infra.crush.hostname} ${infra.crush.fqdn}";
+  networking = {
+    extraHosts = "${infra.crush.user.ip} ${infra.crush.hostname} ${infra.crush.fqdn}";
+    firewall = {
+      allowedTCPPorts = [infra.port.ssh-mgmt infra.port.smb.tcp 8080 9090]; # 8080 9090 application test ports
+      allowedUDPPorts = [infra.port.smb.quic];
+    };
+  };
 
   #################
   #-=# SYSTEMD #=-#
   #################
-  systemd.network.networks."${infra.namespace.admin}".addresses = [{Address = "${infra.crush.ip}/32";}];
+  systemd = {
+    tmpfiles.rules = ["d ${infra.storage.projects} 0775 root users"];
+    network.networks = {
+      "${infra.namespace.admin}".addresses = [{Address = "${infra.crush.admin.ip}/32";}];
+      "${infra.namespace.user}".addresses = [{Address = "${infra.crush.user.ip}/32";}];
+    };
+  };
 
   ####################
   #-=# CONTAINERS #=-#
@@ -34,20 +42,20 @@ in {
       pkgs,
       lib,
       ...
-    }: {
+    }: let
+      ############################
+      #-=# GLOBAL SITE IMPORT #=-#
+      ############################
+      infra = (import ../../siteconfig/config.nix).infra;
+    in {
       #################
       #-=# IMPORTS #=-#
       #################
       imports = [
         ../../client/env.nix
         ../../packages/ai.nix
-        ../../packages/tmux.nix
-        ../../packages/base.nix
-        ../../packages/devops-go.nix
-        ../../packages/devops-python.nix
-        ../../packages/devops-html.nix
-        ../../packages/devops-nixos.nix
       ];
+
       ####################
       #-=# NETWORKING #=-#
       ####################
@@ -56,7 +64,7 @@ in {
         firewall = {
           enable = lib.mkForce true;
           allowPing = lib.mkForce true;
-          allowedTCPPorts = [infra.port.ssh-mgmt infra.port.smb.tcp];
+          allowedTCPPorts = [infra.port.ssh-mgmt infra.port.smb.tcp 8080 9090]; # 8080 9090 application test ports
           allowedUDPPorts = [infra.port.smb.quic];
         };
       };
@@ -66,27 +74,39 @@ in {
       ###############
       users = infra.admin.users;
 
+      #############
+      #-=# NIX #=-#
+      #############
+      nix.settings = {
+        experimental-features = ["blake3-hashes" "local-overlay-store" "nix-command" "flakes" "verified-fetches"];
+        trusted-users = ["me" "mp" "root"];
+      };
+
       #####################
       #-=# ENVIRONMENT #=-#
       #####################
       environment = {
-        systemPackages = with pkgs; [cifs-utils ghostty tuios];
-        interactiveShellInit = "TERM=xterm-ghostty /run/current-system/sw/bin/tmux attach-session -t ssh_tmux || TERM=xterm-ghostty /run/current-system/sw/bin/tmux new-session -s ssh_tmux";
-        # interactiveShellInit = "TERM=xterm-256color /run/current-system/sw/bin/tmux attach-session -t ssh_tmux || TERM=xterm-256color /run/current-system/sw/bin/tmux new-session -s ssh_tmux";
+        systemPackages = with pkgs; [ghostty tmux tuios];
+        interactiveShellInit = "TERM=xterm-ghostty /run/current-system/sw/bin/tuios attach ssh_tuios --show-clock --show-cpu --show-ram || TERM=xterm-ghostty /run/current-system/sw/bin/tuios new ssh_tuios --show-clock --show-cpu --show-ram";
         shells = [pkgs.bashInteractive];
         shellAliases = infra.shell.alias;
-        variables = infra.go.env;
-      };
-
-      ##################
-      #-=# PROGRAMS #=-#
-      ##################
-      programs = {
-        bat.enable = true;
-        vim.enable = true;
-        git = {
-          enable = true;
-          config = infra.git.client.conf;
+        sessionVariables = {
+          CGO_ENABLED = "0";
+          GOAMD64 = "v3";
+          GOARCH = "amd64";
+          GOPATH = "~/.go";
+          GOCACHE = "/tmp/.go-build-cache";
+          GOMODCACHE = "/tmp/.go-mod-cache";
+          GOFIPS140 = "off";
+          GOHOSTARCH = "amd64";
+          GOHOSTOS = "linux";
+          GOEXPERIMENT = "simd";
+          GOOS = "linux";
+          GOPROXY = "https://goproxy.dbt.corp,https://proxy.golang.org"; # direct
+          GOSUMDB = "sum.golang.org+033de0ae+Ac4zctda0e5eza+HJyk9SxEdh+s3Ux18htTTAD8OuAn8";
+          GOTELEMETRY = "off";
+          GOTELEMETRYDIR = "/dev/null";
+          GOTOOLCHAIN = "auto";
         };
       };
 
@@ -110,15 +130,15 @@ in {
           ];
           listenAddresses = lib.mkForce [
             {
-              addr = infra.crush.ip;
+              addr = infra.crush.admin.ip;
               port = infra.port.ssh-mgmt;
             }
           ];
         };
         samba-wsdd.enable = lib.mkForce false;
         samba = {
-          enable = true;
-          smbd.enable = true;
+          enable = false;
+          smbd.enable = false;
           nmbd.enable = lib.mkForce false;
           nsswins = lib.mkForce false;
           usershares.enable = lib.mkForce false;
@@ -130,10 +150,11 @@ in {
               "browseable" = "yes";
               "read only" = "no";
               "guest ok" = "no";
-              "create mask" = "0644";
-              "directory mask" = "0755";
-              "force user" = "me";
-              "force group" = "me";
+              "create mask" = "0664";
+              "directory mask" = "0775";
+              "force user" = "root";
+              "force group" = "users";
+              "valid users" = ["mp" "tb" "pk" "sw"];
             };
           };
         };
