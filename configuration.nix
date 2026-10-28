@@ -153,6 +153,7 @@
   #-=# SECURITY #=-#
   ##################
   security = {
+    pki.caCertificateBlacklist = ["Comodo AAA Services root"]; # "emSign ECC Root CA - G3" "emSign Root CA - C1" "emSign ECC Root CA - C3"
     auditd.enable = false;
     allowSimultaneousMultithreading = true;
     lockKernelModules = lib.mkForce false;
@@ -169,12 +170,6 @@
       killUnconfinedConfinables = lib.mkForce true;
       packages = with pkgs; [apparmor-profiles];
     };
-    pki.caCertificateBlacklist = [
-      "Comodo AAA Services root"
-      "emSign ECC Root CA - G3"
-      "emSign Root CA - C1"
-      "emSign ECC Root CA - C3"
-    ];
     sudo-rs = {
       enable = true;
       execWheelOnly = lib.mkForce true;
