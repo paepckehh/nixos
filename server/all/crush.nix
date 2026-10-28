@@ -95,7 +95,7 @@
           GOAMD64 = "v3";
           GOARCH = "amd64";
           GOPATH = "~/.go";
-          GOCACHE = "/tmp/.go-build-cache";
+          GOCACHE = "~/.go-build-cache";
           GOMODCACHE = "/tmp/.go-mod-cache";
           GOFIPS140 = "off";
           GOHOSTARCH = "amd64";
