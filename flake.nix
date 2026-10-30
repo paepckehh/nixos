@@ -30,85 +30,21 @@
     nixpkgs,
     nixpkgs-dev,
   } @ inputs: let
-    ############################
-    #-=# GLOBAL SITE IMPORT #=-#
-    ############################
-    infra = (import siteconfig/config.nix).infra;
-  in {
-    nixosConfigurations = {
-      ##########
-      # SERVER #
-      ##########
-      srv = nixpkgs-dev.lib.nixosSystem {
+    infra = (import siteconfig/home.nix).infra;
+    mkHost = host:
+      nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit self inputs infra;};
         modules = [
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
-          ./storage/stateless-luks-fixed-6F6B-6565.nix
-          ./hardware/all.nix
-          ./role/adm.nix
-          ./role/server.nix
-          ./hosts/srv.nix
-          ./openwrt/alias.nix
-          ./person/desktop/mpaepcke.nix
-          ./packages/base.nix
-          ./packages/devops.nix
-          ./packages/desktop/gnome.nix
-          ./server/dns/bind.nix
-          ./server/infra/ncps.nix
-          ./server/infra/git-mirror-scripts.nix
-          ./server/infra/git-mirror-container.nix
-          ./server/infra/syslog-ng.nix
-          ./server/search/searx.nix
-          ./server/pki/small-step.nix
-          ./server/portal/portal-start.nix
-          ./server/webapp/res.nix
-          # ./server/iam/authelia.nix
-          # ./server/iam/lldap.nix
-          # ./server/lora/meshtastic-web.nix
-          # ./server/remote/rustdesk.nix
-          # ./server/api/openpaq.nix
-          # ./server/api/osm.nix
-          # ./server/ai/crush.nix
-          # ./server/ai/ollama01.nix
-          # ./server/remote/guacamole.nix
-          # ./server/mail/maddy-admin.nix
-          # ./server/bookmarks/readeck.nix
-          # ./server/mail/autoconfig-admin.nix
-          # ./server/win/winstart.nix
-          # ./server/win/winupdate.nix
-          # ./server/db/undb.nix
-          # ./server/cloud/cloud.nix
-          # ./server/cloud/nextcloud.nix
-          # ./server/secret/vaultwarden.nix
-          # ./server/message/tuwunel.nix
-          # ./server/message/element-web.nix
-          # ./server/monitoring/prometheus.nix
-          # ./server/share/smbgate.nix
-          # ./server/mail/bichon.nix
+          ./hosts/${host}.nix
         ];
       };
-      srv2 = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit self inputs;};
-        modules = [
-          agenix.nixosModules.default
-          home-manager.nixosModules.home-manager
-          ./storage/stateless-luks-sequence.nix
-          ./configuration.nix
-          ./hardware/all.nix
-          ./client/addrootCA.nix
-          ./client/addCache.nix
-          ./person/desktop/mpaepcke.nix
-          ./packages/devops-core.nix
-          ./packages/desktop/gnome.nix
-          ./hosts/srv2.nix
-        ];
-      };
-      #########
-      # KIOSK #
-      #########
+  in {
+    nixosConfigurations = {
+      srv = mkHost "srv";
+      srv2 = mkHost "srv2";
       kiosk = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit self inputs;};
@@ -120,9 +56,6 @@
           {networking.hostName = "kiosk";}
         ];
       };
-      ############
-      # INTERNET #
-      ############
       internet = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit self inputs;};
@@ -132,22 +65,6 @@
           ./storage/stateless-luks-partlabel.nix
           ./packages/desktop/browser.nix
           {networking.hostName = "internet";}
-        ];
-      };
-      ##################
-      # ISO LIVE IMAGE #
-      ##################
-      client = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit self inputs;};
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./configuration.nix
-          ./storage/base.nix
-          ./user/desktop/me.nix
-          ./packages/base.nix
-          ./packages/desktop/gnome.nix
-          {networking.hostName = "client";}
         ];
       };
       iso = nixpkgs.lib.nixosSystem {

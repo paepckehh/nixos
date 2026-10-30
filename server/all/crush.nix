@@ -43,11 +43,11 @@
       pkgs,
       lib,
       ...
-    }: { 
+    }: {
       #################
       #-=# IMPORTS #=-#
       #################
-      _module.args = { inherit infra inputs; };
+      _module.args = {inherit infra inputs;};
       imports = [
         inputs.home-manager.nixosModules.home-manager
         ../../client/env.nix

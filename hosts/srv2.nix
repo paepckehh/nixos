@@ -7,7 +7,17 @@
   #################
   #-=# IMPORTS #=-#
   #################
-  imports = [../role/server.nix];
+  imports = [
+    ../role/server.nix
+    ../storage/stateless-luks-sequence.nix
+    ../configuration.nix
+    ../hardware/all.nix
+    ../client/addrootCA.nix
+    ../client/addCache.nix
+    ../person/desktop/mpaepcke.nix
+    ../packages/devops-core.nix
+    ../packages/desktop/gnome.nix
+  ];
 
   ##############
   # NETWORKING #

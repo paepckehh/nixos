@@ -81,11 +81,11 @@
     },
     "nixpkgs-dev": {
       "locked": {
-        "lastModified": 1793166571,
-        "narHash": "sha256-3+DlA8JY6abKt8G9hoZgTiSNLxdkGTn2a5MeiNDXmIc=",
+        "lastModified": 1793312669,
+        "narHash": "sha256-Unl0OWUgLUBTOcCIM18U0UfIWXIf1JHXyMrpAqF88LE=",
         "ref": "nixos-unstable-small",
-        "rev": "fa45202b90a351983649116adb577827b2a9a679",
-        "revCount": 1103604,
+        "rev": "6da3f247f92c898cfebde206192bb8dac7472ab4",
+        "revCount": 1104938,
         "type": "git",
         "url": "https://git-mirror.home.corp/nixos/nixpkgs"
       },
