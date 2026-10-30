@@ -4,6 +4,7 @@
   pkgs,
   lib,
   infra,
+  inputs,
   ...
 }: {
   ####################
@@ -42,18 +43,16 @@
       pkgs,
       lib,
       ...
-    }: let
-      ############################
-      #-=# GLOBAL SITE IMPORT #=-#
-      ############################
-      infra = (import ../../siteconfig/config.nix).infra;
-    in {
+    }: { 
       #################
       #-=# IMPORTS #=-#
       #################
+      _module.args = { inherit infra inputs; };
       imports = [
+        inputs.home-manager.nixosModules.home-manager
         ../../client/env.nix
         ../../packages/ai.nix
+        ../../packages/desktop/dss.nix
       ];
 
       ####################
@@ -90,22 +89,7 @@
         interactiveShellInit = "TERM=xterm-ghostty /run/current-system/sw/bin/tuios attach ssh_tuios --show-clock --show-cpu --show-ram || TERM=xterm-ghostty /run/current-system/sw/bin/tuios new ssh_tuios --show-clock --show-cpu --show-ram";
         shells = [pkgs.bashInteractive];
         shellAliases = infra.shell.alias;
-        sessionVariables = {
-          CGO_ENABLED = "0";
-          GOAMD64 = "v3";
-          GOARCH = "amd64";
-          GOMODCACHE = "/tmp/.go-mod-cache";
-          GOFIPS140 = "off";
-          GOHOSTARCH = "amd64";
-          GOHOSTOS = "linux";
-          GOEXPERIMENT = "simd";
-          GOOS = "linux";
-          GOPROXY = "https://goproxy.dbt.corp,https://proxy.golang.org"; # direct
-          GOSUMDB = "sum.golang.org+033de0ae+Ac4zctda0e5eza+HJyk9SxEdh+s3Ux18htTTAD8OuAn8";
-          GOTELEMETRY = "off";
-          GOTELEMETRYDIR = "/dev/null";
-          GOTOOLCHAIN = "auto";
-        };
+        sessionVariables = infra.go.env;
       };
 
       ##################
