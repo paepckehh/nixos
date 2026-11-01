@@ -8,8 +8,6 @@
       golangci-lint
       gopls
       gofumpt
-      gotools
-      go-tools
     ];
   };
 }

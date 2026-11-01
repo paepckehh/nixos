@@ -3,8 +3,14 @@
   pkgs,
   lib,
   infra,
+  inputs,
   ...
-}: {
+}: let
+  pkgs-rel = import inputs.nixpkgs-rel {
+    inherit (pkgs.stdenv.hostPlatform) system;
+    config = config.nixpkgs.config;
+  };
+in {
   #################
   #-=# IMPORTS #=-#
   #################
@@ -12,14 +18,12 @@
     ../me.nix
     ./me-element.nix
     ./me-librewolf.nix
-    ../../client/addHomeFix.nix
   ];
 
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.systemPackages = with pkgs; [
-    # krita
+  environment.systemPackages = with pkgs-rel; [
     libreoffice
     hunspell
     hyphenDicts.en_US
@@ -32,30 +36,12 @@
   ##################
   security.pam.services.me.enableGnomeKeyring = lib.mkForce false;
 
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.services.home-fix-me = {
-    description = "fix home directory user me, run once at boot";
-    wantedBy = ["multi-user.target"];
-    serviceConfig = {
-      User = "root";
-      Type = "oneshot";
-      ExecStart = "/run/current-system/sw/bin/sh /etc/scripts/home-fix.sh me";
-      RemainAfterExit = true;
-    };
-  };
-
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
   home-manager.users.me = {
     home = {
       file.".face".source = ../../shared/brand/me.jpg;
-      sessionVariables = {
-        NIXOS_OZONE_WL = "1";
-        MOZ_USE_XINPUT2 = "1";
-      };
       packages = with pkgs; [
         gnomeExtensions.brightness-control-using-ddcutil
         gnomeExtensions.clipboard-indicator
@@ -184,7 +170,7 @@
       };
       alacritty = {
         enable = true;
-        package = pkgs.alacritty-graphics;
+        package = pkgs-rel.alacritty;
         themePackage = pkgs.alacritty-theme;
         theme = "github_light";
         settings = {
@@ -199,6 +185,7 @@
       };
       keepassxc = {
         enable = true;
+        package = pkgs-rel.keepassxc;
         settings = {
           Browser.Enabled = false;
           SSHAgent.Enabled = false;

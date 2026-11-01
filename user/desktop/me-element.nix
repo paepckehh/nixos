@@ -3,13 +3,14 @@
   pkgs,
   lib,
   infra,
+  inputs,
   ...
-}: {
-  #####################
-  #-=# ENVIRONMENT #=-#
-  #####################
-  environment.systemPackages = with pkgs; [element-desktop];
-
+}: let
+  pkgs-rel = import inputs.nixpkgs-rel {
+    inherit (pkgs.stdenv.hostPlatform) system;
+    config = config.nixpkgs.config;
+  };
+in {
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
@@ -19,6 +20,7 @@
     ];
     programs.element-desktop = {
       enable = false;
+      package = pkgs-rel.element-desktop;
       settings = {
         default_server_config = {
           "m.homeserver" = {
