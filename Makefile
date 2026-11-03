@@ -118,6 +118,9 @@ offline: check
 rollback: check 
 	$(SUDO) nixos-rebuild switch --rollback 
 
+debibuild: 
+	$(SUDO) nixos-rebuild boot --flake /etc/nixos#srv --option substituters "https://cache2.dbt.corp" --option trusted-public-keys "cache2:WaC36EGol4K7+6JGKxWzM0E0LJDRXM5CidhJQqYhlaw="
+
 #######################
 # NIX REPO OPERATIONS #
 #######################

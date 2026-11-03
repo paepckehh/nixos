@@ -29,7 +29,7 @@ lib.mkMerge [
     services.ncps = {
       enable = true;
       analytics.reporting.enable = lib.mkForce false;
-      logLevel = "warn"; # "trace", "debug", "info", "warn", "error", "fatal", "panic"
+      logLevel = "info"; # "trace", "debug", "info", "warn", "error", "fatal", "panic"
       prometheus.enable = lib.mkForce false;
       server.addr = "${infra.localhost.ip}:${toString infra.cache.localbind.port.http}";
       openTelemetry.enable = lib.mkForce false;
@@ -47,8 +47,18 @@ lib.mkMerge [
         upstream = {
           dialerTimeout = lib.mkForce "4m";
           responseHeaderTimeout = lib.mkForce "30s";
-          urls = lib.mkForce ["https://cache.nixos.org"];
-          publicKeys = lib.mkForce ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
+          urls = lib.mkForce [
+            infra.nix.cache.external2.url
+            infra.nix.cache.external1.url
+            infra.nix.cache.external.url
+            infra.nix.cache.internet.url
+          ];
+          publicKeys = lib.mkForce [
+            infra.nix.cache.external2.key
+            infra.nix.cache.external1.key
+            infra.nix.cache.external.key
+            infra.nix.cache.internet.key
+          ];
         };
       };
     };

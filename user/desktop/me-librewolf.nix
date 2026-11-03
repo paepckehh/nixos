@@ -5,12 +5,13 @@
   infra,
   inputs,
   ...
-}: let
-  pkgs-rel = import inputs.nixpkgs-rel {
-    inherit (pkgs.stdenv.hostPlatform) system;
-    config = config.nixpkgs.config;
-  };
-in {
+}: {
+  # let
+  #   pkgs-rel = import inputs.nixpkgs-rel {
+  #     inherit (pkgs.stdenv.hostPlatform) system;
+  #     config = config.nixpkgs.config;
+  #   };
+  # in {
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
@@ -20,7 +21,7 @@ in {
     ];
     programs.librewolf = {
       enable = true;
-      package = pkgs-rel.librewolf;
+      package = pkgs.librewolf;
       languagePacks = ["de"];
       settings = infra.firefox.settings;
       policies = infra.firefox.policy;

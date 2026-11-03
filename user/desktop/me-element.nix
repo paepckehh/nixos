@@ -5,12 +5,13 @@
   infra,
   inputs,
   ...
-}: let
-  pkgs-rel = import inputs.nixpkgs-rel {
-    inherit (pkgs.stdenv.hostPlatform) system;
-    config = config.nixpkgs.config;
-  };
-in {
+}: {
+  # let
+  #  pkgs-rel = import inputs.nixpkgs-rel {
+  #    inherit (pkgs.stdenv.hostPlatform) system;
+  #    config = config.nixpkgs.config;
+  #  };
+  # in {
   ######################
   #-=# HOME-MANAGER #=-#
   ######################
@@ -20,7 +21,7 @@ in {
     ];
     programs.element-desktop = {
       enable = false;
-      package = pkgs-rel.element-desktop;
+      package = pkgs.element-desktop;
       settings = {
         default_server_config = {
           "m.homeserver" = {

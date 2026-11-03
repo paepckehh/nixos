@@ -28,7 +28,7 @@ lib.mkMerge [
     services.ncps = {
       enable = true;
       analytics.reporting.enable = lib.mkForce false;
-      logLevel = "warn"; # "trace", "debug", "info", "warn", "error", "fatal", "panic"
+      logLevel = "info"; # "trace", "debug", "info", "warn", "error", "fatal", "panic"
       prometheus.enable = lib.mkForce false;
       server.addr = "${infra.localhost.ip}:${toString infra.cache1.localbind.port.http}";
       openTelemetry.enable = lib.mkForce false;

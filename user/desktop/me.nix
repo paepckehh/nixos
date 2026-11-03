@@ -5,12 +5,13 @@
   infra,
   inputs,
   ...
-}: let
-  pkgs-rel = import inputs.nixpkgs-rel {
-    inherit (pkgs.stdenv.hostPlatform) system;
-    config = config.nixpkgs.config;
-  };
-in {
+}: {
+  # let
+  #   pkgs-rel = import inputs.nixpkgs {
+  #     inherit (pkgs.stdenv.hostPlatform) system;
+  #     config = config.nixpkgs.config;
+  #   };
+  # in {
   #################
   #-=# IMPORTS #=-#
   #################
@@ -23,7 +24,7 @@ in {
   #####################
   #-=# ENVIRONMENT #=-#
   #####################
-  environment.systemPackages = with pkgs-rel; [
+  environment.systemPackages = with pkgs; [
     libreoffice
     hunspell
     hyphenDicts.en_US
@@ -170,7 +171,7 @@ in {
       };
       alacritty = {
         enable = true;
-        package = pkgs-rel.alacritty;
+        package = pkgs.alacritty;
         themePackage = pkgs.alacritty-theme;
         theme = "github_light";
         settings = {
@@ -185,7 +186,7 @@ in {
       };
       keepassxc = {
         enable = true;
-        package = pkgs-rel.keepassxc;
+        package = pkgs.keepassxc;
         settings = {
           Browser.Enabled = false;
           SSHAgent.Enabled = false;

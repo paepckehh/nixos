@@ -13,8 +13,8 @@
     # home-manager.url = "git+file:///nix/persist/cache/git-mirror/nix-community/home-manager?ref=master";
     # ### private-cloud
     nixpkgs.url = "git+https://git-mirror.dbt.corp/nixos/nixpkgs?ref=nixos-unstable";
-    nixpkgs-dev.url = "git+https://git-mirror.dbt.corp/nixos/nixpkgs?ref=nixos-unstable-small";
-    nixpkgs-rel.url = "git+https://git-mirror.dbt.corp/nixos/nixpkgs?ref=nixos-26.05"; # 26.11
+    # nixpkgs-dev.url = "git+https://git-mirror.dbt.corp/nixos/nixpkgs?ref=nixos-unstable";
+    # nixpkgs-rel.url = "git+https://git-mirror.dbt.corp/nixos/nixpkgs?ref=nixos-26.05"; # 26.11
     agenix.url = "git+https://git-mirror.home.corp/ryantm/agenix?ref=main";
     disko.url = "git+https://git-mirror.home.corp/nix-community/disko?ref=master";
     home-manager.url = "git+https://git-mirror.home.corp/nix-community/home-manager?ref=master";
@@ -29,8 +29,8 @@
     disko,
     home-manager,
     nixpkgs,
-    nixpkgs-dev,
-    nixpkgs-rel,
+    # nixpkgs-dev,
+    # nixpkgs-rel,
   } @ inputs: let
     infra = (import siteconfig/home.nix).infra;
     mkHost = host:

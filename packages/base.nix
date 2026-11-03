@@ -63,9 +63,8 @@ in {
       bc
       bmon
       btop
-      bttf
+      # bttf
       cliqr
-      cowsay
       cryptsetup
       delta
       dnsutils
@@ -76,7 +75,7 @@ in {
       fzf
       ghostty
       gping
-      grc
+      # grc
       gnumake
       inetutils
       igrep
@@ -85,7 +84,7 @@ in {
       libsmbios
       lsof
       moreutils
-      miller
+      # miller
       nix-output-monitor
       nvme-cli
       openssl
@@ -102,8 +101,8 @@ in {
       smartmontools
       tldr
       tree
-      tuios
-      tmux
+      # tuios
+      # tmux
       tz
       unzip
       yq

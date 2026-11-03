@@ -53,7 +53,6 @@
   ##################
   services = {
     autosuspend.enable = lib.mkForce false;
-    # ddccontrol.enable = true;
     speechd.enable = lib.mkForce false;
     pipewire = {
       enable = true;
@@ -78,15 +77,8 @@
   #-=# ENVIRONMENT #=-#
   #####################
   environment = {
-    variables.TERMINAL = "alacritty";
     systemPackages = with pkgs; [
-      alacritty
-      ddcutil
-      filezilla
       gparted
-      keepassxc
-      notepad-next
-      so
       wl-clipboard
       yubioath-flutter
       xclip

@@ -65,48 +65,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1793341285,
-        "narHash": "sha256-Y1CiZ4SoBUjLQyQM/pY+rS2dXD3CHLPstF0lmOc73D4=",
+        "lastModified": 1793540411,
+        "narHash": "sha256-fiPJ88izTVucjeo2EQ3jk4aWmLg03I1D4vxnX2QjEgE=",
         "ref": "nixos-unstable",
-        "rev": "1c89083e451e891152365b799595cf7790a43325",
-        "revCount": 1105037,
+        "rev": "0bb2eedc20e4739f29e8045034f2828ad7054f8f",
+        "revCount": 1106360,
         "type": "git",
         "url": "https://git-mirror.dbt.corp/nixos/nixpkgs"
       },
       "original": {
         "ref": "nixos-unstable",
-        "type": "git",
-        "url": "https://git-mirror.dbt.corp/nixos/nixpkgs"
-      }
-    },
-    "nixpkgs-dev": {
-      "locked": {
-        "lastModified": 1793491674,
-        "narHash": "sha256-YqQY0FF6vSgIYIzvjCbEiMw9UCrZjJ6aQ5iQBupZuP0=",
-        "ref": "nixos-unstable-small",
-        "rev": "9c33ca6ef491f2075ebd792b891b975e70fa32fa",
-        "revCount": 1106199,
-        "type": "git",
-        "url": "https://git-mirror.dbt.corp/nixos/nixpkgs"
-      },
-      "original": {
-        "ref": "nixos-unstable-small",
-        "type": "git",
-        "url": "https://git-mirror.dbt.corp/nixos/nixpkgs"
-      }
-    },
-    "nixpkgs-rel": {
-      "locked": {
-        "lastModified": 1793410479,
-        "narHash": "sha256-HzgjxrLY4AEc0044ZuM5CHbLSWLZgDlay1idmzvvpJs=",
-        "ref": "nixos-26.05",
-        "rev": "fa1373130d5a21c040a47c5dbe1913d59ed91808",
-        "revCount": 1017588,
-        "type": "git",
-        "url": "https://git-mirror.dbt.corp/nixos/nixpkgs"
-      },
-      "original": {
-        "ref": "nixos-26.05",
         "type": "git",
         "url": "https://git-mirror.dbt.corp/nixos/nixpkgs"
       }
@@ -116,9 +84,7 @@
         "agenix": "agenix",
         "disko": "disko",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs",
-        "nixpkgs-dev": "nixpkgs-dev",
-        "nixpkgs-rel": "nixpkgs-rel"
+        "nixpkgs": "nixpkgs"
       }
     }
   },
