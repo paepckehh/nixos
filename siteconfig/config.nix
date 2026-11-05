@@ -533,6 +533,8 @@ let
       GOARCH = "amd64";
       GOFIPS140 = "off";
       GOHOSTARCH = "amd64";
+      GOCACHE = "/nix/persist/cache/go/cache";
+      GOMODCACHE = "/nix/persist/cache/go/mod-cache";
       GOHOSTOS = "linux";
       GOEXPERIMENT = "simd";
       GOOS = "linux";
@@ -1172,8 +1174,8 @@ let
       storage = "${infra.storage.cache}/${infra.cache.app}";
       key = {
         url = "${infra.cache.url}/pubkey";
-        pub = "cache:uAOykGHMvJ3Nw99phwQRDn3Ri0y2T73FTE8CNtN+ggA=";
-      };
+        pub = "cache:aFde6/c1Vz93N1XGGrvt/7NlUNdAyV35CgBUXKzyhyU="
+      }; 
     };
     it = {
       id = 56;

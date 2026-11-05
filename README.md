@@ -1,9 +1,9 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/hero-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/hero-light.svg">
-  <img src="docs/hero-light.svg" alt="paepckehh/nixos: your entire company as a service, one flake for every machine" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="doc/hero-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="doc/hero-light.svg">
+  <img src="doc/hero-light.svg" alt="paepckehh/nixos: your entire company as a service, one flake for every machine" width="100%">
 </picture>
 
 # ⚡ paepckehh/nixos
@@ -24,9 +24,9 @@ down to the last byte.
 `TARGET=srv make switch`
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/established-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/established-light.svg">
-  <img src="docs/established-light.svg" alt="paepckehh/nixos: since June 2024, 3670 commits, 35 releases, zero drift" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="doc/established-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="doc/established-light.svg">
+  <img src="doc/established-light.svg" alt="paepckehh/nixos: since June 2024, 3670 commits, 35 releases, zero drift" width="100%">
 </picture>
 
 </div>
@@ -108,7 +108,7 @@ flake.nix                     entry point, hosts, feature flags
 ├── openwrt/ guard/ iot/      routers, guard nodes and smart devices
 ├── modules/resources/        51 encrypted .age secrets
 ├── lib/                      shared harden, proxy and host helpers
-└── docs/                     hero art and visual identity
+└── doc/                     hero art and visual identity
 ```
 
 `infra.<service>.id` sets both the last IPv4 octet and the loopback port
@@ -169,7 +169,7 @@ alejandra --quiet .
 | [`shared/`](shared/README.md) | Brand assets, YARA rules, bookmarks |
 | [`lib/`](lib/) | Harden, proxy and host helpers |
 | [`doc/`](doc/README.md) | ZFS notes, DNS, ESP32, Crush config |
-| [`docs/`](docs/) | Theme-aware SVG hero and banner art |
+| [`doc/`](doc/) | Theme-aware SVG hero and banner art |
 | [`.attic/`](.attic/README.md) | 100 archived lock snapshots and retired configs |
 
 ## 🧠 Rules of the house
@@ -211,7 +211,7 @@ Reference shelf:
 - 🔐 **Secrets and trust** — 51 sealed files, rotation rules: [`modules/README.md`](modules/README.md)
 - 💾 **Disks and restores** — impermanence, ZFS, rsync: [`storage/README.md`](storage/README.md)
 - 📝 **Runbooks** — SSH, syslog-ng, ESP32, Crush: [`doc/README.md`](doc/README.md)
-- 🎨 **Visual identity** — hand-built SVGs: [`docs/`](docs/) ([light](docs/hero-light.svg) · [dark](docs/hero-dark.svg))
+- 🎨 **Visual identity** — hand-built SVGs: [`doc/`](doc/) ([light](doc/hero-light.svg) · [dark](doc/hero-dark.svg))
 
 > Every markdown file follows the same GitHub style on purpose: badges, compact
 > tables, working links, verified counts. If a doc disagrees with the code, the

@@ -29,10 +29,10 @@
       ];
       trusted-public-keys = lib.mkForce [
         infra.nix.cache.local.key
-        # infra.nix.cache.external2.key
-        # infra.nix.cache.external1.key
-        # infra.nix.cache.external.key
-        # infra.nix.cache.internet.key
+        infra.nix.cache.external2.key
+        infra.nix.cache.external1.key
+        infra.nix.cache.external.key
+        infra.nix.cache.internet.key
       ];
     };
   };

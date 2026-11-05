@@ -20,7 +20,7 @@
       "element-desktop.desktop"
     ];
     programs.element-desktop = {
-      enable = false;
+      enable = true;
       package = pkgs.element-desktop;
       settings = {
         default_server_config = {

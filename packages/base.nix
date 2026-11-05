@@ -12,18 +12,24 @@ in {
   ##################
   #-=# SERVICES #=-#
   ##################
-  services = {
-    pcscd = {
-      enable = true;
-      plugins = with pkgs; [ccid pcsc-cyberjack];
-    };
+  services.pcscd = {
+    enable = true;
+    plugins = with pkgs; [ccid pcsc-cyberjack];
   };
+
+  #################
+  #-=# SYSTEMD #=-#
+  #################
+  systemd.user.tmpfiles.rules = [
+    "d /nix/persist/cache/go/cache 0770 root users"
+    "d /nix/persist/cache/go/mod-cache 0770 root users"
+  ];
 
   ##################
   #-=# PROGRAMS #=-#
   ##################
   programs = {
-    # gnupg.agent.enable = true;
+    gnupg.agent.enable = true;
     command-not-found.enable = lib.mkForce false;
     htop.enable = true;
     kbdlight.enable = true;
@@ -51,19 +57,13 @@ in {
     interactiveShellInit = ''uname -a'';
     shells = [pkgs.bashInteractive pkgs.fish];
     shellAliases = infra.shellAliases;
-    variables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
-    };
     systemPackages = with pkgs; [
       alejandra
       age-plugin-yubikey
       bashmount
       bandwhich
-      bc
       bmon
       btop
-      # bttf
       cliqr
       cryptsetup
       delta
@@ -73,9 +73,9 @@ in {
       fastfetch
       fd
       fzf
+      go_latest
       ghostty
       gping
-      # grc
       gnumake
       inetutils
       igrep
@@ -84,7 +84,6 @@ in {
       libsmbios
       lsof
       moreutils
-      # miller
       nix-output-monitor
       nvme-cli
       openssl
@@ -101,8 +100,7 @@ in {
       smartmontools
       tldr
       tree
-      # tuios
-      # tmux
+      tuios
       tz
       unzip
       yq

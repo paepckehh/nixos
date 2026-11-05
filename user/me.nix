@@ -10,34 +10,24 @@
   #############
   # age.secrets.me".file = ../modules/resources/${infra.admin.displayname}.age;
 
-  #################
-  #-=# SYSTEMD #=-#
-  #################
-  systemd.user.tmpfiles.rules = [
-    "d ${infra.go.cache} 0770 root users"
-    "L /home/me/Netz - - - - /var/run/user/${toString infra.me.uid}/gvfs"
-  ];
-
   ###############
   #-=# USERS #=-#
   ###############
   users = {
-    users = {
-      me = {
-        # initialHashedPassword = null; # lockdown, use smardcard only
-        # initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
-        # initialHashedPassword = lib.mkForce config.age.secrets."me".path;
-        # initialHashedPassword = "$y$j9T$kfoRrF1T9PXCFCcDceKWJ1$XBjoA6ExLE5rWFPh3HEx2OkHKSpgg8Tf/50zeM5MJOB";
-        initialHashedPassword = "$y$j9T$kfo--FAIL";
-        description = infra.me.displayname;
-        uid = infra.me.uid;
-        group = "me";
-        createHome = true;
-        isNormalUser = true;
-        shell = pkgs.fish;
-        extraGroups = ["users" "wheel" "backup" "networkmanager" "audio" "input" "video"];
-        openssh.authorizedKeys.keys = lib.mkDefault ["ssh-ed25519 AAA-#locked#-"];
-      };
+    users.me = {
+      # initialHashedPassword = null; # lockdown, use smardcard only
+      # initialHashedPassword = "$y$j9T$SSQCI4meuJbX7vzu5H.dR.$VUUZgJ4mVuYpTu3EwsiIRXAibv2ily5gQJNAHgZ9SG7"; # start
+      # initialHashedPassword = lib.mkForce config.age.secrets."me".path;
+      # initialHashedPassword = "$y$j9T$kfoRrF1T9PXCFCcDceKWJ1$XBjoA6ExLE5rWFPh3HEx2OkHKSpgg8Tf/50zeM5MJOB";
+      initialHashedPassword = "$y$j9T$kfo--FAIL";
+      description = infra.me.displayname;
+      uid = infra.me.uid;
+      group = "me";
+      createHome = true;
+      isNormalUser = true;
+      shell = pkgs.fish;
+      extraGroups = ["users" "wheel" "backup" "networkmanager" "audio" "input" "video"];
+      openssh.authorizedKeys.keys = lib.mkDefault ["ssh-ed25519 AAA-#locked#-"];
     };
     groups.me = {};
   };
