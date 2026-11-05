@@ -1174,8 +1174,8 @@ let
       storage = "${infra.storage.cache}/${infra.cache.app}";
       key = {
         url = "${infra.cache.url}/pubkey";
-        pub = "cache:aFde6/c1Vz93N1XGGrvt/7NlUNdAyV35CgBUXKzyhyU="
-      }; 
+        pub = "cache:aFde6/c1Vz93N1XGGrvt/7NlUNdAyV35CgBUXKzyhyU=";
+      };
     };
     it = {
       id = 56;
